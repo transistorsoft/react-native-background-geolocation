@@ -1,0 +1,28 @@
+{
+  "name": "react-native-background-geolocation",
+  "version": "0.0.1",
+  "description": "Sophisticated background-geolocation with battery-conscious motion-detection",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:christocracy/react-native-background-geolocation.git"
+  },
+  "keywords": [
+    "react",
+    "native",
+    "background",
+    "geolocation"
+  ],
+  "author": "Chris Scott <chris@transistorsoft.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/christocracy/react-native-background-geolocation/issues"
+  },
+  "homepage": "https://github.com/christocracy/react-native-background-geolocation",
+  "dependencies": {
+    "react-native": "^0.4.0"
+  }
+}

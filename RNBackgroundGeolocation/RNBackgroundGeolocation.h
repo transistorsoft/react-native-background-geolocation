@@ -7,7 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+#import <UIKit/UIKit.h>
+#import "RCTBridgeModule.h"
+#import "RCTLog.h"
+#import <AudioToolbox/AudioToolbox.h>
 
-@interface RNBackgroundGeolocation : NSObject
+@interface RNBackgroundGeoLocation : NSObject <RCTBridgeModule, CLLocationManagerDelegate>
+
+@property (nonatomic, strong) NSString* syncCallbackId;
+@property (nonatomic, strong) NSMutableArray* stationaryRegionListeners;
+
+- (void) onSuspend:(NSNotification *)notification;
+- (void) onResume:(NSNotification *)notification;
+- (void) onAppTerminate;
 
 @end
+

@@ -1,6 +1,6 @@
 var React = require('react-native');
 
-var BackgroundGeolocationManager = require('NativeModules').RNBackgroundGeolocation;
+var BackgroundGeolocationManager = require('NativeModules').RNBackgroundGeoLocation;
 var RCTDeviceEventEmitter = require('RCTDeviceEventEmitter');
 
 var BackgroundGeolocation = {

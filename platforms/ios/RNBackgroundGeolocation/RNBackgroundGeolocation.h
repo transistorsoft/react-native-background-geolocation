@@ -12,14 +12,10 @@
 #import "RCTBridgeModule.h"
 #import "RCTLog.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import <TSLocationManager/TSLocationManager.h>
 
-@interface RNBackgroundGeoLocation : NSObject <RCTBridgeModule, CLLocationManagerDelegate>
+@interface RNBackgroundGeolocation : NSObject <RCTBridgeModule>
 
-@property (nonatomic, strong) NSString* syncCallbackId;
-@property (nonatomic, strong) NSMutableArray* stationaryRegionListeners;
-
-- (void) onSuspend:(NSNotification *)notification;
-- (void) onResume:(NSNotification *)notification;
 - (void) onAppTerminate;
 
 @end

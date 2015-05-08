@@ -7,100 +7,104 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		83FE25151AE3E15A00A4278B /* RNBackgroundGeolocation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83FE25141AE3E15A00A4278B /* RNBackgroundGeolocation.h */; };
-		83FE25171AE3E15A00A4278B /* RNBackgroundGeolocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FE25161AE3E15A00A4278B /* RNBackgroundGeolocation.m */; };
-		83FE251D1AE3E15B00A4278B /* libRNBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FE25111AE3E15A00A4278B /* libRNBackgroundGeolocation.a */; };
+		83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */; };
+		83FF5F8B1AFD0D2B0016A13E /* RNBackgroundGeolocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */; };
+		83FF5F911AFD0D2B0016A13E /* libRNBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */; };
+		83FF5FA01AFD0E650016A13E /* TSLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF5F9F1AFD0E650016A13E /* TSLocationManager.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		83FE251E1AE3E15B00A4278B /* PBXContainerItemProxy */ = {
+		83FF5F921AFD0D2B0016A13E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 83FE25091AE3E15A00A4278B /* Project object */;
+			containerPortal = 83FF5F7D1AFD0D2B0016A13E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 83FE25101AE3E15A00A4278B;
+			remoteGlobalIDString = 83FF5F841AFD0D2B0016A13E;
 			remoteInfo = RNBackgroundGeolocation;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		83FE250F1AE3E15A00A4278B /* CopyFiles */ = {
+		83FF5F831AFD0D2B0016A13E /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				83FE25151AE3E15A00A4278B /* RNBackgroundGeolocation.h in CopyFiles */,
+				83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		83FE25111AE3E15A00A4278B /* libRNBackgroundGeolocation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNBackgroundGeolocation.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		83FE25141AE3E15A00A4278B /* RNBackgroundGeolocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNBackgroundGeolocation.h; sourceTree = "<group>"; };
-		83FE25161AE3E15A00A4278B /* RNBackgroundGeolocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNBackgroundGeolocation.m; sourceTree = "<group>"; };
-		83FE251C1AE3E15B00A4278B /* RNBackgroundGeolocationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RNBackgroundGeolocationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		83FE25221AE3E15B00A4278B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNBackgroundGeolocation.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNBackgroundGeolocation.h; sourceTree = "<group>"; };
+		83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNBackgroundGeolocation.m; sourceTree = "<group>"; };
+		83FF5F901AFD0D2B0016A13E /* RNBackgroundGeolocationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RNBackgroundGeolocationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		83FF5F961AFD0D2B0016A13E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83FF5F9F1AFD0E650016A13E /* TSLocationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSLocationManager.framework; path = RNBackgroundGeolocation/TSLocationManager.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		83FE250E1AE3E15A00A4278B /* Frameworks */ = {
+		83FF5F821AFD0D2B0016A13E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83FF5FA01AFD0E650016A13E /* TSLocationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83FE25191AE3E15B00A4278B /* Frameworks */ = {
+		83FF5F8D1AFD0D2B0016A13E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83FE251D1AE3E15B00A4278B /* libRNBackgroundGeolocation.a in Frameworks */,
+				83FF5F911AFD0D2B0016A13E /* libRNBackgroundGeolocation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		83FE25081AE3E15A00A4278B = {
+		83FF5F7C1AFD0D2B0016A13E = {
 			isa = PBXGroup;
 			children = (
-				83FE25131AE3E15A00A4278B /* RNBackgroundGeolocation */,
-				83FE25201AE3E15B00A4278B /* RNBackgroundGeolocationTests */,
-				83FE25121AE3E15A00A4278B /* Products */,
+				83FF5F9F1AFD0E650016A13E /* TSLocationManager.framework */,
+				83FF5F871AFD0D2B0016A13E /* RNBackgroundGeolocation */,
+				83FF5F941AFD0D2B0016A13E /* RNBackgroundGeolocationTests */,
+				83FF5F861AFD0D2B0016A13E /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		83FE25121AE3E15A00A4278B /* Products */ = {
+		83FF5F861AFD0D2B0016A13E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				83FE25111AE3E15A00A4278B /* libRNBackgroundGeolocation.a */,
-				83FE251C1AE3E15B00A4278B /* RNBackgroundGeolocationTests.xctest */,
+				83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */,
+				83FF5F901AFD0D2B0016A13E /* RNBackgroundGeolocationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		83FE25131AE3E15A00A4278B /* RNBackgroundGeolocation */ = {
+		83FF5F871AFD0D2B0016A13E /* RNBackgroundGeolocation */ = {
 			isa = PBXGroup;
 			children = (
-				83FE25141AE3E15A00A4278B /* RNBackgroundGeolocation.h */,
-				83FE25161AE3E15A00A4278B /* RNBackgroundGeolocation.m */,
+				83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */,
+				83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */,
 			);
 			path = RNBackgroundGeolocation;
 			sourceTree = "<group>";
 		};
-		83FE25201AE3E15B00A4278B /* RNBackgroundGeolocationTests */ = {
+		83FF5F941AFD0D2B0016A13E /* RNBackgroundGeolocationTests */ = {
 			isa = PBXGroup;
 			children = (
-				83FE25211AE3E15B00A4278B /* Supporting Files */,
+				83FF5F951AFD0D2B0016A13E /* Supporting Files */,
 			);
 			path = RNBackgroundGeolocationTests;
 			sourceTree = "<group>";
 		};
-		83FE25211AE3E15B00A4278B /* Supporting Files */ = {
+		83FF5F951AFD0D2B0016A13E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				83FE25221AE3E15B00A4278B /* Info.plist */,
+				83FF5F961AFD0D2B0016A13E /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -108,13 +112,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		83FE25101AE3E15A00A4278B /* RNBackgroundGeolocation */ = {
+		83FF5F841AFD0D2B0016A13E /* RNBackgroundGeolocation */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 83FE25251AE3E15B00A4278B /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocation" */;
+			buildConfigurationList = 83FF5F991AFD0D2B0016A13E /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocation" */;
 			buildPhases = (
-				83FE250D1AE3E15A00A4278B /* Sources */,
-				83FE250E1AE3E15A00A4278B /* Frameworks */,
-				83FE250F1AE3E15A00A4278B /* CopyFiles */,
+				83FF5F811AFD0D2B0016A13E /* Sources */,
+				83FF5F821AFD0D2B0016A13E /* Frameworks */,
+				83FF5F831AFD0D2B0016A13E /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -122,64 +126,64 @@
 			);
 			name = RNBackgroundGeolocation;
 			productName = RNBackgroundGeolocation;
-			productReference = 83FE25111AE3E15A00A4278B /* libRNBackgroundGeolocation.a */;
+			productReference = 83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		83FE251B1AE3E15B00A4278B /* RNBackgroundGeolocationTests */ = {
+		83FF5F8F1AFD0D2B0016A13E /* RNBackgroundGeolocationTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 83FE25281AE3E15B00A4278B /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocationTests" */;
+			buildConfigurationList = 83FF5F9C1AFD0D2B0016A13E /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocationTests" */;
 			buildPhases = (
-				83FE25181AE3E15B00A4278B /* Sources */,
-				83FE25191AE3E15B00A4278B /* Frameworks */,
-				83FE251A1AE3E15B00A4278B /* Resources */,
+				83FF5F8C1AFD0D2B0016A13E /* Sources */,
+				83FF5F8D1AFD0D2B0016A13E /* Frameworks */,
+				83FF5F8E1AFD0D2B0016A13E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				83FE251F1AE3E15B00A4278B /* PBXTargetDependency */,
+				83FF5F931AFD0D2B0016A13E /* PBXTargetDependency */,
 			);
 			name = RNBackgroundGeolocationTests;
 			productName = RNBackgroundGeolocationTests;
-			productReference = 83FE251C1AE3E15B00A4278B /* RNBackgroundGeolocationTests.xctest */;
+			productReference = 83FF5F901AFD0D2B0016A13E /* RNBackgroundGeolocationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		83FE25091AE3E15A00A4278B /* Project object */ = {
+		83FF5F7D1AFD0D2B0016A13E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Transistor Software";
 				TargetAttributes = {
-					83FE25101AE3E15A00A4278B = {
-						CreatedOnToolsVersion = 6.3;
+					83FF5F841AFD0D2B0016A13E = {
+						CreatedOnToolsVersion = 6.3.1;
 					};
-					83FE251B1AE3E15B00A4278B = {
-						CreatedOnToolsVersion = 6.3;
+					83FF5F8F1AFD0D2B0016A13E = {
+						CreatedOnToolsVersion = 6.3.1;
 					};
 				};
 			};
-			buildConfigurationList = 83FE250C1AE3E15A00A4278B /* Build configuration list for PBXProject "RNBackgroundGeolocation" */;
+			buildConfigurationList = 83FF5F801AFD0D2B0016A13E /* Build configuration list for PBXProject "RNBackgroundGeolocation" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 83FE25081AE3E15A00A4278B;
-			productRefGroup = 83FE25121AE3E15A00A4278B /* Products */;
+			mainGroup = 83FF5F7C1AFD0D2B0016A13E;
+			productRefGroup = 83FF5F861AFD0D2B0016A13E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				83FE25101AE3E15A00A4278B /* RNBackgroundGeolocation */,
-				83FE251B1AE3E15B00A4278B /* RNBackgroundGeolocationTests */,
+				83FF5F841AFD0D2B0016A13E /* RNBackgroundGeolocation */,
+				83FF5F8F1AFD0D2B0016A13E /* RNBackgroundGeolocationTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		83FE251A1AE3E15B00A4278B /* Resources */ = {
+		83FF5F8E1AFD0D2B0016A13E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -189,15 +193,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		83FE250D1AE3E15A00A4278B /* Sources */ = {
+		83FF5F811AFD0D2B0016A13E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83FE25171AE3E15A00A4278B /* RNBackgroundGeolocation.m in Sources */,
+				83FF5F8B1AFD0D2B0016A13E /* RNBackgroundGeolocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83FE25181AE3E15B00A4278B /* Sources */ = {
+		83FF5F8C1AFD0D2B0016A13E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -207,15 +211,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		83FE251F1AE3E15B00A4278B /* PBXTargetDependency */ = {
+		83FF5F931AFD0D2B0016A13E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 83FE25101AE3E15A00A4278B /* RNBackgroundGeolocation */;
-			targetProxy = 83FE251E1AE3E15B00A4278B /* PBXContainerItemProxy */;
+			target = 83FF5F841AFD0D2B0016A13E /* RNBackgroundGeolocation */;
+			targetProxy = 83FF5F921AFD0D2B0016A13E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		83FE25231AE3E15B00A4278B /* Debug */ = {
+		83FF5F971AFD0D2B0016A13E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -257,7 +261,7 @@
 			};
 			name = Debug;
 		};
-		83FE25241AE3E15B00A4278B /* Release */ = {
+		83FF5F981AFD0D2B0016A13E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -293,14 +297,18 @@
 			};
 			name = Release;
 		};
-		83FE25261AE3E15B00A4278B /* Debug */ = {
+		83FF5F9A1AFD0D2B0016A13E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RNBackgroundGeolocation",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../react-native/React/**",
-					"$(SRCROOT)/node_modules/react-native/React/**",
+					"$(SRCROOT)/../../node_modules/react-native/React/**",
+					"$(SRCROOT)/react-native/React/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -308,14 +316,18 @@
 			};
 			name = Debug;
 		};
-		83FE25271AE3E15B00A4278B /* Release */ = {
+		83FF5F9B1AFD0D2B0016A13E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RNBackgroundGeolocation",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../react-native/React/**",
-					"$(SRCROOT)/node_modules/react-native/React/**",
+					"$(SRCROOT)/../../node_modules/react-native/React/**",
+					"$(SRCROOT)/react-native/React/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -323,7 +335,7 @@
 			};
 			name = Release;
 		};
-		83FE25291AE3E15B00A4278B /* Debug */ = {
+		83FF5F9D1AFD0D2B0016A13E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -341,7 +353,7 @@
 			};
 			name = Debug;
 		};
-		83FE252A1AE3E15B00A4278B /* Release */ = {
+		83FF5F9E1AFD0D2B0016A13E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -358,32 +370,34 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		83FE250C1AE3E15A00A4278B /* Build configuration list for PBXProject "RNBackgroundGeolocation" */ = {
+		83FF5F801AFD0D2B0016A13E /* Build configuration list for PBXProject "RNBackgroundGeolocation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				83FE25231AE3E15B00A4278B /* Debug */,
-				83FE25241AE3E15B00A4278B /* Release */,
+				83FF5F971AFD0D2B0016A13E /* Debug */,
+				83FF5F981AFD0D2B0016A13E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83FE25251AE3E15B00A4278B /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocation" */ = {
+		83FF5F991AFD0D2B0016A13E /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				83FE25261AE3E15B00A4278B /* Debug */,
-				83FE25271AE3E15B00A4278B /* Release */,
+				83FF5F9A1AFD0D2B0016A13E /* Debug */,
+				83FF5F9B1AFD0D2B0016A13E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		83FE25281AE3E15B00A4278B /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocationTests" */ = {
+		83FF5F9C1AFD0D2B0016A13E /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocationTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				83FE25291AE3E15B00A4278B /* Debug */,
-				83FE252A1AE3E15B00A4278B /* Release */,
+				83FF5F9D1AFD0D2B0016A13E /* Debug */,
+				83FF5F9E1AFD0D2B0016A13E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 83FE25091AE3E15A00A4278B /* Project object */;
+	rootObject = 83FF5F7D1AFD0D2B0016A13E /* Project object */;
 }

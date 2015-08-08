@@ -9,14 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
-#import "RCTBridgeModule.h"
+#import "RCTBridge.h"
 #import "RCTLog.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <TSLocationManager/TSLocationManager.h>
 
 @interface RNBackgroundGeolocation : NSObject <RCTBridgeModule>
 
-- (void) onAppTerminate;
+@property (nonatomic, strong) NSMutableArray* currentPositionListeners;
 
 @end
 

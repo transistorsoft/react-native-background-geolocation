@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */; };
+		83889C291B34BCED00C0F84C /* TSLocationManager.framework in Sources */ = {isa = PBXBuildFile; fileRef = 832411CD1B30D17000937CBD /* TSLocationManager.framework */; };
+		83889C2A1B34BD0000C0F84C /* TSLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832411CD1B30D17000937CBD /* TSLocationManager.framework */; };
+		83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */; };
 		83FF5F8B1AFD0D2B0016A13E /* RNBackgroundGeolocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */; };
 		83FF5F911AFD0D2B0016A13E /* libRNBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */; };
-		83FF5FA01AFD0E650016A13E /* TSLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF5F9F1AFD0E650016A13E /* TSLocationManager.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,25 +25,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		83FF5F831AFD0D2B0016A13E /* CopyFiles */ = {
+		83FF5F831AFD0D2B0016A13E /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
+			dstSubfolderSpec = 7;
 			files = (
-				83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in CopyFiles */,
+				83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		832411CD1B30D17000937CBD /* TSLocationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSLocationManager.framework; path = RNBackgroundGeolocation/TSLocationManager.framework; sourceTree = "<group>"; };
+		832E54741AFDBAEA00481991 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNBackgroundGeolocation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNBackgroundGeolocation.h; sourceTree = "<group>"; };
 		83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNBackgroundGeolocation.m; sourceTree = "<group>"; };
 		83FF5F901AFD0D2B0016A13E /* RNBackgroundGeolocationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RNBackgroundGeolocationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FF5F961AFD0D2B0016A13E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		83FF5F9F1AFD0E650016A13E /* TSLocationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSLocationManager.framework; path = RNBackgroundGeolocation/TSLocationManager.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83FF5FA01AFD0E650016A13E /* TSLocationManager.framework in Frameworks */,
+				83889C2A1B34BD0000C0F84C /* TSLocationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +71,8 @@
 		83FF5F7C1AFD0D2B0016A13E = {
 			isa = PBXGroup;
 			children = (
-				83FF5F9F1AFD0E650016A13E /* TSLocationManager.framework */,
+				832411CD1B30D17000937CBD /* TSLocationManager.framework */,
+				832E54741AFDBAEA00481991 /* libsqlite3.dylib */,
 				83FF5F871AFD0D2B0016A13E /* RNBackgroundGeolocation */,
 				83FF5F941AFD0D2B0016A13E /* RNBackgroundGeolocationTests */,
 				83FF5F861AFD0D2B0016A13E /* Products */,
@@ -118,7 +122,7 @@
 			buildPhases = (
 				83FF5F811AFD0D2B0016A13E /* Sources */,
 				83FF5F821AFD0D2B0016A13E /* Frameworks */,
-				83FF5F831AFD0D2B0016A13E /* CopyFiles */,
+				83FF5F831AFD0D2B0016A13E /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -197,6 +201,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83889C291B34BCED00C0F84C /* TSLocationManager.framework in Sources */,
 				83FF5F8B1AFD0D2B0016A13E /* RNBackgroundGeolocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,6 +305,7 @@
 		83FF5F9A1AFD0D2B0016A13E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RNBackgroundGeolocation",
@@ -308,17 +314,19 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/node_modules/react-native/React/**",
-					"$(SRCROOT)/react-native/React/**",
+					"$(SRCROOT)/../react-native/React/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/RNBackgroundGeolocation/TSLocationManager.framework/**";
 			};
 			name = Debug;
 		};
 		83FF5F9B1AFD0D2B0016A13E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RNBackgroundGeolocation",
@@ -327,11 +335,12 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/node_modules/react-native/React/**",
-					"$(SRCROOT)/react-native/React/**",
+					"$(SRCROOT)/../react-native/React/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/RNBackgroundGeolocation/TSLocationManager.framework/**";
 			};
 			name = Release;
 		};

@@ -14,6 +14,7 @@
 }
 
 @synthesize bridge = _bridge;
+@synthesize currentPositionListeners;
 
 RCT_EXPORT_MODULE();
 
@@ -28,7 +29,11 @@ RCT_EXPORT_MODULE();
         
         // Capture #location & #stationary events from TSLocationManager
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLocationChanged:) name:@"TSLocationManager.location" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onStationaryLocation:) name:@"TSLocationManager.stationary" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMotionChange:) name:@"TSLocationManager.motionchange" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onEnterGeofence:) name:@"TSLocationManager.geofence" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSyncComplete:) name:@"TSLocationManager.sync" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLocationManagerError:) name:@"TSLocationManager.error" object:nil];
+        
     }
     return self;
 }
@@ -46,7 +51,13 @@ RCT_EXPORT_METHOD(onStationary)
 {
     
 }
-
+/*
+RCT_EXPORT_METHOD(addListener:(NSString*)name callback:(RCTResponseSenderBlock)callback)
+{
+    RCTLogInfo(@"- addListener %@", name);
+    
+}
+ */
 RCT_EXPORT_METHOD(setConfig:(NSDictionary*)config)
 {
     RCTLogInfo(@"- RCTBackgroundGeoLocation setConfig");
@@ -56,10 +67,11 @@ RCT_EXPORT_METHOD(setConfig:(NSDictionary*)config)
 /**
  * Turn on background geolocation
  */
-RCT_EXPORT_METHOD(start)
+RCT_EXPORT_METHOD(start:(RCTResponseSenderBlock)callback)
 {
     RCTLogInfo(@"- RCTBackgroundGeoLocation start");
     [locationManager start];
+    callback(@[]);
 }
 /**
  * Turn it off
@@ -77,7 +89,7 @@ RCT_EXPORT_METHOD(stop)
 RCT_EXPORT_METHOD(changePace:(BOOL)moving)
 {
     RCTLogInfo(@"- RCTBackgroundGeoLocation onPaceChange");
-    [locationManager onPaceChange:moving];
+    [locationManager changePace:moving];
 }
 
 /**
@@ -92,10 +104,19 @@ RCT_EXPORT_METHOD(getStationaryLocation)
 /**
  * Called by js to signify the end of a background-geolocation event
  */
-RCT_EXPORT_METHOD(finish)
+RCT_EXPORT_METHOD(finish:(UIBackgroundTaskIdentifier)taskId)
 {
     NSLog(@"- RCTBackgroundGeoLocation finish");
-    [locationManager finish];
+    [locationManager stopBackgroundTask:taskId];
+}
+
+RCT_EXPORT_METHOD(getCurrentPosition:(RCTResponseSenderBlock)callback)
+{
+    if (currentPositionListeners == nil) {
+        currentPositionListeners = [[NSMutableArray alloc] init];
+    }
+    [currentPositionListeners addObject:callback];
+    [locationManager updateCurrentPosition];
 }
 
 /**@
@@ -119,26 +140,60 @@ RCT_EXPORT_METHOD(finish)
  */
 - (void)onLocationChanged:(NSNotification*)notification {
     RCTLogInfo(@"- RCTBackgroundGeoLocation onLocationChanged");
-    CLLocation *location = notification.object;
+    
+    CLLocation *location = [notification.userInfo objectForKey:@"location"];
+    
     NSDictionary *locationData = [locationManager locationToDictionary:location];
     
-    [_bridge.eventDispatcher sendDeviceEventWithName:@"locationchanged" body:locationData];
+    if ([currentPositionListeners count]) {
+        for (RCTResponseSenderBlock callback in self.currentPositionListeners) {
+            callback(@[locationData]);
+        }
+        [self.currentPositionListeners removeAllObjects];
+    }
+    [_bridge.eventDispatcher sendDeviceEventWithName:@"location" body:locationData];
 }
 
-- (void) onStationaryLocation:(NSNotification*)notification
+- (void) onMotionChange:(NSNotification*)notification
 {
-    RCTLogInfo(@"- RCTBackgroundGeoLocation onStationaryLocation");
-    CLLocation *location = notification.object;
-    NSDictionary *locationData = [locationManager locationToDictionary:location];
+    CLLocation *location        = [notification.userInfo objectForKey:@"location"];
+    NSDictionary *locationData  = [locationManager locationToDictionary:location];
     
-    [_bridge.eventDispatcher sendDeviceEventWithName:@"stationary" body:locationData];
+    RCTLogInfo(@"- onMotionChanage: %@",locationData);
+    [_bridge.eventDispatcher sendDeviceEventWithName:@"motionchange" body:locationData];
+}
+
+- (void) onEnterGeofence:(NSNotification*)notification
+{
+    CLCircularRegion *region = [notification.userInfo objectForKey:@"geofence"];
     
-    [locationManager stopBackgroundTask];
+    NSDictionary *params = @{
+        @"identifier": region.identifier,
+        @"action": [notification.userInfo objectForKey:@"action"]
+    };
+    [_bridge.eventDispatcher sendDeviceEventWithName:@"motionchange" body:notification.userInfo];
+    RCTLogInfo(@"- onEnterGeofence: %@", params);
+}
+
+- (void) onSyncComplete:(NSNotification*)notification
+{
+    RCTLogInfo(@"- onSyncComplete");
+    [_bridge.eventDispatcher sendDeviceEventWithName:@"sync" body:@[[notification.userInfo objectForKey:@"locations"]]];
+}
+
+- (void) onLocationManagerError:(NSNotification*)notification
+{
+    RCTLogInfo(@" - onLocationManagerError: %@", notification.userInfo);
+    
+    NSString *errorType = [notification.userInfo objectForKey:@"type"];
+    if ([errorType isEqualToString:@"location"]) {
+        
+    }
 }
 
 - (void)dealloc
 {
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

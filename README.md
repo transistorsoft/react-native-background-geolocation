@@ -9,7 +9,7 @@ Follows the [React Native Modules spec](https://facebook.github.io/react-native/
 
 ![Achtung](https://www.dropbox.com/s/rjnjhoytmqvrkk2/Screenshot%202015-08-11%2000.01.22.png?dl=1)
 
-**NOTE to reader:** This README currently references the [Cordova Library](http://transistorsoft.github.io/cordova-background-geolocation/) it's being ported from.  The API is identical but the method / event signatures are being re-written to match React Native.
+**NOTE to reader:** This README currently references the [Cordova Library](http://transistorsoft.github.io/cordova-background-geolocation/) it's being ported from.  The API is identical but the method / event signatures are being re-written to match React Native.  Please bear with me while I birth this.
 
 
 ```

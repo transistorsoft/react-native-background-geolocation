@@ -5,6 +5,10 @@ Cross-platform background geolocation for React Native with battery-saving "circ
 
 Follows the [React Native Modules spec](https://facebook.github.io/react-native/docs/native-modules-ios.html#content).
 
+## Installing the Plugin
+
+[See Wiki](https://github.com/transistorsoft/react-native-background-geolocation/wiki/Installation)
+
 ## Using the plugin ##
 
 ![Achtung](https://www.dropbox.com/s/rjnjhoytmqvrkk2/Screenshot%202015-08-11%2000.01.22.png?dl=1)

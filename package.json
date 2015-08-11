@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-geolocation",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Sophisticated background-geolocation with battery-conscious motion-detection",
   "main": "RNBackgroundGeolocation.ios.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:transistorsoft/react-native-background-geolocation.git"
+    "url": "git+ssh://git@github.com/transistorsoft/react-native-background-geolocation.git"
   },
   "keywords": [
     "react",
@@ -22,7 +22,6 @@
     "url": "https://github.com/transistorsoft/react-native-background-geolocation/issues"
   },
   "homepage": "https://transistorsoft.github.io/react-native-background-geolocation",
-  "dependencies": {
-    
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }

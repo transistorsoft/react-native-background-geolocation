@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		83889C291B34BCED00C0F84C /* TSLocationManager.framework in Sources */ = {isa = PBXBuildFile; fileRef = 832411CD1B30D17000937CBD /* TSLocationManager.framework */; };
-		83889C2A1B34BD0000C0F84C /* TSLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832411CD1B30D17000937CBD /* TSLocationManager.framework */; };
 		83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */; };
 		83FF5F8B1AFD0D2B0016A13E /* RNBackgroundGeolocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */; };
 		83FF5F911AFD0D2B0016A13E /* libRNBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */; };
@@ -39,7 +37,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		832411CD1B30D17000937CBD /* TSLocationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSLocationManager.framework; path = RNBackgroundGeolocation/TSLocationManager.framework; sourceTree = "<group>"; };
 		832E54741AFDBAEA00481991 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNBackgroundGeolocation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNBackgroundGeolocation.h; sourceTree = "<group>"; };
@@ -53,7 +50,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83889C2A1B34BD0000C0F84C /* TSLocationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,7 +67,6 @@
 		83FF5F7C1AFD0D2B0016A13E = {
 			isa = PBXGroup;
 			children = (
-				832411CD1B30D17000937CBD /* TSLocationManager.framework */,
 				832E54741AFDBAEA00481991 /* libsqlite3.dylib */,
 				83FF5F871AFD0D2B0016A13E /* RNBackgroundGeolocation */,
 				83FF5F941AFD0D2B0016A13E /* RNBackgroundGeolocationTests */,
@@ -201,7 +196,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83889C291B34BCED00C0F84C /* TSLocationManager.framework in Sources */,
 				83FF5F8B1AFD0D2B0016A13E /* RNBackgroundGeolocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

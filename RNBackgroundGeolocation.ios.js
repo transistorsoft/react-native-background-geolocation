@@ -1,7 +1,13 @@
 
 var React = require('react-native');
-var RCTDeviceEventEmitter = require('RCTDeviceEventEmitter');
-var BackgroundGeolocationManager = require('NativeModules').RNBackgroundGeolocation;
+
+var {
+  DeviceEventEmitter
+} = React;
+
+var BackgroundGeolocationManager = React.NativeModules.RNBackgroundGeolocation;
+
+console.log('-------------------Nativemodules: ', React.NativeModules.RNBackgroundGeolocation);
 
 var BackgroundGeolocation = {
   configure: function(config) {
@@ -11,7 +17,7 @@ var BackgroundGeolocation = {
     BackgroundGeolocationManager.setConfig(config);
   },
   on: function(event, callback) {
-    RCTDeviceEventEmitter.addListener(event, callback);
+    DeviceEventEmitter.addListener(event, callback);
   },
   start: function(callback) {
     BackgroundGeolocationManager.start(callback);

@@ -6,6 +6,10 @@
 //  Copyright (c) 2015 Transistor Software. All rights reserved.
 //
 #import "RNBackgroundGeolocation.h"
+#import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+#import <UIKit/UIKit.h>
+
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
 
@@ -104,7 +108,7 @@ RCT_EXPORT_METHOD(getStationaryLocation)
 /**
  * Called by js to signify the end of a background-geolocation event
  */
-RCT_EXPORT_METHOD(finish:(UIBackgroundTaskIdentifier)taskId)
+RCT_EXPORT_METHOD(finish:(int)taskId)
 {
     NSLog(@"- RCTBackgroundGeoLocation finish");
     [locationManager stopBackgroundTask:taskId];

@@ -1,11 +1,14 @@
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import <CoreLocation/CoreLocation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import <sqlite3.h>
 
 @interface TSLocationManager : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic) CLLocationDistance odometer;
 @property (nonatomic, strong) CLLocationManager* locationManager;
+
 - (void) configure:(NSDictionary*)config;
 - (void) start;
 - (void) stop;

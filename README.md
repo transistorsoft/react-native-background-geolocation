@@ -1,4 +1,4 @@
-Background Geolocation
+Background Geolocation for React Native
 ==============================
 
 Cross-platform background geolocation for React Native with battery-saving "circular region monitoring" and "stop detection".

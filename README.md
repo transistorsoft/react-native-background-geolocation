@@ -156,8 +156,8 @@ var Foo = React.createClass({
 
 A fully-featured [Demo App](https://github.com/transistorsoft/rn-background-geolocation-demo) is available in its own public repo.  After first cloning that repo, follow the installation instructions in the **README** there.  This demo-app includes a settings-screen allowing you to quickly experiment with all the different settings available for each platform.
 
-![Home](/assets/images/iphone/screenshot-iphone5-geofences-framed.png "Home")
-![Settings](/assets/images/iphone/screenshot-iphone5-settings-framed.png "Settings")
+![Home](https://www.dropbox.com/s/4cggjacj68cnvpj/screenshot-iphone5-geofences-framed.png?dl=1)
+![Settings](https://www.dropbox.com/s/mmbwgtmipdqcfff/screenshot-iphone5-settings-framed.png?dl=1)
 
 ## Help!  It doesn't work!
 

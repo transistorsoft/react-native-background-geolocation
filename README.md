@@ -5,7 +5,6 @@ Cross-platform background geolocation for React Native with battery-saving "circ
 
 ![Home](https://www.dropbox.com/s/4cggjacj68cnvpj/screenshot-iphone5-geofences-framed.png?dl=1)
 ![Settings](https://www.dropbox.com/s/mmbwgtmipdqcfff/screenshot-iphone5-settings-framed.png?dl=1)
-![distanceFilter at highway speed](https://www.dropbox.com/s/9t39g346g489ni3/distance-filter-highway.png?dl=1)
 
 Follows the [React Native Modules spec](https://facebook.github.io/react-native/docs/native-modules-ios.html#content).
 

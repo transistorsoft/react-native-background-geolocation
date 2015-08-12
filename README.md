@@ -42,7 +42,7 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
 | `disableElasticity` | `bool`  |  Optional | `false`  | Set true to disable automatic speed-based `#distanceFilter` elasticity. eg: When device is moving at highway speeds, locations are returned at ~ 1 / km. |
 | `activityType` | `String` | Required | `Other` | Presumably, this affects ios GPS algorithm.  See [Apple docs](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/CLLocationManager/CLLocationManager.html#//apple_ref/occ/instp/CLLocationManager/activityType) for more information | Set the desired interval for active location updates, in milliseconds.
 
-## Android Options
+## [Android Options](#android-config)
 
 | Option | Type | Opt/Required | Default | Note |
 |---|---|---|---|---|

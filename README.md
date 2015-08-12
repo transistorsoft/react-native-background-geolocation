@@ -11,10 +11,9 @@ Follows the [React Native Modules spec](https://facebook.github.io/react-native/
 
 ## Using the plugin ##
 
-![Achtung](https://www.dropbox.com/s/rjnjhoytmqvrkk2/Screenshot%202015-08-11%2000.01.22.png?dl=1)
-
-**NOTE to reader:** This README currently references the [Cordova Library](http://transistorsoft.github.io/cordova-background-geolocation/) it's being ported from.  The API is identical but the method / event signatures are being re-written to match React Native.  Please bear with me while I birth this.
-
+```
+var BackgroundGeolocation = require('react-native-background-geolocation');
+```
 
 ## Common Options
 
@@ -80,43 +79,6 @@ Follows the [React Native Modules spec](https://facebook.github.io/react-native/
 | `addGeofence` | `{config}` | Adds a geofence to be monitored by the native plugin. Monitoring of a geofence is halted after a crossing occurs.|
 | `removeGeofence` | `identifier` | Removes a geofence identified by the provided `identifier` |
 | `getGeofences` | `callbackFn` | Fetch the list of monitored geofences. Your callbackFn will be provided with an Array of geofences. If there are no geofences being monitored, you'll receive an empty `Array []`.|
-
-
-```
-var BackgroundGeolocation = require('react-native-background-geolocation');
-```
-
-  `configure(options)`,
-	
-  `setConfig(options) // reconfigure`,
-  
-  `start()`
-
-  `stop()`.
-
-  `changePace(true) // engages aggressive monitoring immediately`
-  
-  `getCurrentPosition(callback)`
-
-  `onMotionChange(callback)`
-
-  `addGeofence(config)`
-  
-  `removeGeofence(identifier)` 
-
-  `getGeofences(callback)` 
-  
-  `onGeofence(callback, fail)`
-
-  `getLocations(callback, fail)`
-  
-  `sync(callback, fail)`
-  
-  `getOdometer(callback, fail)`
-  
-  `resetOdometer(callback, fail)`
-  
-  `playSound(int soundId)`
   
 ## Help
 

@@ -17,7 +17,7 @@ Follows the [React Native Modules spec](https://facebook.github.io/react-native/
 var BackgroundGeolocation = require('react-native-background-geolocation');
 ```
 
-## Common Options
+## [Common Options](https://github.com/transistorsoft/react-native-background-geolocation#config)
 
 | Option | Type | Opt/Required | Default | Note |
 |---|---|---|---|---|

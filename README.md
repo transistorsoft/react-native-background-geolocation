@@ -34,12 +34,16 @@ Follows the [React Native Modules spec](https://facebook.github.io/react-native/
 
 ## iOS Options
 
+| Option | Type | Opt/Required | Default | Note |
+|---|---|---|---|---|
 | `stationaryRadius` | `Integer`  |  Required | `20`  | When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage. Note, since the plugin uses iOS significant-changes API, the plugin cannot detect the exact moment the device moves out of the stationary-radius. In normal conditions, it can take as much as 3 city-blocks to 1/2 km before staionary-region exit is detected. |
 | `disableElasticity` | `bool`  |  Optional | `false`  | Set true to disable automatic speed-based `#distanceFilter` elasticity. eg: When device is moving at highway speeds, locations are returned at ~ 1 / km. |
 | `activityType` | `String` | Required | `Other` | Presumably, this affects ios GPS algorithm.  See [Apple docs](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/CLLocationManager/CLLocationManager.html#//apple_ref/occ/instp/CLLocationManager/activityType) for more information | Set the desired interval for active location updates, in milliseconds.
 
 ## Android Options
 
+| Option | Type | Opt/Required | Default | Note |
+|---|---|---|---|---|
 | `locationUpdateInterval` | `Integer(ms)` | Required | `5000` | The location client will actively try to obtain location updates for your application at this interval, so it has a direct influence on the amount of power used by your application. Choose your interval wisely. |
 | `fastestLocationUpdateInterval` | `Integer` | Required | `1000` | This controls the fastest rate at which your application will receive location updates, which might be faster than `#locationUpdateInterval` in some situations (for example, if other  applications are triggering location updates). |
 | `activityRecognitionInterval` | `Integer` | Required | `10000` | the desired time between activity detections. Larger values will result in fewer activity detections while improving battery life. A value of 0 will result in activity detections at the fastest possible rate. |
@@ -57,8 +61,6 @@ Follows the [React Native Modules spec](https://facebook.github.io/react-native/
 |---|---|---|
 | `onMotionChange` | `{location}, `taskId` | Fired when the device changes stationary / moving state. |
 | `onGeofence` | `{geofence}`, `taskId` | Fired when a geofence crossing event occurs |
-
-
 
 ## Methods 
 

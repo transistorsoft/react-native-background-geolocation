@@ -3,6 +3,8 @@ Background Geolocation for React Native
 
 Cross-platform background geolocation for React Native with battery-saving "circular region monitoring" and "stop detection".
 
+![Home](https://www.dropbox.com/s/4cggjacj68cnvpj/screenshot-iphone5-geofences-framed.png?dl=1)
+![Settings](https://www.dropbox.com/s/mmbwgtmipdqcfff/screenshot-iphone5-settings-framed.png?dl=1)
 ![distanceFilter at highway speed](https://www.dropbox.com/s/9t39g346g489ni3/distance-filter-highway.png?dl=1)
 
 Follows the [React Native Modules spec](https://facebook.github.io/react-native/docs/native-modules-ios.html#content).
@@ -487,7 +489,7 @@ Note the following real example of background-geolocation on highway 101 towards
 
 Compare now background-geolocation in the scope of a city.  In this image, the left-hand track is from a cab-ride, while the right-hand track is walking speed.
 
-![distanceFilter at city scale](https://www.dropbox.com/s/qrpid9mlskmygmu/distance-filter-city.png?dl=0)
+![distanceFilter at city scale](https://www.dropbox.com/s/qrpid9mlskmygmu/distance-filter-city.png?dl=1)
 
 ####`@param {Boolean} stopOnTerminate`
 Enable this in order to force a stop() when the application terminated (e.g. on iOS, double-tap home button, swipe away the app).  On Android, ```stopOnTerminate: false``` will cause the plugin to operate as a headless background-service (in this case, you should configure an #url in order for the background-service to send the location to your server)

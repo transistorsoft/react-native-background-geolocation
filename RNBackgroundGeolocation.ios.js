@@ -7,8 +7,6 @@ var {
 
 var BackgroundGeolocationManager = React.NativeModules.RNBackgroundGeolocation;
 
-console.log('-------------------Nativemodules: ', React.NativeModules.RNBackgroundGeolocation);
-
 var BackgroundGeolocation = {
   configure: function(config) {
     BackgroundGeolocationManager.configure(config);

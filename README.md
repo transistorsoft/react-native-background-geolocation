@@ -52,102 +52,75 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
   
   `playSound(int soundId)`
   
-## Installing the plugin ##
-
-```
-
-   cordova plugin add https://github.com/transistorsoft/cordova-background-geolocation.git
-```
-
 ## Help
 
-[See the Wiki](https://github.com/transistorsoft/cordova-background-geolocation/wiki)
+[See the Wiki](https://github.com/transistorsoft/react-native-background-geolocation/wiki)
 
 ## Example
 
 ```
 
-////
-// As with all Cordova plugins, you must configure within an #deviceready callback.
-//
-function onDeviceReady() {
-    // Get a reference to the plugin.
-    var bgGeo = window.BackgroundGeolocation;
+var BackgroundGeolocation = require('react-native-background-geolocation');
+
+var Foo = React.createClass({
+  getInitialState() {
     
-    /**
-    * This callback will be executed every time a geolocation is recorded in the background.
-    */
-    var callbackFn = function(location, taskId) {
-        var coords = location.coords;
-        var lat    = coords.latitude;
-        var lng    = coords.longitude;
+    BackgroundGeolocation.configure({
+      desiredAccuracy: 0,
+      stationaryRadius: 50,
+      distanceFilter: 50,
+      disableElasticity: false, // <-- [iOS] Default is 'false'.  Set true to disable speed-based distanceFilter elasticity
+      locationUpdateInterval: 5000,
+      minimumActivityRecognitionConfidence: 80,   // 0-100%.  Minimum activity-confidence for a state-change 
+      fastestLocationUpdateInterval: 5000,
+      activityRecognitionInterval: 10000,
+      stopTimeout: 0,
+      activityType: 'AutomotiveNavigation',
+
+      // Application config
+      debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
+      forceReloadOnLocationChange: false,  // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when a new location is recorded (WARNING: possibly distruptive to user) 
+      forceReloadOnMotionChange: false,    // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when device changes stationary-state (stationary->moving or vice-versa) --WARNING: possibly distruptive to user) 
+      forceReloadOnGeofence: false,        // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when a geofence crossing occurs --WARNING: possibly distruptive to user) 
+      stopOnTerminate: false,              // <-- [Android] Allow the background-service to run headless when user closes the app.
+      startOnBoot: true,                   // <-- [Android] Auto start background-service in headless mode when device is powered-up.
         
-        console.log('[js] BackgroundGeoLocation callback:  ' + JSON.stringify(location));
-
-        /**
-        * This would be your own callback for Ajax-requests after POSTing background geolocation to your server.
-        * eg:  
-        *     $.post({url: url, success: yourAjaxCallback});
-        */
-        var yourAjaxCallback = function(response) {
-            ////
-            // IMPORTANT:  You must execute the #finish, providing the taskId provided to callbackFn above in order to inform the native plugin that you're finished,
-            //  and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
-            // IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
-            //
-            //
-            bgGeo.finish(taskId);
-        };
-
-        yourAjaxCallback.call(this);
-    };
-
-    var failureFn = function(error) {
-        console.log('BackgroundGeoLocation error');
-    }
-
-    // BackgroundGeoLocation is highly configurable.
-    bgGeo.configure(callbackFn, failureFn, {
-        // Geolocation config
-        desiredAccuracy: 0,
-        stationaryRadius: 50,
-        distanceFilter: 50,
-        disableElasticity: false, // <-- [iOS] Default is 'false'.  Set true to disable speed-based distanceFilter elasticity
-        locationUpdateInterval: 5000,
-        minimumActivityRecognitionConfidence: 80,   // 0-100%.  Minimum activity-confidence for a state-change 
-        fastestLocationUpdateInterval: 5000,
-        activityRecognitionInterval: 10000,
-        stopTimeout: 0,
-        activityType: 'AutomotiveNavigation',
-
-        // Application config
-        debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
-        forceReloadOnLocationChange: false,  // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when a new location is recorded (WARNING: possibly distruptive to user) 
-        forceReloadOnMotionChange: false,    // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when device changes stationary-state (stationary->moving or vice-versa) --WARNING: possibly distruptive to user) 
-        forceReloadOnGeofence: false,        // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when a geofence crossing occurs --WARNING: possibly distruptive to user) 
-        stopOnTerminate: false,              // <-- [Android] Allow the background-service to run headless when user closes the app.
-        startOnBoot: true,                   // <-- [Android] Auto start background-service in headless mode when device is powered-up.
-        
-        // HTTP / SQLite config
-        url: 'http://posttestserver.com/post.php?dir=cordova-background-geolocation',
-        batchSync: true,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
-        autoSync: true,         // <-- [Default: true] Set true to sync each location to server as it arrives.
-        maxDaysToPersist: 1,    // <-- Maximum days to persist a location in plugin's SQLite database when HTTP fails
-        headers: {
-            "X-FOO": "bar"
-        },
-        params: {
-            "auth_token": "maybe_your_server_authenticates_via_token_YES?"
-        }
+      // HTTP / SQLite config
+      url: 'http://posttestserver.com/post.php?dir=cordova-background-geolocation',
+      batchSync: true,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
+      autoSync: true,         // <-- [Default: true] Set true to sync each location to server as it arrives.
+      maxDaysToPersist: 1,    // <-- Maximum days to persist a location in plugin's SQLite database when HTTP fails
+      headers: {
+        "X-FOO": "bar"
+      },
+      params: {
+        "auth_token": "maybe_your_server_authenticates_via_token_YES?"
+      }
+    });
+    
+    // This handler fires whenever bgGeo receives a location update.
+    BackgroundGeolocation.on('location', function(location) {
+      console.log('- [js]location: ', JSON.stringify(location);
+    });
+    
+    // This handler fires when movement states changes (stationary->moving; moving->stationary)
+    BackgroundGeolocation.on('motionchange', function(location) {
+        console.log('- [js]motionchanged: ', JSON.stringify(location));
+    });
+    
+    BackgroundGeolocation.start(function() {
+      console.log('- [js] BackgroundGeolocation started successfully');
+      
+      // Fetch current position
+      BackgroundGeolocation.getCurrentPosition(function(location) {
+        console.log('- [js] BackgroundGeolocation received current position: ', JSON.stringify(location));
+      });
     });
 
-    // Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
-    bgGeo.start();
-
-    // If you wish to turn OFF background-tracking, call the #stop method.
-    // bgGeo.stop()
-}
-
+    // Call #stop to halt all tracking
+    // BackgroundGeolocation.stop();
+  }
+});
 
 ```
 

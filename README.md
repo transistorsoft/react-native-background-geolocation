@@ -52,138 +52,84 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
   
   `playSound(int soundId)`
   
-## Installing the plugin ##
-
-```
-
-   cordova plugin add https://github.com/transistorsoft/cordova-background-geolocation.git
-```
-
 ## Help
 
-[See the Wiki](https://github.com/transistorsoft/cordova-background-geolocation/wiki)
+[See the Wiki](https://github.com/transistorsoft/react-native-background-geolocation/wiki)
 
 ## Example
 
 ```
 
-////
-// As with all Cordova plugins, you must configure within an #deviceready callback.
-//
-function onDeviceReady() {
-    // Get a reference to the plugin.
-    var bgGeo = window.BackgroundGeolocation;
+var BackgroundGeolocation = require('react-native-background-geolocation');
+
+var Foo = React.createClass({
+  getInitialState() {
     
-    /**
-    * This callback will be executed every time a geolocation is recorded in the background.
-    */
-    var callbackFn = function(location, taskId) {
-        var coords = location.coords;
-        var lat    = coords.latitude;
-        var lng    = coords.longitude;
+    BackgroundGeolocation.configure({
+      desiredAccuracy: 0,
+      stationaryRadius: 50,
+      distanceFilter: 50,
+      disableElasticity: false, // <-- [iOS] Default is 'false'.  Set true to disable speed-based distanceFilter elasticity
+      locationUpdateInterval: 5000,
+      minimumActivityRecognitionConfidence: 80,   // 0-100%.  Minimum activity-confidence for a state-change 
+      fastestLocationUpdateInterval: 5000,
+      activityRecognitionInterval: 10000,
+      stopTimeout: 0,
+      activityType: 'AutomotiveNavigation',
+
+      // Application config
+      debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
+      forceReloadOnLocationChange: false,  // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when a new location is recorded (WARNING: possibly distruptive to user) 
+      forceReloadOnMotionChange: false,    // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when device changes stationary-state (stationary->moving or vice-versa) --WARNING: possibly distruptive to user) 
+      forceReloadOnGeofence: false,        // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when a geofence crossing occurs --WARNING: possibly distruptive to user) 
+      stopOnTerminate: false,              // <-- [Android] Allow the background-service to run headless when user closes the app.
+      startOnBoot: true,                   // <-- [Android] Auto start background-service in headless mode when device is powered-up.
         
-        console.log('[js] BackgroundGeoLocation callback:  ' + JSON.stringify(location));
-
-        /**
-        * This would be your own callback for Ajax-requests after POSTing background geolocation to your server.
-        * eg:  
-        *     $.post({url: url, success: yourAjaxCallback});
-        */
-        var yourAjaxCallback = function(response) {
-            ////
-            // IMPORTANT:  You must execute the #finish, providing the taskId provided to callbackFn above in order to inform the native plugin that you're finished,
-            //  and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
-            // IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
-            //
-            //
-            bgGeo.finish(taskId);
-        };
-
-        yourAjaxCallback.call(this);
-    };
-
-    var failureFn = function(error) {
-        console.log('BackgroundGeoLocation error');
-    }
-
-    // BackgroundGeoLocation is highly configurable.
-    bgGeo.configure(callbackFn, failureFn, {
-        // Geolocation config
-        desiredAccuracy: 0,
-        stationaryRadius: 50,
-        distanceFilter: 50,
-        disableElasticity: false, // <-- [iOS] Default is 'false'.  Set true to disable speed-based distanceFilter elasticity
-        locationUpdateInterval: 5000,
-        minimumActivityRecognitionConfidence: 80,   // 0-100%.  Minimum activity-confidence for a state-change 
-        fastestLocationUpdateInterval: 5000,
-        activityRecognitionInterval: 10000,
-        stopTimeout: 0,
-        activityType: 'AutomotiveNavigation',
-
-        // Application config
-        debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
-        forceReloadOnLocationChange: false,  // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when a new location is recorded (WARNING: possibly distruptive to user) 
-        forceReloadOnMotionChange: false,    // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when device changes stationary-state (stationary->moving or vice-versa) --WARNING: possibly distruptive to user) 
-        forceReloadOnGeofence: false,        // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when a geofence crossing occurs --WARNING: possibly distruptive to user) 
-        stopOnTerminate: false,              // <-- [Android] Allow the background-service to run headless when user closes the app.
-        startOnBoot: true,                   // <-- [Android] Auto start background-service in headless mode when device is powered-up.
-        
-        // HTTP / SQLite config
-        url: 'http://posttestserver.com/post.php?dir=cordova-background-geolocation',
-        batchSync: true,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
-        autoSync: true,         // <-- [Default: true] Set true to sync each location to server as it arrives.
-        maxDaysToPersist: 1,    // <-- Maximum days to persist a location in plugin's SQLite database when HTTP fails
-        headers: {
-            "X-FOO": "bar"
-        },
-        params: {
-            "auth_token": "maybe_your_server_authenticates_via_token_YES?"
-        }
+      // HTTP / SQLite config
+      url: 'http://posttestserver.com/post.php?dir=cordova-background-geolocation',
+      batchSync: true,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
+      autoSync: true,         // <-- [Default: true] Set true to sync each location to server as it arrives.
+      maxDaysToPersist: 1,    // <-- Maximum days to persist a location in plugin's SQLite database when HTTP fails
+      headers: {
+        "X-FOO": "bar"
+      },
+      params: {
+        "auth_token": "maybe_your_server_authenticates_via_token_YES?"
+      }
+    });
+    
+    // This handler fires whenever bgGeo receives a location update.
+    BackgroundGeolocation.on('location', function(location) {
+      console.log('- [js]location: ', JSON.stringify(location);
+    });
+    
+    // This handler fires when movement states changes (stationary->moving; moving->stationary)
+    BackgroundGeolocation.on('motionchange', function(location) {
+        console.log('- [js]motionchanged: ', JSON.stringify(location));
+    });
+    
+    BackgroundGeolocation.start(function() {
+      console.log('- [js] BackgroundGeolocation started successfully');
+      
+      // Fetch current position
+      BackgroundGeolocation.getCurrentPosition(function(location) {
+        console.log('- [js] BackgroundGeolocation received current position: ', JSON.stringify(location));
+      });
     });
 
-    // Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
-    bgGeo.start();
-
-    // If you wish to turn OFF background-tracking, call the #stop method.
-    // bgGeo.stop()
-}
-
+    // Call #stop to halt all tracking
+    // BackgroundGeolocation.stop();
+  }
+});
 
 ```
 
-## Advanced Sample Application for Field-testing
+## Advanced Demo Application for Field-testing
 
-A fully-featured [SampleApp](https://github.com/christocracy/cordova-background-geolocation-SampleApp) is available in its own public repo.  After first cloning that repo, follow the installation instructions in the **README** there.  This SampleApp includes a settings-screen allowing you to quickly experiment with all the different settings available for each platform.
+A fully-featured [Demo App](https://github.com/transistorsoft/rn-background-geolocation-demo) is available in its own public repo.  After first cloning that repo, follow the installation instructions in the **README** there.  This demo-app includes a settings-screen allowing you to quickly experiment with all the different settings available for each platform.
 
 ![Home](/assets/images/iphone/screenshot-iphone5-geofences-framed.png "Home")
 ![Settings](/assets/images/iphone/screenshot-iphone5-settings-framed.png "Settings")
-
-## Simple Sample Application
-
-This plugin itself hosts a more rudimentary SampleApp in ```example/SampleApp``` folder.  This SampleApp should be used for reference only -- for actual field-testing, please use the **more advanced** [SampleApp](https://github.com/christocracy/cordova-background-geolocation-SampleApp) above.  
-
-This SampleApp contains no plugins so you must first start by adding its required plugins (most importantly, this one).  **NOTE** In order to use the SampleApp, it's important to make a copy of it **outside** of the plugin itself.
-
-![SampleApp](/android-sample-app.png "SampleApp")
-
-
-
-```
-$ git clone git@github.com:transistorsoft/cordova-background-geolocation.git
-$ mkdir tmp
-$ cp -R cordova-background-geolocation/example/SampleApp tmp
-$ cd tmp/SampleApp
-$ cordova plugin add cordova-plugin-whitelist
-$ cordova plugin add cordova-plugin-geolocation
-$ cordova plugin add git@github.com:transistorsoft/cordova-background-geolocation.git
-$ cordova platform add ios
-$ cordova platform add android
-$ cordova build ios
-$ cordova build android
-
-```
-
-If you're using XCode, boot the SampleApp in the iOS Simulator and enable ```Debug->Location->City Drive```.
 
 ## Help!  It doesn't work!
 
@@ -192,16 +138,6 @@ Yes it does.  [See the Wiki](https://github.com/transistorsoft/cordova-backgroun
 - on iOS, background tracking won't be engaged until you travel about **2-3 city blocks**, so go for a walk or car-ride (or use the Simulator with ```Debug->Location->City Drive```)
 - Android is much quicker detecting movements; typically several meters of walking will do it.
 - When in doubt, **nuke everything**:  First delete the app from your device (or simulator)
-
-```
-$ cordova plugin remove com.transistorsoft.cordova.background-geolocation
-$ cordova plugin add git@github.com:transistorsoft/cordova-background-geolocation.git
-
-$ cordova platform remove ios
-$ cordova platform add ios
-$ cordova build ios
-
-```
 
 ## Behaviour
 
@@ -225,13 +161,7 @@ When the plugin detects the device has moved beyond its configured #stationaryRa
 
 ### Android
 
-Using the [ActivityRecognition API](https://developer.android.com/reference/com/google/android/gms/location/ActivityRecognitionApi.html) provided by [Google Play Services](https://developer.android.com/google/play-services/index.html), Android will constantly monitor [the nature](https://developer.android.com/reference/com/google/android/gms/location/DetectedActivity.html) of the device's movement at a sampling-rate configured by ```#activityRecognitionRate```.  When the plugin sees a DetectedActivity of [STILL](https://developer.android.com/reference/com/google/android/gms/location/DetectedActivity.html), location-updates will be halted -- when it sees ```IN_VEHICLE, ON_BICYCLE, ON_FOOT, RUNNING, WALKING```, location-updates will be initiated.
-
-
-### WP8
-
-WP8 uses ```callbackFn``` the way iOS do. On WP8, however, the plugin does not support the Stationary location and does not implement ```getStationaryLocation()``` and ```onPaceChange()```.
-Keep in mind that it is **not** possible to use ```start()``` at the ```pause``` event of Cordova/PhoneGap. WP8 suspend your app immediately and ```start()``` will not be executed. So make sure you fire ```start()``` before the app is closed/minimized.
+Using the ActivityRecognition API, Android will constantly monitor [the nature](https://developer.android.com/reference/com/google/android/gms/location/DetectedActivity.html) of the device's movement at a sampling-rate configured by ```#activityRecognitionRate```.  When the plugin sees a DetectedActivity of [STILL](https://developer.android.com/reference/com/google/android/gms/location/DetectedActivity.html), location-updates will be halted -- when it sees ```IN_VEHICLE, ON_BICYCLE, ON_FOOT, RUNNING, WALKING```, location-updates will be initiated.
 
 ## Methods
 
@@ -243,34 +173,18 @@ Configures the plugin's parameters (@see following [Config](https://github.com/t
 ######@param {Integer} taskId The taskId used to send to bgGeo.finish(taskId) in order to signal completion of your callbackFn
 
 ```
-bgGeo.configure(function(location, taskId) {
-    try {
-        var coords      = location.coords,
-            timestamp   = location.timestamp
-            latitude    = coords.latitude,
-            longitude   = coords.longitude,
-            speed       = coords.speed;
-
-        console.log("A location has arrived:", timestamp, latitude, longitude, speed);
-    } catch(e) {
-        console.error("An error occurred in my application code", e);
-    }
-    // The plugin runs your callback in a background-thread:  
-    // you MUST signal to the native plugin when your callback is finished so it can halt the thread.
-    // IF YOU DON'T, iOS WILL KILL YOUR APP
-    bgGeo.finish(taskId);
-}, failureFn, {
+bgGeo.configure({
     distanceFilter: 50,
     desiredAccuracy: 0,
     stationaryRadius: 25
 });
 ```
 
-####`setConfig(successFn, failureFn, config)`
-Reconfigure plugin's configuration (@see followign ##Config## section for accepted ```config``` params.  **NOTE** The plugin will continue to send recorded Geolocation to the ```locationCallback``` you provided to ```configure``` method -- use this method only to change configuration params (eg: ```distanceFilter```, ```stationaryRadius```, etc).
+####`setConfig(config)`
+Reconfigure plugin's configuration (@see followign ##Config## section for accepted ```config``` params.
 
 ```
-bgGeo.setConfig(function(){}, function(){}, {
+bgGeo.setConfig({
     desiredAccuracy: 10,
     distanceFilter: 100
 });
@@ -334,29 +248,6 @@ bgGeo.onMotionChange(function(isMoving, location, taskId) {
     bgGeo.finish(taskId);
 })
 
-```
-
-####`onStationary(callbackFn, failureFn)` 
-
-**DEPRECATED** &mdash; Use [onMotionChange](https://github.com/transistorsoft/cordova-background-geolocation/tree/trigger-activities#onmotionchangecallbackfn-failurefn) instead.
-
-Your ```callbackFn``` will be executed each time the device has entered stationary-monitoring mode.  The ```callbackFn``` will be provided with a ```Location``` object as the 1st param, with the usual params (```latitude, longitude, accuracy, speed, bearing, altitude```), in addition to a ```taskId``` used to signal that your callback is finished.
-
-######@param {Object} location The Location data
-######@param {Integer} taskId The taskId used to send to bgGeo.finish(taskId) in order to signal completion of your callbackFn
-
-```
-bgGeo.onStationary(function(location, taskId) {
-    try {
-        console.log('- Device is stopped: ', location.latitude, location.longitude);
-    } catch(e) {
-        console.error('An error occurred in my application code', e);
-    }
-    // The plugin runs your callback in a background-thread:  
-    // you MUST signal to the native plugin when your callback is finished so it can halt the thread.
-    // IF YOU DON'T, iOS WILL KILL YOUR APP
-    bgGeo.finish(taskId);
-});
 ```
 
 ####`addGeofence(config, callbackFn, failureFn)`
@@ -842,6 +733,51 @@ The native plugin persists monitored geofences between application boots and dev
         }
     });
 ```
+
+# Test new docs format
+
+## Options
+
+| Option | Type | Opt/Required | Default | Note |
+|---|---|---|---|---|
+| `accessToken` | `string` | Required | NA |Mapbox access token. Sign up for a [Mapbox account here](https://www.mapbox.com/signup).
+| `centerCoordinate` | `object` | Optional | `0,0`| Initial `latitude`/`longitude` the map will load at, defaults to `0,0`.
+| `zoomLevel` | `double` | Optional | `0` | Initial zoom level the map will load at. 0 is the entire world, 18 is rooftop level. Defaults to 0.
+| `rotateEnabled` | `bool`  |  Optional | `true`  | Whether the map can rotate |
+| `scrollEnabled` | `bool`  |  Optional | `true`  | Whether the map can be scrolled |
+| `zoomEnabled` | `bool`  |  Optional | `true`  | Whether the map zoom level can be changed |
+|`showsUserLocation` | `bool` | Optional | `false` | Whether the user's location is shown on the map. Note - the map will not zoom to their location.|
+|`updateLocationInBackground` | `bool` | Optional | `true` | When `showsUserLocation` is `true`, whether to update location when app is in background.|
+| `styleURL` | `string` | Optional | Mapbox Streets |  A Mapbox GL style sheet. Defaults to `mapbox-streets`. More styles [can be viewed here](https://www.mapbox.com/mapbox-gl-styles).
+| `annotations` | `array` | Optional | NA |  An array of annotation objects. See [annotation detail](https://github.com/bsudekum/react-native-mapbox-gl/blob/master/API.md#annotations)
+| `direction`  | `double` | Optional | `0` | Heading of the map in degrees where 0 is north and 180 is south |
+| `debugActive`  | `bool` | Optional | `false` | Turns on debug mode. |
+| `style`  | flexbox `view` | Optional | NA | Styles the actual map view container |
+
+## Events
+
+| Event Name | Returns | Notes
+|---|---|---|
+| `onRegionChange` | `{latitude: 0, longitude: 0, zoom: 0}` | Fired when the map ends panning or zooming.
+| `onRegionWillChange` | `{latitude: 0, longitude: 0, zoom: 0}` | Fired when the map begins panning or zooming.
+| `onOpenAnnotation` | `{title: null, subtitle: null, latitude: 0, longitude: 0}` | Fired when focusing a an annotation.
+| `onUpdateUserLocation` | `{latitude: 0, longitude: 0, headingAccuracy: 0, magneticHeading: 0, trueHeading: 0, isUpdating: false}` | Fired when the users location updates.
+| `onRightAnnotationTapped` | `{title: null, subtitle: null, latitude: 0, longitude: 0}` | Fired when user taps `rightCalloutAccessory`
+
+
+## Methods for Modifying the Map State
+
+These methods require you to use `MapboxGLMap.Mixin` to access the methods. Each method also requires you to pass in a string as the first argument which is equal to the `ref` on the map view you wish to modify. See the [example](https://github.com/bsudekum/react-native-mapbox-gl/blob/master/example.js) on how this is implemented.
+
+| Method Name | Arguments | Notes
+|---|---|---|
+| `setDirectionAnimated` | `mapViewRef`, `heading` | Rotates the map to a new heading
+| `setZoomLevelAnimated` | `mapViewRef`, `zoomLevel` | Zooms the map to a new zoom level
+| `setCenterCoordinateAnimated` | `mapViewRef`, `latitude`, `longitude` | Moves the map to a new coordinate. Note, the zoom level stay at the current zoom level
+| `setCenterCoordinateZoomLevelAnimated` | `mapViewRef`, `latitude`, `longitude`, `zoomLevel` | Moves the map to a new coordinate and zoom level
+| `addAnnotations` | `mapViewRef`, `[{latitude: number, longitude: number, title: string, subtitle: string, id: string, rightCalloutAccessory: { url: string, height: int, width: int }}]` (array of objects) | Adds an annotation to the map without redrawing the map. Note, this will remove all previous annotations from the map.
+| `selectAnnotationAnimated` | `mapViewRef`, `annotationPlaceInArray` | Open the callout of the selected annotation. This method works with the current annotations on the map. `annotationPlaceInArray` starts at 0 and refers to the first annotation.
+| `removeAnnotation`  | `mapViewRef`, `annotationPlaceInArray` | Removes the selected annotation from the map. This method works with 
 
 
 

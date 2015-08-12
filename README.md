@@ -440,7 +440,7 @@ When enabled, the plugin will emit sounds for life-cycle events of background-ge
 - Acquiring stationary location sound: **[ios]** "tick,tick,tick" sound, *[android]* none
 - Stationary location acquired sound:  **[ios]** "bloom" sound, **[android]** long "beeeeeep"
 
-![Enable Background Audio](/enable-background-audio.png "Enable Background Audio")
+![Enable Background Audio](https://www.dropbox.com/s/n2aj4fiiilyesjm/enable-background-audio.png?dl=1)
 
 ####`@param {Integer} desiredAccuracy [0, 10, 100, 1000] in meters`
 

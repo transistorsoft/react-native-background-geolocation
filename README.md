@@ -64,7 +64,7 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
 | `onMotionChange` | `{location}, `taskId` | Fired when the device changes stationary / moving state. |
 | `onGeofence` | `{geofence}`, `taskId` | Fired when a geofence crossing event occurs |
 
-## Methods 
+## [Methods](#methods-1)
 
 | Method Name | Arguments | Notes
 |---|---|---|

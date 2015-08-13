@@ -40,6 +40,12 @@ var BackgroundGeolocation = {
   },
   getCurrentPosition: function(callback) {
     BackgroundGeolocationManager.getCurrentPosition(callback);
+  },
+  getOdometer: function(callback) {
+    BackgroundGeolocationManager.getOdometer(callback);
+  },
+  resetOdometer: function(callback) {
+    BackgroundGeolocationManager.resetOdometer(callback);
   }
 };
 

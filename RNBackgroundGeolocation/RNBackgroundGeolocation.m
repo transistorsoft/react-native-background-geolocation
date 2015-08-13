@@ -123,6 +123,18 @@ RCT_EXPORT_METHOD(getCurrentPosition:(RCTResponseSenderBlock)callback)
     [locationManager updateCurrentPosition];
 }
 
+RCT_EXPORT_METHOD(getOdometer:(RCTResponseSenderBlock)callback)
+{
+    NSNumber *distance = @(locationManager.odometer);
+    callback(@[distance]);
+}
+
+RCT_EXPORT_METHOD(resetOdometer:(RCTResponseSenderBlock)callback)
+{
+    locationManager.odometer = 0;
+    callback(@[]);
+}
+
 /**@
  * Resume.  Turn background off
  */

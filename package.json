@@ -1,7 +1,7 @@
 {
   "name": "react-native-background-geolocation",
   "version": "0.0.6",
-  "description": "Sophisticated background-geolocation with battery-conscious motion-detection",
+  "description": "Sophisticated background location-tracking with battery-conscious motion-detection",
   "main": "RNBackgroundGeolocation.ios.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

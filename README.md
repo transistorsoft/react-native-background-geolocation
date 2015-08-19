@@ -8,9 +8,9 @@ Cross-platform background geolocation module for React Native with battery-savin
 
 Follows the [React Native Modules spec](https://facebook.github.io/react-native/docs/native-modules-ios.html#content).
 
-## [Premium Version](http://shop.transistorsoft.com/pages/react-native-background-geolocation#plans)
+## [Premium Version with Android Support](http://shop.transistorsoft.com/pages/react-native-background-geolocation#plans)
 
-Only the **iOS** version is free.  **Android** support will be available for purchase as a [Premium Version](http://shop.transistorsoft.com/pages/react-native-background-geolocation#plans) (use the promo-code `react-native-sale` for a **$300** discount.  Sale ends when React-Native Android support becomes available.
+Only the **iOS** version is free.  **Android** support will be available for purchase as a [Premium Version](http://shop.transistorsoft.com/pages/react-native-background-geolocation#plans) (use the promo-code `react-native-sale` for a **$300** discount.  Sale ends when React-Native Android support [becomes available](http://facebook.github.io/react/blog/2015/03/30/community-roundup-26.html) (September perhaps?).
 
 ## Installing the Plugin
 

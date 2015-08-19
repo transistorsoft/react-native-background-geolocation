@@ -159,7 +159,7 @@ var Foo = React.createClass({
 
 ```
 
-## Advanced Demo Application for Field-testing
+## [Advanced Demo Application for Field-testing](https://github.com/transistorsoft/rn-background-geolocation-demo)
 
 A fully-featured [Demo App](https://github.com/transistorsoft/rn-background-geolocation-demo) is available in its own public repo.  After first cloning that repo, follow the installation instructions in the **README** there.  This demo-app includes a settings-screen allowing you to quickly experiment with all the different settings available for each platform.
 

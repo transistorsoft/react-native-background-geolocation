@@ -10,7 +10,7 @@ Follows the [React Native Modules spec](https://facebook.github.io/react-native/
 
 ## [Premium Version](http://shop.transistorsoft.com/pages/react-native-background-geolocation#plans)
 
-Only the **iOS** version is free.  Android support will be available for purchase as a [Premium Version](http://shop.transistorsoft.com/pages/react-native-background-geolocation#plans) (use code `react-native-sale` for a **$300** discount.  Sale ends when React-Native Android support becomes available.
+Only the **iOS** version is free.  **Android** support will be available for purchase as a [Premium Version](http://shop.transistorsoft.com/pages/react-native-background-geolocation#plans) (use the promo-code `react-native-sale` for a **$300** discount.  Sale ends when React-Native Android support becomes available.
 
 ## Installing the Plugin
 

@@ -1,4 +1,3 @@
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/transistorsoft/react-native-background-geolocation/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 Background Geolocation for React Native
 ==============================
 

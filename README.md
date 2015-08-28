@@ -164,7 +164,7 @@ A fully-featured [Demo App](https://github.com/transistorsoft/rn-background-geol
 
 ## Help!  It doesn't work!
 
-Yes it does.  [See the Wiki](https://github.com/transistorsoft/cordova-background-geolocation/wiki)
+Yes it does.  [See the Wiki](https://github.com/transistorsoft/react-native-background-geolocation/wiki)
 
 - on iOS, background tracking won't be engaged until you travel about **2-3 city blocks**, so go for a walk or car-ride (or use the Simulator with ```Debug->Location->City Drive```)
 - Android is much quicker detecting movements; typically several meters of walking will do it.

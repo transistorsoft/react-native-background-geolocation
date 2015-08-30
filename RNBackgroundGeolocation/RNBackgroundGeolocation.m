@@ -135,6 +135,11 @@ RCT_EXPORT_METHOD(resetOdometer:(RCTResponseSenderBlock)callback)
     callback(@[]);
 }
 
+RCT_EXPORT_METHOD(addGeofence:(NSString*)identifier radius:(CLLocationDistance)radius latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude notifyOnEntry:(BOOL)notifyOnEntry notifyOnExit:(BOOL)notifyOnExit){
+    [locationManager addGeofence:identifier radius:radius latitude:latitude longitude:longitude notifyOnEntry:notifyOnEntry notifyOnExit:notifyOnExit];
+    RCTLogInfo(@"addGeofence");
+}
+
 /**@
  * Resume.  Turn background off
  */
@@ -187,7 +192,8 @@ RCT_EXPORT_METHOD(resetOdometer:(RCTResponseSenderBlock)callback)
         @"identifier": region.identifier,
         @"action": [notification.userInfo objectForKey:@"action"]
     };
-    [_bridge.eventDispatcher sendDeviceEventWithName:@"motionchange" body:notification.userInfo];
+    
+    [_bridge.eventDispatcher sendDeviceEventWithName:@"geofence" body:params];
     RCTLogInfo(@"- onEnterGeofence: %@", params);
 }
 

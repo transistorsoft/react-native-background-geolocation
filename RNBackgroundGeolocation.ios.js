@@ -58,6 +58,9 @@ var BackgroundGeolocation = {
       config.notifyOnEntry,
       config.notifyOnExit);
   },
+  removeGeofence: function(identifier) {
+    BackgroundGeolocationManager.removeGeofence(identifier);
+  },
   getGeofences: function(callback) {
     BackgroundGeolocationManager.getGeofences(callback);
   }

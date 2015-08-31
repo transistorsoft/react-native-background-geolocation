@@ -157,6 +157,12 @@ RCT_EXPORT_METHOD(addGeofence:(NSString*)identifier radius:(CLLocationDistance)r
     RCTLogInfo(@"addGeofence");
 }
 
+RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier)
+{
+    [locationManager removeGeofence:identifier];
+    RCTLogInfo(@"removeGeofence");
+}
+
 /**@
  * Resume.  Turn background off
  */

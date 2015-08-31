@@ -57,6 +57,9 @@ var BackgroundGeolocation = {
       config.longitude,
       config.notifyOnEntry,
       config.notifyOnExit);
+  },
+  getGeofences: function(callback) {
+    BackgroundGeolocationManager.getGeofences(callback);
   }
 };
 

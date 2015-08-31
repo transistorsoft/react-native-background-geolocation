@@ -129,6 +129,23 @@ RCT_EXPORT_METHOD(getOdometer:(RCTResponseSenderBlock)callback)
     callback(@[distance]);
 }
 
+RCT_EXPORT_METHOD(getGeofences:(RCTResponseSenderBlock)callback)
+{
+    NSArray *geofences = [locationManager getGeofences];
+    NSMutableArray *geofencesForReact = [NSMutableArray arrayWithCapacity:[geofences count]];
+
+    for(CLCircularRegion *geofence in geofences) {
+        NSDictionary *geofenceDictionary = @{
+          @"identifier": geofence.identifier,
+          @"radius":     [NSNumber numberWithDouble:geofence.radius],
+          @"latitude":   [NSNumber numberWithDouble:geofence.center.latitude],
+          @"longitude":  [NSNumber numberWithDouble:geofence.center.longitude]
+        };
+        [geofencesForReact addObject:geofenceDictionary];
+    }
+    callback(geofencesForReact);
+}
+
 RCT_EXPORT_METHOD(resetOdometer:(RCTResponseSenderBlock)callback)
 {
     locationManager.odometer = 0;

@@ -1,4 +1,3 @@
-
 var React = require('react-native');
 
 var {
@@ -24,10 +23,13 @@ var BackgroundGeolocation = {
     BackgroundGeolocationManager.stop();
   },
   onMotionChange: function(callback) {
-    BackgroundGeolocationManager.addListener("motionchange", callback);
+    DeviceEventEmitter.addListener("motionchange", callback);
   },
   onLocation: function(callback) {
-    BackgroundGeolocationManager.addListener("location", callback);
+    DeviceEventEmitter.addListener("location", callback);
+  },
+  onGeofence: function(callback) {
+    DeviceEventEmitter.addListener("geofence", callback);
   },
   sync: function(callback) {
     BackgroundGeolocation.sync(callback);
@@ -46,8 +48,22 @@ var BackgroundGeolocation = {
   },
   resetOdometer: function(callback) {
     BackgroundGeolocationManager.resetOdometer(callback);
+  },
+  addGeofence: function(config, callbackFn, failureFn) {
+    BackgroundGeolocationManager.addGeofence(
+      config.identifier,
+      config.radius,
+      config.latitude,
+      config.longitude,
+      config.notifyOnEntry,
+      config.notifyOnExit);
+  },
+  removeGeofence: function(identifier) {
+    BackgroundGeolocationManager.removeGeofence(identifier);
+  },
+  getGeofences: function(callback) {
+    BackgroundGeolocationManager.getGeofences(callback);
   }
 };
 
 module.exports = BackgroundGeolocation;
-

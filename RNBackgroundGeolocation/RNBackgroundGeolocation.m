@@ -129,10 +129,38 @@ RCT_EXPORT_METHOD(getOdometer:(RCTResponseSenderBlock)callback)
     callback(@[distance]);
 }
 
+RCT_EXPORT_METHOD(getGeofences:(RCTResponseSenderBlock)callback)
+{
+    NSArray *geofences = [locationManager getGeofences];
+    NSMutableArray *geofencesForReact = [NSMutableArray arrayWithCapacity:[geofences count]];
+
+    for(CLCircularRegion *geofence in geofences) {
+        NSDictionary *geofenceDictionary = @{
+          @"identifier": geofence.identifier,
+          @"radius":     [NSNumber numberWithDouble:geofence.radius],
+          @"latitude":   [NSNumber numberWithDouble:geofence.center.latitude],
+          @"longitude":  [NSNumber numberWithDouble:geofence.center.longitude]
+        };
+        [geofencesForReact addObject:geofenceDictionary];
+    }
+    callback(geofencesForReact);
+}
+
 RCT_EXPORT_METHOD(resetOdometer:(RCTResponseSenderBlock)callback)
 {
     locationManager.odometer = 0;
     callback(@[]);
+}
+
+RCT_EXPORT_METHOD(addGeofence:(NSString*)identifier radius:(CLLocationDistance)radius latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude notifyOnEntry:(BOOL)notifyOnEntry notifyOnExit:(BOOL)notifyOnExit){
+    [locationManager addGeofence:identifier radius:radius latitude:latitude longitude:longitude notifyOnEntry:notifyOnEntry notifyOnExit:notifyOnExit];
+    RCTLogInfo(@"addGeofence");
+}
+
+RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier)
+{
+    [locationManager removeGeofence:identifier];
+    RCTLogInfo(@"removeGeofence");
 }
 
 /**@
@@ -187,7 +215,8 @@ RCT_EXPORT_METHOD(resetOdometer:(RCTResponseSenderBlock)callback)
         @"identifier": region.identifier,
         @"action": [notification.userInfo objectForKey:@"action"]
     };
-    [_bridge.eventDispatcher sendDeviceEventWithName:@"motionchange" body:notification.userInfo];
+    
+    [_bridge.eventDispatcher sendDeviceEventWithName:@"geofence" body:params];
     RCTLogInfo(@"- onEnterGeofence: %@", params);
 }
 

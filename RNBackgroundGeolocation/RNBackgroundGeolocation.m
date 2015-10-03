@@ -114,13 +114,13 @@ RCT_EXPORT_METHOD(finish:(int)taskId)
     [locationManager stopBackgroundTask:taskId];
 }
 
-RCT_EXPORT_METHOD(getCurrentPosition:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(getCurrentPosition:(RCTResponseSenderBlock)callback options:(NSDictionary*)options)
 {
     if (currentPositionListeners == nil) {
         currentPositionListeners = [[NSMutableArray alloc] init];
     }
     [currentPositionListeners addObject:callback];
-    [locationManager updateCurrentPosition];
+    [locationManager updateCurrentPosition:options];
 }
 
 RCT_EXPORT_METHOD(getOdometer:(RCTResponseSenderBlock)callback)

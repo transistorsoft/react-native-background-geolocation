@@ -4,13 +4,17 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Headers/SOMotionDetector.h</key>
+		<data>
+		OsZE8RGPrWVNEZCVhJtKfO957+s=
+		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		64irDL4QVGAuKSFq2x5HXZILF78=
+		wxjb1wk6PWZ5fvUgW+2YAQnyqh4=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		ksNaWGtWPICW6cxKIrDME82hHsk=
+		s7xTqPv73RgEwo4mv98KaRJnjEo=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -19,9 +23,13 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Headers/SOMotionDetector.h</key>
+		<data>
+		OsZE8RGPrWVNEZCVhJtKfO957+s=
+		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		64irDL4QVGAuKSFq2x5HXZILF78=
+		wxjb1wk6PWZ5fvUgW+2YAQnyqh4=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>

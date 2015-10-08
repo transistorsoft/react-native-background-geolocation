@@ -34,7 +34,7 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
 | Option | Type | Opt/Required | Default | Note |
 |---|---|---|---|---|
 | `activityRecognitionInterval` | `Integer` | Required | `10000` | The desired time between activity detections. Larger values will result in fewer activity detections while improving battery life. A value of 0 will result in activity detections at the fastest possible rate. |
-| `minimumActivityRecognitionConfidence` | `Integer %` | Optional | `80` | Each activity-recognition-result returned
+| `minimumActivityRecognitionConfidence` | `Integer %` | Optional | `80` | Each activity-recognition-result returned |
 | `stopDetectionDelay` | `Integer` | Optional | 0 | Allows the stop-detection system to be delayed from activating.|
 | `stopTimeout` | `Integer` | Required | `5 minutes` | The number of miutes to wait before turning off the GPS after the ActivityRecognition System (ARS) detects the device is `STILL` (**Android:** defaults to 0, no timeout, **iOS:** defaults to 5min).  If you don't set a value, the plugin is eager to turn off the GPS ASAP.  An example use-case for this configuration is to delay GPS OFF while in a car waiting at a traffic light.
  by the API is tagged with a "confidence" level expressed as a %.  You can set your desired confidence to trigger a state-change. |

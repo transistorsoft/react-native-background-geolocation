@@ -6,15 +6,15 @@
 	<dict>
 		<key>Headers/SOMotionDetector.h</key>
 		<data>
-		OsZE8RGPrWVNEZCVhJtKfO957+s=
+		U0pTz1bOg/enpWPURiR2cMP2ZNc=
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		wxjb1wk6PWZ5fvUgW+2YAQnyqh4=
+		paXG4ybi1J/fdU7nmDjwTAOerow=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		s7xTqPv73RgEwo4mv98KaRJnjEo=
+		CAiJsqa9DmslP5Cud97eLrI5Gg4=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -25,11 +25,11 @@
 	<dict>
 		<key>Headers/SOMotionDetector.h</key>
 		<data>
-		OsZE8RGPrWVNEZCVhJtKfO957+s=
+		U0pTz1bOg/enpWPURiR2cMP2ZNc=
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		wxjb1wk6PWZ5fvUgW+2YAQnyqh4=
+		paXG4ybi1J/fdU7nmDjwTAOerow=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>

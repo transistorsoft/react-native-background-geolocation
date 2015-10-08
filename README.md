@@ -27,7 +27,7 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
 | `stationaryRadius` | `Integer`  |  Required | `20`  | When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage. Note, since the plugin uses iOS significant-changes API, the plugin cannot detect the exact moment the device moves out of the stationary-radius. In normal conditions, it can take as much as 3 city-blocks to 1/2 km before staionary-region exit is detected. |
 | `disableElasticity` | `bool`  |  Optional | `false`  | Set true to disable automatic speed-based `#distanceFilter` elasticity. eg: When device is moving at highway speeds, locations are returned at ~ 1 / km. |
 | `activityType` | `String` | Required | `Other` | Presumably, this affects ios GPS algorithm.  See [Apple docs](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/CLLocationManager/CLLocationManager.html#//apple_ref/occ/instp/CLLocationManager/activityType) for more information | Set the desired interval for active location updates, in milliseconds.
-| `stopAfterElapsedMinutes` | `Integer`  |  Optional | `0`  | The plugin can optionally auto-stop monitoring
+| `stopAfterElapsedMinutes` | `Integer`  |  Optional | `0`  | The plugin can optionally auto-stop monitoring the location after some number of minutes elapse after being the `#start` method was called. |
 
 ## Activity & Stop-detection Options
 
@@ -45,7 +45,6 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
 |---|---|---|---|---|
 | `debug` | `Boolean` | Optional | `false` | When enabled, the plugin will emit sounds for life-cycle events of background-geolocation!  **NOTE iOS**:  In addition, you must manually enable the *Audio and Airplay* background mode in *Background Capabilities* to hear these debugging sounds. |
 | `stopOnTerminate` | `Boolean` | Optional | `true` | Enable this in order to force a stop() when the application terminated (e.g. on iOS, double-tap home button, swipe away the app). On Android, stopOnTerminate: false will cause the plugin to operate as a headless background-service (in this case, you should configure an #url in order for the background-service to send the location to your server) |
- location when some number of minutes elapse after being the #start method was called. |
 | `maxDaysToPersist` | `Integer` | Optional | `1` |  Maximum number of days to store a geolocation in plugin's SQLite database when your server fails to respond with `HTTP 200 OK`.  The plugin will continue attempting to sync with your server until `maxDaysToPersist` when it will give up and remove the location from the database. |
 
 ## HTTP Options

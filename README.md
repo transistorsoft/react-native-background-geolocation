@@ -60,18 +60,6 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
 | `autoSync` | `Boolean` | Optional | `true` | If you've enabeld HTTP feature by configuring an `#url`, the plugin will attempt to HTTP POST each location to your server **as it is recorded**.  If you set `autoSync: false`, it's up to you to **manually** execute the `#sync` method to initate the HTTP POST (**NOTE** The plugin will continue to persist **every** recorded location in the SQLite database until you execute `#sync`). |
 | `batchSync` | `Boolean` | Optional | `false` | Default is `false`.  If you've enabled HTTP feature by configuring an `#url`, `batchSync: true` will POST all the locations currently stored in native SQLite datbase to your server in a single HTTP POST request.  With `batchSync: false`, an HTTP POST request will be initiated for **each** location in database. |
 
-## [Android Options](#android-config)
-
-| Option | Type | Opt/Required | Default | Note |
-|---|---|---|---|---|
-| `locationUpdateInterval` | `Integer(ms)` | Required | `5000` | The location client will actively try to obtain location updates for your application at this interval, so it has a direct influence on the amount of power used by your application. Choose your interval wisely. |
-| `fastestLocationUpdateInterval` | `Integer` | Required | `1000` | This controls the fastest rate at which your application will receive location updates, which might be faster than `#locationUpdateInterval` in some situations (for example, if other  applications are triggering location updates). |
-
-| `forceReloadOnMotionChange` | `Boolean` | Optional | `false` | If the user closes the application while the background-tracking has been started,  location-tracking will continue on if `stopOnTerminate: false`.  You may choose to force the foreground application to reload (since this is where your Javascript runs).  `forceReloadOnMotionChange: true` will reload the app only when a state-change occurs from **stationary -> moving** or vice-versa. (**WARNING** possibly disruptive to user). |
-| `forceReloadOnLocationChange` | `Boolean` | Optional | `false` | If the user closes the application while the background-tracking has been started,  location-tracking will continue on if `stopOnTerminate: false`.  You may choose to force the foreground application to reload (since this is where your Javascript runs).  `forceReloadOnLocationChange: true` will reload the app when a new location is recorded. |
-| `forceReloadOnGeofence` | `Boolean` | Optional | `false` | If the user closes the application while the background-tracking has been started,  location-tracking will continue on if `stopOnTerminate: false`.  You may choose to force the foreground application to reload (since this is where your Javascript runs).  `forceReloadOnGeolocation: true` will reload the app only when a geofence crossing event has occurred. |
-| `startOnBoot` | `Boolean` | Optional | `false` | Set to `true` to start the background-service whenever the device boots.  Unless you configure the plugin to `forceReload` (ie: boot your app), you should configure the plugin's HTTP features so it can POST to your server in "headless" mode. |
-
 ## Events
 
 | Event Name | Returns | Notes

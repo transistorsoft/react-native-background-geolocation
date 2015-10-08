@@ -56,6 +56,13 @@ typedef enum
 @property (nonatomic, readonly) CMAcceleration acceleration;
 @property (nonatomic, readonly) BOOL isShaking;
 
+/**
+ * Set this parameter to YES if you want to use M7 chip to detect more exact motion type. By default is No.
+ * Set this parameter before calling startDetection method.
+ * Available only on devices that have M7 chip. At this time only the iPhone 5S, iPhone6/6plus, the iPad Air and iPad mini with retina display have the M7 coprocessor.
+ */
+@property (nonatomic) BOOL useM7IfAvailable NS_AVAILABLE_IOS(7_0);
+
 // For debug/diagnostics mode
 @property (nonatomic) BOOL debug;
 @property (nonatomic) NSString *statedActivity;
@@ -93,12 +100,12 @@ typedef enum
 - (void)setMinimumRunningAcceleration:(CGFloat)acceleration;
 
 /**
- *@param Collect diagnostics data when set to YES
+ * Return the human-readable motion activity name
  */
-- (void)setDebugMode:(BOOL)debug;
-
 - (NSString*) motionActivityName;
-
+/**
+ * Return confidence of current motion activity name
+ */
 - (int) motionActivityConfidence;
 
 /**

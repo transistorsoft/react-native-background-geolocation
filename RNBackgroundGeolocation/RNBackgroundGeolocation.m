@@ -114,7 +114,7 @@ RCT_EXPORT_METHOD(finish:(int)taskId)
     [locationManager stopBackgroundTask:taskId];
 }
 
-RCT_EXPORT_METHOD(getCurrentPosition:(RCTResponseSenderBlock)callback options:(NSDictionary*)options)
+RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options callback:(RCTResponseSenderBlock)callback)
 {
     if (currentPositionListeners == nil) {
         currentPositionListeners = [[NSMutableArray alloc] init];

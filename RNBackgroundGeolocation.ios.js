@@ -13,6 +13,9 @@ var BackgroundGeolocation = {
   setConfig: function(config) {
     BackgroundGeolocationManager.setConfig(config);
   },
+  getState: function(callback) {
+    BackgroundGeolocationManager.getState(callback);
+  },
   on: function(event, callback) {
     DeviceEventEmitter.addListener(event, callback);
   },
@@ -42,12 +45,13 @@ var BackgroundGeolocation = {
   },
   getCurrentPosition: function(callback, options) {
     options = options || {};
-    BackgroundGeolocationManager.getCurrentPosition(callback, options);
+    BackgroundGeolocationManager.getCurrentPosition(options, callback);
   },
   getOdometer: function(callback) {
     BackgroundGeolocationManager.getOdometer(callback);
   },
   resetOdometer: function(callback) {
+    console.log('resetOdometer: ', callback);
     BackgroundGeolocationManager.resetOdometer(callback);
   },
   addGeofence: function(config, callbackFn, failureFn) {

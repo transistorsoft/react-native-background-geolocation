@@ -48,7 +48,9 @@ RCT_EXPORT_MODULE();
 RCT_EXPORT_METHOD(configure:(NSDictionary*)config)
 {
     RCTLogInfo(@"- RCTBackgroundGeolocation #configure");
-    [locationManager configure:config];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [locationManager configure:config];
+    });
 }
 
 RCT_EXPORT_METHOD(onStationary)
@@ -68,14 +70,24 @@ RCT_EXPORT_METHOD(setConfig:(NSDictionary*)config)
     [locationManager setConfig:config];
 }
 
+RCT_EXPORT_METHOD(getState:(RCTResponseSenderBlock)callback)
+{
+    RCTLogInfo(@"- getState");
+    NSDictionary *state = [locationManager getState];
+    callback(@[state]);
+    
+}
+
 /**
  * Turn on background geolocation
  */
 RCT_EXPORT_METHOD(start:(RCTResponseSenderBlock)callback)
 {
     RCTLogInfo(@"- RCTBackgroundGeoLocation start");
-    [locationManager start];
-    callback(@[]);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [locationManager start];
+        callback(@[]);
+    });
 }
 /**
  * Turn it off
@@ -114,7 +126,7 @@ RCT_EXPORT_METHOD(finish:(int)taskId)
     [locationManager stopBackgroundTask:taskId];
 }
 
-RCT_EXPORT_METHOD(getCurrentPosition:(RCTResponseSenderBlock)callback options:(NSDictionary*)options)
+RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options callback:(RCTResponseSenderBlock)callback)
 {
     if (currentPositionListeners == nil) {
         currentPositionListeners = [[NSMutableArray alloc] init];

@@ -17,7 +17,7 @@ var BackgroundGeolocation = {
     BackgroundGeolocationManager.getState(callback);
   },
   on: function(event, callback) {
-    DeviceEventEmitter.addListener(event, callback);
+    return DeviceEventEmitter.addListener(event, callback);
   },
   start: function(callback) {
     BackgroundGeolocationManager.start(callback);
@@ -26,13 +26,13 @@ var BackgroundGeolocation = {
     BackgroundGeolocationManager.stop();
   },
   onMotionChange: function(callback) {
-    DeviceEventEmitter.addListener("motionchange", callback);
+    return DeviceEventEmitter.addListener("motionchange", callback);
   },
   onLocation: function(callback) {
-    DeviceEventEmitter.addListener("location", callback);
+    return DeviceEventEmitter.addListener("location", callback);
   },
   onGeofence: function(callback) {
-    DeviceEventEmitter.addListener("geofence", callback);
+    return DeviceEventEmitter.addListener("geofence", callback);
   },
   sync: function(callback) {
     BackgroundGeolocation.sync(callback);
@@ -43,7 +43,11 @@ var BackgroundGeolocation = {
   finish: function(taskId) {
     BackgroundGeolocationManager.finish(taskId);
   },
-  getCurrentPosition: function(callback, options) {
+  getCurrentPosition: function(options, callback) {
+    if (typeof options === 'function') {
+      callback = options;
+      options = {};
+    }
     options = options || {};
     BackgroundGeolocationManager.getCurrentPosition(options, callback);
   },

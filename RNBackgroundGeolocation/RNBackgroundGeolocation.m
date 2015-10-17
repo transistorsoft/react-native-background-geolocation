@@ -240,11 +240,72 @@ RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier)
 
 - (void) onLocationManagerError:(NSNotification*)notification
 {
-    RCTLogInfo(@" - onLocationManagerError: %@", notification.userInfo);
+    RCTLogInfo(@" - onLocationManagerError: %@", notification);
     
     NSString *errorType = [notification.userInfo objectForKey:@"type"];
     if ([errorType isEqualToString:@"location"]) {
-        
+        NSString *err = @"Unknown";
+        long code = [notification.userInfo[@"code"] integerValue];
+        switch (code) {
+            case kCLErrorLocationUnknown:
+                err = @"kCLErrorLocationUnknown";
+                break;
+            case kCLErrorDenied:
+                err = @"kCLErrorDenied";
+                break;
+            case kCLErrorNetwork:
+                err = @"kCLErrorNetwork";
+                break;
+            case kCLErrorHeadingFailure:
+                err = @"kCLErrorHeadingFailure";
+                break;
+            case kCLErrorRegionMonitoringDenied:
+                err = @"kCLErrorRegionMonitoringDenied";
+                break;
+            case kCLErrorRegionMonitoringFailure:
+                err = @"kCLErrorRegionMonitoringFailure";
+                break;
+            case kCLErrorRegionMonitoringSetupDelayed:
+                err = @"kCLErrorRegionMonitoringSetupDelayed";
+                break;
+            case kCLErrorRegionMonitoringResponseDelayed:
+                err = @"kCLErrorRegionMonitoringResponseDelayed";
+                break;
+            case kCLErrorGeocodeFoundNoResult:
+                err = @"kCLErrorGeocodeFoundNoResult";
+                break;
+            case kCLErrorGeocodeFoundPartialResult:
+                err = @"kCLErrorGeocodeFoundPartialResult";
+                break;
+            case kCLErrorGeocodeCanceled:
+                err = @"kCLErrorGeocodeCanceled";
+                break;
+            case kCLErrorDeferredFailed:
+                err = @"kCLErrorDeferredFailed";
+                break;
+            case kCLErrorDeferredNotUpdatingLocation:
+                err = @"kCLErrorDeferredNotUpdatingLocation";
+                break;
+            case kCLErrorDeferredAccuracyTooLow:
+                err = @"kCLErrorDeferredAccuracyTooLow";
+                break;
+            case kCLErrorDeferredDistanceFiltered:
+                err = @"kCLErrorDeferredDistanceFiltered";
+                break;
+            case kCLErrorDeferredCanceled:
+                err = @"kCLErrorDeferredCanceled";
+                break;
+            case kCLErrorRangingUnavailable:
+                err = @"kCLErrorRangingUnavailable";
+                break;
+            case kCLErrorRangingFailure:
+                err = @"kCLErrorRangingFailure";
+                break;
+            default:
+                break;
+        }
+        NSDictionary *message = @{@"errorType":err, @"code":notification.userInfo[@"code"]};
+        [_bridge.eventDispatcher sendDeviceEventWithName:@"onLocationManagerError" body:@[message]];
     }
 }
 

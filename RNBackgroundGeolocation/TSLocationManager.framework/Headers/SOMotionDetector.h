@@ -27,6 +27,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreMotion/CoreMotion.h>
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @class SOMotionDetector;
 typedef enum
@@ -52,9 +53,12 @@ typedef enum
 @property (nonatomic, readonly) SOMotionType motionType;
 @property (nonatomic, readonly) CMMotionActivity* motionActivity;
 
+@property (nonatomic) CLLocation* location;
 @property (nonatomic) double currentSpeed;
 @property (nonatomic, readonly) CMAcceleration acceleration;
 @property (nonatomic, readonly) BOOL isShaking;
+@property (nonatomic) double accelerometerUpdateInterval;
+
 
 /**
  * Set this parameter to YES if you want to use M7 chip to detect more exact motion type. By default is No.
@@ -98,6 +102,11 @@ typedef enum
  *@param acceleration  The minimum acceleration value less than which will be considered as non shaking state
  */
 - (void)setMinimumRunningAcceleration:(CGFloat)acceleration;
+
+/**
+ * @param location Set the current location
+ */
+- (void)setLocation:(CLLocation*)location isMoving:(BOOL)isMoving;
 
 /**
  * Return the human-readable motion activity name

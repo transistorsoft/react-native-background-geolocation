@@ -25,6 +25,9 @@ var BackgroundGeolocation = {
   stop: function() {
     BackgroundGeolocationManager.stop();
   },
+  onHttp: function(callback) {
+    return DeviceEventEmitter.addListener("http", callback);
+  },
   onMotionChange: function(callback) {
     return DeviceEventEmitter.addListener("motionchange", callback);
   },
@@ -43,22 +46,22 @@ var BackgroundGeolocation = {
   finish: function(taskId) {
     BackgroundGeolocationManager.finish(taskId);
   },
-  getCurrentPosition: function(options, callback) {
-    if (typeof options === 'function') {
-      callback = options;
+  getCurrentPosition: function(options, success, failure) {
+    if (typeof(options) === 'function') {
+      success = options;
       options = {};
     }
     options = options || {};
-    BackgroundGeolocationManager.getCurrentPosition(options, callback);
+    failure = failure || function() {};
+    BackgroundGeolocationManager.getCurrentPosition(options, success, failure);
   },
   getOdometer: function(callback) {
     BackgroundGeolocationManager.getOdometer(callback);
   },
   resetOdometer: function(callback) {
-    console.log('resetOdometer: ', callback);
     BackgroundGeolocationManager.resetOdometer(callback);
   },
-  addGeofence: function(config, callbackFn, failureFn) {
+  addGeofence: function(config) {
     BackgroundGeolocationManager.addGeofence(
       config.identifier,
       config.radius,

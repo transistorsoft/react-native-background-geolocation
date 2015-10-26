@@ -30,14 +30,13 @@ RCT_EXPORT_MODULE();
     self = [super init];
     if (self) {
         locationManager = [[TSLocationManager alloc] init];
-        
-        // Capture #location & #stationary events from TSLocationManager
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLocationChanged:) name:@"TSLocationManager.location" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMotionChange:) name:@"TSLocationManager.motionchange" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onEnterGeofence:) name:@"TSLocationManager.geofence" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSyncComplete:) name:@"TSLocationManager.sync" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLocationManagerError:) name:@"TSLocationManager.error" object:nil];
-        
+                
+        locationManager.locationChangedBlock  = [self createLocationChangedHandler];
+        locationManager.motionChangedBlock    = [self createMotionChangedHandler];
+        locationManager.geofenceBlock         = [self createGeofenceHandler];
+        locationManager.syncCompleteBlock     = [self createSyncCompleteHandler];
+        locationManager.httpResponseBlock     = [self createHttpResponseHandler];
+        locationManager.errorBlock            = [self createErrorHandler];
     }
     return self;
 }
@@ -126,12 +125,13 @@ RCT_EXPORT_METHOD(finish:(int)taskId)
     [locationManager stopBackgroundTask:taskId];
 }
 
-RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options callback:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options callback:(RCTResponseSenderBlock)callback failure:(RCTResponseSenderBlock)failure)
 {
     if (currentPositionListeners == nil) {
         currentPositionListeners = [[NSMutableArray alloc] init];
     }
-    [currentPositionListeners addObject:callback];
+    NSDictionary *callbacks = @{@"success":callback, @"failure":failure};
+    [currentPositionListeners addObject:callbacks];
     [locationManager updateCurrentPosition:options];
 }
 
@@ -194,63 +194,80 @@ RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier)
 /**
  * location handler from BackgroundGeolocation
  */
-- (void)onLocationChanged:(NSNotification*)notification {
-    RCTLogInfo(@"- RCTBackgroundGeoLocation onLocationChanged");
-    
-    CLLocation *location = [notification.userInfo objectForKey:@"location"];
-    
-    NSDictionary *locationData = [locationManager locationToDictionary:location];
-    
-    if ([currentPositionListeners count]) {
-        for (RCTResponseSenderBlock callback in self.currentPositionListeners) {
-            callback(@[locationData]);
-        }
-        [self.currentPositionListeners removeAllObjects];
-    }
-    [_bridge.eventDispatcher sendDeviceEventWithName:@"location" body:locationData];
-}
-
-- (void) onMotionChange:(NSNotification*)notification
-{
-    CLLocation *location        = [notification.userInfo objectForKey:@"location"];
-    NSDictionary *locationData  = [locationManager locationToDictionary:location];
-    
-    RCTLogInfo(@"- onMotionChanage: %@",locationData);
-    [_bridge.eventDispatcher sendDeviceEventWithName:@"motionchange" body:locationData];
-}
-
-- (void) onEnterGeofence:(NSNotification*)notification
-{
-    CLCircularRegion *region = [notification.userInfo objectForKey:@"geofence"];
-    
-    NSDictionary *params = @{
-        @"identifier": region.identifier,
-        @"action": [notification.userInfo objectForKey:@"action"]
-    };
-    
-    [_bridge.eventDispatcher sendDeviceEventWithName:@"geofence" body:params];
-    RCTLogInfo(@"- onEnterGeofence: %@", params);
-}
-
-- (void) onSyncComplete:(NSNotification*)notification
-{
-    RCTLogInfo(@"- onSyncComplete");
-    [_bridge.eventDispatcher sendDeviceEventWithName:@"sync" body:@[[notification.userInfo objectForKey:@"locations"]]];
-}
-
-- (void) onLocationManagerError:(NSNotification*)notification
-{
-    RCTLogInfo(@" - onLocationManagerError: %@", notification.userInfo);
-    
-    NSString *errorType = [notification.userInfo objectForKey:@"type"];
-    if ([errorType isEqualToString:@"location"]) {
+-(void (^)(CLLocation *location, BOOL moving)) createLocationChangedHandler {
+    return ^(CLLocation *location, BOOL moving) {
+        RCTLogInfo(@"- RCTBackgroundGeoLocation onLocationChanged");
         
-    }
+        NSDictionary *locationData = [locationManager locationToDictionary:location];
+        
+        if ([currentPositionListeners count]) {
+            for (NSDictionary *callback in self.currentPositionListeners) {
+                RCTResponseSenderBlock success = [callback objectForKey:@"success"];
+                success(@[locationData]);
+            }
+            [self.currentPositionListeners removeAllObjects];
+        }
+        [_bridge.eventDispatcher sendDeviceEventWithName:@"location" body:locationData];
+    };
+}
+
+-(void (^)(CLLocation *location, BOOL moving)) createMotionChangedHandler {
+    return ^(CLLocation *location, BOOL moving) {
+        NSDictionary *locationData  = [locationManager locationToDictionary:location];
+        
+        RCTLogInfo(@"- onMotionChanage: %@",locationData);
+        [_bridge.eventDispatcher sendDeviceEventWithName:@"motionchange" body:locationData];
+    };
+}
+
+-(void (^)(CLCircularRegion *region, CLLocation *location, NSString *action)) createGeofenceHandler {
+    return ^(CLCircularRegion *region, CLLocation *location, NSString *action) {
+        NSDictionary *params = @{
+            @"identifier": region.identifier,
+            @"action": action,
+            @"location": [locationManager locationToDictionary:location]
+        };
+        [_bridge.eventDispatcher sendDeviceEventWithName:@"geofence" body:params];
+        RCTLogInfo(@"- onEnterGeofence: %@", params);
+    };
+}
+
+-(void (^)(NSArray *locations)) createSyncCompleteHandler {
+    return ^(NSArray *locations) {
+        RCTLogInfo(@"- onSyncComplete");
+        [_bridge.eventDispatcher sendDeviceEventWithName:@"sync" body:@[locations]];
+    };
+}
+
+-(void (^)(NSInteger statusCode, NSDictionary *requestData, NSData *responseData, NSError *error)) createHttpResponseHandler {
+    return ^(NSInteger statusCode, NSDictionary *requestData, NSData *responseData, NSError *error) {
+        BOOL success = (statusCode >= 200 && statusCode <= 204);
+        NSDictionary *response  = @{@"status":@(statusCode), @"responseText":[[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding]};
+        RCTLogInfo(@"- onHttpResponse");
+        [_bridge.eventDispatcher sendDeviceEventWithName:@"sync" body:response];
+    };
+}
+
+-(void (^)(NSString *type, NSError *error)) createErrorHandler {
+    return ^(NSString *type, NSError *error) {
+        RCTLogInfo(@" - onLocationManagerError: %@", error);
+
+        if ([type isEqualToString:@"location"]) {
+            if ([currentPositionListeners count]) {
+                for (NSDictionary *callback in self.currentPositionListeners) {
+                    RCTResponseSenderBlock failure = [callback objectForKey:@"failure"];
+                    failure(@[@(error.code)]);
+                }
+                [self.currentPositionListeners removeAllObjects];
+            }
+        }
+        [_bridge.eventDispatcher sendDeviceEventWithName:@"error" body:@[type, @(error.code)]];
+    };
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 }
 
 @end

@@ -37,6 +37,9 @@ var BackgroundGeolocation = {
   onGeofence: function(callback) {
     return DeviceEventEmitter.addListener("geofence", callback);
   },
+  onError: function(callback) {
+    return DeviceEventEmitter.addListener("error", callback);
+  },
   sync: function(callback) {
     BackgroundGeolocation.sync(callback);
   },

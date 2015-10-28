@@ -62,8 +62,11 @@ bgGeo.setConfig({
 
 ## Events
 
+The following events can all be listened-to via the method `#on(eventName, callback)`, supplying `location`, `motionchange`, `geofence` or `http` for `eventName`.
+
 | Event Name | Notes
 |---|---|
+| [`onLocation`]() | Fired whenever a new location is recorded |
 | [`onMotionChange`](#onmotionchangecallbackfn-failurefn) | Fired when the device changes stationary / moving state. |
 | [`onGeofence`](#ongeofencecallbackfn) | Fired when a geofence crossing event occurs |
 | [`onHttp`](#onhttpsuccessfn-failurefn) | Fired after a successful HTTP response. `response` object is provided with `status` and `responseText`|

@@ -62,11 +62,12 @@ bgGeo.setConfig({
 
 ## Events
 
-The following events can all be listened-to via the method `#on(eventName, callback)`, supplying `location`, `motionchange`, `geofence` or `http` for `eventName`.
+The following events can all be listened-to via the method `#on(eventName, callback)`, supplying `location`, `motionchange`, `geofence` `error', or `http` for `eventName`.
 
 | Event Name | Notes
 |---|---|
 | [`onLocation`]() | Fired whenever a new location is recorded |
+| [`onError`]() | Fired whenever an error occurs (eg: `location`, `geofence`) |
 | [`onMotionChange`](#onmotionchangecallbackfn-failurefn) | Fired when the device changes stationary / moving state. |
 | [`onGeofence`](#ongeofencecallbackfn) | Fired when a geofence crossing event occurs |
 | [`onHttp`](#onhttpsuccessfn-failurefn) | Fired after a successful HTTP response. `response` object is provided with `status` and `responseText`|
@@ -283,7 +284,7 @@ Set to ```true``` to start the background-service whenever the device boots.  Un
 
 # Events
 
-The following events can all be listened-to via the method `#on(eventName, callback)`, supplying `location`, `motionchange`, `geofence` or `http` for `eventName`.
+The following events can all be listened-to via the method `#on(eventName, callback)`, supplying `location`, `motionchange`, `error`, `geofence` or `http` for `eventName`.
 
 ####`onLocation(callbackFn)`
 Your ```callbackFn``` will be executed each time the plugin records a new location.  The `callbackFn` will be provided with the following parameters:
@@ -299,12 +300,33 @@ bgGeo.onLocation(function(location) {
 
 ```
 
+####`onError(callbackFn)`
+Your ```callbackFn``` will be executed each time an error occurs.  The `callbackFn` will be provided a single `{Object}` parameter containing the following properties:
+
+######@param {String} type ["location" | "geofence"] The type of error
+######@param {Number} code See Wiki [Error Codes](../../../wiki/Error-Codes) for details.
+
+eg: 
+```
+bgGeo.onError(function(error) {
+  var type = error.type;
+  var code = error.code;
+  alert(type + " Error: " + code);
+});
+
+// or using alternate syntax:
+
+bgGeo.on("error", function(error) {
+	alert(error.type + " error: " + error.code);
+});
+
+```
+
 ####`onMotionChange(callbackFn)`
-Your ```callbackFn``` will be executed each time the device has changed-state between **MOVING** or **STATIONARY**.  The ```callbackFn``` will be provided with a ```Location``` object as the 1st param, with the usual params (```latitude, longitude, accuracy, speed, bearing, altitude```), in addition to a ```taskId``` used to signal that your callback is finished.
+Your ```callbackFn``` will be executed each time the device has changed-state between **MOVING** or **STATIONARY**.  The ```callbackFn``` will be provided with a ```Location``` object as the 1st param, with the usual params (```latitude, longitude, accuracy, speed, bearing, altitude```).
 
 ######@param {Boolean} isMoving `false` if entered **STATIONARY** mode; `true` if entered **MOVING** mode.
 ######@param {Object} location The location at the state-change.
-######@param {Integer} taskId The taskId used to send to bgGeo.finish(taskId) in order to signal completion of your callbackFn
 
 ```
 bgGeo.onMotionChange(function(isMoving, location) {
@@ -321,10 +343,9 @@ bgGeo.onMotionChange(function(isMoving, location) {
 Adds a geofence event-listener.  Your supplied callback will be called when any monitored geofence crossing occurs.  The `callbackFn` will be provided the following parameters:
 
 ######@param {Object} params.  This object contains 2 keys: `@param {String} identifier`, `@param {String} action [ENTER|EXIT]` and `@param {Object} location`.
-######@param {Integer} taskId The background taskId which you must send back to the native plugin via `bgGeo.finish(taskId)` in order to signal that your callback is complete.
 
 ```
-bgGeo.onGeofence(function(params, taskId) {
+bgGeo.onGeofence(function(params) {
     try {
         var location = params.location;
         var identifier = params.identifier;

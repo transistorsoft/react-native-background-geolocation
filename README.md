@@ -146,84 +146,26 @@ When the plugin detects the device has moved beyond its configured #stationaryRa
 
 Using the ActivityRecognition API, Android will constantly monitor [the nature](https://developer.android.com/reference/com/google/android/gms/location/DetectedActivity.html) of the device's movement at a sampling-rate configured by ```#activityRecognitionRate```.  When the plugin sees a DetectedActivity of [STILL](https://developer.android.com/reference/com/google/android/gms/location/DetectedActivity.html), location-updates will be halted -- when it sees ```IN_VEHICLE, ON_BICYCLE, ON_FOOT, RUNNING, WALKING```, location-updates will be initiated.
 
-# Geofence Features
+The MIT License (MIT)
 
-![Geofence Features](https://www.dropbox.com/s/609iibr6ofzoq7p/Screenshot%202015-06-06%2017.05.33.png?dl=1)
+Copyright (c) 2015 Chris Scott, Transistor Software
 
-The plugin includes native **geofencing** features.  You may add, remove and query the list of monitored geofences from the native plugin.  The native plugin will persist monitored geofences and re-initiate them when the app boots or the device is restarted.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-A monitored geofence **will remain active** until you explicity remove it via `bgGeo.removeGeofence(identifier)`.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-#### Geofence Model
-
-#####`@param {String} identifier`
-
-A unique `String` to identify your Geofence, eg: "Home", "Office".
-
-#####`@param {Integer} radius`
-
-The radius of the circular geofence.  A radius of >100 meters works best.
-
-#####`@param {Boolean} notifyOnEntry`
-
-Transitioning **into** the geofence will generate an event.
-
-#####`@param {Boolean} notifyOnExit`
-
-Transitioning **out of** the geofence will generate an event.
-
-#### Listening to Geofence Events
-
-Listen to geofence transition events using the method `#onGeofence`.  You may set up any number of `#onGeofence` event-listeners throughout your code -- they will all be executed.
-
-```
-    bgGeo.addGeofence({
-        identifier: "Home",
-        radius: 200,
-        latitude: 47.2342323,
-        longitude: -57.342342,
-        notifyOnEntry: true
-    });
-    
-    bgGeo.onGeofence(function(geofence, taskId) {
-        try {
-            console.log("- A Geofence transition occurred");
-            console.log("  identifier: ", geofence.identifier);
-            console.log("  action: ", geofence.action);
-        } catch(e) {
-            console.error("An error occurred in my code!", e);
-        }
-        // Be sure to call #finish!!
-        bgGeo.finish(taskId);
-    });
-```
-
-#### Removing Geofences
-
-The native plugin will continue to monitor geofences and fire transition-events until you explicity tell the plugin to remove a geofence via `#removeGeofence(identifier)`.
-
-```
-    bgGeo.removeGeofence("Home");
-
-```
-
-#### Querying Geofences
-
-The native plugin persists monitored geofences between application boots and device restarts.  When your app boots, you can fetch the currently monitored geofences from the native plugin and, for example, re-draw markers on your map.
-
-```
-    bgGeo.getGeofences(function(geofences) {
-        for (var n=0,len=geofences.length;n<len;n++) {
-            var geofence = geofences[n];
-            var marker = new google.maps.Circle({
-                radius: parseInt(geofence.radius, 10),
-                center: new google.maps.LatLng(geofence.latitude, geofence.longitude),
-                map: myMapInstance
-            });
-        }
-    });
-```
-
-# Test new docs format
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 

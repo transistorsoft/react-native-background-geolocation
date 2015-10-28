@@ -62,8 +62,9 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
 
 | Event Name | Returns | Notes
 |---|---|---|
-| `onMotionChange` | `{location}, `taskId` | Fired when the device changes stationary / moving state. |
-| `onGeofence` | `{geofence}`, `taskId` | Fired when a geofence crossing event occurs |
+| `onMotionChange` | `{location} | Fired when the device changes stationary / moving state. |
+| `onGeofence` | `{geofence}` | Fired when a geofence crossing event occurs |
+| `onHttp` | `{response}` | Fired after an HTTP response from your server (success and failure) |
 
 ## [Methods](#methods-1)
 
@@ -74,7 +75,7 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
 | `getState` | `callbackFn` | Fetch plugins current state (eg: `{enabled: true, isMoving: true, distanceFilter: 0}`|
 | `start` | `callbackFn`| Enable location tracking.  Supplied `callbackFn` will be executed when tracking is successfully engaged |
 | `stop` | `callbackFn` | Disable location tracking.  Supplied `callbackFn` will be executed when tracking is successfully engaged |
-| `getCurrentPosition` | `callbackFn`, `options` | Retrieves the current position. This method instructs the native code to fetch exactly one location using maximum power & accuracy. |
+| `getCurrentPosition` | `options`, `successFn`, `failureFn` | Retrieves the current position. This method instructs the native code to fetch exactly one location using maximum power & accuracy. |
 | `changePace` | `isMoving` | Initiate or cancel immediate background tracking. When set to true, the plugin will begin aggressively tracking the devices Geolocation, bypassing stationary monitoring. If you were making a "Jogging" application, this would be your [Start Workout] button to immediately begin GPS tracking. Send false to disable aggressive GPS monitoring and return to stationary-monitoring mode. |
 | `getLocations` | `callbackFn` | Fetch all the locations currently stored in native plugin's SQLite database. Your callbackFn`` will receive an `Array` of locations in the 1st parameter |
 | `sync` | - | If the plugin is configured for HTTP with an `#url` and `#autoSync: false`, this method will initiate POSTing the locations currently stored in the native SQLite database to your configured `#url`|

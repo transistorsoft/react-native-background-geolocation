@@ -62,13 +62,7 @@ var BackgroundGeolocation = {
     BackgroundGeolocationManager.resetOdometer(callback);
   },
   addGeofence: function(config) {
-    BackgroundGeolocationManager.addGeofence(
-      config.identifier,
-      config.radius,
-      config.latitude,
-      config.longitude,
-      config.notifyOnEntry,
-      config.notifyOnExit);
+    BackgroundGeolocationManager.addGeofence(config);
   },
   removeGeofence: function(identifier) {
     BackgroundGeolocationManager.removeGeofence(identifier);

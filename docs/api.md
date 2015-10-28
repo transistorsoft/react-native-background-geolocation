@@ -288,7 +288,7 @@ The following events can all be listened-to via the method `#on(eventName, callb
 ####`onLocation(callbackFn)`
 Your ```callbackFn``` will be executed each time the plugin records a new location.  The `callbackFn` will be provided with the following parameters:
 
-######@param {Object} location (see Wiki [Location Data Schema](../../..//wiki/Location-Data-Schema)
+######@param {Object} location (see Wiki [Location Data Schema](../../..//wiki/Location-Data-Schema))
 
 ```
 bgGeo.onLocation(function(location) {

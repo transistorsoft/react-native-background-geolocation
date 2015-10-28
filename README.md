@@ -3,6 +3,8 @@ Background Geolocation for React Native
 
 Cross-platform background geolocation module for React Native with battery-saving **"circular stationary-region monitoring"** and **"stop detection"**.
 
+_Please note that **only iOS support is included with the free version** of this plugin and that **Android support will require a [paid license](http://shop.transistorsoft.com/pages/react-native-background-geolocation)**._
+
 **Android support is not yet implemented.**
 
 ![Home](https://www.dropbox.com/s/4cggjacj68cnvpj/screenshot-iphone5-geofences-framed.png?dl=1)

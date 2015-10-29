@@ -142,13 +142,9 @@ The function ```changePace(isMoving, success, failure)``` is provided to force t
 
 The plugin uses iOS Significant Changes API, and starts triggering your configured ```callback``` only when a cell-tower switch is detected (i.e. the device exits stationary radius). 
 
-When the plugin detects the device has moved beyond its configured #stationaryRadius, it engages the native platform's geolocation system for aggressive monitoring according to the configured `#desiredAccuracy`, `#distanceFilter`.  The plugin attempts to intelligently scale `#distanceFilter` based upon the current reported speed.  Each time `#distanceFilter` is determined to have changed by 5m/s, it recalculates it by squaring the speed rounded-to-nearest-five and adding #distanceFilter (I arbitrarily came up with that formula.  Better ideas?).
+When the plugin detects the device has moved beyond its configured `#stationaryRadius` (typically 2-3 city blocks), it engages the native location API for **aggressive monitoring** according to the configured `#desiredAccuracy`, `#distanceFilter`.
 
-  `(round(speed, 5))^2 + distanceFilter`
-
-### Android
-
-Using the ActivityRecognition API, Android will constantly monitor [the nature](https://developer.android.com/reference/com/google/android/gms/location/DetectedActivity.html) of the device's movement at a sampling-rate configured by ```#activityRecognitionRate```.  When the plugin sees a DetectedActivity of [STILL](https://developer.android.com/reference/com/google/android/gms/location/DetectedActivity.html), location-updates will be halted -- when it sees ```IN_VEHICLE, ON_BICYCLE, ON_FOOT, RUNNING, WALKING```, location-updates will be initiated.
+The plugin will continue tracking the device's location even after the user closes the app (`stopOnTerminate: false`) or reboots the device.
 
 # License
 

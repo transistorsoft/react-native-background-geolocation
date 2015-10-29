@@ -82,7 +82,7 @@ var Foo = React.createClass({
     });
     
     // This handler fires whenever bgGeo receives an error
-    BackgroundGeolocation.on('location', function(error) {
+    BackgroundGeolocation.on('error', function(error) {
       var type = error.type;
       var code = error.code;
       alert(type + " Error: " + code);
@@ -97,7 +97,7 @@ var Foo = React.createClass({
       console.log('- [js] BackgroundGeolocation started successfully');
       
       // Fetch current position
-      BackgroundGeolocation.getCurrentPosition({timeout: 30000}, function(location) {
+      BackgroundGeolocation.getCurrentPosition({timeout: 30}, function(location) {
         console.log('- [js] BackgroundGeolocation received current position: ', JSON.stringify(location));
       }, function(error) {
         alert("Location error: " + error);

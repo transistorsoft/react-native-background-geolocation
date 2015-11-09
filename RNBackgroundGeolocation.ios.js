@@ -1,53 +1,57 @@
-var React = require('react-native');
+const { React, DeviceEventEmitter} = require('react-native');
+const { RNBackgroundGeolocation } = require('react-native').NativeModules;
 
-var {
-  DeviceEventEmitter
-} = React;
+const TAG = "TSLocationManager";
 
-var BackgroundGeolocationManager = React.NativeModules.RNBackgroundGeolocation;
+var emptyFn = function() {};
 
-var BackgroundGeolocation = {
+var API = {
   configure: function(config) {
-    BackgroundGeolocationManager.configure(config);
+    RNBackgroundGeolocation.configure(config);
   },
   setConfig: function(config) {
-    BackgroundGeolocationManager.setConfig(config);
+    RNBackgroundGeolocation.setConfig(config);
   },
   getState: function(callback) {
-    BackgroundGeolocationManager.getState(callback);
+    RNBackgroundGeolocation.getState(callback);
   },
   on: function(event, callback) {
-    return DeviceEventEmitter.addListener(event, callback);
+    return DeviceEventEmitter.addListener(TAG + ':' + event, callback);
   },
-  start: function(callback) {
-    BackgroundGeolocationManager.start(callback);
+  start: function(success, failure) {
+    success = success || emptyFn;
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.start(success, failure);
   },
   stop: function() {
-    BackgroundGeolocationManager.stop();
+    RNBackgroundGeolocation.stop();
   },
   onHttp: function(callback) {
-    return DeviceEventEmitter.addListener("http", callback);
+    return DeviceEventEmitter.addListener(TAG + ":http", callback);
   },
   onMotionChange: function(callback) {
-    return DeviceEventEmitter.addListener("motionchange", callback);
+    return DeviceEventEmitter.addListener(TAG + ":motionchange", callback);
   },
   onLocation: function(callback) {
-    return DeviceEventEmitter.addListener("location", callback);
+    return DeviceEventEmitter.addListener(TAG + ":location", callback);
   },
   onGeofence: function(callback) {
-    return DeviceEventEmitter.addListener("geofence", callback);
+    return DeviceEventEmitter.addListener(TAG + ":geofence", callback);
   },
   onError: function(callback) {
-    return DeviceEventEmitter.addListener("error", callback);
+    return DeviceEventEmitter.addListener(TAG + ":error", callback);
   },
-  sync: function(callback) {
-    BackgroundGeolocation.sync(callback);
+  sync: function(success, failure) {
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.sync(success, failure);
   },
-  changePace: function(value) {
-    BackgroundGeolocationManager.changePace(value);
+  changePace: function(value, success, failure) {
+    success = success || emptyFn;
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.changePace(value, success, failure);
   },
   finish: function(taskId) {
-    BackgroundGeolocationManager.finish(taskId);
+    RNBackgroundGeolocation.finish(taskId);
   },
   getCurrentPosition: function(options, success, failure) {
     if (typeof(options) === 'function') {
@@ -55,24 +59,35 @@ var BackgroundGeolocation = {
       options = {};
     }
     options = options || {};
-    failure = failure || function() {};
-    BackgroundGeolocationManager.getCurrentPosition(options, success, failure);
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.getCurrentPosition(options, success, failure);
   },
-  getOdometer: function(callback) {
-    BackgroundGeolocationManager.getOdometer(callback);
+  getLocations: function(success, failure) {
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.getLocations(success, failure);
   },
-  resetOdometer: function(callback) {
-    BackgroundGeolocationManager.resetOdometer(callback);
+  getOdometer: function(success, failure) {
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.getOdometer(success, failure);
   },
-  addGeofence: function(config) {
-    BackgroundGeolocationManager.addGeofence(config);
+  resetOdometer: function(success, failure) {
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.resetOdometer(success, failure);
   },
-  removeGeofence: function(identifier) {
-    BackgroundGeolocationManager.removeGeofence(identifier);
+  addGeofence: function(config, success, failure) {
+    success = success || emptyFn;
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.addGeofence(config, success, failure);
   },
-  getGeofences: function(callback) {
-    BackgroundGeolocationManager.getGeofences(callback);
+  removeGeofence: function(identifier, success, failure) {
+    success = success || emptyFn;
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.removeGeofence(identifier, success, failure);
+  },
+  getGeofences: function(success, failure) {
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.getGeofences(success, failure);
   }
 };
 
-module.exports = BackgroundGeolocation;
+module.exports = API

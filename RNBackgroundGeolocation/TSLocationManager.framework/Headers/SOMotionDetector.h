@@ -37,7 +37,8 @@ typedef enum
     MotionTypeRunning,
     MotionTypeAutomotive,
     MotionTypeCycling,
-    MotionTypeUnknown
+    MotionTypeUnknown,
+    MotionTypeMoving
 } SOMotionType;
 
 @interface SOMotionDetector : NSObject
@@ -58,7 +59,7 @@ typedef enum
 @property (nonatomic, readonly) CMAcceleration acceleration;
 @property (nonatomic, readonly) BOOL isShaking;
 @property (nonatomic) double accelerometerUpdateInterval;
-
+@property (nonatomic) BOOL disableStopDetection;
 
 /**
  * Set this parameter to YES if you want to use M7 chip to detect more exact motion type. By default is No.
@@ -76,6 +77,7 @@ typedef enum
 - (void)stopDetection;
 - (void)stopShakeDetection;
 - (void)startShakeDetection;
+- (void)calculate;
 
 #pragma mark - Customization Methods
 

@@ -8,6 +8,10 @@
 		<data>
 		zoCqeAm48LIddebyGBRH8Zf1JDk=
 		</data>
+		<key>Headers/Settings.h</key>
+		<data>
+		RrrWno+xiMcLzYadZpBXAsUpqy8=
+		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
 		1AZid89zbukvSnKfLBxvia0qTYg=
@@ -18,7 +22,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		sGzOGbTjWrufPMfRjHej91SV+Tg=
+		5bHLJyj6XMd4Iq7cLD0Zt4GsqLA=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -30,6 +34,10 @@
 		<key>Headers/SOMotionDetector.h</key>
 		<data>
 		zoCqeAm48LIddebyGBRH8Zf1JDk=
+		</data>
+		<key>Headers/Settings.h</key>
+		<data>
+		RrrWno+xiMcLzYadZpBXAsUpqy8=
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>

@@ -91,6 +91,9 @@ The following events can all be listened-to via the method `#on(eventName, callb
 | [`addGeofence`](#addgeofenceobject) | `{config}` | Adds a geofence to be monitored by the native plugin. Monitoring of a geofence is halted after a crossing occurs. |
 | [`removeGeofence`](#removegeofenceidentifier) | `identifier` | Removes a geofence identified by the provided `identifier`. |
 | [`getGeofences`](#getgeofencescallbackfn) | `callbackFn` | Fetch the list of monitored geofences. Your callbackFn will be provided with an Array of geofences. If there are no geofences being monitored, you'll receive an empty `Array []`.|
+| [`beginBackgroundTask`](#beginBackgroundTaskcallbackfn) | `callbackFn`| Begins a native background-task (180s maximum allowed time).  For long-running methods which may execute asynchronous XHR requests, such as #sync or #getLocations, you should wrap your method-calls in a backgroundTask so that iOS does not suspend the app before your async request is complete. |
+| [`finish`](#finishtaskId) | `taskId`| Signal completion of a background-task initiated from #beginBackgroundTask.  It's **crucial** that you finish background-tasks because iOS will kill your app if you exceed the 180s limit.|
+
 
 # Geolocation Options
 
@@ -616,6 +619,36 @@ Your callback will be provided with the following params
         }
     });
 
+```
+
+####`beginBackgroundTask(callbackFn)`
+
+Begins a native background-task (180s maximum allowed time).  For long-running methods which may execute asynchronous XHR requests, such as #sync or #getLocations, you should wrap your method-calls in a backgroundTask so that iOS does not suspend the app before your async request is complete.  iOS will prevent suspending the app until you `#finish` the task.
+
+```
+  bgGeo.beginBackgroundTask(function(taskId) {
+
+    bgGeo.getLocations(function(locations) {
+      // Perform an Async XHR requests.
+      $.post({
+        url: 'http://your.server.com/locations',
+        method: 'POST',
+        success: function(response) {
+          bgGeo.finish(taskId); // <-- Signal to iOS that your background-task is complete.
+        }
+      });
+    });
+  });
+```
+
+####`finish(taskId)`
+
+Signal completion of a background-task initiated by #beginBackgroundTask.  It's **crucial** that you finish background-tasks because iOS will kill your app if you exceed the 180s limit.
+
+```
+  bgGeo.beginBackgroundTask(function(taskId) {
+    bgGeo.finish(taskId);
+  });
 ```
 
 ####`getOdometer(callbackFn)`

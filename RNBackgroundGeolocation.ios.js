@@ -50,6 +50,12 @@ var API = {
     failure = failure || emptyFn;
     RNBackgroundGeolocation.changePace(value, success, failure);
   },
+  beginBackgroundTask: function(callback) {
+    if (typeof(callback) !== 'function') {
+      throw "#beginBackgroundTask requires a callback";
+    }
+    RNBackgroundGeolocation.beginBackgroundTask(callback);
+  },
   finish: function(taskId) {
     RNBackgroundGeolocation.finish(taskId);
   },

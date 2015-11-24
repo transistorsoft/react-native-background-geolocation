@@ -21,6 +21,7 @@ static NSString *const TS_LOCATION_MANAGER_TAG = @"TSLocationManager";
 
 @synthesize bridge = _bridge;
 @synthesize currentPositionListeners;
+@synthesize syncCallback;
 
 RCT_EXPORT_MODULE();
 
@@ -98,6 +99,11 @@ RCT_EXPORT_METHOD(changePace:(BOOL)moving success:(RCTResponseSenderBlock)succes
     success(@[]);
 }
 
+RCT_EXPORT_METHOD(beginBackgroundTask:(RCTResponseSenderBlock)callback)
+{
+    RCTLogInfo(@"- RCTBackgroundGeolocation #beginBackgroundTask");
+    callback(@[@([locationManager createBackgroundTask])]);
+}
 /**
  * Called by js to signify the end of a background-geolocation event
  */
@@ -115,6 +121,29 @@ RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options success:(RCTResponse
     NSDictionary *callbacks = @{@"success":success, @"failure":failure};
     [currentPositionListeners addObject:callbacks];
     [locationManager updateCurrentPosition:options];
+}
+
+RCT_EXPORT_METHOD(getLocations:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    NSArray *rs = [locationManager getLocations];
+    success(@[rs]);
+}
+
+RCT_EXPORT_METHOD(sync:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    if (syncCallback != nil) {
+        failure(@[@"A sync action is already in progress."]);
+        return;
+    }
+    
+    NSArray* locations = [locationManager sync];
+    if (locations) {
+        // Important to set these before we execute #sync since this fires a *very fast* async NSNotification event!
+        syncCallback    = @{@"success":success, @"failure":failure};
+    } else {
+        syncCallback    = nil;
+        failure(@[@"Sync failed.  Is there a network connection?"]);
+    }
 }
 
 RCT_EXPORT_METHOD(getGeofences:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
@@ -208,6 +237,12 @@ RCT_EXPORT_METHOD(resetOdometer:(RCTResponseSenderBlock)success failure:(RCTResp
     return ^(NSArray *locations) {
         RCTLogInfo(@"- onSyncComplete");
         [self sendEvent:@"sync" array:@[locations]];
+        
+        if (syncCallback) {
+            RCTResponseSenderBlock success = [syncCallback objectForKey:@"success"];
+            success(@[locations]);
+            syncCallback = nil;
+        }
     };
 }
 

@@ -17,6 +17,7 @@
 @interface RNBackgroundGeolocation : NSObject <RCTBridgeModule>
 
 @property (nonatomic, strong) NSMutableArray* currentPositionListeners;
+@property (nonatomic, strong) NSDictionary* syncCallback;
 
 @end
 

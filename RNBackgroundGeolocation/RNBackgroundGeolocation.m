@@ -47,11 +47,12 @@ RCT_EXPORT_MODULE();
 /**
  * configure plugin
  */
-RCT_EXPORT_METHOD(configure:(NSDictionary*)config)
+RCT_EXPORT_METHOD(configure:(NSDictionary*)config callback:(RCTResponseSenderBlock)callback)
 {
     RCTLogInfo(@"- RCTBackgroundGeolocation #configure");
     dispatch_async(dispatch_get_main_queue(), ^{
         [locationManager configure:config];
+        [self getState:callback];
     });
 }
 

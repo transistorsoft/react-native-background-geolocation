@@ -6,8 +6,9 @@ const TAG = "TSLocationManager";
 var emptyFn = function() {};
 
 var API = {
-  configure: function(config) {
-    RNBackgroundGeolocation.configure(config);
+  configure: function(config, callback) {
+    callback = callback || function() {};
+    RNBackgroundGeolocation.configure(config, callback);
   },
   setConfig: function(config) {
     RNBackgroundGeolocation.setConfig(config);

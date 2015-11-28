@@ -197,6 +197,17 @@ RCT_EXPORT_METHOD(resetOdometer:(RCTResponseSenderBlock)success failure:(RCTResp
     success(@[]);
 }
 
+RCT_EXPORT_METHOD(clearDatabase:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    RCTLogInfo(@"clearDatabase");
+    BOOL result = [locationManager clearDatabase];
+    if (result) {
+        success(@[]);
+    } else {
+        failure(@[]);
+    }
+}
+
 -(void (^)(CLLocation *location, BOOL moving)) createLocationChangedHandler {
     return ^(CLLocation *location, BOOL moving) {
         RCTLogInfo(@"- RCTBackgroundGeoLocation onLocationChanged");

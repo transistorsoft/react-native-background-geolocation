@@ -73,6 +73,11 @@ var API = {
     failure = failure || emptyFn;
     RNBackgroundGeolocation.getLocations(success, failure);
   },
+  clearDatabase: function(success, failure) {
+    success = success || emptyFn;
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.clearDatabase(success, failure);
+  },
   getOdometer: function(success, failure) {
     failure = failure || emptyFn;
     RNBackgroundGeolocation.getOdometer(success, failure);

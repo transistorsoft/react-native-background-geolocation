@@ -58,8 +58,7 @@ typedef enum
 @property (nonatomic) double currentSpeed;
 @property (nonatomic, readonly) CMAcceleration acceleration;
 @property (nonatomic, readonly) BOOL isShaking;
-@property (nonatomic) double accelerometerUpdateInterval;
-@property (nonatomic) BOOL disableStopDetection;
+@property (nonatomic) NSTimeInterval accelerometerUpdateInterval;
 
 /**
  * Set this parameter to YES if you want to use M7 chip to detect more exact motion type. By default is No.
@@ -76,7 +75,7 @@ typedef enum
 - (void)startDetection;
 - (void)stopDetection;
 - (void)stopShakeDetection;
-- (void)startShakeDetection;
+- (void)startShakeDetection:(NSTimeInterval)sampleRate;
 - (void)calculate;
 
 #pragma mark - Customization Methods
@@ -84,6 +83,7 @@ typedef enum
 + (BOOL) motionHardwareAvailable;
 
 - (void) setMotionDetectionInterval:(int)interval;
+- (void) setAccelerometerUpdateInterval:(double)interval;
 
 /**
  *@param speed  The minimum speed value less than which will be considered as not moving state

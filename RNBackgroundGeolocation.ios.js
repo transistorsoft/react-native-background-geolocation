@@ -51,12 +51,6 @@ var API = {
     failure = failure || emptyFn;
     RNBackgroundGeolocation.changePace(value, success, failure);
   },
-  beginBackgroundTask: function(callback) {
-    if (typeof(callback) !== 'function') {
-      throw "#beginBackgroundTask requires a callback";
-    }
-    RNBackgroundGeolocation.beginBackgroundTask(callback);
-  },
   finish: function(taskId) {
     RNBackgroundGeolocation.finish(taskId);
   },
@@ -72,11 +66,6 @@ var API = {
   getLocations: function(success, failure) {
     failure = failure || emptyFn;
     RNBackgroundGeolocation.getLocations(success, failure);
-  },
-  clearDatabase: function(success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.clearDatabase(success, failure);
   },
   getOdometer: function(success, failure) {
     failure = failure || emptyFn;
@@ -99,6 +88,9 @@ var API = {
   getGeofences: function(success, failure) {
     failure = failure || emptyFn;
     RNBackgroundGeolocation.getGeofences(success, failure);
+  },
+  playSound: function(soundId) {
+    RNBackgroundGeolocation.playSound(soundId);
   }
 };
 

@@ -16,24 +16,22 @@
 static NSString *const TS_LOCATION_MANAGER_TAG = @"TSLocationManager";
 
 @implementation RNBackgroundGeolocation {
-    TSLocationManager *locationManager;
+    //TSLocationManager *locationManager;
 }
 
 @synthesize bridge = _bridge;
-@synthesize currentPositionListeners;
-@synthesize syncCallback;
+@synthesize currentPositionListeners, syncCallback, locationManager;
 
 RCT_EXPORT_MODULE();
 
 /**
  * Create TSLocationManager instance
  */
--(id)init
+-(instancetype)init
 {
     self = [super init];
     if (self) {
         locationManager = [[TSLocationManager alloc] init];
-        
         locationManager.locationChangedBlock  = [self createLocationChangedHandler];
         locationManager.motionChangedBlock    = [self createMotionChangedHandler];
         locationManager.geofenceBlock         = [self createGeofenceHandler];
@@ -207,14 +205,18 @@ RCT_EXPORT_METHOD(clearDatabase:(RCTResponseSenderBlock)success failure:(RCTResp
         failure(@[]);
     }
 }
+RCT_EXPORT_METHOD(playSound:(int)soundId)
+{
+    [locationManager playSound: soundId];
+}
 
--(void (^)(CLLocation *location, BOOL moving)) createLocationChangedHandler {
-    return ^(CLLocation *location, BOOL moving) {
+-(void (^)(CLLocation *location, enum tsLocationType, BOOL isMoving)) createLocationChangedHandler {
+    return ^(CLLocation *location, enum tsLocationType type, BOOL isMoving) {
         RCTLogInfo(@"- RCTBackgroundGeoLocation onLocationChanged");
         
-        NSDictionary *locationData = [locationManager locationToDictionary:location];
+        NSDictionary *locationData = [locationManager locationToDictionary:location type:type];
         
-        if ([currentPositionListeners count]) {
+        if (type != TS_LOCATION_TYPE_SAMPLE && [currentPositionListeners count]) {
             for (NSDictionary *callback in self.currentPositionListeners) {
                 RCTResponseSenderBlock success = [callback objectForKey:@"success"];
                 success(@[locationData]);
@@ -297,7 +299,7 @@ RCT_EXPORT_METHOD(clearDatabase:(RCTResponseSenderBlock)success failure:(RCTResp
 
 - (void)dealloc
 {
-    
+    NSLog(@"- RNBackgroundGeolocation dealloc");
 }
 
 @end

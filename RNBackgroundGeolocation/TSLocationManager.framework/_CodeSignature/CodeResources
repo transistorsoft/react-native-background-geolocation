@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Headers/LocationManager.h</key>
+		<data>
+		yhEMGNQ7YyNqiteq0HCqdla8aOQ=
+		</data>
 		<key>Headers/SOMotionDetector.h</key>
 		<data>
 		jLVvw3sOSeWn4pnNDpVDF70sy2E=
@@ -31,6 +35,10 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Headers/LocationManager.h</key>
+		<data>
+		yhEMGNQ7YyNqiteq0HCqdla8aOQ=
+		</data>
 		<key>Headers/SOMotionDetector.h</key>
 		<data>
 		jLVvw3sOSeWn4pnNDpVDF70sy2E=

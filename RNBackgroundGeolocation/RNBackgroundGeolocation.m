@@ -191,7 +191,7 @@ RCT_EXPORT_METHOD(getOdometer:(RCTResponseSenderBlock)success failure:(RCTRespon
 
 RCT_EXPORT_METHOD(resetOdometer:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    locationManager.odometer = 0;
+    [locationManager resetOdometer];
     success(@[]);
 }
 

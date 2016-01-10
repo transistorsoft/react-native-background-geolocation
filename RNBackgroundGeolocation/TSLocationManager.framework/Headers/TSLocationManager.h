@@ -59,5 +59,7 @@ typedef enum tsLocationError : NSInteger {
 - (void) playSound:(SystemSoundID)soundId;
 - (void) notify:(NSString*)message;
 - (BOOL) clearDatabase;
+- (void) resetOdometer;
+
 @end
 

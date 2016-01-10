@@ -77,6 +77,7 @@ var API = {
     RNBackgroundGeolocation.getOdometer(success, failure);
   },
   resetOdometer: function(success, failure) {
+    success = success || emptyFn;
     failure = failure || emptyFn;
     RNBackgroundGeolocation.resetOdometer(success, failure);
   },

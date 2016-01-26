@@ -80,7 +80,7 @@ var Foo = React.createClass({
     
     // This handler fires whenever bgGeo receives a location update.
     BackgroundGeolocation.on('location', function(location) {
-      console.log('- [js]location: ', JSON.stringify(location);
+      console.log('- [js]location: ', JSON.stringify(location));
     });
     
     // This handler fires whenever bgGeo receives an error

@@ -67,6 +67,15 @@ var API = {
     failure = failure || emptyFn;
     RNBackgroundGeolocation.getLocations(success, failure);
   },
+  getCount: function(success, failure) {
+    console.log('[js] getCount');
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.getCount(success, failure);
+  },
+  insertLocation: function(params, success, failure) {
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.insertLocation(params, success, failure);
+  },
   clearDatabase: function(success, failure) {
     success = success || emptyFn;
     failure = failure || emptyFn;
@@ -94,6 +103,10 @@ var API = {
   getGeofences: function(success, failure) {
     failure = failure || emptyFn;
     RNBackgroundGeolocation.getGeofences(success, failure);
+  },
+  getLog: function(success, failure) {
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.getLog(success, failure);
   },
   playSound: function(soundId) {
     RNBackgroundGeolocation.playSound(soundId);

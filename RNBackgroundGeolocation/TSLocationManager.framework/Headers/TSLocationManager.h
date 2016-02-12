@@ -3,7 +3,13 @@
 #import <CoreData/CoreData.h>
 #import <CoreLocation/CoreLocation.h>
 #import <AudioToolbox/AudioToolbox.h>
+
 #import "SOMotionDetector.h"
+#import "TSReachability.h"
+#import "LocationDAO.h"
+#import "LocationManager.h"
+#import "TSLogger.h"
+#import "Settings.h"
 
 @interface TSLocationManager : NSObject <CLLocationManagerDelegate>
 
@@ -30,6 +36,7 @@ typedef enum tsLocationError : NSInteger {
 @property (copy) void (^httpResponseBlock) (NSInteger statusCode, NSDictionary *requestData, NSData *responseData, NSError *error);
 @property (copy) void (^locationChangedBlock) (CLLocation *location, enum tsLocationType, BOOL isMoving);
 @property (copy) void (^motionChangedBlock) (CLLocation *location, BOOL isMoving);
+@property (copy) void (^heartbeatBlock) (int shakeCount, CLLocation *location);
 @property (copy) void (^geofenceBlock) (CLCircularRegion *region, CLLocation *location, NSString *action);
 @property (copy) void (^syncCompleteBlock) (NSArray *locations);
 @property (copy) void (^errorBlock) (NSString *type, NSError *error);
@@ -59,6 +66,8 @@ typedef enum tsLocationError : NSInteger {
 - (void) playSound:(SystemSoundID)soundId;
 - (void) notify:(NSString*)message;
 - (BOOL) clearDatabase;
+- (BOOL) insertLocation:(NSDictionary*)params;
+- (int) getCount;
 - (void) resetOdometer;
 
 @end

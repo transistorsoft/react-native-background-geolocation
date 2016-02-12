@@ -21,7 +21,7 @@
 @property (nonatomic) CLActivityType activityType;
 @property (readonly) BOOL isUpdating;
 
-@property (copy) void (^locationChangedBlock) (LocationManager* manager, NSArray* locations, BOOL isSample);
+@property (copy) void (^locationChangedBlock) (LocationManager* manager, CLLocation* location, BOOL isSample);
 @property (copy) void (^errorBlock) (LocationManager* manager, NSError* error);
 
 -(void)startUpdatingLocation;

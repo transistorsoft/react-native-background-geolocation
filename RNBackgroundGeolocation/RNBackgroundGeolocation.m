@@ -34,6 +34,7 @@ RCT_EXPORT_MODULE();
         locationManager = [[TSLocationManager alloc] init];
         locationManager.locationChangedBlock  = [self createLocationChangedHandler];
         locationManager.motionChangedBlock    = [self createMotionChangedHandler];
+        locationManager.heartbeatBlock        = [self createHeartbeatHandler];
         locationManager.geofenceBlock         = [self createGeofenceHandler];
         locationManager.syncCompleteBlock     = [self createSyncCompleteHandler];
         locationManager.httpResponseBlock     = [self createHttpResponseHandler];
@@ -108,7 +109,7 @@ RCT_EXPORT_METHOD(beginBackgroundTask:(RCTResponseSenderBlock)callback)
  */
 RCT_EXPORT_METHOD(finish:(int)taskId)
 {
-    NSLog(@"- RCTBackgroundGeoLocation #finish");
+    RCTLogInfo(@"- RCTBackgroundGeoLocation #finish");
     [locationManager stopBackgroundTask:taskId];
 }
 
@@ -205,6 +206,44 @@ RCT_EXPORT_METHOD(clearDatabase:(RCTResponseSenderBlock)success failure:(RCTResp
         failure(@[]);
     }
 }
+RCT_EXPORT_METHOD(getCount:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    NSLog(@"- getCount");
+    int count = [locationManager getCount];
+    if (count >= 0) {
+        success(@[@(count)]);
+    } else {
+        failure(@[]);
+    }
+}
+
+RCT_EXPORT_METHOD(insertLocation:(NSDictionary*)params success:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failureCallback)
+{
+    NSLog(@"- insertLocation %@", params);
+    BOOL success = [locationManager insertLocation: params];
+    if (success) {
+        successCallback(@[]);
+    } else {
+        failureCallback(@[]);
+    }
+}
+
+RCT_EXPORT_METHOD(getLog:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failureCallback)
+{
+    NSString *log = [locationManager getLog];
+    if (log != nil) {
+        successCallback(@[log]);
+    } else {
+        failureCallback(@[@(500)]);
+    }
+}
+
+RCT_EXPORT_METHOD(emailLog:(NSString*)email success:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failureCallback)
+{
+    [locationManager emailLog:email];
+    successCallback(@[]);
+}
+
 RCT_EXPORT_METHOD(playSound:(int)soundId)
 {
     [locationManager playSound: soundId];
@@ -230,8 +269,19 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 -(void (^)(CLLocation *location, BOOL moving)) createMotionChangedHandler {
     return ^(CLLocation *location, BOOL moving) {
         NSDictionary *locationData  = [locationManager locationToDictionary:location];
-        RCTLogInfo(@"- onMotionChanage: %@",locationData);
+        RCTLogInfo(@"- onMotionChanage");
         [self sendEvent:@"motionchange" dictionary:locationData];
+    };
+}
+
+-(void (^)(int shakeCount, CLLocation *location)) createHeartbeatHandler {
+    return ^(int shakeCount, CLLocation *location) {
+        RCTLogInfo(@"- onHeartbeat");
+        NSDictionary *params = @{
+            @"shakes": @(shakeCount),
+            @"location": [locationManager locationToDictionary:location]
+        };
+        [self sendEvent:@"heartbeat" dictionary:params];
     };
 }
 
@@ -299,7 +349,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 
 - (void)dealloc
 {
-    NSLog(@"- RNBackgroundGeolocation dealloc");
+    RCTLogInfo(@"- RNBackgroundGeolocation dealloc");
 }
 
 @end

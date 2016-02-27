@@ -4,9 +4,13 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Headers/LocationDAO.h</key>
+		<data>
+		Bx6i90dHM1oAN1msJCz/zcEb9MQ=
+		</data>
 		<key>Headers/LocationManager.h</key>
 		<data>
-		yhEMGNQ7YyNqiteq0HCqdla8aOQ=
+		J2MRb8ZefvcvA9cQzSd7o7u2lOc=
 		</data>
 		<key>Headers/SOMotionDetector.h</key>
 		<data>
@@ -18,15 +22,19 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		bVOonuEsIzUl76avODmAw+Hq9W8=
+		/YdLjHtAH06wxbytj6GLoAHEpvc=
 		</data>
 		<key>Headers/TSLogger.h</key>
 		<data>
 		qiACBDmcPTwN/74j5Onc7EXc87Q=
 		</data>
+		<key>Headers/TSReachability.h</key>
+		<data>
+		phX1PXfcvLUrjOWfyEn2tQCkxnM=
+		</data>
 		<key>Info.plist</key>
 		<data>
-		bufg1frEWgzR6rocCtnb+npX2xI=
+		wS+b5jv4of4t8eOe8F9o3Bz3Oog=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -35,9 +43,13 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Headers/LocationDAO.h</key>
+		<data>
+		Bx6i90dHM1oAN1msJCz/zcEb9MQ=
+		</data>
 		<key>Headers/LocationManager.h</key>
 		<data>
-		yhEMGNQ7YyNqiteq0HCqdla8aOQ=
+		J2MRb8ZefvcvA9cQzSd7o7u2lOc=
 		</data>
 		<key>Headers/SOMotionDetector.h</key>
 		<data>
@@ -49,11 +61,15 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		bVOonuEsIzUl76avODmAw+Hq9W8=
+		/YdLjHtAH06wxbytj6GLoAHEpvc=
 		</data>
 		<key>Headers/TSLogger.h</key>
 		<data>
 		qiACBDmcPTwN/74j5Onc7EXc87Q=
+		</data>
+		<key>Headers/TSReachability.h</key>
+		<data>
+		phX1PXfcvLUrjOWfyEn2tQCkxnM=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>

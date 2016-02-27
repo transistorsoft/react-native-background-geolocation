@@ -40,6 +40,7 @@ bgGeo.setConfig({
 | [`stopTimeout`](#param-integer-minutes-stoptimeout) | `Integer` | Required | `5 minutes` | The number of miutes to wait before turning off the GPS after the ActivityRecognition System (ARS) detects the device is `STILL` (**Android:** defaults to 0, no timeout, **iOS:** defaults to 5min). If you don't set a value, the plugin is eager to turn off the GPS ASAP. An example use-case for this configuration is to delay GPS OFF while in a car waiting at a traffic light. |
 | [`minimumActivityRecognitionConfidence`](#param-integer-millis-minimumactivityrecognitionconfidence) | `Integer` | Optional (**Android**)| `80` | Each activity-recognition-result returned by the API is tagged with a "confidence" level expressed as a %. You can set your desired confidence to trigger a state-change.|
 | [`stopDetectionDelay`](#param-integer-minutes-stopdetectiondelay-0) | `Integer` | Optional (**iOS**)| 0 | Allows the stop-detection system to be delayed from activating. When the stop-detection system is engaged, the GPS is off and only the accelerometer is monitored. Stop-detection will only engage if this timer expires. The timer is cancelled if any movement is detected before expiration |
+| [`disableMotionActivityUpdates`](#param-boolean-disablemotionactivityupdates) | `Boolean` | Optional (**iOS**)| 0 | Disable iOS motion-activity updates (eg: "walking", "in_vehicle").  This feature requires a device having the **M7** co-processor (ie: iPhone 5s and up).  **NOTE** This feature will ask the user for "Health updates".  If you do not wish to ask the user for the "Health updates", set this option to `false`; However, you will no longer recieve activity data in the recorded locations. | 
 
 ## HTTP / Persistence Options
 
@@ -51,6 +52,7 @@ bgGeo.setConfig({
 | [`method`](#param-string-method-post) | `String` | Optional | `POST` | The HTTP method. Some servers require `PUT`.
 | [`autoSync`](#param-string-autosync-true) | `Boolean` | Optional | `true` | If you've enabled the HTTP feature by configuring an `#url`, the plugin will attempt to HTTP POST each location to your server **as it is recorded**. If you set `autoSync: false`, it's up to you to **manually** execute the `#sync` method to initate the HTTP POST (**NOTE** The plugin will continue to persist **every** recorded location in the SQLite database until you execute `#sync`). |
 | [`batchSync`](#param-string-batchsync-false) | `Boolean` | Optional | `false` | If you've enabled HTTP feature by configuring an `#url`, `batchSync: true` will POST all the locations currently stored in native SQLite datbase to your server in a single HTTP POST request. With `batchSync: false`, an HTTP POST request will be initiated for **each** location in database. |
+| [`maxBatchSize`](#param-integer-maxbatchsize-undefined) | `Integer` | Optional | `undefined` | If you've enabled HTTP feature by configuring an `#url` and `batchSync: true`, this parameter will limit the number of records attached to each batch.  If the current number of records exceeds the `maxBatchSize`, multiple HTTP requests will be generated until the location queue is empty. |
 | [`maxDaysToPersist`](#param-integer-maxdaystopersist) | `Integer` | Optional | `1` | Maximum number of days to store a geolocation in plugin's SQLite database when your server fails to respond with `HTTP 200 OK`. The plugin will continue attempting to sync with your server until `maxDaysToPersist` when it will give up and remove the location from the database. |
 
 ## Application Options
@@ -86,6 +88,8 @@ The following events can all be listened-to via the method `#on(eventName, callb
 | [`getCurrentPosition`](#getcurrentpositionoptions-successfn-failurefn) | `{options}, `successFn`, `failureFn` | Retrieves the current position. This method instructs the native code to fetch exactly one location using maximum power & accuracy. |
 | [`changePace`](#changepaceboolean) | `isMoving` | Initiate or cancel immediate background tracking. When set to true, the plugin will begin aggressively tracking the devices Geolocation, bypassing stationary monitoring. If you were making a "Jogging" application, this would be your [Start Workout] button to immediately begin GPS tracking. Send false to disable aggressive GPS monitoring and return to stationary-monitoring mode. |
 | [`getLocations`](#getlocationscallbackfn) | `callbackFn` | Fetch all the locations currently stored in native plugin's SQLite database. Your callbackFn`` will receive an `Array` of locations in the 1st parameter. |
+| [`getCount`](#getcountcallbackfn-failurefn) | `callbackFn` | Fetches count of SQLite locations table `SELECT count(*) from locations` |
+| [`clearDatabase`](#cleardatabasecallbackfn-failurefn) | `callbackFn` | Delete all records in plugin's SQLite database |
 | [`sync`](#synccallbackfn) | - | If the plugin is configured for HTTP with an `#url` and `#autoSync: false`, this method will initiate POSTing the locations currently stored in the native SQLite database to your configured `#url`. |
 | [`getOdometer`](#getodometercallbackfn) | `callbackFn` | The plugin constantly tracks distance travelled. The supplied callback will be executed and provided with a `distance` as the 1st parameter. |
 | [`resetOdometer`](#resetodometercallbackfn) | `callbackFn` | Reset the **odometer** to `0`. The plugin never automatically resets the odometer -- this is **up to you**. |
@@ -93,6 +97,8 @@ The following events can all be listened-to via the method `#on(eventName, callb
 | [`addGeofence`](#addgeofenceobject) | `{config}` | Adds a geofence to be monitored by the native plugin. Monitoring of a geofence is halted after a crossing occurs. |
 | [`removeGeofence`](#removegeofenceidentifier) | `identifier` | Removes a geofence identified by the provided `identifier`. |
 | [`getGeofences`](#getgeofencescallbackfn) | `callbackFn` | Fetch the list of monitored geofences. Your callbackFn will be provided with an Array of geofences. If there are no geofences being monitored, you'll receive an empty `Array []`.|
+| [`getLog`](#getlogcallbackfn) | `calbackFn` | Fetch the entire contents of the current circular log and return it as a String.|
+| [`emailLog`](#emaillogemail-callbackfn) | `email`, `callbackFn` | Fetch the entire contents of the current circular log and email it to a recipient using the device's native email client.|
 | [`beginBackgroundTask`](#beginBackgroundTaskcallbackfn) | `callbackFn`| Begins a native background-task (180s maximum allowed time).  For long-running methods which may execute asynchronous XHR requests, such as #sync or #getLocations, you should wrap your method-calls in a backgroundTask so that iOS does not suspend the app before your async request is complete. |
 | [`finish`](#finishtaskId) | `taskId`| Signal completion of a background-task initiated from #beginBackgroundTask.  It's **crucial** that you finish background-tasks because iOS will kill your app if you exceed the 180s limit.|
 
@@ -612,6 +618,62 @@ The `callbackFn` will be executed with following params:
     });
 ```
 
+
+####`getCount(callbackFn, failureFn)`
+Fetches count of SQLite locations table `SELECT count(*) from locations`.  The `callbackFn` will be executed with count as the only parameter.
+
+######@param {Integer} count
+
+```
+    bgGeo.getCount(function(count) {
+        console.log('- count: ', count);
+    });
+```
+
+####`insertLocation(params, callbackFn, failureFn)`
+Manually insert a location into the native plugin's SQLite database.  Your ```callbackFn`` will be executed if the operation was successful.  The inserted location's schema must match this plugin's published [Location Data Schema](wiki/Location-Data-Schema).  The plugin will have no problem inserting a location retrieved from the plugin itself.
+
+######@param {Object} params.  The location params/object matching the [Location Data Schema](wiki/Location-Data-Schema).
+
+```
+    bgGeo.insertLocation({
+    "uuid": "f8424926-ff3e-46f3-bd48-2ec788c9e761", // <-- required
+    "coords": {                   // <-- required
+      "latitude": 45.5192746,
+      "longitude": -73.616909,
+      "accuracy": 22.531999588012695,
+      "speed": 0,
+      "heading": 0,
+      "altitude": 0
+    },
+    "timestamp": "2016-02-10T22:25:54.905Z"     // <-- required
+    }, function() {
+        console.log('- Inserted location success');
+    }, function(error) {
+      console.warn('- Failed to insert location: ', error);
+    });
+
+    // insertLocation can easily consume any location which it returned.  Note that #getCurrentPosition ALWAYS persists so this example
+    // will manually persist a 2nd version of the same location.  The purpose here is to show that the plugin can consume any location object which it generated.
+    bgGeo.getCurrentPosition(function(location, taskId) {
+      location.extras = {foo: 'bar'}; // <-- add some arbitrary extras-data
+
+      // Insert it.
+      bgGeo.insertLocation(location, function() {
+        bgGeo.finish(taskId);
+      });
+    });
+```
+
+####`clearDatabase(callbackFn, failureFn)`
+Remove all records in plugin's SQLite database.
+
+```
+    bgGeo.clearDatabase(function() {
+      console.log('- cleared database'); 
+    });
+```
+
 ####`sync(callbackFn)`
 
 If the plugin is configured for HTTP with an ```#url``` and ```#autoSync: false```, this method will initiate POSTing the locations currently stored in the native SQLite database to your configured ```#url```. All records in the database will be DELETED. If you configured ```batchSync: true```, all the locations will be sent to your server in a single HTTP POST request, otherwise the plugin will create execute an HTTP post for **each** location in the database (REST-style). Your ```callbackFn``` will be executed and provided with an Array of all the locations from the SQLite database. If you configured the plugin for HTTP (by configuring an `#url`, your `callbackFn` will be executed after the HTTP request(s) have completed. If the plugin failed to sync to your server (possibly because of no network connection), the ```failureFn``` will be called with an ```errorMessage```. If you are **not** using the HTTP features, ```sync``` is the only way to clear the native SQLite datbase. Eg:
@@ -675,6 +737,24 @@ The plugin constantly tracks distance travelled. To fetch the current **odometer
 ####`resetOdometer(callbackFn)`
 
 Reset the **odometer** to zero. The plugin never automatically resets the odometer so it's up to you to reset it as desired.
+
+####`getLog(callbackFn)`
+
+Fetches the entire contents of the current circular-log and return it as a String.
+
+```
+    bgGeo.getLog(function(log) {
+        console.log(log);
+    });
+```
+
+####`emailLog(email, callbackFn)`
+
+Fetch the entire contents of the current circular log and email it to a recipient using the device's native email client.
+
+```
+    bgGeo.emailLog("foo@bar.com");
+```
 
 ####`playSound(soundId)`
 

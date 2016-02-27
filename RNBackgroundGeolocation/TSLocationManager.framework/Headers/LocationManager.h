@@ -26,5 +26,6 @@
 
 -(void)startUpdatingLocation;
 -(void)startUpdatingLocation:(int)samples;
+-(void)startUpdatingLocation:(int)samples timeout:(NSTimeInterval)timeout;
 -(void)stopUpdatingLocation;
 @end

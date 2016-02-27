@@ -10,7 +10,7 @@
 		</data>
 		<key>Headers/LocationManager.h</key>
 		<data>
-		14igNTQysm+HJgTOHndu8VZeWGw=
+		J2MRb8ZefvcvA9cQzSd7o7u2lOc=
 		</data>
 		<key>Headers/SOMotionDetector.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		/jObRbWd3pAtWIu/kGZTBcqxH4A=
+		/YdLjHtAH06wxbytj6GLoAHEpvc=
 		</data>
 		<key>Headers/TSLogger.h</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Headers/TSReachability.h</key>
 		<data>
-		2zFtsJ03VWrQRVOqKA3Y87cFSUA=
+		phX1PXfcvLUrjOWfyEn2tQCkxnM=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -49,7 +49,7 @@
 		</data>
 		<key>Headers/LocationManager.h</key>
 		<data>
-		14igNTQysm+HJgTOHndu8VZeWGw=
+		J2MRb8ZefvcvA9cQzSd7o7u2lOc=
 		</data>
 		<key>Headers/SOMotionDetector.h</key>
 		<data>
@@ -61,7 +61,7 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		/jObRbWd3pAtWIu/kGZTBcqxH4A=
+		/YdLjHtAH06wxbytj6GLoAHEpvc=
 		</data>
 		<key>Headers/TSLogger.h</key>
 		<data>
@@ -69,7 +69,7 @@
 		</data>
 		<key>Headers/TSReachability.h</key>
 		<data>
-		2zFtsJ03VWrQRVOqKA3Y87cFSUA=
+		phX1PXfcvLUrjOWfyEn2tQCkxnM=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>

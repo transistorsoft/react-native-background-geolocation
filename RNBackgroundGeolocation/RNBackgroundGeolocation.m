@@ -230,8 +230,18 @@ RCT_EXPORT_METHOD(insertLocation:(NSDictionary*)params success:(RCTResponseSende
 
 RCT_EXPORT_METHOD(getLog:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failureCallback)
 {
-    NSLog(@"- getLog -- NO IOS IMPLEMENTATION");
-    failureCallback(@[@"Not implemented for iOS"]);
+    NSString *log = [locationManager getLog];
+    if (log != nil) {
+        successCallback(@[log]);
+    } else {
+        failureCallback(@[@(500)]);
+    }
+}
+
+RCT_EXPORT_METHOD(emailLog:(NSString*)email success:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failureCallback)
+{
+    [locationManager emailLog:email];
+    successCallback(@[]);
 }
 
 RCT_EXPORT_METHOD(playSound:(int)soundId)
@@ -259,7 +269,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 -(void (^)(CLLocation *location, BOOL moving)) createMotionChangedHandler {
     return ^(CLLocation *location, BOOL moving) {
         NSDictionary *locationData  = [locationManager locationToDictionary:location];
-        RCTLogInfo(@"- onMotionChanage: %@",locationData);
+        RCTLogInfo(@"- onMotionChanage");
         [self sendEvent:@"motionchange" dictionary:locationData];
     };
 }

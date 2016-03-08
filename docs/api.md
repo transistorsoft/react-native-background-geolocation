@@ -220,6 +220,10 @@ The HTTP method to use when creating an HTTP request to your configured `#url`. 
 
 Default is ```false```. If you've enabled HTTP feature by configuring an ```#url```, ```batchSync: true``` will POST all the locations currently stored in native SQLite datbase to your server in a single HTTP POST request. With ```batchSync: false```, an HTTP POST request will be initiated for **each** location in database.
 
+####`@param {Integer} maxBatchSize [undefined]`
+
+If you've enabled HTTP feature by configuring an `#url` with `batchSync: true`, this parameter will limit the number of records attached to **each** batch request.  If the current number of records exceeds the `maxBatchSize`, multiple HTTP requests will be generated until the location queue is empty.
+
 ####`@param {String} autoSync [true]`
 
 Default is ```true```. If you've enabeld HTTP feature by configuring an ```#url```, the plugin will attempt to HTTP POST each location to your server **as it is recorded**. If you set ```autoSync: false```, it's up to you to **manually** execute the ```#sync``` method to initate the HTTP POST (**NOTE** The plugin will continue to persist **every** recorded location in the SQLite database until you execute ```#sync```).

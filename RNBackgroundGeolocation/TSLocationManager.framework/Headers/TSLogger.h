@@ -10,6 +10,15 @@
 }
 
 +(void) log:(NSString*)format, ...;
-+(void)setDebug:(BOOL)debug;
++(void) warn:(NSString*)format, ...;
++(void) info:(NSString*)format, ...;
++(void) notice:(NSString*)format, ...;
++(void) ok:(NSString*)format, ...;
++(void) error:(NSString*)format, ...;
++(void) debug:(NSString*)format, ...;
++(void) header:(NSString*)format, ...;
++(void) row:(NSString*)format, ...;
++(void) setDebug:(BOOL)debug;
+
 
 @end

@@ -9,6 +9,7 @@
 #import "LocationDAO.h"
 #import "LocationManager.h"
 #import "TSLogger.h"
+#import "TSLogManager.h"
 #import "Settings.h"
 
 @interface TSLocationManager : NSObject <CLLocationManagerDelegate>
@@ -26,6 +27,7 @@ typedef enum tsLocationError : NSInteger {
     TS_LOCATION_ERROR_TIMEOUT = 408
 } tsLocationError;
 
+@property (nonatomic) UIViewController* viewController;
 @property (nonatomic) CLLocationDistance odometer;
 @property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic) NSDate *stoppedAt;
@@ -51,7 +53,7 @@ typedef enum tsLocationError : NSInteger {
 - (void) error:(UIBackgroundTaskIdentifier)taskId message:(NSString*)message;
 - (void) changePace:(BOOL)value;
 - (void) setConfig:(NSDictionary*)command;
-- (NSDictionary*) getState;
+- (NSMutableDictionary*) getState;
 - (NSDictionary*) getStationaryLocation;
 - (void) onSuspend:(NSNotification *)notification;
 - (void) onResume:(NSNotification *)notification;

@@ -13,8 +13,10 @@ var API = {
   setConfig: function(config) {
     RNBackgroundGeolocation.setConfig(config);
   },
-  getState: function(callback) {
-    RNBackgroundGeolocation.getState(callback);
+  getState: function(callback, failure) {
+    callback = callback || emptyFn;
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.getState(callback, failure);
   },
   on: function(event, callback) {
     return DeviceEventEmitter.addListener(TAG + ':' + event, callback);
@@ -68,11 +70,11 @@ var API = {
     RNBackgroundGeolocation.getLocations(success, failure);
   },
   getCount: function(success, failure) {
-    console.log('[js] getCount');
     failure = failure || emptyFn;
     RNBackgroundGeolocation.getCount(success, failure);
   },
   insertLocation: function(params, success, failure) {
+    success = success || emptyFn;
     failure = failure || emptyFn;
     RNBackgroundGeolocation.insertLocation(params, success, failure);
   },
@@ -106,12 +108,11 @@ var API = {
   },
   getLog: function(success, failure) {
     failure = failure || emptyFn;
-    success = success || emptyFn;
     RNBackgroundGeolocation.getLog(success, failure);
   },
   emailLog: function(email, success, failure) {
-    failure = failure || emptyFn;
     success = success || emptyFn;
+    failure = failure || emptyFn;
     RNBackgroundGeolocation.emailLog(email, success, failure);
   },
   playSound: function(soundId) {

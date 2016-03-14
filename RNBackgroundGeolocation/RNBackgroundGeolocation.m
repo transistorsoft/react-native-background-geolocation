@@ -61,7 +61,7 @@ RCT_EXPORT_METHOD(setConfig:(NSDictionary*)config)
     [locationManager setConfig:config];
 }
 
-RCT_EXPORT_METHOD(getState:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(getState:(RCTResponseSenderBlock)callback failure:(RCTResponseSenderBlock)failure)
 {
     RCTLogInfo(@"- RCTBackgroundGeoLocation #getState");
     NSDictionary *state = [locationManager getState];

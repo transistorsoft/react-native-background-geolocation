@@ -1,6 +1,8 @@
 # Change Log
 
 ## [Unreleased]
+
+## [0.4.2] - 2016-03-14
 - [Changed] Standardize the Javascript API methods to send both a `success` as well as `failure` callbacks.
 - [Changed] iOS `emailLog` method will attach the log-file as an email attachment rather than rendering the log to the email body.  Email body contains the result of `getState` now.  This standardizes the behaviour between iOS and Android.
 - [Added] CHANGELOG

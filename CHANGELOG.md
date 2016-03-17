@@ -1,6 +1,9 @@
 # Change Log
 
 ## [Unreleased]
+- [Fixed] Issue with timers not running on main-thread.
+- [Fixed] Issue with acquriring stationary-location on a stale location.
+- [Fixed] Removed some log messages appearing when `{debug: false}`
 
 ## [0.4.3] - 2016-03-14
 - [Fixed] getState method

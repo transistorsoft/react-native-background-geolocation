@@ -1,6 +1,8 @@
 # Change Log
 
 ## [Unreleased]
+
+## [0.4.4] - 2016-03-20
 - [Fixed] Issue with timers not running on main-thread.
 - [Fixed] Issue with acquriring stationary-location on a stale location.
 - [Fixed] Removed some log messages appearing when `{debug: false}`

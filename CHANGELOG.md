@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 - [Fixed] ios `stopOnTerminate` was defaulting to `false`.  Docs say default is `true`.
+- [Fixed] ios `useSignificantChangesOnly` was broken.
 
 ## [0.4.4] - 2016-03-20
 - [Fixed] Issue with timers not running on main-thread.

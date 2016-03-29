@@ -5,7 +5,8 @@
 - [Fixed] ios `useSignificantChangesOnly` was broken.
 - [Added] Add odometer to ios location JSON schema
 - [Added] Log network reachability flags on connection-type changes.
-- 
+- [Added] `maxRecordsToPersist` to limit the max number of records persisted in plugin's SQLite database.
+
 ## [0.4.4] - 2016-03-20
 - [Fixed] Issue with timers not running on main-thread.
 - [Fixed] Issue with acquriring stationary-location on a stale location.

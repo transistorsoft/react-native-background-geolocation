@@ -16,7 +16,8 @@
 }
 
 + (LocationDAO *)getInstance;
-- (BOOL) persist:(NSDictionary*)data timestamp:(NSDate*)timestamp;
+- (BOOL) persist:(NSDictionary*)data timestamp:(NSDate*)timestamp maxRecords:(NSInteger)maxRecords;
+- (BOOL) shrink:(NSInteger)maxRecordsToPersist;
 - (BOOL) clear;
 - (BOOL) purge:(NSInteger)maxDaysToPersist;
 - (BOOL) destroy:(NSNumber*)id;

@@ -183,10 +183,25 @@ RCT_EXPORT_METHOD(addGeofence:(NSDictionary*) config success:(RCTResponseSenderB
     success(@[]);
 }
 
+RCT_EXPORT_METHOD(addGeofences:(NSArray*) geofences success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    [locationManager addGeofences:geofences];
+    RCTLogInfo(@"addGeofences");
+    success(@[]);
+}
+
+
 RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     [locationManager removeGeofence:identifier];
     RCTLogInfo(@"removeGeofence");
+    success(@[]);
+}
+
+RCT_EXPORT_METHOD(removeGeofences:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    [locationManager removeGeofences];
+    RCTLogInfo(@"removeGeofences");
     success(@[]);
 }
 

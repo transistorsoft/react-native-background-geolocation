@@ -62,7 +62,9 @@ typedef enum tsLocationError : NSInteger {
 - (NSMutableDictionary*) locationToDictionary:(CLLocation*)location;
 - (NSMutableDictionary*) locationToDictionary:(CLLocation*)location type:(tsLocationtype)type;
 - (void) addGeofence:(NSString*)identifier radius:(CLLocationDistance)radius latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude notifyOnEntry:(BOOL)notifyOnEntry notifyOnExit:(BOOL)notifyOnExit;
+- (void) addGeofences:(NSArray*)geofences;
 - (BOOL) removeGeofence:(NSString*)identifier;
+- (BOOL) removeGeofences;
 - (NSArray*) getGeofences;
 - (void) updateCurrentPosition:(NSDictionary*)options;
 - (void) playSound:(SystemSoundID)soundId;

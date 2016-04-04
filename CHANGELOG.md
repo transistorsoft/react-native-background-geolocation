@@ -1,6 +1,8 @@
 # Change Log
 
 ## [Unreleased]
+
+## [0.5.0] - 2016-04-04
 - [Fixed] ios `stopOnTerminate` was defaulting to `false`.  Docs say default is `true`.
 - [Fixed] ios `useSignificantChangesOnly` was broken.
 - [Added] Add odometer to ios location JSON schema

@@ -41,14 +41,14 @@ bgGeo.setConfig({
 | [`activityRecognitionInterval`](#param-integer-millis-10000-activityrecognitioninterval) | `Integer` | Required | `10000` | The desired time between activity detections. Larger values will result in fewer activity detections while improving battery life. A value of 0 will result in activity detections at the fastest possible rate. |
 | [`stopTimeout`](#param-integer-minutes-stoptimeout) | `Integer` | Required | `5 minutes` | The number of miutes to wait before turning off the GPS after the ActivityRecognition System (ARS) detects the device is `STILL` (**Android:** defaults to 0, no timeout, **iOS:** defaults to 5min). If you don't set a value, the plugin is eager to turn off the GPS ASAP. An example use-case for this configuration is to delay GPS OFF while in a car waiting at a traffic light. |
 | [`stopDetectionDelay`](#param-integer-minutes-stopdetectiondelay-0) | `Integer` | Optional | 0 | Allows the stop-detection system to be delayed from activating. When the stop-detection system is engaged, the GPS is off and only the accelerometer is monitored. Stop-detection will only engage if this timer expires. The timer is cancelled if any movement is detected before expiration |
-| [`disableMotionActivityUpdates`](#param-boolean-disablemotionactivityupdates) | `Boolean` | Optional (**iOS**)| 0 | Disable iOS motion-activity updates (eg: "walking", "in_vehicle").  This feature requires a device having the **M7** co-processor (ie: iPhone 5s and up).  **NOTE** This feature will ask the user for "Health updates".  If you do not wish to ask the user for the "Health updates", set this option to `false`; However, you will no longer recieve activity data in the recorded locations. | 
+| [`disableMotionActivityUpdates`](#param-boolean-disablemotionactivityupdates-false) | `Boolean` | Optional (**iOS**)| 0 | Disable iOS motion-activity updates (eg: "walking", "in_vehicle").  This feature requires a device having the **M7** co-processor (ie: iPhone 5s and up).  **NOTE** This feature will ask the user for "Health updates".  If you do not wish to ask the user for the "Health updates", set this option to `false`; However, you will no longer recieve activity data in the recorded locations. | 
 | [`disableStopDetection`](#param-boolean-disablestopdetection-false) | `Boolean` | Optional (**iOS**)| `false` | Disable iOS accelerometer-based **Stop-detection System**.  When disabled, the plugin will use the default iOS behaviour of automatically turning off location-services when the device has stopped for exactly 15 minutes.  When disabled, you will no longer have control over `stopTimeout`| 
 
 ## HTTP / Persistence Options
 
 | Option | Type | Opt/Required | Default | Note |
 |---|---|---|---|---|
-| [`url`](#param-string-url) | `String` | Optional | - | Your server url where you wish to HTTP POST recorded locations to. |
+| [`url`](#param-string-url-undefined) | `String` | Optional | - | Your server url where you wish to HTTP POST recorded locations to. |
 | [`params`](#param-object-params) | `Object` | Optional | `{}` | Optional HTTP params sent along in HTTP request to above `#url`. |
 | [`headers`](#param-object-headers) | `Object` | Optional | `{}` | Optional HTTP headers sent along in HTTP request to above `#url` |
 | [`extras`](#param-object-extras) | `Object` | Optional | | Optional `{}` to attach to each recorded location |
@@ -56,14 +56,16 @@ bgGeo.setConfig({
 | [`autoSync`](#param-string-autosync-true) | `Boolean` | Optional | `true` | If you've enabled the HTTP feature by configuring an `#url`, the plugin will attempt to HTTP POST each location to your server **as it is recorded**. If you set `autoSync: false`, it's up to you to **manually** execute the `#sync` method to initate the HTTP POST (**NOTE** The plugin will continue to persist **every** recorded location in the SQLite database until you execute `#sync`). |
 | [`batchSync`](#param-string-batchsync-false) | `Boolean` | Optional | `false` | If you've enabled HTTP feature by configuring an `#url`, `batchSync: true` will POST all the locations currently stored in native SQLite datbase to your server in a single HTTP POST request. With `batchSync: false`, an HTTP POST request will be initiated for **each** location in database. |
 | [`maxBatchSize`](#param-integer-maxbatchsize-undefined) | `Integer` | Optional | `undefined` | If you've enabled HTTP feature by configuring an `#url` and `batchSync: true`, this parameter will limit the number of records attached to each batch.  If the current number of records exceeds the `maxBatchSize`, multiple HTTP requests will be generated until the location queue is empty. |
-| [`maxDaysToPersist`](#param-integer-maxdaystopersist) | `Integer` | Optional | `1` | Maximum number of days to store a geolocation in plugin's SQLite database when your server fails to respond with `HTTP 200 OK`. The plugin will continue attempting to sync with your server until `maxDaysToPersist` when it will give up and remove the location from the database. |
+| [`maxDaysToPersist`](#param-integer-maxdaystopersist-1) | `Integer` | Optional | `1` | Maximum number of days to store a geolocation in plugin's SQLite database when your server fails to respond with `HTTP 200 OK`. The plugin will continue attempting to sync with your server until `maxDaysToPersist` when it will give up and remove the location from the database. |
+| [`maxRecordsToPersist`](#param-integer-maxrecordstopersist--1) | `Integer` | Optional | `-1` |  Maximum number of records to persist in plugin's SQLite database.|
 
 ## Application Options
 
 | Option | Type | Opt/Required | Default | Note |
 |---|---|---|---|---|
-| [`debug`](#param-boolean-debug) | `Boolean` | Optional | `false` | When enabled, the plugin will emit sounds for life-cycle events of background-geolocation! **NOTE iOS**: In addition, you must manually enable the *Audio and Airplay* background mode in *Background Capabilities* to hear these debugging sounds. |
-| [`stopOnTerminate`](#param-boolean-stoponterminate) | `Boolean` | Optional | `true` | Enable this in order to force a stop() when the application terminated (e.g. on iOS, double-tap home button, swipe away the app). On Android, stopOnTerminate: false will cause the plugin to operate as a headless background-service (in this case, you should configure an #url in order for the background-service to send the location to your server) |
+| [`debug`](#param-boolean-debug-false) | `Boolean` | Optional | `false` | When enabled, the plugin will emit sounds for life-cycle events of background-geolocation! **NOTE iOS**: In addition, you must manually enable the *Audio and Airplay* background mode in *Background Capabilities* to hear these debugging sounds. |
+| [`stopOnTerminate`](#param-boolean-stoponterminate-true) | `Boolean` | Optional | `true` | Enable this in order to force a stop() when the application is terminated |
+| [`startOnBoot`](#param-boolean-startonboot-false) | `Boolean` | Optional | `true` | Set to `true` to enable background-tracking after the device reboots. |
 | [`preventSuspend`](#param-boolean-preventsuspend-false) | `Boolean` | Optional | `false` | Enable this to prevent **iOS** from suspending.  Must be used in conjunction with a `heartbeatInterval`.  **WARNING**: `preventSuspend` should only be used in **very** specific use-cases and should typically **not** be used as it will have a **very serious impact on battery performance.** |
 | [`heartbeatInterval`](#param-integer-heartbeatinterval-60) | `Integer(seconds)` | Optional **iOS** | `60` | Used in conjunction with `preventSuspend`, an **iOS** app can continue to monitor the accelerometer while in the **stationary-state**.  If the *slightest* movement is detected during a `hearbeatInterval`, the plugin will request a high-accuracy location in order to determine if the device has begun moving.  If the plugin *is* moving, it will immediately switch state to **moving-state**.|
 
@@ -210,7 +212,7 @@ The desired iOS location-authorization request, either `Always` or `WhenInUse`. 
 
 # HTTP / Persistence Options
 
-####`@param {String} url`
+####`@param {String} url [undefined]`
 
 Your server url where you wish to HTTP POST location data to.
 
@@ -252,18 +254,29 @@ bgGeo.configure(success, fail, {
 });
 ```
 
-####`@param {Integer} maxDaysToPersist`
+####`@param {Integer} maxDaysToPersist [1]`
 
 Maximum number of days to store a geolocation in plugin's SQLite database when your server fails to respond with ```HTTP 200 OK```. The plugin will continue attempting to sync with your server until ```maxDaysToPersist``` when it will give up and remove the location from the database.
 
+####`@param {Integer} maxRecordsToPersist [-1]`
+
+Maximum number of records to persist in plugin's SQLite database.  Default `-1` means no limit.
+
 # Application Options
 
-####`@param {Boolean} debug`
+####`@param {Boolean} debug [false]`
 
 When enabled, the plugin will emit sounds for life-cycle events of background-geolocation!  **NOTE iOS**:  In addition, you must manually enable the *Audio and Airplay* background mode in *Background Capabilities* to hear these [debugging sounds](../../../wiki/Debug-Sounds). See the ../../../wiki [Debug Sounds](wiki/Debug-Sounds) for a detailed description of these sounds.
 
-####`@param {Boolean} stopOnTerminate`
+####`@param {Boolean} stopOnTerminate [true]`
 Enable this in order to force a stop() when the application terminated (e.g. on iOS, double-tap home button, swipe away the app). On Android, ```stopOnTerminate: false``` will cause the plugin to operate as a headless background-service (in this case, you should configure an #url in order for the background-service to send the location to your server)
+
+####`@param {Boolean} startOnBoot [false]`
+
+Set to `true` to enable background-tracking after the device reboots.
+
+**iOS** 
+iOS cannot immediately engage tracking after a device reboot since it requires either a "significant-change" event or geofence exit before iOS will awaken your app.  One can also use the [background-fetch plugin](https://github.com/christocracy/cordova-plugin-background-fetch) to *at least* awaken your app within 15 min of being rebooted.
 
 ####`@param {Boolean} preventSuspend [false]`
 

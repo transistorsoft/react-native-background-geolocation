@@ -80,12 +80,13 @@ The following events can all be listened-to via the method `#on(eventName, callb
 | [`onMotionChange`](#onmotionchangecallbackfn) | Fired when the device changes stationary / moving state. |
 | [`onGeofence`](#ongeofencecallbackfn) | Fired when a geofence crossing event occurs. |
 | [`onHttp`](#onhttpsuccessfn) | Fired after a successful HTTP response. `response` object is provided with `status` and `responseText`. |
+| [`onHeartbeat`](#onheartbeatcallback) | Fired each `heartbeatInterval` while the plugin is in the **stationary** state with.  Your callback will be provided with a `params {}` containing the parameters `shakes {Integer}` (#shakes not implemented for Android) as well as the last known `location {Object}` |
 
 ## Methods
 
 | Method Name | Arguments | Notes
 |---|---|---|
-| [`configure`](#configureobject) | `{config}` | Configures the plugin's parameters (@see following Config section for accepted config params. The locationCallback will be executed each time a new Geolocation is recorded and provided with the following parameters. |
+| [`configure`](#configureobject-callback) | `{config}` | Configures the plugin's parameters (@see following Config section for accepted config params. The locationCallback will be executed each time a new Geolocation is recorded and provided with the following parameters. |
 | [`setConfig`](#setconfigobject) | `{config}` | Re-configure the plugin with new values. |
 | [`start`](#startcallbackfn) | `callbackFn`| Enable location tracking. Supplied `callbackFn` will be executed when tracking is successfully engaged. |
 | [`stop`](#stop) | `callbackFn` | Disable location tracking. Supplied `callbackFn` will be executed when tracking is successfully engaged. |
@@ -383,27 +384,65 @@ bgGeo.onHttp(function(response) {
 })
 ```
 
+####`onHeartbeat(callback)`
+
+The `successFn` will be executed for each `heartbeatInterval` while the device is in **stationary** state (**iOS** requires `{preventSuspend: true}` as well).  The `successFn` will be provided a single `params {Object}` parameter with the following properties:
+
+######@param {Integer} shakes (iOS only).  A measure of the device movement.  Shakes is a measure of accelerometer data crossing over a threshold where the device is decided to be moving.  The higher the shakes, the more the device is moving.  When shakes is **0**, the device is completely still.
+######@param {Object} location.  When the plugin detects `shakes > 0` (iOS only), it will always request a new high-accuracy location in order to determine if the device has moved beyond `stationaryRadius` and if the location has `speed > 0`.  This fresh location will be provided to your `successFn`.  If `shakes == 0`, the current **stationary location** will be provided.  Android will simply return the "last known location"
+
+Example:
+```
+bgGeo.onHeartbeat(function(params) {
+    console.log('- hearbeat');
+
+    var shakes = params.shakes;
+    var location = params.location;
+
+    // Attach some arbitrary data to the location extras.
+    location.extras = {
+        foo: 'bar',
+        shakes: shakes
+    };
+
+    // You can manually insert a location if you wish.
+    bgGeo.insertLocation(location, function() {
+        console.log('- inserted location during heartbeat');
+    });
+
+    // OR you could request a new location:
+    bgGeo.getCurrentPosition(function(location, taskId) {
+        console.log('- current location: ', location);
+        bgGeo.finish(taskId);
+    });
+})
+```
+
 # Methods
 
-####`configure({Object})`
+####`configure({Object}, callback)`
 
-Configures the plugin's initial parameters. You must call this method **before** using the plugin and call it **only once**.
+Configures the plugin's initial parameters. You must call this method **before** using the plugin and call it **only once**.  The `callback` will be called after the configuration has been applied and provided with the current `state` object.  **NOTE** The plugin persists its `enabled` state between app restarts/device reboots and will automatically call `#start` upon itself once `#configure` is executed.  You can check the current state in the `callback` with `state.enabled`.
 
 ```
 bgGeo.configure({
     distanceFilter: 50,
     desiredAccuracy: 0,
     stationaryRadius: 25
+}, function(state) {
+    console.log('- Configure success.  Current state: ', state);
 });
 ```
 
 ####`setConfig({Object})`
-Reconfigure plugin's configuration
+Reconfigure plugin's configuration.
 
 ```
 bgGeo.setConfig({
     desiredAccuracy: 10,
     distanceFilter: 100
+}, function(state) {
+    console.log('- setConfig success.  Current state: ', state);
 });
 ```
 

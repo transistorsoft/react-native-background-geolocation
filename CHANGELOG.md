@@ -4,6 +4,7 @@
 - [Changed] ios halt stop-detection distance was using `distanceFilter`; changed to use `stationaryRadius`.  This effects users using the accelerometer-based stop-detection system:  after stop is detected, the device must move `stationaryRadius` meters away from location where stop was detected.
 - [Changed] When `maxRecordsToPersist == 0`, don't persist any record.
 - [Added] Implement `startOnBoot` param for iOS.  iOS always ignored `startOnBoot`.  If you set `startOnBoot: false` now, iOS will not begin tracking when launched in background after device is rebooted (eg: from a background-fetch event, geofence exit or significant-change event)
+- [Fixed] Missing `heartbeat` event.
 
 ## [0.5.0] - 2016-04-04
 - [Fixed] ios `stopOnTerminate` was defaulting to `false`.  Docs say default is `true`.

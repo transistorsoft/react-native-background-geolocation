@@ -6,6 +6,8 @@ const TAG = "TSLocationManager";
 var emptyFn = function() {};
 
 var API = {
+  events: ['heartbeat', 'http', 'location', 'error', 'motionchange', 'geofence'],
+
   configure: function(config, callback) {
     callback = callback || emptyFn;
     RNBackgroundGeolocation.configure(config, callback);
@@ -19,6 +21,9 @@ var API = {
     RNBackgroundGeolocation.getState(callback, failure);
   },
   on: function(event, callback) {
+    if (this.events.indexOf(event) < 0) {
+      throw "RNBackgroundGeolocation: Unknown event '" + event + '"';
+    }
     return DeviceEventEmitter.addListener(TAG + ':' + event, callback);
   },
   start: function(success, failure) {
@@ -40,6 +45,9 @@ var API = {
   },
   onGeofence: function(callback) {
     return DeviceEventEmitter.addListener(TAG + ":geofence", callback);
+  },
+  onHeartbeat: function(callback) {
+    return DeviceEventEmitter.addListener(TAG + ":heartbeat", callback);
   },
   onError: function(callback) {
     return DeviceEventEmitter.addListener(TAG + ":error", callback);

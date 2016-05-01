@@ -280,7 +280,7 @@ Maximum number of records to persist in plugin's SQLite database.  Default `-1` 
 
 ####`@param {Boolean} debug [false]`
 
-When enabled, the plugin will emit sounds for life-cycle events of background-geolocation!  **NOTE iOS**:  In addition, you must manually enable the *Audio and Airplay* background mode in *Background Capabilities* to hear these [debugging sounds](../../../wiki/Debug-Sounds). See the ../../../wiki [Debug Sounds](wiki/Debug-Sounds) for a detailed description of these sounds.
+When enabled, the plugin will emit sounds for life-cycle events of background-geolocation!  **NOTE iOS**:  In addition, you must manually enable the *Audio and Airplay* background mode in *Background Capabilities* to hear these [debugging sounds](../../../wiki/Debug-Sounds). See the [Debug Sounds](../../../wiki/Debug-Sounds) for a detailed description of these sounds.
 
 ####`@param {Boolean} stopOnTerminate [true]`
 Enable this in order to force a stop() when the application terminated (e.g. on iOS, double-tap home button, swipe away the app). On Android, `stopOnTerminate: false` will cause the plugin to operate as a headless background-service (in this case, you should configure an #url in order for the background-service to send the location to your server)

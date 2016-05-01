@@ -39,6 +39,7 @@ RCT_EXPORT_MODULE();
         locationManager.syncCompleteBlock     = [self createSyncCompleteHandler];
         locationManager.httpResponseBlock     = [self createHttpResponseHandler];
         locationManager.errorBlock            = [self createErrorHandler];
+        locationManager.scheduleBlock         = [self createScheduleHandler];
     }
     return self;
 }
@@ -92,6 +93,30 @@ RCT_EXPORT_METHOD(stop)
 {
     RCTLogInfo(@"- RCTBackgroundGeoLocation #stop");
     [locationManager stop];
+}
+
+/**
+ * Start schedule
+ */
+RCT_EXPORT_METHOD(startSchedule:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    RCTLogInfo(@"- RCTBackgroundGeoLocation #startSchedule");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [locationManager startSchedule];
+        success(@[@(YES)]);
+    });
+}
+
+/**
+ * Stop schedule
+ */
+RCT_EXPORT_METHOD(stopSchedule:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    RCTLogInfo(@"- RCTBackgroundGeoLocation #startSchedule");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [locationManager stopSchedule];
+        success(@[@(NO)]);
+    });
 }
 
 /**
@@ -353,6 +378,13 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
             }
         }
         [self sendEvent:@"error" dictionary:@{@"type":type, @"code":@(error.code)}];
+    };
+}
+
+-(void (^)(TSSchedule *schedule)) createScheduleHandler {
+    return ^(TSSchedule *schedule) {
+        RCTLogInfo(@" - Schedule event: %@", schedule);
+        [self sendEvent:@"schedule" dictionary:[locationManager getState]];
     };
 }
 

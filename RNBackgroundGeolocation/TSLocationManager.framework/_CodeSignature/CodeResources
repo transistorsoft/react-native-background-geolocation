@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/LocationDAO.h</key>
 		<data>
-		HaOBO/PRfP53EGgHdc+FQUnnC+o=
+		DMSvPxG/Mxh8vTmVVoFh17bHh+8=
 		</data>
 		<key>Headers/LocationManager.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		cxYSmlkRPJ3O1UnE/dgpZQqytNw=
+		Pv/CgUYm9r5lNiuw+HxecaL9ls4=
 		</data>
 		<key>Headers/TSLogManager.h</key>
 		<data>
@@ -36,9 +36,17 @@
 		<data>
 		phX1PXfcvLUrjOWfyEn2tQCkxnM=
 		</data>
+		<key>Headers/TSSchedule.h</key>
+		<data>
+		l7gJ1bMBCvrAI0AsQBLYBHlAznk=
+		</data>
+		<key>Headers/TSScheduler.h</key>
+		<data>
+		NJqQ2bW/YP7R/ZsFWV8VFumwZWs=
+		</data>
 		<key>Info.plist</key>
 		<data>
-		T+w9XpTZOG6Whmz0I443L99dRXg=
+		TTQKCg2TpP3CRwvuPXULZroE2yY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -48,41 +56,126 @@
 	<key>files2</key>
 	<dict>
 		<key>Headers/LocationDAO.h</key>
-		<data>
-		HaOBO/PRfP53EGgHdc+FQUnnC+o=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			DMSvPxG/Mxh8vTmVVoFh17bHh+8=
+			</data>
+			<key>hash2</key>
+			<data>
+			fhuwERMWVdrUJHFlOWS/HGv09S/qn4kZRbX7qfvCpTI=
+			</data>
+		</dict>
 		<key>Headers/LocationManager.h</key>
-		<data>
-		J2MRb8ZefvcvA9cQzSd7o7u2lOc=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			J2MRb8ZefvcvA9cQzSd7o7u2lOc=
+			</data>
+			<key>hash2</key>
+			<data>
+			2GVbAxw/YgveMBW5JWOrnwHOiBSO8urK7fmLW3Chhbs=
+			</data>
+		</dict>
 		<key>Headers/SOMotionDetector.h</key>
-		<data>
-		jLVvw3sOSeWn4pnNDpVDF70sy2E=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			jLVvw3sOSeWn4pnNDpVDF70sy2E=
+			</data>
+			<key>hash2</key>
+			<data>
+			yBl91KECJlAk29h1Oo3tU72TvWucOPf+41Z86LGXZ6Y=
+			</data>
+		</dict>
 		<key>Headers/Settings.h</key>
-		<data>
-		RrrWno+xiMcLzYadZpBXAsUpqy8=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			RrrWno+xiMcLzYadZpBXAsUpqy8=
+			</data>
+			<key>hash2</key>
+			<data>
+			vKWz045GhxqPERXveXu86QrOg6gHoyKpGHHpMsBZ0Hc=
+			</data>
+		</dict>
 		<key>Headers/TSLocationManager.h</key>
-		<data>
-		cxYSmlkRPJ3O1UnE/dgpZQqytNw=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			Pv/CgUYm9r5lNiuw+HxecaL9ls4=
+			</data>
+			<key>hash2</key>
+			<data>
+			FrAhxuTUHrwEIMxg8laUzG2W2PiT5mJM6szCi/uR6pQ=
+			</data>
+		</dict>
 		<key>Headers/TSLogManager.h</key>
-		<data>
-		Xx/RAO9Ysw0P9Q2CAGnq8SpzboA=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			Xx/RAO9Ysw0P9Q2CAGnq8SpzboA=
+			</data>
+			<key>hash2</key>
+			<data>
+			bOr8cNTwTHTm0Nufm2vAzSvxLBITbhSIWGDds6i2Qfc=
+			</data>
+		</dict>
 		<key>Headers/TSLogger.h</key>
-		<data>
-		2QxO9UFdlAzFVGQDxtviupFtvJM=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			2QxO9UFdlAzFVGQDxtviupFtvJM=
+			</data>
+			<key>hash2</key>
+			<data>
+			KDNJNkKUGeYYbc4rrEXI0BbsOzO9IYyer/jgsZQsfU0=
+			</data>
+		</dict>
 		<key>Headers/TSReachability.h</key>
-		<data>
-		phX1PXfcvLUrjOWfyEn2tQCkxnM=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			phX1PXfcvLUrjOWfyEn2tQCkxnM=
+			</data>
+			<key>hash2</key>
+			<data>
+			OPZNWK2I4idnET05pGnSz2bJ5i+qoNJXMjSJqK/rS/8=
+			</data>
+		</dict>
+		<key>Headers/TSSchedule.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			l7gJ1bMBCvrAI0AsQBLYBHlAznk=
+			</data>
+			<key>hash2</key>
+			<data>
+			z/ddw6U/oQSX715tcPfpjec7gX7eyA5KiBjS3BueSBo=
+			</data>
+		</dict>
+		<key>Headers/TSScheduler.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			NJqQ2bW/YP7R/ZsFWV8VFumwZWs=
+			</data>
+			<key>hash2</key>
+			<data>
+			l7DXs2gjz1K60RVHckFRUQQ+3pMrj+pJ433rqQ/v+DQ=
+			</data>
+		</dict>
 		<key>Modules/module.modulemap</key>
-		<data>
-		ZlH8rkma2jB7yWJU5dFqHfgbHZc=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			ZlH8rkma2jB7yWJU5dFqHfgbHZc=
+			</data>
+			<key>hash2</key>
+			<data>
+			jIrgG/kJ63bRRctOY4TrN0HWWuvt4GulOzhO3I0OG3U=
+			</data>
+		</dict>
 	</dict>
 	<key>rules</key>
 	<dict>

@@ -11,6 +11,8 @@
 #import "TSLogger.h"
 #import "TSLogManager.h"
 #import "Settings.h"
+#import "TSScheduler.h"
+#import "TSSchedule.h"
 
 @interface TSLocationManager : NSObject <CLLocationManagerDelegate>
 
@@ -42,10 +44,14 @@ typedef enum tsLocationError : NSInteger {
 @property (copy) void (^geofenceBlock) (CLCircularRegion *region, CLLocation *location, NSString *action);
 @property (copy) void (^syncCompleteBlock) (NSArray *locations);
 @property (copy) void (^errorBlock) (NSString *type, NSError *error);
+@property (copy) void (^scheduleBlock) (TSSchedule* schedule);
 
+// Methods
 - (void) configure:(NSDictionary*)config;
 - (void) start;
 - (void) stop;
+- (void) startSchedule;
+- (void) stopSchedule;
 - (NSArray*) sync;
 - (NSArray*) getLocations;
 - (UIBackgroundTaskIdentifier) createBackgroundTask;

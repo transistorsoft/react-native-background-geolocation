@@ -6,8 +6,9 @@
 //  Copyright (c) 2015 Transistor Software. All rights reserved.
 //
 #import <Foundation/Foundation.h>
-#import <sqlite3.h>
 #import <CoreLocation/CoreLocation.h>
+
+typedef struct sqlite3 sqlite3;
 
 @interface LocationDAO : NSObject
 {

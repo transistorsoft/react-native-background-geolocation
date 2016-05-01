@@ -6,7 +6,7 @@ const TAG = "TSLocationManager";
 var emptyFn = function() {};
 
 var API = {
-  events: ['heartbeat', 'http', 'location', 'error', 'motionchange', 'geofence'],
+  events: ['heartbeat', 'http', 'location', 'error', 'motionchange', 'geofence', 'schedule'],
 
   configure: function(config, callback) {
     callback = callback || emptyFn;
@@ -33,6 +33,16 @@ var API = {
   },
   stop: function() {
     RNBackgroundGeolocation.stop();
+  },
+  startSchedule: function(success, failure) {
+    success = success || emptyFn;
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.startSchedule(success, failure);
+  },
+  stopSchedule: function(success, failure) {
+    success = success || emptyFn;
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.stopSchedule(success, failure);
   },
   onHttp: function(callback) {
     return DeviceEventEmitter.addListener(TAG + ":http", callback);

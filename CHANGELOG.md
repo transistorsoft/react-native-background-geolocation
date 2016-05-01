@@ -1,6 +1,9 @@
 # Change Log
 ## [Unreleased]
 
+## [0.6.0] - 2016-05-01
+- [Added] Introduce new [Scheduling feature](http://shop.transistorsoft.com/blogs/news/98537665-background-geolocation-scheduler)
+
 ## [0.5.1] - 2016-04-15
 - [Changed] ios halt stop-detection distance was using `distanceFilter`; changed to use `stationaryRadius`.  This effects users using the accelerometer-based stop-detection system:  after stop is detected, the device must move `stationaryRadius` meters away from location where stop was detected.
 - [Changed] When `maxRecordsToPersist == 0`, don't persist any record.

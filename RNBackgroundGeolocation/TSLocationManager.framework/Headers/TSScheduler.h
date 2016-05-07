@@ -32,7 +32,7 @@
 @property (nonatomic) BOOL debug;
 
 #pragma mark - Methods
-- (void)parse:(NSString*)data;
+- (void)parse:(NSArray*)data;
 - (void)stop;
 - (void)start;
 - (void)evaluate;

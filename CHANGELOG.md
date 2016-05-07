@@ -1,5 +1,13 @@
 # Change Log
 ## [Unreleased]
+- [Fixed] Bugs in iOS option `useSignificantChangesOnly`
+- [Changed] Refactor HTTP Layer to stop spamming server when it returns an error (used to keep iterating through the entire queue).  It will now stop syncing as soon as server returns an error (good for throttling servers).
+- [Added] Migrate iOS settings-management to new Settings service
+- [Fixed] bugs in Scheduler
+- [Changed] Forward declare `sqlite.h` (#76)
+
+## [0.6.1] - 2016-05-01
+- [Added] Add schedule to `#getState`
 
 ## [0.6.0] - 2016-05-01
 - [Added] Introduce new [Scheduling feature](http://shop.transistorsoft.com/blogs/news/98537665-background-geolocation-scheduler)

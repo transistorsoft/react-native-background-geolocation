@@ -232,7 +232,7 @@ RCT_EXPORT_METHOD(removeGeofences:(RCTResponseSenderBlock)success failure:(RCTRe
 
 RCT_EXPORT_METHOD(getOdometer:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    NSNumber *distance = @(locationManager.odometer);
+    NSNumber *distance = @([locationManager getOdometer]);
     success(@[distance]);
 }
 

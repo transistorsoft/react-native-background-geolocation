@@ -30,7 +30,6 @@ typedef enum tsLocationError : NSInteger {
 } tsLocationError;
 
 @property (nonatomic) UIViewController* viewController;
-@property (nonatomic) CLLocationDistance odometer;
 @property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic) NSDate *stoppedAt;
 @property (nonatomic) UIBackgroundTaskIdentifier preventSuspendTask;
@@ -64,7 +63,6 @@ typedef enum tsLocationError : NSInteger {
 - (void) onSuspend:(NSNotification *)notification;
 - (void) onResume:(NSNotification *)notification;
 - (void) onAppTerminate;
-- (BOOL) isEnabled;
 - (NSMutableDictionary*) locationToDictionary:(CLLocation*)location;
 - (NSMutableDictionary*) locationToDictionary:(CLLocation*)location type:(tsLocationtype)type;
 - (void) addGeofence:(NSString*)identifier radius:(CLLocationDistance)radius latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude notifyOnEntry:(BOOL)notifyOnEntry notifyOnExit:(BOOL)notifyOnExit;
@@ -80,6 +78,8 @@ typedef enum tsLocationError : NSInteger {
 - (int) getCount;
 - (NSString*) getLog;
 - (void) emailLog:(NSString*)to;
+
+- (CLLocationDistance)getOdometer;
 - (void) resetOdometer;
 
 @end

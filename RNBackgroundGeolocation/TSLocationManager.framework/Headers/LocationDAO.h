@@ -27,6 +27,7 @@ typedef struct sqlite3 sqlite3;
 - (BOOL) unlockAll:(NSArray*)records;
 - (int) getCount;
 - (NSArray*) all;
-- (NSArray*) allWithLocking;
+- (NSArray*) allWithLocking:(NSInteger)limit;
+- (NSDictionary*) first;
 
 @end

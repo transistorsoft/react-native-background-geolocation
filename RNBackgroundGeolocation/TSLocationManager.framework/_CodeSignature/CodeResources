@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/LocationDAO.h</key>
 		<data>
-		DMSvPxG/Mxh8vTmVVoFh17bHh+8=
+		vK1YvglQmvMBZDB34H+0wrDbxgo=
 		</data>
 		<key>Headers/LocationManager.h</key>
 		<data>
@@ -18,11 +18,11 @@
 		</data>
 		<key>Headers/Settings.h</key>
 		<data>
-		RrrWno+xiMcLzYadZpBXAsUpqy8=
+		0xjH8tUzLHbnpuLBkQQMtsHN2hY=
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		Pv/CgUYm9r5lNiuw+HxecaL9ls4=
+		q6JfKH/J3kCp/rshg1W112DFFFI=
 		</data>
 		<key>Headers/TSLogManager.h</key>
 		<data>
@@ -42,11 +42,11 @@
 		</data>
 		<key>Headers/TSScheduler.h</key>
 		<data>
-		NJqQ2bW/YP7R/ZsFWV8VFumwZWs=
+		3SGHmqVt8pVqQo9hP1Onopcxd/k=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		TTQKCg2TpP3CRwvuPXULZroE2yY=
+		WWTeRjECHtsCdDBNH6GvLKFDDbE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -59,11 +59,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			DMSvPxG/Mxh8vTmVVoFh17bHh+8=
+			vK1YvglQmvMBZDB34H+0wrDbxgo=
 			</data>
 			<key>hash2</key>
 			<data>
-			fhuwERMWVdrUJHFlOWS/HGv09S/qn4kZRbX7qfvCpTI=
+			C8CR8jTb5shIU09t1ljiZjDUr+MyloxcRcsN4FbXPlE=
 			</data>
 		</dict>
 		<key>Headers/LocationManager.h</key>
@@ -92,22 +92,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RrrWno+xiMcLzYadZpBXAsUpqy8=
+			0xjH8tUzLHbnpuLBkQQMtsHN2hY=
 			</data>
 			<key>hash2</key>
 			<data>
-			vKWz045GhxqPERXveXu86QrOg6gHoyKpGHHpMsBZ0Hc=
+			ZQhaJKTFOI4RMc0oYR2ySjox81GnU1BljIE6dUFQvJ4=
 			</data>
 		</dict>
 		<key>Headers/TSLocationManager.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Pv/CgUYm9r5lNiuw+HxecaL9ls4=
+			q6JfKH/J3kCp/rshg1W112DFFFI=
 			</data>
 			<key>hash2</key>
 			<data>
-			FrAhxuTUHrwEIMxg8laUzG2W2PiT5mJM6szCi/uR6pQ=
+			y+8mS3Ddq+4Eq3wmD6fIx5OgqUOB3hslfne5AJiG6JE=
 			</data>
 		</dict>
 		<key>Headers/TSLogManager.h</key>
@@ -158,11 +158,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			NJqQ2bW/YP7R/ZsFWV8VFumwZWs=
+			3SGHmqVt8pVqQo9hP1Onopcxd/k=
 			</data>
 			<key>hash2</key>
 			<data>
-			l7DXs2gjz1K60RVHckFRUQQ+3pMrj+pJ433rqQ/v+DQ=
+			XtNYm9cJTmpfic3xuG5OZXDigvHTlHwGC2NewnzHwos=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -30,7 +30,7 @@
 // Geolocation
 @property (nonatomic, readonly) CLLocationAccuracy desiredAccuracy;
 @property (nonatomic, readonly) CLLocationDistance distanceFilter;
-@property (nonatomic, readonly) NSInteger stationaryRadius;
+@property (nonatomic, readonly) CLLocationDistance stationaryRadius;
 @property (nonatomic, readonly) NSTimeInterval locationTimeout;
 @property (nonatomic, readonly) BOOL useSignificantChangesOnly;
 @property (nonatomic, readonly) BOOL pausesLocationUpdatesAutomatically;
@@ -69,6 +69,7 @@
 -(void)setEnabled:(BOOL)value;
 -(void)setSchedulerEnabled:(BOOL)value;
 -(void)setDisableStopDetection:(BOOL)value;
+-(void)setStationaryRadius:(CLLocationDistance)radius;
 -(void)setPreventSuspend:(BOOL)value;
 -(BOOL)hasValidUrl;
 -(NSDictionary*)getGeofences;

@@ -53,6 +53,7 @@ typedef enum
 
 @property (nonatomic, readonly) SOMotionType motionType;
 @property (nonatomic, readonly) CMMotionActivity* motionActivity;
+@property (nonatomic, readonly) BOOL accelerometerAvailable;
 
 @property (nonatomic) CLLocation* location;
 @property (nonatomic) double currentSpeed;

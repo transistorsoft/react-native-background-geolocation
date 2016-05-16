@@ -46,7 +46,7 @@ typedef enum tsLocationError : NSInteger {
 @property (copy) void (^scheduleBlock) (TSSchedule* schedule);
 
 // Methods
-- (void) configure:(NSDictionary*)config;
+- (NSDictionary*) configure:(NSDictionary*)config;
 - (void) start;
 - (void) stop;
 - (void) startSchedule;

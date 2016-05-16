@@ -1,10 +1,12 @@
 # Change Log
-## [Unreleased]
+
+## [1.0.0] - 2016-05-17
 - [Fixed] Bugs in iOS option `useSignificantChangesOnly`
 - [Changed] Refactor HTTP Layer to stop spamming server when it returns an error (used to keep iterating through the entire queue).  It will now stop syncing as soon as server returns an error (good for throttling servers).
 - [Added] Migrate iOS settings-management to new Settings service
 - [Fixed] bugs in Scheduler
 - [Changed] Forward declare `sqlite.h` (#76)
+- [Added] Improved functionality with `stopOnTerminate: false`.  Ensure a stationary-geofence is created when plugin is closed while in **moving** state; this seems to improve the time it takes to trigger the iOS app awake after terminate.  When plugin *is* rebooted in background due to geofence-exit, the plugin will briefly sample the accelerometer to see if device is currently moving.
 
 ## [0.6.1] - 2016-05-01
 - [Added] Add schedule to `#getState`

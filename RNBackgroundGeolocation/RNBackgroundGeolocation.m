@@ -51,8 +51,7 @@ RCT_EXPORT_METHOD(configure:(NSDictionary*)config callback:(RCTResponseSenderBlo
 {
     RCTLogInfo(@"- RCTBackgroundGeolocation #configure");
     dispatch_async(dispatch_get_main_queue(), ^{
-        [locationManager configure:config];
-        NSDictionary *state = [self getState];
+        NSDictionary *state = [locationManager configure:config];
         callback(@[state]);
     });
 }

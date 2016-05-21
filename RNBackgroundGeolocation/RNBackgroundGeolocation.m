@@ -319,11 +319,12 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     };
 }
 
--(void (^)(int shakeCount, CLLocation *location)) createHeartbeatHandler {
-    return ^(int shakeCount, CLLocation *location) {
+-(void (^)(int shakeCount, NSString* motionType, CLLocation *location)) createHeartbeatHandler {
+    return ^(int shakeCount, NSString* motionType, CLLocation *location) {
         RCTLogInfo(@"- onHeartbeat");
         NSDictionary *params = @{
             @"shakes": @(shakeCount),
+            @"motionType": motionType,
             @"location": [locationManager locationToDictionary:location]
         };
         [self sendEvent:@"heartbeat" dictionary:params];

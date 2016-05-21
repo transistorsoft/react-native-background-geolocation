@@ -14,7 +14,7 @@
 		</data>
 		<key>Headers/SOMotionDetector.h</key>
 		<data>
-		wQ7bHFkTXWTbLa+hfsu/4Tj4lFs=
+		uXP051XOVlY2uAlauGoiCMeW86Y=
 		</data>
 		<key>Headers/Settings.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		Je8Sc++q0PIHCoL0T6eawFxWtao=
+		pBKN3f9EZWEXW9201MDVrYquL2w=
 		</data>
 		<key>Headers/TSLogManager.h</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		WWTeRjECHtsCdDBNH6GvLKFDDbE=
+		uSNz73rFzvrhxkwIPydh2tthq6Q=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -81,11 +81,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			wQ7bHFkTXWTbLa+hfsu/4Tj4lFs=
+			uXP051XOVlY2uAlauGoiCMeW86Y=
 			</data>
 			<key>hash2</key>
 			<data>
-			ndlp23ZC7r4c8MCW+OHFYQVVCnUVayeV1VBsf9WfF+g=
+			RtqB6fXSny1+KhAEzSCWgwr5v61GyjoI5cqE8IG/uhU=
 			</data>
 		</dict>
 		<key>Headers/Settings.h</key>
@@ -103,11 +103,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Je8Sc++q0PIHCoL0T6eawFxWtao=
+			pBKN3f9EZWEXW9201MDVrYquL2w=
 			</data>
 			<key>hash2</key>
 			<data>
-			195X1t0XgQ6S9ty9iCHbI9ypt1TBllXMPWE04hj4+0Q=
+			Rbtv/yRkDGSKNGrvBoaNBTcrUN9vI4XjGU2uAcBCnzY=
 			</data>
 		</dict>
 		<key>Headers/TSLogManager.h</key>

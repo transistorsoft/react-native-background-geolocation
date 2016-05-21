@@ -48,12 +48,14 @@ typedef enum
 
 #pragma mark - Properties
 
+@property (copy) void (^motionActivityChangedBlock) (CMMotionActivity *activity);
 @property (copy) void (^motionTypeChangedBlock) (SOMotionType motionType, int shakeCount, double averageVectorSum);
 @property (copy) void (^accelerationChangedBlock) (CMAcceleration acceleration);
 
 @property (nonatomic, readonly) SOMotionType motionType;
 @property (nonatomic, readonly) CMMotionActivity* motionActivity;
 @property (nonatomic, readonly) BOOL accelerometerAvailable;
+@property (nonatomic, readonly) BOOL isMoving;
 
 @property (nonatomic) CLLocation* location;
 @property (nonatomic) double currentSpeed;
@@ -85,6 +87,7 @@ typedef enum
 
 - (void) setMotionDetectionInterval:(int)interval;
 - (void) setAccelerometerUpdateInterval:(double)interval;
+- (BOOL) isMoving;
 
 /**
  *@param speed  The minimum speed value less than which will be considered as not moving state
@@ -112,9 +115,9 @@ typedef enum
 - (void)setLocation:(CLLocation*)location isMoving:(BOOL)isMoving;
 
 /**
- * Return the human-readable motion activity name
+ * Return the human-readable activity name
  */
-- (NSString*) motionActivityName;
+- (NSString*) motionTypeName;
 /**
  * Return confidence of current motion activity name
  */

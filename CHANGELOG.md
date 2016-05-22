@@ -1,5 +1,10 @@
 # Change Log
 
+## [Unreleased]
+
+## [1.0.1] - 2016-05-22
+- [Changed] Refactor iOS motion-detection system.  When not set to `disableMotionActivityUpdates` (default), the  plugin will not activate the accelerometer and will rely instead purely upon updates from the **M7** chip.  When `disableMotionActivityUpdates` **is** set to `false`, the pure acceleromoeter based activity-detection has been improved to give more accurate results of the detected activity (ie: `on_foot, walking, stationary`)
+
 ## [1.0.0] - 2016-05-17
 - [Fixed] Bugs in iOS option `useSignificantChangesOnly`
 - [Changed] Refactor HTTP Layer to stop spamming server when it returns an error (used to keep iterating through the entire queue).  It will now stop syncing as soon as server returns an error (good for throttling servers).

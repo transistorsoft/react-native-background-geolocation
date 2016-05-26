@@ -308,7 +308,7 @@ Provides an automated schedule for the plugin to start/stop tracking at pre-defi
   "{DAY(s)} {START_TIME}-{END_TIME}"
 ```
 
-The `DAY` param *should* respect your current Locale (eg: Sunday: 1; Saturday: 7).  You may configure a single day (eg: `1`), a comma-separated list-of-days (eg: `2,4,6`) or a range (eg: `2-6`).
+The `DAY` param corresponds to the `Locale.US`, such that Sunday=1; Saturday=7).  You may configure a single day (eg: `1`), a comma-separated list-of-days (eg: `2,4,6`) or a range (eg: `2-6`), eg:
 
 Eg:
 ```Javascript

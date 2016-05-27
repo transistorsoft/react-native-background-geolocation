@@ -36,6 +36,8 @@
 @property (nonatomic, readonly) BOOL pausesLocationUpdatesAutomatically;
 @property (nonatomic, readonly) BOOL disableElasticity;
 @property (nonatomic, readonly) NSTimeInterval stopAfterElapsedMinutes;
+@property (nonatomic, readonly) NSString* locationAuthorizationRequest;
+
 // ActivityRecognition
 @property (nonatomic, readonly) CLActivityType activityType;
 @property (nonatomic, readonly) NSTimeInterval stopDetectionDelay;

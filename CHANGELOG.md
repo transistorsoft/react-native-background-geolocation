@@ -3,6 +3,8 @@
 ## [Unreleased]
 - [Changed] `Scheduler` will use `Locale.US` in its Calendar operations, such that the days-of-week correspond to Sunday=1..Saturday=7.
 - [Fixed] **iOS** Added `event [motionchange|geofence]` to location-data returned to `onLocation` event. 
+- [Changed] Refactor odometer calculation for both iOS and Android.  No longer filters out locations based upon average location accuracy of previous 10 locations; instead, it will only use the current location for odometer calculation if it has accuracy < 100.
+- [Fixed] Missing iOS setting `locationAuthorizationRequest` after Settings service refactor
 
 ## [1.0.1] - 2016-05-22
 - [Changed] Refactor iOS motion-detection system.  When not set to `disableMotionActivityUpdates` (default), the  plugin will not activate the accelerometer and will rely instead purely upon updates from the **M7** chip.  When `disableMotionActivityUpdates` **is** set to `false`, the pure acceleromoeter based activity-detection has been improved to give more accurate results of the detected activity (ie: `on_foot, walking, stationary`)

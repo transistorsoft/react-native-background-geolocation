@@ -25,7 +25,7 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
 ```
 
 ## Documentation
-- [API Documentation](docs/api.md)
+- [API Documentation](docs/)
 - [Location Data Schema](../../wiki/Location-Data-Schema)
 - [Error Codes](../../wiki/Error-Codes)
 - [Debugging Sounds](../../wiki/Debug-Sounds)

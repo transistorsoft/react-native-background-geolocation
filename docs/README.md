@@ -20,8 +20,6 @@ bgGeo.configure({
 bgGeo.setConfig({
     desiredAccuracy: 10,
     distanceFilter: 10
-}, function(state) {
-    console.log('- setConfig success.  Current state: ', state);
 });
 
 ```

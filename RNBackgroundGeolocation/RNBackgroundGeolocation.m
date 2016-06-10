@@ -17,10 +17,11 @@ static NSString *const TS_LOCATION_MANAGER_TAG = @"TSLocationManager";
 
 @implementation RNBackgroundGeolocation {
     //TSLocationManager *locationManager;
+    NSMutableArray *currentPositionListeners;
 }
 
 @synthesize bridge = _bridge;
-@synthesize currentPositionListeners, syncCallback, locationManager;
+@synthesize syncCallback, locationManager;
 
 RCT_EXPORT_MODULE();
 
@@ -30,10 +31,12 @@ RCT_EXPORT_MODULE();
 -(instancetype)init
 {
     self = [super init];
+    
     if (self) {
         locationManager = [[TSLocationManager alloc] init];
         locationManager.locationChangedBlock  = [self createLocationChangedHandler];
         locationManager.motionChangedBlock    = [self createMotionChangedHandler];
+        locationManager.activityChangedBlock  = [self createActivityChangedHandler];
         locationManager.heartbeatBlock        = [self createHeartbeatHandler];
         locationManager.geofenceBlock         = [self createGeofenceHandler];
         locationManager.syncCompleteBlock     = [self createSyncCompleteHandler];
@@ -301,11 +304,11 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
         NSDictionary *locationData = [locationManager locationToDictionary:location type:type];
         
         if (type != TS_LOCATION_TYPE_SAMPLE && [currentPositionListeners count]) {
-            for (NSDictionary *callback in self.currentPositionListeners) {
+            for (NSDictionary *callback in currentPositionListeners) {
                 RCTResponseSenderBlock success = [callback objectForKey:@"success"];
                 success(@[locationData]);
             }
-            [self.currentPositionListeners removeAllObjects];
+            [currentPositionListeners removeAllObjects];
         }
         [self sendEvent:@"location" dictionary:locationData];
     };
@@ -316,6 +319,13 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
         NSDictionary *locationData  = [locationManager locationToDictionary:location];
         RCTLogInfo(@"- onMotionChanage");
         [self sendEvent:@"motionchange" dictionary:locationData];
+    };
+}
+
+-(void (^)(NSString* activityName)) createActivityChangedHandler {
+    return ^(NSString* activityName) {
+        RCTLogInfo(@"- onActivityChange");
+        [self sendEvent:@"activitychange" message:activityName];
     };
 }
 
@@ -370,11 +380,11 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
         
         if ([type isEqualToString:@"location"]) {
             if ([currentPositionListeners count]) {
-                for (NSDictionary *callback in self.currentPositionListeners) {
+                for (NSDictionary *callback in currentPositionListeners) {
                     RCTResponseSenderBlock failure = [callback objectForKey:@"failure"];
                     failure(@[@(error.code)]);
                 }
-                [self.currentPositionListeners removeAllObjects];
+                [currentPositionListeners removeAllObjects];
             }
         }
         [self sendEvent:@"error" dictionary:@{@"type":type, @"code":@(error.code)}];
@@ -398,7 +408,11 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     NSString *event = [NSString stringWithFormat:@"%@:%@", TS_LOCATION_MANAGER_TAG, name];
     [_bridge.eventDispatcher sendDeviceEventWithName:event body:array];
 }
-
+-(void) sendEvent:(NSString*)name message:(NSString*)message
+{
+    NSString *event = [NSString stringWithFormat:@"%@:%@", TS_LOCATION_MANAGER_TAG, name];
+    [_bridge.eventDispatcher sendDeviceEventWithName:event body:message];
+}
 
 - (void)dealloc
 {

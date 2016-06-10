@@ -118,6 +118,7 @@ typedef enum
  * Return the human-readable activity name
  */
 - (NSString*) motionTypeName;
+- (NSString*) motionTypeName:(SOMotionType)motionType;
 /**
  * Return confidence of current motion activity name
  */

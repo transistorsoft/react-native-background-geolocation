@@ -25,7 +25,8 @@
 @property (copy) void (^errorBlock) (LocationManager* manager, NSError* error);
 
 -(void)startUpdatingLocation;
--(void)startUpdatingLocation:(int)samples;
--(void)startUpdatingLocation:(int)samples timeout:(NSTimeInterval)timeout;
+-(void)startUpdatingLocation:(NSInteger)samples;
+-(void)startUpdatingLocation:(NSInteger)samples timeout:(NSTimeInterval)timeout;
+-(void)startUpdatingLocation:(NSInteger)samples timeout:(NSTimeInterval)timeout desiredAccuracy:(CLLocationAccuracy)desiredAccuracy;
 -(void)stopUpdatingLocation;
 @end

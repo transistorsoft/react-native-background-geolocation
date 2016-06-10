@@ -52,16 +52,15 @@ bgGeo.setConfig({
 
 | Option | Type | Opt/Required | Default | Note |
 |---|---|---|---|---|
-| [`url`](#param-string-url-undefined) | `String` | Optional | - | Your server url where you wish to HTTP POST recorded locations to. |
-| [`params`](#param-object-params) | `Object` | Optional | `{}` | Optional HTTP params sent along in HTTP request to above `#url`. |
-| [`headers`](#param-object-headers) | `Object` | Optional | `{}` | Optional HTTP headers sent along in HTTP request to above `#url` |
-| [`extras`](#param-object-extras) | `Object` | Optional | | Optional `{}` to attach to each recorded location |
+| [`url`](#param-string-url) | `String` | Optional | `null` | Your server url where you wish to HTTP POST recorded locations to. |
+| [`params`](#param-object-params) | `Object` | Optional | `null` | Optional HTTP params sent along in HTTP request to above `#url`. |
+| [`headers`](#param-object-headers) | `Object` | Optional | `null` | Optional HTTP headers sent along in HTTP request to above `#url` |
+| [`extras`](#param-object-extras) | `Object` | Optional | | Optional `null` to attach to each recorded location |
 | [`method`](#param-string-method-post) | `String` | Optional | `POST` | The HTTP method. Some servers require `PUT`.
 | [`autoSync`](#param-string-autosync-true) | `Boolean` | Optional | `true` | If you've enabled the HTTP feature by configuring an `#url`, the plugin will attempt to HTTP POST each location to your server **as it is recorded**. If you set `autoSync: false`, it's up to you to **manually** execute the `#sync` method to initate the HTTP POST (**NOTE** The plugin will continue to persist **every** recorded location in the SQLite database until you execute `#sync`). |
 | [`batchSync`](#param-string-batchsync-false) | `Boolean` | Optional | `false` | If you've enabled HTTP feature by configuring an `#url`, `batchSync: true` will POST all the locations currently stored in native SQLite datbase to your server in a single HTTP POST request. With `batchSync: false`, an HTTP POST request will be initiated for **each** location in database. |
-| [`maxBatchSize`](#param-integer-maxbatchsize-undefined) | `Integer` | Optional | `undefined` | If you've enabled HTTP feature by configuring an `#url` and `batchSync: true`, this parameter will limit the number of records attached to each batch.  If the current number of records exceeds the `maxBatchSize`, multiple HTTP requests will be generated until the location queue is empty. |
-| [`maxDaysToPersist`](#param-integer-maxdaystopersist-1) | `Integer` | Optional | `1` | Maximum number of days to store a geolocation in plugin's SQLite database when your server fails to respond with `HTTP 200 OK`. The plugin will continue attempting to sync with your server until `maxDaysToPersist` when it will give up and remove the location from the database. |
-| [`maxRecordsToPersist`](#param-integer-maxrecordstopersist--1) | `Integer` | Optional | `-1` |  Maximum number of records to persist in plugin's SQLite database.|
+| [`maxBatchSize`](#param-integer-maxbatchsize-undefined) | `Integer` | Optional | `-1` | If you've enabled HTTP feature by configuring an `#url` and `batchSync: true`, this parameter will limit the number of records attached to each batch.  If the current number of records exceeds the `maxBatchSize`, multiple HTTP requests will be generated until the location queue is empty. |
+| [`maxDaysToPersist`](#param-integer-maxdaystopersist) | `Integer` | Optional | `1` | Maximum number of days to store a geolocation in plugin's SQLite database when your server fails to respond with `HTTP 200 OK`. The plugin will continue attempting to sync with your server until `maxDaysToPersist` when it will give up and remove the location from the database. |
 
 ## Application Options
 
@@ -69,7 +68,7 @@ bgGeo.setConfig({
 |---|---|---|---|---|
 | [`debug`](#param-boolean-debug-false) | `Boolean` | Optional | `false` | When enabled, the plugin will emit sounds for life-cycle events of background-geolocation! **NOTE iOS**: In addition, you must manually enable the *Audio and Airplay* background mode in *Background Capabilities* to hear these debugging sounds. |
 | [`stopOnTerminate`](#param-boolean-stoponterminate-true) | `Boolean` | Optional | `true` | Enable this in order to force a stop() when the application is terminated |
-| [`startOnBoot`](#param-boolean-startonboot-false) | `Boolean` | Optional | `true` | Set to `true` to enable background-tracking after the device reboots. |
+| [`startOnBoot`](#param-boolean-startonboot-false) | `Boolean` | Optional | `true` | Set to `false` to enable background-tracking after the device reboots. |
 | [`preventSuspend`](#param-boolean-preventsuspend-false) | `Boolean` | Optional | `false` | Enable this to prevent **iOS** from suspending.  Must be used in conjunction with a `heartbeatInterval`.  **WARNING**: `preventSuspend` should only be used in **very** specific use-cases and should typically **not** be used as it will have a **very serious impact on battery performance.** |
 | [`heartbeatInterval`](#param-integer-heartbeatinterval-60) | `Integer(seconds)` | Optional **iOS** | `60` | Used in conjunction with `preventSuspend`, an **iOS** app can continue to monitor the accelerometer while in the **stationary-state**.  If the *slightest* movement is detected during a `hearbeatInterval`, the plugin will request a high-accuracy location in order to determine if the device has begun moving.  If the plugin *is* moving, it will immediately switch state to **moving-state**.|
 | [`schedule`](#param-array-schedule-undefined) | `Array` | Optional | `undefined` | Defines a schedule to automatically start/stop tracking at configured times |
@@ -88,6 +87,7 @@ bgGeo.on('location', function(location) {
 | [`location`](#location) | Fired whenever a new location is recorded. |
 | [`error`](#error) | Fired whenever an error occurs (eg: `location`, `geofence`) |
 | [`motionchange`](#motionchange) | Fired when the device changes stationary / moving state. |
+| [`activitychange`](#activitychange) | Fired when the activity-recognition system detects a *change* in detected-activity (`still, on_foot, in_vehicle, on_bicycle, running`) |
 | [`geofence`](#geofence) | Fired when a geofence crossing event occurs. |
 | [`http`](#http) | Fired after a successful HTTP response. `response` object is provided with `status` and `responseText`. |
 | [`heartbeat`](#heartbeat) | Fired each `heartbeatInterval` while the plugin is in the **stationary** state with.  Your callback will be provided with a `params {}` containing the parameters `shakes {Integer}` (#shakes not implemented for Android), `motionType {String}`,  `location {Object}` |
@@ -360,7 +360,7 @@ bgGeo.setConfig({
 
 # Events
 
-The following events can all be listened-to via the method `#on(eventName, callback)`, supplying `location`, `motionchange`, `error`, `geofence` or `http` for `eventName`.
+The following events can all be listened-to via the method `#on(eventName, callback)`, supplying `location`, `motionchange`, `error`, `geofence` or `http`, `activitychange` for `eventName`.
 
 ####`location`
 Your `callbackFn` will be executed each time the plugin records a new location. The `callbackFn` will be provided with the following parameters:
@@ -413,6 +413,17 @@ bgGeo.on('motionchange', function(isMoving, location) {
     }
 })
 
+```
+
+####`activitychange`
+Your `callbackFn` will be executed each time the activity-recognition system detects a *change* in detected-activity (`still, on_foot, in_vehicle, on_bicycle, running`).
+
+######@param {String still | on_foot | in_vehicle | on_bicycle | running | unknown} activityName 
+
+```Javascript
+bgGeo.on('activitychange', function(activityName) {
+    console.log('- Activity changed: ', activityName);
+});
 ```
 
 ####`geofence`
@@ -621,19 +632,17 @@ If an error occurs while fetching the location, the `failureFn` will be executed
 #### Options
 
 ######@param {Integer} timeout [30]
-An optional location-timeout. If the timeout expires before a location is retrieved, the `failureFn` will be executed.
-
+An optional location-timeout.  If the timeout expires before a location is retrieved, the `failureFn` will be executed.
 ######@param {Integer millis} maximumAge [0]
 Accept the last-recorded-location if no older than supplied value in milliseconds.
-
-######@param {Integer} minimumAccuracy
-Attempt to fetch a location with the supplied minimum accuracy
-
+######@param {Boolean} persist [true]
+Defaults to `true`.  Set `false` to disable persisting the retrieved location in the plugin's SQLite database.
+######@param {Integer} samples [3]
+Sets the maximum number of location-samples to fetch.  The plugin will return the location having the best accuracy to your `successFn`.  Defaults to `3`.  Only the final location will be persisted.
+######@param {Integer} desiredAccuracy [stationaryRadius]
+Sets the desired accuracy of location you're attempting to fetch.  When a location having `accuracy <= desiredAccuracy` is retrieved, the plugin will stop sampling and immediately return that location.  Defaults to your configured `stationaryRadius`.
 ######@param {Object} extras
-Optional extra-data to attach to the location. These `extras {Object}` will be merged to the recorded `location` and persisted / POSTed to your server (if you've configured the HTTP Layer).
-
-######@param {Boolean} persist
-Set `false` to disable persisting the retrieve location (default is `true`);
+Optional extra-data to attach to the location.  These `extras {Object}` will be merged to the recorded `location` and persisted / POSTed to your server (if you've configured the HTTP Layer).
 
 #### Callback
 
@@ -642,9 +651,10 @@ Set `false` to disable persisting the retrieve location (default is `true`);
 ```Javascript
 bgGeo.getCurrentPosition({
   persist: true,
-  timeout: 30, // 30 second timeout to fetch location
+  timeout: 30,      // 30 second timeout to fetch location
+  samples: 5,       // Fetch maximum 5 location samples
   maximumAge: 5000, // Accept the last-known-location if not older than 5000 ms.
-  minimumAccuracy: 10,  // Fetch a location with a minimum accuracy of `10` meters.
+  desiredAccuracy: 10,  // Fetch a location with a minimum accuracy of `10` meters.
   extras: {       // [Optional] Attach your own custom `metaData` to this location. This metaData will be persisted to SQLite and POSTed to your server
     foo: "bar"
   }
@@ -653,7 +663,7 @@ bgGeo.getCurrentPosition({
     // If you’ve configured #autoSync: true, the HTTP POST has already started.
     console.log(“- Current position received: “, location);
 }, function(errorCode) {
-    alert('An location error occurred: ' + errorCode);
+    alert('A location error occurred: ' + errorCode);
 });
 
 ```

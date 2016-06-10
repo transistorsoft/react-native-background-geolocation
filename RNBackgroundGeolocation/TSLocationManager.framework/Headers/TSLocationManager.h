@@ -39,6 +39,7 @@ typedef enum tsLocationError : NSInteger {
 @property (copy) void (^httpResponseBlock) (NSInteger statusCode, NSDictionary *requestData, NSData *responseData, NSError *error);
 @property (copy) void (^locationChangedBlock) (CLLocation *location, enum tsLocationType, BOOL isMoving);
 @property (copy) void (^motionChangedBlock) (CLLocation *location, BOOL isMoving);
+@property (copy) void (^activityChangedBlock) (NSString *activityName);
 @property (copy) void (^heartbeatBlock) (int shakeCount, NSString* motionType, CLLocation *location);
 @property (copy) void (^geofenceBlock) (CLCircularRegion *region, CLLocation *location, NSString *action);
 @property (copy) void (^syncCompleteBlock) (NSArray *locations);

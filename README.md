@@ -37,7 +37,7 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
 
 ## Example
 
-```
+```js
 
 var BackgroundGeolocation = require('react-native-background-geolocation');
 

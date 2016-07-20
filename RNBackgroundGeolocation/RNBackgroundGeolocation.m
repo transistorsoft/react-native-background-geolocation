@@ -9,19 +9,29 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
-
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
 
 static NSString *const TS_LOCATION_MANAGER_TAG = @"TSLocationManager";
 
+static NSString *const EVENT_LOCATIONCHANGE = @"location";
+static NSString *const EVENT_PROVIDERCHANGE = @"providerchange";
+static NSString *const EVENT_MOTIONCHANGE = @"motionchange";
+static NSString *const EVENT_ACTIVITYCHANGE = @"activitychange";
+static NSString *const EVENT_ERROR = @"error";
+static NSString *const EVENT_HTTP = @"http";
+static NSString *const EVENT_SCHEDULE = @"schedule";
+static NSString *const EVENT_GEOFENCE = @"geofence";
+static NSString *const EVENT_SYNC = @"sync";
+static NSString *const EVENT_HEARTBEAT = @"heartbeat";
+
+
 @implementation RNBackgroundGeolocation {
-    //TSLocationManager *locationManager;
     NSMutableArray *currentPositionListeners;
 }
 
-@synthesize bridge = _bridge;
 @synthesize syncCallback, locationManager;
+@synthesize bridge = _bridge;
 
 RCT_EXPORT_MODULE();
 
@@ -33,7 +43,7 @@ RCT_EXPORT_MODULE();
     self = [super init];
     
     if (self) {
-        locationManager = [[TSLocationManager alloc] init];
+        locationManager = [TSLocationManager sharedInstance];
         locationManager.locationChangedBlock  = [self createLocationChangedHandler];
         locationManager.motionChangedBlock    = [self createMotionChangedHandler];
         locationManager.activityChangedBlock  = [self createActivityChangedHandler];
@@ -43,19 +53,35 @@ RCT_EXPORT_MODULE();
         locationManager.httpResponseBlock     = [self createHttpResponseHandler];
         locationManager.errorBlock            = [self createErrorHandler];
         locationManager.scheduleBlock         = [self createScheduleHandler];
+        locationManager.authorizationChangedBlock = [self createAuthorizationChangedHandler];
     }
     return self;
+}
+
+- (NSArray<NSString *> *)supportedEvents {
+    return @[
+        [self eventName:EVENT_LOCATIONCHANGE],
+        [self eventName:EVENT_PROVIDERCHANGE],
+        [self eventName:EVENT_MOTIONCHANGE],
+        [self eventName:EVENT_ACTIVITYCHANGE],
+        [self eventName:EVENT_ERROR],
+        [self eventName:EVENT_HTTP],
+        [self eventName:EVENT_SCHEDULE],
+        [self eventName:EVENT_GEOFENCE],
+        [self eventName:EVENT_SYNC],
+        [self eventName:EVENT_HEARTBEAT]
+    ];
 }
 
 /**
  * configure plugin
  */
-RCT_EXPORT_METHOD(configure:(NSDictionary*)config callback:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(configure:(NSDictionary*)config success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     RCTLogInfo(@"- RCTBackgroundGeolocation #configure");
     dispatch_async(dispatch_get_main_queue(), ^{
         NSDictionary *state = [locationManager configure:config];
-        callback(@[state]);
+        success(@[state]);
     });
 }
 
@@ -155,6 +181,14 @@ RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options success:(RCTResponse
     [currentPositionListeners addObject:callbacks];
     [locationManager updateCurrentPosition:options];
 }
+
+RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    NSString *errorMsg = @"#watchPosition is not currently implemeted for iOS";
+    RCTLogInfo(errorMsg);
+    failure(@[errorMsg]);
+}
+
 
 RCT_EXPORT_METHOD(getLocations:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
@@ -310,7 +344,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
             }
             [currentPositionListeners removeAllObjects];
         }
-        [self sendEvent:@"location" dictionary:locationData];
+        [self sendEvent:EVENT_LOCATIONCHANGE body:locationData];
     };
 }
 
@@ -318,14 +352,22 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     return ^(CLLocation *location, BOOL moving) {
         NSDictionary *locationData  = [locationManager locationToDictionary:location];
         RCTLogInfo(@"- onMotionChanage");
-        [self sendEvent:@"motionchange" dictionary:locationData];
+        [self sendEvent:EVENT_MOTIONCHANGE body:locationData];
     };
+}
+-(void) sendEvent:(NSString*)event body:(id)body
+{
+    [_bridge.eventDispatcher sendDeviceEventWithName:[self eventName:event] body:body];
+    
+    // NEW RCTEventEmitter is buggy.
+    //[self sendEventWithName:[self eventName:event] body:body];
+    
 }
 
 -(void (^)(NSString* activityName)) createActivityChangedHandler {
     return ^(NSString* activityName) {
         RCTLogInfo(@"- onActivityChange");
-        [self sendEvent:@"activitychange" message:activityName];
+        [self sendEvent:EVENT_ACTIVITYCHANGE body:activityName];
     };
 }
 
@@ -337,7 +379,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
             @"motionType": motionType,
             @"location": [locationManager locationToDictionary:location]
         };
-        [self sendEvent:@"heartbeat" dictionary:params];
+        [self sendEvent:EVENT_HEARTBEAT body:params];
     };
 }
 
@@ -348,7 +390,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
             @"action": action,
             @"location": [locationManager locationToDictionary:location]
         };
-        [self sendEvent:@"geofence" dictionary: params];
+        [self sendEvent:EVENT_GEOFENCE body:params];
         RCTLogInfo(@"- onEnterGeofence: %@", params);
     };
 }
@@ -356,8 +398,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 -(void (^)(NSArray *locations)) createSyncCompleteHandler {
     return ^(NSArray *locations) {
         RCTLogInfo(@"- onSyncComplete");
-        [self sendEvent:@"sync" array:@[locations]];
-        
+        [self sendEvent:EVENT_SYNC body:locations];
         if (syncCallback) {
             RCTResponseSenderBlock success = [syncCallback objectForKey:@"success"];
             success(@[locations]);
@@ -370,7 +411,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     return ^(NSInteger statusCode, NSDictionary *requestData, NSData *responseData, NSError *error) {
         NSDictionary *response  = @{@"status":@(statusCode), @"responseText":[[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding]};
         RCTLogInfo(@"- onHttpResponse");
-        [self sendEvent:@"http" dictionary:response];
+        [self sendEvent:EVENT_HTTP body:response];
     };
 }
 
@@ -387,36 +428,35 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
                 [currentPositionListeners removeAllObjects];
             }
         }
-        [self sendEvent:@"error" dictionary:@{@"type":type, @"code":@(error.code)}];
+        [self sendEvent:EVENT_ERROR body: @{@"type":type, @"code":@(error.code)}];
+    };
+}
+
+-(void (^)(CLAuthorizationStatus status)) createAuthorizationChangedHandler {
+    return ^(CLAuthorizationStatus status) {
+        RCTLogInfo(@"- providerchange");
+        BOOL enabled = (status == kCLAuthorizationStatusAuthorized);
+        NSDictionary *provider = @{@"enabled":@(enabled), @"network":@(YES), @"gps":@(YES)};
+        [self sendEvent:EVENT_PROVIDERCHANGE body:provider];
     };
 }
 
 -(void (^)(TSSchedule *schedule)) createScheduleHandler {
     return ^(TSSchedule *schedule) {
         RCTLogInfo(@" - Schedule event: %@", schedule);
-        [self sendEvent:@"schedule" dictionary:[locationManager getState]];
+        [self sendEvent:EVENT_SCHEDULE body:[locationManager getState]];
     };
 }
 
--(void) sendEvent:(NSString*)name dictionary:(NSDictionary*)dictionary
+-(NSString*) eventName:(NSString*)name
 {
-    NSString *event = [NSString stringWithFormat:@"%@:%@", TS_LOCATION_MANAGER_TAG, name];
-    [_bridge.eventDispatcher sendDeviceEventWithName:event body:dictionary];
-}
--(void) sendEvent:(NSString*)name array:(NSArray*)array
-{
-    NSString *event = [NSString stringWithFormat:@"%@:%@", TS_LOCATION_MANAGER_TAG, name];
-    [_bridge.eventDispatcher sendDeviceEventWithName:event body:array];
-}
--(void) sendEvent:(NSString*)name message:(NSString*)message
-{
-    NSString *event = [NSString stringWithFormat:@"%@:%@", TS_LOCATION_MANAGER_TAG, name];
-    [_bridge.eventDispatcher sendDeviceEventWithName:event body:message];
+    return [NSString stringWithFormat:@"%@:%@", TS_LOCATION_MANAGER_TAG, name];
 }
 
 - (void)dealloc
 {
     RCTLogInfo(@"- RNBackgroundGeolocation dealloc");
+    locationManager = nil;
 }
 
 @end

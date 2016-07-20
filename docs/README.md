@@ -88,6 +88,7 @@ bgGeo.on('location', function(location) {
 | [`error`](#error) | Fired whenever an error occurs (eg: `location`, `geofence`) |
 | [`motionchange`](#motionchange) | Fired when the device changes stationary / moving state. |
 | [`activitychange`](#activitychange) | Fired when the activity-recognition system detects a *change* in detected-activity (`still, on_foot, in_vehicle, on_bicycle, running`) |
+| [`providerchange`](#providerchange)| Fired when a change in the state of the device's **Location Services** has been detected.  eg: "GPS ON", "Wifi only".|
 | [`geofence`](#geofence) | Fired when a geofence crossing event occurs. |
 | [`http`](#http) | Fired after a successful HTTP response. `response` object is provided with `status` and `responseText`. |
 | [`heartbeat`](#heartbeat) | Fired each `heartbeatInterval` while the plugin is in the **stationary** state with.  Your callback will be provided with a `params {}` containing the parameters `shakes {Integer}` (#shakes not implemented for Android), `motionType {String}`,  `location {Object}` |
@@ -423,6 +424,24 @@ Your `callbackFn` will be executed each time the activity-recognition system det
 ```Javascript
 bgGeo.on('activitychange', function(activityName) {
     console.log('- Activity changed: ', activityName);
+});
+```
+
+####`providerchange`
+Fired when a change in the state of the device's **Location Services** has been detected.  eg: "GPS ON", "Wifi only".  Your `callbackFn` will be provided with an `{Object} provider` containing the following properties.  The plugin will **automatically** fetch the current location where the `providerchange` occurred and persist that location to the database, appending the `#provider` information to the JSON object.  This will be synced to your configured `#url` just like any other recorded location.
+
+![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-geolocation/images/Screenshot_20160718-223448.png)
+
+######@param {Boolean} enabled Whether location-services is enabled
+######@param {Boolean} gps Whether gps is enabled (**Not supported on iOS**)
+######@param {Boolean} wifi Whether wifi geolocation is enabled (**Not supported on iOS**)
+
+```Javascript
+bgGeo.on('providerchange', function(provider) {
+    console.log('- Provider Change: ', provider);
+    console.log('  enabled: ', provider.enabled);
+    console.log('  gps: ', provider.gps);
+    console.log('  wifi: ', provider.wifi);
 });
 ```
 

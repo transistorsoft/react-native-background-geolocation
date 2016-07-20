@@ -36,15 +36,18 @@ typedef enum tsLocationError : NSInteger {
 @property (nonatomic) SOMotionType motionType;
 
 // Blocks
-@property (copy) void (^httpResponseBlock) (NSInteger statusCode, NSDictionary *requestData, NSData *responseData, NSError *error);
-@property (copy) void (^locationChangedBlock) (CLLocation *location, enum tsLocationType, BOOL isMoving);
-@property (copy) void (^motionChangedBlock) (CLLocation *location, BOOL isMoving);
-@property (copy) void (^activityChangedBlock) (NSString *activityName);
-@property (copy) void (^heartbeatBlock) (int shakeCount, NSString* motionType, CLLocation *location);
-@property (copy) void (^geofenceBlock) (CLCircularRegion *region, CLLocation *location, NSString *action);
-@property (copy) void (^syncCompleteBlock) (NSArray *locations);
-@property (copy) void (^errorBlock) (NSString *type, NSError *error);
-@property (copy) void (^scheduleBlock) (TSSchedule* schedule);
+@property (nonatomic, copy) void (^httpResponseBlock) (NSInteger statusCode, NSDictionary *requestData, NSData *responseData, NSError *error);
+@property (nonatomic, copy) void (^locationChangedBlock) (CLLocation *location, enum tsLocationType, BOOL isMoving);
+@property (nonatomic, copy) void (^motionChangedBlock) (CLLocation *location, BOOL isMoving);
+@property (nonatomic, copy) void (^activityChangedBlock) (NSString *activityName);
+@property (nonatomic, copy) void (^heartbeatBlock) (int shakeCount, NSString* motionType, CLLocation *location);
+@property (nonatomic, copy) void (^geofenceBlock) (CLCircularRegion *region, CLLocation *location, NSString *action);
+@property (nonatomic, copy) void (^syncCompleteBlock) (NSArray *locations);
+@property (nonatomic, copy) void (^errorBlock) (NSString *type, NSError *error);
+@property (nonatomic, copy) void (^scheduleBlock) (TSSchedule* schedule);
+@property (nonatomic, copy) void (^authorizationChangedBlock) (CLAuthorizationStatus status);
+
++ (TSLocationManager *)sharedInstance;
 
 // Methods
 - (NSDictionary*) configure:(NSDictionary*)config;

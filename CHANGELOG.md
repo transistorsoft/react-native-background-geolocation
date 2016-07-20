@@ -1,6 +1,8 @@
 # Change Log
 
-## [Unreleased]
+## [1.2.0] - 2016-07-22
+- [Added] #providerchange method.  Fires when user toggles location-services.
+- [Changed] Use `TSLocationManager` as a singleton.  This may help with issues during development where you reload Javascript, causing multiple instances of `TSLocationManager` to begin recording locations.
 
 ## [1.1.0] - 2016-06-10
 - [Changed] `Scheduler` will use `Locale.US` in its Calendar operations, such that the days-of-week correspond to Sunday=1..Saturday=7.

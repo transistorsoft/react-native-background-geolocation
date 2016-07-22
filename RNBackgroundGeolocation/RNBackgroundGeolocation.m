@@ -85,10 +85,11 @@ RCT_EXPORT_METHOD(configure:(NSDictionary*)config success:(RCTResponseSenderBloc
     });
 }
 
-RCT_EXPORT_METHOD(setConfig:(NSDictionary*)config)
+RCT_EXPORT_METHOD(setConfig:(NSDictionary*)config success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     RCTLogInfo(@"- RCTBackgroundGeoLocation #setConfig");
     [locationManager setConfig:config];
+    success(@[[self getState]]);
 }
 
 -(NSDictionary*)getState

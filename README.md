@@ -16,12 +16,12 @@ Follows the [React Native Modules spec](https://facebook.github.io/react-native/
 
 ## Installing the Plugin
 
-[See Wiki](https://github.com/transistorsoft/react-native-background-geolocation/wiki/Installation)
+[Manual Installation](docs/INSTALL.md)
 
 ## Using the plugin ##
 
-```
-var BackgroundGeolocation = require('react-native-background-geolocation');
+```Javascript
+import BackgroundGeolocation from "react-native-background-geolocation";
 ```
 
 ## Documentation
@@ -37,44 +37,42 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
 
 ## Example
 
-```js
+```Javascript
 
-var BackgroundGeolocation = require('react-native-background-geolocation');
+import BackgroundGeolocation from "react-native-background-geolocation";
 
 var Foo = React.createClass({
   getInitialState() {
     
     BackgroundGeolocation.configure({
+      // Geolocation Config
       desiredAccuracy: 0,
-      stationaryRadius: 50,
-      distanceFilter: 50,
-      disableElasticity: false, // <-- [iOS] Default is 'false'.  Set true to disable speed-based distanceFilter elasticity
-      locationUpdateInterval: 5000,
-      minimumActivityRecognitionConfidence: 80,   // 0-100%.  Minimum activity-confidence for a state-change 
-      fastestLocationUpdateInterval: 5000,
-      activityRecognitionInterval: 10000,
-      stopDetectionDelay: 1,  // <--  minutes to delay after motion stops before engaging stop-detection system
-      stopTimeout: 2, // 2 minutes
-      activityType: 'AutomotiveNavigation',
-
+      stationaryRadius: 25,
+      distanceFilter: 10,
+      // Activity Recognition
+      stopTimeout: 1,       
       // Application config
       debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
-      forceReloadOnLocationChange: false,  // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when a new location is recorded (WARNING: possibly distruptive to user) 
-      forceReloadOnMotionChange: false,    // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when device changes stationary-state (stationary->moving or vice-versa) --WARNING: possibly distruptive to user) 
-      forceReloadOnGeofence: false,        // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when a geofence crossing occurs --WARNING: possibly distruptive to user) 
-      stopOnTerminate: false,              // <-- [Android] Allow the background-service to run headless when user closes the app.
-      startOnBoot: true,                   // <-- [Android] Auto start background-service in headless mode when device is powered-up.
-        
+      stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
+      startOnBoot: true,        // <-- Auto start tracking when device is powered-up.
       // HTTP / SQLite config
       url: 'http://posttestserver.com/post.php?dir=cordova-background-geolocation',
       batchSync: false,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
       autoSync: true,         // <-- [Default: true] Set true to sync each location to server as it arrives.
       maxDaysToPersist: 1,    // <-- Maximum days to persist a location in plugin's SQLite database when HTTP fails
-      headers: {
+      headers: {              // <-- Optional HTTP headers
         "X-FOO": "bar"
       },
-      params: {
+      params: {               // <-- Optional HTTP params
         "auth_token": "maybe_your_server_authenticates_via_token_YES?"
+      }
+    }, function(state) {
+      console.log("- BackgroundGeolocation is configured and ready: ", state.enabled);
+      
+      if (!state.enabled) {
+        BackgroundGeolocation.start(function() {
+          console.log("- Start success");
+        });
       }
     });
     
@@ -95,19 +93,15 @@ var Foo = React.createClass({
         console.log('- [js]motionchanged: ', JSON.stringify(location));
     });
     
-    BackgroundGeolocation.start(function() {
-      console.log('- [js] BackgroundGeolocation started successfully');
-      
-      // Fetch current position
-      BackgroundGeolocation.getCurrentPosition({timeout: 30}, function(location) {
-        console.log('- [js] BackgroundGeolocation received current position: ', JSON.stringify(location));
-      }, function(error) {
-        alert("Location error: " + error);
-      });
+    // This event fires when a chnage in motion activity is detected
+    BackgroundGeolocation.on('activitychange', function(activityName) {
+      console.log('- Current motion activity: ', activityName);  // eg: 'on_foot', 'still', 'in_vehicle'
     });
-
-    // Call #stop to halt all tracking
-    // BackgroundGeolocation.stop();
+    
+    // This event fires when the user toggles location-services
+    BackgroundGeolocation.on('providerchange', function(provider) {
+      console.log('- Location provider changed: ', provider.enabled);    
+    });
   }
 });
 
@@ -116,9 +110,6 @@ var Foo = React.createClass({
 ## [Advanced Demo Application for Field-testing](https://github.com/transistorsoft/rn-background-geolocation-demo)
 
 A fully-featured [Demo App](https://github.com/transistorsoft/rn-background-geolocation-demo) is available in its own public repo.  After first cloning that repo, follow the installation instructions in the **README** there.  This demo-app includes a settings-screen allowing you to quickly experiment with all the different settings available for each platform.
-
-![Home](https://www.dropbox.com/s/4cggjacj68cnvpj/screenshot-iphone5-geofences-framed.png?dl=1)
-![Settings](https://www.dropbox.com/s/mmbwgtmipdqcfff/screenshot-iphone5-settings-framed.png?dl=1)
 
 ## Help!  It doesn't work!
 

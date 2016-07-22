@@ -1,4 +1,10 @@
 # Change Log
+## [1.3.0] - 2016-08-06
+- [Added] Add new dependency react-native-background-fetch for improved handling of background-geolocation while app is suspended.  `react-native-background-fetch` is managed by Transistor Software.  This iOS-only API awakens a suspended iOS app about every 15 min, providing exactly 30s of background running time.  background-geolocation uses these events to sync stored locations, check schedule, samples accelerometer for movement (improves motionchange triggering), and determines whether app should have `stopOnTerminate`
+
+## [1.2.2] - 2016-08-01
+- [Changed] Implement improved location-authorization code with automatic native alert popup directing user to settings to fix the problem.  Added new config param `locationAuthorizationAlert` allowing you to configure the strings on the Alert
+- [Fixed] iOS setting http `method` not being respected (was always doing `POST`).
 
 ## [1.2.0] - 2016-07-22
 - [Added] #providerchange method.  Fires when user toggles location-services.

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		831E1F6A1D57515F00F0A1F4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 831E1F691D57515F00F0A1F4 /* libsqlite3.tbd */; };
 		83FF0B471BCB624E00831D47 /* TSLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF0B461BCB624E00831D47 /* TSLocationManager.framework */; };
 		83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */; };
 		83FF5F8B1AFD0D2B0016A13E /* RNBackgroundGeolocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */; };
@@ -38,7 +39,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		832E54741AFDBAEA00481991 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		831E1F691D57515F00F0A1F4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		83FF0B461BCB624E00831D47 /* TSLocationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSLocationManager.framework; path = RNBackgroundGeolocation/TSLocationManager.framework; sourceTree = "<group>"; };
 		83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNBackgroundGeolocation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNBackgroundGeolocation.h; sourceTree = "<group>"; };
@@ -52,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				831E1F6A1D57515F00F0A1F4 /* libsqlite3.tbd in Frameworks */,
 				83FF0B471BCB624E00831D47 /* TSLocationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,8 +72,8 @@
 		83FF5F7C1AFD0D2B0016A13E = {
 			isa = PBXGroup;
 			children = (
+				831E1F691D57515F00F0A1F4 /* libsqlite3.tbd */,
 				83FF0B461BCB624E00831D47 /* TSLocationManager.framework */,
-				832E54741AFDBAEA00481991 /* libsqlite3.dylib */,
 				83FF5F871AFD0D2B0016A13E /* RNBackgroundGeolocation */,
 				83FF5F941AFD0D2B0016A13E /* RNBackgroundGeolocationTests */,
 				83FF5F861AFD0D2B0016A13E /* Products */,

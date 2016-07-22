@@ -13,6 +13,8 @@
 #import "Settings.h"
 #import "TSScheduler.h"
 #import "TSSchedule.h"
+#import "LocationAuthorization.h"
+#import "TSHttpService.h"
 
 @interface TSLocationManager : NSObject <CLLocationManagerDelegate>
 

@@ -6,19 +6,22 @@ const TAG = "TSLocationManager";
 var emptyFn = function() {};
 
 var API = {
-  events: ['heartbeat', 'http', 'location', 'error', 'motionchange', 'geofence', 'schedule', 'activitychange'],
+  events: ['heartbeat', 'http', 'location', 'error', 'motionchange', 'geofence', 'schedule', 'activitychange', 'providerchange', 'watchposition'],
 
-  configure: function(config, callback) {
-    callback = callback || emptyFn;
-    RNBackgroundGeolocation.configure(config, callback);
-  },
-  setConfig: function(config) {
-    RNBackgroundGeolocation.setConfig(config);
-  },
-  getState: function(callback, failure) {
-    callback = callback || emptyFn;
+  configure: function(config, success, failure) {
+    success = success || emptyFn;
     failure = failure || emptyFn;
-    RNBackgroundGeolocation.getState(callback, failure);
+    RNBackgroundGeolocation.configure(config, success, failure);
+  },
+  setConfig: function(config, success, failure) {
+    success = success || emptyFn;
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.setConfig(config, success, failure);
+  },
+  getState: function(success, failure) {
+    success = success || emptyFn;
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.getState(success, failure);
   },
   on: function(event, callback) {
     if (this.events.indexOf(event) < 0) {
@@ -31,7 +34,7 @@ var API = {
     failure = failure || emptyFn;
     RNBackgroundGeolocation.start(success, failure);
   },
-  stop: function() {
+  stop: function() {    
     RNBackgroundGeolocation.stop();
   },
   startSchedule: function(success, failure) {
@@ -62,7 +65,7 @@ var API = {
     return DeviceEventEmitter.addListener(TAG + ":geofence", callback);
   },
   onHeartbeat: function(callback) {
-    return DeviceEventEmitter.addListener(TAG + ":heartbeat", callback);
+    return DeviceEventEmitter.addListener(TAG + ":heartbeat", callback);    
   },
   onError: function(callback) {
     return DeviceEventEmitter.addListener(TAG + ":error", callback);
@@ -87,6 +90,23 @@ var API = {
     options = options || {};
     failure = failure || emptyFn;
     RNBackgroundGeolocation.getCurrentPosition(options, success, failure);
+  },
+  watchPosition: function(success, failure, options) {
+    if (typeof(failure) === 'object') {
+      options = failure;
+      failure = emptyFn;
+    }
+    options = options || {};
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.watchPosition(options, function() {
+      DeviceEventEmitter.addListener(TAG + ":watchposition", success);
+    }, failure);
+  },
+  stopWatchPosition: function(success, failure) {
+    success = success || emptyFn;
+    failure = failure || emptyFn;
+    DeviceEventEmitter.removeAllListeners(TAG + ":watchposition");
+    RNBackgroundGeolocation.stopWatchPosition(success, failure);
   },
   getLocations: function(success, failure) {
     failure = failure || emptyFn;

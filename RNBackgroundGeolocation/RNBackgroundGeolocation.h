@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
-#import "RCTBridge.h"
 #import "RCTLog.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <TSLocationManager/TSLocationManager.h>
+
+#import "RCTEventEmitter.h"
+#import "RCTBridgeModule.h"
 
 @interface RNBackgroundGeolocation : NSObject <RCTBridgeModule>
 

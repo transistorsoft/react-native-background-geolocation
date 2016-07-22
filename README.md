@@ -37,7 +37,7 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
 
 ## Example
 
-```js
+```Javascript
 
 var BackgroundGeolocation = require('react-native-background-geolocation');
 
@@ -76,6 +76,14 @@ var Foo = React.createClass({
       params: {
         "auth_token": "maybe_your_server_authenticates_via_token_YES?"
       }
+    }, function(state) {
+      console.log("- BackgroundGeolocation is configured and ready: ", state.enabled);
+      
+      if (!state.enabled) {
+        BackgroundGeolocation.start(function() {
+          console.log("- Start success");
+        });
+      }
     });
     
     // This handler fires whenever bgGeo receives a location update.
@@ -95,19 +103,15 @@ var Foo = React.createClass({
         console.log('- [js]motionchanged: ', JSON.stringify(location));
     });
     
-    BackgroundGeolocation.start(function() {
-      console.log('- [js] BackgroundGeolocation started successfully');
-      
-      // Fetch current position
-      BackgroundGeolocation.getCurrentPosition({timeout: 30}, function(location) {
-        console.log('- [js] BackgroundGeolocation received current position: ', JSON.stringify(location));
-      }, function(error) {
-        alert("Location error: " + error);
-      });
+    // This event fires when a chnage in motion activity is detected
+    BackgroundGeolocation.on('activitychange', function(activityName) {
+      console.log('- Current motion activity: ', activityName);  // eg: 'on_foot', 'still', 'in_vehicle'
     });
-
-    // Call #stop to halt all tracking
-    // BackgroundGeolocation.stop();
+    
+    // This event fires when the user toggles location-services
+    BackgroundGeolocation.on('providerchange', function(provider) {
+      console.log('- Location provider changed: ', provider.enabled);    
+    });
   }
 });
 

@@ -37,6 +37,7 @@ bgGeo.setConfig({
 | [`useSignificantChangesOnly`](#param-boolean-usesignificantchangesonly-false) | `Boolean` | Optional (**iOS**)| `false` | Set `true` in order to disable constant background-tracking and use only the iOS [Significant Changes API](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html#//apple_ref/occ/instm/CLLocationManager/startMonitoringSignificantLocationChanges). If Apple has denied your application due to background-tracking, this can be a solution. **NOTE** The Significant Changes API will report a location only when a significant change from the last location has occurred. Many of the configuration parameters **will be ignored**, such as `#distanceFilter`, `#stationaryRadius`, `#activityType`, etc. |
 | [`pausesLocationUpdatesAutomatically`](#param-boolean-pauseslocationupdatesautomatically-true) | `Boolean` | Optional (**iOS**)| `true` | The default behaviour of the plugin is to turn off location-services automatically when the device is detected to be stationary.  When set to `false`, location-services will **never** be turned off (and `disableStopDetection` will automatically be set to `true`) -- it's your responsibility to turn them off when you no longer need to track the device.  This feature should **not** generally be used.  `preventSuspend` will no longer work either.| 
 | [`locationAuthorizationRequest`](#param-string-locationauthorizationrequest-always) | `Always`,`WhenInUse` | Optional | `Always` | The desired iOS location-authorization request, either `Always` or `WhenInUse`.  You'll have to edit the corresponding key in your app's `Info.plist`, `NSLocationAlwaysUsageDescription` or `NSWhenInUseUsageDescription`.  `WhenInUse` will display a **blue bar** at top-of-screen informing user that location-services are on.
+| [`locationAuthorizationAlert`](#param-object-locationauthorizationalert) | `{}` | Optional (**iOS**)| `{}` | When you configure the plugin location-authorization `Always` or `WhenInUse` and the user changes the value in the app's location-services settings or disabled location-services, the plugin will display an Alert directing the user to the **Settings** screen.  This config allows you to configure all the Strings for that Alert popup. |
 
 ## Activity Recognition Options
 
@@ -224,6 +225,32 @@ The default behaviour of the plugin is to turn **off** location-services *automa
 ####`@param {String} locationAuthorizationRequest [Always]`
 
 The desired iOS location-authorization request, either `Always` or `WhenInUse`.  Defaults to `Always`.  You'll have to edit the corresponding key in your app's `Info.plist`, `NSLocationAlwaysUsageDescription` or `NSWhenInUseUsageDescription`.  `WhenInUse` will display a **blue bar** at top-of-screen informing user that location-services are on.
+
+####`@param {Object} locationAuthorizationAlert`
+When you configure the plugin location-authorization `Always` or `WhenInUse` and the user changes the value in the app's location-services settings or disabled location-services, the plugin will display an Alert directing the user to the **Settings** screen.  This config allows you to configure all the Strings for that Alert popup and accepts an `{Object}` containing the following keys:
+
+######@param {String} titleWhenOff [Location services are off] 
+The title of the alert if user changes, for example, the location-request to `WhenInUse` when you requested `Always`.
+######@param {String} titleWhenNotEnabled [Background location is not enabled] 
+The title of the alert when user disables location-services or changes the authorization request to `Never`
+######@param {String} instructions [To use background location, you must enable '{locationAuthorizationRequest}' in the Location Services settings]
+The body text of the alert.
+######@param {String} cancelButton [Cancel]
+######@param {String} settingsButton [Settings]
+
+![](https://dl.dropboxusercontent.com/u/2319755/cordova-background-geolocaiton/docs-locationAuthorizationAlert.jpg)
+
+```Javascript
+bgGeo.configure({
+  locationAuthorizationAlert: {
+    titleWhenNotEnabled: "Yo, location-services not enabled",
+    titleWhenOff: "Yo, location-services OFF",
+    instructions: "You must enable 'Always' in location-services, buddy",
+    cancelButton: "Cancel",
+    settingsButton: "Settings"
+  }
+})
+```
 
 # HTTP / Persistence Options
 

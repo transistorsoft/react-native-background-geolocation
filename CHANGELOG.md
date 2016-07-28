@@ -1,5 +1,6 @@
 # Change Log
-
+## [Unreleased]
+- [Changed] Implement improved location-authorization code with automatic native alert popup directing user to settings to fix the problem.  Added new config param `locationAuthorizationAlert` allowing you to configure the strings on the Alert
 ## [1.2.0] - 2016-07-22
 - [Added] #providerchange method.  Fires when user toggles location-services.
 - [Changed] Use `TSLocationManager` as a singleton.  This may help with issues during development where you reload Javascript, causing multiple instances of `TSLocationManager` to begin recording locations.

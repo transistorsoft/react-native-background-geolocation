@@ -74,6 +74,7 @@
 -(void)setStationaryRadius:(CLLocationDistance)radius;
 -(void)setPreventSuspend:(BOOL)value;
 -(BOOL)hasValidUrl;
+-(NSDictionary*)getLocationAuthorizationAlert;
 -(NSDictionary*)getGeofences;
 @end
 

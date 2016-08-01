@@ -1,5 +1,5 @@
 # Change Log
-## [Unreleased]
+## [1.2.2] - 2016-08-01
 - [Changed] Implement improved location-authorization code with automatic native alert popup directing user to settings to fix the problem.  Added new config param `locationAuthorizationAlert` allowing you to configure the strings on the Alert
 - [Fixed] iOS setting http `method` not being respected (was always doing `POST`).
 

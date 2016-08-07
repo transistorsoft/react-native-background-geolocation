@@ -16,12 +16,12 @@ Follows the [React Native Modules spec](https://facebook.github.io/react-native/
 
 ## Installing the Plugin
 
-[See Wiki](https://github.com/transistorsoft/react-native-background-geolocation/wiki/Installation)
+[Manual Installation](docs/INSTALL.md)
 
 ## Using the plugin ##
 
-```
-var BackgroundGeolocation = require('react-native-background-geolocation');
+```Javascript
+import BackgroundGeolocation from "react-native-background-geolocation";
 ```
 
 ## Documentation
@@ -39,41 +39,31 @@ var BackgroundGeolocation = require('react-native-background-geolocation');
 
 ```Javascript
 
-var BackgroundGeolocation = require('react-native-background-geolocation');
+import BackgroundGeolocation from "react-native-background-geolocation";
 
 var Foo = React.createClass({
   getInitialState() {
     
     BackgroundGeolocation.configure({
+      // Geolocation Config
       desiredAccuracy: 0,
-      stationaryRadius: 50,
-      distanceFilter: 50,
-      disableElasticity: false, // <-- [iOS] Default is 'false'.  Set true to disable speed-based distanceFilter elasticity
-      locationUpdateInterval: 5000,
-      minimumActivityRecognitionConfidence: 80,   // 0-100%.  Minimum activity-confidence for a state-change 
-      fastestLocationUpdateInterval: 5000,
-      activityRecognitionInterval: 10000,
-      stopDetectionDelay: 1,  // <--  minutes to delay after motion stops before engaging stop-detection system
-      stopTimeout: 2, // 2 minutes
-      activityType: 'AutomotiveNavigation',
-
+      stationaryRadius: 25,
+      distanceFilter: 10,
+      // Activity Recognition
+      stopTimeout: 1,       
       // Application config
       debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
-      forceReloadOnLocationChange: false,  // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when a new location is recorded (WARNING: possibly distruptive to user) 
-      forceReloadOnMotionChange: false,    // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when device changes stationary-state (stationary->moving or vice-versa) --WARNING: possibly distruptive to user) 
-      forceReloadOnGeofence: false,        // <-- [Android] If the user closes the app **while location-tracking is started** , reboot app when a geofence crossing occurs --WARNING: possibly distruptive to user) 
-      stopOnTerminate: false,              // <-- Allow the background-service to continue tracking when user closes the app.
-      startOnBoot: true,                   // <-- Auto start tracking when device is powered-up.
-        
+      stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
+      startOnBoot: true,        // <-- Auto start tracking when device is powered-up.
       // HTTP / SQLite config
       url: 'http://posttestserver.com/post.php?dir=cordova-background-geolocation',
       batchSync: false,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
       autoSync: true,         // <-- [Default: true] Set true to sync each location to server as it arrives.
       maxDaysToPersist: 1,    // <-- Maximum days to persist a location in plugin's SQLite database when HTTP fails
-      headers: {
+      headers: {              // <-- Optional HTTP headers
         "X-FOO": "bar"
       },
-      params: {
+      params: {               // <-- Optional HTTP params
         "auth_token": "maybe_your_server_authenticates_via_token_YES?"
       }
     }, function(state) {

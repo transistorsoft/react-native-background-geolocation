@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Headers/LocationAuthorization.h</key>
+		<data>
+		rUIQKyZ2raGpCKmXtYyoT7v+cmw=
+		</data>
 		<key>Headers/LocationDAO.h</key>
 		<data>
 		vK1YvglQmvMBZDB34H+0wrDbxgo=
@@ -20,9 +24,13 @@
 		<data>
 		E7Ec3pKl/sBKSWwWm/9pmThhCUI=
 		</data>
+		<key>Headers/TSHttpService.h</key>
+		<data>
+		kzQj7ne08qCpgoPKYVIUnTS4UD4=
+		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		nCn2TsHGX0eXkMMfvUQ0JcRnKVE=
+		QdneHIwmFKvrS6Pp2Buv8fH7KOU=
 		</data>
 		<key>Headers/TSLogManager.h</key>
 		<data>
@@ -46,7 +54,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		uSNz73rFzvrhxkwIPydh2tthq6Q=
+		sThGdhMaWd2tcVuq/ZC17KfK5KQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -55,6 +63,17 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Headers/LocationAuthorization.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rUIQKyZ2raGpCKmXtYyoT7v+cmw=
+			</data>
+			<key>hash2</key>
+			<data>
+			1DNhxzjMbZF11Z85LRgNzpl/jRw1RX3c15XKUhB9YRE=
+			</data>
+		</dict>
 		<key>Headers/LocationDAO.h</key>
 		<dict>
 			<key>hash</key>
@@ -99,15 +118,26 @@
 			jyxmK7IQyqF7j79JZMbZW/H3dhAB4UQOwbg+c7tyOd0=
 			</data>
 		</dict>
+		<key>Headers/TSHttpService.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kzQj7ne08qCpgoPKYVIUnTS4UD4=
+			</data>
+			<key>hash2</key>
+			<data>
+			y4a68Y/xVZdqfSJHdUtEAhnEAuFXxlfCNTIVjphGl4g=
+			</data>
+		</dict>
 		<key>Headers/TSLocationManager.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			nCn2TsHGX0eXkMMfvUQ0JcRnKVE=
+			QdneHIwmFKvrS6Pp2Buv8fH7KOU=
 			</data>
 			<key>hash2</key>
 			<data>
-			TRC2jvcvDr/bqz4NCyBoALsUk+ekaA2zJtPGjWJF4dM=
+			tlWgo6Vonq+hJvxefoicjZQ16K62t9EQKhNnVU5o468=
 			</data>
 		</dict>
 		<key>Headers/TSLogManager.h</key>

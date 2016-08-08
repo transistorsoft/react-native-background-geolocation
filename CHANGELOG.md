@@ -1,4 +1,6 @@
 # Change Log
+## [1.3.1] - 2016-08-08
+- [Fixed] Scheduler parsing bug.
 
 ## [1.3.0] - 2016-08-07
 - [Added] Add new dependency react-native-background-fetch for improved handling of background-geolocation while app is suspended.  `react-native-background-fetch` is managed by Transistor Software.  This iOS-only API awakens a suspended iOS app about every 15 min, providing exactly 30s of background running time.  background-geolocation uses these events to sync stored locations, check schedule, samples accelerometer for movement (improves motionchange triggering), and determines whether app should have `stopOnTerminate`

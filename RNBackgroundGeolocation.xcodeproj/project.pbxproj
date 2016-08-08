@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		831E1F6A1D57515F00F0A1F4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 831E1F691D57515F00F0A1F4 /* libsqlite3.tbd */; };
 		83FF0B471BCB624E00831D47 /* TSLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF0B461BCB624E00831D47 /* TSLocationManager.framework */; };
 		83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */; };
 		83FF5F8B1AFD0D2B0016A13E /* RNBackgroundGeolocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */; };
@@ -53,7 +52,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				831E1F6A1D57515F00F0A1F4 /* libsqlite3.tbd in Frameworks */,
 				83FF0B471BCB624E00831D47 /* TSLocationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

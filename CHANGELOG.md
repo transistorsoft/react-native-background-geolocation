@@ -1,5 +1,7 @@
 # Change Log
 ## [Unreleased]
+
+## [1.3.2] - 2016-08-16
 - [Fixed] Incorrect param signature send to `motionchange` event.  Was sending just location-object.  Should have been `{location: Object, isMoving: Boolean}`
 - [Added] Stub `#stopWatchPosition` method until it's implemented
 - [Fixed] Documentation bugs with `addGeofence`, `removeGeofence`

@@ -1,4 +1,9 @@
 # Change Log
+## [Unreleased]
+- [Fixed] Incorrect param signature send to `motionchange` event.  Was sending just location-object.  Should have been `{location: Object, isMoving: Boolean}`
+- [Added] Stub `#stopWatchPosition` method until it's implemented
+- [Fixed] Documentation bugs with `addGeofence`, `removeGeofence`
+ 
 ## [1.3.1] - 2016-08-08
 - [Fixed] Scheduler parsing bug.
 

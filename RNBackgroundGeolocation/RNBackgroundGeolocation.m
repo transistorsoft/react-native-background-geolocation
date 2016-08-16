@@ -190,6 +190,12 @@ RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options success:(RCTResponseSende
     failure(@[errorMsg]);
 }
 
+RCT_EXPORT_METHOD(stopWatchPosition:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    NSString *errorMsg = @"#stopWatchPosition is not currently implemeted for iOS";
+    RCTLogInfo(errorMsg);
+    failure(@[errorMsg]);
+}
 
 RCT_EXPORT_METHOD(getLocations:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
@@ -352,8 +358,12 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 -(void (^)(CLLocation *location, BOOL moving)) createMotionChangedHandler {
     return ^(CLLocation *location, BOOL moving) {
         NSDictionary *locationData  = [locationManager locationToDictionary:location];
+        NSDictionary *params = @{
+            @"isMoving": @(moving),
+            @"location": locationData
+        };
         RCTLogInfo(@"- onMotionChanage");
-        [self sendEvent:EVENT_MOTIONCHANGE body:locationData];
+        [self sendEvent:EVENT_MOTIONCHANGE body:params];
     };
 }
 -(void) sendEvent:(NSString*)event body:(id)body

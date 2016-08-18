@@ -1,5 +1,6 @@
 # Change Log
 ## [Unreleased]
+- [Fixed] `#removeGeofences` was removing the stationary-geofence.  This would prevent stationary-exit if executed while plugin is in stationary-mode.
 
 ## [1.3.2] - 2016-08-16
 - [Fixed] Incorrect param signature send to `motionchange` event.  Was sending just location-object.  Should have been `{location: Object, isMoving: Boolean}`

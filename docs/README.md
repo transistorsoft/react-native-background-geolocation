@@ -59,6 +59,7 @@ bgGeo.setConfig({
 | [`extras`](#param-object-extras) | `Object` | Optional | | Optional `null` to attach to each recorded location |
 | [`method`](#param-string-method-post) | `String` | Optional | `POST` | The HTTP method. Some servers require `PUT`.
 | [`autoSync`](#param-string-autosync-true) | `Boolean` | Optional | `true` | If you've enabled the HTTP feature by configuring an `#url`, the plugin will attempt to HTTP POST each location to your server **as it is recorded**. If you set `autoSync: false`, it's up to you to **manually** execute the `#sync` method to initate the HTTP POST (**NOTE** The plugin will continue to persist **every** recorded location in the SQLite database until you execute `#sync`). |
+| [`autoSyncThreshold`](#param-integer-autosyncthreshold-0) | `Integer` | Optional | `0` | The minimum number of persisted records to trigger an `autoSync` action. |
 | [`batchSync`](#param-string-batchsync-false) | `Boolean` | Optional | `false` | If you've enabled HTTP feature by configuring an `#url`, `batchSync: true` will POST all the locations currently stored in native SQLite datbase to your server in a single HTTP POST request. With `batchSync: false`, an HTTP POST request will be initiated for **each** location in database. |
 | [`maxBatchSize`](#param-integer-maxbatchsize-undefined) | `Integer` | Optional | `-1` | If you've enabled HTTP feature by configuring an `#url` and `batchSync: true`, this parameter will limit the number of records attached to each batch.  If the current number of records exceeds the `maxBatchSize`, multiple HTTP requests will be generated until the location queue is empty. |
 | [`maxDaysToPersist`](#param-integer-maxdaystopersist) | `Integer` | Optional | `1` | Maximum number of days to store a geolocation in plugin's SQLite database when your server fails to respond with `HTTP 200 OK`. The plugin will continue attempting to sync with your server until `maxDaysToPersist` when it will give up and remove the location from the database. |
@@ -274,6 +275,10 @@ If you've enabled HTTP feature by configuring an `#url` with `batchSync: true`, 
 
 Default is `true`. If you've enabeld HTTP feature by configuring an `#url`, the plugin will attempt to HTTP POST each location to your server **as it is recorded**. If you set `autoSync: false`, it's up to you to **manually** execute the `#sync` method to initate the HTTP POST (**NOTE** The plugin will continue to persist **every** recorded location in the SQLite database until you execute `#sync`).
 
+####`@param {String} autoSync [true]`
+
+Default is `true`. If you've enabeld HTTP feature by configuring an `#url`, the plugin will attempt to HTTP POST each location to your server **as it is recorded**. If you set `autoSync: false`, it's up to you to **manually** execute the `#sync` method to initate the HTTP POST (**NOTE** The plugin will continue to persist **every** recorded location in the SQLite database until you execute `#sync`).
+
 ####`@param {Object} params`
 
 Optional HTTP params sent along in HTTP request to above `#url`.
@@ -336,18 +341,17 @@ Provides an automated schedule for the plugin to start/stop tracking at pre-defi
   "{DAY(s)} {START_TIME}-{END_TIME}"
 ```
 
-The `DAY` param corresponds to the `Locale.US`, such that Sunday=1; Saturday=7).  You may configure a single day (eg: `1`), a comma-separated list-of-days (eg: `2,4,6`) or a range (eg: `2-6`), eg:
+The `START_TIME`, `END_TIME` are in **24h format**.  The `DAY` param corresponds to the `Locale.US`, such that Sunday=1; Saturday=7).  You may configure a single day (eg: `1`), a comma-separated list-of-days (eg: `2,4,6`) or a range (eg: `2-6`), eg:
 
-Eg:
 ```Javascript
 bgGeo.configure({
   .
   .
   .
   schedule: [
-    '1 17:30-21:00',   // Sunday: 5:30-9:00
-    '2-6 9:00-17:00',  // Mon-Fri: 9am to 5pm
-    '2,4,6 20:00-12:00',// Mon, Web, Fri: 8pm to midnight (next day)
+    '1 17:30-21:00',   // Sunday: 5:30pm-9:00pm
+    '2-6 9:00-17:00',  // Mon-Fri: 9:00am to 5:00pm
+    '2,4,6 20:00-00:00',// Mon, Web, Fri: 8pm to midnight (next day)
     '7 10:00-19:00'    // Sun: 10am-7pm
   ]
 }, function(state) {

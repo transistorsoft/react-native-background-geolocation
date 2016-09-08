@@ -52,6 +52,7 @@
 @property (nonatomic, readonly) NSMutableDictionary* headers;
 @property (nonatomic, readonly) NSDictionary* extras;
 @property (nonatomic, readonly) BOOL autoSync;
+@property (nonatomic, readonly) NSInteger autoSyncThreshold;
 @property (nonatomic, readonly) BOOL batchSync;
 @property (nonatomic, readonly) NSInteger maxBatchSize;
 // Persistence

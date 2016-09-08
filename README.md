@@ -1,6 +1,6 @@
 Free iOS Version
 =============================
-This repo hosts the free **iOS** implementation of Background Geolocation for React Native.  The **[Android version](http://shop.transistorsoft.com/pages/react-native-background-geolocation)** is **on sale now!**
+This repo hosts the free **iOS** implementation of Background Geolocation for React Native.  The **[Android version](http://www.transistorsoft.com/shop/products/react-native-background-geolocation)** is **on sale now!**
 
 [![Google Play](https://dl.dropboxusercontent.com/u/2319755/cordova-background-geolocaiton/google-play-icon.png)](https://play.google.com/store/apps/details?id=com.transistorsoft.rnbackgroundgeolocationsample)
 

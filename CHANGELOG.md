@@ -2,6 +2,7 @@
 ## [Unreleased]
 - [Fixed] `#removeGeofences` was removing the stationary-geofence.  This would prevent stationary-exit if executed while plugin is in stationary-mode.
 - [Fixed] Accept callbacks to `#stop` method.  Fixes #122
+- [Added] Add new config `@param {Integer} autoSyncThreshold [0]`.  Allows you to specify a minimum number of persisted records to trigger an auto-sync action.
 
 ## [1.3.2] - 2016-08-16
 - [Fixed] Incorrect param signature send to `motionchange` event.  Was sending just location-object.  Should have been `{location: Object, isMoving: Boolean}`

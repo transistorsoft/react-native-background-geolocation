@@ -141,7 +141,7 @@ RCT_EXPORT_METHOD(startSchedule:(RCTResponseSenderBlock)success failure:(RCTResp
  */
 RCT_EXPORT_METHOD(stopSchedule:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"- RCTBackgroundGeoLocation #startSchedule");
+    RCTLogInfo(@"- RCTBackgroundGeoLocation #stopSchedule");
     dispatch_async(dispatch_get_main_queue(), ^{
         [locationManager stopSchedule];
         success(@[@(NO)]);

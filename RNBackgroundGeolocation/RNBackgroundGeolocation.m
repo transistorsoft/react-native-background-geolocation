@@ -55,6 +55,7 @@ RCT_EXPORT_MODULE();
         locationManager.scheduleBlock         = [self createScheduleHandler];
         locationManager.authorizationChangedBlock = [self createAuthorizationChangedHandler];
     }
+    
     return self;
 }
 
@@ -118,10 +119,11 @@ RCT_EXPORT_METHOD(start:(RCTResponseSenderBlock)success failure:(RCTResponseSend
 /**
  * Turn it off
  */
-RCT_EXPORT_METHOD(stop)
+RCT_EXPORT_METHOD(stop:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     RCTLogInfo(@"- RCTBackgroundGeoLocation #stop");
     [locationManager stop];
+    success(@[]);
 }
 
 /**
@@ -141,7 +143,7 @@ RCT_EXPORT_METHOD(startSchedule:(RCTResponseSenderBlock)success failure:(RCTResp
  */
 RCT_EXPORT_METHOD(stopSchedule:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"- RCTBackgroundGeoLocation #startSchedule");
+    RCTLogInfo(@"- RCTBackgroundGeoLocation #stopSchedule");
     dispatch_async(dispatch_get_main_queue(), ^{
         [locationManager stopSchedule];
         success(@[@(NO)]);

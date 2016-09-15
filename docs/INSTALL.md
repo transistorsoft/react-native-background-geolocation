@@ -20,6 +20,9 @@
 
 7. Edit **`Info.plist`**.  Add a new key **`NSLocationAlwaysUsageDescription`**.  The value here will be presented to the user when the app first requests location updates in background (eg: `App requires background location tracking`).![](https://www.dropbox.com/s/1hlneo42ybok0rc/react-native-background-geolocation-install-6.png?dl=1)
 
+Add another key `NSMotionUsageDescription` .  Same idea as `NSLocationAlwaysUsageDescription`.  For example:  "Accelerometer is used to increase battery efficiency by intelligently toggling location-services"
+
+
 8. Select the root of your project.  Select **Capabilities** tab.  Enable **Background Modes** and enable the modes `Location updates` (optionally enable `Audio and AirPlay` when running in debug mode:  the plugin emits sounds during life-cycle events when running on a device).![](https://www.dropbox.com/s/rn045iboqs7pe12/react-native-background-geolocation-install-7.png?dl=1)
 
 9. **Framework Search Paths**.  I would hope this step wouldn't be necessary, but I don't see another way around it.  In order to for you app to find `TSLocationManager.framework`, it seems you have to tell Xcode where to find the framework.  Go to **Build Settings** and search for **"framework search path"**.  Add the following item to it (select **recursive**): 

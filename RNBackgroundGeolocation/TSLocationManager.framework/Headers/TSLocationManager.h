@@ -21,8 +21,10 @@
 // Location types
 typedef enum tsLocationType : NSInteger {
     TS_LOCATION_TYPE_MOTIONCHANGE   = 0,
-    TS_LOCATION_TYPE_CURRENT        = 1,
-    TS_LOCATION_TYPE_SAMPLE         = 2
+    TS_LOCATION_TYPE_TRACKING       = 1,
+    TS_LOCATION_TYPE_CURRENT        = 2,
+    TS_LOCATION_TYPE_SAMPLE         = 3,
+    TS_LOCATION_TYPE_WATCH          = 4
 } tsLocationtype;
 
 // Error codes
@@ -39,11 +41,11 @@ typedef enum tsLocationError : NSInteger {
 
 // Blocks
 @property (nonatomic, copy) void (^httpResponseBlock) (NSInteger statusCode, NSDictionary *requestData, NSData *responseData, NSError *error);
-@property (nonatomic, copy) void (^locationChangedBlock) (CLLocation *location, enum tsLocationType, BOOL isMoving);
-@property (nonatomic, copy) void (^motionChangedBlock) (CLLocation *location, BOOL isMoving);
+@property (nonatomic, copy) void (^locationChangedBlock) (NSDictionary *locationData, enum tsLocationType, BOOL isMoving);
+@property (nonatomic, copy) void (^motionChangedBlock) (NSDictionary *locationData, BOOL isMoving);
 @property (nonatomic, copy) void (^activityChangedBlock) (NSString *activityName);
-@property (nonatomic, copy) void (^heartbeatBlock) (int shakeCount, NSString* motionType, CLLocation *location);
-@property (nonatomic, copy) void (^geofenceBlock) (CLCircularRegion *region, CLLocation *location, NSString *action);
+@property (nonatomic, copy) void (^heartbeatBlock) (NSString* motionType, NSDictionary *locationData);
+@property (nonatomic, copy) void (^geofenceBlock) (CLCircularRegion *region, NSDictionary *locationData, NSString *action);
 @property (nonatomic, copy) void (^syncCompleteBlock) (NSArray *locations);
 @property (nonatomic, copy) void (^errorBlock) (NSString *type, NSError *error);
 @property (nonatomic, copy) void (^scheduleBlock) (TSSchedule* schedule);
@@ -70,13 +72,15 @@ typedef enum tsLocationError : NSInteger {
 - (void) onResume:(NSNotification *)notification;
 - (void) onAppTerminate;
 - (NSMutableDictionary*) locationToDictionary:(CLLocation*)location;
-- (NSMutableDictionary*) locationToDictionary:(CLLocation*)location type:(tsLocationtype)type;
+- (NSMutableDictionary*) locationToDictionary:(CLLocation*)location type:(tsLocationtype)type extras:(NSDictionary*)extras;
 - (void) addGeofence:(NSString*)identifier radius:(CLLocationDistance)radius latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude notifyOnEntry:(BOOL)notifyOnEntry notifyOnExit:(BOOL)notifyOnExit;
 - (void) addGeofences:(NSArray*)geofences;
 - (BOOL) removeGeofence:(NSString*)identifier;
 - (BOOL) removeGeofences;
 - (NSArray*) getGeofences;
 - (void) updateCurrentPosition:(NSDictionary*)options;
+- (void) watchPosition:(NSDictionary*)options;
+- (void) stopWatchPosition;
 - (void) playSound:(SystemSoundID)soundId;
 - (void) notify:(NSString*)message;
 - (BOOL) clearDatabase;

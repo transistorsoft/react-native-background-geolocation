@@ -43,6 +43,7 @@
 @property (nonatomic, readonly) NSTimeInterval stopDetectionDelay;
 @property (nonatomic, readonly) NSTimeInterval stopTimeout;
 @property (nonatomic, readonly) NSTimeInterval activityRecognitionInterval;
+@property (nonatomic, readonly) NSInteger minimumActivityRecognitionConfidence;
 @property (nonatomic, readonly) BOOL disableMotionActivityUpdates;
 @property (nonatomic, readonly) BOOL disableStopDetection;
 // HTTP
@@ -66,6 +67,7 @@
 -(NSMutableDictionary*)getState;
 -(void)incrementOdometer:(CLLocationDistance)distance;
 -(void)resetOdometer;
+-(CLLocationAccuracy)decodeDesiredAccuracy:(NSInteger)accuracy;
 
 #pragma mark - Config param getters
 -(void)setIsMoving:(BOOL)value;

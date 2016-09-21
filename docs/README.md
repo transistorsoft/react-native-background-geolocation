@@ -108,6 +108,8 @@ bgGeo.on('location', function(location) {
 | [`stopSchedule`](#stopschedulecallbackfn) | `callbackFn` | This method will stop the Scheduler service.  It will also execute the `#stop` method and **cease all tracking**.  Your `callbackFn` will be executed after the Scheduler has stopped |
 | [`getState`](#getstatecallbackfn) | `callbackFn` | Fetch the current-state of the plugin, including `enabled`, `isMoving`, as well as all other config params. |
 | [`getCurrentPosition`](#getcurrentpositionoptions-successfn-failurefn) | `{options}, `successFn`, `failureFn` | Retrieves the current position. This method instructs the native code to fetch exactly one location using maximum power & accuracy. |
+| [`watchPosition`](#watchpositionsuccessfn-failurefn-options) | `successFn`, `failureFn`, `{options}` | Start a stream of continuous location-updates.  The native code will persist the fetched location to its SQLite database just as any other location in addition to POSTing to your configured `#url` (if you've enabled the HTTP features).|
+| [`stopWatchPosition`](#stopwatchpositionsuccessfn-failurefn-options) | `successFn`, `failureFn`, `{options}` | Halt `watchPosition` updates. |
 | [`changePace`](#changepaceboolean) | `isMoving` | Initiate or cancel immediate background tracking. When set to true, the plugin will begin aggressively tracking the devices Geolocation, bypassing stationary monitoring. If you were making a "Jogging" application, this would be your [Start Workout] button to immediately begin GPS tracking. Send false to disable aggressive GPS monitoring and return to stationary-monitoring mode. |
 | [`getLocations`](#getlocationscallbackfn) | `callbackFn` | Fetch all the locations currently stored in native plugin's SQLite database. Your callbackFn`` will receive an `Array` of locations in the 1st parameter. |
 | [`getCount`](#getcountcallbackfn-failurefn) | `callbackFn` | Fetches count of SQLite locations table `SELECT count(*) from locations` |
@@ -736,6 +738,44 @@ If a location failed to be retrieved, you `failureFn` will be executed with an e
 | kCLErrorDeferredDistanceFiltered | - | 14 |
 | kCLErrorDeferredCanceled | - | 15 |
 
+####`watchPosition(successFn, failureFn, options)`
+Start a stream of continuous location-updates.  The native code will persist the fetched location to its SQLite database just as any other location in addition to POSTing to your configured `#url` (if you've enabled the HTTP features).
+
+**WARNING** 
+- `watchPosition` will continue to run in the background.  Take care to listen to `suspend` event and call `#stopWatchPosition` if you don't want your app to keep running (TODO make this configurable).
+
+#### Options
+######@param {Integer millis} `[1000]` Location update interval
+######@param {Integer} `[0]` desiredAccuracy
+######@param {Boolean} `[true]` persist 
+######@param {Object} `[undefined]` extras Optional extras to append to each location
+
+#### Callback
+
+######@param {Object} location The Location data
+
+```Javascript
+bgGeo.watchPosition(function(location) {
+    console.log(“- Watch position: “, location);
+}, function(errorCode) {
+    alert('An location error occurred: ' + errorCode);
+}, {
+    interval: 30000,    // <-- retrieve a location every 30s.
+    persist: false,    // <-- default is true
+    extras: {
+        route_id: 12345
+    }
+});
+
+```
+
+####`stopWatchPosition(successFn, failureFn)`
+
+Halt `watchPosition` updates.  **NOTE** Due to the nature of Cordova callbacks, your `failureFn` provided to `#watchPosition` will be executed with a code of `-1` when you execute. `#stopWatchPosition` -- this is **normal**.  This simply provides a signal to Cordova that it can delete the `callback`, preventing a memory leak.
+
+```Javascript
+bgGeo.stopWatchPosition();  // <-- callbacks are optional
+```
 
 ####`changePace({Boolean})`
 Initiate or cancel immediate background tracking. When set to `true`, the plugin will begin aggressively tracking the devices Geolocation, bypassing stationary monitoring. If you were making a "Jogging" application, this would be your [Start Workout] button to immediately begin GPS tracking. Send `false` to disable aggressive GPS monitoring and return to stationary-monitoring mode.

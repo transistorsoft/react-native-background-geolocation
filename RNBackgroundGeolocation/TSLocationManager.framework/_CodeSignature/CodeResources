@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Headers/BackgroundTaskManager.h</key>
+		<data>
+		oPyITw5tsXr45jBrA8RzDCcfx4c=
+		</data>
 		<key>Headers/LocationAuthorization.h</key>
 		<data>
 		rUIQKyZ2raGpCKmXtYyoT7v+cmw=
@@ -14,15 +18,15 @@
 		</data>
 		<key>Headers/LocationManager.h</key>
 		<data>
-		bhKLFZg/wsbGjfG2inS1xlpX8So=
+		p6qoiUm8ayMJaaqGXPx/9aiwQzU=
 		</data>
 		<key>Headers/SOMotionDetector.h</key>
 		<data>
-		2tMknqAAtKVfydpNe+atAuAuIFs=
+		e90tZyDcFDvQQ1x4B386B0YpFBY=
 		</data>
 		<key>Headers/Settings.h</key>
 		<data>
-		qO6hKQSm1ay52uX0LSI8RuKxjTo=
+		kw1BozBeaXWT7mAAgEUlCY4aRrc=
 		</data>
 		<key>Headers/TSHttpService.h</key>
 		<data>
@@ -30,7 +34,7 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		QdneHIwmFKvrS6Pp2Buv8fH7KOU=
+		MFF26hC80VKw9Hd8Yd+DDcYdtXQ=
 		</data>
 		<key>Headers/TSLogManager.h</key>
 		<data>
@@ -54,7 +58,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		sThGdhMaWd2tcVuq/ZC17KfK5KQ=
+		yZIAKjwe79B26HoZx7eKyJXilMQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -63,6 +67,17 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Headers/BackgroundTaskManager.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			oPyITw5tsXr45jBrA8RzDCcfx4c=
+			</data>
+			<key>hash2</key>
+			<data>
+			01SLQ90vGA+IN6E6H2tDq9n8M7V+/4sVLw1kEIP5J0I=
+			</data>
+		</dict>
 		<key>Headers/LocationAuthorization.h</key>
 		<dict>
 			<key>hash</key>
@@ -89,33 +104,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			bhKLFZg/wsbGjfG2inS1xlpX8So=
+			p6qoiUm8ayMJaaqGXPx/9aiwQzU=
 			</data>
 			<key>hash2</key>
 			<data>
-			9Rd+boC2idk7wQ7xSKKXJTEqyqp44pBUcRRaxnSEuF0=
+			9g+L+z1dAXYAyUIv0hzLJnz/jBbiacpNP0HT1RuCVyQ=
 			</data>
 		</dict>
 		<key>Headers/SOMotionDetector.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2tMknqAAtKVfydpNe+atAuAuIFs=
+			e90tZyDcFDvQQ1x4B386B0YpFBY=
 			</data>
 			<key>hash2</key>
 			<data>
-			8TXmKOtFYBGL590J3gFA4Gi3VPi6nz8UIt5QunwoZo8=
+			xqfFFUVTd4LmcnI1tGkh9pJWt7jXh7i6CZKeMZNK858=
 			</data>
 		</dict>
 		<key>Headers/Settings.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			qO6hKQSm1ay52uX0LSI8RuKxjTo=
+			kw1BozBeaXWT7mAAgEUlCY4aRrc=
 			</data>
 			<key>hash2</key>
 			<data>
-			q660Js1fTLE8DUmrnlLlyAjuWPp/CuxU+r1mf+//x3I=
+			1usybOB3c0+zo4bocNfFZ5JBzdGfs+n25wuPWhtqN94=
 			</data>
 		</dict>
 		<key>Headers/TSHttpService.h</key>
@@ -133,11 +148,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			QdneHIwmFKvrS6Pp2Buv8fH7KOU=
+			MFF26hC80VKw9Hd8Yd+DDcYdtXQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			tlWgo6Vonq+hJvxefoicjZQ16K62t9EQKhNnVU5o468=
+			ELnflly2Td/EDF+Cfk+a+VsnDNmDN9t3ygc+g+KK5Vw=
 			</data>
 		</dict>
 		<key>Headers/TSLogManager.h</key>

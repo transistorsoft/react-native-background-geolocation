@@ -53,7 +53,7 @@ typedef enum
 @property (copy) void (^accelerationChangedBlock) (CMAcceleration acceleration);
 
 @property (nonatomic, readonly) SOMotionType motionType;
-@property (nonatomic, readonly) CMMotionActivity* motionActivity;
+@property (nonatomic) CMMotionActivity* motionActivity;
 @property (nonatomic, readonly) BOOL accelerometerAvailable;
 @property (nonatomic, readonly) BOOL isMoving;
 
@@ -80,6 +80,7 @@ typedef enum
 - (void)stopShakeDetection;
 - (void)startShakeDetection:(NSTimeInterval)sampleRate;
 - (void)calculate;
+- (BOOL)isUsingM7;
 
 #pragma mark - Customization Methods
 

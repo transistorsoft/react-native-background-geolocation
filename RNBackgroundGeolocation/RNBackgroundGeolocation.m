@@ -15,6 +15,7 @@
 static NSString *const TS_LOCATION_MANAGER_TAG = @"TSLocationManager";
 
 static NSString *const EVENT_LOCATIONCHANGE = @"location";
+static NSString *const EVENT_WATCHPOSITION = @"watchposition";
 static NSString *const EVENT_PROVIDERCHANGE = @"providerchange";
 static NSString *const EVENT_MOTIONCHANGE = @"motionchange";
 static NSString *const EVENT_ACTIVITYCHANGE = @"activitychange";
@@ -187,16 +188,14 @@ RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options success:(RCTResponse
 
 RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    NSString *errorMsg = @"#watchPosition is not currently implemeted for iOS";
-    RCTLogInfo(errorMsg);
-    failure(@[errorMsg]);
+    [locationManager watchPosition:options];
+    success(@[]);
 }
 
 RCT_EXPORT_METHOD(stopWatchPosition:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    NSString *errorMsg = @"#stopWatchPosition is not currently implemeted for iOS";
-    RCTLogInfo(errorMsg);
-    failure(@[errorMsg]);
+    [locationManager stopWatchPosition];
+    success(@[]);
 }
 
 RCT_EXPORT_METHOD(getLocations:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
@@ -340,13 +339,13 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     [locationManager playSound: soundId];
 }
 
--(void (^)(CLLocation *location, enum tsLocationType, BOOL isMoving)) createLocationChangedHandler {
-    return ^(CLLocation *location, enum tsLocationType type, BOOL isMoving) {
+-(void (^)(NSDictionary *locationData, enum tsLocationType, BOOL isMoving)) createLocationChangedHandler {
+    return ^(NSDictionary *locationData, enum tsLocationType type, BOOL isMoving) {
         RCTLogInfo(@"- RCTBackgroundGeoLocation onLocationChanged");
         
-        NSDictionary *locationData = [locationManager locationToDictionary:location type:type];
-        
-        if (type != TS_LOCATION_TYPE_SAMPLE && [currentPositionListeners count]) {
+        if (type == TS_LOCATION_TYPE_WATCH) {
+            [self sendEvent:EVENT_WATCHPOSITION body:locationData];
+        } else if (type != TS_LOCATION_TYPE_SAMPLE && [currentPositionListeners count]) {
             for (NSDictionary *callback in currentPositionListeners) {
                 RCTResponseSenderBlock success = [callback objectForKey:@"success"];
                 success(@[locationData]);
@@ -357,9 +356,8 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     };
 }
 
--(void (^)(CLLocation *location, BOOL moving)) createMotionChangedHandler {
-    return ^(CLLocation *location, BOOL moving) {
-        NSDictionary *locationData  = [locationManager locationToDictionary:location];
+-(void (^)(NSDictionary *locationData, BOOL moving)) createMotionChangedHandler {
+    return ^(NSDictionary *locationData, BOOL moving) {
         NSDictionary *params = @{
             @"isMoving": @(moving),
             @"location": locationData
@@ -384,24 +382,24 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     };
 }
 
--(void (^)(int shakeCount, NSString* motionType, CLLocation *location)) createHeartbeatHandler {
-    return ^(int shakeCount, NSString* motionType, CLLocation *location) {
+-(void (^)(int shakeCount, NSString* motionType, NSDictionary *locationData)) createHeartbeatHandler {
+    return ^(int shakeCount, NSString* motionType, NSDictionary *locationData) {
         RCTLogInfo(@"- onHeartbeat");
         NSDictionary *params = @{
             @"shakes": @(shakeCount),
             @"motionType": motionType,
-            @"location": [locationManager locationToDictionary:location]
+            @"location": locationData
         };
         [self sendEvent:EVENT_HEARTBEAT body:params];
     };
 }
 
--(void (^)(CLCircularRegion *region, CLLocation *location, NSString *action)) createGeofenceHandler {
-    return ^(CLCircularRegion *region, CLLocation *location, NSString *action) {
+-(void (^)(CLCircularRegion *region, NSDictionary *locationData, NSString *action)) createGeofenceHandler {
+    return ^(CLCircularRegion *region, NSDictionary *locationData, NSString *action) {
         NSDictionary *params = @{
             @"identifier": region.identifier,
             @"action": action,
-            @"location": [locationManager locationToDictionary:location]
+            @"location": locationData
         };
         [self sendEvent:EVENT_GEOFENCE body:params];
         RCTLogInfo(@"- onEnterGeofence: %@", params);

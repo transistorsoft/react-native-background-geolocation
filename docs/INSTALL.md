@@ -8,11 +8,11 @@
 2. In the XCode's **`Project navigator`**, right click on project's name ➜ **`Add Files to <...>`**
 ![](https://www.dropbox.com/s/nmih1sc9hgygpvu/react-native-background-geolocation-install-1.png?dl=1)
 
-3. Add **`node_modules/react-native-background-geolocation/RNBackgroundGeolocation.xcodeproj`** ![](https://www.dropbox.com/s/5rscl79kbrctouq/react-native-background-geolocation-install-2.png?dl=1)
+3. Add **`node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation.xcodeproj`** ![](https://www.dropbox.com/s/5rscl79kbrctouq/react-native-background-geolocation-install-2.png?dl=1)
 
-4. Select your project in the **`Project navigator`**. Click **`Build Phases`** then **`Link Binary With Libraries`**. Add **`node_modules/react-native-background-geolocation/RNBackgroundGeolocation/libRNBackgroundGeolocation.a` ![](https://www.dropbox.com/s/her9t33sencaca1/react-native-background-geolocation-install-3.png?dl=1)
+4. Select your project in the **`Project navigator`**. Click **`Build Phases`** then **`Link Binary With Libraries`**. Add **`node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation/libRNBackgroundGeolocation.a` ![](https://www.dropbox.com/s/her9t33sencaca1/react-native-background-geolocation-install-3.png?dl=1)
 
-5. Add another item to **`Link Binary With Libraries`**, but click **`[Add Other...]`**.  Navigate to **`node_modules/react-native-background-geolocation/RNBackgroundGeolocation`**.  Add **`TSLocationManager.framework`**. ![](https://www.dropbox.com/s/momp8ghaotc3x8l/react-native-background-geolocation-install-4.png?dl=1)
+5. Add another item to **`Link Binary With Libraries`**, but click **`[Add Other...]`**.  Navigate to **`node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation`**.  Add **`TSLocationManager.framework`**. ![](https://www.dropbox.com/s/momp8ghaotc3x8l/react-native-background-geolocation-install-4.png?dl=1)
 
 6. Add the following Cocoa framework dependencies to your target's `Link Binary With Libraries` build phase:
   * **`libsqlite3.tbd`**

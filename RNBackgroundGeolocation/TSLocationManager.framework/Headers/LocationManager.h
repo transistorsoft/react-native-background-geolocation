@@ -13,6 +13,7 @@
 @interface LocationManager : NSObject <CLLocationManagerDelegate>
 
 @property (strong, nonatomic) CLLocationManager* locationManager;
+@property (nonatomic, readonly) UIBackgroundTaskIdentifier preventSuspendTask;
 @property (strong, nonatomic) CLLocation* lastLocation;
 @property (strong, nonatomic) CLLocation* bestLocation;
 @property (nonatomic) NSInteger maxLocationAttempts;
@@ -24,9 +25,13 @@
 @property (copy) void (^locationChangedBlock) (LocationManager* manager, CLLocation* location, BOOL isSample);
 @property (copy) void (^errorBlock) (LocationManager* manager, NSError* error);
 
+-(void)watchPosition:(NSDictionary*)options;
+-(void)requestLocation;
+-(void)stopWatchPosition;
 -(void)startUpdatingLocation;
 -(void)startUpdatingLocation:(NSInteger)samples;
 -(void)startUpdatingLocation:(NSInteger)samples timeout:(NSTimeInterval)timeout;
 -(void)startUpdatingLocation:(NSInteger)samples timeout:(NSTimeInterval)timeout desiredAccuracy:(CLLocationAccuracy)desiredAccuracy;
 -(void)stopUpdatingLocation;
+
 @end

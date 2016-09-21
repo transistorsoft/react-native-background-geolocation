@@ -1,10 +1,14 @@
 # Change Log
-## [Unreleased]
+## [1.4.0] - 2016-09-21
 - [Fixed] `#removeGeofences` was removing the stationary-geofence.  This would prevent stationary-exit if executed while plugin is in stationary-mode.
 - [Fixed] Accept callbacks to `#stop` method.  Fixes #122
 - [Added] Add new config `@param {Integer} autoSyncThreshold [0]`.  Allows you to specify a minimum number of persisted records to trigger an auto-sync action.
 - [Fixed] Crash when url configured to `null`.  Issue #119
 - [Fixed] Missing Javascript API method `beginBackgroundTask`.  Issue #109
+- [Added] iOS `watchPosition` mechanism.
+- [Changed] Refactored iOS motion-detection system.  Improved iOS motion-triggering when using `CMMotionActivityManager` (ie: when not using `disableMotionActivityUpdates: true`).  iOS can now trigger out of stationary-mode just like android, where it sees a 'moving-type' motion-activity (eg: 'on_foot', 'in_vehicle', etc).  Note: this will still occur only when your app isn't suspended (eg: app is in foreground, `preventSuspend: true`, or `#watchPosition` is engaged).
+- [Changed] Refactored iOS "prevent suspend" system to be more robust.
+- [Fixed] iOS locations sent to Javascript client had a different `uuid` than the one persisted to database (and synced to server).
 
 ## [1.3.2] - 2016-08-16
 - [Fixed] Incorrect param signature send to `motionchange` event.  Was sending just location-object.  Should have been `{location: Object, isMoving: Boolean}`

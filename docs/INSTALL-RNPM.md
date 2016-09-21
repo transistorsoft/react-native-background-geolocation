@@ -1,27 +1,34 @@
+# Installation process with rnpm
 
-# Installation
+```shell
+npm install react-native-background-geolocation
+```
 
-- `npm install react-native-background-geolocation --save`
+#### With React Native 0.27+
 
-- In the XCode's **`Project navigator`**, right click on project's name ➜ **`Add Files to <...>`**
-![](https://www.dropbox.com/s/nmih1sc9hgygpvu/react-native-background-geolocation-install-1.png?dl=1)
+```shell
+react-native link react-native-background-geolocation
+react-native link react-native-background-fetch
+```
 
-- Add **`node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation.xcodeproj`** 
-![](https://www.dropbox.com/s/5rscl79kbrctouq/react-native-background-geolocation-install-2.png?dl=1)
+#### With older versions of React Native
 
-- Add another project:  **`node_modules/react-native-background-fetch/ios/RNBackgroundFetch.xcodeproj`** 
-![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-fetch/INSTALL/step3.png?dl=1)
+You need [`rnpm`](https://github.com/rnpm/rnpm) (`npm install -g rnpm`)
 
-## Build Phases ➜ Link Binary With Libraries
+```shell
+rnpm link react-native-background-geolocation
+rnpm link react-native-background-fetch
+```
 
-- Select your project in the **`Project navigator`**. Click **`Build Phases`** then **`Link Binary With Libraries`**. Add the following **2** projects: 
-    - **`libRNBackgroundGeolocation.a`**
-    - **`libRNBackgroundFetch.a`**.
-![](https://www.dropbox.com/s/her9t33sencaca1/react-native-background-geolocation-install-3.png?dl=1)
+## XCode Configuration
+
+### Build Phases ➜ Link Binary With Libraries
+
+- Select your project in the **`Project navigator`**. Click **`Build Phases`** then **`Link Binary With Libraries`**
 
 - Add the following Cocoa framework dependency to your target's `Link Binary With Libraries` build phase:
     - **`libsqlite3.tbd`**
-    - ![](https://www.dropbox.com/s/ael6c66br8m4kzt/Screenshot%202016-09-22%2010.03.56.png?dl=1)
+    - ![](https://www.dropbox.com/s/mysihinrr6c6390/react-native-background-geolocation-install-5.png?dl=1)
 
 - BackgroundGeolocation includes a couple of custom iOS frameworks.  These need to manually added, unfortunately.
     - Click **`[Add Other...]`**.  
@@ -35,7 +42,7 @@
     - Navigate: **`node_modules/react-native-background-fetch/ios/RNBackgroundFetch`**
     - Add **`TSBackgroundFetch.framework`**.
 
-## Build Settings ➜ Framework Search Paths
+### Build Settings ➜ Framework Search Paths
 
 - In order to the find the Frameworks you just added, you have to tell Xcode where it can find them:  
     - Go to **Build Settings** and search for **"framework search path"**.
@@ -48,7 +55,7 @@
 
 ![](https://www.dropbox.com/s/6hwo0mk10q2dk71/Screenshot%202016-09-22%2008.49.04.png?dl=1)
 
-## Configure Background Capabilities
+### Configure Background Capabilities
 
 - Select the root of your project.  Select **Capabilities** tab.  Enable **Background Modes** and enable the following modes:
 
@@ -67,4 +74,3 @@
 
 ![](https://www.dropbox.com/s/j7udsab7brlj4yk/Screenshot%202016-09-22%2008.33.53.png?dl=1)
 
-You can now [import and build](../README.md#example).

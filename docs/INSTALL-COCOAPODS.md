@@ -1,42 +1,53 @@
 # Installation process with CocoaPods
 
+```shell
+$ npm install --save react-native-background-geolocation
+```
+
 If you use already [CocoaPods](https://cocoapods.org/) in your react-native
 project, you can also add the react-native-mapbox-gl project to your Podfile.
 
 **NOTE** The path to `node_modules` depends on your Podfile location, whether in `{root}` of the react-native project (`node_modules`) or `{root}/ios` (`../node_modules`).  The following instructions assume `{root}/ios`
 
-- Run `npm install --save react-native-background-geolocation`
 - In your `Podfile`, make sure that `platform :ios, '8.0'` is set to `8.0`
 - Add the following Pods (**Including `React` if it's not already there**)
 
 ```Ruby
+platform :ios, '8.0'
+
 pod 'React', :path => '../node_modules/react-native'
-pod 'RNBackgroundGeolocation', :path => '../node_modules/react-native-background-geolocation/ios'
-pod 'RNBackgroundFetch', :path => '../node_modules/react-native-background-fetch/ios'
+pod 'RNBackgroundGeolocation', :path => '../node_modules/react-native-background-geolocation'
+pod 'RNBackgroundFetch', :path => '../node_modules/react-native-background-fetch'
 ```
 
-- Open your Xcode project and ensure that the "Build Settings" parameter
-   "Other linker flags" (`OTHER_LDFLAGS`) contains the CocoaPods generated
-   linker options!
-   * If you have used `react-native init` to setup your project you can just
-     remove this parameter. Just select the line and press the Delete key.
-   * Alternative, if you setup your Xcode project yourself, ensure that the
-     parent configuration was included with a `$(inherited)` variable.
 - Install the new CocoaPods dependency with:
 
-```Bash
+```shell
 $ pod install
 ```
 
-- Open `YourProject.xcworkspace`.  Select the root of your project.  Select **Capabilities** tab.  Enable **Background Modes** and enable the mode **`Background fetch`**.![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-fetch/INSTALL/step6.png?dl=1)
+## XCode Configuration
 
-- Edit **`Info.plist`**.  Add a new key **`NSLocationAlwaysUsageDescription`**.  The value here will be presented to the user when the app first requests location updates in background (eg: `App requires background location tracking`).![](https://www.dropbox.com/s/1hlneo42ybok0rc/react-native-background-geolocation-install-6.png?dl=1)
+- Open your `App.xcworkspace`
 
-- Add another key `NSMotionUsageDescription` .  Same idea as `NSLocationAlwaysUsageDescription`.  For example:  "Accelerometer is used to increase battery efficiency by intelligently toggling location-services"
+### Configure Background Capabilities
 
-- Select the root of your project.  Select **Capabilities** tab.  Enable **Background Modes** and enable the modes `Location updates` (optionally enable `Audio and AirPlay` when running in debug mode:  the plugin emits sounds during life-cycle events when running on a device).![](https://www.dropbox.com/s/rn045iboqs7pe12/react-native-background-geolocation-install-7.png?dl=1)
+- Select the root of your project.  Select **Capabilities** tab.  Enable **Background Modes** and enable the following modes:
 
-- Perform Installation instructions for [BackgroundFetch](https://github.com/transistorsoft/react-native-background-fetch/blob/master/INSTALL-COCOAPODS.md#installation-process-with-cocoapods);
+- [x] Location updates
+- [x] Background fetch
+- [x] Audio (**optional for debug-mode sound FX**)
+
+![](https://www.dropbox.com/s/a4xieyd0h38xklu/Screenshot%202016-09-22%2008.12.51.png?dl=1)
+
+- Edit **`Info.plist`**.  Add the following items (Set **Value** as desired): 
+
+| Key | Value | Description |
+|---|---|---|
+| NSLocationAlwaysUsageDescription | This app requires background tracking | The value here will be presented to the user when the plugin requests **Background Location** permission | 
+| NSMotionUsageDescription | Accelerometer use increases battery efficiency by intelligently toggling location-tracking | The value here will be presented to the user when the app requests **Motion Activity** permission.|
+
+![](https://www.dropbox.com/s/j7udsab7brlj4yk/Screenshot%202016-09-22%2008.33.53.png?dl=1)
 
 ## Troubleshooting with CocoaPods
 
@@ -50,10 +61,10 @@ your `Podfile`. Here is a complete working example if you want add your Podfile
 in the project root while your generated Xcode project is still in the `ios`
 folder:
 
-```ruby
-source 'https://github.com/CocoaPods/Specs.git'
+```Ruby
+platform :ios, '8.0'
 
 pod 'React', :path => '../node_modules/react-native'
-pod 'RNBackgroundFetch', :path => '../node_modules/react-native-background-fetch/ios'
+pod 'RNBackgroundGeolocation', :path => '../node_modules/react-native-background-geolocation'
+pod 'RNBackgroundFetch', :path => '../node_modules/react-native-background-fetch'
 ```
-

@@ -16,12 +16,10 @@ Pod::Spec.new do |s|
   s.source              = { :git => 'https://github.com/transistorsoft/react-native-background-geolocation.git', :tag => s.version }
 
   s.requires_arc        = true
-  s.platform            = :ios, '7.0'
-
-  s.dependency 'React'
+  s.platform            = :ios, '8.0'
 
   s.preserve_paths      = 'docs', 'CHANGELOG.md', 'LICENSE', 'package.json', 'RNBackgroundGeolocation.ios.js'
-  s.source_files        = 'RNBackgroundGeolocation/*.{h,m}'
+  s.source_files        = 'ios/RNBackgroundGeolocation/*.{h,m}'
   s.libraries           = 'sqlite3'
-  s.vendored_frameworks = 'RNBackgroundGeolocation/TSLocationManager.framework'
+  s.vendored_frameworks = 'ios/RNBackgroundGeolocation/TSLocationManager.framework'  
 end

@@ -36,7 +36,9 @@ $ pod install
 
 - Select the root of your project.  Select **Capabilities** tab.  Enable **Background Modes** and enable the modes `Location updates` (optionally enable `Audio and AirPlay` when running in debug mode:  the plugin emits sounds during life-cycle events when running on a device).![](https://www.dropbox.com/s/rn045iboqs7pe12/react-native-background-geolocation-install-7.png?dl=1)
 
-- Perform Installation instructions for [BackgroundFetch](https://github.com/transistorsoft/react-native-background-fetch/blob/master/INSTALL-COCOAPODS.md#installation-process-with-cocoapods);
+### BackgroundFetch Dependency
+
+The plugin requires the `react-native-background-fetch`, which has already been installed.  However, you must perform the plugin's [XCode Configuration](https://github.com/transistorsoft/react-native-background-fetch/blob/master/INSTALL-COCOAPODS.md#installation-process-with-cocoapods) steps (omit the Podfile steps, you've already performed that above).  [Click here](https://github.com/transistorsoft/react-native-background-fetch/blob/master/INSTALL-COCOAPODS.md#installation-process-with-cocoapods)
 
 ## Troubleshooting with CocoaPods
 

@@ -14,10 +14,10 @@
 
 ## Build Phases ➜ Link Binary With Libraries
 
-- Select your project in the **`Project navigator`**. Click **`Build Phases`** then **`Link Binary With Libraries`**. Add the following **2** projects: 
+- Select your project in the **`Project navigator`**. Click **`Build Phases`** then **`Link Binary With Libraries`**. Add the following **2** static libraries: 
     - **`libRNBackgroundGeolocation.a`**
     - **`libRNBackgroundFetch.a`**.
-![](https://www.dropbox.com/s/her9t33sencaca1/react-native-background-geolocation-install-3.png?dl=1)
+![](https://www.dropbox.com/s/qky6jxaogngiaor/Screenshot%202016-09-22%2012.04.28.png?dl=1)
 
 - Add the following Cocoa framework dependency to your target's `Link Binary With Libraries` build phase:
     - **`libsqlite3.tbd`**

@@ -1,5 +1,5 @@
 
-# Installation
+# iOS Manual Installation
 
 - `npm install react-native-background-geolocation --save`
 
@@ -34,6 +34,7 @@
     - Click **`[Add Other...]`**. 
     - Navigate: **`node_modules/react-native-background-fetch/ios/RNBackgroundFetch`**
     - Add **`TSBackgroundFetch.framework`**.
+![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-fetch/INSTALL/step5.png?dl=1)
 
 ## Build Settings ➜ Framework Search Paths
 
@@ -67,5 +68,12 @@
 | NSMotionUsageDescription | Accelerometer use increases battery efficiency by intelligently toggling location-tracking | The value here will be presented to the user when the app requests **Motion Activity** permission.|
 
 ![](https://www.dropbox.com/s/j7udsab7brlj4yk/Screenshot%202016-09-22%2008.33.53.png?dl=1)
+
+## BackgroundFetch AppDelegate extension
+
+BackgroundFetch implements an `AppDelegate` method `didPerformFetchWithCompletionHandler`.  You must manually add this file to the same folder where your `AppDelegate.m` lives:
+
+- Expand the **`RNBackgroundFetch`** project and drag/drop the file **`RNBackgroundFetch+AppDelegate.m`** and place the file to exist **in the same folder** as your app's **`AppDelegate.m`**.
+![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-fetch/INSTALL/step7.png?dl=1)
 
 You can now [import and build](../README.md#example).

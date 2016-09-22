@@ -15,9 +15,13 @@ Cross-platform background geolocation module for React Native with battery-savin
 Follows the [React Native Modules spec](https://facebook.github.io/react-native/docs/native-modules-ios.html#content).
 
 ## Installing the Plugin
-- [Cocoapods](docs/INSTALL-COCOAPODS.md)
-- [rnpm link](docs/INSTALL-RNPM.md)
-- [Manual Installation](docs/INSTALL.md)
+
+### iOS
+- [Cocoapods](docs/INSTALL-IOS-COCOAPODS.md)
+- [rnpm link](docs/INSTALL-IOS-RNPM.md)
+- [Manual Installation](docs/INSTALL-IOS.md)
+
+### Android
 
 ## Using the plugin ##
 
@@ -26,7 +30,7 @@ import BackgroundGeolocation from "react-native-background-geolocation";
 ```
 
 ## Documentation
-- [API Documentation](docs/)
+- [API Documentation](docs/README.md)
 - [Location Data Schema](../../wiki/Location-Data-Schema)
 - [Error Codes](../../wiki/Error-Codes)
 - [Debugging Sounds](../../wiki/Debug-Sounds)

@@ -34,6 +34,7 @@
     - Click **`[Add Other...]`**. 
     - Navigate: **`node_modules/react-native-background-fetch/ios/RNBackgroundFetch`**
     - Add **`TSBackgroundFetch.framework`**.
+![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-fetch/INSTALL/step5.png?dl=1)
 
 ## Build Settings ➜ Framework Search Paths
 

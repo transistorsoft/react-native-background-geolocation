@@ -48,7 +48,6 @@ $ pod install
 | NSMotionUsageDescription | Accelerometer use increases battery efficiency by intelligently toggling location-tracking | The value here will be presented to the user when the app requests **Motion Activity** permission.|
 
 ![](https://www.dropbox.com/s/j7udsab7brlj4yk/Screenshot%202016-09-22%2008.33.53.png?dl=1)
->>>>>>> installation-guides
 
 ## Troubleshooting with CocoaPods
 

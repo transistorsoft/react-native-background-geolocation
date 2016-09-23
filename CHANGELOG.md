@@ -1,4 +1,9 @@
 # Change Log
+
+## [1.4.1] - 2016-09-22
+- [Fixed] Bug in prevent-suspend where the plugin failed to re-start its prevent-suspend timer if no MotionActivity event occurred during that interval.  Prevent-suspend system should now operate completely independently of MotionDetector.
+- [Fixed] `#stop` method wasn't calling `stopMonitoringSignificantChanges`, resulting in location-services icon failing to toggle OFF.  Fixes issue #908
+
 ## [1.4.0] - 2016-09-21
 - [Fixed] `#removeGeofences` was removing the stationary-geofence.  This would prevent stationary-exit if executed while plugin is in stationary-mode.
 - [Fixed] Accept callbacks to `#stop` method.  Fixes #122

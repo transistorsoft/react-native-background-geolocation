@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.4.3] - 2016-09-25
+- [Fixed] Bug in preventSuspend during background-fetch event where plugin was left in preventSuspend mode after being rebooted in background.
+
 ## [1.4.2] - 2016-09-25
 - [Fixed] Bug in preventSuspend during background-fetch event where plugin was left in preventSuspend mode when not configured to do so.
 ## [1.4.1] - 2016-09-22

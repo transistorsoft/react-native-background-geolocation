@@ -42,7 +42,6 @@ RCT_EXPORT_MODULE();
 -(instancetype)init
 {
     self = [super init];
-    
     if (self) {
         locationManager = [TSLocationManager sharedInstance];
         locationManager.locationChangedBlock  = [self createLocationChangedHandler];
@@ -55,8 +54,12 @@ RCT_EXPORT_MODULE();
         locationManager.errorBlock            = [self createErrorHandler];
         locationManager.scheduleBlock         = [self createScheduleHandler];
         locationManager.authorizationChangedBlock = [self createAuthorizationChangedHandler];
+
+        // Provide reference to rootViewController for #emailLog method.
+        UIViewController *root = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+        locationManager.viewController = root;
     }
-    
+
     return self;
 }
 
@@ -210,7 +213,7 @@ RCT_EXPORT_METHOD(sync:(RCTResponseSenderBlock)success failure:(RCTResponseSende
         failure(@[@"A sync action is already in progress."]);
         return;
     }
-    
+
     NSArray* locations = [locationManager sync];
     if (locations) {
         // Important to set these before we execute #sync since this fires a *very fast* async NSNotification event!
@@ -225,7 +228,7 @@ RCT_EXPORT_METHOD(getGeofences:(RCTResponseSenderBlock)success failure:(RCTRespo
 {
     NSArray *geofences = [locationManager getGeofences];
     NSMutableArray *rs = [NSMutableArray arrayWithCapacity:[geofences count]];
-    
+
     for(CLCircularRegion *geofence in geofences) {
         NSDictionary *geofenceDictionary = @{
             @"identifier": geofence.identifier,
@@ -246,7 +249,7 @@ RCT_EXPORT_METHOD(addGeofence:(NSDictionary*) config success:(RCTResponseSenderB
     CLLocationDistance radius   = [[config objectForKey:@"radius"] doubleValue];
     BOOL notifyOnEntry          = [[config objectForKey:@"notifyOnEntry"] boolValue];
     BOOL notifyOnExit           = [[config objectForKey:@"notifyOnExit"] boolValue];
-    
+
     [locationManager addGeofence:identifier radius:radius latitude:latitude longitude:longitude notifyOnEntry:notifyOnEntry notifyOnExit:notifyOnExit];
     RCTLogInfo(@"addGeofence %@", config);
     success(@[]);
@@ -286,10 +289,10 @@ RCT_EXPORT_METHOD(resetOdometer:(RCTResponseSenderBlock)success failure:(RCTResp
     success(@[]);
 }
 
-RCT_EXPORT_METHOD(clearDatabase:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(destroyLocations:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"clearDatabase");
-    BOOL result = [locationManager clearDatabase];
+    RCTLogInfo(@"destroyLocations");
+    BOOL result = [locationManager destroyLocations];
     if (result) {
         success(@[]);
     } else {
@@ -328,6 +331,17 @@ RCT_EXPORT_METHOD(getLog:(RCTResponseSenderBlock)successCallback failure:(RCTRes
     }
 }
 
+RCT_EXPORT_METHOD(destroyLog:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    RCTLogInfo(@"destroyLog");
+    BOOL result = [locationManager destroyLog];
+    if (result) {
+        success(@[]);
+    } else {
+        failure(@[]);
+    }
+}
+
 RCT_EXPORT_METHOD(emailLog:(NSString*)email success:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failureCallback)
 {
     [locationManager emailLog:email];
@@ -342,7 +356,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 -(void (^)(NSDictionary *locationData, enum tsLocationType, BOOL isMoving)) createLocationChangedHandler {
     return ^(NSDictionary *locationData, enum tsLocationType type, BOOL isMoving) {
         RCTLogInfo(@"- RCTBackgroundGeoLocation onLocationChanged");
-        
+
         if (type == TS_LOCATION_TYPE_WATCH) {
             [self sendEvent:EVENT_WATCHPOSITION body:locationData];
         } else if (type != TS_LOCATION_TYPE_SAMPLE && [currentPositionListeners count]) {
@@ -369,10 +383,10 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 -(void) sendEvent:(NSString*)event body:(id)body
 {
     [_bridge.eventDispatcher sendDeviceEventWithName:[self eventName:event] body:body];
-    
+
     // NEW RCTEventEmitter is buggy.
     //[self sendEventWithName:[self eventName:event] body:body];
-    
+
 }
 
 -(void (^)(NSString* activityName)) createActivityChangedHandler {
@@ -428,7 +442,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 -(void (^)(NSString *type, NSError *error)) createErrorHandler {
     return ^(NSString *type, NSError *error) {
         RCTLogInfo(@" - onLocationManagerError: %@", error);
-        
+
         if ([type isEqualToString:@"location"]) {
             if ([currentPositionListeners count]) {
                 for (NSDictionary *callback in currentPositionListeners) {

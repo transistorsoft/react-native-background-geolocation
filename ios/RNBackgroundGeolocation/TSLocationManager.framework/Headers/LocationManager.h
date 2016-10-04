@@ -12,6 +12,22 @@
 
 @interface LocationManager : NSObject <CLLocationManagerDelegate>
 
+// Location types
+typedef enum tsLocationType : NSInteger {
+    TS_LOCATION_TYPE_MOTIONCHANGE   = 0,
+    TS_LOCATION_TYPE_TRACKING       = 1,
+    TS_LOCATION_TYPE_CURRENT        = 2,
+    TS_LOCATION_TYPE_SAMPLE         = 3,
+    TS_LOCATION_TYPE_WATCH          = 4
+} tsLocationtype;
+
+// Error codes
+typedef enum tsLocationError : NSInteger {
+    TS_LOCATION_ERROR_ACCEPTABLE_ACCURACY = 100,
+    TS_LOCATION_ERROR_TIMEOUT = 408
+} tsLocationError;
+
+
 @property (strong, nonatomic) CLLocationManager* locationManager;
 @property (nonatomic, readonly) UIBackgroundTaskIdentifier preventSuspendTask;
 @property (strong, nonatomic) CLLocation* lastLocation;

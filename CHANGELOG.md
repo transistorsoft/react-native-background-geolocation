@@ -14,6 +14,8 @@ fetch logs with `#getLog` or `#emailLog` methods.  Destroy logs with `#destroyLo
 - [Fixed] `#emailLog` now finally works.
 - [Fixed] If user declines "Motion Activity" permission, plugin failed to detect this authorization failure and fallback to the accelerometer-based motion-detection system.
 
+- [Changed] Refactored Geolocation system.  The plugin is no longer bound by native platform limits on number of geofences which can be monitored (iOS: 20; Android: 100).  You may now monitor infinite geofences.  The plugin now stores geofences in its SQLite db and performs a geospatial query, activating only those geofences in proximity of the device (@config #geofenceProximityRadius, @event `geofenceschange`).  See the new [Geofencing Guide](./docs/geofencing.md)
+
 ## [1.4.3] - 2016-09-25
 - [Fixed] Bug in preventSuspend during background-fetch event where plugin was left in preventSuspend mode after being rebooted in background.
 

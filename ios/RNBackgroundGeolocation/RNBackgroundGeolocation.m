@@ -19,6 +19,7 @@ static NSString *const EVENT_WATCHPOSITION = @"watchposition";
 static NSString *const EVENT_PROVIDERCHANGE = @"providerchange";
 static NSString *const EVENT_MOTIONCHANGE = @"motionchange";
 static NSString *const EVENT_ACTIVITYCHANGE = @"activitychange";
+static NSString *const EVENT_GEOFENCESCHANGE = @"geofenceschange";
 static NSString *const EVENT_ERROR = @"error";
 static NSString *const EVENT_HTTP = @"http";
 static NSString *const EVENT_SCHEDULE = @"schedule";
@@ -54,7 +55,15 @@ RCT_EXPORT_MODULE();
         locationManager.errorBlock            = [self createErrorHandler];
         locationManager.scheduleBlock         = [self createScheduleHandler];
         locationManager.authorizationChangedBlock = [self createAuthorizationChangedHandler];
-
+        
+        __typeof(self) __weak me = self;
+        // New style of listening to events.
+        [locationManager addListener:EVENT_GEOFENCESCHANGE callback:^(NSDictionary* event) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [me sendEvent:EVENT_GEOFENCESCHANGE body:event];
+            });
+        }];
+        
         // Provide reference to rootViewController for #emailLog method.
         UIViewController *root = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
         locationManager.viewController = root;
@@ -243,38 +252,45 @@ RCT_EXPORT_METHOD(getGeofences:(RCTResponseSenderBlock)success failure:(RCTRespo
 
 RCT_EXPORT_METHOD(addGeofence:(NSDictionary*) config success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    NSString *identifier        = [config objectForKey:@"identifier"];
-    CLLocationDegrees latitude  = [[config objectForKey:@"latitude"] doubleValue];
-    CLLocationDegrees longitude = [[config objectForKey:@"longitude"] doubleValue];
-    CLLocationDistance radius   = [[config objectForKey:@"radius"] doubleValue];
-    BOOL notifyOnEntry          = [[config objectForKey:@"notifyOnEntry"] boolValue];
-    BOOL notifyOnExit           = [[config objectForKey:@"notifyOnExit"] boolValue];
-
-    [locationManager addGeofence:identifier radius:radius latitude:latitude longitude:longitude notifyOnEntry:notifyOnEntry notifyOnExit:notifyOnExit];
     RCTLogInfo(@"addGeofence %@", config);
-    success(@[]);
+    [locationManager addGeofence:config success:^(NSString* response) {
+        success(@[response]);
+    } error:^(NSString* error) {
+        failure(@[error]);
+    }];
 }
 
 RCT_EXPORT_METHOD(addGeofences:(NSArray*) geofences success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    [locationManager addGeofences:geofences];
-    RCTLogInfo(@"addGeofences");
-    success(@[]);
+    RCTLogInfo(@"addGeofences")
+    [locationManager addGeofences:geofences success:^(NSString* response) {
+        success(@[response]);
+    } error:^(NSString* error) {
+        failure(@[error]);
+    }];
 }
 
 
 RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    [locationManager removeGeofence:identifier];
     RCTLogInfo(@"removeGeofence");
-    success(@[]);
+    [locationManager removeGeofence:identifier success:^(NSString* response) {
+        success(@[response]);
+    } error:^(NSString* error) {
+        failure(@[error]);
+    }];
 }
 
 RCT_EXPORT_METHOD(removeGeofences:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    [locationManager removeGeofences];
     RCTLogInfo(@"removeGeofences");
-    success(@[]);
+    NSArray *geofences = @[];
+    [locationManager removeGeofences:geofences success:^(NSString* response) {
+        success(@[response]);
+    } error:^(NSString* error) {
+        failure(@[error]);
+    }];
+    
 }
 
 RCT_EXPORT_METHOD(getOdometer:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)

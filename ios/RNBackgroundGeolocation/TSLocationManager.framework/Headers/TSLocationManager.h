@@ -29,6 +29,7 @@
 
 // Methods
 - (NSDictionary*) configure:(NSDictionary*)config;
+- (void) addListener:(NSString*)event callback:(void (^)(NSDictionary*))callback;
 - (void) start;
 - (void) stop;
 - (void) startSchedule;
@@ -47,10 +48,10 @@
 - (void) onAppTerminate;
 - (NSMutableDictionary*) locationToDictionary:(CLLocation*)location;
 - (NSMutableDictionary*) locationToDictionary:(CLLocation*)location type:(tsLocationtype)type extras:(NSDictionary*)extras;
-- (void) addGeofence:(NSString*)identifier radius:(CLLocationDistance)radius latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude notifyOnEntry:(BOOL)notifyOnEntry notifyOnExit:(BOOL)notifyOnExit;
-- (void) addGeofences:(NSArray*)geofences;
-- (BOOL) removeGeofence:(NSString*)identifier;
-- (BOOL) removeGeofences;
+- (void) addGeofence:(NSDictionary*)params success:(void (^)(NSString*))success error:(void (^)(NSString*))error;
+- (void) addGeofences:(NSArray*)geofences success:(void (^)(NSString*))success error:(void (^)(NSString*))error;
+- (void) removeGeofence:(NSString*)identifier success:(void (^)(NSString*))success error:(void (^)(NSString*))error;
+- (void) removeGeofences:(NSArray*)identifiers success:(void (^)(NSString*))success error:(void (^)(NSString*))error;;
 - (NSArray*) getGeofences;
 - (void) updateCurrentPosition:(NSDictionary*)options;
 - (void) watchPosition:(NSDictionary*)options;

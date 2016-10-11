@@ -6,7 +6,18 @@ const TAG = "TSLocationManager";
 var emptyFn = function() {};
 
 var API = {
-  events: ['heartbeat', 'http', 'location', 'error', 'motionchange', 'geofence', 'schedule', 'activitychange', 'providerchange', 'watchposition'],
+  events: [
+    'heartbeat',
+    'http',
+    'location',
+    'error',
+    'motionchange',
+    'geofence',
+    'schedule',
+    'activitychange',
+    'providerchange',
+    'geofenceschange',
+    'watchposition'],
 
   LOG_LEVEL_OFF: 0,
   LOG_LEVEL_ERROR: 1,

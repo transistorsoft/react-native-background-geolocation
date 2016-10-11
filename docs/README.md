@@ -32,6 +32,8 @@ bgGeo.setConfig({
 | [`distanceFilter`](#param-integer-distancefilter) | `Integer` | Required | `30`| The minimum distance (measured in meters) a device must move horizontally before an update event is generated. @see Apple docs. However, #distanceFilter is elastically auto-calculated by the plugin: When speed increases, #distanceFilter increases; when speed decreases, so does distanceFilter (disabled with `disableElasticity: true`) |
 | [`stopAfterElapsedMinutes`](#param-integer-stopafterelapsedminutes) | `Integer`  |  Optional | `0`  | Stop monitoring location after a set number of minutes have elasped since #start method was called. |
 | [`stationaryRadius`](#param-integer-stationaryradius-meters) | `Integer`  |  Required (**iOS**)| `20`  | When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage. Note, since the plugin uses iOS significant-changes API, the plugin cannot detect the exact moment the device moves out of the stationary-radius. In normal conditions, it can take as much as 3 city-blocks to 1/2 km before staionary-region exit is detected. |
+| [`geofenceProximityRadius`](#param-integer-geofenceproximityradius-meters) | `Integer`  |  Optional | `1000`  | When using Geofences, the plugin activates only thoses in proximity (the maximim geofences allowed to be simultaneously monitored is limited by the platform, where **iOS** allows only 20 and **Android**.  However, the plugin allows you to create as many geofences as you wish (thousands even).  It stores these in its database and uses spatial queries to determine which **20** or **100** geofences to activate. |
+| [`disableElasticity`](#param-boolean-disableelasticity-false) | `bool`  |  Optional | `false`  | Set true to disable automatic speed-based `#distanceFilter` elasticity. eg: When device is moving at highway speeds, locations are returned at ~ 1 / km. |
 | [`disableElasticity`](#param-boolean-disableelasticity-false) | `bool`  |  Optional | `false`  | Set `true` disables automatic speed-based `#distanceFilter` elasticity. eg: When device is moving at highway speeds, locations are returned at ~ 1 / km. |
 | [`activityType`](#param-string-activitytype-automotivenavigation-othernavigation-fitness-other) | `String` | Required (**iOS**)| `Other` | Presumably, this affects iOS GPS algorithm. See [Apple docs](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/CLLocationManager/CLLocationManager.html#//apple_ref/occ/instp/CLLocationManager/activityType) for more information | Set the desired interval for active location updates, in milliseconds. |
 | [`useSignificantChangesOnly`](#param-boolean-usesignificantchangesonly-false) | `Boolean` | Optional (**iOS**)| `false` | Set `true` in order to disable constant background-tracking and use only the iOS [Significant Changes API](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html#//apple_ref/occ/instm/CLLocationManager/startMonitoringSignificantLocationChanges). If Apple has denied your application due to background-tracking, this can be a solution. **NOTE** The Significant Changes API will report a location only when a significant change from the last location has occurred. Many of the configuration parameters **will be ignored**, such as `#distanceFilter`, `#stationaryRadius`, `#activityType`, etc. |
@@ -94,6 +96,7 @@ bgGeo.on('location', function(location) {
 | [`activitychange`](#activitychange) | Fired when the activity-recognition system detects a *change* in detected-activity (`still, on_foot, in_vehicle, on_bicycle, running`) |
 | [`providerchange`](#providerchange)| Fired when a change in the state of the device's **Location Services** has been detected.  eg: "GPS ON", "Wifi only".|
 | [`geofence`](#geofence) | Fired when a geofence crossing event occurs. |
+| [`geofenceschange`](#geofenceschange) | Fired when the lists of monitored geofences changed.|
 | [`http`](#http) | Fired after a successful HTTP response. `response` object is provided with `status` and `responseText`. |
 | [`heartbeat`](#heartbeat) | Fired each `heartbeatInterval` while the plugin is in the **stationary** state with.  Your callback will be provided with a `params {}` containing the parameters `shakes {Integer}` (#shakes not implemented for Android), `motionType {String}`,  `location {Object}` |
 | [`schedule`](#schedule) | Fired when a schedule event occurs.  Your `callbackFn` will be provided with the current `state` Object. | 
@@ -182,6 +185,10 @@ The plugin can optionally auto-stop monitoring location when some number of minu
 ####`@param {Integer} stationaryRadius (meters)`
 
 When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage. Note, since the plugin uses iOS significant-changes API, the plugin cannot detect the exact moment the device moves out of the stationary-radius. In normal conditions, it can take as much as 3 city-blocks to 1/2 km before staionary-region exit is detected.
+
+####`@param {Integer} geofenceProximityRadius (meters)`
+
+When using Geofences, the plugin activates only thoses in proximity (the maximim geofences allowed to be simultaneously monitored is limited by the platform, where **iOS** allows only 20 and **Android**.  However, the plugin allows you to create as many geofences as you wish (thousands even).  It stores these in its database and uses spatial queries to determine which **20** or **100** geofences to activate. |
 
 ####`@param {Boolean} disableElasticity [false]`
 
@@ -525,6 +532,62 @@ bgGeo.on('geofence', function(params) {
         console.error('An error occurred in my application code', e);
     }
 });
+```
+
+####`geofenceschange`
+
+Your `callbackFn` will be provided a single `{Object} event` parameter:
+
+######@param {Array} on. This list of new geofences which just became monitored
+######@param {Array} off. This list of geofences which stop being monitored.
+
+Fired when the list of monitored-geofences changed.  For more information, see [Geofencing](./geofencing.md).  The Background Geolocation plugin contains powerful geofencing features that allow you to monitor any number of circular geofences you wish (thousands even), in spite of limits imposed by the native platform APIs (**20 for iOS; 100 for Android**).
+
+The plugin achieves this by storing your geofences in its database, using a [geospatial query](https://en.wikipedia.org/wiki/Spatial_query) to determine those geofences in proximity (@see config [geofenceProximityRadius](#param-integer-geofenceproximityradius-meters)), activating only those geofences closest to the device's current location (according to limit imposed by the corresponding platform).
+
+When the device is determined to be moving, the plugin periodically queries for geofences in proximity (eg. every minute) using the latest recorded location.  This geospatial query is **very fast**, even with tens-of-thousands geofences in the database.
+
+It's when this list of monitored geofences *changes*, the plugin will fire the `geofenceschange` event.
+
+```Javascript
+bgGeo.on('geofenceschange', function(event) {
+  var on = event.on;   //<-- new geofences activiated.
+  var off = event.off; //<-- geofences that were de-activated.
+
+  // Create map circles
+  for (var n=0,len=on.length;n<len;n++) {
+    var geofence = on[n];
+    createGeofenceMarker(geofence)
+  }
+
+  // Remove map circles
+  for (var n=0,len=off.length;n<len;n++) {
+    var identifier = off[n];
+    removeGeofenceMarker(identifier);
+  }
+});
+```
+
+This `event` object provides only the *changed* geofences, those which just activated or de-activated.
+
+When **all** geofences have been removed, the event object will provide an empty-array `[]` for both `#on` and `#off` keys, ie:
+```Javascript
+{
+    on: [{}, {}, ...],  // <-- Entire geofence objects {}
+    off: ['identifier_foo', 'identifier_bar']  <-- just the identifiers
+}
+```
+
+```Javascript
+bgGeo.on('geofenceschange', function(event) {
+  console.log("geofenceschange fired! ", event);
+});
+
+// calling remove geofences will cause the `geofenceschange` event to fire
+bgGeo.removeGeofences();
+
+=> geofenceschange fired! {on: [], off: []}
+
 ```
 
 ####`http`

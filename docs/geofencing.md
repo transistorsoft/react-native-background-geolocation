@@ -2,7 +2,7 @@
 
 The Background Geolocation contains powerful geofencing features that allow you to monitor any number of circular geofences you wish (thousands even), in spite of limits imposed by the native platform APIs (**20 for iOS; 100 for Android**).
 
-The plugin achieves this by storing your geofences in its database, using a [geospatial query](https://en.wikipedia.org/wiki/Spatial_query) to determine those geofences in proximity (@see config [geofenceProximityRadius](./doc/README.md/#param-integer-geofenceproximityradius-meters)), activating only those geofences closest to the device's current location (according to limit imposed by the corresponding platform).
+The plugin achieves this by storing your geofences in its database, using a [geospatial query](https://en.wikipedia.org/wiki/Spatial_query) to determine those geofences in proximity (@see config [geofenceProximityRadius](./README.md/#param-integer-geofenceproximityradius-meters)), activating only those geofences closest to the device's current location (according to limit imposed by the corresponding platform).
 
 ![](https://dl.dropboxusercontent.com/u/2319755/background-geolocation/images/geofenceProximityRadius_iphone6_spacegrey_portrait.png)
 
@@ -57,11 +57,11 @@ bgGeo.removeGeofences();
 
 ```
 
-## Config: `geofenceProximityRadius`
+## Config: [`geofenceProximityRadius`](./README.md/#param-integer-geofenceproximityradius-meters)
 
-`geofenceProximityRadius {Integer} [1000] meters` controls the circular area around the device's current position where geofences will be activated.  As the device moves, the plugin periodically queries for geofences in proximity of the last-recorded location (default once-per-minute).
+[`@config geofenceProximityRadius {Integer} [1000] meters`](./README.md/#param-integer-geofenceproximityradius-meters) controls the circular area around the device's current position where geofences will be activated.  As the device moves, the plugin periodically queries for geofences in proximity of the last-recorded location (default once-per-minute).
 
-You can change the `geofenceProximityRadius` at run-time; the `geofenceschange` event will immediately fire if the monitored list-of-geofences changed as a result:
+You can change the [`geofenceProximityRadius`](./README.md/#param-integer-geofenceproximityradius-meters) at run-time; the `geofenceschange` event will immediately fire if the monitored list-of-geofences changed as a result:
 
 ```Javascript
 bgGeo.on('geofenceschange', function(event) { 

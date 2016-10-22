@@ -105,8 +105,8 @@ bgGeo.on('location', function(location) {
 
 | Method Name | Arguments | Notes
 |---|---|---|
-| ['on'](#on-callback) | `Function` | Add an event-listener |
-| ['un'](#un-callback) | `Function` | Remove an event-listener |
+| [`on`](#oncallback) | `Function` | Add an event-listener |
+| [`un`](#uncallback) | `Function` | Remove an event-listener |
 | [`configure`](#configureobject-callback) | `{config}` | Configures the plugin's parameters (@see following Config section for accepted config params. The locationCallback will be executed each time a new Geolocation is recorded and provided with the following parameters. |
 | [`setConfig`](#setconfigobject) | `{config}` | Re-configure the plugin with new values. |
 | [`start`](#startcallbackfn) | `callbackFn`| Enable location tracking. Supplied `callbackFn` will be executed when tracking is successfully engaged. |

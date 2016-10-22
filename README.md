@@ -48,8 +48,8 @@ import BackgroundGeolocation from "react-native-background-geolocation";
 import BackgroundGeolocation from "react-native-background-geolocation";
 
 var Foo = React.createClass({
-  getInitialState() {
-    
+  componentWillMount() {
+
     BackgroundGeolocation.configure({
       // Geolocation Config
       desiredAccuracy: 0,
@@ -67,7 +67,6 @@ var Foo = React.createClass({
       url: 'http://posttestserver.com/post.php?dir=cordova-background-geolocation',
       batchSync: false,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
       autoSync: true,         // <-- [Default: true] Set true to sync each location to server as it arrives.
-      maxDaysToPersist: 1,    // <-- Maximum days to persist a location in plugin's SQLite database when HTTP fails
       headers: {              // <-- Optional HTTP headers
         "X-FOO": "bar"
       },
@@ -76,40 +75,53 @@ var Foo = React.createClass({
       }
     }, function(state) {
       console.log("- BackgroundGeolocation is configured and ready: ", state.enabled);
-      
+
       if (!state.enabled) {
         BackgroundGeolocation.start(function() {
           console.log("- Start success");
         });
       }
     });
-    
+
     // This handler fires whenever bgGeo receives a location update.
-    BackgroundGeolocation.on('location', function(location) {
-      console.log('- [js]location: ', JSON.stringify(location));
-    });
-    
+    BackgroundGeolocation.on('location', this.onLocation);
+
     // This handler fires whenever bgGeo receives an error
-    BackgroundGeolocation.on('error', function(error) {
-      var type = error.type;
-      var code = error.code;
-      alert(type + " Error: " + code);
-    });
+    BackgroundGeolocation.on('error', this.onError);
 
     // This handler fires when movement states changes (stationary->moving; moving->stationary)
-    BackgroundGeolocation.on('motionchange', function(location) {
-        console.log('- [js]motionchanged: ', JSON.stringify(location));
-    });
-    
+    BackgroundGeolocation.on('motionchange', this.onMotionChange);
+
     // This event fires when a chnage in motion activity is detected
-    BackgroundGeolocation.on('activitychange', function(activityName) {
-      console.log('- Current motion activity: ', activityName);  // eg: 'on_foot', 'still', 'in_vehicle'
-    });
-    
+    BackgroundGeolocation.on('activitychange', this.onActivityChange);
+
     // This event fires when the user toggles location-services
-    BackgroundGeolocation.on('providerchange', function(provider) {
-      console.log('- Location provider changed: ', provider.enabled);    
-    });
+    BackgroundGeolocation.on('providerchange', this.onProviderChange);
+  }
+  componentWillUnmount() {
+    // Remove BackgroundGeolocation listeners
+    BackgroundGeolocation.un('location', this.onLocation);
+    BackgroundGeolocation.un('error', this.onError);
+    BackgroundGeolocation.un('motionchange', this.onMotionChange);
+    BackgroundGeolocation.un('activitychange', this.onActivityChange);
+    BackgroundGeolocation.un('providerchange', this.onProviderChange);
+  }
+  onLocation(location) {
+    console.log('- [js]location: ', JSON.stringify(location));
+  }
+  onError(error) {
+    var type = error.type;
+    var code = error.code;
+    alert(type + " Error: " + code);
+  }
+  onActivityChange(activityName) {
+    console.log('- Current motion activity: ', activityName);  // eg: 'on_foot', 'still', 'in_vehicle'
+  }
+  onProviderChange(provider) {
+    console.log('- Location provider changed: ', provider.enabled);    
+  }
+  onMotionChange(location) {
+    console.log('- [js]motionchanged: ', JSON.stringify(location));
   }
 });
 

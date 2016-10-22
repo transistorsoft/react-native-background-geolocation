@@ -105,6 +105,8 @@ bgGeo.on('location', function(location) {
 
 | Method Name | Arguments | Notes
 |---|---|---|
+| ['on'](#on-callback) | `Function` | Add an event-listener |
+| ['un'](#un-callback) | `Function` | Remove an event-listener |
 | [`configure`](#configureobject-callback) | `{config}` | Configures the plugin's parameters (@see following Config section for accepted config params. The locationCallback will be executed each time a new Geolocation is recorded and provided with the following parameters. |
 | [`setConfig`](#setconfigobject) | `{config}` | Re-configure the plugin with new values. |
 | [`start`](#startcallbackfn) | `callbackFn`| Enable location tracking. Supplied `callbackFn` will be executed when tracking is successfully engaged. |
@@ -661,6 +663,32 @@ bgGeo.on('schedule', function(state) {
 ```
 
 # Methods
+
+####`on(callback)`
+
+Add an event-listener
+
+```Javascript
+    componentWillMount() {
+        BackgroundGeolocation.on("location", this.onLocation);
+        .
+        .
+        .
+    }
+    onLocation(location) {
+        console.log('- Location: ', location);
+    }
+```
+
+####`un(callback)`
+
+Remove an event-listener.
+
+```Javascript
+    componentWillUnmount() {
+        BackgroundGeolocation.un("location", this.onLocation);
+    }
+```
 
 ####`configure({Object}, callback)`
 

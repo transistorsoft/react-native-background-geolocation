@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/LocationManager.h</key>
 		<data>
-		IOkt4hCVp3CSRpvEHaQhIzAwRvY=
+		g0mUx4Xt6DQpXvsH22XVlCdk4Pg=
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		q81uVuME91yj41pta+KIF+xNCHM=
+		G2gmEHU6zqjnAIgfedperZTb/uk=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -31,11 +31,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			IOkt4hCVp3CSRpvEHaQhIzAwRvY=
+			g0mUx4Xt6DQpXvsH22XVlCdk4Pg=
 			</data>
 			<key>hash2</key>
 			<data>
-			8eTs5sIB8Zx1ozDwuhAvQ4vPsejQCfIQLHdX+n9wls0=
+			CYgwNo/szYFk3HGSwQIBagce5hrNzWvKsPpsu0ri3s8=
 			</data>
 		</dict>
 		<key>Headers/TSLocationManager.h</key>

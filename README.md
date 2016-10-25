@@ -56,9 +56,9 @@ var Foo = React.createClass({
       stationaryRadius: 25,
       distanceFilter: 10,
       // Activity Recognition
-      stopTimeout: 1,       
+      stopTimeout: 1,
       // Application config
-      debug: true, // <-- enable this hear sounds for background-geolocation 
+      debug: true, // <-- enable this hear sounds for background-geolocation
       life-cycle.
       logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
       stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
@@ -98,6 +98,7 @@ var Foo = React.createClass({
     // This event fires when the user toggles location-services
     BackgroundGeolocation.on('providerchange', this.onProviderChange);
   }
+  // You must remove listeners when your component unmounts
   componentWillUnmount() {
     // Remove BackgroundGeolocation listeners
     BackgroundGeolocation.un('location', this.onLocation);

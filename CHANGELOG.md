@@ -13,6 +13,8 @@
   }
 ```
 
+- [Fixed] iOS issue when multiple geofences trigger simultaneously, where only the last one was fired to the client and persisted.
+
 ## [1.5.1] - 2016-10-17
 - [Fixed] Bug in `stopDetectionDelay` logic
 - [Fixed] Geofencing transistion event logging wouldn't occur when configured for `debug: false`

@@ -83,9 +83,15 @@ bgGeo.setConfig({
 
 The following events can all be listened-to via the method `#on(eventName, callback)`, eg:
 ```Javascript
-bgGeo.on('location', function(location) {
+var onLocation = function(location) {
     console.log('- Location changed: ', location);
-});
+};
+bgGeo.on('location', onLocation);
+```
+
+As well as corresponding `#un` method for removing listeners:
+```Javascript
+bgGeo.un('location', onLocation);
 ```
 
 | Event Name | Notes
@@ -105,6 +111,8 @@ bgGeo.on('location', function(location) {
 
 | Method Name | Arguments | Notes
 |---|---|---|
+| [`on`](#oncallback) | `Function` | Add an event-listener |
+| [`un`](#uncallback) | `Function` | Remove an event-listener |
 | [`configure`](#configureobject-callback) | `{config}` | Configures the plugin's parameters (@see following Config section for accepted config params. The locationCallback will be executed each time a new Geolocation is recorded and provided with the following parameters. |
 | [`setConfig`](#setconfigobject) | `{config}` | Re-configure the plugin with new values. |
 | [`start`](#startcallbackfn) | `callbackFn`| Enable location tracking. Supplied `callbackFn` will be executed when tracking is successfully engaged. |
@@ -661,6 +669,32 @@ bgGeo.on('schedule', function(state) {
 ```
 
 # Methods
+
+####`on(callback)`
+
+Add an event-listener
+
+```Javascript
+    componentWillMount() {
+        BackgroundGeolocation.on("location", this.onLocation);
+        .
+        .
+        .
+    }
+    onLocation(location) {
+        console.log('- Location: ', location);
+    }
+```
+
+####`un(callback)`
+
+Remove an event-listener.
+
+```Javascript
+    componentWillUnmount() {
+        BackgroundGeolocation.un("location", this.onLocation);
+    }
+```
 
 ####`configure({Object}, callback)`
 

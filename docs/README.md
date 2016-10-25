@@ -83,9 +83,15 @@ bgGeo.setConfig({
 
 The following events can all be listened-to via the method `#on(eventName, callback)`, eg:
 ```Javascript
-bgGeo.on('location', function(location) {
+var onLocation = function(location) {
     console.log('- Location changed: ', location);
-});
+};
+bgGeo.on('location', onLocation);
+```
+
+As well as corresponding `#un` method for removing listeners:
+```Javascript
+bgGeo.un('location', onLocation);
 ```
 
 | Event Name | Notes

@@ -19,7 +19,7 @@
 @property (nonatomic, copy) void (^motionChangedBlock) (NSDictionary *locationData, BOOL isMoving);
 @property (nonatomic, copy) void (^activityChangedBlock) (NSString *activityName);
 @property (nonatomic, copy) void (^heartbeatBlock) (NSString* motionType, NSDictionary *locationData);
-@property (nonatomic, copy) void (^geofenceBlock) (CLCircularRegion *region, NSDictionary *locationData, NSString *action);
+@property (nonatomic, copy) void (^geofenceBlock) (NSString *identifier, NSString *action, NSDictionary *locationData);
 @property (nonatomic, copy) void (^syncCompleteBlock) (NSArray *locations);
 @property (nonatomic, copy) void (^errorBlock) (NSString *type, NSError *error);
 @property (nonatomic, copy) void (^scheduleBlock) (TSSchedule* schedule);

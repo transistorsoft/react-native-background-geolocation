@@ -1,6 +1,6 @@
 # Change Log
 ## [Unreleased]
-- [Changed] Implement a mechanism for removing listeners `removeListener` (@alias `un`).  This is particularly important for Android when using `stopOnTerminate: false`.  Listeners on `BackgroundGeolocation` should be removed in `componentDidUnmount`:
+- [Added] Implement a mechanism for removing listeners `removeListener` (@alias `un`).  This is particularly important for Android when using `stopOnTerminate: false`.  Listeners on `BackgroundGeolocation` should be removed in `componentDidUnmount`:
 ```Javascript
   componentDidMount() {
     BackgroundGeolocation.on('location', this.onLocation);
@@ -14,6 +14,7 @@
 ```
 
 - [Fixed] iOS issue when multiple geofences trigger simultaneously, where only the last one was fired to the client and persisted.
+- [Added] Implemented ability for iOS to trigger a geofence `ENTER` event immediately when device is already inside the geofence (Android has always done this).  This behaviour can be controlled with the new config `@param {Boolean} geofenceInitialTriggerEntry [true]`.  This behaviour defaults to `true`.
 
 ## [1.5.1] - 2016-10-17
 - [Fixed] Bug in `stopDetectionDelay` logic

@@ -32,7 +32,6 @@ bgGeo.setConfig({
 | [`distanceFilter`](#param-integer-distancefilter) | `Integer` | Required | `30`| The minimum distance (measured in meters) a device must move horizontally before an update event is generated. @see Apple docs. However, #distanceFilter is elastically auto-calculated by the plugin: When speed increases, #distanceFilter increases; when speed decreases, so does distanceFilter (disabled with `disableElasticity: true`) |
 | [`stopAfterElapsedMinutes`](#param-integer-stopafterelapsedminutes) | `Integer`  |  Optional | `0`  | Stop monitoring location after a set number of minutes have elasped since #start method was called. |
 | [`stationaryRadius`](#param-integer-stationaryradius-meters) | `Integer`  |  Required (**iOS**)| `20`  | When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage. Note, since the plugin uses iOS significant-changes API, the plugin cannot detect the exact moment the device moves out of the stationary-radius. In normal conditions, it can take as much as 3 city-blocks to 1/2 km before staionary-region exit is detected. |
-| [`geofenceProximityRadius`](#param-integer-geofenceproximityradius-meters) | `Integer`  |  Optional | `1000`  | When using Geofences, the plugin activates only thoses in proximity (the maximim geofences allowed to be simultaneously monitored is limited by the platform, where **iOS** allows only 20 and **Android**.  However, the plugin allows you to create as many geofences as you wish (thousands even).  It stores these in its database and uses spatial queries to determine which **20** or **100** geofences to activate. |
 | [`disableElasticity`](#param-boolean-disableelasticity-false) | `bool`  |  Optional | `false`  | Set true to disable automatic speed-based `#distanceFilter` elasticity. eg: When device is moving at highway speeds, locations are returned at ~ 1 / km. |
 | [`disableElasticity`](#param-boolean-disableelasticity-false) | `bool`  |  Optional | `false`  | Set `true` disables automatic speed-based `#distanceFilter` elasticity. eg: When device is moving at highway speeds, locations are returned at ~ 1 / km. |
 | [`activityType`](#param-string-activitytype-automotivenavigation-othernavigation-fitness-other) | `String` | Required (**iOS**)| `Other` | Presumably, this affects iOS GPS algorithm. See [Apple docs](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/CLLocationManager/CLLocationManager.html#//apple_ref/occ/instp/CLLocationManager/activityType) for more information | Set the desired interval for active location updates, in milliseconds. |
@@ -50,6 +49,12 @@ bgGeo.setConfig({
 | [`stopDetectionDelay`](#param-integer-minutes-stopdetectiondelay-0) | `Integer` | Optional | 0 | Allows the stop-detection system to be delayed from activating. When the stop-detection system is engaged, the GPS is off and only the accelerometer is monitored. Stop-detection will only engage if this timer expires. The timer is cancelled if any movement is detected before expiration |
 | [`disableMotionActivityUpdates`](#param-boolean-disablemotionactivityupdates-false) | `Boolean` | Optional (**iOS**)| 0 | Disable iOS motion-activity updates (eg: "walking", "in_vehicle").  This feature requires a device having the **M7** co-processor (ie: iPhone 5s and up).  **NOTE** This feature will ask the user for "Health updates".  If you do not wish to ask the user for the "Health updates", set this option to `false`; However, you will no longer recieve activity data in the recorded locations. | 
 | [`disableStopDetection`](#param-boolean-disablestopdetection-false) | `Boolean` | Optional (**iOS**)| `false` | Disable iOS accelerometer-based **Stop-detection System**.  When disabled, the plugin will use the default iOS behaviour of automatically turning off location-services when the device has stopped for exactly 15 minutes.  When disabled, you will no longer have control over `stopTimeout`| 
+
+## Geofencing Options
+| Option | Type | Opt/Required | Default | Note |
+|---|---|---|---|---|
+| [`geofenceProximityRadius`](#param-integer-geofenceproximityradius-meters) | `Integer`  |  Optional | `1000`  | When using Geofences, the plugin activates only thoses in proximity (the maximim geofences allowed to be simultaneously monitored is limited by the platform, where **iOS** allows only 20 and **Android**.  However, the plugin allows you to create as many geofences as you wish (thousands even).  It stores these in its database and uses spatial queries to determine which **20** or **100** geofences to activate. |
+| [`geofenceInitialTriggerEntry`](#param-boolean-geofenceinitialtriggerentry-true) | `Boolean` | Optional | `true` | Defaults to `true`.  Set `false` to disable triggering a geofence immediately if device is already inside it.|
 
 ## HTTP / Persistence Options
 
@@ -194,12 +199,6 @@ The plugin can optionally auto-stop monitoring location when some number of minu
 
 When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage. Note, since the plugin uses iOS significant-changes API, the plugin cannot detect the exact moment the device moves out of the stationary-radius. In normal conditions, it can take as much as 3 city-blocks to 1/2 km before staionary-region exit is detected.
 
-####`@param {Integer} geofenceProximityRadius (meters)`
-
-When using Geofences, the plugin activates only thoses in proximity (the maximim geofences allowed to be simultaneously monitored is limited by the platform, where **iOS** allows only 20 and **Android**.  However, the plugin allows you to create as many geofences as you wish (thousands even).  It stores these in its database and uses spatial queries to determine which **20** or **100** geofences to activate. |
-
-![](https://dl.dropboxusercontent.com/u/2319755/background-geolocation/images/geofenceProximityRadius_iphone6_spacegrey_portrait.png)
-
 ####`@param {Boolean} disableElasticity [false]`
 
 Defaults to `false`. Set `true` to disable automatic speed-based `#distanceFilter` elasticity. eg: When device is moving at highway speeds, locations are returned at ~ 1 / km.
@@ -274,6 +273,18 @@ bgGeo.configure({
   }
 })
 ```
+
+# Geofencing Options
+
+####`@param {Integer} geofenceProximityRadius (meters)`
+
+Also see [geofenceschange](#geofenceschange).  When using Geofences, the plugin activates only thoses in proximity (the maximim geofences allowed to be simultaneously monitored is limited by the platform, where **iOS** allows only 20 and **Android**.  However, the plugin allows you to create as many geofences as you wish (thousands even).  It stores these in its database and uses spatial queries to determine which **20** or **100** geofences to activate.
+
+![](https://dl.dropboxusercontent.com/u/2319755/background-geolocation/images/geofenceProximityRadius_iphone6_spacegrey_portrait.png)
+
+####`@param {Boolean} geofenceInitialTriggerEntry [true]`
+
+Defaults to `true`.  Set `false` to disable triggering a geofence immediately if device is already inside it.
 
 # HTTP / Persistence Options
 

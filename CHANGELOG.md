@@ -1,5 +1,7 @@
 # Change Log
-## [Unreleased]
+## Unreleased
+
+## [1.5.2 - 2016-10-26]
 - [Added] Implement a mechanism for removing listeners `removeListener` (@alias `un`).  This is particularly important for Android when using `stopOnTerminate: false`.  Listeners on `BackgroundGeolocation` should be removed in `componentDidUnmount`:
 ```Javascript
   componentDidMount() {

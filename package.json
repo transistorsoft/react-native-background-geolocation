@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-geolocation",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Sophisticated background location-tracking with battery-conscious motion-detection",
   "main": "RNBackgroundGeolocation.ios.js",
   "scripts": {

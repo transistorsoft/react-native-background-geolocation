@@ -241,19 +241,9 @@ RCT_EXPORT_METHOD(sync:(RCTResponseSenderBlock)success failure:(RCTResponseSende
 RCT_EXPORT_METHOD(getGeofences:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     NSArray *geofences = [locationManager getGeofences];
-    NSMutableArray *rs = [NSMutableArray arrayWithCapacity:[geofences count]];
-
-    for(CLCircularRegion *geofence in geofences) {
-        NSDictionary *geofenceDictionary = @{
-            @"identifier": geofence.identifier,
-            @"radius":     [NSNumber numberWithDouble:geofence.radius],
-            @"latitude":   [NSNumber numberWithDouble:geofence.center.latitude],
-            @"longitude":  [NSNumber numberWithDouble:geofence.center.longitude]
-        };
-        [rs addObject:geofenceDictionary];
-    }
-    success(@[rs]);
+    success(@[geofences]);
 }
+
 
 RCT_EXPORT_METHOD(addGeofence:(NSDictionary*) config success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {

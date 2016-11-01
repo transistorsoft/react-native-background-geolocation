@@ -97,7 +97,6 @@ RCT_EXPORT_MODULE();
  */
 RCT_EXPORT_METHOD(configure:(NSDictionary*)config success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"- RCTBackgroundGeolocation #configure");
     dispatch_async(dispatch_get_main_queue(), ^{
         NSDictionary *state = [locationManager configure:config];
         success(@[state]);
@@ -106,7 +105,6 @@ RCT_EXPORT_METHOD(configure:(NSDictionary*)config success:(RCTResponseSenderBloc
 
 RCT_EXPORT_METHOD(setConfig:(NSDictionary*)config success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"- RCTBackgroundGeoLocation #setConfig");
     [locationManager setConfig:config];
     success(@[[self getState]]);
 }
@@ -118,7 +116,6 @@ RCT_EXPORT_METHOD(setConfig:(NSDictionary*)config success:(RCTResponseSenderBloc
 
 RCT_EXPORT_METHOD(getState:(RCTResponseSenderBlock)callback failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"- RCTBackgroundGeoLocation #getState");
     NSDictionary *state = [locationManager getState];
     callback(@[state]);
 }
@@ -128,7 +125,6 @@ RCT_EXPORT_METHOD(getState:(RCTResponseSenderBlock)callback failure:(RCTResponse
  */
 RCT_EXPORT_METHOD(start:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"- RCTBackgroundGeoLocation #start");
     dispatch_async(dispatch_get_main_queue(), ^{
         [locationManager start];
         success(@[]);
@@ -139,7 +135,6 @@ RCT_EXPORT_METHOD(start:(RCTResponseSenderBlock)success failure:(RCTResponseSend
  */
 RCT_EXPORT_METHOD(stop:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"- RCTBackgroundGeoLocation #stop");
     [locationManager stop];
     success(@[]);
 }
@@ -149,7 +144,6 @@ RCT_EXPORT_METHOD(stop:(RCTResponseSenderBlock)success failure:(RCTResponseSende
  */
 RCT_EXPORT_METHOD(startSchedule:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"- RCTBackgroundGeoLocation #startSchedule");
     dispatch_async(dispatch_get_main_queue(), ^{
         [locationManager startSchedule];
         success(@[@(YES)]);
@@ -161,7 +155,6 @@ RCT_EXPORT_METHOD(startSchedule:(RCTResponseSenderBlock)success failure:(RCTResp
  */
 RCT_EXPORT_METHOD(stopSchedule:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"- RCTBackgroundGeoLocation #stopSchedule");
     dispatch_async(dispatch_get_main_queue(), ^{
         [locationManager stopSchedule];
         success(@[@(NO)]);
@@ -174,14 +167,12 @@ RCT_EXPORT_METHOD(stopSchedule:(RCTResponseSenderBlock)success failure:(RCTRespo
  */
 RCT_EXPORT_METHOD(changePace:(BOOL)moving success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"- RCTBackgroundGeoLocation #onPaceChange");
     [locationManager changePace:moving];
     success(@[]);
 }
 
 RCT_EXPORT_METHOD(beginBackgroundTask:(RCTResponseSenderBlock)callback)
 {
-    RCTLogInfo(@"- RCTBackgroundGeolocation #beginBackgroundTask");
     callback(@[@([locationManager createBackgroundTask])]);
 }
 /**
@@ -189,7 +180,6 @@ RCT_EXPORT_METHOD(beginBackgroundTask:(RCTResponseSenderBlock)callback)
  */
 RCT_EXPORT_METHOD(finish:(int)taskId)
 {
-    RCTLogInfo(@"- RCTBackgroundGeoLocation #finish");
     [locationManager stopBackgroundTask:taskId];
 }
 
@@ -247,7 +237,6 @@ RCT_EXPORT_METHOD(getGeofences:(RCTResponseSenderBlock)success failure:(RCTRespo
 
 RCT_EXPORT_METHOD(addGeofence:(NSDictionary*) config success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"addGeofence %@", config);
     [locationManager addGeofence:config success:^(NSString* response) {
         success(@[response]);
     } error:^(NSString* error) {
@@ -257,7 +246,6 @@ RCT_EXPORT_METHOD(addGeofence:(NSDictionary*) config success:(RCTResponseSenderB
 
 RCT_EXPORT_METHOD(addGeofences:(NSArray*) geofences success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"addGeofences")
     [locationManager addGeofences:geofences success:^(NSString* response) {
         success(@[response]);
     } error:^(NSString* error) {
@@ -268,7 +256,6 @@ RCT_EXPORT_METHOD(addGeofences:(NSArray*) geofences success:(RCTResponseSenderBl
 
 RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"removeGeofence");
     [locationManager removeGeofence:identifier success:^(NSString* response) {
         success(@[response]);
     } error:^(NSString* error) {
@@ -278,7 +265,6 @@ RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier success:(RCTResponseSende
 
 RCT_EXPORT_METHOD(removeGeofences:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"removeGeofences");
     NSArray *geofences = @[];
     [locationManager removeGeofences:geofences success:^(NSString* response) {
         success(@[response]);
@@ -302,7 +288,6 @@ RCT_EXPORT_METHOD(resetOdometer:(RCTResponseSenderBlock)success failure:(RCTResp
 
 RCT_EXPORT_METHOD(destroyLocations:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"destroyLocations");
     BOOL result = [locationManager destroyLocations];
     if (result) {
         success(@[]);
@@ -312,7 +297,6 @@ RCT_EXPORT_METHOD(destroyLocations:(RCTResponseSenderBlock)success failure:(RCTR
 }
 RCT_EXPORT_METHOD(getCount:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    NSLog(@"- getCount");
     int count = [locationManager getCount];
     if (count >= 0) {
         success(@[@(count)]);
@@ -323,7 +307,6 @@ RCT_EXPORT_METHOD(getCount:(RCTResponseSenderBlock)success failure:(RCTResponseS
 
 RCT_EXPORT_METHOD(insertLocation:(NSDictionary*)params success:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failureCallback)
 {
-    NSLog(@"- insertLocation %@", params);
     BOOL success = [locationManager insertLocation: params];
     if (success) {
         successCallback(@[]);
@@ -344,7 +327,6 @@ RCT_EXPORT_METHOD(getLog:(RCTResponseSenderBlock)successCallback failure:(RCTRes
 
 RCT_EXPORT_METHOD(destroyLog:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    RCTLogInfo(@"destroyLog");
     BOOL result = [locationManager destroyLog];
     if (result) {
         success(@[]);
@@ -366,8 +348,6 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 
 -(void (^)(NSDictionary *locationData, enum tsLocationType, BOOL isMoving)) createLocationChangedHandler {
     return ^(NSDictionary *locationData, enum tsLocationType type, BOOL isMoving) {
-        RCTLogInfo(@"- RCTBackgroundGeoLocation onLocationChanged");
-
         if (type == TS_LOCATION_TYPE_WATCH) {
             [self sendEvent:EVENT_WATCHPOSITION body:locationData];
         } else if (type != TS_LOCATION_TYPE_SAMPLE && [currentPositionListeners count]) {
@@ -387,7 +367,6 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
             @"isMoving": @(moving),
             @"location": locationData
         };
-        RCTLogInfo(@"- onMotionChanage");
         [self sendEvent:EVENT_MOTIONCHANGE body:params];
     };
 }
@@ -402,14 +381,12 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 
 -(void (^)(NSString* activityName)) createActivityChangedHandler {
     return ^(NSString* activityName) {
-        RCTLogInfo(@"- onActivityChange");
         [self sendEvent:EVENT_ACTIVITYCHANGE body:activityName];
     };
 }
 
 -(void (^)(NSString* motionType, NSDictionary *locationData)) createHeartbeatHandler {
     return ^(NSString* motionType, NSDictionary *locationData) {
-        RCTLogInfo(@"- onHeartbeat");
         NSDictionary *params = @{
             @"motionType": motionType,
             @"location": locationData
@@ -426,13 +403,11 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
             @"location": locationData
         };
         [self sendEvent:EVENT_GEOFENCE body:params];
-        RCTLogInfo(@"- onEnterGeofence: %@", params);
     };
 }
 
 -(void (^)(NSArray *locations)) createSyncCompleteHandler {
     return ^(NSArray *locations) {
-        RCTLogInfo(@"- onSyncComplete");
         [self sendEvent:EVENT_SYNC body:locations];
         if (syncCallback) {
             RCTResponseSenderBlock success = [syncCallback objectForKey:@"success"];
@@ -445,15 +420,12 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 -(void (^)(NSInteger statusCode, NSDictionary *requestData, NSData *responseData, NSError *error)) createHttpResponseHandler {
     return ^(NSInteger statusCode, NSDictionary *requestData, NSData *responseData, NSError *error) {
         NSDictionary *response  = @{@"status":@(statusCode), @"responseText":[[NSString alloc]initWithData:responseData encoding:NSUTF8StringEncoding]};
-        RCTLogInfo(@"- onHttpResponse");
         [self sendEvent:EVENT_HTTP body:response];
     };
 }
 
 -(void (^)(NSString *type, NSError *error)) createErrorHandler {
     return ^(NSString *type, NSError *error) {
-        RCTLogInfo(@" - onLocationManagerError: %@", error);
-
         if ([type isEqualToString:@"location"]) {
             if ([currentPositionListeners count]) {
                 for (NSDictionary *callback in currentPositionListeners) {
@@ -469,8 +441,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 
 -(void (^)(CLAuthorizationStatus status)) createAuthorizationChangedHandler {
     return ^(CLAuthorizationStatus status) {
-        RCTLogInfo(@"- providerchange");
-        BOOL enabled = (status == kCLAuthorizationStatusAuthorized);
+        BOOL enabled = (status == kCLAuthorizationStatusAuthorizedAlways);
         NSDictionary *provider = @{@"enabled":@(enabled), @"network":@(YES), @"gps":@(YES)};
         [self sendEvent:EVENT_PROVIDERCHANGE body:provider];
     };
@@ -478,7 +449,6 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 
 -(void (^)(TSSchedule *schedule)) createScheduleHandler {
     return ^(TSSchedule *schedule) {
-        RCTLogInfo(@" - Schedule event: %@", schedule);
         [self sendEvent:EVENT_SCHEDULE body:[locationManager getState]];
     };
 }
@@ -490,7 +460,6 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 
 - (void)dealloc
 {
-    RCTLogInfo(@"- RNBackgroundGeolocation dealloc");
     locationManager = nil;
 }
 

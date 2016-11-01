@@ -5,7 +5,7 @@ $ npm install --save react-native-background-geolocation
 ```
 
 If you use already [CocoaPods](https://cocoapods.org/) in your react-native
-project, you can also add the react-native-mapbox-gl project to your Podfile.
+project, you can also add the react-native-background-geolocation project to your Podfile.
 
 **NOTE** The path to `node_modules` depends on your Podfile location, whether in `{root}` of the react-native project (`node_modules`) or `{root}/ios` (`../node_modules`).  The following instructions assume `{root}/ios`
 

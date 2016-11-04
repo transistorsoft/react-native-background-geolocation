@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		83FF0B471BCB624E00831D47 /* TSLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF0B461BCB624E00831D47 /* TSLocationManager.framework */; };
+		831FD3071DCAD76300F8F62A /* TSLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF0B461BCB624E00831D47 /* TSLocationManager.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */; };
 		83FF5F8B1AFD0D2B0016A13E /* RNBackgroundGeolocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */; };
 		83FF5F911AFD0D2B0016A13E /* libRNBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */; };
@@ -26,14 +26,14 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		83FF5F831AFD0D2B0016A13E /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 8;
 			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 7;
+			dstSubfolderSpec = 16;
 			files = (
 				83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in Copy Files */,
 			);
 			name = "Copy Files";
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -52,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83FF0B471BCB624E00831D47 /* TSLocationManager.framework in Frameworks */,
+				831FD3071DCAD76300F8F62A /* TSLocationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,7 +156,7 @@
 		83FF5F7D1AFD0D2B0016A13E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Transistor Software";
 				TargetAttributes = {
 					83FF5F841AFD0D2B0016A13E = {
@@ -236,13 +236,16 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -258,7 +261,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -278,8 +281,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -294,7 +299,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -304,8 +309,10 @@
 		83FF5F9A1AFD0D2B0016A13E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(inherited)",
@@ -321,19 +328,22 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/RNBackgroundGeolocation",
 					"$(inherited)",
+					"$(PROJECT_DIR)/RNBackgroundGeolocation",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/RNBackgroundGeolocation/TSLocationManager.framework/**";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		83FF5F9B1AFD0D2B0016A13E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(inherited)",
@@ -349,11 +359,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/RNBackgroundGeolocation",
 					"$(inherited)",
+					"$(PROJECT_DIR)/RNBackgroundGeolocation",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/RNBackgroundGeolocation/TSLocationManager.framework/**";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
@@ -372,6 +384,7 @@
 				);
 				INFOPLIST_FILE = RNBackgroundGeolocationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.transistorsoft.reactnative.background.geolocation.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -387,6 +400,7 @@
 				);
 				INFOPLIST_FILE = RNBackgroundGeolocationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.transistorsoft.reactnative.background.geolocation.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

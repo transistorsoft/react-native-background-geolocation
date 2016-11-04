@@ -1,6 +1,8 @@
 # Change Log
-## Unreleased
+## [1.5.3] - 2016-11-04
 - [Fixed] `getGeofences` issue #158.  `getGeofences` wasn't migrated to accept the new data-format provided by `TSLocationManager`, which now returns an `NSArray` of `NSDictionary` -- not `CLCircularRegion`.
+- [Changed] Remove `CocoaLumberjack` static lib from `TSLocationManager`.  Compiling it into `TSLocationManager` causes conflicts with others also using this popular logging framework.
+- [Fixed] Bug exposed with `batchSync`.  The plugin was failing to destroy records after successful HTTP request due to bug in FMDB binding array params for `DELETE FROM location WHERE id IN(?)`.
 
 ## [1.5.2 - 2016-10-26]
 - [Added] Implement a mechanism for removing listeners `removeListener` (@alias `un`).  This is particularly important for Android when using `stopOnTerminate: false`.  Listeners on `BackgroundGeolocation` should be removed in `componentDidUnmount`:

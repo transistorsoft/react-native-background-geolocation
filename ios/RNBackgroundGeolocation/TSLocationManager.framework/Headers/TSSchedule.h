@@ -28,6 +28,7 @@
 -(BOOL)endsAfter:(NSDate*)now;
 -(BOOL)expired;
 -(void)trigger:(BOOL)enabled;
+-(void)reset;
 -(void)evaluate;
 
 

@@ -105,8 +105,8 @@ RCT_EXPORT_METHOD(configure:(NSDictionary*)config success:(RCTResponseSenderBloc
 
 RCT_EXPORT_METHOD(setConfig:(NSDictionary*)config success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    [locationManager setConfig:config];
-    success(@[[self getState]]);
+    NSDictionary *state = [locationManager setConfig:config];
+    success(@[state]);
 }
 
 -(NSDictionary*)getState

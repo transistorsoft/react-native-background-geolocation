@@ -40,7 +40,7 @@
 - (void) stopBackgroundTask:(UIBackgroundTaskIdentifier)taskId;
 - (void) error:(UIBackgroundTaskIdentifier)taskId message:(NSString*)message;
 - (void) changePace:(BOOL)value;
-- (void) setConfig:(NSDictionary*)command;
+- (NSDictionary*) setConfig:(NSDictionary*)command;
 - (NSMutableDictionary*) getState;
 - (NSDictionary*) getStationaryLocation;
 - (void) onSuspend:(NSNotification *)notification;

@@ -1,4 +1,10 @@
 # Change Log
+## [Unreleased]
+- [Changed] The plugin will ignore `autoSyncThreshold` when a `motionchange` event occurs.
+- [Fixed] Fixed ui-blocking issue when plugin boots with locations in its database with `autoSync: true`.  Found a case where the plugin was executing HTTP Service on the UI thread.
+- [Fixed] iOS Scheduler puked when provided with a `null` or `[]` schedule.
+- [Changed] iOS Scheduler behaviour changed to match Android, where `#stopSchedule` does **not** execute `#stop` on the plugin itself.
+
 ## [1.5.3] - 2016-11-04
 - [Fixed] `getGeofences` issue #158.  `getGeofences` wasn't migrated to accept the new data-format provided by `TSLocationManager`, which now returns an `NSArray` of `NSDictionary` -- not `CLCircularRegion`.
 - [Changed] Remove `CocoaLumberjack` static lib from `TSLocationManager`.  Compiling it into `TSLocationManager` causes conflicts with others also using this popular logging framework.

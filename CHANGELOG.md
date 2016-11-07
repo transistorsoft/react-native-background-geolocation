@@ -1,5 +1,5 @@
 # Change Log
-## [Unreleased]
+## [1.5.4] - 2016-11-07
 - [Changed] The plugin will ignore `autoSyncThreshold` when a `motionchange` event occurs.
 - [Fixed] Fixed ui-blocking issue when plugin boots with locations in its database with `autoSync: true`.  Found a case where the plugin was executing HTTP Service on the UI thread.
 - [Fixed] iOS Scheduler puked when provided with a `null` or `[]` schedule.

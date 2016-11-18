@@ -127,7 +127,7 @@ RCT_EXPORT_METHOD(start:(RCTResponseSenderBlock)success failure:(RCTResponseSend
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [locationManager start];
-        success(@[]);
+        success(@[[locationManager getState]]);
     });
 }
 /**
@@ -136,7 +136,7 @@ RCT_EXPORT_METHOD(start:(RCTResponseSenderBlock)success failure:(RCTResponseSend
 RCT_EXPORT_METHOD(stop:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     [locationManager stop];
-    success(@[]);
+    success(@[[locationManager getState]]);
 }
 
 /**
@@ -146,7 +146,7 @@ RCT_EXPORT_METHOD(startSchedule:(RCTResponseSenderBlock)success failure:(RCTResp
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [locationManager startSchedule];
-        success(@[@(YES)]);
+        success(@[[locationManager getState]]);
     });
 }
 
@@ -157,7 +157,18 @@ RCT_EXPORT_METHOD(stopSchedule:(RCTResponseSenderBlock)success failure:(RCTRespo
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [locationManager stopSchedule];
-        success(@[@(NO)]);
+        success(@[[locationManager getState]]);
+    });
+}
+
+/**
+ * Start schedule
+ */
+RCT_EXPORT_METHOD(startGeofences:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [locationManager startGeofences];
+        success(@[[locationManager getState]]);
     });
 }
 

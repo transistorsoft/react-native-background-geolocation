@@ -124,6 +124,7 @@ bgGeo.un('location', onLocation);
 | [`stop`](#stop) | `callbackFn` | Disable location tracking. Supplied `callbackFn` will be executed when tracking is successfully engaged. |
 | [`startSchedule`](#stopschedulecallbackfn) | `callbackFn` | If a `schedule` was configured, this method will initiate that schedule.  The plugin will automatically be started or stopped according to the configured `schedule`.    Supplied `callbackFn` will be executed once the Scheduler has parsed and initiated your `schedule` |
 | [`stopSchedule`](#stopschedulecallbackfn) | `callbackFn` | This method will stop the Scheduler service.  It will also execute the `#stop` method and **cease all tracking**.  Your `callbackFn` will be executed after the Scheduler has stopped |
+| [`startGeofences`](#startgeofencescallbackfn) | `callbackFn` | Engages the geofences-only `trackingMode`.  In this mode, no active location-tracking will occur -- only geofences will be monitored|
 | [`getState`](#getstatecallbackfn) | `callbackFn` | Fetch the current-state of the plugin, including `enabled`, `isMoving`, as well as all other config params. |
 | [`getCurrentPosition`](#getcurrentpositionoptions-successfn-failurefn) | `{options}, `successFn`, `failureFn` | Retrieves the current position. This method instructs the native code to fetch exactly one location using maximum power & accuracy. |
 | [`watchPosition`](#watchpositionsuccessfn-failurefn-options) | `successFn`, `failureFn`, `{options}` | Start a stream of continuous location-updates.  The native code will persist the fetched location to its SQLite database just as any other location in addition to POSTing to your configured `#url` (if you've enabled the HTTP features).|
@@ -768,6 +769,42 @@ This method will stop the Scheduler service.  It will also execute the `#stop` m
 ```Javascript
 bgGeo.stopSchedule(function() {
     console.log('- Scheduler stopped');
+});
+```
+
+####`startGeofences(callbackFn)`
+
+Engages the geofences-only `trackingMode`.  In this mode, no active location-tracking will occur -- only geofences will be monitored.  To stop monitoring "geofences" `trackingMode`, simply use the usual `#stop` method.  The `state` object now contains the new key `trackingMode [location|geofence]`.
+
+Your `callbackFn` will be provided with the current state `{Object}`.
+
+```Javascript
+
+bgGeo.configure(config, function(state) {
+    // Add some geofences.
+    bgGeo.addGeofences([
+        notifyOnExit: true,
+        radius: 200,
+        identifier: 'ZONE_OF_INTEREST',
+        latitude: 37.234232,
+        longitude: 42.234234 
+    ]);
+
+    if (!state.enabled) {
+        bgGeo.startGeofences(function(state) {
+            console.log('- Geofence-only monitoring started', state.trackingMode);
+        });
+    }
+});
+
+// Listen to geofences
+bgGeo.on('geofence', function(params) {
+    if (params.identifier == 'ZONE_OF_INTEREST') {
+        // If you wish, you can choose to engage location-tracking mode when a 
+        // particular geofence event occurs.
+        bgGeo.start();
+    }
+    bgGeo.finish();
 });
 ```
 

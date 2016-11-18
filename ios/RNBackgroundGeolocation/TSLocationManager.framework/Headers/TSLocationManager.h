@@ -34,6 +34,7 @@
 - (void) stop;
 - (void) startSchedule;
 - (void) stopSchedule;
+- (void) startGeofences;
 - (NSArray*) sync;
 - (NSArray*) getLocations;
 - (UIBackgroundTaskIdentifier) createBackgroundTask;

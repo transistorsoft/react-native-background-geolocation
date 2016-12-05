@@ -29,7 +29,7 @@ static NSString *const EVENT_HEARTBEAT = @"heartbeat";
 
 
 @implementation RNBackgroundGeolocation {
-    NSMutableArray *currentPositionListeners;
+    
 }
 
 @synthesize syncCallback, locationManager;
@@ -59,14 +59,9 @@ RCT_EXPORT_MODULE();
         __typeof(self) __weak me = self;
         // New style of listening to events.
         [locationManager addListener:EVENT_GEOFENCESCHANGE callback:^(NSDictionary* event) {
-            dispatch_block_t block = ^{
+            runOnMainQueueWithoutDeadlocking(^{
                 [me sendEvent:EVENT_GEOFENCESCHANGE body:event];
-            };
-            if ([NSThread isMainThread]) {
-                block();
-            } else {
-                dispatch_sync(dispatch_get_main_queue(), block);
-            }
+            });
         }];
 
         // Provide reference to rootViewController for #emailLog method.
@@ -196,18 +191,28 @@ RCT_EXPORT_METHOD(finish:(int)taskId)
 
 RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    if (currentPositionListeners == nil) {
-        currentPositionListeners = [[NSMutableArray alloc] init];
-    }
-    NSDictionary *callbacks = @{@"success":success, @"failure":failure};
-    [currentPositionListeners addObject:callbacks];
-    [locationManager updateCurrentPosition:options];
+    [locationManager getCurrentPosition:options success:^(NSDictionary* locationData) {
+        runOnMainQueueWithoutDeadlocking(^{
+            success(@[locationData]);
+        });
+    } failure:^(NSError* error) {
+        runOnMainQueueWithoutDeadlocking(^{
+            failure(@[@(error.code)]);
+        });
+    }];
 }
 
 RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    [locationManager watchPosition:options];
-    success(@[]);
+    [locationManager watchPosition:options success:^(NSDictionary* locationData) {
+        runOnMainQueueWithoutDeadlocking(^{
+            success(@[locationData]);
+        });
+    } failure:^(NSError* error) {
+        runOnMainQueueWithoutDeadlocking(^{
+            failure(@[@(error.code)]);
+        });
+    }];
 }
 
 RCT_EXPORT_METHOD(stopWatchPosition:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
@@ -291,10 +296,17 @@ RCT_EXPORT_METHOD(getOdometer:(RCTResponseSenderBlock)success failure:(RCTRespon
     success(@[distance]);
 }
 
-RCT_EXPORT_METHOD(resetOdometer:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(setOdometer:(double)value success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    [locationManager resetOdometer];
-    success(@[]);
+    [locationManager setOdometer:value success:^(NSDictionary* locationData) {
+        runOnMainQueueWithoutDeadlocking(^{
+            success(@[locationData]);
+        });
+    } failure:^(NSError* error) {
+        runOnMainQueueWithoutDeadlocking(^{
+            failure(@[@(error.code)]);
+        });
+    }];
 }
 
 RCT_EXPORT_METHOD(destroyLocations:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
@@ -361,12 +373,6 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     return ^(NSDictionary *locationData, enum tsLocationType type, BOOL isMoving) {
         if (type == TS_LOCATION_TYPE_WATCH) {
             [self sendEvent:EVENT_WATCHPOSITION body:locationData];
-        } else if (type != TS_LOCATION_TYPE_SAMPLE && [currentPositionListeners count]) {
-            for (NSDictionary *callback in currentPositionListeners) {
-                RCTResponseSenderBlock success = [callback objectForKey:@"success"];
-                success(@[locationData]);
-            }
-            [currentPositionListeners removeAllObjects];
         }
         [self sendEvent:EVENT_LOCATIONCHANGE body:locationData];
     };
@@ -438,13 +444,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 -(void (^)(NSString *type, NSError *error)) createErrorHandler {
     return ^(NSString *type, NSError *error) {
         if ([type isEqualToString:@"location"]) {
-            if ([currentPositionListeners count]) {
-                for (NSDictionary *callback in currentPositionListeners) {
-                    RCTResponseSenderBlock failure = [callback objectForKey:@"failure"];
-                    failure(@[@(error.code)]);
-                }
-                [currentPositionListeners removeAllObjects];
-            }
+
         }
         [self sendEvent:EVENT_ERROR body: @{@"type":type, @"code":@(error.code)}];
     };
@@ -472,6 +472,18 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 - (void)dealloc
 {
     locationManager = nil;
+}
+
+void runOnMainQueueWithoutDeadlocking(void (^block)(void))
+{
+    if ([NSThread isMainThread])
+    {
+        block();
+    }
+    else
+    {
+        dispatch_sync(dispatch_get_main_queue(), block);
+    }
 }
 
 @end

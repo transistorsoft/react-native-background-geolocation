@@ -177,10 +177,13 @@ var API = {
     failure = failure || emptyFn;
     RNBackgroundGeolocation.getOdometer(success, failure);
   },
-  resetOdometer: function(success, failure) {
+  setOdometer: function(value, success, failure) {
     success = success || emptyFn;
     failure = failure || emptyFn;
-    RNBackgroundGeolocation.resetOdometer(success, failure);
+    RNBackgroundGeolocation.setOdometer(value, success, failure);
+  },
+  resetOdometer: function(success, failure) {
+    this.setOdometer(0, success, failure);
   },
   addGeofence: function(config, success, failure) {
     success = success || emptyFn;

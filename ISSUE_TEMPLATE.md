@@ -1,12 +1,18 @@
-<!--- Provide a general summary of the issue in the Title above -->
+<!--
+*****************************************************************
+* WARNING:  If you ignore this template, so too will your issue
+*****************************************************************
+-->
 
+<!--
+  Provide a general summary of the issue in the Title above 
+-->
 ## Your Environment
 * Plugin version:
 * Platform: iOS or Android
 * OS version:
 * Device manufacturer / model:
-* Cordova version (`cordova -v`):
-* Cordova platform version (`cordova platform ls`):
+* React Native version (`react-native -v`):
 * Plugin config
 
 ## Expected Behavior

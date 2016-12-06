@@ -11,10 +11,9 @@
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <TSLocationManager/TSLocationManager.h>
+#import "RCTEventEmitter.h"
 
-#import "RCTBridgeModule.h"
-
-@interface RNBackgroundGeolocation : NSObject <RCTBridgeModule>
+@interface RNBackgroundGeolocation : RCTEventEmitter
 
 @property (nonatomic, strong) TSLocationManager* locationManager;
 @property (nonatomic, strong) NSDictionary* syncCallback;

@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
-#import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
 
 static NSString *const TS_LOCATION_MANAGER_TAG = @"TSLocationManager";
@@ -33,7 +32,6 @@ static NSString *const EVENT_HEARTBEAT = @"heartbeat";
 }
 
 @synthesize syncCallback, locationManager;
-@synthesize bridge = _bridge;
 
 RCT_EXPORT_MODULE();
 
@@ -74,16 +72,17 @@ RCT_EXPORT_MODULE();
 
 - (NSArray<NSString *> *)supportedEvents {
     return @[
-        [self eventName:EVENT_LOCATIONCHANGE],
-        [self eventName:EVENT_PROVIDERCHANGE],
-        [self eventName:EVENT_MOTIONCHANGE],
-        [self eventName:EVENT_ACTIVITYCHANGE],
-        [self eventName:EVENT_ERROR],
-        [self eventName:EVENT_HTTP],
-        [self eventName:EVENT_SCHEDULE],
-        [self eventName:EVENT_GEOFENCE],
-        [self eventName:EVENT_SYNC],
-        [self eventName:EVENT_HEARTBEAT]
+        EVENT_LOCATIONCHANGE,
+        EVENT_PROVIDERCHANGE,
+        EVENT_MOTIONCHANGE,
+        EVENT_ACTIVITYCHANGE,
+        EVENT_GEOFENCESCHANGE,
+        EVENT_ERROR,
+        EVENT_HTTP,
+        EVENT_SCHEDULE,
+        EVENT_GEOFENCE,
+        EVENT_SYNC,
+        EVENT_HEARTBEAT
     ];
 }
 
@@ -389,11 +388,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 }
 -(void) sendEvent:(NSString*)event body:(id)body
 {
-    [_bridge.eventDispatcher sendDeviceEventWithName:[self eventName:event] body:body];
-
-    // NEW RCTEventEmitter is buggy.
-    //[self sendEventWithName:[self eventName:event] body:body];
-
+    [self sendEventWithName:event body:body];
 }
 
 -(void (^)(NSString* activityName)) createActivityChangedHandler {
@@ -462,11 +457,6 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     return ^(TSSchedule *schedule) {
         [self sendEvent:EVENT_SCHEDULE body:[locationManager getState]];
     };
-}
-
--(NSString*) eventName:(NSString*)name
-{
-    return [NSString stringWithFormat:@"%@:%@", TS_LOCATION_MANAGER_TAG, name];
 }
 
 - (void)dealloc

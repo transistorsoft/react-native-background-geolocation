@@ -1,5 +1,6 @@
-const {DeviceEventEmitter} = require('react-native');
+const {NativeEventEmitter} = require('react-native');
 const { RNBackgroundGeolocation } = require('react-native').NativeModules;
+const EventEmitter = new NativeEventEmitter(RNBackgroundGeolocation);
 
 const TAG = "TSLocationManager";
 
@@ -51,16 +52,16 @@ var API = {
     if (this.events.indexOf(event) < 0) {
       throw "RNBackgroundGeolocation: Unknown event '" + event + '"';
     }
-    return DeviceEventEmitter.addListener(TAG + ':' + event, callback);
+    return EventEmitter.addListener(event, callback);
   },
   on: function(event, callback) {
-    this.addListener(event, callback);
+    return this.addListener(event, callback);
   },
   removeListener: function(event, callback) {
     if (this.events.indexOf(event) < 0) {
       throw "RNBackgroundGeolocation: Unknown event '" + event + '"';
     }
-    return DeviceEventEmitter.removeListener(TAG + ':' + event, callback);
+    return EventEmitter.removeListener(event, callback);
   },
   un: function(event, callback) {
     this.removeListener(event, callback);
@@ -91,22 +92,22 @@ var API = {
     RNBackgroundGeolocation.startGeofences(success, failure);
   },
   onHttp: function(callback) {
-    return DeviceEventEmitter.addListener(TAG + ":http", callback);
+    return EventEmitter.addListener("http", callback);
   },
   onMotionChange: function(callback) {
-    return DeviceEventEmitter.addListener(TAG + ":motionchange", callback);
+    return EventEmitter.addListener("motionchange", callback);
   },
   onLocation: function(callback) {
-    return DeviceEventEmitter.addListener(TAG + ":location", callback);
+    return EventEmitter.addListener("location", callback);
   },
   onGeofence: function(callback) {
-    return DeviceEventEmitter.addListener(TAG + ":geofence", callback);
+    return EventEmitter.addListener("geofence", callback);
   },
   onHeartbeat: function(callback) {
-    return DeviceEventEmitter.addListener(TAG + ":heartbeat", callback);
+    return EventEmitter.addListener("heartbeat", callback);
   },
   onError: function(callback) {
-    return DeviceEventEmitter.addListener(TAG + ":error", callback);
+    return EventEmitter.addListener("error", callback);
   },
   sync: function(success, failure) {
     failure = failure || emptyFn;
@@ -122,6 +123,12 @@ var API = {
       throw "beginBackgroundTask must be provided with a callback";
     }
     RNBackgroundGeolocation.beginBackgroundTask(success);
+  },
+  /**
+  * @alias beginBackgroundTask
+  */
+  startBackgroundTask: function(success) {
+    this.beginBackgroundTask(success);
   },
   finish: function(taskId) {
     RNBackgroundGeolocation.finish(taskId);
@@ -143,13 +150,13 @@ var API = {
     options = options || {};
     failure = failure || emptyFn;
     RNBackgroundGeolocation.watchPosition(options, function() {
-      DeviceEventEmitter.addListener(TAG + ":watchposition", success);
+      EventEmitter.addListener("watchposition", success);
     }, failure);
   },
   stopWatchPosition: function(success, failure) {
     success = success || emptyFn;
     failure = failure || emptyFn;
-    DeviceEventEmitter.removeAllListeners(TAG + ":watchposition");
+    EventEmitter.removeAllListeners("watchposition");
     RNBackgroundGeolocation.stopWatchPosition(success, failure);
   },
   getLocations: function(success, failure) {

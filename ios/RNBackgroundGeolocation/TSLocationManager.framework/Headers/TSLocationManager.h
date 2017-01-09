@@ -58,7 +58,6 @@
 - (void) watchPosition:(NSDictionary*)options success:(void (^)(NSDictionary*))success failure:(void (^)(NSError*))failure;
 - (void) stopWatchPosition;
 - (void) playSound:(SystemSoundID)soundId;
-- (void) notify:(NSString*)message;
 - (BOOL) clearDatabase;
 - (BOOL) destroyLocations;
 - (BOOL) insertLocation:(NSDictionary*)params;

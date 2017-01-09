@@ -93,7 +93,11 @@ RCT_EXPORT_METHOD(configure:(NSDictionary*)config success:(RCTResponseSenderBloc
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSDictionary *state = [locationManager configure:config];
-        success(@[state]);
+        if (state != nil) {
+            success(@[state]);
+        } else {
+            failure(@[]);
+        }
     });
 }
 

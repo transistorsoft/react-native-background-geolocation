@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
-#import "RCTEventDispatcher.h"
+#import <React/RCTEventDispatcher.h>
 
 static NSString *const TS_LOCATION_MANAGER_TAG = @"TSLocationManager";
 
@@ -28,7 +28,7 @@ static NSString *const EVENT_HEARTBEAT = @"heartbeat";
 
 
 @implementation RNBackgroundGeolocation {
-    
+
 }
 
 @synthesize syncCallback, locationManager;
@@ -290,7 +290,7 @@ RCT_EXPORT_METHOD(removeGeofences:(RCTResponseSenderBlock)success failure:(RCTRe
     } error:^(NSString* error) {
         failure(@[error]);
     }];
-    
+
 }
 
 RCT_EXPORT_METHOD(getOdometer:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)

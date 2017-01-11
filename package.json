@@ -1,7 +1,7 @@
 {
   "name": "react-native-background-geolocation",
   "version": "2.3.0",
-  "description": "Sophisticated background location-tracking with battery-conscious motion-detection",
+  "description": "The most sophisticated background location tracking & geofencing module with battery-conscious motion-detection",
   "main": "RNBackgroundGeolocation.ios.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,7 +16,10 @@
     "ios",
     "android",
     "background",
-    "geolocation"
+    "geolocation",
+    "tracking",
+    "geofence",
+    "geofencing"
   ],
   "author": "Chris Scott <chris@transistorsoft.com>",
   "license": "MIT",
@@ -32,7 +35,7 @@
   },
   "homepage": "https://transistorsoft.github.io/react-native-background-geolocation",
   "dependencies": {
-    "react-native-background-fetch":"^1.0.0",
+    "react-native-background-fetch":"~2.0.0",
     "cocoa-lumberjack":"^3.0.3"
   }
 }

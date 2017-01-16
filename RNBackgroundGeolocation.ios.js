@@ -33,6 +33,12 @@ var API = {
   DESIRED_ACCURACY_LOW: 100,
   DESIRED_ACCURACY_VERY_LOW: 1000,
 
+  AUTHORIZATION_STATUS_NOT_DETERMINED: 0,
+  AUTHORIZATION_STATUS_RESTRICTED: 1,
+  AUTHORIZATION_STATUS_DENIED: 2,
+  AUTHORIZATION_STATUS_ALWAYS: 3,
+  AUTHORIZATION_STATUS_WHEN_IN_USE: 4,
+
   configure: function(config, success, failure) {
     success = success || emptyFn;
     failure = failure || emptyFn;

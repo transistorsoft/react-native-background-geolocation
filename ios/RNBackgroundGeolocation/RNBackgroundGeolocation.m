@@ -451,8 +451,26 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 
 -(void (^)(CLAuthorizationStatus status)) createAuthorizationChangedHandler {
     return ^(CLAuthorizationStatus status) {
-        BOOL enabled = (status == kCLAuthorizationStatusAuthorizedAlways);
-        NSDictionary *provider = @{@"enabled":@(enabled), @"network":@(YES), @"gps":@(YES)};
+        NSDictionary *state = [locationManager getState];
+        NSString *authorizationRequest = [state objectForKey:@"locationAuthorizationRequest"];
+        BOOL enabled = NO;
+
+        switch (status) {
+            case kCLAuthorizationStatusAuthorizedAlways:
+                enabled = [authorizationRequest isEqualToString:@"Always"];
+                break;
+            case kCLAuthorizationStatusAuthorizedWhenInUse:
+                enabled = [authorizationRequest isEqualToString:@"WhenInUse"];
+                break;
+            case kCLAuthorizationStatusDenied:
+            case kCLAuthorizationStatusRestricted:
+            case kCLAuthorizationStatusNotDetermined:
+                enabled = NO;
+                break;
+        }
+
+        NSDictionary *provider = @{@"enabled":@(enabled), @"network":@(YES), @"gps":@(YES), @"status":@(status)};
+
         [self sendEvent:EVENT_PROVIDERCHANGE body:provider];
     };
 }

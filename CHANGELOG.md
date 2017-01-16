@@ -1,4 +1,7 @@
 # Change Log
+## [Unreleased]
+- [Fixed] Fix issue with Location Authorization alert popup up when not desired.
+
 ## [2.4.0] - 2017-01-11
 - [Fixed] Support for `react-native-0.40.0`
 

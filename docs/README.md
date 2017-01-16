@@ -39,6 +39,8 @@ bgGeo.setConfig({
 | [`activityType`](#param-string-activitytype-automotivenavigation-othernavigation-fitness-other) | `String` | Required (**iOS**)| `Other` | Presumably, this affects iOS GPS algorithm. See [Apple docs](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/CLLocationManager/CLLocationManager.html#//apple_ref/occ/instp/CLLocationManager/activityType) for more information | Set the desired interval for active location updates, in milliseconds. |
 | [`useSignificantChangesOnly`](#param-boolean-usesignificantchangesonly-false) | `Boolean` | Optional (**iOS**)| `false` | Set `true` in order to disable constant background-tracking and use only the iOS [Significant Changes API](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html#//apple_ref/occ/instm/CLLocationManager/startMonitoringSignificantLocationChanges). If Apple has denied your application due to background-tracking, this can be a solution. **NOTE** The Significant Changes API will report a location only when a significant change from the last location has occurred. Many of the configuration parameters **will be ignored**, such as `#distanceFilter`, `#stationaryRadius`, `#activityType`, etc. |
 | [`deferTime`](#param-integer-defertime) | `Integer` | Optional (**Android**)| `0` | Sets the maximum wait time in milliseconds for location updates.  If you pass a value at least 2x larger than the interval specified with `locationUpdateInterval`, then location delivery may be delayed and multiple locations can be delivered at once. Locations are determined at the `locationUpdateInterval` rate, but can be delivered in batch after the interval you set in this method. This can consume less battery and give more accurate locations, depending on the device's hardware capabilities. You should set this value to be as large as possible for your needs if you don't need immediate location delivery. |
+| [`locationAuthorizationRequest`](#param-boolean-locationauthorizationrequest-always) | `Always`,`WhenInUse` | Optional (**iOS**)| `Always` | The desired iOS location-authorization request, either `Always` or `WhenInUse`.  You'll have to edit the corresponding key in your app's `Info.plist`, `NSLocationAlwaysUsageDescription` or `NSWhenInUseUsageDescription`.  `WhenInUse` will display a **blue bar** at top-of-screen informing user that location-services are on. |
+| [`locationAuthorizationAlert`](#param-object-locationauthorizationalert) | `{}` | Optional (**iOS**)| `{}` | When you configure the plugin location-authorization `Always` or `WhenInUse` and the user changes the value in the app's location-services settings or disabled location-services, the plugin will display an Alert directing the user to the **Settings** screen.  This config allows you to configure all the Strings for that Alert popup. |
 | [`desiredOdometerAccuracy`](#param-integer-meters-desiredodometeraccuracy-100) | `Integer meters`  |  Optional | `100`  | Specify an accuracy threshold for odometer calculations.  Defaults to `100`.  If a location arrives having `accuracy > desiredOdometerAccuracy`, that location will not be used to update the odometer.  If you only want to calculate odometer from GPS locations, you could set `desiredOdometerAccuracy: 10`.  This will prevent odometer updates when a device is moving around indoors, in a shopping mall, for example.|
 
 ## Activity Recognition Options
@@ -215,6 +217,40 @@ Defaults to `false`. Set `true` to disable automatic speed-based `#distanceFilte
 Defaults to `false`. Set `true` in order to disable constant background-tracking and use only the iOS [Significant Changes API](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html#//apple_ref/occ/instm/CLLocationManager/startMonitoringSignificantLocationChanges). If Apple has denied your application due to background-tracking, this can be a solution. **NOTE** The Significant Changes API will report a location only when a significant change from the last location has occurred. Many of the configuration parameters **will be ignored**, such as `#distanceFilter`, `#stationaryRadius`, `#activityType`, etc.
 
 Set `true` to disable iOS `CMMotionActivity` updates (eg: walking, running, vehicle, biking, stationary)
+
+####`@param {Boolean} pausesLocationUpdatesAutomatically [true]`
+
+The default behaviour of the plugin is to turn **off** location-services *automatically* when the device is detected to be stationary.  When set to `false`, location-services will **never** be turned off (and `disableStopDetection` will automatically be set to `true`) -- it's your responsibility to turn them off when you no longer need to track the device.  This feature should **not** generally be used.  `preventSuspend` will no longer work either.
+
+####`@param {String} locationAuthorizationRequest [Always]`
+
+The desired iOS location-authorization request, either `Always` or `WhenInUse`.  Defaults to `Always`.  You'll have to edit the corresponding key in your app's `Info.plist`, `NSLocationAlwaysUsageDescription` or `NSWhenInUseUsageDescription`.  `WhenInUse` will display a **blue bar** at top-of-screen informing user that location-services are on.
+
+####`@param {Object} locationAuthorizationAlert`
+When you configure the plugin location-authorization `Always` or `WhenInUse` and the user changes the value in the app's location-services settings or disabled location-services, the plugin will display an Alert directing the user to the **Settings** screen.  This config allows you to configure all the Strings for that Alert popup and accepts an `{Object}` containing the following keys:
+
+######@param {String} titleWhenOff [Location services are off] 
+The title of the alert if user changes, for example, the location-request to `WhenInUse` when you requested `Always`.
+######@param {String} titleWhenNotEnabled [Background location is not enabled] 
+The title of the alert when user disables location-services or changes the authorization request to `Never`
+######@param {String} instructions [To use background location, you must enable '{locationAuthorizationRequest}' in the Location Services settings]
+The body text of the alert.
+######@param {String} cancelButton [Cancel]
+######@param {String} settingsButton [Settings]
+
+![](https://dl.dropboxusercontent.com/u/2319755/cordova-background-geolocaiton/docs-locationAuthorizationAlert.jpg)
+
+```Javascript
+bgGeo.configure({
+  locationAuthorizationAlert: {
+    titleWhenNotEnabled: "Yo, location-services not enabled",
+    titleWhenOff: "Yo, location-services OFF",
+    instructions: "You must enable 'Always' in location-services, buddy",
+    cancelButton: "Cancel",
+    settingsButton: "Settings"
+  }
+})
+```
 
 ## Android Options
 

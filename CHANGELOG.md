@@ -1,4 +1,7 @@
 # Change Log
+## [Unreleased]
+- [Fixed] Fix issue with Location Authorization alert popup up when not desired.
+
 ## [2.3.0] - 2017-01-09
 - [Added] Ability to provide optional arbitrary meta-data `extras` on geofences.
 - [Changed] Location parameters `heading`, `accuracy`, `odometer`, `speed`, `altitude`, `altitudeAccuracy` are now fixed at 2 decimal places.

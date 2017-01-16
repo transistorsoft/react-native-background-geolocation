@@ -1,5 +1,7 @@
 # Change Log
 ## [Unreleased]
+
+## [2.4.1] - 2017-01-16
 - [Fixed] Fix issue with Location Authorization alert popup up when not desired.
 
 ## [2.4.0] - 2017-01-11

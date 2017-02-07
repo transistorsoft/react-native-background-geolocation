@@ -11,7 +11,12 @@
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <TSLocationManager/TSLocationManager.h>
+
+#if __has_include("RCTEventEmitter.h")
+#import "RCTEventEmitter.h"
+#else
 #import <React/RCTEventEmitter.h>
+#endif
 
 @interface RNBackgroundGeolocation : RCTEventEmitter
 
@@ -19,3 +24,4 @@
 @property (nonatomic, strong) NSDictionary* syncCallback;
 
 @end
+

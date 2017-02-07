@@ -1,6 +1,9 @@
 # Change Log
 ## [Unreleased]
 
+## [2.4.2] - 2017-02-07
+- [Changed] Module now works for all versions of react-native, both pre and post `0.40.0`.
+
 ## [2.4.1] - 2017-01-16
 - [Fixed] Fix issue with Location Authorization alert popup up when not desired.
 

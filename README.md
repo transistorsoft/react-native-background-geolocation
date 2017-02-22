@@ -15,7 +15,7 @@ The *most* sophisticated background **location-tracking & geofencing** module wi
 
 Follows the [React Native Modules spec](https://facebook.github.io/react-native/docs/native-modules-ios.html#content).
 
-## :books: API Documentation
+## [:books: API Documentation](./docs/README.md)
 - :wrench: [Configuration Options](./docs/README.md#wrench-configuration-options)
   + [Geolocation Options](./docs/README.md#wrench-geolocation-options)
   + [Activity Recognition Options](./docs/README.md#wrench-activity-recognition-options)

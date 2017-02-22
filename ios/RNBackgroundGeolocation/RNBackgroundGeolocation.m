@@ -87,7 +87,8 @@ RCT_EXPORT_MODULE();
         EVENT_SCHEDULE,
         EVENT_GEOFENCE,
         EVENT_SYNC,
-        EVENT_HEARTBEAT
+        EVENT_HEARTBEAT,
+        EVENT_WATCHPOSITION
     ];
 }
 
@@ -214,13 +215,12 @@ RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options success:(RCTResponseSende
 {
     [locationManager watchPosition:options success:^(NSDictionary* locationData) {
         runOnMainQueueWithoutDeadlocking(^{
-            success(@[locationData]);
+            [self sendEvent:EVENT_WATCHPOSITION body:locationData];
         });
     } failure:^(NSError* error) {
-        runOnMainQueueWithoutDeadlocking(^{
-            failure(@[@(error.code)]);
-        });
+
     }];
+    success(@[]);
 }
 
 RCT_EXPORT_METHOD(stopWatchPosition:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
@@ -379,9 +379,6 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 
 -(void (^)(NSDictionary *locationData, enum tsLocationType, BOOL isMoving)) createLocationChangedHandler {
     return ^(NSDictionary *locationData, enum tsLocationType type, BOOL isMoving) {
-        if (type == TS_LOCATION_TYPE_WATCH) {
-            [self sendEvent:EVENT_WATCHPOSITION body:locationData];
-        }
         [self sendEvent:EVENT_LOCATIONCHANGE body:locationData];
     };
 }
@@ -416,14 +413,9 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     };
 }
 
--(void (^)(NSString *identifier, NSString *action, NSDictionary *locationData)) createGeofenceHandler {
-    return ^(NSString *identifier, NSString *action, NSDictionary *locationData) {
-        NSDictionary *params = @{
-            @"identifier": identifier,
-            @"action": action,
-            @"location": locationData
-        };
-        [self sendEvent:EVENT_GEOFENCE body:params];
+-(void (^)(NSDictionary *geofenceData)) createGeofenceHandler {
+    return ^(NSDictionary *geofenceData) {
+        [self sendEvent:EVENT_GEOFENCE body:geofenceData];
     };
 }
 

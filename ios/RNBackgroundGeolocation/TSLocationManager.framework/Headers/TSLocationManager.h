@@ -19,13 +19,14 @@
 @property (nonatomic, copy) void (^motionChangedBlock) (NSDictionary *locationData, BOOL isMoving);
 @property (nonatomic, copy) void (^activityChangedBlock) (NSString *activityName);
 @property (nonatomic, copy) void (^heartbeatBlock) (NSString* motionType, NSDictionary *locationData);
-@property (nonatomic, copy) void (^geofenceBlock) (NSString *identifier, NSString *action, NSDictionary *locationData);
+@property (nonatomic, copy) void (^geofenceBlock) (NSDictionary *geofenceData);
 @property (nonatomic, copy) void (^syncCompleteBlock) (NSArray *locations);
 @property (nonatomic, copy) void (^errorBlock) (NSString *type, NSError *error);
 @property (nonatomic, copy) void (^scheduleBlock) (TSSchedule* schedule);
 @property (nonatomic, copy) void (^authorizationChangedBlock) (CLAuthorizationStatus status);
 
 + (TSLocationManager *)sharedInstance;
+
 
 // Methods
 - (NSDictionary*) configure:(NSDictionary*)config;
@@ -47,8 +48,6 @@
 - (void) onSuspend:(NSNotification *)notification;
 - (void) onResume:(NSNotification *)notification;
 - (void) onAppTerminate;
-- (NSMutableDictionary*) locationToDictionary:(CLLocation*)location;
-- (NSMutableDictionary*) locationToDictionary:(CLLocation*)location type:(tsLocationtype)type extras:(NSDictionary*)extras;
 - (void) addGeofence:(NSDictionary*)params success:(void (^)(NSString*))success error:(void (^)(NSString*))error;
 - (void) addGeofences:(NSArray*)geofences success:(void (^)(NSString*))success error:(void (^)(NSString*))error;
 - (void) removeGeofence:(NSString*)identifier success:(void (^)(NSString*))success error:(void (^)(NSString*))error;

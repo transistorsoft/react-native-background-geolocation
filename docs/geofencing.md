@@ -1,4 +1,4 @@
-# Geofencing
+# Infinite Geofencing
 
 The Background Geolocation contains powerful geofencing features that allow you to monitor any number of circular geofences you wish (thousands even), in spite of limits imposed by the native platform APIs (**20 for iOS; 100 for Android**).
 

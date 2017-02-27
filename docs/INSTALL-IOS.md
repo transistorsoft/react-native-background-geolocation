@@ -17,7 +17,7 @@ npm install react-native-background-geolocation --save
 ![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-geolocation/images/Manual%20Installation/add-project-RNBackgroundFetch.png)
 
 - Add a **3rd of 3** Libraries:
-    - **`node_modules/cocoa-lumberjack/CocoaLumberjack/Lumberjack.xcodeproj`**
+    - **`node_modules/react-native-background-fetch/node_modules/cocoa-lumberjack/CocoaLumberjack/Lumberjack.xcodeproj`**
 ![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-geolocation/images/Manual%20Installation/add-project-CocoaLumberjack.png)
 
 ## Build Phases ➜ Link Binary With Libraries

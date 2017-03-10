@@ -136,7 +136,7 @@ BackgroundGeolocation.setConfig({
 
 | Option      | Type      | Default   | Note                              |
 |-------------|-----------|-----------|-----------------------------------|
-| [`stopOnTerminate`](#config-boolean-stoponterminate-true) | `Boolean` |  `true` | Set `true` to continue tracking after user teminates the app. |
+| [`stopOnTerminate`](#config-boolean-stoponterminate-true) | `Boolean` |  `true` | Set `false` to continue tracking after user teminates the app. |
 | [`startOnBoot`](#config-boolean-startonboot-false) | `Boolean` | `false` | Set to `true` to enable background-tracking after the device reboots. |
 | [`heartbeatInterval`](#config-integer-heartbeatinterval-undefined) | `Integer` | `60` | Rate in **seconds** to fire [`heartbeat`](#heartbeat) events. |
 | [`schedule`](#config-array-schedule-undefined) | `Array` | `undefined` | Defines a schedule to automatically start/stop tracking at configured times |
@@ -215,8 +215,6 @@ BackgroundGeolocation.on("location", successFn, failureFn);
 
 | Method Name      | Arguments       | Notes                                |
 |------------------|-----------------|--------------------------------------|
-| [`on`](#oncallback) | `Function` | Add an event-listener |
-| [`un`](#uncallback) | `Function` | Remove an event-listener |
 | [`configure`](#configureconfig-success-failure) | `{config}`, `successFn`, `failureFn` | Initializes the plugin and configures the its config options The **`success`** callback will be executed after the plugin has successfully configured and provided with the current **`state`** `Object`. |
 | [`setConfig`](#setconfigconfig-successfn-failurefn) | `{config}`, `successFn`, `failureFn` | Re-configure the plugin with new config options. |
 | [`start`](#startsuccessfn-failurefn) | `callbackFn`| Enable location tracking.  Supplied **`callbackFn`** will be executed when tracking is successfully engaged.  This is the plugin's power **ON** button. |
@@ -1488,41 +1486,9 @@ BackgroundGeolocation.on('schedule', function(state) {
 
 ## :small_blue_diamond: Core API Methods
 
-###`on(callback)`
-
-Add an event-listener.
-
-```Javascript
-    componentWillMount() {
-        BackgroundGeolocation.on("location", this.onLocation);
-        .
-        .
-        .
-    }
-    onLocation(location) {
-        console.log('- Location: ', location);
-    }
-```
-
-------------------------------------------------------------------------------
-
-
-###`un(callback)`
-
-Remove an event-listener.
-
-```Javascript
-    componentWillUnmount() {
-        BackgroundGeolocation.un("location", this.onLocation);
-    }
-```
-
-------------------------------------------------------------------------------
-
-
 ###`configure(config, successFn, failureFn)`
 
-This is the **most** important method of the API.  **`#configure`** must be called only **once** for the lifetime of you application, providing the initial [configuration options](#wrench-configuration-options).  The **`successFn`** will be executed after the plugin has successfully configured.
+This is the **most** important method of the API.  **`#configure`** must be called **once** (and *only* once) **each time** your application boots, providing the initial [configuration options](#wrench-configuration-options).  The **`successFn`** will be executed after the plugin has successfully configured.
 
 If you later need to re-configure the plugin's [config options](#wrench-configuration-options), use the [`setConfig`](#setconfigconfig-successfn-failurefn) method.
 
@@ -1757,6 +1723,8 @@ BackgroundGeolocation.getCurrentPosition(succesFn, function(errorCode) {
 
 Start a stream of continuous location-updates.  The native code will persist the fetched location to its SQLite database just as any other location in addition to POSTing to your configured [`#url`](#config-string-url-undefined) (if you've enabled the HTTP features).
 
+:warning: **`#watchPosition`** is **not** reccommended for **long term** monitoring in the background &mdash; It's primarily designed for use in the foreground **only**.  You might use it for fast-updates of the user's current position on the map, for example.
+
 **iOS**
 - **`#watchPosition`** will continue to run in the background, preventing iOS from suspending your application.  Take care to listen to `suspend` event and call [`#stopWatchPosition`](stopwatchpositionsuccessfn-failurefn) if you don't want your app to keep running (TODO make this configurable).
 - There is **no** **`bgTask`** provided to the callback.
@@ -1773,14 +1741,22 @@ Start a stream of continuous location-updates.  The native code will persist the
 #####`@param {Object} location` The Location data
 
 ```javascript
-BackgroundGeolocation.watchPosition(function(location) {
-  console.log(“- Watch position: “, location);
-}, function(errorCode) {
-  alert('An location error occurred: ' + errorCode);
-}, {
-  interval: 5000,    // <-- retrieve a location every 5s.
-  persist: false,    // <-- default is true
-});
+// Start watching position when app comes to foreground
+onAppResume() {
+  BackgroundGeolocation.watchPosition(function(location) {
+    console.log(“- Watch position: “, location);
+  }, function(errorCode) {
+    alert('An location error occurred: ' + errorCode);
+  }, {
+    interval: 1000,    // <-- retrieve a location every 5s.
+    persist: false,    // <-- default is true
+  });
+}
+
+// Stop watching position when app moves to background
+onAppSuspend() {
+  BackgroundGeolocation.stopWatchPosition();
+}
 
 ```
 

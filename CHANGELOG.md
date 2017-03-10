@@ -1,6 +1,12 @@
 # Change Log
 ## [Unreleased]
 
+## [2.7.0] - 2017-03-09
+- [Fixed] iOS bug when composing geofence data for peristence.  Sometimes it appended a `location.geofence.location` due to a shared `NSDictionary`
+- [Changed] The licensing model of Android now enforces license only for **release** builds.  If an invalid license is configured while runningin **debug** mode, a Toast warning will appear **"BackgroundGeolocation is running in evaluation mode."**, but the plugin *will* work.
+- [Fixed] iOS bug with HTTP `401` handling.
+- [Fixed] Forgot to post updated (backwards-compatible) version of `#getCurrentPosition` method, re-arranging the order of params according to docs: `#getCurrentPosition(successFn, failureFn, config)`
+
 ## [2.6.1] - 2017-03-01
 - [Changed] Refactor Settings Management.
 

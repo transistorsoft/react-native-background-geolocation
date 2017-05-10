@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         minSdkVersion 16
@@ -20,7 +20,7 @@ repositories{
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:0.19.+'
+    compile 'com.facebook.react:react-native:+'
     compile 'com.google.android.gms:play-services-location:+'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.android.volley:volley:1.0.0'

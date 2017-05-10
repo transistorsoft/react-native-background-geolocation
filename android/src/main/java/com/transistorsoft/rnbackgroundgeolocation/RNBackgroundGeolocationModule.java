@@ -45,6 +45,7 @@ import java.util.Iterator;
  * Created by chris on 2015-10-30.
  */
 public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule implements ActivityEventListener, LifecycleEventListener {
+
     private static final String TAG = "TSLocationManager";
 
     public static final String ACCESS_COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -61,6 +62,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     private static final String EVENT_WATCHPOSITION = "watchposition";
 
     private HashMap<String, Callback> startCallback;
+    
     public RNBackgroundGeolocationModule(ReactApplicationContext reactContext) {
         super(reactContext);
         reactContext.addLifecycleEventListener(this);
@@ -90,8 +92,14 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         configured = false;
         getAdapter().onActivityDestroy();
     }
+    
     @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
+    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
 
     }
 
@@ -828,7 +836,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         getReactApplicationContext().getJSModule(RCTNativeAppEventEmitter.class).emit(eventName, result);
     }
 
-    private static WritableMap jsonToMap(JSONObject jsonObject) throws JSONException {
+    public static WritableMap jsonToMap(JSONObject jsonObject) throws JSONException {
         WritableMap map = new WritableNativeMap();
 
         Iterator<String> iterator = jsonObject.keys();
@@ -854,7 +862,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         return map;
     }
 
-    private static WritableArray convertJsonToArray(JSONArray jsonArray) throws JSONException {
+    public static WritableArray convertJsonToArray(JSONArray jsonArray) throws JSONException {
         WritableArray array = new WritableNativeArray();
 
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -878,7 +886,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         return array;
     }
 
-    private static JSONObject mapToJson(ReadableMap map) {
+    public static JSONObject mapToJson(ReadableMap map) {
         ReadableMapKeySetIterator iterator = map.keySetIterator();
         JSONObject json = new JSONObject();
 
@@ -910,7 +918,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         return json;
     }
 
-    private static JSONArray arrayToJson(ReadableArray readableArray) throws JSONException {
+    public static JSONArray arrayToJson(ReadableArray readableArray) throws JSONException {
         JSONArray jsonArray = new JSONArray();
         for(int i=0; i < readableArray.size(); i++) {
             ReadableType valueType = readableArray.getType(i);
@@ -937,7 +945,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         }
         return jsonArray;
     }
-
+    
     // TODO placehold for implementing Android M permissions request.  Just return true for now.
     private Boolean hasPermission(String permission) {
         return true;

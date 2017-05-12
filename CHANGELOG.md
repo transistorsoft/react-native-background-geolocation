@@ -1,5 +1,8 @@
 # Change Log
 
+## [2.8.1] - 2017-05-12
+- [Fixed] iOS has a new hook to execute an HTTP flush when network reachability is detected.  However, it was not checking if `autoSync: true` or state of `autoSyncThreshold`.
+
 ## [2.8.0] - 2017-05-08
 - [Added] When iOS detects a network connection with `autoSync: true`, an HTTP flush will be initiated.
 - [Fixed] Improve switching between tracking-mode location and geofence.  It's not necessary to call `#stop` before executing `#start` / `#startGeofences`.

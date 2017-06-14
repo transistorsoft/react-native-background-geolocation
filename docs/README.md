@@ -67,6 +67,7 @@ BackgroundGeolocation.setConfig({
 | [`desiredAccuracy`](#config-integer-desiredaccuracy-0-10-100-1000-in-meters) | `Integer` | `0` | Specify the desired-accuracy of the geolocation system with 1 of 4 values, `0`, `10`, `100`, `1000` where `0` means **HIGHEST POWER, HIGHEST ACCURACY** and `1000` means **LOWEST POWER, LOWEST ACCURACY** |
 | [`distanceFilter`](#config-integer-distancefilter) | `Integer` | `10` | The minimum distance (measured in meters) a device must move horizontally before an update event is generated. |
 | [`stopAfterElapsedMinutes`](#config-integer-stopafterelapsedminutes) | `Integer`  | `0`  | The plugin can optionally automatically stop tracking after some number of minutes elapses after the [`#start`](#startsuccessfn-failurefn) method was called. |
+| [`stopOnStationary`](#config-boolean-stoponstationary) | `Boolean`  | `false`  | The plugin can optionally automatically stop tracking when the `stopTimeout` timer elapses. |
 | [`desiredOdometerAccuracy`](#config-integer-desiredodometeraccuracy-100) | `Integer`  | `100`  | Location accuracy threshold in **meters** for odometer calculations. |
 
 
@@ -115,6 +116,7 @@ BackgroundGeolocation.setConfig({
 | Option      | Type      | Default   | Note                              |
 |-------------|-----------|-----------|-----------------------------------|
 | [`url`](#config-string-url-undefined) | `String` | `null` | Your server url where you wish to HTTP POST locations to |
+| [`httpTimeout`](#config-integer-httptimeout-60000) | `Integer` | `60000` | HTTP request timeout in milliseconds. |
 | [`params`](#config-object-params) | `Object` | `null` | Optional HTTP params sent along in HTTP request to above [`#url`](#config-string-url-undefined) |
 | [`extras`](#config-object-extras) | `Object` | `null` | Optional meta-data to attach to *each* recorded location |
 | [`headers`](#config-object-headers) | `Object` | `null` | Optional HTTP headers sent along in HTTP request to above [`#url`](#config-string-url-undefined) |
@@ -128,6 +130,7 @@ BackgroundGeolocation.setConfig({
 | [`maxBatchSize`](#config-integer-maxbatchsize-undefined) | `Integer` | `-1` | If you've enabled HTTP feature by configuring an [`#url`](config-string-url-undefined) and [`batchSync: true`](#config-string-batchsync-false), this parameter will limit the number of records attached to each batch.|
 | [`maxDaysToPersist`](#config-integer-maxdaystopersist-1) | `Integer` |  `1` |  Maximum number of days to store a geolocation in plugin's SQLite database.|
 | [`maxRecordsToPersist`](#config-integer-maxrecordstopersist--1) | `Integer` |  `-1` |  Maximum number of records to persist in plugin's SQLite database.  Defaults to `-1` (no limit).  To disable persisting locations, set this to `0`|
+| [`locationsOrderDirection`](#config-string-locationsorderdirection-asc) | `String` |  `ASC` |  Controls the order that locations are selected from the database (and synced to your server).  Defaults to ascending (`ASC`), where oldest locations are synced first.|
 
 
 ## :wrench: Application Options
@@ -155,7 +158,8 @@ BackgroundGeolocation.setConfig({
 | [`notificationTitle`](#config-string-notificationtitle-app-name) | `String` | "Your App Name" | When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), Android requires a persistent notification in the Notification Bar.  Defaults to the application name |
 | [`notificationText`](#config-string-notificationtext-location-service-activated) | `String` |  "Location service activated" | When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), Android requires a persistent notification in the Notification Bar.|
 | [`notificationColor`](#config-string-notificationcolor-null) | `String` | `null` | When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), controls the color of the persistent notification in the Notification Bar. |
-| [`notificationIcon`](#config-string-notificationicon-app-icon) | `String` |  Your App Icon | When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), controls your customize notification icon.  Defaults to your application icon.|
+| [`notificationSmallIcon`](#config-string-notificationsmallicon-app-icon) | `String` |  Your App Icon | When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), controls your customize notification *small* icon.  Defaults to your application icon.|
+| [`notificationLargeIcon`](#config-string-notificationlargeicon-undefined) | `String` |  `undefined` | When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), controls your customize notification *large* icon.  Defaults to `undefined`.|
 | [`forceReloadOnMotionChange`](#config-boolean-forcereloadonmotionchange-false) | `Boolean` | `false` |  Launch your app whenever the [`#motionchange`](#motionchange) event fires. |
 | [`forceReloadOnLocationChange`](#config-boolean-forcereloadonlocationchange-false) | `Boolean` | `false` |  Launch your app whenever the [`#location`](#location) event fires. |
 | [`forceReloadOnGeofence`](#config-boolean-forcereloadongeofence-false) | `Boolean` | `false` |  Launch your app whenever the [`#geofence`](#geofence) event fires. |
@@ -215,7 +219,7 @@ BackgroundGeolocation.on("location", successFn, failureFn);
 
 | Method Name      | Arguments       | Notes                                |
 |------------------|-----------------|--------------------------------------|
-| [`configure`](#configureconfig-success-failure) | `{config}`, `successFn`, `failureFn` | Initializes the plugin and configures the its config options The **`success`** callback will be executed after the plugin has successfully configured and provided with the current **`state`** `Object`. |
+| [`configure`](#configureconfig-successfn-failurefn) | `{config}`, `successFn`, `failureFn` | Initializes the plugin and configures the its config options The **`success`** callback will be executed after the plugin has successfully configured and provided with the current **`state`** `Object`. |
 | [`setConfig`](#setconfigconfig-successfn-failurefn) | `{config}`, `successFn`, `failureFn` | Re-configure the plugin with new config options. |
 | [`start`](#startsuccessfn-failurefn) | `callbackFn`| Enable location tracking.  Supplied **`callbackFn`** will be executed when tracking is successfully engaged.  This is the plugin's power **ON** button. |
 | [`stop`](#stopsuccessfn-failurefn) | `callbackFn` | Disable location tracking.  Supplied **`callbackFn`** will be executed when tracking is successfully halted.  This is the plugin's power **OFF** button. |
@@ -238,10 +242,10 @@ BackgroundGeolocation.on("location", successFn, failureFn);
 
 | Method Name      | Arguments       | Notes                                |
 |------------------|-----------------|--------------------------------------|
-| [`getLocations`](#getlocationscallbackfn-failurefn) | `callbackFn` | Fetch all the locations currently stored in native plugin's SQLite database. Your **`callbackFn`** will receive an **`Array`** of locations in the 1st parameter |
-| [`getCount`](#getcountcallbackfn-failurefn) | `callbackFn` | Fetches count of SQLite locations table **`SELECT count(*) from locations`** |
-| [`destroyLocations`](#destroylocationscallbackfn-failurefn) | `callbackFn` | Delete all records in plugin's SQLite database |
-| [`sync`](#synccallbackfn-failurefn) | `successFn`, `failureFn` | If the plugin is configured for HTTP with an [`#url`](#config-string-url-undefined) and [`#autoSync: false`](#config-string-autosync-true), this method will initiate POSTing the locations currently stored in the native SQLite database to your configured [`#url`](#config-string-url-undefined)|
+| [`getLocations`](#getlocationssuccessfn-failurefn) | `callbackFn` | Fetch all the locations currently stored in native plugin's SQLite database. Your **`callbackFn`** will receive an **`Array`** of locations in the 1st parameter |
+| [`getCount`](#getcountsuccessfn-failurefn) | `callbackFn` | Fetches count of SQLite locations table **`SELECT count(*) from locations`** |
+| [`destroyLocations`](#destroylocationssuccessfn-failurefn) | `callbackFn` | Delete all records in plugin's SQLite database |
+| [`sync`](#syncsuccessfn-failurefn) | `successFn`, `failureFn` | If the plugin is configured for HTTP with an [`#url`](#config-string-url-undefined) and [`#autoSync: false`](#config-string-autosync-true), this method will initiate POSTing the locations currently stored in the native SQLite database to your configured [`#url`](#config-string-url-undefined)|
 
 
 ### :small_blue_diamond: Geofencing Methods
@@ -249,20 +253,20 @@ BackgroundGeolocation.on("location", successFn, failureFn);
 | Method Name      | Arguments       | Notes                                |
 |------------------|-----------------|--------------------------------------|
 | [`startGeofences`](#startgeofencescallbackfn) | `callbackFn` | Engages the geofences-only **`trackingMode`**.  In this mode, no active location-tracking will occur -- only geofences will be monitored|
-| [`addGeofence`](#addgeofenceconfig-callbackfn-failurefn) | `{config}`, `successFn`, `failureFn` | Adds a geofence to be monitored by the native plugin.|
-| [`addGeofences`](#addgeofencesgeofences-callbackfn-failurefn) | `[geofences]`, `sucessFn`, `failureFn` | Adds a list geofences to be monitored by the native plugin. |
-| [`removeGeofence`](#removegeofenceidentifier-callbackfn-failurefn) | `identifier`, `successFn`, `failureFn` | Removes a geofence identified by the provided `identifier` |
+| [`addGeofence`](#addgeofenceconfig-successfn-failurefn) | `{config}`, `successFn`, `failureFn` | Adds a geofence to be monitored by the native plugin.|
+| [`addGeofences`](#addgeofencesgeofences-successfn-failurefn) | `[geofences]`, `sucessFn`, `failureFn` | Adds a list geofences to be monitored by the native plugin. |
+| [`removeGeofence`](#removegeofenceidentifier-successfn-failurefn) | `identifier`, `successFn`, `failureFn` | Removes a geofence identified by the provided `identifier` |
 | [`removeGeofences`](#removegeofencescallbackfn-failurefn) | `successFn`, `failureFn` | Removes all geofences |
-| [`getGeofences`](#getgeofencescallbackfn-failurefn) | `callbackFn` | Fetch the list of monitored geofences. |
+| [`getGeofences`](#getgeofencessuccessfn-failurefn) | `callbackFn` | Fetch the list of monitored geofences. |
 
 
 ### :small_blue_diamond: Logging Methods
 
 | Method Name      | Arguments       | Notes                                |
 |------------------|-----------------|--------------------------------------|
-| [`setLogLevel`](#setloglevelcallbackfn) | `Integer`, `callbackFn` | Set the Log filter:  `LOG_LEVEL_OFF`, `LOG_LEVEL_ERROR`, `LOG_LEVEL_WARNING`, `LOG_LEVEL_INFO`, `LOG_LEVEL_DEBUG`, `LOG_LEVEL_VERBOSE`|
+| [`setLogLevel`](#setloglevelloglevel-callbackfn) | `Integer`, `callbackFn` | Set the Log filter:  `LOG_LEVEL_OFF`, `LOG_LEVEL_ERROR`, `LOG_LEVEL_WARNING`, `LOG_LEVEL_INFO`, `LOG_LEVEL_DEBUG`, `LOG_LEVEL_VERBOSE`|
 | [`getLog`](#getlogcallbackfn) | `callbackFn` | Fetch the entire contents of the current log database as a `String`.|
-| [`destroyLog`](#destroylogcallbackfn-failurefn) | `callbackFn`, `failureFn` | Destroy the contents of the Log database. |
+| [`destroyLog`](#destroylogsuccessfn-failurefn) | `callbackFn`, `failureFn` | Destroy the contents of the Log database. |
 | [`emailLog`](#emaillogemail-callbackfn) | `email`, `callbackFn` | Fetch the entire contents of Log database and email it to a recipient using the device's native email client.|
 | [`playSound`](#playsoundsoundid) | `Integer` | Here's a fun one.  The plugin can play a number of OS system sounds for each platform.  For [IOS](http://iphonedevwiki.net/index.php/AudioServices) and [Android](http://developer.android.com/reference/android/media/ToneGenerator.html).  I offer this API as-is, it's up to you to figure out how this works. |
 
@@ -305,7 +309,7 @@ The minimum distance (measured in meters) a device must move horizontally before
 
 However, by default, **`distanceFilter`** is elastically auto-calculated by the plugin:  When speed increases, **`distanceFilter`** increases;  when speed decreases, so too does **`distanceFilter`**.  
 
-:information_source: To disable this behaviour, configure [`disableElasticity: true`](https://github.com/transistorsoft/cordova-background-geolocation/tree/docs/docs#config-boolean-disableelasticity-false)
+:information_source: To disable this behaviour, configure [`disableElasticity: true`](#config-boolean-disableelasticity-false)
 
 **`distanceFilter`** is auto calculated by rounding speed to the nearest `5 m/s` and adding **`distanceFilter`** meters for each `5 m/s` increment.
 
@@ -356,6 +360,22 @@ BackgroundGeolocation.configure({
   stopAfterElapsedMinutes: 30
 }, function(state) {
   BackgroundGeolocation.start();  // <-- plugin will automatically #stop in 30 minutes
+});
+```
+
+------------------------------------------------------------------------------
+
+#### `@config {Boolean} stopOnStationary`
+
+The plugin can optionally automatically stop tracking when the `stopTimeout` timer elapses.  For example, when the plugin first detects a `motionchange` into the "moving" state, the next time a `motionchange` event occurs into the "stationary" state, the plugin will have automatically called `#stop` upon itself.
+
+:warning: `stopOnStationary` will **only** occur due to `stopTimeout` elapse.  It will **not** occur by manually executing `changePace(false)`.
+
+```javascript
+BackgroundGeolocation.configure({
+  stopOnStationary: true
+}, function(state) {
+  BackgroundGeolocation.start();
 });
 ```
 
@@ -617,6 +637,25 @@ BackgroundGeolocation.configure({
 :blue_book: See [HTTP Guide](http.md) for more information.
 
 :warning: It is highly recommended to let the plugin manage uploading locations to your server, **particularly for Android** when configured with **`stopOnTerminate: false`**, since your Cordova app (where your Javascript lives) *will* terminate &mdash; only the plugin's native Android background service will continue to operate, recording locations and uploading to your server.  The plugin's native HTTP service *is* better at this task than Javascript Ajax requests, since the plugin will automatically retry on server failure.
+
+------------------------------------------------------------------------------
+
+#### `@config {Integer} httpTimeout [60000]`
+
+HTTP request timeout in **milliseconds**.  The `http` **`failureFn`** will execute when an HTTP timeout occurs.  Defaults to `60000 ms` (1 minute).
+
+```javascript
+BackgroundGeolocation.on('http', function(request) {
+  console.log('HTTP SUCCESS: ', response);
+}, function(request) {
+  console.log('HTTP FAILURE', response);
+});
+
+BackgroundGeolocation.configure({
+  url: 'http://my-server.com/locations',
+  httpTimeout: 3000
+});
+```
 
 ------------------------------------------------------------------------------
 
@@ -892,15 +931,14 @@ Maximum number of days to store a geolocation in plugin's SQLite database when y
 
 #### `@config {Integer} maxRecordsToPersist [-1]`
 
-Maximum number of records to persist in plugin's SQLite database.  Default `-1` means **no limit**.
+Maximum number of records to persist in plugin's SQLite database.  Default `-1`
+ means **no limit**.
 
 ------------------------------------------------------------------------------
 
-#### `@config {Integer} logMaxDays [3]`
+#### `@config {String} locationsOrderDirection [ASC]`
 
-Maximum number of days to persist a log-entry in database.  Defaults to **`3`** days.
-
-------------------------------------------------------------------------------
+Controls the order that locations are selected from the database (and synced to your server).  Defaults to ascending (`ASC`), where oldest locations are synced first.|
 
 
 # :wrench: Application Options
@@ -973,6 +1011,7 @@ Provides an automated schedule for the plugin to start/stop tracking at pre-defi
 
 The `START_TIME`, `END_TIME` are in **24h format**.  The `DAY` param corresponds to the `Locale.US`, such that **Sunday=1**; **Saturday=7**).  You may configure a single day (eg: `1`), a comma-separated list-of-days (eg: `2,4,6`) or a range (eg: `2-6`), eg:
 
+
 ```javascript
 BackgroundGeolocation.configure({
   .
@@ -995,16 +1034,16 @@ BackgroundGeolocation.configure({
 BackgroundGeolocation.on('schedule', function(state) {
   console.log('- Schedule event, enabled:', state.enabled);
 
-  if (state.enabled) {
-    // tracking started!
-  } else {
-    // tracking stopped
+  if (!state.schedulerEnabled) {
+    BackgroundGeolocation.startSchedule();
   }
 });
 
 // Later when you want to stop the Scheduler (eg: user logout)
 BackgroundGeolocation.stopSchedule(function() {
   console.info('- Scheduler stopped');
+  // You must explicitly stop tracking if currently enabled
+  BackgroundGeolocation.stop();
 });
 
 // Or modify the schedule with usual #setConfig method
@@ -1019,6 +1058,38 @@ BackgroundGeolocation.setConfig({
   ]
 });
 ```
+
+##### Literal Dates
+
+The schedule can also be configured with a literal start date of the form:
+
+```
+  "yyyy-mm-dd HH:mm-HH:mm"
+```
+
+eg:
+
+```javascript
+BackgroundGeolocation.configure({
+  schedule: [
+    "2018-01-01 09:00-17:00"
+  ]
+
+})
+```
+
+Or **two** literal dates to specify both a start **and** stop date (note the format here is a bit ugly):
+
+```
+  "yyyy-mm-dd-HH:mm yyyy-mm-dd-HH:mm"
+```
+
+```javascript
+schedule: [
+    "2018-01-01-09:00 2019-01-01-17:00"  // <-- track for 1 year
+  ]
+```
+
 
 **iOS**
 
@@ -1123,9 +1194,35 @@ When running the service with [`foregroundService: true`](#config-boolean-foregr
 
 ------------------------------------------------------------------------------
 
-#### `@config {String} notificationIcon [app icon]`
+#### `@config {String} notificationSmallIcon [app icon]`
 
-When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), Android requires a persistent notification in the Notification Bar.  This allows you customize that icon.  Defaults to your application icon.  **NOTE** You must specify the **`type`** of resource you wish to use in the following format:
+When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), Android requires a persistent notification in the Notification Bar.  This allows you customize that icon.  Defaults to your application icon.  **NOTE** You must specify the **`type`** (`drawable|mipmap`) of resource you wish to use in the following format:
+
+`{type}/icon_name`, 
+
+:warning: Do not append the file-extension (eg: `.png`)
+
+eg:
+
+```javascript
+// 1. drawable
+BackgroundGeolocation.configure({
+  notificationSmallIcon: "drawable/my_custom_notification_small_icon"
+});
+
+// 2. mipmap
+BackgroundGeolocation.configure({
+  notificationSmallIcon: "mipmap/my_custom_notification_small_icon"
+});
+```
+
+------------------------------------------------------------------------------
+
+#### `@config {String} notificationLargeIcon [undefined]`
+
+When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), Android requires a persistent notification in the Notification Bar.  This allows you customize that icon.  Defaults to `undefined`.  **NOTE** You must specify the **`type`** (`drawable|mipmap`) of resource you wish to use in the following format:
+
+:warning: Do not append the file-extension (eg: `.png`)
 
 `{type}/icon_name`, 
 
@@ -1134,12 +1231,12 @@ eg:
 ```javascript
 // 1. drawable
 BackgroundGeolocation.configure({
-  notificationIcon: "drawable/my_custom_notification_icon"
+  notificationLargeIcon: "drawable/my_custom_notification_large_icon"
 });
 
 // 2. mipmap
 BackgroundGeolocation.configure({
-  notificationIcon: "mipmap/my_custom_notification_icon"
+  notificationLargeIcon: "mipmap/my_custom_notification_large_icon"
 });
 ```
 
@@ -1190,6 +1287,12 @@ BackgroundGeolocation.configure({
 
 ------------------------------------------------------------------------------
 
+
+#### `@config {Integer} logMaxDays [3]`
+
+Maximum number of days to persist a log-entry in database.  Defaults to **`3`** days.
+
+------------------------------------------------------------------------------
 
 # :zap: Events
 
@@ -1582,7 +1685,16 @@ Disable location tracking.  Supplied **`successFn`** will be executed when track
 BackgroundGeolocation.stop();
 ```
 
-:warning: If you've configured a [`schedule`](config-array-schedule-undefined), **`#stop`** will halt the Scheduler as well.
+:warning: If you've configured a [`schedule`](config-array-schedule-undefined), **`#stop`** will **not** halt the Scheduler.  You must explicitly stop the Scheduler as well:
+
+```javascript
+// Later when you want to stop the Scheduler (eg: user logout)
+BackgroundGeolocation.stopSchedule(function() {
+  console.info('- Scheduler stopped');
+  // You must explicitly stop tracking if currently enabled
+  BackgroundGeolocation.stop();
+});
+```
 
 ------------------------------------------------------------------------------
 
@@ -1852,6 +1964,16 @@ BackgroundGeolocation.stopSchedule(function() {
 });
 ```
 
+:warning: **`#stopSchedule`** will not execute **`#stop`** if the plugin is currently tracking.  You must explicitly execute `#stop`.
+
+```javascript
+// Later when you want to stop the Scheduler (eg: user logout)
+BackgroundGeolocation.stopSchedule(function() {
+  // You must explicitly stop tracking if currently enabled
+  BackgroundGeolocation.stop();
+});
+```
+
 ------------------------------------------------------------------------------
 
 
@@ -2111,9 +2233,9 @@ Adds a geofence to be monitored by the native plugin.  If a geofence *already ex
 
 ##### `@config {Boolean} notifyOnEntry` Whether to listen to ENTER events
 
-##### `@config {Boolean} notifyOnDwell` (**Android only**) Whether to listen to DWELL events
+##### `@config {Boolean} notifyOnDwell` Whether to listen to DWELL events
 
-##### `@config {Integer milliseconds} loiteringDelay` (**Android only**) When `notifyOnDwell` is `true`, the delay before DWELL event is fired after entering a geofence (@see [Creating and Monitoring Geofences](https://developer.android.com/training/location/geofencing.html))
+##### `@config {Integer milliseconds} loiteringDelay` When `notifyOnDwell` is `true`, the delay before DWELL event is fired after entering a geofence (@see [Creating and Monitoring Geofences](https://developer.android.com/training/location/geofencing.html))
 
 ##### `@config {Object} extras` Optional arbitrary meta-data.
 
@@ -2318,38 +2440,11 @@ Fetches the entire contents of the current circular-log and return it as a Strin
 
 ```javascript
 BackgroundGeolocation.getLog(function(log) {
-  console.log(log);
-  // or convert to an Array
-  var lines = log.split("\n");
-  console.log(lines);
+  console.log(log);  // <-- send log to console.  copy/paste result into your own text file.
 });
 ```
 
 ------------------------------------------------------------------------------
-
-
-### `destroyLog(successFn, failureFn)`
-
-Destory the entire contents of Log database.
-
-```javascript
-BackgroundGeolocation.destroyLog(function() {
-  console.log('- Destroyed log');
-}, function() {
-  console.log('- Destroy log failure');
-});
-```
-
-#### `successFn` Parameters
-
-None
-
-#### `failureFn` Parameters
-
-None
-
-------------------------------------------------------------------------------
-
 
 ### `emailLog(email, callbackFn)`
 
@@ -2386,6 +2481,26 @@ BackgroundGeolocation.emailLog("foo@bar.com");
 2. Grant "Storage" permission `Settings->Apps->[Your App]->Permissions: (o) Storage`
 
 ![](https://dl.dropboxusercontent.com/u/2319755/cordova-background-geolocaiton/Screenshot_20160218-183345.png)
+
+### `destroyLog(successFn, failureFn)`
+
+Destory the entire contents of Log database.
+
+```javascript
+BackgroundGeolocation.destroyLog(function() {
+  console.log('- Destroyed log');
+}, function() {
+  console.log('- Destroy log failure');
+});
+```
+
+#### `successFn` Parameters
+
+None
+
+#### `failureFn` Parameters
+
+None
 
 ------------------------------------------------------------------------------
 

@@ -62,7 +62,7 @@ RCT_EXPORT_MODULE();
         __typeof(self) __weak me = self;
         // New style of listening to events.
         [locationManager addListener:EVENT_GEOFENCESCHANGE callback:^(NSDictionary* event) {
-            runOnMainQueueWithoutDeadlocking(^{
+            tsRunOnMainQueueWithoutDeadlocking(^{
                 [me sendEvent:EVENT_GEOFENCESCHANGE body:event];
             });
         }];
@@ -201,11 +201,11 @@ RCT_EXPORT_METHOD(finish:(int)taskId)
 RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     [locationManager getCurrentPosition:options success:^(NSDictionary* locationData) {
-        runOnMainQueueWithoutDeadlocking(^{
+        tsRunOnMainQueueWithoutDeadlocking(^{
             success(@[locationData]);
         });
     } failure:^(NSError* error) {
-        runOnMainQueueWithoutDeadlocking(^{
+        tsRunOnMainQueueWithoutDeadlocking(^{
             failure(@[@(error.code)]);
         });
     }];
@@ -214,7 +214,7 @@ RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options success:(RCTResponse
 RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     [locationManager watchPosition:options success:^(NSDictionary* locationData) {
-        runOnMainQueueWithoutDeadlocking(^{
+        tsRunOnMainQueueWithoutDeadlocking(^{
             [self sendEvent:EVENT_WATCHPOSITION body:locationData];
         });
     } failure:^(NSError* error) {
@@ -307,11 +307,11 @@ RCT_EXPORT_METHOD(getOdometer:(RCTResponseSenderBlock)success failure:(RCTRespon
 RCT_EXPORT_METHOD(setOdometer:(double)value success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     [locationManager setOdometer:value success:^(NSDictionary* locationData) {
-        runOnMainQueueWithoutDeadlocking(^{
+        tsRunOnMainQueueWithoutDeadlocking(^{
             success(@[locationData]);
         });
     } failure:^(NSError* error) {
-        runOnMainQueueWithoutDeadlocking(^{
+        tsRunOnMainQueueWithoutDeadlocking(^{
             failure(@[@(error.code)]);
         });
     }];
@@ -483,14 +483,12 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     locationManager = nil;
 }
 
-void runOnMainQueueWithoutDeadlocking(void (^block)(void))
+void tsRunOnMainQueueWithoutDeadlocking(void (^block)(void))
 {
-    if ([NSThread isMainThread])
-    {
+    if ([NSThread isMainThread]) {
         block();
     }
-    else
-    {
+    else {
         dispatch_sync(dispatch_get_main_queue(), block);
     }
 }

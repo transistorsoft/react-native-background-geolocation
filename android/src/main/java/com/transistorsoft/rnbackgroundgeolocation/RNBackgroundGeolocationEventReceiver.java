@@ -23,8 +23,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.facebook.react.common.ApplicationHolder.getApplication;
-
 /**
  * This BroadcastReceiver receives broadcasted events from the BackgroundGeolocation plugin.
  * It's designed for you to customize in your own application, to handle events in the native
@@ -87,16 +85,6 @@ import static com.facebook.react.common.ApplicationHolder.getApplication;
  *
  */
 public class RNBackgroundGeolocationEventReceiver extends BroadcastReceiver implements HeadlessJsTaskEventListener {
-
-    private static ReactNativeHost reactNativeHost;
-
-    private static ReactNativeHost getReactNativeHost() {
-        if (reactNativeHost == null) {
-            reactNativeHost = ((ReactApplication) getApplication()).getReactNativeHost();
-        }
-        return reactNativeHost;
-    }
-
     /**
      * This is the name of your React Native HeadlessJs service name on the client:
      *
@@ -104,7 +92,8 @@ public class RNBackgroundGeolocationEventReceiver extends BroadcastReceiver impl
      */
     private static String HEADLESS_TASK_NAME = "BackgroundGeolocation";
 
-    HeadlessJsTaskContext mActiveTaskContext;
+    private ReactNativeHost mReactNativeHost;
+    private HeadlessJsTaskContext mActiveTaskContext;
 
     @Override
     public void onHeadlessJsTaskStart(int taskId) {
@@ -120,8 +109,18 @@ public class RNBackgroundGeolocationEventReceiver extends BroadcastReceiver impl
     public void onReceive(Context context, Intent intent) {
         String eventName = getEventName(intent.getAction());
 
+        // Ensure we can reference ReactApplication.  If not, the ReactApplication has not yet been booted so cannot possibly have registered a HeadlessTask.
+        try {
+            ReactApplication reactApplication = ((ReactApplication) context.getApplicationContext());
+            mReactNativeHost = reactApplication.getReactNativeHost();
+        } catch (AssertionError e) {
+            TSLog.logger.warn(TSLog.warn("Failed to fetch ReactApplication.  Task ignored."));
+            return;  // <-- Do nothing.  Just return
+        }
+
         BackgroundGeolocation adapter = BackgroundGeolocation.getInstance(context, intent);
         if (!adapter.isMainActivityActive()) {
+            TSLog.logger.debug(TSLog.header("Headless Event Receiver: " + eventName));
             Bundle extras = intent.getExtras();
             WritableMap params = Arguments.fromBundle(extras);
             // Decode JSON -> Map / Array where applicable.
@@ -147,8 +146,8 @@ public class RNBackgroundGeolocationEventReceiver extends BroadcastReceiver impl
             event.putMap("params", params);
             HeadlessJsTaskConfig config = new HeadlessJsTaskConfig(HEADLESS_TASK_NAME, event);
             startTask(config);
-        } else if (getReactNativeHost().hasInstance()) {
-            ReactInstanceManager reactInstanceManager = getReactNativeHost().getReactInstanceManager();
+        } else if (mReactNativeHost.hasInstance()) {
+            ReactInstanceManager reactInstanceManager = mReactNativeHost.getReactInstanceManager();
             ReactContext reactContext = reactInstanceManager.getCurrentReactContext();
             if (reactContext != null) {
                 HeadlessJsTaskContext headlessJsTaskContext = HeadlessJsTaskContext.getInstance(reactContext);
@@ -176,7 +175,7 @@ public class RNBackgroundGeolocationEventReceiver extends BroadcastReceiver impl
      */
     protected void startTask(final HeadlessJsTaskConfig taskConfig) {
         UiThreadUtil.assertOnUiThread();
-        final ReactInstanceManager reactInstanceManager = getReactNativeHost().getReactInstanceManager();
+        final ReactInstanceManager reactInstanceManager = mReactNativeHost.getReactInstanceManager();
         ReactContext reactContext = reactInstanceManager.getCurrentReactContext();
         if (reactContext == null) {
             reactInstanceManager.addReactInstanceEventListener(new ReactInstanceManager.ReactInstanceEventListener() {
@@ -201,19 +200,6 @@ public class RNBackgroundGeolocationEventReceiver extends BroadcastReceiver impl
 
         mActiveTaskContext = headlessJsTaskContext;
     }
-
-    /**
-     * Get the {@link ReactNativeHost} used by this app. By default, assumes
-     * is an instance of {@link ReactApplication} and calls
-     * {@link ReactApplication#getReactNativeHost()}. Override this method if your application class
-     * does not implement {@code ReactApplication} or you simply have a different mechanism for
-     * storing a {@code ReactNativeHost}, e.g. as a static field somewhere.
-     */
-    /*
-    protected ReactNativeHost getReactNativeHost() {
-        return ((ReactApplication) getApplication()).getReactNativeHost();
-    }
-    */
 }
 
 

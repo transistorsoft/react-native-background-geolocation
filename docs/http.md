@@ -94,7 +94,7 @@ POST /my_url
 
 ### `locationTemplate` & `geofenceTemplate`
 
-If you wish to provide your own custom HTTP JSON schema, you can configure distinct templates for both `location` and `geofence` data.  Evaulate variables in your template using Ruby `erb`-style tags:
+If you wish to provide your own custom HTTP JSON schema, you can configure distinct templates for both `location` and `geofence` data.  Evaluate variables in your template using Ruby `erb`-style tags:
 
 ```erb
 <%= variable_name %>

@@ -369,7 +369,7 @@ BackgroundGeolocation.configure({
 
 The plugin can optionally automatically stop tracking when the `stopTimeout` timer elapses.  For example, when the plugin first detects a `motionchange` into the "moving" state, the next time a `motionchange` event occurs into the "stationary" state, the plugin will have automatically called `#stop` upon itself.
 
-:warning: `stopOnStationary` will **only** occur due to `stopTimeout` elapse.  It will **not** occur by manually executing `changePace(false)`.
+:warning: `stopOnStationary` will **only** occur due to `stopTimeout` timer elapse.  It will **not** occur by manually executing `changePace(false)`.
 
 ```javascript
 BackgroundGeolocation.configure({
@@ -1207,12 +1207,12 @@ eg:
 ```javascript
 // 1. drawable
 BackgroundGeolocation.configure({
-  notificationSmallIcon: "drawable/my_custom_notification_small_icon"
+  notificationIcon: "drawable/my_custom_notification_small_icon"
 });
 
 // 2. mipmap
 BackgroundGeolocation.configure({
-  notificationSmallIcon: "mipmap/my_custom_notification_small_icon"
+  notificationIcon: "mipmap/my_custom_notification_small_icon"
 });
 ```
 
@@ -1231,12 +1231,12 @@ eg:
 ```javascript
 // 1. drawable
 BackgroundGeolocation.configure({
-  notificationLargeIcon: "drawable/my_custom_notification_large_icon"
+  notificationIcon: "drawable/my_custom_notification_large_icon"
 });
 
 // 2. mipmap
 BackgroundGeolocation.configure({
-  notificationLargeIcon: "mipmap/my_custom_notification_large_icon"
+  notificationIcon: "mipmap/my_custom_notification_large_icon"
 });
 ```
 

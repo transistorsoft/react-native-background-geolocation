@@ -18,25 +18,6 @@ You need [`rnpm`](https://github.com/rnpm/rnpm) (`npm install -g rnpm`)
 rnpm link react-native-background-geolocation
 ```
 
-## Gradle Configuration
-
-RNPM does a nice job, but we need to do a bit of manual setup.
-
-:open_file_folder: **`android/app/build.gradle`**
-
-```diff
-...
-+repositories {
-+    flatDir {
-+        dirs "../../node_modules/react-native-background-geolocation/android/libs"
-+    }
-+}
-dependencies {
-+  compile(name: 'tslocationmanager', ext: 'aar')
-}
-```
-
-
 ## AndroidManifest.xml
 
 :open_file_folder: **`android/app/src/main/AndroidManifest.xml`**

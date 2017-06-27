@@ -14,9 +14,7 @@ android {
 
 repositories{
     jcenter()
-    flatDir{
-        dirs 'libs'
-    }
+    maven { url './libs' }
 }
 
 dependencies {
@@ -24,7 +22,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:+'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.android.volley:volley:1.0.0'
-    compile(name:'tslocationmanager', ext:'aar')
+    compile(group: 'com.transistorsoft', name:'tslocationmanager', version: '2.8.3', ext:'aar')
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'com.github.tony19:logback-android-core:1.1.1-6'
     compile('com.github.tony19:logback-android-classic:1.1.1-6') {

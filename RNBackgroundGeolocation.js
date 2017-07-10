@@ -69,6 +69,11 @@ var API = {
     }
     return EventEmitter.removeListener(event, callback);
   },
+  removeAllListeners: function() {
+    for (var n=0,len=API.events.length;n<len;n++) {
+      EventEmitter.removeAllListeners(API.events[n]);
+    }
+  },
   un: function(event, callback) {
     this.removeListener(event, callback);
   },

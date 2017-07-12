@@ -148,7 +148,7 @@ BackgroundGeolocation.setConfig({
 
 | Option      | Type      | Default   | Note                              |
 |-------------|-----------|-----------|-----------------------------------|
-| [`preventSuspend`](#config-boolean-preventsuspend-false) | `Boolean` | `false` | Enable this to prevent **iOS** from suspending your app in the background while in the **stationary state**.  Must be used in conjunction with a [`#heartbeatInterval`](config-integer-heartbeatinterval-undefined).|
+| [`preventSuspend`](#config-boolean-preventsuspend-false) | `Boolean` | `false` | Enable this to prevent **iOS** from suspending your app in the background while in the **stationary state**.  Must be used in conjunction with a [`#heartbeatInterval`](#config-integer-heartbeatinterval-undefined).|
 
 ### [Application] Android Options
 

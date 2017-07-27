@@ -61,11 +61,11 @@ import BackgroundGeolocation from "react-native-background-geolocation";
 
 ## :large_blue_diamond: Example
 
-```Javascript
+```javascript
 
 import BackgroundGeolocation from "react-native-background-geolocation";
 
-var Foo = React.createClass({
+export default class Foo extends Component {
   componentWillMount() {
     // 1.  Wire up event-listeners
 
@@ -88,7 +88,6 @@ var Foo = React.createClass({
     BackgroundGeolocation.configure({
       // Geolocation Config
       desiredAccuracy: 0,
-      stationaryRadius: 25,
       distanceFilter: 10,
       // Activity Recognition
       stopTimeout: 1,
@@ -107,10 +106,11 @@ var Foo = React.createClass({
       params: {               // <-- Optional HTTP params
         "auth_token": "maybe_your_server_authenticates_via_token_YES?"
       }
-    }, function(state) {
+    }, (state) => {
       console.log("- BackgroundGeolocation is configured and ready: ", state.enabled);
 
       if (!state.enabled) {
+        // 3. Start tracking!
         BackgroundGeolocation.start(function() {
           console.log("- Start success");
         });
@@ -144,7 +144,7 @@ var Foo = React.createClass({
   onMotionChange(location) {
     console.log('- [js]motionchanged: ', JSON.stringify(location));
   }
-});
+}
 
 ```
 

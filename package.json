@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-geolocation",
-  "version": "2.8.4",
+  "version": "2.8.5",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",
   "main": "RNBackgroundGeolocation.js",
   "scripts": {
@@ -29,7 +29,8 @@
   "rnpm": {
     "ios": {
       "sharedLibraries": [
-        "libsqlite3"
+        "libsqlite3",
+        "libz"
       ]
     }
   },

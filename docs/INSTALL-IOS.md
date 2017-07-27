@@ -2,14 +2,14 @@
 # iOS Manual Installation
 
 ```
-npm install react-native-background-geolocation --save
+$ npm install git+https://git@github.com:transistorsoft/react-native-background-geolocation-android.git --save
 ```
 
 - In the XCode's **`Project navigator`**, right click on project's name ➜ **`Add Files to <...>`**
 ![](https://www.dropbox.com/s/nmih1sc9hgygpvu/react-native-background-geolocation-install-1.png?dl=1)
 
 - Add **1st of 3** Libraries:
-    - **`node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation.xcodeproj`**
+    - **`node_modules/react-native-background-geolocation-android/ios/RNBackgroundGeolocation.xcodeproj`**
 ![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-geolocation/images/Manual%20Installation/add-project-RNBackgroundGeolocation.png)
 
 - Add **2nd of 3** Libraries:
@@ -30,11 +30,12 @@ npm install react-native-background-geolocation --save
 
 - Add the following Cocoa framework dependency to your target's `Link Binary With Libraries` build phase:
     - **`libsqlite3.tbd`**
+    - **`libz.tbd`**
     - ![](https://www.dropbox.com/s/ael6c66br8m4kzt/Screenshot%202016-09-22%2010.03.56.png?dl=1)
 
 - BackgroundGeolocation includes a couple of custom iOS frameworks.  These need to manually added, unfortunately.
     - Click **`[Add Other...]`**.
-    - Navigate: **`node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation`**.
+    - Navigate: **`node_modules/react-native-background-geolocation-android/ios/RNBackgroundGeolocation`**.
     - Add **`TSLocationManager.framework`**.
 
 ![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-geolocation/images/Manual%20Installation/TSLocationManager.framework.png)
@@ -52,7 +53,7 @@ npm install react-native-background-geolocation --save
     - Add the following paths (select **recursive [v]**):
 
 ```
-    $(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios
+    $(PROJECT_DIR)/../node_modules/react-native-background-geolocation-android/ios
     $(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios
 ```
 
@@ -71,8 +72,9 @@ npm install react-native-background-geolocation --save
 - Edit **`Info.plist`**.  Add the following items (Set **Value** as desired):
 
 | Key | Value | Description |
-|---|---|---|
-| NSLocationAlwaysUsageDescription | This app requires background tracking | The value here will be presented to the user when the plugin requests **Background Location** permission |
+|-----|-------|-------------|
+| NSLocationAlwaysUsageDescription | This app requires background tracking | **Deprecated in iOS 11** The value here will be presented to the user when the plugin requests **Background Location** permission | 
+| NSLocationAlwaysAndWhenInUseUsageDescription | This app requires background tracking | **New for iOS 11** The value here will be presented to the user when the plugin requests **Background Location** permission | 
 | NSMotionUsageDescription | Accelerometer use increases battery efficiency by intelligently toggling location-tracking | The value here will be presented to the user when the app requests **Motion Activity** permission.|
 
 ![](https://www.dropbox.com/s/j7udsab7brlj4yk/Screenshot%202016-09-22%2008.33.53.png?dl=1)

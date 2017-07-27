@@ -17,7 +17,7 @@
 @property (nonatomic, copy) void (^httpResponseBlock) (NSInteger statusCode, NSDictionary *requestData, NSData *responseData, NSError *error);
 @property (nonatomic, copy) void (^locationChangedBlock) (NSDictionary *locationData, enum tsLocationType, BOOL isMoving);
 @property (nonatomic, copy) void (^motionChangedBlock) (NSDictionary *locationData, BOOL isMoving);
-@property (nonatomic, copy) void (^activityChangedBlock) (NSString *activityName);
+@property (nonatomic, copy) void (^activityChangedBlock) (NSDictionary *activity);
 @property (nonatomic, copy) void (^heartbeatBlock) (NSString* motionType, NSDictionary *locationData);
 @property (nonatomic, copy) void (^geofenceBlock) (NSDictionary *geofenceData);
 @property (nonatomic, copy) void (^syncCompleteBlock) (NSArray *locations);
@@ -67,6 +67,12 @@
 - (void) setLogLevel:(NSInteger)level;
 - (CLLocationDistance)getOdometer;
 - (void) setOdometer:(CLLocationDistance)odometer success:(void (^)(NSDictionary*))success failure:(void (^)(NSError*))failure;
+// Sensor methods
+-(BOOL) isMotionHardwareAvailable;
+-(BOOL) isDeviceMotionAvailable;
+-(BOOL) isAccelerometerAvailable;
+-(BOOL) isGyroAvailable;
+-(BOOL) isMagnetometerAvailable;
 
 @end
 

@@ -1,12 +1,12 @@
 # Android Manual Installation
 
 ```bash
-$ npm install react-native-background-geolocation --save
+$ npm install --save react-native-background-geolocation
 ```
 
 ## Gradle Configuration
 
-:open_file_folder **`android/settings.gradle`**
+:open_file_folder: **`android/settings.gradle`**
 
 ```diff
 +include ':react-native-background-geolocation'
@@ -27,13 +27,13 @@ dependencies {
 }
 ```
 
-:information_source: If you have a different play serivces than the one included in this library, use the following instead (switch **`9.8.0`** for the desired version):
+:information_source: If you have a different play serivces than the one included in this library, use the following instead (switch **`11.0.4`** for the desired version):
 
 ```
 compile(project(':react-native-background-geolocation')) {
   exclude group: 'com.google.android.gms', module: 'play-services-location'
 }
-compile 'com.google.android.gms:play-services-location:9.8.0'
+compile 'com.google.android.gms:play-services-location:11.0.4'
 ```
 
 ## AndroidManifest.xml

@@ -28,3 +28,5 @@ DerivedData
 #
 #Pods/
 npm-debug.log
+
+android/.idea

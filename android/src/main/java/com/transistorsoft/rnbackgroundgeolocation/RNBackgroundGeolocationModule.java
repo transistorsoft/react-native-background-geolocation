@@ -33,6 +33,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
 import com.transistorsoft.locationmanager.adapter.TSCallback;
 import com.transistorsoft.locationmanager.settings.*;
+import com.transistorsoft.locationmanager.util.Sensors;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -135,8 +136,8 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
 
         adapter.on(BackgroundGeolocation.EVENT_ACTIVITYCHANGE, (new TSCallback() {
             @Override
-            public void success(Object o) {
-                onActivityChange((String) o);
+            public void success(Object event) {
+                onActivityChange((JSONObject) event);
             }
             @Override
             public void error(Object o) {
@@ -342,13 +343,24 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     @ReactMethod
-    public void getState(Callback success, Callback failure) {
-        WritableMap state = getState();
-        if (state != null && !state.hasKey("error")) {
-            success.invoke(state);
-        } else {
-            failure.invoke(state);
-        }
+    public void getState(final Callback success, final Callback failure) {
+        TSCallback callback = new TSCallback() {
+            @Override
+            public void success(Object state) {
+                try {
+                    success.invoke(jsonToMap((JSONObject) state));
+                } catch (JSONException e) {
+                    failure.invoke(e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void error(Object o) {
+                failure.invoke(o.toString());
+            }
+        };
+        getAdapter().getState(callback);
     }
 
     private WritableMap getState() {
@@ -724,6 +736,18 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         }
     }
 
+    @ReactMethod
+    public void getSensors(Callback success, Callback error) {
+        Sensors sensors = Sensors.getInstance(getReactApplicationContext());
+        WritableMap params = new WritableNativeMap();
+        params.putString("platform", "android");
+        params.putBoolean("accelerometer", sensors.hasAccelerometer());
+        params.putBoolean("magnetometer", sensors.hasMagnetometer());
+        params.putBoolean("gyroscope", sensors.hasGyroscope());
+        params.putBoolean("significant_motion", sensors.hasSignificantMotion());        
+        success.invoke(params);
+    }
+
     private void setEnabled(boolean value) {
         Log.i(TAG, "- setEnabled:  " + value + ", current value: " + Settings.getEnabled());
 
@@ -802,8 +826,12 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         }
     }
 
-    private void onActivityChange(String activityName) {
-        sendEvent(BackgroundGeolocation.EVENT_ACTIVITYCHANGE, activityName);
+    private void onActivityChange(JSONObject event) {
+        try {
+            sendEvent(BackgroundGeolocation.EVENT_ACTIVITYCHANGE, jsonToMap(event));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void onProviderChange(JSONObject provider) {

@@ -147,7 +147,7 @@ The following template tags are common to both **`locationTemplate`** and **`geo
 | `altitude_accuracy` | `Float` | Meters|
 | `timestamp` | `String` |ISO-8601|
 | `uuid` | `String` |Unique ID|
-| `event` | `String` |`motionchange|geofenee|heartbeat`
+| `event` | `String` |`motionchange|geofence|heartbeat`
 | `odometer` | `Float` | Meters|
 | `activity.type` | `String` | `still|on_foot|running|on_bicycle|in_vehicle|unknown`|
 | `activity.confidence` | `Integer` | 0-100%|

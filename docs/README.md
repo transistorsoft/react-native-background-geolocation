@@ -194,14 +194,6 @@ BackgroundGeolocation.setConfig({
 
 # :zap: Events
 
-Event-listeners can be attached using the method **`#on`**, supplying the **Event Name** in the following table. **`#on`** accepts both a **`successFn`** and **`failureFn`**.
-
-:information_source: **`#on`** method does not accept an **`{}`** &mdash; you **must** specify each listener with a distinct call to **`#on`**:
-
-```javascript
-BackgroundGeolocation.on("location", successFn, failureFn);
-```
-
 | Event Name         | Description                                     |
 |--------------------|-------------------------------------------------|
 | [`location`](#location) | Fired whenever a new location is recorded. |
@@ -214,6 +206,34 @@ BackgroundGeolocation.on("location", successFn, failureFn);
 | [`heartbeat`](#heartbeat) | Fired each [`#heartbeatInterval`](#config-integer-heartbeatinterval-undefined) while the plugin is in the **stationary** state with.  Your callback will be provided with a `params {}` containing the last known `location {Object}` |
 | [`schedule`](#schedule) | Fired when a schedule event occurs.  Your `callbackFn` will be provided with the current **`state`** Object. | 
 
+### Adding event-listeners: `#on`
+
+Event-listeners can be attached using the method **`#on`**, supplying the **Event Name** in the following table. **`#on`** accepts both a **`successFn`** and **`failureFn`**.
+
+```javascript
+BackgroundGeolocation.on("location", successFn, failureFn);
+```
+
+### Removing event-listeners: `#un`
+
+Event-listeners are removed with the method **`#un`**.  You must supply a reference to the *exact* `successFn` reference used with the **`#on`** method:
+
+```javascript
+function onLocation(location) { 
+  console.log('- location: ', location); 
+}
+function onLocationError(error) {
+  console.log('- location error: ', error);
+}
+// Add a location listener
+BackgroundGeolocation.on('location', onLocation, onLocationError);
+.
+.
+.
+// Remove a location listener supplying only the successFn (onLocation)
+BackgroundGeolocation.un('location', onLocation);
+```
+
 
 # :large_blue_diamond: Methods
 
@@ -223,6 +243,8 @@ BackgroundGeolocation.on("location", successFn, failureFn);
 |------------------|-----------------|--------------------------------------|
 | [`configure`](#configureconfig-successfn-failurefn) | `{config}`, `successFn`, `failureFn` | Initializes the plugin and configures its config options. The **`success`** callback will be executed after the plugin has successfully configured and provided with the current **`state`** `Object`. |
 | [`setConfig`](#setconfigconfig-successfn-failurefn) | `{config}`, `successFn`, `failureFn` | Re-configure the plugin with new config options. |
+| [`on`](#onevent-successfn-failurefn) | `event`,`successFn`,`failureFn` | Adds an event-listener |
+| [`un`](#unevent-callbackfn) | `event`,`callbackFn`, | Removes an event-listener |
 | [`start`](#startsuccessfn-failurefn) | `callbackFn`| Enable location tracking.  Supplied **`callbackFn`** will be executed when tracking is successfully engaged.  This is the plugin's power **ON** button. |
 | [`stop`](#stopsuccessfn-failurefn) | `callbackFn` | Disable location tracking.  Supplied **`callbackFn`** will be executed when tracking is successfully halted.  This is the plugin's power **OFF** button. |
 | [`getState`](#getstatesuccessfn) | `callbackFn` | Fetch the current-state of the plugin, including **`enabled`**, **`isMoving`**, as well as all other config params |
@@ -995,9 +1017,8 @@ BackgroundGeolocation.on('heartbeat', function(params) {
   var lastKnownLocation = params.location;
   console.log('- heartbeat: ', lastKnownLocation);
   // Or you could request a new location
-  BackgroundGeolocation.getCurrentPosition(function(location, taskId) {
+  BackgroundGeolocation.getCurrentPosition(function(location) {
     console.log('- current position: ', location);
-    BackgroundGeolocation.finish(taskId);
   });
 });
 ```
@@ -1333,12 +1354,11 @@ Your **`successFn`** will be called with the following signature whenever a new 
 #### `successFn` Paramters
 
 ##### `@param {Object} location` The Location data (@see Wiki for [Location Data Schema](../../../wiki/Location-Data-Schema))
-##### `@param {Integer} taskId` The taskId used to send to `BackgroundGeolocation.finish(taskId)` in order to signal completion of your callbackFn
 
 :information_source: When performing a `motionchange` or `getCurrentPosition`, the plugin requests **multiple** location *samples* in order to record the most accurate location possible.  These *samples* are **not** persisted to the database but they will be provided to your `location` listener, for your convenience, since it can take some seconds for the best possible location to arrive.  For example, you might use these samples to progressively update the user's position on a map.  You can detect these *samples* in your `callbackFn` via `location.sample === true`.  If you're manually `POST`ing location to your server, you should ignore these locations.
 
 ```javascript
-BackgroundGeolocation.on('location', function(location, taskId) {
+BackgroundGeolocation.on('location', function(location) {
   var coords    = location.coords,
     timestamp   = location.timestamp
     latitude    = coords.latitude,
@@ -1346,11 +1366,6 @@ BackgroundGeolocation.on('location', function(location, taskId) {
     speed       = coords.speed;
 
   console.log("- Location: ", timestamp, latitude, longitude, speed);
-
-  // The plugin runs your callback in a background-thread:
-  // you MUST signal to the native plugin when your callback is finished so it can halt the thread.
-  // IF YOU DON'T, iOS WILL KILL YOUR APP
-  BackgroundGeolocation.finish(taskId);
 }, function(errorCode) {
   console.warn("- Location error: ", errorCode);
 });
@@ -1375,16 +1390,14 @@ Your **`callbackFn`** will be executed each time the device has changed-state be
 
 ##### `@param {Boolean} isMoving`
 ##### `@param {Object} location` The location at the state-change.
-##### `@param {Integer} taskId` The taskId used to send to `BackgroundGeolocation.finish(taskId)` in order to signal completion of your callbackFn
 
 ```javascript
-BackgroundGeolocation.on('motionchange', function(isMoving, location, taskId) {
+BackgroundGeolocation.on('motionchange', function(isMoving, location) {
   if (isMoving) {
       console.log('Device has just started MOVING', location);
   } else {
       console.log('Device has just STOPPED', location);
-  }
-  BackgroundGeolocation.finish(taskId);
+  }  
 });
 ```
 
@@ -1587,9 +1600,8 @@ BackgroundGeolocation.on('heartbeat', function(params) {
   console.log('- hearbeat');
 
   // You could request a new location if you wish.
-  BackgroundGeolocation.getCurrentPosition(function(location, taskId) {
+  BackgroundGeolocation.getCurrentPosition(function(location) {
     console.log('- current location: ', location);
-    BackgroundGeolocation.finish(taskId);
   });
 });
 ```
@@ -1684,6 +1696,47 @@ BackgroundGeolocation.setConfig({
 }, function(){
   console.warn("- Failed to setConfig");
 });
+```
+
+------------------------------------------------------------------------------
+
+
+### `on(event, successFn, failureFn)`
+
+Event-listeners can be attached using the method **`#on`**, supplying the **`event`** you wish to listen to. **`#on`** accepts both a **`successFn`** and **`failureFn`**.  See [Events](#zap-events) for a list of available events.
+
+##### `@param {String} event`  The event you wish to listen to
+##### `@param {Function} successFn`  The primary event callback function
+##### `@param {Function} failureFn`  The failureFn if event failed (ignored for most events)
+
+```javascript
+BackgroundGeolocation.on("location", successFn, failureFn);
+```
+
+------------------------------------------------------------------------------
+
+
+### `un(event, callbackFn)`
+
+Event-listeners are removed with the method **`#un`**.  You must supply a reference to the *exact* `successFn` reference used with the **`#on`** method.  See [Events](#zap-events) for a list of available events.
+
+##### `@param {String} event`  The event you wish to un-subscribe.
+##### `@param {Function} callbackFn`  The exact `successFn` reference used to originally subscribe to the event with the `#on` method.
+
+```javascript
+function onLocation(location) {   // <-- successFn
+  console.log('- location: ', location); 
+}
+function onLocationError(error) {
+  console.log('- location error: ', error);
+}
+// Add a location listener
+BackgroundGeolocation.on('location', onLocation, onLocationError);
+.
+.
+.
+// Remove a location listener supplying only the successFn (onLocation)
+BackgroundGeolocation.un('location', onLocation);
 ```
 
 ------------------------------------------------------------------------------
@@ -1805,14 +1858,12 @@ If an error occurs while fetching the location, the **`failureFn`** will be exec
 #### `successFn` Parameters
 
 ##### `@param {Object} location` The Location data
-##### `@param {Integer} taskId` The taskId used to send to `BackgroundGeolocation.finish(taskId)` in order to signal completion of your callbackFn
 
 ```javascript
-BackgroundGeolocation.getCurrentPosition(function(location, taskId) {
+BackgroundGeolocation.getCurrentPosition(function(location) {
   // This location is already persisted to plugin’s SQLite db.  
   // If you’ve configured #autoSync: true, the HTTP POST has already started.
   console.log(“- Current position received: “, location);
-  BackgroundGeolocation.finish(taskId);
 }, function(errorCode) {
   alert('An location error occurred: ' + errorCode);
 }, {
@@ -1872,7 +1923,6 @@ Start a stream of continuous location-updates.  The native code will persist the
 
 **iOS**
 - **`#watchPosition`** will continue to run in the background, preventing iOS from suspending your application.  Take care to listen to `suspend` event and call [`#stopWatchPosition`](stopwatchpositionsuccessfn-failurefn) if you don't want your app to keep running (TODO make this configurable).
-- There is **no** **`bgTask`** provided to the callback.
 
 #### Options
 
@@ -2065,18 +2115,16 @@ BackgroundGeolocation.setOdometer(0, function(location) {
 Remove all event-listeners registered with [`#on`](#zap-events) method.  You're free to add more listeners again after executing **`#removeListeners`**.
 
 ```javascript
-BackgroundGeolocation.on('location', function(location, taskId) {
-  console.log('- Location', location);
-  BackgroundGeolocation.finish(taskId);
+BackgroundGeolocation.on('location', function(location) {
+  console.log('- Location', location);  
 })
 .
 .
 .
 BackgroundGeolocation.removeListeners();
 
-BackgroundGeolocation.on('location', function(location, taskId) {
+BackgroundGeolocation.on('location', function(location) {
   console.log('- Location listener added again: ', location);
-  BackgroundGeolocation.finish(taskId);
 });
 ```
 
@@ -2091,12 +2139,10 @@ Fetch all the locations currently stored in native plugin's SQLite database.  Yo
 #### `successFn` Parameters:
 
 ##### `@param {Array} locations`  The list of locations stored in SQLite database.
-##### `@param {Integer} taskId` The background taskId which you must send back to the native plugin via `BackgroundGeolocation.finish(taskId)` in order to signal the end of your background thread.
 
 ```javascript
-BackgroundGeolocation.getLocations(function(locations, taskId) {
+BackgroundGeolocation.getLocations(function(locations) {
   console.log("locations: ", locations);
-  BackgroundGeolocation.finish(taskId);
 });
 ```
 
@@ -2147,12 +2193,12 @@ BackgroundGeolocation.insertLocation({
 
 // insertLocation can easily consume any location which it returned.  Note that #getCurrentPosition ALWAYS persists so this example
 // will manually persist a 2nd version of the same location.  The purpose here is to show that the plugin can consume any location object which it generated.
-BackgroundGeolocation.getCurrentPosition(function(location, taskId) {
+BackgroundGeolocation.getCurrentPosition(function(location) {
   location.extras = {foo: 'bar'}; // <-- add some arbitrary extras-data
 
   // Insert it.
   BackgroundGeolocation.insertLocation(location, function() {
-    BackgroundGeolocation.finish(taskId);
+    console.log('- Inserted location success');
   });
 });
 ```
@@ -2190,14 +2236,11 @@ Your callback will be provided with the following params
 #### `successFn` Parameters
 
 ##### `@param {Array} locations`  The list of locations stored in SQLite database.
-##### `@param {Integer} taskId` The background taskId which you must send back to the native plugin via `BackgroundGeolocation.finish(taskId)` in order to signal the end of your background thread.
 
 ```javascript
-BackgroundGeolocation.sync(function(locations, taskId) {
+BackgroundGeolocation.sync(function(locations) {
   // Here are all the locations from the database.  The database is now EMPTY.
-  console.log('synced locations: ', locations);
-  // Be sure to call finish(taskId) in order to signal the end of the background-thread.
-  BackgroundGeolocation.finish(taskId);
+  console.log('synced locations: ', locations);  
 }, function(errorMessage) {
   console.warn('Sync FAILURE: ', errorMessage);
 });
@@ -2235,13 +2278,12 @@ BackgroundGeolocation.configure(config, function(state) {
 });
 
 // Listen to geofences
-BackgroundGeolocation.on('geofence', function(params, taskId) {
+BackgroundGeolocation.on('geofence', function(params) {
   if (params.identifier == 'ZONE_OF_INTEREST') {
     // If you wish, you can choose to engage location-tracking mode when a 
     // particular geofence event occurs.
     BackgroundGeolocation.start();
   }
-  BackgroundGeolocation.finish(taskId);
 });
 ```
 

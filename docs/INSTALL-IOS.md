@@ -2,14 +2,14 @@
 # iOS Manual Installation
 
 ```
-$ npm install git+https://git@github.com:transistorsoft/react-native-background-geolocation-android.git --save
+$ npm install react-native-background-geolocation --save
 ```
 
 - In the XCode's **`Project navigator`**, right click on project's name ➜ **`Add Files to <...>`**
 ![](https://www.dropbox.com/s/nmih1sc9hgygpvu/react-native-background-geolocation-install-1.png?dl=1)
 
 - Add **1st of 3** Libraries:
-    - **`node_modules/react-native-background-geolocation-android/ios/RNBackgroundGeolocation.xcodeproj`**
+    - **`node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation.xcodeproj`**
 ![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-geolocation/images/Manual%20Installation/add-project-RNBackgroundGeolocation.png)
 
 - Add **2nd of 3** Libraries:
@@ -35,7 +35,7 @@ $ npm install git+https://git@github.com:transistorsoft/react-native-background-
 
 - BackgroundGeolocation includes a couple of custom iOS frameworks.  These need to manually added, unfortunately.
     - Click **`[Add Other...]`**.
-    - Navigate: **`node_modules/react-native-background-geolocation-android/ios/RNBackgroundGeolocation`**.
+    - Navigate: **`node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation`**.
     - Add **`TSLocationManager.framework`**.
 
 ![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-geolocation/images/Manual%20Installation/TSLocationManager.framework.png)
@@ -53,7 +53,7 @@ $ npm install git+https://git@github.com:transistorsoft/react-native-background-
     - Add the following paths (select **recursive [v]**):
 
 ```
-    $(PROJECT_DIR)/../node_modules/react-native-background-geolocation-android/ios
+    $(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios
     $(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios
 ```
 

@@ -17,6 +17,9 @@ repositories{
     flatDir{
         dirs 'libs'
     }
+    maven {
+        url 'https://maven.google.com'
+    }
 }
 
 dependencies {

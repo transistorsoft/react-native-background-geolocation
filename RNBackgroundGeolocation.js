@@ -1,12 +1,20 @@
-const {NativeEventEmitter} = require('react-native');
-const { RNBackgroundGeolocation } = require('react-native').NativeModules;
-const EventEmitter = new NativeEventEmitter(RNBackgroundGeolocation);
+import {
+  NativeEventEmitter,
+  NativeModules,
+  Platform
+} from "react-native"
 
+const { RNBackgroundGeolocation } = NativeModules;
+const EventEmitter = new NativeEventEmitter(RNBackgroundGeolocation);
 const TAG = "TSLocationManager";
 
-var emptyFn = function() {};
+const PLATFORM_ANDROID  = "android";
+const PLATFORM_IOS      = "ios";
 
-var API = {
+let emptyFn = function() {};
+
+let API = {
+  subscriptions: [],
   events: [
     'heartbeat',
     'http',
@@ -64,7 +72,10 @@ var API = {
     if (this.events.indexOf(event) < 0) {
       throw "RNBackgroundGeolocation: Unknown event '" + event + '"';
     }
-    return EventEmitter.addListener(event, callback);
+    this.subscriptions.push(EventEmitter.addListener(event, callback));
+    if (Platform.OS === PLATFORM_ANDROID) {
+      RNBackgroundGeolocation.addListener(event);
+    }
   },
   on: function(event, callback) {
     return this.addListener(event, callback);
@@ -73,12 +84,26 @@ var API = {
     if (this.events.indexOf(event) < 0) {
       throw "RNBackgroundGeolocation: Unknown event '" + event + '"';
     }
-    return EventEmitter.removeListener(event, callback);
+    var found = null;
+    for (var n=0,len=this.subscriptions.length;n<len;n++) {
+      var subscription = this.subscriptions[n];      
+      if ((subscription.eventType === event) && (subscription.listener === callback)) {
+          found = subscription;
+          break;
+      }      
+    }
+    if (found !== null) {
+      this.subscriptions.splice(this.subscriptions.indexOf(found), 1);
+      RNBackgroundGeolocation.removeListener(event);
+    }
+    EventEmitter.removeListener(event, callback);
   },
   removeAllListeners: function() {
     for (var n=0,len=API.events.length;n<len;n++) {
       EventEmitter.removeAllListeners(API.events[n]);
     }
+    this.subscriptions = [];
+    RNBackgroundGeolocation.removeAllListeners();
   },
   un: function(event, callback) {
     this.removeListener(event, callback);

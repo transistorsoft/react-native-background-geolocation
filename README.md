@@ -78,7 +78,7 @@ var Foo = React.createClass({
     // This handler fires when movement states changes (stationary->moving; moving->stationary)
     BackgroundGeolocation.on('motionchange', this.onMotionChange);
 
-    // This event fires when a chnage in motion activity is detected
+    // This event fires when a change in motion activity is detected
     BackgroundGeolocation.on('activitychange', this.onActivityChange);
 
     // This event fires when the user toggles location-services

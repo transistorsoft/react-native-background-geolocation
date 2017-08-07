@@ -372,6 +372,18 @@ RCT_EXPORT_METHOD(emailLog:(NSString*)email success:(RCTResponseSenderBlock)succ
     successCallback(@[]);
 }
 
+RCT_EXPORT_METHOD(getSensors:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failureCallback)
+{
+    NSDictionary *sensors = @{
+        @"platform": @"ios",
+        @"accelerometer": @([locationManager isAccelerometerAvailable]),
+        @"gyroscope": @([locationManager isGyroAvailable]),
+        @"magnetometer": @([locationManager isMagnetometerAvailable]),
+        @"motion_hardware": @([locationManager isMotionHardwareAvailable])
+    };
+    successCallback(@[sensors]);
+}
+
 RCT_EXPORT_METHOD(playSound:(int)soundId)
 {
     [locationManager playSound: soundId];
@@ -397,9 +409,9 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     [self sendEventWithName:event body:body];
 }
 
--(void (^)(NSString* activityName)) createActivityChangedHandler {
-    return ^(NSString* activityName) {
-        [self sendEvent:EVENT_ACTIVITYCHANGE body:activityName];
+-(void (^)(NSDictionary* activityData)) createActivityChangedHandler {
+    return ^(NSDictionary* activityData) {
+        [self sendEvent:EVENT_ACTIVITYCHANGE body:activityData];
     };
 }
 

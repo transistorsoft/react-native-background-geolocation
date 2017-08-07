@@ -39,6 +39,12 @@ var API = {
   AUTHORIZATION_STATUS_ALWAYS: 3,
   AUTHORIZATION_STATUS_WHEN_IN_USE: 4,
 
+  NOTIFICATION_PRIORITY_DEFAULT: 0,
+  NOTIFICATION_PRIORITY_HIGH: 1,
+  NOTIFICATION_PRIORITY_LOW: -1,
+  NOTIFICATION_PRIORITY_MAX: 2,
+  NOTIFICATION_PRIORITY_MIN: -2,
+    
   configure: function(config, success, failure) {
     success = success || emptyFn;
     failure = failure || emptyFn;
@@ -257,6 +263,11 @@ var API = {
     success = success || emptyFn;
     failure = failure || emptyFn;
     RNBackgroundGeolocation.emailLog(email, success, failure);
+  },
+  getSensors: function(success, failure) {
+    success = success || emptyFn;
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.getSensors(success, failure);
   },
   playSound: function(soundId) {
     RNBackgroundGeolocation.playSound(soundId);

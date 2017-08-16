@@ -1304,7 +1304,7 @@ Defaults to **`false`**.  When set to **`true`**, the plugin will emit debugging
 
 **iOS**:  In you wish to hear debug sounds in the background, you must manually enable the **[x] Audio and Airplay** background mode in *Background Capabilities* of XCode.
 
-![](https://www.dropbox.com/s/iplaxheoq63oul6/Screenshot%202017-02-20%2012.10.57.png?dl=1)
+![](https://dl.dropboxusercontent.com/s/iplaxheoq63oul6/Screenshot%202017-02-20%2012.10.57.png?dl=1)
 
 :blue_book: See [Debugging Sounds](../../../wiki/Debug-Sounds)
 

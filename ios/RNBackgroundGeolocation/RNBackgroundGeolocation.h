@@ -27,7 +27,6 @@
 @interface RNBackgroundGeolocation : RCTEventEmitter <RCTInvalidating>
 
 @property (nonatomic, strong) TSLocationManager* locationManager;
-@property (nonatomic, strong) NSDictionary* syncCallback;
 
 @end
 

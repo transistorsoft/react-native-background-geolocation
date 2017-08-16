@@ -2,7 +2,7 @@
 # iOS Manual Installation
 
 ```
-$ npm install git+https://git@github.com:transistorsoft/react-native-background-geolocation-android.git --save
+$ npm install react-native-background-geolocation --save
 ```
 
 - In the XCode's **`Project navigator`**, right click on project's name ➜ **`Add Files to <...>`**

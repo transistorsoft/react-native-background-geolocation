@@ -17,7 +17,7 @@ react-native link cocoa-lumberjack
 You need [`rnpm`](https://github.com/rnpm/rnpm) (`npm install -g rnpm`)
 
 ```shell
-rnpm link react-native-background-geolocation
+rnpm link react-native-background-geolocation-android
 rnpm link react-native-background-fetch
 rnpm link cocoa-lumberjack
 ```

@@ -39,7 +39,7 @@ $ pod install
 - [x] Background fetch
 - [x] Audio (**optional for debug-mode sound FX**)
 
-![](https://www.dropbox.com/s/a4xieyd0h38xklu/Screenshot%202016-09-22%2008.12.51.png?dl=1)
+![](https://dl.dropboxusercontent.com/s/a4xieyd0h38xklu/Screenshot%202016-09-22%2008.12.51.png?dl=1)
 
 - Edit **`Info.plist`**.  Add the following items (Set **Value** as desired):
 
@@ -48,18 +48,18 @@ $ pod install
 | NSLocationAlwaysUsageDescription | This app requires background tracking | The value here will be presented to the user when the plugin requests **Background Location** permission |
 | NSMotionUsageDescription | Accelerometer use increases battery efficiency by intelligently toggling location-tracking | The value here will be presented to the user when the app requests **Motion Activity** permission.|
 
-![](https://www.dropbox.com/s/j7udsab7brlj4yk/Screenshot%202016-09-22%2008.33.53.png?dl=1)
+![](https://dl.dropboxusercontent.com/s/j7udsab7brlj4yk/Screenshot%202016-09-22%2008.33.53.png?dl=1)
 
 ### BackgroundFetch AppDelegate extension
 
 BackgroundFetch implements an `AppDelegate` method `didPerformFetchWithCompletionHandler`.  You must manually add this file to the same folder where your `AppDelegate.m` lives:
 
 - Right click your app's root folder.  Select **`Add files to...`**.  Select **Other**.
-![](https://www.dropbox.com/s/gpsmz1ul1wyrhrs/Screenshot%202016-09-21%2016.17.35.png?dl=1)
+![](https://dl.dropboxusercontent.com/s/gpsmz1ul1wyrhrs/Screenshot%202016-09-21%2016.17.35.png?dl=1)
 
 - Browse to **`{YourApp}/node_modules/react-native-background-fetch/ios/RNBackgroundFetch`**.  
 - Add the file **`RNBackgroundFetch+AppDelegate.m`**:
-![](https://www.dropbox.com/s/uvi6nlx6xrl13fa/Screenshot%202016-09-21%2016.20.42.png?dl=1)
+![](https://dl.dropboxusercontent.com/s/uvi6nlx6xrl13fa/Screenshot%202016-09-21%2016.20.42.png?dl=1)
 
 ## Troubleshooting with CocoaPods
 

@@ -6,7 +6,7 @@ $ npm install react-native-background-geolocation --save
 ```
 
 - In the XCode's **`Project navigator`**, right click on project's name ➜ **`Add Files to <...>`**
-![](https://www.dropbox.com/s/nmih1sc9hgygpvu/react-native-background-geolocation-install-1.png?dl=1)
+![](https://dl.dropboxusercontent.com/s/nmih1sc9hgygpvu/react-native-background-geolocation-install-1.png?dl=1)
 
 - Add **1st of 3** Libraries:
     - **`node_modules/react-native-background-geolocation-android/ios/RNBackgroundGeolocation.xcodeproj`**
@@ -31,7 +31,7 @@ $ npm install react-native-background-geolocation --save
 - Add the following Cocoa framework dependency to your target's `Link Binary With Libraries` build phase:
     - **`libsqlite3.tbd`**
     - **`libz.tbd`**
-    - ![](https://www.dropbox.com/s/ael6c66br8m4kzt/Screenshot%202016-09-22%2010.03.56.png?dl=1)
+    - ![](https://dl.dropboxusercontent.com/s/ael6c66br8m4kzt/Screenshot%202016-09-22%2010.03.56.png?dl=1)
 
 - BackgroundGeolocation includes a couple of custom iOS frameworks.  These need to manually added, unfortunately.
     - Click **`[Add Other...]`**.
@@ -57,7 +57,7 @@ $ npm install react-native-background-geolocation --save
     $(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios
 ```
 
-![](https://www.dropbox.com/s/6hwo0mk10q2dk71/Screenshot%202016-09-22%2008.49.04.png?dl=1)
+![](https://dl.dropboxusercontent.com/s/6hwo0mk10q2dk71/Screenshot%202016-09-22%2008.49.04.png?dl=1)
 
 ## Configure Background Capabilities
 
@@ -67,7 +67,7 @@ $ npm install react-native-background-geolocation --save
 - [x] Background fetch
 - [x] Audio (**optional for debug-mode sound FX**)
 
-![](https://www.dropbox.com/s/a4xieyd0h38xklu/Screenshot%202016-09-22%2008.12.51.png?dl=1)
+![](https://dl.dropboxusercontent.com/s/a4xieyd0h38xklu/Screenshot%202016-09-22%2008.12.51.png?dl=1)
 
 - Edit **`Info.plist`**.  Add the following items (Set **Value** as desired):
 
@@ -77,7 +77,7 @@ $ npm install react-native-background-geolocation --save
 | NSLocationAlwaysAndWhenInUseUsageDescription | This app requires background tracking | **New for iOS 11** The value here will be presented to the user when the plugin requests **Background Location** permission | 
 | NSMotionUsageDescription | Accelerometer use increases battery efficiency by intelligently toggling location-tracking | The value here will be presented to the user when the app requests **Motion Activity** permission.|
 
-![](https://www.dropbox.com/s/j7udsab7brlj4yk/Screenshot%202016-09-22%2008.33.53.png?dl=1)
+![](https://dl.dropboxusercontent.com/s/j7udsab7brlj4yk/Screenshot%202016-09-22%2008.33.53.png?dl=1)
 
 ## BackgroundFetch AppDelegate extension
 

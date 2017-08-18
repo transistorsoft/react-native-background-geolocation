@@ -293,6 +293,15 @@ BackgroundGeolocation.un('location', onLocation);
 | [`destroyLog`](#destroylogsuccessfn-failurefn) | `callbackFn`, `failureFn` | Destroy the contents of the Log database. |
 | [`emailLog`](#emaillogemail-callbackfn) | `email`, `callbackFn` | Fetch the entire contents of Log database and email it to a recipient using the device's native email client.|
 | [`getSensors`](#getsensorscallbackfn-failurefn) | `callbackFn`, `failureFn` | Returns the presense of device sensors *accelerometer*, *gyroscope*, *magnetometer*, in addition to iOS/Android-specific sensors|
+| [`logger.error`](#logger) | `message` | Record a :exclamation: log message into the plugin's log database. |
+| [`logger.warn`](#logger) | `message` | Record a :warning: log message into the plugin's log database. |
+| [`logger.debug`](#logger) | `message` | Record a :beetle: log message into the plugin's log database. |
+| [`logger.info`](#logger) | `message` | Record a :information_source: log message into the plugin's log database. |
+| [`logger.notice`](#logger) | `message` | Record a :large_blue_circle: log message into the plugin's log database. |
+| [`logger.header`](#logger) | `message` | Record a header log message into the plugin's log database. |
+| [`logger.on`](#logger) | `message` | Record a :tennis: log message into the plugin's log database. |
+| [`logger.off`](#logger) | `message` | Record a :red_circle: log message into the plugin's log database. |
+| [`logger.ok`](#logger) | `message` | Record a :white_check_mark: log message into the plugin's 
 | [`playSound`](#playsoundsoundid) | `Integer` | Here's a fun one.  The plugin can play a number of OS system sounds for each platform.  For [IOS](http://iphonedevwiki.net/index.php/AudioServices) and [Android](http://developer.android.com/reference/android/media/ToneGenerator.html).  I offer this API as-is, it's up to you to figure out how this works. |
 
 
@@ -2578,6 +2587,49 @@ None
 None
 
 ------------------------------------------------------------------------------
+
+
+### `logger`
+
+Send your own log-messages into the plugin's logging database.  The following methods are available on the **`BackgroundGeolocation.logger`** object:
+
+#### Methods
+
+| method     | logLevel | icon                        |
+|------------|----------|-----------------------------|
+|`error`     |`ERROR`   | :exclamation:               |
+|`warn`      |`WARNING` | :warning:                   |
+|`debug`     |`DEBUG`   | :beetle:                    |
+|`info`      |`INFO`    | :information_source:         |
+|`notice`    |`INFO`    | :large_blue_circle:          |
+|`header`    |`INFO`    | *message wrapped in box*    |
+|`on`        |`INFO`    | :tennis:                    |
+|`off`       |`INFO`    | :red_circle:                |
+|`ok`        |`INFO`    | :white_check_mark:          |
+
+#### Javascript Caller Method
+Log messages will be recorded in the following format, including the name of name of your javascript *caller method* where the log message was executed:
+
+```
+2017-08-18 10:12:25.324 ⚠️-[TSLocationManager log:message:caller:] [javascriptCallerMethod] Message
+```
+
+#### Examples
+
+```javascript
+BackgroundGeolocation.logger.error("Something bad happened");
+BackgroundGeolocation.logger.warn("Something weird happened");
+BackgroundGeolocation.logger.debug("Debug message");
+BackgroundGeolocation.logger.info("Something informative");
+BackgroundGeolocation.logger.notice("Something interesting");
+BackgroundGeolocation.logger.header("Something bold");
+BackgroundGeolocation.logger.on("Something on or positive");
+BackgroundGeolocation.logger.off("Something off or negative");
+BackgroundGeolocation.logger.ok("Something affirmative happened");
+```
+
+------------------------------------------------------------------------------
+
 
 ### `getSensors(callbackFn, failureFn)`
 

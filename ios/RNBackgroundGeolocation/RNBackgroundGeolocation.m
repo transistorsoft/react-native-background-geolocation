@@ -460,6 +460,12 @@ RCT_EXPORT_METHOD(emailLog:(NSString*)email success:(RCTResponseSenderBlock)succ
     }];
 }
 
+RCT_EXPORT_METHOD(log:(NSString*)level message:(NSString*)message caller:(NSString*)caller)
+{
+    [locationManager log:level message:message caller:caller];
+}
+
+
 RCT_EXPORT_METHOD(getSensors:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failureCallback)
 {
     NSDictionary *sensors = @{

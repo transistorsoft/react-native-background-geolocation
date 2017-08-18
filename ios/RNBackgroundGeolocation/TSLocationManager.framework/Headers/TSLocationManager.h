@@ -85,7 +85,7 @@
 - (void) setLogLevel:(NSInteger)level;
 - (void) playSound:(SystemSoundID)soundId;
 - (void) error:(UIBackgroundTaskIdentifier)taskId message:(NSString*)message;
-
+- (void) log:(NSString*)level message:(NSString*)message caller:(NSString*)caller;
 #pragma mark - Geofencing Methods
 
 - (void) addGeofence:(NSDictionary*)params success:(void (^)(void))success failure:(void (^)(NSString* error))failure;

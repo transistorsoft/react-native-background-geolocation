@@ -56,6 +56,7 @@ import com.transistorsoft.locationmanager.location.TSLocation;
 import com.transistorsoft.locationmanager.scheduler.ScheduleEvent;
 import com.transistorsoft.locationmanager.settings.*;
 import com.transistorsoft.locationmanager.util.Sensors;
+import com.transistorsoft.locationmanager.logger.TSLog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -787,6 +788,11 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                 failure.invoke(error);
             }
         });
+    }
+
+    @ReactMethod
+    public void log(String level, String message) throws JSONException {
+        TSLog.log(level, message);
     }
 
     @ReactMethod

@@ -13,6 +13,13 @@ const PLATFORM_IOS      = "ios";
 
 let emptyFn = function() {};
 
+/**
+* Client log method
+*/
+function log(level, msg) {
+    RNBackgroundGeolocation.log(level, msg);
+}
+
 let API = {
   subscriptions: [],
   events: [
@@ -288,6 +295,35 @@ let API = {
     success = success || emptyFn;
     failure = failure || emptyFn;
     RNBackgroundGeolocation.emailLog(email, success, failure);
+  },
+  logger: {
+    error: function(msg) {
+      log('error', msg);
+    },
+    warn: function(msg) {
+      log('warn', msg);
+    },
+    debug: function(msg) {
+      log('debug', msg);
+    },
+    info: function(msg) {
+      log('info', msg);
+    },        
+    notice: function(msg) {
+      log('notice', msg);
+    },        
+    header: function(msg) {
+      log('header', msg);
+    },
+    on: function(msg) {
+      log('on', msg);
+    },
+    off: function(msg) {
+      log('off', msg);
+    },
+    ok: function(msg) {
+      log('ok', msg);
+    }
   },
   getSensors: function(success, failure) {
     success = success || emptyFn;

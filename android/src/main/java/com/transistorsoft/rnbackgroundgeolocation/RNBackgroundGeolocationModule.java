@@ -791,8 +791,8 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     @ReactMethod
-    public void log(String level, String message, String caller) throws JSONException {
-        TSLog.log(level, message, caller);
+    public void log(String level, String message) throws JSONException {
+        TSLog.log(level, message);
     }
 
     @ReactMethod

@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.9.2] - 2017-08-21
+- [Changed] Reference latest `react-native-background-fetch` version `2.1.0`
+- [Added] Javascript API to plugin's logging system.
+- [Fixed] Minor issue with iOS flush where multiple threads might create multiple background-tasks, leaving some unfinished.
+
 ## [2.9.0] - 2017-08-16
 - [Changed] Refactor iOS / Android core library event-subscription API.
 - [Added] Removing single event-listeners with `#removeListener` (alias `#un`) is snow fully supported!  There will no longer be warnings "No listeners for event X", since the plugin completely removes event-listeners from the core library.  You will no longer have to create `noop` event-listeners on events you're not using simply to suppress these warnings.

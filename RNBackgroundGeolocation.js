@@ -17,12 +17,7 @@ let emptyFn = function() {};
 * Client log method
 */
 function log(level, msg) {
-    var method = 'anonymous';
-    var caller = arguments.callee.caller.caller;
-    if (caller) {
-        method = caller.name;
-    }
-    RNBackgroundGeolocation.log(level, msg, method);
+    RNBackgroundGeolocation.log(level, msg);
 }
 
 let API = {

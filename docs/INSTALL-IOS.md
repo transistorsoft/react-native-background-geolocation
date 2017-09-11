@@ -9,7 +9,7 @@ $ npm install react-native-background-geolocation --save
 ![](https://dl.dropboxusercontent.com/s/nmih1sc9hgygpvu/react-native-background-geolocation-install-1.png?dl=1)
 
 - Add **1st of 3** Libraries:
-    - **`node_modules/react-native-background-geolocation-android/ios/RNBackgroundGeolocation.xcodeproj`**
+    - **`node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation.xcodeproj`**
 ![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-geolocation/images/Manual%20Installation/add-project-RNBackgroundGeolocation.png)
 
 - Add **2nd of 3** Libraries:

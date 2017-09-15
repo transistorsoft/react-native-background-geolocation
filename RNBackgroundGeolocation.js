@@ -1,3 +1,5 @@
+'use strict';
+
 import {
   NativeEventEmitter,
   NativeModules,
@@ -11,13 +13,21 @@ const TAG = "TSLocationManager";
 const PLATFORM_ANDROID  = "android";
 const PLATFORM_IOS      = "ios";
 
+// Android permissions handler.  iOS manages this automatically within TSLocationManager
+let permissionsHandler = null;
+
+function withPermission(success, failure) {
+  if (!permissionsHandler) { return success(); }
+  permissionsHandler(success, failure);
+}
+
 let emptyFn = function() {};
 
 /**
 * Client log method
 */
 function log(level, msg) {
-    RNBackgroundGeolocation.log(level, msg);
+  RNBackgroundGeolocation.log(level, msg);
 }
 
 let API = {
@@ -59,7 +69,10 @@ let API = {
   NOTIFICATION_PRIORITY_LOW: -1,
   NOTIFICATION_PRIORITY_MAX: 2,
   NOTIFICATION_PRIORITY_MIN: -2,
-    
+
+  setPermissionsHandler(handler) {
+    permissionsHandler = handler;
+  },
   configure: function(config, success, failure) {
     success = success || emptyFn;
     failure = failure || emptyFn;
@@ -93,11 +106,11 @@ let API = {
     }
     var found = null;
     for (var n=0,len=this.subscriptions.length;n<len;n++) {
-      var subscription = this.subscriptions[n];      
+      var subscription = this.subscriptions[n];
       if ((subscription.eventType === event) && (subscription.listener === callback)) {
           found = subscription;
           break;
-      }      
+      }
     }
     if (found !== null) {
       this.subscriptions.splice(this.subscriptions.indexOf(found), 1);
@@ -115,10 +128,12 @@ let API = {
   un: function(event, callback) {
     this.removeListener(event, callback);
   },
-  start: function(success, failure) {
+  start: async function(success, failure) {
     success = success || emptyFn;
     failure = failure || emptyFn;
-    RNBackgroundGeolocation.start(success, failure);
+    withPermission(() => {
+      RNBackgroundGeolocation.start(success, failure);
+    }, failure);
   },
   stop: function(success, failure) {
     success = success || emptyFn;
@@ -128,7 +143,10 @@ let API = {
   startSchedule: function(success, failure) {
     success = success || emptyFn;
     failure = failure || emptyFn;
-    RNBackgroundGeolocation.startSchedule(success, failure);
+
+    withPermission(() => {
+      RNBackgroundGeolocation.startSchedule(success, failure);
+    }, failure);
   },
   stopSchedule: function(success, failure) {
     success = success || emptyFn;
@@ -138,7 +156,10 @@ let API = {
   startGeofences: function(success, failure) {
     success = success || emptyFn;
     failure = failure || emptyFn;
-    RNBackgroundGeolocation.startGeofences(success, failure);
+
+    withPermission(() => {
+      RNBackgroundGeolocation.startGeofences(success, failure);
+    }, failure);
   },
   onHttp: function(callback) {
     return EventEmitter.addListener("http", callback);
@@ -188,7 +209,7 @@ let API = {
   },
   // new
   getCurrentPosition: function(success, failure, options) {
-    var _success = emptyFn
+    var _success = emptyFn,
        _failure = emptyFn,
        _options = {};
 
@@ -206,7 +227,9 @@ let API = {
       _failure = failure || emptyFn;
       _options = options || {};
     }
-    RNBackgroundGeolocation.getCurrentPosition(_options, _success, _failure);
+    withPermission(() => {
+      RNBackgroundGeolocation.getCurrentPosition(_options, _success, _failure);
+    }, _failure);
   },
   watchPosition: function(success, failure, options) {
     if (typeof(failure) === 'object') {
@@ -215,8 +238,9 @@ let API = {
     }
     options = options || {};
     failure = failure || emptyFn;
-    RNBackgroundGeolocation.watchPosition(options, function() {
-      EventEmitter.addListener("watchposition", success);
+
+    withPermission(() => {
+      RNBackgroundGeolocation.watchPosition(options, function() { EventEmitter.addListener("watchposition", success); }, failure);
     }, failure);
   },
   stopWatchPosition: function(success, failure) {
@@ -253,7 +277,10 @@ let API = {
   setOdometer: function(value, success, failure) {
     success = success || emptyFn;
     failure = failure || emptyFn;
-    RNBackgroundGeolocation.setOdometer(value, success, failure);
+
+    withPermission(() => {
+      RNBackgroundGeolocation.setOdometer(value, success, failure);
+    }, failure);
   },
   resetOdometer: function(success, failure) {
     this.setOdometer(0, success, failure);
@@ -308,10 +335,10 @@ let API = {
     },
     info: function(msg) {
       log('info', msg);
-    },        
+    },
     notice: function(msg) {
       log('notice', msg);
-    },        
+    },
     header: function(msg) {
       log('header', msg);
     },

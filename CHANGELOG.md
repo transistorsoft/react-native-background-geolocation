@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.9.3] - 2017-09-15
+
+- [Changed] Refactor Android `onDestroy` mechanism attempting to solve nagging and un-reproducible null pointer exceptions.
+- [Added] Implement Android location permissions handling using `PermissionsAndroid` API.  You no longer need to use 3rd-party permissions module to obtain Android location permission.
+- [Fixed] Fixed bug not where `stopAfterElapsedMinutes` is not evaluated when executing `#getCurrentPosition`.
+- [Fixed] Modifications for Android O.  For now, `foregroundService: true` will be enforced when running on Android O (api 26).
+
 ## [2.9.2] - 2017-08-21
 - [Changed] Reference latest `react-native-background-fetch` version `2.1.0`
 - [Added] Javascript API to plugin's logging system.

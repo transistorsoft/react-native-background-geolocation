@@ -26,7 +26,7 @@ dependencies {
     compile 'com.facebook.react:react-native:+'
     compile 'com.google.android.gms:play-services-location:+'
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.android.volley:volley:1.0.0'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile(name:'tslocationmanager', ext:'aar')
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'com.github.tony19:logback-android-core:1.1.1-6'

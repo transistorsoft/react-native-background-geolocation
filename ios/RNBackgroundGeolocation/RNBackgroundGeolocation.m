@@ -146,8 +146,10 @@ RCT_EXPORT_METHOD(configure:(NSDictionary*)config success:(RCTResponseSenderBloc
 
 RCT_EXPORT_METHOD(addListener:(NSString*)event)
 {
-    // Careful:  we're overrideing a RCTEventEmitter method here.
-    [super addListener:event];
+    // Careful:  we're overrideing a RCTEventEmitter method here and RCTEventEmitter didn't always have this method.
+    if ([[self superclass] instancesRespondToSelector:@selector(addListener:)]) {
+        [super addListener:event];    
+    }
     
     @synchronized(listeners) {
         if ([listeners objectForKey:event]) {

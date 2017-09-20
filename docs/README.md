@@ -167,7 +167,7 @@ BackgroundGeolocation.setConfig({
 | [`forceReloadOnGeofence`](#config-boolean-forcereloadongeofence-false) | `Boolean` | `false` |  Launch your app whenever the [`#geofence`](#geofence) event fires. |
 | [`forceReloadOnHeartbeat`](#config-boolean-forcereloadonheartbeat-false) | `Boolean` | `false` |  Launch your app whenever the [`#heartbeat`](#heartbeat) event fires. |
 | [`forceReloadOnSchedule`](#config-boolean-forcereloadonschedule-false) | `Boolean` | `false` |  Launch your app whenever a [`schedule`](#schedule) event fires. |
-| [`forceReloadOnBoot`](#config-boolean-forcereloadonboot-false) | `Boolean` | `false` |  If the user reboots the device with the plugin configured for [`startOnBoot: true`](#config-boolean-startonboot-false), your will app will launch when the device is rebooted. |
+| [`forceReloadOnBoot`](#config-boolean-forcereloadonboot-false) | `Boolean` | `false` |  If the user reboots the device with the plugin configured for [`startOnBoot: true`](#config-boolean-startonboot-false), your app will launch when the device is rebooted. |
 
 
 

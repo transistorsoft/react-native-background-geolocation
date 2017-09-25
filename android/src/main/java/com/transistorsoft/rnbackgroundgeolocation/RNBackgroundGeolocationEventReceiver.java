@@ -134,9 +134,10 @@ public class RNBackgroundGeolocationEventReceiver extends BroadcastReceiver impl
                 } else if (extras.containsKey("provider")) {
                     JSONObject provider = new JSONObject(extras.getString("provider"));
                     params.putMap("provider", RNBackgroundGeolocationModule.jsonToMap(provider));
-                } else if (eventName.equalsIgnoreCase(BackgroundGeolocation.EVENT_GEOFENCES_CHANGE)) {
-                    params.putArray("on", RNBackgroundGeolocationModule.convertJsonToArray(new JSONArray(extras.getString("on"))));
-                    params.putArray("off", RNBackgroundGeolocationModule.convertJsonToArray(new JSONArray(extras.getString("off"))));
+                } else if (eventName.equalsIgnoreCase(BackgroundGeolocation.EVENT_GEOFENCESCHANGE)) {
+                    JSONObject event = new JSONObject(extras.getString(BackgroundGeolocation.EVENT_GEOFENCESCHANGE));
+                    params.putArray("on", RNBackgroundGeolocationModule.convertJsonToArray(event.getJSONArray("on")));
+                    params.putArray("off", RNBackgroundGeolocationModule.convertJsonToArray(event.getJSONArray("off")));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -193,12 +194,21 @@ public class RNBackgroundGeolocationEventReceiver extends BroadcastReceiver impl
         }
     }
 
-    private void invokeStartTask(ReactContext reactContext, HeadlessJsTaskConfig taskConfig) {
-        HeadlessJsTaskContext headlessJsTaskContext = HeadlessJsTaskContext.getInstance(reactContext);
+    private void invokeStartTask(ReactContext reactContext, final HeadlessJsTaskConfig taskConfig) {
+        final HeadlessJsTaskContext headlessJsTaskContext = HeadlessJsTaskContext.getInstance(reactContext);
         headlessJsTaskContext.addTaskEventListener(this);
-        int taskId = headlessJsTaskContext.startTask(taskConfig);
 
         mActiveTaskContext = headlessJsTaskContext;
+
+        UiThreadUtil.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int taskId = headlessJsTaskContext.startTask(taskConfig);
+            }
+        });
+
+
+
     }
 }
 

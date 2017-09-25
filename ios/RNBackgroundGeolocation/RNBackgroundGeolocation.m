@@ -24,7 +24,7 @@ static NSString *const EVENT_HTTP               = @"http";
 static NSString *const EVENT_SCHEDULE           = @"schedule";
 static NSString *const EVENT_GEOFENCE           = @"geofence";
 static NSString *const EVENT_HEARTBEAT          = @"heartbeat";
-
+static NSString *const EVENT_POWERSAVECHANGE    = @"powersavechange";
 
 @implementation RNBackgroundGeolocation {
     BOOL isConfigured;
@@ -41,6 +41,7 @@ static NSString *const EVENT_HEARTBEAT          = @"heartbeat";
     void(^onHttp)(TSHttpEvent*);
     void(^onProviderChange)(TSProviderChangeEvent*);
     void(^onSchedule)(TSScheduleEvent*);
+    void(^onPowerSaveChange)(TSPowerSaveChangeEvent*);
 }
 
 @synthesize locationManager;
@@ -93,7 +94,9 @@ RCT_EXPORT_MODULE();
         onSchedule = ^void(TSScheduleEvent *event) {
             [me sendEvent:EVENT_SCHEDULE body:event.state];
         };
-        
+        onPowerSaveChange = ^void(TSPowerSaveChangeEvent *event) {
+            [me sendEvent:EVENT_POWERSAVECHANGE body:@(event.isPowerSaveMode)];
+        };
         // EventEmitter listener-counts
         listeners = [NSMutableDictionary new];
         
@@ -115,6 +118,7 @@ RCT_EXPORT_MODULE();
         EVENT_MOTIONCHANGE,
         EVENT_ACTIVITYCHANGE,
         EVENT_GEOFENCESCHANGE,
+        EVENT_POWERSAVECHANGE,
         EVENT_ERROR,
         EVENT_HTTP,
         EVENT_SCHEDULE,
@@ -144,13 +148,8 @@ RCT_EXPORT_METHOD(configure:(NSDictionary*)config success:(RCTResponseSenderBloc
     });
 }
 
-RCT_EXPORT_METHOD(addListener:(NSString*)event)
+RCT_EXPORT_METHOD(addEventListener:(NSString*)event)
 {
-    // Careful:  we're overrideing a RCTEventEmitter method here and RCTEventEmitter didn't always have this method.
-    if ([[self superclass] instancesRespondToSelector:@selector(addListener:)]) {
-        [super addListener:event];    
-    }
-    
     @synchronized(listeners) {
         if ([listeners objectForKey:event]) {
             // Increment listener-count for this event
@@ -179,6 +178,8 @@ RCT_EXPORT_METHOD(addListener:(NSString*)event)
                 [locationManager onProviderChange:onProviderChange];
             } else if ([event isEqualToString:EVENT_SCHEDULE]) {
                 [locationManager onSchedule:onSchedule];
+            } else if ([event isEqualToString:EVENT_POWERSAVECHANGE]) {
+                [locationManager onPowerSaveChange:onPowerSaveChange];
             }
         }
     }
@@ -478,6 +479,12 @@ RCT_EXPORT_METHOD(getSensors:(RCTResponseSenderBlock)successCallback failure:(RC
         @"motion_hardware": @([locationManager isMotionHardwareAvailable])
     };
     successCallback(@[sensors]);
+}
+
+RCT_EXPORT_METHOD(isPowerSaveMode:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failure)
+{
+    BOOL isPowerSaveMode = [locationManager isPowerSaveMode];
+    successCallback(@[@(isPowerSaveMode)]);
 }
 
 RCT_EXPORT_METHOD(playSound:(int)soundId)

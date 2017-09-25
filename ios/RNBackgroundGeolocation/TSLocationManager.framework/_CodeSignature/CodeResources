@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/LocationManager.h</key>
 		<data>
-		g0mUx4Xt6DQpXvsH22XVlCdk4Pg=
+		Vvo+0aC1cMmb1OvUO2FuIrdpQfs=
 		</data>
 		<key>Headers/TSActivityChangeEvent.h</key>
 		<data>
@@ -34,7 +34,11 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		XoSJAtf6boQ5XABbSWkp9PiTrZM=
+		XF7q/WgBlTCHk75u9TVijHWYXXU=
+		</data>
+		<key>Headers/TSPowerSaveChangeEvent.h</key>
+		<data>
+		9rBQC7BzFjY14QdpgDpcNbMH5Mw=
 		</data>
 		<key>Headers/TSProviderChangeEvent.h</key>
 		<data>
@@ -50,7 +54,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		J4k3w8mhIT5H3r1R8+q3eMP9SAQ=
+		2KB671sOmNtFiOzsJrUawWKUgAE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -63,11 +67,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			g0mUx4Xt6DQpXvsH22XVlCdk4Pg=
+			Vvo+0aC1cMmb1OvUO2FuIrdpQfs=
 			</data>
 			<key>hash2</key>
 			<data>
-			CYgwNo/szYFk3HGSwQIBagce5hrNzWvKsPpsu0ri3s8=
+			WXVN7u2JqFoiw3dZaN+9Z7hvuNfuKqxyG8tnERdvJqE=
 			</data>
 		</dict>
 		<key>Headers/TSActivityChangeEvent.h</key>
@@ -140,11 +144,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			XoSJAtf6boQ5XABbSWkp9PiTrZM=
+			XF7q/WgBlTCHk75u9TVijHWYXXU=
 			</data>
 			<key>hash2</key>
 			<data>
-			eqrm4XzPADICnFWmKqsi8IzkneXTnG+EshtqbJasaDg=
+			h55G6m91bGGTcCQwLvhdKKD0TZwXcAoGD7jVyVD2Z1s=
+			</data>
+		</dict>
+		<key>Headers/TSPowerSaveChangeEvent.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9rBQC7BzFjY14QdpgDpcNbMH5Mw=
+			</data>
+			<key>hash2</key>
+			<data>
+			/MqMIkqxNDoX1sQSpckcGvBWd8UESGF332/djKYcBfM=
 			</data>
 		</dict>
 		<key>Headers/TSProviderChangeEvent.h</key>

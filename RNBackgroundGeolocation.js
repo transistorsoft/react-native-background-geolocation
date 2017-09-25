@@ -43,7 +43,8 @@ let API = {
     'activitychange',
     'providerchange',
     'geofenceschange',
-    'watchposition'
+    'watchposition',
+    'powersavechange'
   ],
 
   LOG_LEVEL_OFF: 0,
@@ -93,9 +94,7 @@ let API = {
       throw "RNBackgroundGeolocation: Unknown event '" + event + '"';
     }
     this.subscriptions.push(EventEmitter.addListener(event, callback));
-    if (Platform.OS === PLATFORM_ANDROID) {
-      RNBackgroundGeolocation.addListener(event);
-    }
+    RNBackgroundGeolocation.addEventListener(event);
   },
   on: function(event, callback) {
     return this.addListener(event, callback);
@@ -356,6 +355,11 @@ let API = {
     success = success || emptyFn;
     failure = failure || emptyFn;
     RNBackgroundGeolocation.getSensors(success, failure);
+  },
+  isPowerSaveMode: function(success, failure) {
+    success = success || emptyFn;
+    failure = failure || emptyFn;
+    RNBackgroundGeolocation.isPowerSaveMode(success, failure);
   },
   playSound: function(soundId) {
     RNBackgroundGeolocation.playSound(soundId);

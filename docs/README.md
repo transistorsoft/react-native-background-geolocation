@@ -67,6 +67,7 @@ BackgroundGeolocation.setConfig({
 | [`desiredAccuracy`](#config-integer-desiredaccuracy-0-10-100-1000-in-meters) | `Integer` | `0` | Specify the desired-accuracy of the geolocation system with 1 of 4 values, `0`, `10`, `100`, `1000` where `0` means **HIGHEST POWER, HIGHEST ACCURACY** and `1000` means **LOWEST POWER, LOWEST ACCURACY** |
 | [`distanceFilter`](#config-integer-distancefilter) | `Integer` | `10` | The minimum distance (measured in meters) a device must move horizontally before an update event is generated. |
 | [`disableElasticity`](#config-boolean-disableelasticity-false) | `Boolean` | `false` | Set true to disable automatic speed-based #distanceFilter elasticity. eg: When device is moving at highway speeds, locations are returned at ~ 1 / km. |
+| [`elasticityMultiplier`](#config-float-elasticitymultiplier-1) | `Float` | `1` | Controls the scale of automatic speed-based `distanceFilter` elasticity.  Increasing `elasticityMultiplier` will result in few location samples as speed increases. |
 | [`stopAfterElapsedMinutes`](#config-integer-stopafterelapsedminutes) | `Integer`  | `0`  | The plugin can optionally automatically stop tracking after some number of minutes elapses after the [`#start`](#startsuccessfn-failurefn) method was called. |
 | [`stopOnStationary`](#config-boolean-stoponstationary) | `Boolean`  | `false`  | The plugin can optionally automatically stop tracking when the `stopTimeout` timer elapses. |
 | [`desiredOdometerAccuracy`](#config-integer-desiredodometeraccuracy-100) | `Integer`  | `100`  | Location accuracy threshold in **meters** for odometer calculations. |
@@ -205,6 +206,7 @@ BackgroundGeolocation.setConfig({
 | [`http`](#http) | Fired after a successful HTTP response. `response` object is provided with `status` and `responseText`. |
 | [`heartbeat`](#heartbeat) | Fired each [`#heartbeatInterval`](#config-integer-heartbeatinterval-undefined) while the plugin is in the **stationary** state with.  Your callback will be provided with a `params {}` containing the last known `location {Object}` |
 | [`schedule`](#schedule) | Fired when a schedule event occurs.  Your `callbackFn` will be provided with the current **`state`** Object. | 
+| [`powersavechange`](#powersavechange) | Fired when the state of the operating-system's "Power Saving" system changes.  Your `callbackFn` will be provided with a `Boolean` showing whether "Power Saving" is **enabled** or **disabled** | 
 
 ### Adding event-listeners: `#on`
 
@@ -260,6 +262,7 @@ BackgroundGeolocation.un('location', onLocation);
 | [`removeListeners`](#removelistenerssuccessfn-failurefn) | `none` | Remove all events-listeners registered with **`#on`** method |
 | [`startBackgroundTask`](#startbackgroundtaskcallbackfn) | `callbackFn` | Sends a signal to the native OS that you wish to perform a long-running task.  The OS will not suspend your app until you signal completion with the **`#finish`** method.|
 | [`finish`](#finishtaskid) | `taskId` | Sends a signal to the native OS the supplied **`taskId`** is complete and the OS may proceed to suspend your application if applicable.|
+| [`isPowerSaveMode`](#ispowersavemodecallbackfn) | `callbackFn` | Fetches the state of the operating-systems "Power Saving" mode, whether `enabled` or `disabled`|
 
 
 ### :small_blue_diamond: HTTP & Persistence Methods
@@ -345,6 +348,8 @@ However, by default, **`distanceFilter`** is elastically auto-calculated by the 
 
 :information_source: To disable this behaviour, configure [`disableElasticity: true`](#config-boolean-disableelasticity-false)
 
+:information_source: To control the scale of the automatic `distanceFilter` calculation, see [`elasticityMultiplier`](#config-float-elasticitymultiplier-1)
+
 **`distanceFilter`** is auto calculated by rounding speed to the nearest `5 m/s` and adding **`distanceFilter`** meters for each `5 m/s` increment.
 
 For example, at biking speed of 7.7 m/s with a configured **`distanceFilter: 30`**:
@@ -365,7 +370,7 @@ At highway speed of `27 m/s` with a configured `distanceFilter: 50`:
   => 30
   multiplier = rounded_speed / 5
   => 30 / 5 = 6
-  adjusted_distance_filter = multiplier * distanceFilter
+  adjusted_distance_filter = multiplier * distanceFilter * elasticityMultipiler
   => 6 * 50 = 300 meters
 ```
 
@@ -382,6 +387,12 @@ Compare now background-geolocation in the scope of a city.  In this image, the l
 #### `@config {Boolean} disableElasticity [false]`
 
 Defaults to **`false`**.  Set **`true`** to disable automatic, speed-based [`#distanceFilter`](#config-integer-distancefilter) elasticity.
+
+------------------------------------------------------------------------------
+
+#### `@config {Float} elasticityMultiplier [1]`
+
+Controls the scale of automatic speed-based [`#distanceFilter`](#config-integer-distancefilter) elasticity.  Increasing `elasticityMultiplier` will result in fewer location samples as speed increases.  A value of `0` has the same effect as [`disableElasticity: true`](#config-boolean-disableelasticity-false)
 
 ------------------------------------------------------------------------------
 
@@ -1054,7 +1065,7 @@ BackgroundGeolocation.configure({
     '1 17:30-21:00',   // Sunday: 5:30pm-9:00pm
     '2-6 9:00-17:00',  // Mon-Fri: 9:00am to 5:00pm
     '2,4,6 20:00-00:00',// Mon, Web, Fri: 8pm to midnight (next day)
-    '7 10:00-19:00'    // Sun: 10am-7pm
+    '7 10:00-19:00'    // Sat: 10am-7pm
   ]
 }, function(state) {
   // Start the Scheduler
@@ -1639,6 +1650,38 @@ BackgroundGeolocation.on('schedule', function(state) {
 ------------------------------------------------------------------------------
 
 
+### `powersavechange`
+
+Fired when the state of the operating-system's "Power Saving" mode changes.  Your `callbackFn` will be provided with a `Boolean` showing whether "Power Saving" is **enabled** or **disabled**.  Power Saving mode can throttle certain services in the background, such as HTTP requests or GPS.
+
+:information_source: You can manually request the current-state of "Power Saving" mode with the **method** [`#isPowerSaveMode`](#ispowersavemodecallbackfn).
+
+#### iOS
+
+iOS Power Saving mode can be engaged manually by the user in **Settings -> Battery** or from an automatic OS dialog.
+
+![](https://dl.dropboxusercontent.com/s/lz3zl2jg4nzstg3/Screenshot%202017-09-19%2010.34.21.png?dl=1)
+
+#### Android
+
+Android Power Saving mode can be engaged manually by the user in **Settings -> Battery -> Battery Saver** or automatically with a user-specified "threshold" (eg: 15%).
+
+![](https://dl.dropboxusercontent.com/s/raz8lagrqayowia/Screenshot%202017-09-19%2010.33.49.png?dl=1)
+
+#### `callbackFn` Paramters
+
+##### `@param {Boolean} isPowerSaveMode`
+
+```javascript
+BackgroundGeolocation.on('powersavechange', function(isPowerSaveMode) {
+  console.log("- powersavechange, power-saving mode enabled? ", isPowerSaveMode);
+});
+```
+
+
+------------------------------------------------------------------------------
+
+
 # :large_blue_diamond: Methods
 
 ## :small_blue_diamond: Core API Methods
@@ -2113,6 +2156,34 @@ BackgroundGeolocation.setOdometer(0, function(location) {
       BackgroundGeolocation.finish(taskId);
     });
   });
+});
+```
+
+------------------------------------------------------------------------------
+
+
+### `isPowerSaveMode(callbackFn)`
+
+Fetches the state of the operating-systems "Power Saving" mode, whether `enabled` or `disabled`.  Power Saving mode can throttle certain services in the background, such as HTTP requests or GPS.
+
+:information_source: You can listen to changes in the state of "Power Saving" mode with the **event** [`#powersavechange`](#powersavechange).
+
+#### iOS
+
+iOS Power Saving mode can be engaged manually by the user in **Settings -> Battery** or from an automatic OS dialog.
+
+![](https://dl.dropboxusercontent.com/s/lz3zl2jg4nzstg3/Screenshot%202017-09-19%2010.34.21.png?dl=1)
+
+#### Android
+
+Android Power Saving mode can be engaged manually by the user in **Settings -> Battery -> Battery Saver** or automatically with a user-specified "threshold" (eg: 15%).
+
+![](https://dl.dropboxusercontent.com/s/raz8lagrqayowia/Screenshot%202017-09-19%2010.33.49.png?dl=1)
+
+Eg:
+```javascript
+BackgroundGeolocation.isPowerSaveMode(function(isPowerSaveMode) {
+  console.log('- is Power Saving mode enabled?', isPowerSaveMode);
 });
 ```
 

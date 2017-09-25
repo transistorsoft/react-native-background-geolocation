@@ -11,6 +11,7 @@
 #import "TSHeartbeatEvent.h"
 #import "TSScheduleEvent.h"
 #import "TSGeofencesChangeEvent.h"
+#import "TSPowerSaveChangeEvent.h"
 #import "TSGeofenceEvent.h"
 #import "LocationManager.h"
 
@@ -36,6 +37,7 @@
 - (void) onProviderChange:(void(^)(TSProviderChangeEvent* event))success;
 - (void) onGeofencesChange:(void(^)(TSGeofencesChangeEvent* event))success;
 - (void) onSchedule:(void(^)(TSScheduleEvent* event))success;
+- (void) onPowerSaveChange:(void(^)(TSPowerSaveChangeEvent* event))success;
 - (void) removeListener:(NSString*)event callback:(void(^)(id))callback;
 - (void) un:(NSString*)event callback:(void(^)(id))callback;
 - (void) removeListeners:(NSString*)event;
@@ -76,6 +78,7 @@
 
 - (UIBackgroundTaskIdentifier) createBackgroundTask;
 - (void) stopBackgroundTask:(UIBackgroundTaskIdentifier)taskId;
+- (BOOL) isPowerSaveMode;
 
 #pragma mark - Logging & Debug Methods
 

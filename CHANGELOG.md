@@ -1,7 +1,13 @@
 # Change Log
 
-## [2.9.3] - 2017-09-15
+## [2.9.4] - 2017-09-25
+- [Added] Re-build for iOS 11, XCode 9
+- [Added] Implement new `powersavechange` event in addition to `isPowerSaveMode` method for determining if OS "Power saving" mode is enabled.
+- [Added] New config `elasticityMultiplier` for controlling the scale of `distanceFilter` elasticity calculation.
+- [Fixed] Android bug not firing `schedule` Javascript listeners
+- [Fixed] Android crash `onGooglePlayServicesConnectdError` when Google Play Services needs to be updated on device.
 
+## [2.9.3] - 2017-09-15
 - [Changed] Refactor Android `onDestroy` mechanism attempting to solve nagging and un-reproducible null pointer exceptions.
 - [Added] Implement Android location permissions handling using `PermissionsAndroid` API.  You no longer need to use 3rd-party permissions module to obtain Android location permission.
 - [Fixed] Fixed bug not where `stopAfterElapsedMinutes` is not evaluated when executing `#getCurrentPosition`.

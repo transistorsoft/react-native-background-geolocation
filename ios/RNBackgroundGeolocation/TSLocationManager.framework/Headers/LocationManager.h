@@ -38,6 +38,7 @@ typedef enum tsLocationError : NSInteger {
 @property (nonatomic) CLLocationAccuracy desiredAccuracy;
 @property (nonatomic) CLActivityType activityType;
 @property (readonly) BOOL isUpdating;
+@property (readonly) BOOL isWatchingPosition;
 
 @property (copy) void (^locationChangedBlock) (LocationManager* manager, CLLocation* location, BOOL isSample);
 @property (copy) void (^errorBlock) (LocationManager* manager, NSError* error);

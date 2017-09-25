@@ -28,22 +28,7 @@ import org.json.JSONObject;
 import com.google.android.gms.common.GoogleApiAvailability;
 
 import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
-import com.transistorsoft.locationmanager.adapter.callback.TSActivityChangeCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSEmailLogCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSGeofenceCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSGeofencesChangeCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSGetGeofencesCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSGetLocationsCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSGetLogCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSHeartbeatCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSHttpResponseCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSInsertLocationCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSLocationCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSLocationProviderChangeCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSPlayServicesConnectErrorCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSScheduleCallback;
-import com.transistorsoft.locationmanager.adapter.callback.TSSyncCallback;
+import com.transistorsoft.locationmanager.adapter.callback.*;
 import com.transistorsoft.locationmanager.data.LocationModel;
 import com.transistorsoft.locationmanager.event.ActivityChangeEvent;
 import com.transistorsoft.locationmanager.event.GeofenceEvent;
@@ -103,6 +88,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         events.add(BackgroundGeolocation.EVENT_HEARTBEAT);
         events.add(BackgroundGeolocation.EVENT_HTTP);
         events.add(BackgroundGeolocation.EVENT_SCHEDULE);
+        events.add(BackgroundGeolocation.EVENT_POWERSAVECHANGE);
 
         reactContext.addLifecycleEventListener(this);
     }
@@ -257,6 +243,16 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         }
     }
 
+    /**
+    * powersavechange event callback
+    */
+    private class PowerSaveChangeCallack implements TSPowerSaveChangeCallback {
+        @Override
+        public void onPowerSaveChange(Boolean isPowerSaveMode) {
+            getReactApplicationContext().getJSModule(RCTNativeAppEventEmitter.class).emit(BackgroundGeolocation.EVENT_POWERSAVECHANGE, isPowerSaveMode);
+        }
+    }
+
     @Override
     public void onHostResume() {
         if (!initialized) {
@@ -271,6 +267,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     public void onHostDestroy() {
         initialized = false;
         configured = false;
+        removeAllListeners();
         getAdapter().onActivityDestroy();
     }
 
@@ -298,7 +295,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         adapter.onPlayServicesConnectError((new TSPlayServicesConnectErrorCallback() {
             @Override
             public void onPlayServicesConnectError(int errorCode) {
-                onPlayServicesConnectError(errorCode);
+                handlePlayServicesConnectError(errorCode);
             }
         }));
 
@@ -313,7 +310,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     @ReactMethod
-    public void addListener(String event) {
+    public void addEventListener(String event) {
         if (!events.contains(event)) {
             Log.e(TAG, "[RNBackgroundGeolocation addListener] Unknown event: " + event);
             return;
@@ -350,6 +347,8 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                 adapter.onHttp(new HttpResponseCallback());
             } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_SCHEDULE)) {
                 adapter.onSchedule(new ScheduleCallback());
+            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_POWERSAVECHANGE)) {
+                adapter.onPowerSaveChange(new PowerSaveChangeCallack());
             }
         }
     }
@@ -807,6 +806,11 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         success.invoke(params);
     }
 
+    @ReactMethod
+    public void isPowerSaveMode(Callback success, Callback error) {
+        success.invoke(getAdapter().isPowerSaveMode());
+    }
+
     private void setEnabled(boolean value) {
         Log.i(TAG, "- setEnabled:  " + value + ", current value: " + Settings.getEnabled());
 
@@ -834,7 +838,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         sendEvent(BackgroundGeolocation.EVENT_ERROR, params);
     }
 
-    private void onPlayServicesConnectError(Integer errorCode) {
+    private void handlePlayServicesConnectError(Integer errorCode) {
         Activity activity = getCurrentActivity();
         if (activity == null) {
             return;
@@ -990,6 +994,6 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     @Override
     public void onCatalystInstanceDestroy() {
         initialized = false;
-        getAdapter().onActivityDestroy();
+        removeAllListeners();
     }
 }

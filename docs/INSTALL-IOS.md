@@ -35,7 +35,7 @@ $ npm install react-native-background-geolocation --save
 
 - BackgroundGeolocation includes a couple of custom iOS frameworks.  These need to manually added, unfortunately.
     - Click **`[Add Other...]`**.
-    - Navigate: **`node_modules/react-native-background-geolocation-android/ios/RNBackgroundGeolocation`**.
+    - Navigate: **`node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation`**.
     - Add **`TSLocationManager.framework`**.
 
 ![](https://dl.dropboxusercontent.com/u/2319755/react-native-background-geolocation/images/Manual%20Installation/TSLocationManager.framework.png)
@@ -53,7 +53,7 @@ $ npm install react-native-background-geolocation --save
     - Add the following paths (select **recursive [v]**):
 
 ```
-    $(PROJECT_DIR)/../node_modules/react-native-background-geolocation-android/ios
+    $(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios
     $(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios
 ```
 

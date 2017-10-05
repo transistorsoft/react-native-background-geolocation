@@ -259,7 +259,7 @@ BackgroundGeolocation.un('location', onLocation);
 | [`resetOdometer`](#resetodometercallbackfn-failurefn) | `callbackFn` | Reset the **odometer** to `0`.  Alias for [`setOdometer(0)`](#setodometervalue-callbackfn-failurefn) |
 | [`startSchedule`](#startschedulecallbackfn) | `callbackFn` | If a [`schedule`](#config-array-schedule-undefined) was configured, this method will initiate that schedule.|
 | [`stopSchedule`](#stopschedulecallbackfn) | `callbackFn` | This method will stop the Scheduler service.  Your **`callbackFn`** will be executed after the Scheduler has stopped |
-| [`removeListeners`](#removelistenerssuccessfn-failurefn) | `none` | Remove all events-listeners registered with **`#on`** method |
+| [`removeAllListeners`](#removelistenerssuccessfn-failurefn) | `none` | Remove all events-listeners registered with **`#on`** method |
 | [`startBackgroundTask`](#startbackgroundtaskcallbackfn) | `callbackFn` | Sends a signal to the native OS that you wish to perform a long-running task.  The OS will not suspend your app until you signal completion with the **`#finish`** method.|
 | [`finish`](#finishtaskid) | `taskId` | Sends a signal to the native OS the supplied **`taskId`** is complete and the OS may proceed to suspend your application if applicable.|
 | [`isPowerSaveMode`](#ispowersavemodecallbackfn) | `callbackFn` | Fetches the state of the operating-systems "Power Saving" mode, whether `enabled` or `disabled`|
@@ -2190,9 +2190,9 @@ BackgroundGeolocation.isPowerSaveMode(function(isPowerSaveMode) {
 ------------------------------------------------------------------------------
 
 
-### `removeListeners(successFn, failureFn)`
+### `removeAllListeners(successFn, failureFn)`
 
-Remove all event-listeners registered with [`#on`](#zap-events) method.  You're free to add more listeners again after executing **`#removeListeners`**.
+Remove all event-listeners registered with [`#on`](#zap-events) method.  You're free to add more listeners again after executing **`#removeAllListeners`**.
 
 ```javascript
 BackgroundGeolocation.on('location', function(location) {
@@ -2201,7 +2201,7 @@ BackgroundGeolocation.on('location', function(location) {
 .
 .
 .
-BackgroundGeolocation.removeListeners();
+BackgroundGeolocation.removeAllListeners();
 
 BackgroundGeolocation.on('location', function(location) {
   console.log('- Location listener added again: ', location);

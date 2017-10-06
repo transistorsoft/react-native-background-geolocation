@@ -11,10 +11,10 @@ Also available for [Cordova](https://github.com/transistorsoft/cordova-backgroun
 
 ----------------------------------------------------------------------------
 
-[![Google Play](https://dl.dropboxusercontent.com/u/2319755/cordova-background-geolocaiton/google-play-icon.png)](https://play.google.com/store/apps/details?id=com.transistorsoft.backgroundgeolocation.react)
+[![Google Play](https://dl.dropboxusercontent.com/s/80rf906x0fheb26/google-play-icon.png?dl=1)](https://play.google.com/store/apps/details?id=com.transistorsoft.backgroundgeolocation.react)
 
-![Home](https://dl.dropboxusercontent.com/u/2319755/react-native-background-geolocation/images/home-framed-350.png)
-![Settings](https://dl.dropboxusercontent.com/u/2319755/react-native-background-geolocation/images/settings-framed-350.png)
+![Home](https://dl.dropboxusercontent.com/s/wa43w1n3xhkjn0i/home-framed-350.png?dl=1)
+![Settings](https://dl.dropboxusercontent.com/s/8oad228siog49kt/settings-framed-350.png?dl=1)
 
 ## [:books: API Documentation](./docs/README.md)
 - :wrench: [Configuration Options](./docs/README.md#wrench-configuration-options)

@@ -376,11 +376,11 @@ At highway speed of `27 m/s` with a configured `distanceFilter: 50`:
 
 Note the following real example of background-geolocation on highway 101 towards San Francisco as the driver slows down as he runs into slower traffic (geolocations become compressed as distanceFilter decreases)
 
-![distanceFilter at highway speed](https://dl.dropboxusercontent.com/u/2319755/cordova-background-geolocaiton/distance-filter-highway.png)
+![distanceFilter at highway speed](https://dl.dropboxusercontent.com/s/uu0hs0sediw26ar/distance-filter-highway.png?dl=1)
 
 Compare now background-geolocation in the scope of a city.  In this image, the left-hand track is from a cab-ride, while the right-hand track is walking speed.
 
-![distanceFilter at city scale](https://dl.dropboxusercontent.com/u/2319755/cordova-background-geolocaiton/distance-filter-city.png)
+![distanceFilter at city scale](s/yx8uv2zsimlogsp/distance-filter-city.png?dl=1)
 
 ------------------------------------------------------------------------------
 
@@ -439,9 +439,9 @@ When stopped, the minimum distance the device must move beyond the stationary lo
 
 Configuring **`stationaryRadius: 0`** has **NO EFFECT** (in fact the plugin enforces a minimum **``stationaryRadius``** of `25`).
 
-The following image shows the typical distance iOS requires to detect exit of the **`stationaryRadius`**:
+The following image shows the typical distance iOS requires to detect exit of the **`stationaryRadius`**, where the *green* polylines represent a transition from **stationary** state to **moving** and the *red circles* locations where the plugin entered the **stationary** state.:
 
-![](https://camo.githubusercontent.com/0230dfcb2457db3344f614bf5e3a641e61fb5c27/68747470733a2f2f7777772e64726f70626f782e636f6d2f732f7466746f327038767a30646e796b732f53637265656e73686f74253230323031372d30312d303725323031372e32362e35322e706e673f646c3d31)
+![](https://dl.dropboxusercontent.com/s/vnio90swhs6xmqm/screenshot-ios-stationary-exit.png?dl=1)
 
 :blue_book: For more information, see [Philosophy of Operation](../../../wiki/Philosophy-of-Operation)
 
@@ -487,7 +487,7 @@ When you configure the plugin location-authorization `Always` or `WhenInUse` and
 
 ##### `@config {String} settingsButton [Settings]` Settings button label
 
-![](https://dl.dropboxusercontent.com/u/2319755/cordova-background-geolocaiton/docs-locationAuthorizationAlert.jpg)
+![](s/wyoaf16buwsw7ed/docs-locationAuthorizationAlert.jpg?dl=1)
 
 ```javascript
 BackgroundGeolocation.configure({
@@ -614,7 +614,7 @@ When in the **moving** state, specifies the number of minutes to wait before tur
 Disables the accelerometer-based **Stop-detection System**.  When disabled, the plugin will use the default iOS behaviour of automatically turning off location-services when the device has stopped for exactly 15 minutes.  When disabled, you will no longer have control over [`#stopTimeout`](#config-integer-minutes-stoptimeout).
 
 **iOS Stop-detection timing**.
-![](https://dl.dropboxusercontent.com/u/2319755/cordova-background-geolocaiton/ios-stop-detection-timing.png)
+![](https://dl.dropboxusercontent.com/s/ojjdfkmua15pskh/ios-stop-detection-timing.png?dl=1)
 
 **Android**
 
@@ -657,7 +657,7 @@ Defaults to `1000` meters.  **@see** releated event [`geofenceschange`](#geofenc
 
 :tv: [View animation of this behaviour](https://dl.dropboxusercontent.com/u/2319755/background-geolocation/images/background-geolocation-infinite-geofencing.gif)
 
-![](https://dl.dropboxusercontent.com/u/2319755/background-geolocation/images/geofenceProximityRadius_iphone6_spacegrey_portrait.png)
+![](s/7sggka4vcbrokwt/geofenceProximityRadius_iphone6_spacegrey_portrait.png?dl=1)
 
 ------------------------------------------------------------------------------
 
@@ -1000,11 +1000,11 @@ If you *do* configure **`stopOnTerminate: false`**, your Javascript application 
 
 Before an iOS app terminates, the plugin will ensure that a **stationary geofence** is created around the last known position.  When the user moves beyond the stationary geofence (typically ~200 meters), iOS will completely reboot your application in the background, including your Javascript application and the plugin will resume tracking.  iOS maintains geofence monitoring at the OS level, in spite of application terminate / device reboot.
 
-In the following image, imagine the user terminated the application at the **"red circle"** on the right then continued moving north-west, in the direction of the **red arrow**:  Once the device moves north-west by about 200 meters, exiting the stationary, iOS reboots the app and tracking resumes.
+In the following image, imagine the user terminated the application at the **"red circle"** on the right then continued moving:  Once the device moves by about 200 meters, exiting the "stationary geofence", iOS reboots the app and tracking resumes.
 
-:information_source: [Demo Video of `stopOnTerminate: false`](https://youtu.be/rFNDIQLEouo?t=69)
+:information_source: [Demo Video of `stopOnTerminate: false`](https://www.youtube.com/watch?v=aR6r8qV1TI8&t=214s)
 
-![](https://camo.githubusercontent.com/0230dfcb2457db3344f614bf5e3a641e61fb5c27/68747470733a2f2f7777772e64726f70626f782e636f6d2f732f7466746f327038767a30646e796b732f53637265656e73686f74253230323031372d30312d303725323031372e32362e35322e706e673f646c3d31)
+![](https://dl.dropboxusercontent.com/s/1uip231l3gds68z/screenshot-stopOnTerminate-ios.png?dl=0)
 
 **Android**
 
@@ -1529,7 +1529,7 @@ It's when this list of monitored geofences *changes*, the plugin will fire the *
 #### `callbackFn` Paramters
 
 ##### `@param {Array} on` The list of geofences just activated.
-##### `@param {Array off` The list of geofences just de-activated
+##### `@param {Array} off` The list of geofences just de-activated
 
 ```javascript
 BackgroundGeolocation.on('geofenceschange', function(event) {
@@ -2635,7 +2635,7 @@ BackgroundGeolocation.emailLog("foo@bar.com");
 
 2. Grant "Storage" permission `Settings->Apps->[Your App]->Permissions: (o) Storage`
 
-![](https://dl.dropboxusercontent.com/u/2319755/cordova-background-geolocaiton/Screenshot_20160218-183345.png)
+![](https://dl.dropboxusercontent.com/s/mqfx11u15vbe3ed/screenshot-android-app-permissions.png?dl=1)
 
 ### `destroyLog(successFn, failureFn)`
 

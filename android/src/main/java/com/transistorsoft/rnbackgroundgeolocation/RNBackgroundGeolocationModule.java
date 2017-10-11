@@ -487,7 +487,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
 
     private WritableMap getState() {
         try {
-            return jsonToMap(Settings.getState());
+            return jsonToMap(getAdapter().getState());
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

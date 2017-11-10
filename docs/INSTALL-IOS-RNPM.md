@@ -1,4 +1,4 @@
-# iOS Installation with rnpm
+# iOS Installation with `react-native link`
 
 ```shell
 $ npm install --save react-native-background-geolocation

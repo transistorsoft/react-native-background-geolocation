@@ -13,27 +13,50 @@ $ npm install --save react-native-background-geolocation
 +project(':react-native-background-geolocation').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-background-geolocation/android')
 ```
 
+* :open_file_folder: **`android/build.gradle`**
+
+```diff
+allprojects {
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven {
+            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+            url "$rootDir/../node_modules/react-native/android"
+        }
+        // Google now hosts their latest API dependencies on their own maven  server.  
+        // React Native will eventually add this to their app template.
++        maven {
++            url 'https://maven.google.com'
++        }
+    }
+}
+```
+
 :open_file_folder: **`android/app/build.gradle`**
 
 ```diff
 +repositories {
-+    flatDir {
-+        dirs "../../node_modules/react-native-background-geolocation/android/libs"
-+    }
++   flatDir {
++       dirs "../../node_modules/react-native-background-geolocation/android/libs"
++   }
 +}
+
 dependencies {
-+  compile project(':react-native-background-geolocation')
-+  compile(name: 'tslocationmanager', ext: 'aar')
++   compile project(':react-native-background-geolocation')
++   compile(name: 'tslocationmanager', ext: 'aar')
 }
 ```
 
-:information_source: If you have a different play serivces than the one included in this library, use the following instead (switch **`11.0.4`** for the desired version):
+:information_source: If you have a different play serivces than the one included in this library, use the following instead (switch **`11.2.0`** for the desired version):
+
+:warning: The plugin requires a minimum play-services version of **`11.2.0`**.
 
 ```
 compile(project(':react-native-background-geolocation')) {
   exclude group: 'com.google.android.gms', module: 'play-services-location'
 }
-compile 'com.google.android.gms:play-services-location:11.0.4'
+compile 'com.google.android.gms:play-services-location:11.2.0'
 ```
 
 ## AndroidManifest.xml
@@ -89,10 +112,8 @@ public class MainApplication extends ReactApplication {
 -keep class com.transistorsoft.** { *; }
 -dontwarn com.transistorsoft.**
 
--keep class com.google.**
--dontwarn com.google.**
--dontwarn org.apache.http.**
--dontwarn com.android.volley.toolbox.**
+# OkHttp
+-dontwarn okio.**
 
 # BackgroundGeolocation (EventBus)
 -keepclassmembers class * extends de.greenrobot.event.util.ThrowableFailureEvent {

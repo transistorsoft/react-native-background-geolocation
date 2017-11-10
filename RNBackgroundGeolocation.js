@@ -89,15 +89,18 @@ let API = {
     failure = failure || emptyFn;
     RNBackgroundGeolocation.getState(success, failure);
   },
-  addListener: function(event, callback) {
+  addListener: function(event, callback, failure) {
     if (this.events.indexOf(event) < 0) {
       throw "RNBackgroundGeolocation: Unknown event '" + event + '"';
     }
     this.subscriptions.push(EventEmitter.addListener(event, callback));
+    if (typeof(failure) === 'function') {
+      this.subscriptions.push(EventEmitter.addListener("error", failure));
+    }
     RNBackgroundGeolocation.addEventListener(event);
   },
-  on: function(event, callback) {
-    return this.addListener(event, callback);
+  on: function(event, callback, failure) {
+    return this.addListener(event, callback, failure);
   },
   removeListener: function(event, callback) {
     if (this.events.indexOf(event) < 0) {
@@ -116,13 +119,17 @@ let API = {
       RNBackgroundGeolocation.removeListener(event);
     }
     EventEmitter.removeListener(event, callback);
-  },
+  },  
   removeAllListeners: function() {
     for (var n=0,len=API.events.length;n<len;n++) {
       EventEmitter.removeAllListeners(API.events[n]);
     }
     this.subscriptions = [];
     RNBackgroundGeolocation.removeAllListeners();
+  },
+  // @alias #removeAllListeners
+  removeListeners: function() {
+    this.removeAllListeners();
   },
   un: function(event, callback) {
     this.removeListener(event, callback);

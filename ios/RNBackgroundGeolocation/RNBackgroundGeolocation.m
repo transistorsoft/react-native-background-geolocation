@@ -48,6 +48,11 @@ static NSString *const EVENT_POWERSAVECHANGE    = @"powersavechange";
 
 RCT_EXPORT_MODULE();
 
++(BOOL)requiresMainQueueSetup
+{
+    return YES;
+}
+
 /**
  * Create TSLocationManager instance
  */

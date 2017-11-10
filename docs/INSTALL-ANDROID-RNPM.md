@@ -1,4 +1,4 @@
-# Android RNPM Installation
+# Android Installation with `react-native link`
 
 ```shell
 $ npm install --save react-native-background-geolocation
@@ -22,17 +22,37 @@ rnpm link react-native-background-geolocation
 
 RNPM does a nice job, but we need to do a bit of manual setup.
 
+* :open_file_folder: **`android/build.gradle`**
+
+```diff
+allprojects {
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven {
+            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+            url "$rootDir/../node_modules/react-native/android"
+        }
+        // Google now hosts their latest API dependencies on their own maven  server.  
+        // React Native will eventually add this to their app template.
++        maven {
++            url 'https://maven.google.com'
++        }
+    }
+}
+```
+
 :open_file_folder: **`android/app/build.gradle`**
 
 ```diff
-...
 +repositories {
-+    flatDir {
-+        dirs "../../node_modules/react-native-background-geolocation/android/libs"
-+    }
++   flatDir {
++       dirs "../../node_modules/react-native-background-geolocation/android/libs"
++   }
 +}
+
 dependencies {
-+  compile(name: 'tslocationmanager', ext: 'aar')
++   compile(name: 'tslocationmanager', ext: 'aar')
 }
 ```
 

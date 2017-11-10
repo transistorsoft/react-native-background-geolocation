@@ -1713,7 +1713,7 @@ BackgroundGeolocation.configure({
 })
 ```
 
-:information_source: BackgroundGeolocation persists its **`enabled`** state between application terminate or device reboot and **`#configure`** will **automatically** [`#start`](startsuccessfn-failurefn) tracking if it finds **`enabled == true`**.  However, there's no harm in calling [`#start`](startsuccessfn-failurefn) while the plugin is already **`enabled`**, *before* your **`successFn`** is executed.
+:information_source: BackgroundGeolocation persists its **`enabled`** state between application terminate or device reboot and **`#configure`** will **automatically** [`#start`](#startsuccessfn-failurefn) tracking if it finds **`enabled == true`**.  However, there's no harm in calling [`#start`](#startsuccessfn-failurefn) while the plugin is already **`enabled`**, *before* your **`successFn`** is executed.
 
 :warning: You should not execute **any** of the plugin's API methods (other than adding event-listeners with [`#on`](#zap-events) until your **`successFn`** executes.  For example:
 
@@ -2007,14 +2007,14 @@ onAppSuspend() {
 
 ```
 
-:information_source: Also see [`#stopWatchPosition`](stopwatchpositionsuccessfn-failurefn)
+:information_source: Also see [`#stopWatchPosition`](#stopwatchpositionsuccessfn-failurefn)
 
 ------------------------------------------------------------------------------
 
 
 ### `stopWatchPosition(successFn, failureFn)`
 
-Halt [`#watchPosition`](watchpositionsuccessfn-failurefn-options) updates.
+Halt [`#watchPosition`](#watchpositionsuccessfn-failurefn-options) updates.
 
 ```javascript
 BackgroundGeolocation.stopWatchPosition();  // <-- callbacks are optional
@@ -2045,7 +2045,7 @@ BackgroundGeolocation.getOdometer(function(distance) {
 });
 ```
 
-:information_source: Also see [`desiredOdometerAccuracy`](config-integer-desiredodometeraccuracy-100) to set discard poor accuracy locations being used in odometer calculations.
+:information_source: Also see [`desiredOdometerAccuracy`](#config-integer-desiredodometeraccuracy-100) to set discard poor accuracy locations being used in odometer calculations.
 
 :warning: Odometer calculations are dependant upon the accuracy of received locations.  If location accuracy is poor, this will necessarily introduce error into odometer calculations.
 

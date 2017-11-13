@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.10.1] - 2017-11-12
+- [Fixed] Rare issue with iOS where **rapidly** toggling executing `start` with `changePace(true)` in the callback followed by `stop`, over and over again, would lock up the main thread.
+- [Changed] Android `GEOFENCE_INITIAL_TRIGGER_DWELL` defaulted to `true`.
+- [Fixed] `Proguard-Rules` were not ignoring the new `LogFileProvider` used for `#emailLog` method.
+- [Fixed] Android issue on some device where callback to `#configure` would not be executed in certain cases.
+
 ## [2.10.0] - 2017-11-10
 - [Fixed] Android NPE on `Settings.getForegroundService()` when using `foregroundService: false`
 - [Fixed] Android 8 error with `emailLog`.  Crash due to `SecurityException` when writing the log-file.  Fixed by implementing `FileProvider` (storage permissions no longer necessary).

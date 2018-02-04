@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-geolocation",
-  "version": "2.10.1",
+  "version": "2.11.0",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -37,12 +37,12 @@
       ]
     }
   },
-  "homepage": "https://transistorsoft.github.io/react-native-background-geolocation",
+  "homepage": "https://www.transistorsoft.com/shop/products/react-native-background-geolocation",
   "peerDependencies": {
-    "react-native": ">=0.28.0"
+    "react-native": ">=0.36.0"
   },
   "dependencies": {
-    "react-native-background-fetch":"~2.2.0",
+    "react-native-background-fetch":"~2.3.0",
     "cocoa-lumberjack":"^3.0.3"
   }
 }

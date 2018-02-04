@@ -89,6 +89,7 @@ BackgroundGeolocation.setConfig({
 | [`locationUpdateInterval`](#config-integer-millis-locationupdateinterval) | `Integer` | `1000` | With [`distanceFilter: 0`](config-integer-distancefilter), Sets the desired interval for location updates, in milliseconds. |
 | [`fastestLocationUpdateInterval`](#config-integer-millis-fastestlocationupdateinterval) | `Integer` | `10000` | Explicitly set the fastest interval for location updates, in milliseconds. |
 | [`deferTime`](#config-integer-defertime) | `Integer` | `0` | Sets the maximum wait time in milliseconds for location updates to be delivered to your callback, when they will all be delivered in a batch.|
+| [`allowIdenticalLocations`](#config-boolean-allowidenticallocations) | `Boolean` | `false` | The Android plugin will ignore a received location when it is identical to the last location.  Set `true` to override this behaviour and record every location, regardless if it is identical to the last location.|
 
 
 ## :wrench: Activity Recognition Options
@@ -157,6 +158,7 @@ BackgroundGeolocation.setConfig({
 | Option      | Type      | Default   | Note                              |
 |-------------|-----------|-----------|-----------------------------------|
 | [`foregroundService`](#config-boolean-foregroundservice-false) | `Boolean` | `false` | Set `true` to make the plugin *mostly* immune to OS termination due to memory pressure from other apps. |
+| [`enableHeadless`](#config-boolean-enableheadless-false) | `Boolean` | `false` | Set to `true` to enable "Headless" mode when the user terminates the application.  In this mode, you can respond to all the plugin's events in the native Android environment.  For more information, see the wiki for [Headless Mode](../../../wiki/Headless-Mode) |
 | [`notificationPriority`](#config-integer-notificationpriority-notification_priority_default) | `Integer` | `NOTIFICATION_PRIORITY_DEFAULT` | Controls the priority of the `foregroundService` notification and notification-bar icon. |
 | [`notificationTitle`](#config-string-notificationtitle-app-name) | `String` | "Your App Name" | When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), Android requires a persistent notification in the Notification Bar.  Defaults to the application name |
 | [`notificationText`](#config-string-notificationtext-location-service-activated) | `String` |  "Location service activated" | When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), Android requires a persistent notification in the Notification Bar.|
@@ -550,6 +552,19 @@ If **`#fastestLocationUpdateInterval`** is set slower than [`#locationUpdateInte
 #### `@config {Integer} deferTime`
 
 Defaults to `0` (no defer).  Sets the maximum wait time in milliseconds for location updates.  If you pass a value at least 2x larger than the interval specified with [`#locationUpdateInterval`](#config-integer-millis-locationupdateinterval), then location delivery may be delayed and multiple locations can be delivered at once. Locations are determined at the [`#locationUpdateInterval`](#config-integer-millis-locationupdateinterval) rate, but can be delivered in batch after the interval you set in this method. This can consume less battery and give more accurate locations, depending on the device's hardware capabilities. You should set this value to be as large as possible for your needs if you don't need immediate location delivery.
+
+------------------------------------------------------------------------------
+
+#### `@config {Boolean} allowIdenticalLocations [false]`
+
+By default, the Android plugin will ignore a received location when it is identical to the last location.  Set `true` to override this behaviour and record *every*location, regardless if it is identical to the last location.
+
+In the logs, you will see a location being ignored:
+```
+TSLocationManager:   ℹ️  IGNORED: same as last location
+```
+
+An identical location is often generated when changing state from *stationary* -> *moving*, where a single location is first requested (the `motionchange` location) before turning on regular location updates.  Changing geolocation config params can also generate a duplicate location (eg: changing `distanceFilter`).
 
 ------------------------------------------------------------------------------
 
@@ -1026,11 +1041,14 @@ Android will reboot the plugin's background-service *immediately* after device r
 
 ------------------------------------------------------------------------------
 
+
 #### `@config {Integer} heartbeatInterval [undefined]`
 
 Controls the rate (in seconds) the [`heartbeat`](#heartbeat) event will fire.  The plugin will **not** provide any updated locations to your **`callbackFn`**, since it will provide only the last-known location.  If you wish for an updated location in your **`callbackFn`**, it's up to you to request one with [`#getCurrentPosition`](#getcurrentpositionsuccessfn-failurefn-options).
 
 :warning: On **iOS** the **`heartbeat`** event will fire only when configured with [`preventSuspend: true`](config-boolean-preventsuspend-false)
+
+:warning: Android *minimum* interval is `60` seconds.  It is **impossible** to have a `heartbeatInterval` faster than this on Android.
 
 ```javascript
 BackgroundGeolocation.on('heartbeat', function(params) {
@@ -1161,6 +1179,26 @@ Defaults to **`false`**.  Set **`true`** to prevent **iOS** from suspending afte
 
 ## :wrench: [Application] Android Options
 
+#### `@config {Boolean} foregroundService [false]`
+
+Defaults to **`false`**.  When the Android OS is under memory pressure from other applications (eg: a phone call), the OS can and will free up memory by terminating other processes and scheduling them for re-launch when memory becomes available.  If you find your tracking being **terminated unexpectedly**, *this* is why.
+
+If you set this option to **`true`**, the plugin will run its Android service in the foreground, **supplying the ongoing notification to be shown to the user while in this state**.  Running as a foreground-service makes the tracking-service **much** more inmmune to OS killing it due to memory/battery pressure.  By default services are background, meaning that if the system needs to kill them to reclaim more memory (such as to display a large page in a web browser).
+
+:information_source: See related config options [`notificationTitle`](#config-string-notificationtitle-app-name), [`notificationText`](#config-string-notificationtext-location-service-activated) & [`notificationColor`](#config-string-notificationcolor-null)
+
+:blue_book: For more information, see the [Android Service](https://developer.android.com/reference/android/app/Service.html#startForeground(int,%20android.app.Notification)) docs.
+
+------------------------------------------------------------------------------
+
+
+#### `@config {Boolean} enableHeadless [false]`
+
+Set to `true` to enable "Headless" mode when the user terminates the application where you've configured **`stopOnTerminate: false`**.  In this mode, you can respond to all the plugin's [events](#events) in the native Android environment.  For more information, see the wiki for [Headless Mode](../../../wiki/Headless-Mode).
+
+:information_source: "Headless" mode is an alternartive to using the **`forceReloadOnXXX`** configuration options below.
+
+------------------------------------------------------------------------------
 
 #### `@config {Boolean} forceReloadOn* [false]`
 
@@ -1206,24 +1244,12 @@ If the user reboots the device with the plugin configured for [`startOnBoot: tru
 
 ------------------------------------------------------------------------------
 
-#### `@config {Boolean} foregroundService [false]`
-
-Defaults to **`false`**.  When the Android OS is under memory pressure from other applications (eg: a phone call), the OS can and will free up memory by terminating other processes and scheduling them for re-launch when memory becomes available.  If you find your tracking being **terminated unexpectedly**, *this* is why.
-
-If you set this option to **`true`**, the plugin will run its Android service in the foreground, **supplying the ongoing notification to be shown to the user while in this state**.  Running as a foreground-service makes the tracking-service **much** more inmmune to OS killing it due to memory/battery pressure.  By default services are background, meaning that if the system needs to kill them to reclaim more memory (such as to display a large page in a web browser).
-
-:information_source: See related config options [`notificationTitle`](#config-string-notificationtitle-app-name), [`notificationText`](#config-string-notificationtext-location-service-activated) & [`notificationColor`](#config-string-notificationcolor-null)
-
-:blue_book: For more information, see the [Android Service](https://developer.android.com/reference/android/app/Service.html#startForeground(int,%20android.app.Notification)) docs.
-
-------------------------------------------------------------------------------
-
 
 #### `@config {Integer} notificationPriority [NOTIFICATION_PRIORITY_DEFAULT]`
 
 When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), Android requires a persistent notification in the Notification Bar.  This will control the **priority** of that notification as well as the position of the notificaiton-bar icon.
 
-:information_source: To completely **hide** the icon in the notification-bar, use `NOTIFICATION_PRIORITY_MIN`
+:information_source: To completely **hide** the icon in the notification-bar, use `NOTIFICATION_PRIORITY_MIN` (:warning: **It is no longer possible to hide the notification-bar icon in Android O**)
 
 The following `notificationPriority` values defined as **constants** on the `BackgroundGeolocation` object:
 
@@ -1713,7 +1739,7 @@ BackgroundGeolocation.configure({
 })
 ```
 
-:information_source: BackgroundGeolocation persists its **`enabled`** state between application terminate or device reboot and **`#configure`** will **automatically** [`#start`](#startsuccessfn-failurefn) tracking if it finds **`enabled == true`**.  However, there's no harm in calling [`#start`](#startsuccessfn-failurefn) while the plugin is already **`enabled`**, *before* your **`successFn`** is executed.
+:information_source: BackgroundGeolocation persists its **`enabled`** state between application terminate or device reboot and **`#configure`** will **automatically** [`#start`](startsuccessfn-failurefn) tracking if it finds **`enabled == true`**.  However, there's no harm in calling [`#start`](startsuccessfn-failurefn) while the plugin is already **`enabled`**, *before* your **`successFn`** is executed.
 
 :warning: You should not execute **any** of the plugin's API methods (other than adding event-listeners with [`#on`](#zap-events) until your **`successFn`** executes.  For example:
 
@@ -2007,14 +2033,14 @@ onAppSuspend() {
 
 ```
 
-:information_source: Also see [`#stopWatchPosition`](#stopwatchpositionsuccessfn-failurefn)
+:information_source: Also see [`#stopWatchPosition`](stopwatchpositionsuccessfn-failurefn)
 
 ------------------------------------------------------------------------------
 
 
 ### `stopWatchPosition(successFn, failureFn)`
 
-Halt [`#watchPosition`](#watchpositionsuccessfn-failurefn-options) updates.
+Halt [`#watchPosition`](watchpositionsuccessfn-failurefn-options) updates.
 
 ```javascript
 BackgroundGeolocation.stopWatchPosition();  // <-- callbacks are optional
@@ -2045,7 +2071,7 @@ BackgroundGeolocation.getOdometer(function(distance) {
 });
 ```
 
-:information_source: Also see [`desiredOdometerAccuracy`](#config-integer-desiredodometeraccuracy-100) to set discard poor accuracy locations being used in odometer calculations.
+:information_source: Also see [`desiredOdometerAccuracy`](config-integer-desiredodometeraccuracy-100) to set discard poor accuracy locations being used in odometer calculations.
 
 :warning: Odometer calculations are dependant upon the accuracy of received locations.  If location accuracy is poor, this will necessarily introduce error into odometer calculations.
 
@@ -2618,24 +2644,6 @@ None
 BackgroundGeolocation.emailLog("foo@bar.com");
 ```
 
-**Android:**  
-
-1. The following permissions are required in your `AndroidManifest.xml` in order to attach the `.log` file to the email:
-
-```xml
-<manifest>
-  <application>
-  ...
-  </application>
-
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-</manifest>
-```
-
-2. Grant "Storage" permission `Settings->Apps->[Your App]->Permissions: (o) Storage`
-
-![](https://dl.dropboxusercontent.com/s/mqfx11u15vbe3ed/screenshot-android-app-permissions.png?dl=1)
 
 ### `destroyLog(successFn, failureFn)`
 

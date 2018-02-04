@@ -33,4 +33,6 @@ dependencies {
     compile('com.github.tony19:logback-android-classic:1.1.1-6') {
         exclude group: 'com.google.android', module: 'android'
     }
+    // android-permissions
+    compile 'com.intentfilter:android-permissions:0.1.5'
 }

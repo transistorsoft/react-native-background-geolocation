@@ -25,7 +25,10 @@ The **[Android module](http://www.transistorsoft.com/shop/products/react-native-
 ![Settings](https://dl.dropboxusercontent.com/s/8oad228siog49kt/settings-framed-350.png?dl=1)
 
 # Contents
-- [API Documentation](./docs/README.md)
+- ### :books: [API Documentation](./docs/README.md)
+  - :wrench: [Configuration Options](./docs/README.md#wrench-configuration-options-1)
+  - :zap: [Events](./docs/README.md#zap-events-1)
+  - :small_blue_diamond: [Methods](./docs/README.md#large_blue_diamond-methods)
 - [Installing the Plugin](#large_blue_diamond-installing-the-plugin)
 - [Setup Guides](#large_blue_diamond-setup-guides)
 - [Android SDK Setup](#large_blue_diamond-android-sdk)

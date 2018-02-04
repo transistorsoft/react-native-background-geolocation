@@ -28,15 +28,16 @@ The **[Android module](http://www.transistorsoft.com/shop/products/react-native-
 - ### :books: [API Documentation](./docs/README.md)
   - :wrench: [Configuration Options](./docs/README.md#wrench-configuration-options-1)
   - :zap: [Events](./docs/README.md#zap-events-1)
-  - :small_blue_diamond: [Methods](./docs/README.md#large_blue_diamond-methods)
-- [Installing the Plugin](#large_blue_diamond-installing-the-plugin)
-- [Setup Guides](#large_blue_diamond-setup-guides)
-- [Android SDK Setup](#large_blue_diamond-android-sdk)
-- [Using the plugin](#large_blue_diamond-using-the-plugin)
-- [Example](#large_blue_diamond-example)
-- [Debugging](../../wiki/Debugging)
-- [Demo Application](#large_blue_diamond-demo-application)
-- [Testing Server](#large_blue_diamond-simple-testing-server)
+  - :small_blue_diamond: [Methods](./docs/README.md#large_blue_diamond-methods)        
+- ### [Installing the Plugin](#large_blue_diamond-installing-the-plugin)
+- ### [Setup Guides](#large_blue_diamond-setup-guides)
+- ### [Configure your License](#large_blue_diamond-configure-your-license)
+- ### [Android SDK Setup](#large_blue_diamond-android-sdk)
+- ### [Using the plugin](#large_blue_diamond-using-the-plugin)
+- ### [Example](#large_blue_diamond-example)
+- ### [Debugging](../../wiki/Debugging)
+- ### [Demo Application](#large_blue_diamond-demo-application)
+- ### [Testing Server](#large_blue_diamond-simple-testing-server)
 
 
 ## :large_blue_diamond: Installing the Plugin
@@ -56,6 +57,35 @@ $ npm install react-native-background-geolocation --save
 ### Android
 * [`react-native link` Setup](docs/INSTALL-ANDROID-RNPM.md)
 * [Manual Setup](docs/INSTALL-ANDROID.md)
+
+
+## :large_blue_diamond: Configure your license
+
+1. Login to Customer Dashboard to generate an application key:
+[www.transistorsoft.com/shop/customers](http://www.transistorsoft.com/shop/customers)
+![](https://gallery.mailchimp.com/e932ea68a1cb31b9ce2608656/images/b2696718-a77e-4f50-96a8-0b61d8019bac.png)
+
+2. Add your license-key to `android/app/src/main/AndroidManifest.xml`:
+
+```diff
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.transistorsoft.backgroundgeolocation.react">
+
+  <application
+    android:name=".MainApplication"
+    android:allowBackup="true"
+    android:label="@string/app_name"
+    android:icon="@mipmap/ic_launcher"
+    android:theme="@style/AppTheme">
+
+    <!-- react-native-background-geolocation licence -->
++     <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="YOUR_LICENCE_KEY_HERE" />
+    .
+    .
+    .
+  </application>
+</manifest>
+```
 
 
 ## :large_blue_diamond: Android SDK
@@ -174,6 +204,10 @@ export default class App extends Component {
 ## :large_blue_diamond: [Demo Application](https://github.com/transistorsoft/rn-background-geolocation-demo)
 
 A fully-featured [Demo App](https://github.com/transistorsoft/rn-background-geolocation-demo) is available in its own public repo.  After first cloning that repo, follow the installation instructions in the **README** there.  This demo-app includes a settings-screen allowing you to quickly experiment with all the different settings available for each platform.
+
+![Home](https://dl.dropboxusercontent.com/s/wa43w1n3xhkjn0i/home-framed-350.png?dl=1)
+![Settings](https://dl.dropboxusercontent.com/s/8oad228siog49kt/settings-framed-350.png?dl=1)
+
 
 ## :large_blue_diamond: [Simple Testing Server](https://github.com/transistorsoft/background-geolocation-console)
 

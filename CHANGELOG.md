@@ -1,5 +1,16 @@
 # Change Log
 
+## [2.11.0] - 2017-02-03
+- [Fixed] Guard usage of `powersavechange` event for iOS < 9
+- [Added] Android permissions are now handled completely within `tslocationmanager` library rather than within Cordova Activity.
+- [Fixed] iOS `emailLog` issues:  sanity check existence of email client, ensure we have reference to topMost `UIViewController`.
+- [Added] New Android "Headless" mechanism allowing you provide a simple custom Java class to receive all events from the plugin when your app is terminated (with `stopOnTerminate: false`).  The headless mechanism is enabled with new `@config {Boolean} enableHeadless`.  See the Wiki "Headless Mode" for details.
+- [Fixed] iOS `getCurrentPosition` was applying entire options `{}` as `extras`.
+- [Fixed] iOS `watchPosition` / `getCurrentPosition` `@option persist` was being ignored when plugin was disabled (ie: `#stop`ped).
+- [Fixed] Implement Android `JobScheduler` API for scheduler (where API_LEVEL) allows it.  Will fallback to existing `AlarmManager` implementation where API_LEVEL doesn't allow `JobScheduler`.  This fixes issues scheduler issues with strict new Android 8 background-operation rules.
+- [Added] Added new Android `@config {Boolean} allowIdenticalLocations [false]` for overriding the default behaviour of ignoring locations which are identical to the last location.
+- [Added] Add iOS `CLFloor` attribute to `location.coordinate` for use in indoor-tracking when required RF hardware is present in the environment (specifies which floor the device is on).
+
 ## [2.10.1] - 2017-11-12
 - [Fixed] Rare issue with iOS where **rapidly** toggling executing `start` with `changePace(true)` in the callback followed by `stop`, over and over again, would lock up the main thread.
 - [Changed] Android `GEOFENCE_INITIAL_TRIGGER_DWELL` defaulted to `true`.

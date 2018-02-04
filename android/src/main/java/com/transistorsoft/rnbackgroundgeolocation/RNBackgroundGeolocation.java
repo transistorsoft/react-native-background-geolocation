@@ -1,7 +1,5 @@
 package com.transistorsoft.rnbackgroundgeolocation;
 
-import android.app.Activity;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

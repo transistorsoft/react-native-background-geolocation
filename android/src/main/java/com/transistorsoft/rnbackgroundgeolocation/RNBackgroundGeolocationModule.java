@@ -54,6 +54,7 @@ import java.util.List;
 public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule implements ActivityEventListener, LifecycleEventListener {
 
     private static final String TAG = "TSLocationManager";
+    private static final String JOB_SERVICE_CLASS = "HeadlessJobService";
 
     public static final String ACCESS_COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     public static final String ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -88,7 +89,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         events.add(BackgroundGeolocation.EVENT_HEARTBEAT);
         events.add(BackgroundGeolocation.EVENT_HTTP);
         events.add(BackgroundGeolocation.EVENT_SCHEDULE);
-        events.add(BackgroundGeolocation.EVENT_POWERSAVECHANGE);        
+        events.add(BackgroundGeolocation.EVENT_POWERSAVECHANGE);
 
         reactContext.addLifecycleEventListener(this);
     }
@@ -287,7 +288,6 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             setConfig(config, success, failure);
             return;
         }
-
         configured = true;
 
         BackgroundGeolocation adapter = getAdapter();
@@ -299,7 +299,16 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             }
         }));
 
-        adapter.configure(mapToJson(config), new TSCallback() {
+        WritableMap myConfig = new WritableNativeMap();
+        myConfig.merge(config);
+
+
+        // Configure optional headlessJobService
+        if (config.hasKey("enableHeadless") && config.getBoolean("enableHeadless")) {
+            myConfig.putString("headlessJobService", getClass().getPackage().getName() + "." + JOB_SERVICE_CLASS);
+        }
+
+        adapter.configure(mapToJson(myConfig), new TSCallback() {
             public void onSuccess() {
                 success.invoke(getState());
             }
@@ -467,7 +476,14 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
 
     @ReactMethod
     public void setConfig(ReadableMap config, final Callback success, final Callback failure) {
-        getAdapter().setConfig(mapToJson(config), new TSCallback() {
+        WritableMap myConfig = new WritableNativeMap();
+        myConfig.merge(config);
+
+        // Configure optional headlessJobService
+        if (config.hasKey("enableHeadless") && config.getBoolean("enableHeadless")) {
+            myConfig.putString("headlessJobService", getClass().getPackage().getName() + "." + JOB_SERVICE_CLASS);
+        }
+        getAdapter().setConfig(mapToJson(myConfig), new TSCallback() {
             @Override
             public void onSuccess() {
                 success.invoke(getState());
@@ -719,16 +735,16 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                     WritableArray rs = new WritableNativeArray();
                     for (TSGeofence geofence : geofences) {
                         WritableMap data = new WritableNativeMap();
-                        data.putString("identifier", geofence.identifier);
-                        data.putDouble("latitude", geofence.latitude);
-                        data.putDouble("longitude", geofence.longitude);
-                        data.putDouble("radius", geofence.radius);
-                        data.putBoolean("notifyOnEntry", geofence.notifyOnEntry);
-                        data.putBoolean("notifyOnExit", geofence.notifyOnExit);
-                        data.putBoolean("notifyOnDwell", geofence.notifyOnDwell);
-                        data.putInt("loiteringDelay", geofence.loiteringDelay);
-                        if (geofence.extras != null) {
-                            data.putMap("extras", jsonToMap(geofence.extras));
+                        data.putString("identifier", geofence.getIdentifier());
+                        data.putDouble("latitude", geofence.getLatitude());
+                        data.putDouble("longitude", geofence.getLongitude());
+                        data.putDouble("radius", geofence.getRadius());
+                        data.putBoolean("notifyOnEntry", geofence.getNotifyOnEntry());
+                        data.putBoolean("notifyOnExit", geofence.getNotifyOnExit());
+                        data.putBoolean("notifyOnDwell", geofence.getNotifyOnDwell());
+                        data.putInt("loiteringDelay", geofence.getLoiteringDelay());
+                        if (geofence.getExtras() != null) {
+                            data.putMap("extras", jsonToMap(geofence.getExtras()));
                         }
                         rs.pushMap(data);
                     }
@@ -873,6 +889,8 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                 map.putBoolean(key, (Boolean) value);
             } else if (value instanceof  Integer) {
                 map.putInt(key, (Integer) value);
+            } else if (value instanceof Long) {
+                map.putDouble(key, ((Long) value).doubleValue());
             } else if (value instanceof  Double) {
                 map.putDouble(key, (Double) value);
             } else if (value instanceof String)  {
@@ -967,7 +985,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         }
         return jsonArray;
     }
-    
+
     // TODO placehold for implementing Android M permissions request.  Just return true for now.
     private Boolean hasPermission(String permission) {
         return true;

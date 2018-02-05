@@ -1,6 +1,6 @@
 # Change Log
 
-## [2.11.0] - 2017-02-03
+## [2.11.0] - 2018-02-03
 - [Fixed] Guard usage of `powersavechange` event for iOS < 9
 - [Added] Android permissions are now handled completely within `tslocationmanager` library rather than within Cordova Activity.
 - [Fixed] iOS `emailLog` issues:  sanity check existence of email client, ensure we have reference to topMost `UIViewController`.

@@ -5,7 +5,7 @@
 $ npm install react-native-background-geolocation --save
 ```
 
-- In the XCode's **`Project navigator`**, right click on project's name ➜ **`Add Files to <...>`**
+- In the XCode's **`Project navigator`**, right click on project's name ➜ **`Add Files to <project-name>`**
 ![](https://dl.dropboxusercontent.com/s/nmih1sc9hgygpvu/react-native-background-geolocation-install-1.png?dl=1)
 
 - Add **1st of 3** Libraries:

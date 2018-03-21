@@ -1,0 +1,420 @@
+'use strict';
+
+import {
+  NativeEventEmitter,
+  NativeModules,
+  Platform,
+  AppRegistry
+} from "react-native"
+
+const { RNBackgroundGeolocation } = NativeModules;
+const EventEmitter = new NativeEventEmitter(RNBackgroundGeolocation);
+
+const TAG               = "TSLocationManager";
+const PLATFORM_ANDROID  = "android";
+const PLATFORM_IOS      = "ios";
+
+const EVENTS = [
+  'heartbeat',
+  'http',
+  'location',
+  'error',
+  'motionchange',
+  'geofence',
+  'schedule',
+  'activitychange',
+  'providerchange',
+  'geofenceschange',
+  'watchposition',
+  'powersavechange',
+  'connectivitychange',
+  'enabledchange'
+];
+
+/**
+* Logging API
+*/
+const LOGGER = {
+  error: function(msg) {
+    RNBackgroundGeolocation.log('error', msg);
+  },
+  warn: function(msg) {
+    RNBackgroundGeolocation.log('warn', msg);
+  },
+  debug: function(msg) {
+    RNBackgroundGeolocation.log('debug', msg);
+  },
+  info: function(msg) {
+    RNBackgroundGeolocation.log('info', msg);
+  },
+  notice: function(msg) {
+    RNBackgroundGeolocation.log('notice', msg);
+  },
+  header: function(msg) {
+    RNBackgroundGeolocation.log('header', msg);
+  },
+  on: function(msg) {
+    RNBackgroundGeolocation.log('on', msg);
+  },
+  off: function(msg) {
+    RNBackgroundGeolocation.log('off', msg);
+  },
+  ok: function(msg) {
+    RNBackgroundGeolocation.log('ok', msg);
+  }
+}
+
+// Plugin event listener subscriptions
+const EVENT_SUBSCRIPTIONS = [];
+
+/**
+* Native API
+*/
+export default class NativeModule {
+  static get EVENTS() { return EVENTS; }
+  /**
+  * Core API Methods
+  */
+  static ready(initialConfig) {
+    return new Promise((resolve, reject) => {
+      let success = (state) => { resolve(state) }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.ready(initialConfig, success, failure);
+    });
+  }
+
+  static configure(config) {
+    return new Promise((resolve, reject) => {
+      let success = (state) => { resolve(state) }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.configure(config, success, failure);
+    });
+  }
+
+  static setConfig(config) {
+    return new Promise((resolve, reject) => {
+      let success = (state) => { resolve(state) }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.setConfig(config, success, failure);
+    });
+  }
+
+  static reset(config) {
+    config = config || {};
+    return new Promise((resolve, reject) => {
+      let success = (state)  => { resolve(state) }
+      let failure = (error)  => { reject(error) }
+      RNBackgroundGeolocation.reset(config, success, failure);
+    });
+  }
+
+  static addListener(event, success, failure) {
+    if (EVENTS.indexOf(event) < 0) {
+      throw (TAG + "#addListener - Unknown event '" + event + "'");
+    }
+    EVENT_SUBSCRIPTIONS.push(EventEmitter.addListener(event, success));
+    if (typeof(failure) === 'function') {
+      EVENT_SUBSCRIPTIONS.push(EventEmitter.addListener("error", failure));
+    }
+    RNBackgroundGeolocation.addEventListener(event);
+  }
+
+  static removeListener(event, callback, success, failure) {
+    let found = null;
+    for (let n=0,len=EVENT_SUBSCRIPTIONS.length;n<len;n++) {
+      let subscription = EVENT_SUBSCRIPTIONS[n];
+      if ((subscription.eventType === event) && (subscription.listener === callback)) {
+          found = subscription;
+          break;
+      }
+    }
+    if (found !== null) {
+      EVENT_SUBSCRIPTIONS.splice(EVENT_SUBSCRIPTIONS.indexOf(found), 1);
+      RNBackgroundGeolocation.removeListener(event);
+    }
+    EventEmitter.removeListener(event, callback);
+  }
+
+  static removeListeners() {
+    return new Promise((resolve, reject) => {
+      let success = () => { 
+        for (let n=0,len=EVENTS.length;n<len;n++) {
+          EventEmitter.removeAllListeners(EVENTS[n]);
+        }
+        EVENT_SUBSCRIPTIONS = [];
+        resolve();
+      }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.removeAllListeners(success, failure);
+    });
+  }
+
+  static getState() {
+    return new Promise((resolve, reject) => {
+      let success = (state)  => { resolve(state) }
+      let failure = (error)  => { reject(error) }
+      RNBackgroundGeolocation.getState(success, failure);
+    });
+  }
+
+  static start() {
+    return new Promise((resolve, reject) => {
+      let success = (state)  => { resolve(state) }
+      let failure = (error)  => { reject(error) }
+      RNBackgroundGeolocation.start(success, failure);
+    });
+  }
+
+  static stop() {
+    return new Promise((resolve, reject) => {
+      let success = (state)  => { resolve(state) }
+      let failure = (error)  => { reject(error) }
+      RNBackgroundGeolocation.stop(success, failure);
+    });
+  }
+
+  static startSchedule() {
+    return new Promise((resolve, reject) => {
+      let success = (state)  => { resolve(state) }
+      let failure = (error)  => { reject(error) }
+      RNBackgroundGeolocation.startSchedule(success, failure);
+    });
+  }
+
+  static stopSchedule() {
+    return new Promise((resolve, reject) => {
+      let success = (state)  => { resolve(state) }
+      let failure = (error)  => { reject(error) }
+      RNBackgroundGeolocation.stopSchedule(success, failure);
+    });
+  }
+
+  static startGeofences() {
+    return new Promise((resolve, reject) => {
+      let success = (state)  => { resolve(state) }
+      let failure = (error)  => { reject(error) }
+      RNBackgroundGeolocation.startGeofences(success, failure);
+    });
+  }
+
+  static startBackgroundTask() {
+    return new Promise((resolve, reject) => {
+      let success = (taskId)  => { resolve(taskId) }
+      let failure = (error)   => { reject(error) }
+      RNBackgroundGeolocation.beginBackgroundTask(success);
+    });
+  }
+
+  static finish(taskId) {
+    return new Promise((resolve, reject) => {
+      resolve();
+      if (!taskId) { return }
+      RNBackgroundGeolocation.finish(taskId);
+    });
+  }
+
+  /**
+  * Geolocation Methods
+  */
+
+  static changePace(isMoving) {
+    return new Promise((resolve, reject) => {
+      let success = ()        => { resolve() }
+      let failure = (error)   => { reject(error) }
+      RNBackgroundGeolocation.changePace(isMoving, success, failure);
+    });
+  }
+  
+  static getCurrentPosition(options) {
+    options = options || {};
+    return new Promise((resolve, reject) => {
+      let success = (location)  => { resolve(location) }
+      let failure = (error)     => { reject(error) }
+      RNBackgroundGeolocation.getCurrentPosition(options, success, failure);    
+    });
+  }
+
+  static watchPosition(success, failure, options) {
+    let callback = ()  => { 
+      EventEmitter.addListener("watchposition", success);
+    };
+    RNBackgroundGeolocation.watchPosition(options, callback, failure);
+  }
+
+  static stopWatchPosition() {
+    return new Promise((resolve, reject) => {
+      EventEmitter.removeAllListeners("watchposition");
+      let success = ()      => { resolve() }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.stopWatchPosition(success, failure);    
+    });
+  }
+
+  static getOdometer() {
+    return new Promise((resolve, reject) => {
+      let success = (value) => { resolve(value) }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.getOdometer(success, failure);
+    });
+  }
+
+  static setOdometer(value) {
+    return new Promise((resolve, reject) => {
+      let success = (location)      => { resolve(location) }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.setOdometer(value, success, failure);
+    });
+  }
+
+  /**
+  * HTTP & Persistence Methods
+  */
+
+  static getLocations() {
+    return new Promise((resolve, reject) => {
+      let success = (result)  => { resolve(result) }
+      let failure = (error)   => { reject(error) }
+      RNBackgroundGeolocation.getLocations(success, failure);
+    });
+  }
+
+  static getCount() {
+    return new Promise((resolve, reject) => {
+      let success = (count) => { resolve(count) }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.getCount(success, failure);
+    });    
+  }
+
+  static destroyLocations() {
+    return new Promise((resolve, reject) => {
+      let success = ()      => { resolve() }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.destroyLocations(success, failure);
+    });
+  }
+
+  static insertLocation(params) {
+    return new Promise((resolve, reject) => {
+      let success = (location)  => { resolve(location) }
+      let failure = (error)     => { reject(error) }
+      RNBackgroundGeolocation.insertLocation(params, success, failure);
+    });
+  }
+
+  static sync() {
+    return new Promise((resolve, reject) => {
+      let success = (result)  => { resolve(result) }
+      let failure = (error)   => { reject(error) }
+      RNBackgroundGeolocation.sync(success, failure);
+    });
+  }
+
+  /**
+  * Geofencing Methods
+  */
+
+  static addGeofence(config) {
+    return new Promise((resolve, reject) => {
+      let success = ()      => { resolve() }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.addGeofence(config, success, failure);
+    });
+  }
+
+  static removeGeofence(identifier) {
+    return new Promise((resolve, reject) => {
+      let success = ()      => { resolve() }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.removeGeofence(identifier, success, failure);
+    });
+  }
+
+  static addGeofences(geofences) {
+    return new Promise((resolve, reject) => {
+      let success = ()      => { resolve() }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.addGeofences(geofences, success, failure);
+    });
+  }
+
+  static removeGeofences() {
+    return new Promise((resolve, reject) => {
+      let success = ()      => { resolve() }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.removeGeofences(success, failure);
+    });
+  }
+
+  static getGeofences() {
+    return new Promise((resolve, reject) => {
+      let success = (result)  => { resolve(result) }
+      let failure = (error)   => { reject(error) }
+      RNBackgroundGeolocation.getGeofences(success, failure);
+    });
+  }
+
+  /**
+  * Logging & Debug Methods
+  */
+
+  static setLogLevel(value) {
+    return new Promise((resolve, reject) => {
+      let success = (state)      => { resolve(state) }
+      let failure = (error) => { reject(error) }
+      let config = {logLevel: value};
+      RNBackgroundGeolocation.setConfig(config, success, failure);
+    });
+  }
+
+  static getLog() {
+    return new Promise((resolve, reject) => {
+      let success = (log)   => { resolve(log) }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.getLog(success, failure);
+    });
+  }
+
+  static destroyLog() {
+    return new Promise((resolve, reject) => {
+      let success = ()      => { resolve() }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.destroyLog(success, failure);
+    });
+  }
+
+  static emailLog(email) {
+    return new Promise((resolve, reject) => {
+      let success = ()      => { resolve() }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.emailLog(email, success, failure);
+    });
+  }
+
+  static isPowerSaveMode() {
+    return new Promise((resolve, reject) => {
+      let success = (isPowerSaveMode)   => { resolve(isPowerSaveMode) }
+      let failure = (error)             => { reject(error) }
+      RNBackgroundGeolocation.isPowerSaveMode(success, failure);
+    });
+  }
+
+  static getSensors() {
+    return new Promise((resolve, reject) => {
+      let success = (result)  => { resolve(result) }
+      let failure = (error)   => { reject(error) }
+      RNBackgroundGeolocation.getSensors(success, failure);
+    });
+  }
+
+  static playSound(soundId) {
+    return new Promise((resolve, reject) => {
+      let success = ()      => { resolve() }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.playSound(soundId);
+      success();
+    });
+  }
+
+  static get logger() { return LOGGER; }
+}

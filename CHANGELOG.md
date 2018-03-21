@@ -1,5 +1,17 @@
 # Change Log
 
+## [2.12.0-beta.1] - 2018-03-21
+- [Changed] Repackage android lib `tslocationmanager.aar` as a Maven Repositoroy.  :warning: Installation procedure has changed slightly.  Please review Android installation docs for your chosen install method (Manual or react-native link).
+- [Added] Added new initialization method `#ready`, desigend to replace `#configure` (which is now deprectated).  The new `#ready` method operates in the same manner as `#configure` with a crucial difference -- the plugin will only apply the supplied configuration `{}` at the first launch of your app &mdash; thereafter, it will automatically load the last-known config from persistent storage.
+- [Added] Add new method `#reset` for resetting the plugin configuration to documented defaults.
+- [Added] Refactor Javascript API to use Promises.  Only `#watchPosition` and adding event-listeners with `#on` will not use promises.
+- [Fixed] iOS issue not turning of "keepAlive" system when `#stop` method is executed while stop-detection system is engaged.
+- [Added] Android will fire `providerchange` event after the result of user location-authorization (accept/deny).  The result will be available in the `status` key of the event-object.
+- [Changed] Refactor native configuration system for both iOS and Android with more traditional Obj-c / Java API.
+- [Changed] Create improved Obj-c / Java APIs for location-requests (`#getCurrentPosition`, `#watchPosition`) and geofencing.
+- [Added] Added new event `connectivitychange` for detecting network connectivity state-changes.
+- [Added] Added new event `enabledchange`, fired with the plugin enabled state changes.  Executing `#start` / `#stop` will cause this event to fire.  This is primarily designed for use with `stopAfterElapsedMinutes`.
+
 ## [2.11.0] - 2018-02-03
 - [Fixed] Guard usage of `powersavechange` event for iOS < 9
 - [Added] Android permissions are now handled completely within `tslocationmanager` library rather than within Cordova Activity.

@@ -1,360 +1,623 @@
-'use strict';
+'use strict'
 
-import {
-  NativeEventEmitter,
-  NativeModules,
+import {  
   Platform,
   AppRegistry
 } from "react-native"
 
-const { RNBackgroundGeolocation } = NativeModules;
-const EventEmitter = new NativeEventEmitter(RNBackgroundGeolocation);
-const TAG = "TSLocationManager";
+import NativeModule from './NativeModule';
 
-const PLATFORM_ANDROID  = "android";
-const PLATFORM_IOS      = "ios";
+const TAG = "BackgroundGeolocation";
 
-let emptyFn = function() {};
+const LOG_LEVEL_OFF     =  0;
+const LOG_LEVEL_ERROR   =  1;
+const LOG_LEVEL_WARNING =  2;
+const LOG_LEVEL_INFO    =  3;
+const LOG_LEVEL_DEBUG   =  4;
+const LOG_LEVEL_VERBOSE =  5;
 
-/**
-* Client log method
-*/
-function log(level, msg) {
-  RNBackgroundGeolocation.log(level, msg);
-}
+const DESIRED_ACCURACY_NAVIGATION = -2;
+const DESIRED_ACCURACY_HIGH       = -1;
+const DESIRED_ACCURACY_MEDIUM     = 10;
+const DESIRED_ACCURACY_LOW        = 100;
+const DESIRED_ACCURACY_VERY_LOW   = 1000;
+const DESIRED_ACCURACY_LOWEST     = 3000;
 
-let API = {
-  subscriptions: [],
-  events: [
-    'heartbeat',
-    'http',
-    'location',
-    'error',
-    'motionchange',
-    'geofence',
-    'schedule',
-    'activitychange',
-    'providerchange',
-    'geofenceschange',
-    'watchposition',
-    'powersavechange'
-  ],
+const AUTHORIZATION_STATUS_NOT_DETERMINED = 0;
+const AUTHORIZATION_STATUS_RESTRICTED     = 1;
+const AUTHORIZATION_STATUS_DENIED         = 2;
+const AUTHORIZATION_STATUS_ALWAYS         = 3;
+const AUTHORIZATION_STATUS_WHEN_IN_USE    = 4;
 
-  LOG_LEVEL_OFF: 0,
-  LOG_LEVEL_ERROR: 1,
-  LOG_LEVEL_WARNING: 2,
-  LOG_LEVEL_INFO: 3,
-  LOG_LEVEL_DEBUG: 4,
-  LOG_LEVEL_VERBOSE: 5,
+const NOTIFICATION_PRIORITY_DEFAULT       = 0;
+const NOTIFICATION_PRIORITY_HIGH          = 1;
+const NOTIFICATION_PRIORITY_LOW           =-1;
+const NOTIFICATION_PRIORITY_MAX           = 2;
+const NOTIFICATION_PRIORITY_MIN           =-2;
 
-  DESIRED_ACCURACY_HIGH: 0,
-  DESIRED_ACCURACY_MEDIUM: 10,
-  DESIRED_ACCURACY_LOW: 100,
-  DESIRED_ACCURACY_VERY_LOW: 1000,
+const emptyFn = function() {}
 
-  AUTHORIZATION_STATUS_NOT_DETERMINED: 0,
-  AUTHORIZATION_STATUS_RESTRICTED: 1,
-  AUTHORIZATION_STATUS_DENIED: 2,
-  AUTHORIZATION_STATUS_ALWAYS: 3,
-  AUTHORIZATION_STATUS_WHEN_IN_USE: 4,
+class BackgroundGeolocation {  
+  static get LOG_LEVEL_OFF()                { return LOG_LEVEL_OFF; }
+  static get LOG_LEVEL_ERROR()              { return LOG_LEVEL_ERROR; }
+  static get LOG_LEVEL_WARNING()            { return LOG_LEVEL_WARNING; }
+  static get LOG_LEVEL_INFO()               { return LOG_LEVEL_INFO; }
+  static get LOG_LEVEL_DEBUG()              { return LOG_LEVEL_DEBUG; }
+  static get LOG_LEVEL_VERBOSE()            { return LOG_LEVEL_VERBOSE; }
 
-  NOTIFICATION_PRIORITY_DEFAULT: 0,
-  NOTIFICATION_PRIORITY_HIGH: 1,
-  NOTIFICATION_PRIORITY_LOW: -1,
-  NOTIFICATION_PRIORITY_MAX: 2,
-  NOTIFICATION_PRIORITY_MIN: -2,
+  static get DESIRED_ACCURACY_NAVIGATION()  { return DESIRED_ACCURACY_NAVIGATION; }
+  static get DESIRED_ACCURACY_HIGH()        { return DESIRED_ACCURACY_HIGH; }
+  static get DESIRED_ACCURACY_MEDIUM()      { return DESIRED_ACCURACY_MEDIUM; }
+  static get DESIRED_ACCURACY_LOW()         { return DESIRED_ACCURACY_LOW; }
+  static get DESIRED_ACCURACY_VERY_LOW()    { return DESIRED_ACCURACY_VERY_LOW; }
+  static get DESIRED_ACCURACY_LOWEST()      { return DESIRED_ACCURACY_LOWEST; }
 
-  setPermissionsHandler(handler) {
-    permissionsHandler = handler;
-  },
-  configure: function(config, success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.configure(config, success, failure);
-  },
-  setConfig: function(config, success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.setConfig(config, success, failure);
-  },
-  getState: function(success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.getState(success, failure);
-  },
-  addListener: function(event, callback, failure) {
-    if (this.events.indexOf(event) < 0) {
-      throw "RNBackgroundGeolocation: Unknown event '" + event + '"';
-    }
-    this.subscriptions.push(EventEmitter.addListener(event, callback));
-    if (typeof(failure) === 'function') {
-      this.subscriptions.push(EventEmitter.addListener("error", failure));
-    }
-    RNBackgroundGeolocation.addEventListener(event);
-  },
-  on: function(event, callback, failure) {
-    return this.addListener(event, callback, failure);
-  },
-  removeListener: function(event, callback) {
-    if (this.events.indexOf(event) < 0) {
-      throw "RNBackgroundGeolocation: Unknown event '" + event + '"';
-    }
-    var found = null;
-    for (var n=0,len=this.subscriptions.length;n<len;n++) {
-      var subscription = this.subscriptions[n];
-      if ((subscription.eventType === event) && (subscription.listener === callback)) {
-          found = subscription;
-          break;
-      }
-    }
-    if (found !== null) {
-      this.subscriptions.splice(this.subscriptions.indexOf(found), 1);
-      RNBackgroundGeolocation.removeListener(event);
-    }
-    EventEmitter.removeListener(event, callback);
-  },
-  removeAllListeners: function() {
-    for (var n=0,len=API.events.length;n<len;n++) {
-      EventEmitter.removeAllListeners(API.events[n]);
-    }
-    this.subscriptions = [];
-    RNBackgroundGeolocation.removeAllListeners();
-  },
-  // @alias #removeAllListeners
-  removeListeners: function() {
-    this.removeAllListeners();
-  },
-  un: function(event, callback) {
-    this.removeListener(event, callback);
-  },
-  start: async function(success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.start(success, failure);    
-  },
-  stop: function(success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.stop(success, failure);
-  },
-  startSchedule: function(success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
+  static get AUTHORIZATION_STATUS_NOT_DETERMINED()  { return AUTHORIZATION_STATUS_NOT_DETERMINED; }
+  static get AUTHORIZATION_STATUS_RESTRICTED()      { return AUTHORIZATION_STATUS_RESTRICTED; }
+  static get AUTHORIZATION_STATUS_DENIED()          { return AUTHORIZATION_STATUS_DENIED; }
+  static get AUTHORIZATION_STATUS_ALWAYS()          { return AUTHORIZATION_STATUS_ALWAYS; }
+  static get AUTHORIZATION_STATUS_WHEN_IN_USE()     { return AUTHORIZATION_STATUS_WHEN_IN_USE; }
 
-    RNBackgroundGeolocation.startSchedule(success, failure);
-  },
-  stopSchedule: function(success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.stopSchedule(success, failure);
-  },
-  startGeofences: function(success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-
-    RNBackgroundGeolocation.startGeofences(success, failure);
-  },
-  onHttp: function(callback) {
-    return EventEmitter.addListener("http", callback);
-  },
-  onMotionChange: function(callback) {
-    return EventEmitter.addListener("motionchange", callback);
-  },
-  onLocation: function(callback) {
-    return EventEmitter.addListener("location", callback);
-  },
-  onGeofence: function(callback) {
-    return EventEmitter.addListener("geofence", callback);
-  },
-  onHeartbeat: function(callback) {
-    return EventEmitter.addListener("heartbeat", callback);
-  },
-  onError: function(callback) {
-    return EventEmitter.addListener("error", callback);
-  },
-  sync: function(success, failure) {
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.sync(success, failure);
-  },
-  changePace: function(value, success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.changePace(value, success, failure);
-  },
-  beginBackgroundTask: function(success) {
-    if (typeof(success) !== 'function') {
-      throw "beginBackgroundTask must be provided with a callback";
-    }
-    RNBackgroundGeolocation.beginBackgroundTask(success);
-  },
+  static get NOTIFICATION_PRIORITY_DEFAULT()        { return NOTIFICATION_PRIORITY_DEFAULT; }
+  static get NOTIFICATION_PRIORITY_HIGH()           { return NOTIFICATION_PRIORITY_HIGH; }
+  static get NOTIFICATION_PRIORITY_LOW()            { return NOTIFICATION_PRIORITY_LOW; }
+  static get NOTIFICATION_PRIORITY_MAX()            { return NOTIFICATION_PRIORITY_MAX; }
+  static get NOTIFICATION_PRIORITY_MIN()            { return NOTIFICATION_PRIORITY_MIN; }
+  
   /**
-  * @alias beginBackgroundTask
+  * Register HeadlessTask
   */
-  startBackgroundTask: function(success) {
-    this.beginBackgroundTask(success);
-  },
-  finish: function(taskId) {
-    if (!taskId) {
-      // No taskId?  Ignore it.
-      return;
-    }
-    RNBackgroundGeolocation.finish(taskId);
-  },
-  // new
-  getCurrentPosition: function(success, failure, options) {
-    var _success = emptyFn,
-       _failure = emptyFn,
-       _options = {};
+  static registerHeadlessTask(task) {    
+    AppRegistry.registerHeadlessTask(TAG, () => task);
+  }
 
-    // Detect old API: getCurrentPosition(options, success, failure)
-    if (typeof(success) === 'object') {
-      _options = success;
-      if (typeof(options) === 'function') {
-        _failure = options;
-      }
-      if (typeof(failure) === 'function') {
-        _success = failure;
-      }
-    } else {  // New API getCurrentPosition(success, failure, options);
-      _success = success || emptyFn;
-      _failure = failure || emptyFn;
-      _options = options || {};
+  /**
+  * Core Plugin Control Methods
+  */
+  static ready(config, success, failure) {
+    if (arguments.length <= 1) {
+      return NativeModule.ready(config||{});
+    } else {
+      NativeModule.ready(config).then(success).catch(failure);
     }
-    RNBackgroundGeolocation.getCurrentPosition(_options, _success, _failure);    
-  },
-  watchPosition: function(success, failure, options) {
-    if (typeof(failure) === 'object') {
+  }
+  /**
+  * Reset plugin confg to default
+  */
+  static reset(config, success, failure) {
+    if ((typeof(config) == 'function') ||  (typeof(success) === 'function')) {
+      if (typeof(config) === 'function') {
+        success = config;
+      }
+      NativeModule.reset(config).then(success).catch(failure);
+    } else {        
+      return NativeModule.reset(config);
+    }        
+  }
+  /**
+  * Perform initial configuration of plugin.  Reset config to default before applying supplied configuration
+  */
+  static configure(config, success, failure) {
+    if (arguments.length == 1) {
+      return NativeModule.configure(config);
+    } else {
+      NativeModule.configure(config).then(success).catch(failure);
+    }
+  }
+  /**
+  * Listen to a plugin event
+  */
+  static addListener(event, success, failure) {
+    if (typeof(event) != 'string')      { throw "BackgroundGeolocation#on must be provided a {String} event as 1st argument." }
+    if (NativeModule.EVENTS.indexOf(event) < 0)      { throw "BackgroundGeolocation#on - Unknown event '" + event + "'" }
+    if (typeof(success) != 'function')  { throw "BackgroundGeolocation#on must be provided a callback as 2nd argument.  If you're attempting to use the Promise API to listen to an event, it won't work, since a Promise can only evaluate once, while the callback function must be executed for each event." }
+    NativeModule.addListener.apply(NativeModule, arguments);  
+  }
+  // @alias #removeListener
+  static on(event, success, failure) {
+    this.addListener.apply(this, arguments);
+  }  
+  /**
+  * Remove a single plugin event-listener, supplying a reference to the handler initially supplied to #un
+  */
+  static removeListener(event, handler, success, failure) {
+    if (typeof(event) != 'string')      { throw "BackgroundGeolocation#un must be provided a {String} event as 1st argument" }
+    if (NativeModule.EVENTS.indexOf(event) < 0)      { throw "BackgroundGeolocation#un - Unknown event '" + event + "'" }
+    NativeModule.removeListener.apply(NativeModule, arguments);
+  }
+  // @alias #removeListener
+  static un(event, handler, success, failiure) {
+    this.removeListener.apply(this, arguments);
+  }
+
+  /**
+  * Remove all event listeners
+  */
+  static removeListeners(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.removeListeners();
+    } else {
+      NativeModule.removeListeners().then(success).catch(failure);
+    }
+  }
+  // @alias -> #removeListeners
+  static removeAllListeners(success, failure) {
+    this.removeListeners.apply(this, arguments);
+  }
+  /**
+  * Fetch current plugin configuration
+  */
+  static getState(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.getState();
+    } else {
+      NativeModule.getState().then(success).catch(failure);
+    }
+  }
+  /**
+  * Start the plugin
+  */
+  static start(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.start();
+    } else {
+      NativeModule.start().then(success).catch(failure);
+    }
+  }
+  /**
+  * Stop the plugin
+  */
+  static stop(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.stop();
+    } else {
+      NativeModule.stop().then(success).catch(failure);
+    }
+  }
+  /**
+  * Start the scheduler
+  */
+  static startSchedule(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.startSchedule();
+    } else {
+      NativeModule.startSchedule().then(success).catch(failure);
+    }
+  }
+  /**
+  * Stop the scheduler
+  */
+  static stopSchedule(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.stopSchedule();
+    } else {
+      NativeModule.stopSchedule().then(success).catch(failure);
+    }
+  }
+  /**
+  * Initiate geofences-only mode
+  */
+  static startGeofences(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.startGeofences();
+    } else {
+      NativeModule.startGeofences().then(success).catch(failure);
+    }
+  }
+  /**
+  * Start an iOS background-task, provding 180s of background running time
+  */
+  static startBackgroundTask(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.startBackgroundTask();      
+    } else {
+      if (typeof(success) !== 'function') {
+        throw TAG + "#startBackgroundTask must be provided with a callback to recieve the taskId";
+      }
+      NativeModule.startBackgroundTask().then(success).catch(failure);
+    }
+  }
+  /**
+  * Signal to iOS that your background-task from #startBackgroundTask is complete
+  */
+  static finish(taskId,  success, failure) {
+    // No taskId?  Ignore it.
+    if (arguments.length == 1) {
+      return NativeModule.finish(taskId);
+    } else {
+      NativeModule.finish(taskId).then(success).catch(failure);
+    }
+  }
+  /**
+  * Toggle motion-state between stationary <-> moving
+  */
+  static changePace(isMoving, success, failure) {
+    if (arguments.length == 1) {
+      return NativeModule.changePace(isMoving);
+    } else {
+      NativeModule.changePace(isMoving).then(success).catch(failure);
+    }
+  }
+  /**
+  * Provide new configuration to the plugin.  This configuration will be *merged* to current configuration
+  */
+  static setConfig(config, success, failure) {
+    if (arguments.length == 1) {
+      return NativeModule.setConfig(config);
+    } else {
+      NativeModule.setConfig(config).then(success).catch(failure);
+    }
+  }
+  /**
+  * HTTP & Persistence
+  *
+  */
+  static getLocations(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.getLocations();
+    } else {
+      NativeModule.getLocations().then(success).catch(failure);
+    }
+  }
+  /**
+  * Fetch the current count of location records in database
+  */
+  static getCount(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.getCount();
+    } else {
+      NativeModule.getCount().then(success).catch(failure);
+    }
+  }
+  /**
+  * Destroy all records in locations database
+  */
+  static destroyLocations(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.destroyLocations();
+    } else {
+      NativeModule.destroyLocations().then(success).catch(failure);
+    }
+  }
+  // @deprecated
+  static clearDatabase(success, failure) {
+    return this.destroyLocations.apply(this, arguments);
+  }
+  /**
+  * Insert a single record into locations database
+  */
+  static insertLocation(location, success, failure) {
+    if (arguments.length == 1) {
+      return NativeModule.insertLocation(location);
+    } else {
+      NativeModule.insertLocation(location).then(success).catch(failure);
+    }
+  }
+  /**
+  * Manually initiate an HTTP sync operation
+  */
+  static sync(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.sync();
+    } else {
+      NativeModule.sync().then(success).catch(failure);
+    }
+  }
+  /**
+  * Fetch the current value of odometer
+  */
+  static getOdometer(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.getOdometer();
+    } else {
+      NativeModule.getOdometer().then(success).catch(failure);
+    }
+  }
+  /**
+  * Set the value of the odometer
+  */
+  static setOdometer(value, success, failure) {
+    if (arguments.length == 1) {
+      return NativeModule.setOdometer(value);
+    } else {
+      NativeModule.setOdometer(value).then(success).catch(failure);
+    }
+  }
+  /**
+  * Reset the value of odometer to 0
+  */
+  static resetOdometer(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.setOdometer(0);
+    } else {
+      NativeModule.setOdometer(0).then(success).catch(failure);
+    }
+  }
+
+  /**
+  * Geofencing Methods
+  */
+
+  /**
+  * Add a single geofence
+  */
+  static addGeofence(config, success, failure) {
+    if (arguments.length == 1) {
+      return NativeModule.addGeofence(config);
+    } else {
+      NativeModule.addGeofence(config).then(success).catch(failure);
+    }
+  }
+  /**
+  * Remove a single geofence by identifier
+  */
+  static removeGeofence(identifier, success, failure) {
+    if (arguments.length == 1) {
+      return NativeModule.removeGeofence(identifier);
+    } else {
+      NativeModule.removeGeofence(identifier).then(success).catch(failure);
+    }
+  }
+  /**
+  * Add a list of geofences
+  */
+  static addGeofences(geofences, success, failure) {
+    if (arguments.length == 1) {
+      return NativeModule.addGeofences(geofences);
+    } else {
+      NativeModule.addGeofences(geofences).then(success).catch(failure);
+    }
+  }
+  /**
+  * Remove geofences.  You may either supply an array of identifiers or nothing to destroy all geofences.
+  * 1. removeGeofences() <-- Promise
+  * 2. removeGeofences(['foo'])  <-- Promise
+  *
+  * 3. removeGeofences(success, [failure])    
+  * 4. removeGeofences(['foo'], success, [failure])
+  */
+  static removeGeofences(success, failure) {
+    if (!arguments.length)  {
+      return NativeModule.removeGeofences();
+    } else {            
+      NativeModule.removeGeofences().then(success).catch(failure);
+    }
+  }
+  /**
+  * Fetch all geofences from database
+  */
+  static getGeofences(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.getGeofences();
+    } else {
+      NativeModule.getGeofences().then(success).catch(failure);
+    }
+  }
+  /**
+  * Fetch the current position from location-services
+  */
+  static getCurrentPosition(success, failure, options) {
+    if (typeof(success) == 'function') {
+      if (typeof(failure) == 'object') {
+        options = failure;
+        failure = emptyFn;
+      }
+      NativeModule.getCurrentPosition(options).then(success).catch(failure);
+    } else {
+      return NativeModule.getCurrentPosition.apply(NativeModule, arguments);
+    }
+  }
+  /**
+  * Begin watching a stream of locations
+  */
+  static watchPosition(success, failure, options) {
+    if (typeof(success) == 'object') {
+      throw TAG + '#watchPosition cannot use Promises since a Promise can only evaluate once while the supplied callback must be executed for each location';
+    }
+    if (typeof(failure) == 'object') {
       options = failure;
       failure = emptyFn;
     }
-    options = options || {};
-    failure = failure || emptyFn;
-
-    RNBackgroundGeolocation.watchPosition(options, function() { EventEmitter.addListener("watchposition", success); }, failure);
-  },
-  stopWatchPosition: function(success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    EventEmitter.removeAllListeners("watchposition");
-    RNBackgroundGeolocation.stopWatchPosition(success, failure);
-  },
-  getLocations: function(success, failure) {
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.getLocations(success, failure);
-  },
-  getCount: function(success, failure) {
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.getCount(success, failure);
-  },
-  insertLocation: function(params, success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.insertLocation(params, success, failure);
-  },
-  clearDatabase: function(success, failure) {
-    this.destroyLocations(success, failure);
-  },
-  destroyLocations: function(success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.destroyLocations(success, failure);
-  },
-  getOdometer: function(success, failure) {
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.getOdometer(success, failure);
-  },
-  setOdometer: function(value, success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-
-    RNBackgroundGeolocation.setOdometer(value, success, failure);
-  },
-  resetOdometer: function(success, failure) {
-    this.setOdometer(0, success, failure);
-  },
-  addGeofence: function(config, success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.addGeofence(config, success, failure);
-  },
-  addGeofences: function(geofences, success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.addGeofences(geofences, success, failure);
-  },
-  removeGeofence: function(identifier, success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.removeGeofence(identifier, success, failure);
-  },
-  removeGeofences: function(success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.removeGeofences(success, failure);
-  },
-  getGeofences: function(success, failure) {
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.getGeofences(success, failure);
-  },
-  getLog: function(success, failure) {
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.getLog(success, failure);
-  },
-  destroyLog: function(success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.destroyLog(success, failure);
-  },
-  emailLog: function(email, success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.emailLog(email, success, failure);
-  },
-  logger: {
-    error: function(msg) {
-      log('error', msg);
-    },
-    warn: function(msg) {
-      log('warn', msg);
-    },
-    debug: function(msg) {
-      log('debug', msg);
-    },
-    info: function(msg) {
-      log('info', msg);
-    },
-    notice: function(msg) {
-      log('notice', msg);
-    },
-    header: function(msg) {
-      log('header', msg);
-    },
-    on: function(msg) {
-      log('on', msg);
-    },
-    off: function(msg) {
-      log('off', msg);
-    },
-    ok: function(msg) {
-      log('ok', msg);
-    }
-  },
-  getSensors: function(success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.getSensors(success, failure);
-  },
-  isPowerSaveMode: function(success, failure) {
-    success = success || emptyFn;
-    failure = failure || emptyFn;
-    RNBackgroundGeolocation.isPowerSaveMode(success, failure);
-  },
-  playSound: function(soundId) {
-    RNBackgroundGeolocation.playSound(soundId);
-  },
-  registerHeadlessTask: function(task) {
-    AppRegistry.registerHeadlessTask('BackgroundGeolocation', () => task);
+    NativeModule.watchPosition(success, failure, options||{});
   }
-};
+  /**
+  * Stop watching location
+  */
+  static stopWatchPosition(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.stopWatchPosition();
+    } else {
+      NativeModule.stopWatchPosition().then(success).catch(failure);
+    }
+  }
+  /**
+  * Set the logLevel.  This is just a helper method for setConfig({logLevel: level})
+  */
+  static setLogLevel(value, success, failure) {
+    if (arguments.length == 1) {
+      return NativeModule.setLogLevel(value);
+    } else {
+      NativeModule.setLogLevel(value).then(success).catch(failure);
+    }
+  }
+  /**
+  * Fetch the entire contents of log database returned as a String
+  */
+  static getLog(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.getLog();
+    } else {
+      NativeModule.getLog().then(success).catch(failure);
+    }
+  }
+  /**
+  * Destroy all contents of log database
+  */
+  static destroyLog(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.destroyLog();
+    } else {
+      NativeModule.destroyLog().then(success).catch(failure);
+    }
+  }
+  /**
+  * Open deafult email client on device to email the contents of log database attached as a compressed file attachement
+  */
+  static emailLog(email, success, failure) {
+    if (typeof(email) != 'string') { throw TAG + "#emailLog requires an email address as 1st argument"}
+    if (arguments.length == 1) {
+      return NativeModule.emailLog(email);
+    } else {
+      NativeModule.emailLog(email).then(success).catch(failure);
+    }
+  }
+  /**
+  * Has device OS initiated power-saving mode?
+  */
+  static isPowerSaveMode(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.isPowerSaveMode();
+    } else {
+      NativeModule.isPowerSaveMode().then(success).catch(failure);
+    }
+  }
+  /**
+  * Fetch the state of this device's available motion-sensors
+  */
+  static getSensors(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.getSensors();
+    } else {
+      NativeModule.getSensors().then(success).catch(failure);
+    }
+  }
+  /**
+  * Play a system sound via the plugin's Sound API
+  */
+  static playSound(soundId, success, failure) {
+    if (arguments.length == 1) {
+      return NativeModule.playSound(soundId);
+    } else {
+      NativeModule.playSound(soundId).then(success).catch(failure);
+    }    
+  }
+  /**
+  * Insert a log message into the plugin's log database
+  */
+  static get logger() { return NativeModule.logger; }
+  
+  /**
+  * Iterate and execute API methods to test validity of method signature for both Standard and Promise API
+  */
+  static test(delay) {
+    test(this, delay);
+  }
+}
 
-module.exports = API
+export default BackgroundGeolocation;
+
+/**
+* Iterate and execute API methods to test validity of method signature for both Standard and Promise API
+*/
+var test = function(bgGeo, delay) {
+    delay = delay || 250;
+    
+    var methods = [
+        ['reset', {debug: true, logLevel: 5}],
+        ['setConfig', {distanceFilter: 50}],
+        ['setLogLevel', 5],
+        ['getLog', null],
+        ['emailLog', 'foo@bar.com'],
+        ['on', 'location'],
+        ['ready', {}],  
+        ['configure', {debug: true, logLevel: 5, schedule: ['1-7 00:00-23:59']}],
+        ['getState', null],
+        ['startSchedule', null],
+        ['stopSchedule', null],
+        ['startGeofences', null],
+        ['stop', null],
+        ['start', null],
+        ['startBackgroundTask', null],
+        ['finish', 0],
+        ['changePace', true],        
+        ['getLocations', null],        
+        ['insertLocation', {}],
+        ['sync', null],
+        ['getOdometer', null],
+        ['setOdometer', 0],
+        ['resetOdometer'],
+        ['addGeofence', {identifier: 'test-geofence-1', radius: 100, latitude: 0, longitude:0, notifyOnEntry:true}],        
+        ['addGeofences', [{identifier: 'test-geofence-2', radius: 100, latitude: 0, longitude:0, notifyOnEntry:true}, {identifier: 'test-geofence-3', radius: 100, latitude: 0, longitude:0, notifyOnEntry:true}]],
+        ['getGeofences', null],
+        ['removeGeofence', 'test-geofence-1'],
+        ['removeGeofences', null],
+        ['getCurrentPosition', {}],
+        ['watchPosition', {}],
+        ['stopWatchPosition', null],      
+        ['isPowerSaveMode', null],
+        ['getSensors', null],
+        ['playSound', 1509],        
+        ['destroyLocations', null],
+        ['clearDatabase', null],
+        ['destroyLog', null],
+        ['removeListeners', null]
+    ];
+
+    var createCallback = function(type, method, params) {
+        return function(result) {
+            console.log('- ' + method + '(' + params + ') - ' + type + ': ', result); 
+        }
+    }            
+    var executeMethod = function(record) {
+        console.log('* Execute method: ', record)
+        var method = '' + record[0];      
+        var params = record[1];
+
+        var success = createCallback('success', method, params);
+        var failure = createCallback('failure', method, params);
+
+        // Execute Standard API
+        try {
+            console.log('- Standard API: ' + method);
+            if (params == null) {
+                bgGeo[method](success, failure);
+            } else {
+                // Adjust params for different signatures.
+                switch (method) {
+                    case 'watchPosition':
+                    case 'getCurrentPosition':
+                        bgGeo[method](success, failure, params);
+                        break;
+                    default:
+                        bgGeo[method](params, success, failure);
+                        break;
+                }                
+            }
+        } catch (e) {
+            console.warn(e);
+        }
+        // Execute Promise API
+        setTimeout(function() {
+            console.log('- Promise API: ' + method);
+            try {
+                if (params == null) {
+                    bgGeo[method]().then(success).catch(failure);
+                } else {
+                    bgGeo[method](params).then(success).catch(failure);
+                }
+            } catch (e) {
+                console.warn(e);
+            }
+        }, 10);
+    }        
+    // Begin fetching methods.
+    var intervalId = setInterval(function() {
+        var record = methods.shift();        
+        if (!record || !methods.length) {
+            clearInterval(intervalId);
+            console.log('*** TEST COMPLETE ***');
+            return;
+        }        
+        executeMethod(record);
+    }, delay);
+}

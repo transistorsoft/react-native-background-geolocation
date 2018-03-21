@@ -1,6 +1,10 @@
 Background Geolocation for React Native &middot; [![npm](https://img.shields.io/npm/dm/react-native-background-geolocation.svg)]() [![npm](https://img.shields.io/npm/v/react-native-background-geolocation.svg)]()
 ============================================================================
 
+[![](https://dl.dropboxusercontent.com/s/nm4s5ltlug63vv8/logo-150-print.png?dl=1)](https://www.transistorsoft.com)
+
+-------------------------------------------------------------------------------
+
 The *most* sophisticated background **location-tracking & geofencing** module with battery-conscious motion-detection intelligence for **iOS** and **Android**.
 
 The plugin's [Philosophy of Operation](../../wiki/Philosophy-of-Operation) is to use **motion-detection** APIs (using accelerometer, gyroscope and magnetometer) to detect when the device is *moving* and *stationary*.  
@@ -15,7 +19,7 @@ Also available for [Cordova](https://github.com/transistorsoft/cordova-backgroun
 
 The **[Android module](http://www.transistorsoft.com/shop/products/react-native-background-geolocation)** requires [purchasing a license](http://www.transistorsoft.com/shop/products/react-native-background-geolocation).  However, it *will* work for **DEBUG** builds.  It will **not** work with **RELEASE** builds [without purchasing a license](http://www.transistorsoft.com/shop/products/react-native-background-geolocation).
 
-(2017) This plugin is supported **full-time** and field-tested **daily** since 2013.
+(2018) This plugin is supported **full-time** and field-tested **daily** since 2013.
 
 ----------------------------------------------------------------------------
 
@@ -58,6 +62,15 @@ $ npm install react-native-background-geolocation --save
 * [`react-native link` Setup](docs/INSTALL-ANDROID-RNPM.md)
 * [Manual Setup](docs/INSTALL-ANDROID.md)
 
+#### :information_source: Solving Android Gradle Conflicts.
+
+Once of the most common build-issues with Android apps are gradle conflicts between modules specifying different versions of:
+- `compileSdkVersion`
+- `buildToolsVersion`
+- Google `play-services` / `firebase` version.
+- Google support libraries (ie `appcompat-v4`, `appcompat-v7`)
+
+For more information, see the Wiki [Solving Android Gradle Conflicts](../../wiki/Solving-Android-Gradle-Conflicts)
 
 ## :large_blue_diamond: Configure your license
 
@@ -134,9 +147,9 @@ export default class App extends Component {
     BackgroundGeolocation.on('providerchange', this.onProviderChange);
 
     ////
-    // 2.  #configure the plugin (just once for life-time of app)
+    // 2.  Execute #ready method (required)
     //
-    BackgroundGeolocation.configure({
+    BackgroundGeolocation.ready({
       // Geolocation Config
       desiredAccuracy: 0,
       distanceFilter: 10,
@@ -172,14 +185,7 @@ export default class App extends Component {
   }
 
   // You must remove listeners when your component unmounts
-  componentWillUnmount() {
-    // Remove BackgroundGeolocation listeners
-    BackgroundGeolocation.un('location', this.onLocation);
-    BackgroundGeolocation.un('motionchange', this.onMotionChange);
-    BackgroundGeolocation.un('activitychange', this.onActivityChange);
-    BackgroundGeolocation.un('providerchange', this.onProviderChange);
-
-    // Or just remove them all-at-once
+  componentWillUnmount() {    
     BackgroundGeolocation.removeListeners();
   }
   onLocation(location) {
@@ -201,6 +207,33 @@ export default class App extends Component {
 
 ```
 
+:information_source: **NOTE:** The configuration **`{}`** provided to the `#ready` method is applied **only** when your app is **first booted** &mdash; for every launch thereafter, the plugin will automatically load the last known configuration from persistant storage.  If you wish to **force** the `#ready` method to *always* apply the supplied config `{}`, you can specify **`reset: true`**
+
+```javascript
+BackgroundGeolocation.ready({
+  reset: true,  // <-- true to always apply the supplied config
+  distanceFilter: 10
+}, (state) => {
+  console.log('- BackgroundGeolocation is ready: ', state);
+});
+```
+
+:warning: Do not execute *any* API method which will require accessing location-services until the callback to **`#ready*` executes (eg: `#getCurrentPosition`, `#watchPosition`, `#start`).
+
+### Promise API
+
+The `BackgroundGeolocation` Javascript API supports [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for *nearly* every method (the exceptions are **`#watchPosition`** and adding event-listeners via **`#on`** method.  For more information, see the [API Documentation](docs/README.md#large_blue_diamond-methods)
+
+```javascript
+// Traditional API still works:
+BackgroundGeolocation.ready({desiredAccuracy: 0, distanceFilter: 50}).then(state => {
+  console.log('- BackgroundGeolocation is ready: ', state);
+}).catch(error => {
+  console.log('- BackgroundGeolocation error: ', error);
+});
+```
+
+
 ## :large_blue_diamond: [Demo Application](https://github.com/transistorsoft/rn-background-geolocation-demo)
 
 A fully-featured [Demo App](https://github.com/transistorsoft/rn-background-geolocation-demo) is available in its own public repo.  After first cloning that repo, follow the installation instructions in the **README** there.  This demo-app includes a settings-screen allowing you to quickly experiment with all the different settings available for each platform.
@@ -221,7 +254,7 @@ A simple Node-based [web-application](https://github.com/transistorsoft/backgrou
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Chris Scott, Transistor Software
+Copyright (c) 2018 Chris Scott, Transistor Software
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

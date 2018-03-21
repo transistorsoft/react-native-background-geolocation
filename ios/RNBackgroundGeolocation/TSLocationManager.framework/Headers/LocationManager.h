@@ -9,18 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import <CoreLocation/CoreLocation.h>
+#import "TSWatchPositionRequest.h"
+#import "TSCurrentPositionRequest.h"
 
 @interface LocationManager : NSObject <CLLocationManagerDelegate>
-
-// Location types
-typedef enum tsLocationType : NSInteger {
-    TS_LOCATION_TYPE_MOTIONCHANGE   = 0,
-    TS_LOCATION_TYPE_TRACKING       = 1,
-    TS_LOCATION_TYPE_CURRENT        = 2,
-    TS_LOCATION_TYPE_SAMPLE         = 3,
-    TS_LOCATION_TYPE_WATCH          = 4,
-    TS_LOCATION_TYPE_GEOFENCE       = 5
-} tsLocationtype;
 
 // Error codes
 typedef enum tsLocationError : NSInteger {
@@ -43,7 +35,7 @@ typedef enum tsLocationError : NSInteger {
 @property (copy) void (^locationChangedBlock) (LocationManager* manager, CLLocation* location, BOOL isSample);
 @property (copy) void (^errorBlock) (LocationManager* manager, NSError* error);
 
--(void)watchPosition:(NSDictionary*)options;
+-(void)watchPosition:(TSWatchPositionRequest*)request;
 -(void)requestLocation;
 -(void)stopWatchPosition;
 -(void)startUpdatingLocation;

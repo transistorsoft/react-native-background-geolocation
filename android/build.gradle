@@ -1,12 +1,17 @@
 apply plugin: 'com.android.library'
 
+def DEFAULT_COMPILE_SDK_VERSION     = 26
+def DEFAULT_BUILD_TOOLS_VERSION     = "26.0.2"
+def DEFAULT_TARGET_SDK_VERSION      = 26
+def DEFAULT_PLAY_SERVICES_VERSION   = "11.8.0"
+
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion rootProject.hasProperty('compileSdkVersion') ? rootProject.compileSdkVersion : DEFAULT_COMPILE_SDK_VERSION
+    buildToolsVersion rootProject.hasProperty('buildToolsVersion') ? rootProject.buildToolsVersion : DEFAULT_BUILD_TOOLS_VERSION
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion rootProject.hasProperty('targetSdkVersion') ? rootProject.targetSdkVersion : DEFAULT_TARGET_SDK_VERSION
         versionCode 1
         versionName "1.0"
     }
@@ -14,8 +19,8 @@ android {
 
 repositories{
     jcenter()
-    flatDir{
-        dirs 'libs'
+    maven {
+        url './libs'
     }
     maven {
         url 'https://maven.google.com'
@@ -23,16 +28,24 @@ repositories{
 }
 
 dependencies {
+    // Check for application-defined play-services version
+    def playServicesVersion = DEFAULT_PLAY_SERVICES_VERSION
+    if (rootProject.hasProperty('playServicesVersion')) {
+        playServicesVersion = rootProject.playServicesVersion
+    } else if (rootProject.hasProperty('googlePlayServicesVersion')) {
+        playServicesVersion = rootProject.googlePlayServicesVersion
+    }
     compile 'com.facebook.react:react-native:+'
-    compile 'com.google.android.gms:play-services-location:11.6.0'
+    compile "com.google.android.gms:play-services-location:$playServicesVersion"
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
-    compile(name:'tslocationmanager', ext:'aar')
+    compile(group: 'com.transistorsoft', name:'tslocationmanager', version: '+')
+
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'com.github.tony19:logback-android-core:1.1.1-6'
     compile('com.github.tony19:logback-android-classic:1.1.1-6') {
         exclude group: 'com.google.android', module: 'android'
     }
     // android-permissions
-    compile 'com.intentfilter:android-permissions:0.1.5'
+    compile 'com.intentfilter:android-permissions:0.1.6'
 }

@@ -12,8 +12,14 @@
 #import "TSScheduleEvent.h"
 #import "TSGeofencesChangeEvent.h"
 #import "TSPowerSaveChangeEvent.h"
+#import "TSConnectivityChangeEvent.h"
+#import "TSEnabledChangeEvent.h"
 #import "TSGeofenceEvent.h"
+#import "TSGeofence.h"
 #import "LocationManager.h"
+#import "TSConfig.h"
+#import "TSCurrentPositionRequest.h"
+#import "TSWatchPositionRequest.h"
 
 @interface TSLocationManager : NSObject <CLLocationManagerDelegate>
 
@@ -38,6 +44,9 @@
 - (void) onGeofencesChange:(void(^)(TSGeofencesChangeEvent* event))success;
 - (void) onSchedule:(void(^)(TSScheduleEvent* event))success;
 - (void) onPowerSaveChange:(void(^)(TSPowerSaveChangeEvent* event))success;
+- (void) onConnectivityChange:(void(^)(TSConnectivityChangeEvent* event))succes;
+- (void) onEnabledChange:(void(^)(TSEnabledChangeEvent* event))success;
+
 - (void) removeListener:(NSString*)event callback:(void(^)(id))callback;
 - (void) un:(NSString*)event callback:(void(^)(id))callback;
 - (void) removeListeners:(NSString*)event;
@@ -45,22 +54,22 @@
 
 #pragma mark - Core API Methods
 
-- (NSDictionary*) configure:(NSDictionary*)config;
+- (void) configure:(NSDictionary*)params;
+- (void) ready;
 - (void) start;
 - (void) stop;
 - (void) startSchedule;
 - (void) stopSchedule;
 - (void) startGeofences;
-- (NSDictionary*) setConfig:(NSDictionary*)command;
 - (NSMutableDictionary*) getState;
 
 #pragma mark - Geolocation Methods
 
 - (void) changePace:(BOOL)value;
-- (void) getCurrentPosition:(NSDictionary*)options success:(void (^)(TSLocation* location))success failure:(void (^)(NSError* error))failure;
-- (void) setOdometer:(CLLocationDistance)odometer success:(void (^)(TSLocation* location))success failure:(void (^)(NSError* error))failure;
+- (void) getCurrentPosition:(TSCurrentPositionRequest*)request;
+- (void) setOdometer:(CLLocationDistance)odometer request:(TSCurrentPositionRequest*)request;
 - (CLLocationDistance)getOdometer;
-- (void) watchPosition:(NSDictionary*)options success:(void (^)(TSLocation* location))success failure:(void (^)(NSError* error))failure;
+- (void) watchPosition:(TSWatchPositionRequest*)request;
 - (void) stopWatchPosition;
 - (NSDictionary*) getStationaryLocation;
 
@@ -85,16 +94,18 @@
 - (void) getLog:(void(^)(NSString* log))success failure:(void(^)(NSString* error))failure;
 - (void) emailLog:(NSString*)email success:(void(^)(void))success failure:(void(^)(NSString* error))failure;
 - (BOOL) destroyLog;
-- (void) setLogLevel:(NSInteger)level;
+- (void) setLogLevel:(TSLogLevel)level;
 - (void) playSound:(SystemSoundID)soundId;
 - (void) error:(UIBackgroundTaskIdentifier)taskId message:(NSString*)message;
 - (void) log:(NSString*)level message:(NSString*)message;
 #pragma mark - Geofencing Methods
 
-- (void) addGeofence:(NSDictionary*)params success:(void (^)(void))success failure:(void (^)(NSString* error))failure;
+- (void) addGeofence:(TSGeofence*)geofence success:(void (^)(void))success failure:(void (^)(NSString* error))failure;
 - (void) addGeofences:(NSArray*)geofences success:(void (^)(void))success failure:(void (^)(NSString* error))failure;
 - (void) removeGeofence:(NSString*)identifier success:(void (^)(void))success failure:(void (^)(NSString* error))failure;
 - (void) removeGeofences:(NSArray*)identifiers success:(void (^)(void))success failure:(void (^)(NSString* error))failure;;
+- (void) removeGeofences;
+
 - (NSArray*) getGeofences;
 - (void) getGeofences:(void (^)(NSArray*))success failure:(void (^)(NSString*))failure;
 

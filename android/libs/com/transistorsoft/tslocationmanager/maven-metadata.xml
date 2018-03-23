@@ -3,7 +3,7 @@
   <groupId>com.transistorsoft</groupId>
   <artifactId>tslocationmanager</artifactId>
   <versioning>
-    <release>2.12.7</release>
+    <release>2.12.9</release>
     <versions>
       <version>2.12.0</version>
       <version>2.12.1</version>
@@ -13,7 +13,9 @@
       <version>2.12.5</version>
       <version>2.12.6</version>
       <version>2.12.7</version>
+      <version>2.12.8</version>
+      <version>2.12.9</version>
     </versions>
-    <lastUpdated>20180321173534</lastUpdated>
+    <lastUpdated>20180323145427</lastUpdated>
   </versioning>
 </metadata>

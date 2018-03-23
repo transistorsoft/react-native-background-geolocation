@@ -10,18 +10,7 @@
 		831FD3071DCAD76300F8F62A /* TSLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF0B461BCB624E00831D47 /* TSLocationManager.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */; };
 		83FF5F8B1AFD0D2B0016A13E /* RNBackgroundGeolocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */; };
-		83FF5F911AFD0D2B0016A13E /* libRNBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		83FF5F921AFD0D2B0016A13E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83FF5F7D1AFD0D2B0016A13E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83FF5F841AFD0D2B0016A13E;
-			remoteInfo = RNBackgroundGeolocation;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		83FF5F831AFD0D2B0016A13E /* Copy Files */ = {
@@ -43,7 +32,6 @@
 		83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNBackgroundGeolocation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNBackgroundGeolocation.h; sourceTree = "<group>"; };
 		83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNBackgroundGeolocation.m; sourceTree = "<group>"; };
-		83FF5F901AFD0D2B0016A13E /* RNBackgroundGeolocationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RNBackgroundGeolocationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FF5F961AFD0D2B0016A13E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,14 +41,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				831FD3071DCAD76300F8F62A /* TSLocationManager.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83FF5F8D1AFD0D2B0016A13E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83FF5F911AFD0D2B0016A13E /* libRNBackgroundGeolocation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +62,6 @@
 			isa = PBXGroup;
 			children = (
 				83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */,
-				83FF5F901AFD0D2B0016A13E /* RNBackgroundGeolocationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,24 +111,6 @@
 			productReference = 83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		83FF5F8F1AFD0D2B0016A13E /* RNBackgroundGeolocationTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 83FF5F9C1AFD0D2B0016A13E /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocationTests" */;
-			buildPhases = (
-				83FF5F8C1AFD0D2B0016A13E /* Sources */,
-				83FF5F8D1AFD0D2B0016A13E /* Frameworks */,
-				83FF5F8E1AFD0D2B0016A13E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				83FF5F931AFD0D2B0016A13E /* PBXTargetDependency */,
-			);
-			name = RNBackgroundGeolocationTests;
-			productName = RNBackgroundGeolocationTests;
-			productReference = 83FF5F901AFD0D2B0016A13E /* RNBackgroundGeolocationTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -161,10 +122,6 @@
 				TargetAttributes = {
 					83FF5F841AFD0D2B0016A13E = {
 						CreatedOnToolsVersion = 6.3.1;
-					};
-					83FF5F8F1AFD0D2B0016A13E = {
-						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = 32A636YFGZ;
 					};
 				};
 			};
@@ -181,20 +138,9 @@
 			projectRoot = "";
 			targets = (
 				83FF5F841AFD0D2B0016A13E /* RNBackgroundGeolocation */,
-				83FF5F8F1AFD0D2B0016A13E /* RNBackgroundGeolocationTests */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		83FF5F8E1AFD0D2B0016A13E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		83FF5F811AFD0D2B0016A13E /* Sources */ = {
@@ -205,22 +151,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83FF5F8C1AFD0D2B0016A13E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		83FF5F931AFD0D2B0016A13E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83FF5F841AFD0D2B0016A13E /* RNBackgroundGeolocation */;
-			targetProxy = 83FF5F921AFD0D2B0016A13E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		83FF5F971AFD0D2B0016A13E /* Debug */ = {
@@ -369,42 +300,6 @@
 			};
 			name = Release;
 		};
-		83FF5F9D1AFD0D2B0016A13E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 32A636YFGZ;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = RNBackgroundGeolocationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.transistorsoft.reactnative.background.geolocation.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		83FF5F9E1AFD0D2B0016A13E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 32A636YFGZ;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = RNBackgroundGeolocationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.transistorsoft.reactnative.background.geolocation.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -422,15 +317,6 @@
 			buildConfigurations = (
 				83FF5F9A1AFD0D2B0016A13E /* Debug */,
 				83FF5F9B1AFD0D2B0016A13E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		83FF5F9C1AFD0D2B0016A13E /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocationTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				83FF5F9D1AFD0D2B0016A13E /* Debug */,
-				83FF5F9E1AFD0D2B0016A13E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -8,7 +8,7 @@ $ npm install --save react-native-background-geolocation
 
 ```shell
 react-native link react-native-background-geolocation
-react-natvie link react-native-background-fetch
+react-native link react-native-background-fetch
 ```
 
 ## Gradle Configuration

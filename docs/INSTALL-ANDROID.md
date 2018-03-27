@@ -102,7 +102,7 @@ android {
 }
 
 dependencies {
-+   compile project(':react-native-background-geolocation-android')
++   compile project(':react-native-background-geolocation')
 +   compile project(':react-native-background-fetch')
     // You are advised to use latest appcompat-v7 corresponding to your compileSdkVersion
     // eg:  if compileSdkVersion 27 -> appcompat-v7:27.x.x

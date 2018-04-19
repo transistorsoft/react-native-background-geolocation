@@ -11,15 +11,18 @@
 {
     
 }
-
 @property (nonatomic) NSString* identifier;
 @property (nonatomic) CLLocationDistance radius;
+
 @property (nonatomic) CLLocationDegrees latitude;
 @property (nonatomic) CLLocationDegrees longitude;
 @property (nonatomic) BOOL notifyOnEntry;
 @property (nonatomic) BOOL notifyOnExit;
 @property (nonatomic) BOOL notifyOnDwell;
 @property (nonatomic) double loiteringDelay;
+/**
+ * Arbitrary extra data attached to the geofence
+ */
 @property (nonatomic) NSDictionary *extras;
 
 -(instancetype) initWithIdentifier:(NSString*)identifier
@@ -40,7 +43,6 @@
                      notifyOnDwell:(BOOL)notifyOnDwell
                     loiteringDelay:(double)loiteringDelay
                             extras:(NSDictionary*)extras;
-
 
 - (NSDictionary*) toDictionary;
     

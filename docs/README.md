@@ -80,8 +80,10 @@ BackgroundGeolocation.setConfig({
 |-------------|-----------|-----------|-----------------------------------|
 | [`stationaryRadius`](#config-integer-stationaryradius-meters) | `Integer`  | `25`  | When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage. |
 | [`useSignificantChangesOnly`](#config-boolean-usesignificantchangesonly-false) | `Boolean` | `false` | Defaults to `false`.  Set `true` in order to disable constant background-tracking and use only the iOS [Significant Changes API](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html#//apple_ref/occ/instm/CLLocationManager/startMonitoringSignificantLocationChanges). |
-| [`locationAuthorizationRequest`](#config-string-locationauthorizationrequest-always) | `String` | `Always` | The desired iOS location-authorization request, either `Always` or `WhenInUse`. |
+| [`locationAuthorizationRequest`](#config-string-locationauthorizationrequest-always) | `String` | `Always` | The desired iOS location-authorization request, either `Always`, `WhenInUse` or `Any`. |
 | [`locationAuthorizationAlert`](#config-object-locationauthorizationalert) | `Object` | `{}` | When you configure the plugin [`locationAuthorizationRequest`](config-string-locationauthorizationrequest-always) `Always` or `WhenInUse` and the user *changes* that value in the app's location-services settings or *disables* location-services, the plugin will display an Alert directing the user to the **Settings** screen. |
+| [`disableLocationAuthorizationAlert`](#config-boolean-disablelocationauthorizationalert-false) | `Boolean` | `false` | Disables automatic authorization alert when plugin detects the user has disabled location authorization.  You will be responsible for handling disabled location authorization by listening to the `providerchange` event.|
+
 
 ### [Geolocation] Android Options
 
@@ -420,7 +422,7 @@ Note the following real example of background-geolocation on highway 101 towards
 
 Compare now background-geolocation in the scope of a city.  In this image, the left-hand track is from a cab-ride, while the right-hand track is walking speed.
 
-![distanceFilter at city scale](s/yx8uv2zsimlogsp/distance-filter-city.png?dl=1)
+![distanceFilter at city scale](https://dl.dropboxusercontent.com/s/yx8uv2zsimlogsp/distance-filter-city.png?dl=1)
 
 ------------------------------------------------------------------------------
 
@@ -507,7 +509,9 @@ The default behaviour of the plugin is to turn **off** location-services *automa
 
 #### `@config {String} locationAuthorizationRequest [Always]`
 
-The desired iOS location-authorization request, either **`Always`** or **`WhenInUse`**.  **`locationAuthorizationRequest`** tells the plugin the mode it *expects* to be in &mdash; if the user changes this mode in their settings, the plugin will detect this (@see [`locationAuthorizationAlert`](#config-object-locationauthorizationalert)).  Defaults to **`Always`**.  **`WhenInUse`** will display a **blue bar** at top-of-screen informing user that location-services are on.
+The desired iOS location-authorization request, either **`Always`**, **`WhenInUse`** or **`Any`**.  **`locationAuthorizationRequest`** tells the plugin the mode it *expects* to be in &mdash; if the user changes this mode in their settings, the plugin will detect this (@see [`locationAuthorizationAlert`](#config-object-locationauthorizationalert)).  Defaults to **`Always`**.  **`WhenInUse`** will display a **blue bar** at top-of-screen informing user that location-services are on.
+
+If you configure **`Any`**, the plugin allow the user to choose either `Always` or `WhenInUse`.   The plugin will **not** show the location-authorization dialog when the user changes the selection in `Privacy->Location Services`
 
 :warning: Configuring **`WhenInUse`** will disable many of the plugin's features, since iOS forbids any API which operates in the background to operate (such as **geofences**, which the plugin relies upon to automatically engage background tracking).
 
@@ -540,6 +544,31 @@ BackgroundGeolocation.configure({
   }
 })
 ```
+
+------------------------------------------------------------------------------
+
+
+#### `@config {Boolean} disableLocationAuthorizationAlert [false]`
+
+Disables automatic authorization alert when plugin detects the user has disabled location authorization.  You will be responsible for handling disabled location authorization by listening to the [`providerchange`](#providerchange) event.
+
+By default, the plugin automatically shows a native alert (configured via [`locationAuthorizationAlert`](#config-object-locationauthorizationalert)) to the user when location-services are disabled, directing them to the settings screen.  If you **do not** desire this automated behaviour, set `disableLocationAuthorizationAlert: true`.
+
+```javascript
+BackgroundGeolocation.on('providerchange', (provider) => {
+  if (!provider.enabled) {
+    alert('Please enable location services');
+  }
+});
+
+BackgroundGeolocation.ready({
+  disableLocationAuthorizationAlert: true
+}, (state) => {
+  console.log('BackgroundGeolocation ready: ', state);
+});
+
+```
+------------------------------------------------------------------------------
 
 
 ## :wrench: [Geolocation] Android Options

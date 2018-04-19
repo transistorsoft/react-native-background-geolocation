@@ -485,7 +485,9 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                     failure.invoke(e.getMessage());
                 }
             }
-            @Override public void onError(Integer integer) { }
+            @Override public void onError(Integer errorCode) {
+                failure.invoke(errorCode);
+            }
         });
 
         if (options.hasKey("samples"))         { builder.setSamples(options.getInt("samples")); }

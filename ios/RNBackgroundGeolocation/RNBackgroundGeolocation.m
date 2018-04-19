@@ -63,7 +63,16 @@ RCT_EXPORT_MODULE();
     self = [super init];
     if (self) {
         __typeof(self) __weak me = self;
-
+        
+        TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
+        [bgGeo onLocation:^(TSLocation *tsLocation) {
+            CLLocation *location = tsLocation.location;
+            NSLog(@"- onLocation: %@, %@", location, [tsLocation toDictionary]);
+        } failure:^(NSError *error) {
+            NSLog(@"- onLocation error: %@", error);
+        }];
+        
+        
         // Build event-listener blocks
         onLocation = ^void(TSLocation *location) {
             [me sendEvent:EVENT_LOCATIONCHANGE body:[location toDictionary]];
@@ -71,6 +80,8 @@ RCT_EXPORT_MODULE();
         onLocationError = ^void(NSError *error) {
             [me sendEvent:EVENT_ERROR body: @{@"type":@"location", @"code":@(error.code)}];
         };
+        [bgGeo un:@"location" callback:onLocation];
+         
         onMotionChange = ^void(TSLocation *location) {
             [me sendEvent:EVENT_MOTIONCHANGE body:@{@"isMoving":@(location.isMoving), @"location":[location toDictionary]}];
         };

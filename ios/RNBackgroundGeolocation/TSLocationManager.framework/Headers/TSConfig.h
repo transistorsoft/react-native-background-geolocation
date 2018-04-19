@@ -62,6 +62,7 @@ typedef enum TSLogLevel : NSInteger {
 @property (nonatomic) NSTimeInterval stopAfterElapsedMinutes;
 @property (nonatomic) NSString* locationAuthorizationRequest;
 @property (nonatomic) NSDictionary* locationAuthorizationAlert;
+@property (nonatomic) BOOL disableLocationAuthorizationAlert;
 @property (nonatomic) CLLocationDistance geofenceProximityRadius;
 @property (nonatomic) BOOL geofenceInitialTriggerEntry;
 @property (nonatomic) CLLocationAccuracy desiredOdometerAccuracy;
@@ -142,7 +143,7 @@ TSConfig
 -(BOOL)isLocationTrackingMode;
 -(BOOL)hasValidUrl;
 -(BOOL)hasSchedule;
--(NSDictionary*)getLocationAuthorizationAlert;
+-(NSDictionary*)getLocationAuthorizationAlertStrings;
 -(BOOL)isFirstBoot;
 # pragma mark Utility methods
 - (NSDictionary*) toDictionary;
@@ -180,6 +181,7 @@ TSConfig
 @property (nonatomic, readonly) double elasticityMultiplier;
 @property (nonatomic, readonly) NSTimeInterval stopAfterElapsedMinutes;
 @property (nonatomic, readonly) NSString* locationAuthorizationRequest;
+@property (nonatomic, readonly) BOOL disableLocationAuthorizationAlert;
 @property (nonatomic, readonly) NSDictionary* locationAuthorizationAlert;
 @property (nonatomic, readonly) CLLocationDistance geofenceProximityRadius;
 @property (nonatomic, readonly) BOOL geofenceInitialTriggerEntry;

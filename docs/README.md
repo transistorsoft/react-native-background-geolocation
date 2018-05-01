@@ -2796,7 +2796,8 @@ Example:
 
 ```javascript
 BackgroundGeolocation.getGeofences(function(geofences) {
-  for (var n=0,len=geofences.length;n<len;n++) {
+  for (var n=0;n<geofences.length;n++) {
+    var geofence = geofences[n];
     console.log("Geofence: ", geofence.identifier, geofence.radius, geofence.latitude, geofence.longitude);
   }
 }, function(error) {

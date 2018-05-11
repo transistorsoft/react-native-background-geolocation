@@ -1689,26 +1689,29 @@ BackgroundGeolocation.removeGeofences();
 
 ### `http`
 
-The **`successFn`** will be executed for each successful HTTP request where the response-code is one of `200`, `201` or `204`.  **`failureFn`** will be executed for all other HTTP response codes.  The **`successFn`** and **`failureFn`** will be provided a single **`response {Object}`** parameter with the following properties:
+The **`callbackFn`** will be executed for each HTTP request where the response-code is one of `200`, `201` or `204`.  **`failureFn`** will be executed for all other HTTP response codes.  The **`successFn`** and **`failureFn`** will be provided a single **`response {Object}`** parameter with the following properties:
 
 #### `successFn`, `failureFn` Paramters
 
+##### `@param {Boolean} success` `true` when HTTP response status indicates success (ie: `200|201|204`)
 ##### `@param {Integer} status`.  The HTTP status
 ##### `@param {String} responseText` The HTTP response as text.
 
 Example:
 
 ```javascript
-BackgroundGeolocation.onHttp(function(response) {
+BackgroundGeolocation.on('http', function(response) {
   var status = response.status;
+  var success = response.success;
   var responseText = response.responseText;
   var res = JSON.parse(responseText);  // <-- if your server returns JSON
   console.log("- HTTP success", status, res);
 }, function(response) {
+  var success = response.success;
   var status = response.status;
   var responseText = response.responseText;
   console.log("- HTTP failure: ", status, responseText);
-})
+});
 ```
 
 ------------------------------------------------------------------------------

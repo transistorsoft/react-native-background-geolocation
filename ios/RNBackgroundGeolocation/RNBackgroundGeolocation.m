@@ -63,16 +63,7 @@ RCT_EXPORT_MODULE();
     self = [super init];
     if (self) {
         __typeof(self) __weak me = self;
-        
-        TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
-        [bgGeo onLocation:^(TSLocation *tsLocation) {
-            CLLocation *location = tsLocation.location;
-            NSLog(@"- onLocation: %@, %@", location, [tsLocation toDictionary]);
-        } failure:^(NSError *error) {
-            NSLog(@"- onLocation error: %@", error);
-        }];
-        
-        
+
         // Build event-listener blocks
         onLocation = ^void(TSLocation *location) {
             [me sendEvent:EVENT_LOCATIONCHANGE body:[location toDictionary]];
@@ -80,8 +71,6 @@ RCT_EXPORT_MODULE();
         onLocationError = ^void(NSError *error) {
             [me sendEvent:EVENT_ERROR body: @{@"type":@"location", @"code":@(error.code)}];
         };
-        [bgGeo un:@"location" callback:onLocation];
-         
         onMotionChange = ^void(TSLocation *location) {
             [me sendEvent:EVENT_MOTIONCHANGE body:@{@"isMoving":@(location.isMoving), @"location":[location toDictionary]}];
         };
@@ -101,7 +90,7 @@ RCT_EXPORT_MODULE();
             [me sendEvent:EVENT_GEOFENCESCHANGE body:[event toDictionary]];
         };
         onHttp = ^void(TSHttpEvent *response) {
-            NSDictionary *params = @{@"status": @(response.statusCode), @"responseText":response.responseText};
+            NSDictionary *params = @{@"success": @(response.isSuccess), @"status": @(response.statusCode), @"responseText":response.responseText};
             [me sendEvent:EVENT_HTTP body:params];
         };
         onProviderChange = ^void(TSProviderChangeEvent *event) {
@@ -121,13 +110,13 @@ RCT_EXPORT_MODULE();
             NSDictionary *params = @{@"enabled":@(event.enabled)};
             [me sendEvent:EVENT_ENABLEDCHANGE body:params];
         };
-        
+
         // EventEmitter listener-counts
         listeners = [NSMutableDictionary new];
-        
+
         // TSLocationManager instance
         locationManager = [TSLocationManager sharedInstance];
-        
+
         // Provide reference to rootViewController for #emailLog method.
         UIViewController *root = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
         locationManager.viewController = root;
@@ -205,7 +194,7 @@ RCT_EXPORT_METHOD(addEventListener:(NSString*)event)
         } else {
             // First listener for this event
             [listeners setObject:@(1) forKey:event];
-            
+
             if ([event isEqualToString:EVENT_LOCATIONCHANGE]) {
                 [locationManager onLocation:onLocation failure:onLocationError];
             } else if ([event isEqualToString:EVENT_MOTIONCHANGE]) {
@@ -360,7 +349,7 @@ RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options success:(RCTResponse
     } failure:^(NSError *error) {
         failure(@[@(error.code)]);
     }];
-    
+
     if (options[@"timeout"]) {
         request.timeout = [options[@"timeout"] doubleValue];
     }
@@ -387,15 +376,15 @@ RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options success:(RCTResponseSende
     TSWatchPositionRequest *request = [[TSWatchPositionRequest alloc] initWithSuccess:^(TSLocation *location) {
         [self sendEvent:EVENT_WATCHPOSITION body:[location toDictionary]];
     } failure:^(NSError *error) {
-        
+
     }];
-    
+
     if (options[@"interval"])           { request.interval = [options[@"interval"] doubleValue]; }
     if (options[@"desiredAccuracy"])    { request.desiredAccuracy = [options[@"desiredAccuracy"] doubleValue]; }
     if (options[@"persist"])            { request.persist = [options[@"persist"] boolValue]; }
     if (options[@"extras"])             { request.extras = options[@"extras"]; }
     if (options[@"timeout"])            { request.timeout = [options[@"timeout"] doubleValue]; }
-    
+
     [locationManager watchPosition:request];
     success(@[]);
 }

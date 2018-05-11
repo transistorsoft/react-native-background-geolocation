@@ -81,6 +81,9 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     public RNBackgroundGeolocationModule(ReactApplicationContext reactContext) {
         super(reactContext);
 
+        TSConfig config = TSConfig.getInstance(getReactApplicationContext());
+        config.useCLLocationAccuracy(true);
+
         // These are the only events which can be subscribed to.
         events.add(BackgroundGeolocation.EVENT_LOCATION);
         events.add(BackgroundGeolocation.EVENT_MOTIONCHANGE);
@@ -238,6 +241,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     private class HttpResponseCallback implements TSHttpResponseCallback {
         @Override public void onHttpResponse(HttpResponse response) {
             WritableMap params = new WritableNativeMap();
+            params.putBoolean("success", response.isSuccess());
             params.putInt("status", response.status);
             params.putString("responseText", response.responseText);
             sendEvent(BackgroundGeolocation.EVENT_HTTP, params);
@@ -297,7 +301,6 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     public void ready(ReadableMap params, final Callback success, final Callback failure) {
         TSConfig config = TSConfig.getInstance(getReactApplicationContext());
         if (config.isFirstBoot()) {
-            config.useCLLocationAccuracy(true);
             config.updateWithJSONObject(mapToJson(setHeadlessJobService(params)));
         } else if (params.hasKey("reset") && params.getBoolean("reset")) {
             config.reset();
@@ -313,7 +316,6 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     public void configure(ReadableMap params, final Callback success, final Callback failure){
         final TSConfig config = TSConfig.getInstance(getReactApplicationContext());
         config.reset();
-        config.useCLLocationAccuracy(true);
         config.updateWithJSONObject(mapToJson(setHeadlessJobService(params)));
 
         getAdapter().ready(new TSCallback() {
@@ -804,7 +806,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         }
         getAdapter().removeListeners();
     }
-    
+
     private void onLocationError(Integer code) {
         WritableMap params = new WritableNativeMap();
         params.putInt("code", code);

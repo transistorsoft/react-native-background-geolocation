@@ -8,17 +8,27 @@ const helpers = require('./xcode-helpers');
 
 const projectDirectory = process.cwd();
 const moduleDirectory = path.resolve(__dirname, '..');
-const packageManifest = require(projectDirectory + '/package.json');
+const sourceDirectory = path.join(projectDirectory, 'ios');
+
+function findPbxprojFile( directory ) {
+    const files = fs.readdirSync(directory);
+    for (let i = files.length - 1; i >= 0; i--) {
+        const fileName = files[i];
+        const ext = path.extname(fileName);
+
+        if (ext === '.xcodeproj') {
+            return path.join(directory, fileName, 'project.pbxproj');
+        }
+    }
+
+    return null;
+}
 
 const projectConfig = {
-    sourceDir: path.join(projectDirectory, 'ios'),
-    pbxprojPath: path.join(
-        projectDirectory,
-        'ios',
-        packageManifest.name + '.xcodeproj',
-        'project.pbxproj'
-    ),
+    sourceDir: sourceDirectory,
+    pbxprojPath: findPbxprojFile( sourceDirectory )
 };
+
 
 const pathToFramework = path.relative(
     projectConfig.sourceDir,

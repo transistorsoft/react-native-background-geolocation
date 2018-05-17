@@ -1,4 +1,8 @@
 # Change Log
+
+## [2.12.1] - 2018-05-17
+- [Fixed] iOS geofence exit was being ignored in a specific case where (1) geofence was configured with `notifyOnDwell: true` AND (2) the app was booted in the background *due to* a geofence exit event.
+
 ## [2.12.0] - 2018-05-11
 - [Fixed] Android bug where plugin could fail to translate iOS desiredAccuracy value to Android value, resulting in incorrect `desiredAccuracy` value for Android, probably defaulting to `DESIRED_ACCURACY_LOWEST`.
 

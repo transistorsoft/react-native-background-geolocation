@@ -256,6 +256,7 @@
 					"$(SRCROOT)/../../react-native/React/**",
 					"$(SRCROOT)/../../../React/**",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/RNBackgroundGeolocation",
 					"$(inherited)",
@@ -287,6 +288,7 @@
 					"$(SRCROOT)/../../react-native/React/**",
 					"$(SRCROOT)/../../../React/**",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/RNBackgroundGeolocation",
 					"$(inherited)",

@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const glob = require('glob');
 // unfortunately we can't use the 'plist' module at the moment for parsing
 // because it has a few issues with empty strings and keys.
 // There are several issues and PRs on that repository open though and hopefully
@@ -74,6 +75,32 @@ function hasLCPlusPlus(config) {
     return (config.buildSettings.OTHER_LDFLAGS || []).indexOf('"-lc++"') >= 0;
 }
 
+// based on: https://github.com/facebook/react-native/blob/1490ab1/local-cli/core/ios/findProject.js
+function findProject(folder) {
+    const GLOB_PATTERN = '**/*.xcodeproj';
+    const TEST_PROJECTS = /test|example|sample/i;
+    const IOS_BASE = 'ios';
+    const GLOB_EXCLUDE_PATTERN = ['**/@(Pods|node_modules)/**'];
+
+    const projects = glob
+        .sync(GLOB_PATTERN, {
+            cwd: folder,
+            ignore: GLOB_EXCLUDE_PATTERN,
+        })
+        .filter(project => {
+            return path.dirname(project) === IOS_BASE || !TEST_PROJECTS.test(project);
+        })
+        .sort((projectA, projectB) => {
+            return path.dirname(projectA) === IOS_BASE ? -1 : 1;
+        });
+  
+    if (projects.length === 0) {
+        return null;
+    }
+  
+    return projects[0];
+};
+
 function addToFrameworkSearchPaths(project, path, recursive) {
     eachBuildConfiguration(project, hasLCPlusPlus, config => {
         if (!config.buildSettings.FRAMEWORK_SEARCH_PATHS) {
@@ -140,4 +167,5 @@ module.exports = {
     getTargetAttributes: getTargetAttributes,
     addToFrameworkSearchPaths: addToFrameworkSearchPaths,
     removeFromFrameworkSearchPaths: removeFromFrameworkSearchPaths,
+    findProject: findProject,
 };

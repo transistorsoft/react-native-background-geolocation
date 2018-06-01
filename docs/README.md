@@ -104,7 +104,7 @@ BackgroundGeolocation.setConfig({
 | [`activityRecognitionInterval`](#config-integer-millis-10000-activityrecognitioninterval) | `Integer` | `10000` | The desired time between activity detections. Larger values will result in fewer activity detections while improving battery life. A value of `0` will result in activity detections at the fastest possible rate. |
 | [`stopTimeout`](#config-integer-minutes-stoptimeout) | `Integer` | `5`  | The number of **minutes** to wait before turning off location-services after the ActivityRecognition System (ARS) detects the device is `STILL` |
 | [`minimumActivityRecognitionConfidence`](#config-integer-millis-minimumactivityrecognitionconfidence) | `Integer` | `75` | Each activity-recognition-result returned by the API is tagged with a "confidence" level expressed as a `%`.  You can set your desired confidence to trigger a state-change.|
-| [`stopDetectionDelay`](#config-integer-minutes-stopdetectiondelay-0) | `Integer` | `0` | Number of **minute** to delay the stop-detection system from being activated.| 
+| [`stopDetectionDelay`](#config-integer-minutes-stopdetectiondelay-0) | `Integer` | `0` | Number of **minutes** to delay the stop-detection system from being activated.| 
 | [`disableStopDetection`](#config-boolean-disablestopdetection-false) | `Boolean` | `false` | Disable accelerometer-based **Stop-detection System**. :warning: Not recommended|
 
 ### [Activity Recognition] iOS Options
@@ -173,7 +173,7 @@ BackgroundGeolocation.setConfig({
 | [`forceReloadOnGeofence`](#config-boolean-forcereloadongeofence-false) | `Boolean` | `false` |  Launch your app whenever the [`#geofence`](#geofence) event fires. |
 | [`forceReloadOnHeartbeat`](#config-boolean-forcereloadonheartbeat-false) | `Boolean` | `false` |  Launch your app whenever the [`#heartbeat`](#heartbeat) event fires. |
 | [`forceReloadOnSchedule`](#config-boolean-forcereloadonschedule-false) | `Boolean` | `false` |  Launch your app whenever a [`schedule`](#schedule) event fires. |
-| [`forceReloadOnBoot`](#config-boolean-forcereloadonboot-false) | `Boolean` | `false` |  If the user reboots the device with the plugin configured for [`startOnBoot: true`](#config-boolean-startonboot-false), your will app will launch when the device is rebooted. |
+| [`forceReloadOnBoot`](#config-boolean-forcereloadonboot-false) | `Boolean` | `false` |  If the user reboots the device with the plugin configured for [`startOnBoot: true`](#config-boolean-startonboot-false), your app will launch when the device is rebooted. |
 
 
 

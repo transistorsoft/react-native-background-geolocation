@@ -271,7 +271,7 @@ By marking one of your application methods as **`async`** you can use the **`awa
 ```javascript
 async onClickGetPosition() {
   let location = await bgGeo.getCurrentPosition({samples:1, persist: false});
-  conosle.log('- current position: ', location);
+  console.log('- current position: ', location);
 
   let count = await bgGeo.getCount();
   console.log('- There are ', count, ' records in the database');

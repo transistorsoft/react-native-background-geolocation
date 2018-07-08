@@ -141,7 +141,7 @@ export default class NativeModule {
         for (let n=0,len=EVENTS.length;n<len;n++) {
           EventEmitter.removeAllListeners(EVENTS[n]);
         }
-        EVENT_SUBSCRIPTIONS = [];
+        EVENT_SUBSCRIPTIONS.splice(0, EVENT_SUBSCRIPTIONS.length);
         resolve();
       }
       let failure = (error) => { reject(error) }

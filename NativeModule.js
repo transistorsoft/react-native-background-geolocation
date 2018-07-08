@@ -65,7 +65,7 @@ const LOGGER = {
 }
 
 // Plugin event listener subscriptions
-const EVENT_SUBSCRIPTIONS = [];
+let EVENT_SUBSCRIPTIONS = [];
 
 /**
 * Native API
@@ -141,7 +141,7 @@ export default class NativeModule {
         for (let n=0,len=EVENTS.length;n<len;n++) {
           EventEmitter.removeAllListeners(EVENTS[n]);
         }
-        EVENT_SUBSCRIPTIONS.splice(0, EVENT_SUBSCRIPTIONS.length);
+        EVENT_SUBSCRIPTIONS = [];
         resolve();
       }
       let failure = (error) => { reject(error) }

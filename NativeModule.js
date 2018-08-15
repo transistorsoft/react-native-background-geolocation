@@ -65,7 +65,7 @@ const LOGGER = {
 }
 
 // Plugin event listener subscriptions
-const EVENT_SUBSCRIPTIONS = [];
+let EVENT_SUBSCRIPTIONS = [];
 
 /**
 * Native API

@@ -1,5 +1,19 @@
 # Change Log
 
+## [2.13.0] - 2018-08-15
+- [Added] New Android config-option `notificationChannelName` for configuring the notification-channel required by the foreground-service notification.  See *Settings->Apps & Notificaitions->Your App->App Notifications*.
+- [Added] Support for new [Firebase Adapter](https://github.com/transistorsoft/react-native-background-geolocation-firebase)
+- [Added] iOS support for HTTP method `PATCH` (Android already supports it).
+- [Fixed] Android was not using `httpTimeout` with latest `okhttp3`.
+- [Fixed] Android issue not firing `providerchange` on boot when configured with `stopOnTerminate: true`
+- [Fixed] Android `headlessJobService` class could fail to be applied when upgrading from previous version.  Ensure always applied.
+- [Fixed] Android `httpTimeout` was not being applied to new `okhttp3.Client#connectionTimeout`
+- [Fixed] Apply recommended XCode build settings. 
+- [Fixed] XCode warnings 'implicity retain self in block'
+- [Changed] Android Removed unnecessary attribute `android:supportsRtl="true"` from `AndroidManifest`
+- [Fixed] iOS `preventSuspend` was not working with `useSignificantChangesOnly`
+- [Changed] iOS disable encryption on SQLite database file when "Data Protection" capability is enabled with `NSFileProtectionNone` so that plugin can continue to insert records while device is locked.
+
 ## [2.12.2] - 2018-05-25
 - [Fixed] Fix `react-native link` error when iOS and npm project name are diferent.
 - [Fixed] iOS issue when plugin is booted in background in geofences-only mode, could engage location-tracking mode.

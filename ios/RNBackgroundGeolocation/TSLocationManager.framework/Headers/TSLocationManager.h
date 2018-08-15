@@ -50,6 +50,7 @@
 - (void) removeListener:(NSString*)event callback:(void(^)(id))callback;
 - (void) un:(NSString*)event callback:(void(^)(id))callback;
 - (void) removeListeners:(NSString*)event;
+- (void) removeListenersForEvent:(NSString*)event;
 - (void) removeListeners;
 
 #pragma mark - Core API Methods

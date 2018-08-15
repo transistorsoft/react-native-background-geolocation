@@ -26,7 +26,7 @@ const pathToFramework = path.relative(
     path.join(
         moduleDirectory,
         'ios',
-        'RNBackgroundFetch',
+        'RNBackgroundGeolocation',
         'TSLocationManager.framework'
     )
 );

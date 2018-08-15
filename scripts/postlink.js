@@ -73,15 +73,26 @@ if (!project.hasFile(file.path)) {
     project.addToPbxFrameworksBuildPhase(file);
 }
 
-helpers.addToFrameworkSearchPaths(
-    project,
-    '$(PROJECT_DIR)/' +
-    path.relative(
-        projectConfig.sourceDir,
-        path.join(moduleDirectory, 'ios')
-    ),
-    true
-);
+// Is this a Cocoapods installation?
+const podFile = path.join(sourceDirectory, 'Podfile');
+if (!fs.existsSync(podFile)) {
+    // Only add FRAMEWORK_SEARCH_PATHS for non-Cocoapod installation
+    helpers.addToFrameworkSearchPaths(
+        project,
+        '$(PROJECT_DIR)/' +
+        path.relative(
+            projectConfig.sourceDir,
+            path.join(moduleDirectory, 'ios')
+        ),
+        true
+    );
+} else {
+    helpers.addToFrameworkSearchPaths(
+        project,
+        '$(inherited)',
+        false
+    );
+}
 
 
 // enable BackgroundModes in xcode project without overriding any previously

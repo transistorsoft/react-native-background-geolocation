@@ -84,6 +84,10 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         TSConfig config = TSConfig.getInstance(getReactApplicationContext());
         config.useCLLocationAccuracy(true);
 
+        config.updateWithBuilder()
+            .setHeadlessJobService(getClass().getPackage().getName() + "." + JOB_SERVICE_CLASS)
+            .commit();
+            
         // These are the only events which can be subscribed to.
         events.add(BackgroundGeolocation.EVENT_LOCATION);
         events.add(BackgroundGeolocation.EVENT_MOTIONCHANGE);
@@ -109,6 +113,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     public String getName() {
         return "RNBackgroundGeolocation";
     }
+
 
     /**
      * location event callback
@@ -295,6 +300,11 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     @Override
     public void onNewIntent(Intent intent) {
 
+    }
+
+    @ReactMethod
+    public void registerPlugin(String name) {
+        // Do nothing.  This is for iOS only.
     }
 
     @ReactMethod

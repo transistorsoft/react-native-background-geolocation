@@ -147,6 +147,8 @@ TSConfig
 -(BOOL)isFirstBoot;
 # pragma mark Utility methods
 - (NSDictionary*) toDictionary;
+- (void) registerPlugin:(NSString*)pluginName;
+- (BOOL) hasPluginForEvent:(NSString*)eventName;
 
 /// @name State Properties
 /**

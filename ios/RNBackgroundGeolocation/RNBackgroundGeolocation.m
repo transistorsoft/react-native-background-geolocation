@@ -144,6 +144,12 @@ RCT_EXPORT_MODULE();
     ];
 }
 
+RCT_EXPORT_METHOD(registerPlugin:(NSString*)pluginName) 
+{
+    TSConfig *config = [TSConfig sharedInstance];
+    [config registerPlugin:pluginName];
+}
+
 RCT_EXPORT_METHOD(reset:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     TSConfig *config = [TSConfig sharedInstance];
@@ -165,7 +171,7 @@ RCT_EXPORT_METHOD(ready:(NSDictionary*)params success:(RCTResponseSenderBlock)su
             [config reset];
             [config updateWithDictionary:params];
         }
-        [locationManager ready];
+        [self.locationManager ready];
         success(@[[config toDictionary]]);
     });
 }
@@ -178,7 +184,7 @@ RCT_EXPORT_METHOD(configure:(NSDictionary*)params success:(RCTResponseSenderBloc
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         TSConfig *config = [TSConfig sharedInstance];
-        [locationManager configure:params];
+        [self.locationManager configure:params];
         success(@[[config toDictionary]]);
     });
 }
@@ -273,8 +279,8 @@ RCT_EXPORT_METHOD(getState:(RCTResponseSenderBlock)callback failure:(RCTResponse
 RCT_EXPORT_METHOD(start:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [locationManager start];
-        success(@[[locationManager getState]]);
+        [self.locationManager start];
+        success(@[[self.locationManager getState]]);
     });
 }
 /**
@@ -292,8 +298,8 @@ RCT_EXPORT_METHOD(stop:(RCTResponseSenderBlock)success failure:(RCTResponseSende
 RCT_EXPORT_METHOD(startSchedule:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [locationManager startSchedule];
-        success(@[[locationManager getState]]);
+        [self.locationManager startSchedule];
+        success(@[[self.locationManager getState]]);
     });
 }
 
@@ -303,8 +309,8 @@ RCT_EXPORT_METHOD(startSchedule:(RCTResponseSenderBlock)success failure:(RCTResp
 RCT_EXPORT_METHOD(stopSchedule:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [locationManager stopSchedule];
-        success(@[[locationManager getState]]);
+        [self.locationManager stopSchedule];
+        success(@[[self.locationManager getState]]);
     });
 }
 
@@ -315,7 +321,7 @@ RCT_EXPORT_METHOD(startGeofences:(RCTResponseSenderBlock)success failure:(RCTRes
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         TSConfig *config = [TSConfig sharedInstance];
-        [locationManager startGeofences];
+        [self.locationManager startGeofences];
         success(@[[config toDictionary]]);
     });
 }
@@ -605,7 +611,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     @synchronized(listeners) { [listeners removeAllObjects]; }
     [locationManager removeListeners];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [locationManager stopWatchPosition];
+        [self.locationManager stopWatchPosition];
     });
 }
 

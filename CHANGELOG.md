@@ -1,5 +1,8 @@
 # Change Log
 
+## [2.13.2] - 2018-08-29
+- [Fixed] iOS scheduler not being initialized in `#ready` after reboot.
+
 ## [2.13.1] - 2018-08-17
 - [Fixed] Android firebase plugin bug in release build.
 

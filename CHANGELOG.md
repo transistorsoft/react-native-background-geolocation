@@ -1,5 +1,8 @@
 # Change Log
 
+## [2.13.3] - 2018-08-30
+- [Fixed] Minor error in plugin's `build.gradle`.  `DEFAULT_BUILD_TOOLS_VERSION` was set incorrectly.
+
 ## [2.13.2] - 2018-08-29
 - [Fixed] iOS scheduler not being initialized in `#ready` after reboot.
 

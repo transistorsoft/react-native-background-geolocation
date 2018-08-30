@@ -26,7 +26,7 @@ allprojects {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
-        // Google now hosts their latest API dependencies on their own maven  server.  
+        // Google now hosts their latest API dependencies on their own maven  server.
         // React Native will eventually add this to their app template.
 +       maven {
 +           url 'https://maven.google.com'
@@ -49,22 +49,22 @@ allprojects {
 * version of play-services or define a compileSdkVersion, buildToolsVersion
 * which conflicts with that of your app?  Me too!
 *
-* If you define these key gradle configuration variables globally, the 
-* background-geolocation plugin (and any other "wise" plugins you've installed) 
-* can align themselves to YOUR desired versions!  You should define these variables 
+* If you define these key gradle configuration variables globally, the
+* background-geolocation plugin (and any other "wise" plugins you've installed)
+* can align themselves to YOUR desired versions!  You should define these variables
 * as desired according to current values in your app/build.gradle
 *
-* You'll find that more and more plugins are beginning to wise up to checking 
+* You'll find that more and more plugins are beginning to wise up to checking
 * for the presense of global gradle variables like this.
 *
 * BackgroundGeolocation is aware of the following variables:
 */
 +ext {
-+    compileSdkVersion   = 26
-+    targetSdkVersion    = 26
-+    buildToolsVersion   = "26.0.2"
-+    supportLibVersion   = "26.1.0"
-+    googlePlayServicesVersion = "11.8.0" 
++    compileSdkVersion   = 27
++    targetSdkVersion    = 27
++    buildToolsVersion   = "27.0.3"
++    supportLibVersion   = "27.1.1"
++    playServicesVersion = "15.0.1"
 +}
 ```
 
@@ -79,7 +79,7 @@ The technique of **defining project-wide properties** can be found in the **Andr
 ```diff
 -/**
 -* OPTIONAL:  If you've implemeted the "OPTIONAL BUT HIGHLY RECOMMENDED" note
--* above, you can define your compileSdkVersion, buildToolsVersion, targetSdkVersion 
+-* above, you can define your compileSdkVersion, buildToolsVersion, targetSdkVersion
 -* using your own global variables as well:
 -* Android Studio is smart enough to be aware of the evaulated values here,
 -* to offer upgrade notices when applicable.
@@ -105,7 +105,7 @@ dependencies {
     // eg:  if compileSdkVersion 27 -> appcompat-v7:27.x.x
     //      if compileSdkVersion 26 -> appcompat-v7:26.x.x
     //      if compileSdkVersion 25 -> appcompat-v7:25.x.x
-    // NOTE:  It's up to you to define the variable supportLibVersion 
+    // NOTE:  It's up to you to define the variable supportLibVersion
     // as noted above.  IT IS HIGHLY RECOMMENDED TO DO THIS.
 +   compile "com.android.support:appcompat-v7:$rootProject.supportLibVersion"
 }

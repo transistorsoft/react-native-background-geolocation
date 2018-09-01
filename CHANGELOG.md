@@ -1,5 +1,9 @@
 # Change Log
 
+## Unreleased
+
+- [Fixed] iOS was missing Firebase adapter hook for persisting geofences.
+
 ## [2.13.3] - 2018-08-30
 - [Fixed] Minor error in plugin's `build.gradle`.  `DEFAULT_BUILD_TOOLS_VERSION` was set incorrectly.
 

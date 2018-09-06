@@ -246,6 +246,7 @@ RCT_EXPORT_METHOD(removeAllListeners:(RCTResponseSenderBlock)success failure:(RC
 {
     @synchronized(listeners) { [listeners removeAllObjects]; }
     [locationManager removeListeners];
+    success();
 }
 
 

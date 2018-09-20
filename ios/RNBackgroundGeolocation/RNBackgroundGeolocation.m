@@ -144,7 +144,7 @@ RCT_EXPORT_MODULE();
     ];
 }
 
-RCT_EXPORT_METHOD(registerPlugin:(NSString*)pluginName) 
+RCT_EXPORT_METHOD(registerPlugin:(NSString*)pluginName)
 {
     TSConfig *config = [TSConfig sharedInstance];
     [config registerPlugin:pluginName];
@@ -252,6 +252,7 @@ RCT_EXPORT_METHOD(removeAllListeners:(RCTResponseSenderBlock)success failure:(RC
 {
     @synchronized(listeners) { [listeners removeAllObjects]; }
     [locationManager removeListeners];
+    success(nil);
 }
 
 

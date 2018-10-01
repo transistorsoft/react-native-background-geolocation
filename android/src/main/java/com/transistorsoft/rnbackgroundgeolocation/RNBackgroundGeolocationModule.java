@@ -59,7 +59,7 @@ import java.util.Map;
 public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule implements ActivityEventListener, LifecycleEventListener {
 
     private static final String TAG = "TSLocationManager";
-    private static final String JOB_SERVICE_CLASS = "HeadlessJobService";
+    private static final String JOB_SERVICE_CLASS = "HeadlessTask";
 
     public static final String ACCESS_COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     public static final String ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;

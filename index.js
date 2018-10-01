@@ -35,6 +35,11 @@ const NOTIFICATION_PRIORITY_LOW           =-1;
 const NOTIFICATION_PRIORITY_MAX           = 2;
 const NOTIFICATION_PRIORITY_MIN           =-2;
 
+const ACTIVITY_TYPE_OTHER                 = 1;
+const ACTIVITY_TYPE_AUTOMOTIVE_NAVIGATION = 2;
+const ACTIVITY_TYPE_FITNESS               = 3;
+const ACTIVITY_TYPE_OTHER_NAVIGATION      = 4;
+
 const emptyFn = function() {}
 
 class BackgroundGeolocation {  

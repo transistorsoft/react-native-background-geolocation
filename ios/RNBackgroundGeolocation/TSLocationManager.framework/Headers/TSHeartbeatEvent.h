@@ -13,6 +13,6 @@
 @property (nonatomic, readonly) TSLocation* location;
 
 -(id) initWithLocation:(CLLocation*)location;
-
+-(NSDictionary*) toDictionary;
 @end
 

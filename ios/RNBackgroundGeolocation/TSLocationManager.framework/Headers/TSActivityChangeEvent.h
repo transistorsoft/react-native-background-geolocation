@@ -12,5 +12,5 @@
 @property (nonatomic, readonly) NSString *activity;
 
 -(id) initWithActivityName:(NSString*)activityName confidence:(NSInteger)confidence;
-
+-(NSDictionary*) toDictionary;
 @end

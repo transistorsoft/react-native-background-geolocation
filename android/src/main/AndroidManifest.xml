@@ -1,27 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.transistorsoft.rnbackgroundgeolocation">
 
-    <application android:label="@string/app_name"
-        android:supportsRtl="true">
-
-        <service android:name="com.transistorsoft.rnbackgroundgeolocation.HeadlessJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="true" />
-
-        <receiver android:name="com.transistorsoft.rnbackgroundgeolocation.HeadlessBroadcastReceiver">
-            <intent-filter>
-                <action android:name="${applicationId}.tslocationmanager.event.LOCATION" />
-                <action android:name="${applicationId}.tslocationmanager.event.MOTIONCHANGE" />
-                <action android:name="${applicationId}.tslocationmanager.event.ACTIVITYCHANGE" />
-                <action android:name="${applicationId}.tslocationmanager.event.PROVIDERCHANGE" />
-                <action android:name="${applicationId}.tslocationmanager.event.POWERSAVECHANGE" />
-                <action android:name="${applicationId}.tslocationmanager.event.HEARTBEAT" />
-                <action android:name="${applicationId}.tslocationmanager.event.GEOFENCE" />
-                <action android:name="${applicationId}.tslocationmanager.event.HTTP" />
-                <action android:name="${applicationId}.tslocationmanager.event.SCHEDULE" />
-                <action android:name="${applicationId}.tslocationmanager.event.BOOT" />
-                <action android:name="${applicationId}.tslocationmanager.event.TERMINATE" />
-            </intent-filter>
-        </receiver>
-
+    <application android:label="@string/app_name">
     </application>
 
 </manifest>

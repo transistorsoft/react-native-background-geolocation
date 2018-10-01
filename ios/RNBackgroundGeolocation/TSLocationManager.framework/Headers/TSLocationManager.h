@@ -29,6 +29,7 @@
 @property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic) NSDate *stoppedAt;
 @property (nonatomic) UIBackgroundTaskIdentifier preventSuspendTask;
+@property (nonatomic, readonly) BOOL clientReady;
 
 + (TSLocationManager *)sharedInstance;
 

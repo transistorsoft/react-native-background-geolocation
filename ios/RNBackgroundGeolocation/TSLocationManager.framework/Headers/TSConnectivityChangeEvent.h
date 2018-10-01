@@ -11,7 +11,7 @@
 @property (nonatomic, readonly) BOOL hasConnection;
 
 -(instancetype) initWithHasConnection:(BOOL)hasConnection;
-
+-(NSDictionary*) toDictionary;
 @end
 
 

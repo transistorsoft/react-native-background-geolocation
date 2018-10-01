@@ -15,5 +15,5 @@
 @property (nonatomic, readonly) NSError *error;
 
 -(id) initWithStatusCode:(NSInteger)statusCode requestData:(NSDictionary*)requestData responseData:(NSData*)responseData error:(NSError*)error;
-
+-(NSDictionary*) toDictionary;
 @end

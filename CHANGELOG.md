@@ -1,8 +1,11 @@
 # Change Log
 
-## Unreleased
-
+## [2.13.4] - 2018-10-01
 - [Fixed] iOS was missing Firebase adapter hook for persisting geofences.
+- [Changed] Android headless events are now posted with using `EventBus` instead of `JobScheduler`.  Events posted via Android `JobScheduler` are subject to time-slicing by the OS so events could arrive late.
+- [Fixed] Missing `removeListeners` for `connectivitychange`, `enabledchange` events.
+- [Fixed] iOS was not calling `success` callback for `removeListeners`.
+- [Fixed] iOS plugin was not parsing schedule in `#ready` event.
 
 ## [2.13.3] - 2018-08-30
 - [Fixed] Minor error in plugin's `build.gradle`.  `DEFAULT_BUILD_TOOLS_VERSION` was set incorrectly.

@@ -10,7 +10,7 @@
 		</data>
 		<key>Headers/TSActivityChangeEvent.h</key>
 		<data>
-		tIADkXeywJQ8oDfmTShRw6W2YzQ=
+		3b/JDKeYspSzawvjtA0V4o0QG2k=
 		</data>
 		<key>Headers/TSConfig.h</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Headers/TSConnectivityChangeEvent.h</key>
 		<data>
-		dQ6Sio4UVzeXwLBVxsmFav6+tgA=
+		ut3pAr+Q/GmMWF2k5h2xBOAZZCM=
 		</data>
 		<key>Headers/TSCurrentPositionRequest.h</key>
 		<data>
@@ -42,11 +42,11 @@
 		</data>
 		<key>Headers/TSHeartbeatEvent.h</key>
 		<data>
-		rb6Pg0eSnVx96/ANyGolvSdrzL8=
+		fn0M0TRJIezP+MKfKtGA3fC9cOI=
 		</data>
 		<key>Headers/TSHttpEvent.h</key>
 		<data>
-		Fg8krMXZGJrgjy4EPzTIOaJlU9w=
+		FHoiEPenT4EqPXBHHLUlX5Z8FIE=
 		</data>
 		<key>Headers/TSLocation.h</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		9QBPzAKlgQ+zIiGpk1JlFNcz4Ks=
+		i7MnlCs4qHbEGQe/uFLuplhhAvc=
 		</data>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
 		<data>
@@ -78,7 +78,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		T+wDE67RWsQvSYQG8uQXdIu7bvc=
+		9sEc3weHVVTTfX9p/MnGtSCOjP0=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -102,11 +102,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tIADkXeywJQ8oDfmTShRw6W2YzQ=
+			3b/JDKeYspSzawvjtA0V4o0QG2k=
 			</data>
 			<key>hash2</key>
 			<data>
-			6wAje5d8epIHEh5JbvCZYeEB3OoC43kZ+Bt3rQVCGLw=
+			kWXU/pPxGT22LjiNn9TQPFG1ucvfFcMKGiEJrQYuW3E=
 			</data>
 		</dict>
 		<key>Headers/TSConfig.h</key>
@@ -124,11 +124,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			dQ6Sio4UVzeXwLBVxsmFav6+tgA=
+			ut3pAr+Q/GmMWF2k5h2xBOAZZCM=
 			</data>
 			<key>hash2</key>
 			<data>
-			eJAtk4flOD1eSjp4l1Pt5rLhg52h7o8gTLJMU10wj2Y=
+			Cj7Ut5uLcNxRDgJmIPToXVA4iveMWR8SiemRzV7F3ec=
 			</data>
 		</dict>
 		<key>Headers/TSCurrentPositionRequest.h</key>
@@ -190,22 +190,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rb6Pg0eSnVx96/ANyGolvSdrzL8=
+			fn0M0TRJIezP+MKfKtGA3fC9cOI=
 			</data>
 			<key>hash2</key>
 			<data>
-			ANT9Eu3B/u4ooFPpBH63dhaCxGJiL+R+af2KOSNFV/4=
+			pjRqfrACWbaUK/XCbylchHSDwBlfl1OhJ0+C8w5DBQk=
 			</data>
 		</dict>
 		<key>Headers/TSHttpEvent.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Fg8krMXZGJrgjy4EPzTIOaJlU9w=
+			FHoiEPenT4EqPXBHHLUlX5Z8FIE=
 			</data>
 			<key>hash2</key>
 			<data>
-			A0brIj4SV74g/h3haeH4JyFu7v0uyYN/ekFrAQWF2eY=
+			67ssRd+6wtL1ObBx8c+x8fFQLEM6qSHBeW0CnUqCRwU=
 			</data>
 		</dict>
 		<key>Headers/TSLocation.h</key>
@@ -223,11 +223,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			9QBPzAKlgQ+zIiGpk1JlFNcz4Ks=
+			i7MnlCs4qHbEGQe/uFLuplhhAvc=
 			</data>
 			<key>hash2</key>
 			<data>
-			s79+GEiZ8KGhRrkB8F6Q/+FB9CFdc8f5gsESsuIhMeo=
+			YQivMy27+icBJ36gT9Vl/SMsxfsf0yxn3kU8ryI/+4c=
 			</data>
 		</dict>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>

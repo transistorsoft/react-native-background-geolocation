@@ -87,7 +87,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         config.updateWithBuilder()
             .setHeadlessJobService(getClass().getPackage().getName() + "." + JOB_SERVICE_CLASS)
             .commit();
-            
+
         // These are the only events which can be subscribed to.
         events.add(BackgroundGeolocation.EVENT_LOCATION);
         events.add(BackgroundGeolocation.EVENT_MOTIONCHANGE);
@@ -192,9 +192,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
      */
     private class EnabledChangeCallback implements TSEnabledChangeCallback {
         @Override public void onEnabledChange(boolean enabled) {
-            WritableMap params = new WritableNativeMap();
-            params.putBoolean("enabled", enabled);
-            sendEvent(BackgroundGeolocation.EVENT_ENABLEDCHANGE, params);
+            sendEvent(BackgroundGeolocation.EVENT_ENABLEDCHANGE, enabled);
         }
     }
     /**
@@ -271,7 +269,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     */
     private class PowerSaveChangeCallack implements TSPowerSaveChangeCallback {
         @Override public void onPowerSaveChange(Boolean isPowerSaveMode) {
-            getReactApplicationContext().getJSModule(RCTNativeAppEventEmitter.class).emit(BackgroundGeolocation.EVENT_POWERSAVECHANGE, isPowerSaveMode);
+            sendEvent(BackgroundGeolocation.EVENT_POWERSAVECHANGE, isPowerSaveMode);
         }
     }
 
@@ -819,9 +817,8 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
 
     private void onLocationError(Integer code) {
         WritableMap params = new WritableNativeMap();
-        params.putInt("code", code);
-        params.putString("type", "location");
-        sendEvent(BackgroundGeolocation.EVENT_ERROR, params);
+        params.putInt("error", code);
+        sendEvent(BackgroundGeolocation.EVENT_LOCATION, params);
     }
 
     private void handlePlayServicesConnectError(Integer errorCode) {
@@ -837,6 +834,10 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     private void sendEvent(String eventName, String result) {
+        getReactApplicationContext().getJSModule(RCTNativeAppEventEmitter.class).emit(eventName, result);
+    }
+
+    private void sendEvent(String eventName, Boolean result) {
         getReactApplicationContext().getJSModule(RCTNativeAppEventEmitter.class).emit(eventName, result);
     }
 

@@ -67,6 +67,13 @@ const LOGGER = {
 // Plugin event listener subscriptions
 let EVENT_SUBSCRIPTIONS = [];
 
+class Subscription {
+  constructor(subscription, callback) {
+    this.subscription = subscription;
+    this.callback = callback;
+  }
+}
+
 /**
 * Native API
 */
@@ -112,32 +119,43 @@ export default class NativeModule {
     if (EVENTS.indexOf(event) < 0) {
       throw (TAG + "#addListener - Unknown event '" + event + "'");
     }
-    EVENT_SUBSCRIPTIONS.push(EventEmitter.addListener(event, success));
-    if (typeof(failure) === 'function') {
-      EVENT_SUBSCRIPTIONS.push(EventEmitter.addListener("error", failure));
+    let handler = (response) => {
+      if (response.hasOwnProperty("error")) {
+        if (typeof(failure) === 'function') {
+          failure(response.error);
+        } else {
+          console.warn(event + ' event error occurred without a failure callback handler.');
+        }
+      } else {
+        success(response);
+      }
     }
+    let subscription = new Subscription(EventEmitter.addListener(event, handler), success);
+    EVENT_SUBSCRIPTIONS.push(subscription);
     RNBackgroundGeolocation.addEventListener(event);
   }
 
   static removeListener(event, callback, success, failure) {
     let found = null;
     for (let n=0,len=EVENT_SUBSCRIPTIONS.length;n<len;n++) {
-      let subscription = EVENT_SUBSCRIPTIONS[n];
-      if ((subscription.eventType === event) && (subscription.listener === callback)) {
-          found = subscription;
+      let sub = EVENT_SUBSCRIPTIONS[n];
+      if ((sub.subscription.eventType === event) && (sub.callback === callback)) {
+          found = sub;
           break;
       }
     }
     if (found !== null) {
       EVENT_SUBSCRIPTIONS.splice(EVENT_SUBSCRIPTIONS.indexOf(found), 1);
       RNBackgroundGeolocation.removeListener(event);
+      EventEmitter.removeListener(event, found.subscription.listener);
+    } else {
+      console.warn('[BackgroundGeolocation removeListener] ERROR - Failed to find Subscription for event ', event);
     }
-    EventEmitter.removeListener(event, callback);
   }
 
   static removeListeners() {
     return new Promise((resolve, reject) => {
-      let success = () => { 
+      let success = () => {
         for (let n=0,len=EVENTS.length;n<len;n++) {
           EventEmitter.removeAllListeners(EVENTS[n]);
         }
@@ -224,18 +242,18 @@ export default class NativeModule {
       RNBackgroundGeolocation.changePace(isMoving, success, failure);
     });
   }
-  
+
   static getCurrentPosition(options) {
     options = options || {};
     return new Promise((resolve, reject) => {
       let success = (location)  => { resolve(location) }
       let failure = (error)     => { reject(error) }
-      RNBackgroundGeolocation.getCurrentPosition(options, success, failure);    
+      RNBackgroundGeolocation.getCurrentPosition(options, success, failure);
     });
   }
 
   static watchPosition(success, failure, options) {
-    let callback = ()  => { 
+    let callback = ()  => {
       EventEmitter.addListener("watchposition", success);
     };
     RNBackgroundGeolocation.watchPosition(options, callback, failure);
@@ -246,7 +264,7 @@ export default class NativeModule {
       EventEmitter.removeAllListeners("watchposition");
       let success = ()      => { resolve() }
       let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.stopWatchPosition(success, failure);    
+      RNBackgroundGeolocation.stopWatchPosition(success, failure);
     });
   }
 
@@ -283,7 +301,7 @@ export default class NativeModule {
       let success = (count) => { resolve(count) }
       let failure = (error) => { reject(error) }
       RNBackgroundGeolocation.getCount(success, failure);
-    });    
+    });
   }
 
   static destroyLocations() {

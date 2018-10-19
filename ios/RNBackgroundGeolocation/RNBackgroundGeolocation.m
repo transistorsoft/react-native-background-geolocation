@@ -13,13 +13,12 @@
 
 static NSString *const TS_LOCATION_MANAGER_TAG = @"TSLocationManager";
 
-static NSString *const EVENT_LOCATIONCHANGE     = @"location";
+static NSString *const EVENT_LOCATION           = @"location";
 static NSString *const EVENT_WATCHPOSITION      = @"watchposition";
 static NSString *const EVENT_PROVIDERCHANGE     = @"providerchange";
 static NSString *const EVENT_MOTIONCHANGE       = @"motionchange";
 static NSString *const EVENT_ACTIVITYCHANGE     = @"activitychange";
 static NSString *const EVENT_GEOFENCESCHANGE    = @"geofenceschange";
-static NSString *const EVENT_ERROR              = @"error";
 static NSString *const EVENT_HTTP               = @"http";
 static NSString *const EVENT_SCHEDULE           = @"schedule";
 static NSString *const EVENT_GEOFENCE           = @"geofence";
@@ -66,10 +65,10 @@ RCT_EXPORT_MODULE();
 
         // Build event-listener blocks
         onLocation = ^void(TSLocation *location) {
-            [me sendEvent:EVENT_LOCATIONCHANGE body:[location toDictionary]];
+            [me sendEvent:EVENT_LOCATION body:[location toDictionary]];
         };
         onLocationError = ^void(NSError *error) {
-            [me sendEvent:EVENT_ERROR body: @{@"type":@"location", @"code":@(error.code)}];
+            [me sendEvent:EVENT_LOCATION body: @{@"error":@(error.code)}];
         };
         onMotionChange = ^void(TSLocation *location) {
             [me sendEvent:EVENT_MOTIONCHANGE body:@{@"isMoving":@(location.isMoving), @"location":[location toDictionary]}];
@@ -107,8 +106,7 @@ RCT_EXPORT_MODULE();
             [me sendEvent:EVENT_CONNECTIVITYCHANGE body:params];
         };
         onEnabledChange = ^void(TSEnabledChangeEvent *event) {
-            NSDictionary *params = @{@"enabled":@(event.enabled)};
-            [me sendEvent:EVENT_ENABLEDCHANGE body:params];
+            [me sendEvent:EVENT_ENABLEDCHANGE body:@(event.enabled)];
         };
 
         // EventEmitter listener-counts
@@ -127,13 +125,12 @@ RCT_EXPORT_MODULE();
 
 - (NSArray<NSString *> *)supportedEvents {
     return @[
-        EVENT_LOCATIONCHANGE,
+        EVENT_LOCATION,
         EVENT_PROVIDERCHANGE,
         EVENT_MOTIONCHANGE,
         EVENT_ACTIVITYCHANGE,
         EVENT_GEOFENCESCHANGE,
         EVENT_POWERSAVECHANGE,
-        EVENT_ERROR,
         EVENT_HTTP,
         EVENT_SCHEDULE,
         EVENT_GEOFENCE,
@@ -144,7 +141,7 @@ RCT_EXPORT_MODULE();
     ];
 }
 
-RCT_EXPORT_METHOD(registerPlugin:(NSString*)pluginName) 
+RCT_EXPORT_METHOD(registerPlugin:(NSString*)pluginName)
 {
     TSConfig *config = [TSConfig sharedInstance];
     [config registerPlugin:pluginName];
@@ -201,7 +198,7 @@ RCT_EXPORT_METHOD(addEventListener:(NSString*)event)
             // First listener for this event
             [listeners setObject:@(1) forKey:event];
 
-            if ([event isEqualToString:EVENT_LOCATIONCHANGE]) {
+            if ([event isEqualToString:EVENT_LOCATION]) {
                 [locationManager onLocation:onLocation failure:onLocationError];
             } else if ([event isEqualToString:EVENT_MOTIONCHANGE]) {
                 [locationManager onMotionChange:onMotionChange];

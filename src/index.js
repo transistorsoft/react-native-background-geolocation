@@ -1,6 +1,6 @@
 'use strict'
 
-import {  
+import {
   Platform,
   AppRegistry
 } from "react-native"
@@ -16,6 +16,7 @@ const LOG_LEVEL_INFO    =  3;
 const LOG_LEVEL_DEBUG   =  4;
 const LOG_LEVEL_VERBOSE =  5;
 
+// This is a test.
 const DESIRED_ACCURACY_NAVIGATION = -2;
 const DESIRED_ACCURACY_HIGH       = -1;
 const DESIRED_ACCURACY_MEDIUM     = 10;
@@ -40,9 +41,13 @@ const ACTIVITY_TYPE_AUTOMOTIVE_NAVIGATION = 2;
 const ACTIVITY_TYPE_FITNESS               = 3;
 const ACTIVITY_TYPE_OTHER_NAVIGATION      = 4;
 
+const LOCATION_AUTHORIZATION_ALWAYS       = "Always";
+const LOCATION_AUTHORIZATION_WHEN_IN_USE  = "WhenInUse";
+const LOCATION_AUTHORIZATION_ANY          = "Any";
+
 const emptyFn = function() {}
 
-class BackgroundGeolocation {  
+export default class BackgroundGeolocation {
   static get LOG_LEVEL_OFF()                { return LOG_LEVEL_OFF; }
   static get LOG_LEVEL_ERROR()              { return LOG_LEVEL_ERROR; }
   static get LOG_LEVEL_WARNING()            { return LOG_LEVEL_WARNING; }
@@ -68,11 +73,15 @@ class BackgroundGeolocation {
   static get NOTIFICATION_PRIORITY_LOW()            { return NOTIFICATION_PRIORITY_LOW; }
   static get NOTIFICATION_PRIORITY_MAX()            { return NOTIFICATION_PRIORITY_MAX; }
   static get NOTIFICATION_PRIORITY_MIN()            { return NOTIFICATION_PRIORITY_MIN; }
-  
+
+  static get LOCATION_AUTHORIZATION_ALWAYS()        { return LOCATION_AUTHORIZATION_ALWAYS}
+  static get LOCATION_AUTHORIZATION_WHEN_IN_USE()   { return LOCATION_AUTHORIZATION_WHEN_IN_USE}
+  static get LOCATION_AUTHORIZATION_ANY()           { return LOCATION_AUTHORIZATION_ANY}
+
   /**
   * Register HeadlessTask
   */
-  static registerHeadlessTask(task) {    
+  static registerHeadlessTask(task) {
     AppRegistry.registerHeadlessTask(TAG, () => task);
   }
 
@@ -95,9 +104,9 @@ class BackgroundGeolocation {
         success = config;
       }
       NativeModule.reset(config).then(success).catch(failure);
-    } else {        
+    } else {
       return NativeModule.reset(config);
-    }        
+    }
   }
   /**
   * Perform initial configuration of plugin.  Reset config to default before applying supplied configuration
@@ -116,12 +125,62 @@ class BackgroundGeolocation {
     if (typeof(event) != 'string')      { throw "BackgroundGeolocation#on must be provided a {String} event as 1st argument." }
     if (NativeModule.EVENTS.indexOf(event) < 0)      { throw "BackgroundGeolocation#on - Unknown event '" + event + "'" }
     if (typeof(success) != 'function')  { throw "BackgroundGeolocation#on must be provided a callback as 2nd argument.  If you're attempting to use the Promise API to listen to an event, it won't work, since a Promise can only evaluate once, while the callback function must be executed for each event." }
-    NativeModule.addListener.apply(NativeModule, arguments);  
+    NativeModule.addListener.apply(NativeModule, arguments);
   }
   // @alias #removeListener
   static on(event, success, failure) {
     this.addListener.apply(this, arguments);
-  }  
+  }
+
+  static onLocation(success, failure) {
+    this.addListener('location', success, failure);
+  }
+
+  static onMotionChange(callback) {
+    this.addListener('motionchange', callback);
+  }
+
+  static onHttp(success, failure) {
+    this.addListener('http', success, failure);
+  }
+
+  static onHeartbeat(callback) {
+    this.addListener('heartbeat', callback);
+  }
+
+  static onProviderChange(callback) {
+    this.addListener('providerchange', callback);
+  }
+
+  static onActivityChange(callback) {
+    this.addListener('activitychange', callback);
+  }
+
+  static onGeofence(callback) {
+    this.addListener('geofence', callback);
+  }
+
+  static onGeofencesChange(callback) {
+    this.addListener('geofenceschange', callback);
+  }
+
+  static onSchedule(callback) {
+    this.addListener('schedule', callback);
+  }
+
+  static onEnabledChange(callback) {
+    this.addListener('enabledchange', callback);
+  }
+
+  static onConnectivityChange(callback) {
+    this.addListener('connectivitychange', callback);
+  }
+
+  static onPowerSaveChange(callback) {
+    this.addListener('powersavechange', callback);
+  }
+
+
   /**
   * Remove a single plugin event-listener, supplying a reference to the handler initially supplied to #un
   */
@@ -214,7 +273,7 @@ class BackgroundGeolocation {
   */
   static startBackgroundTask(success, failure) {
     if (!arguments.length) {
-      return NativeModule.startBackgroundTask();      
+      return NativeModule.startBackgroundTask();
     } else {
       if (typeof(success) !== 'function') {
         throw TAG + "#startBackgroundTask must be provided with a callback to recieve the taskId";
@@ -378,13 +437,13 @@ class BackgroundGeolocation {
   * 1. removeGeofences() <-- Promise
   * 2. removeGeofences(['foo'])  <-- Promise
   *
-  * 3. removeGeofences(success, [failure])    
+  * 3. removeGeofences(success, [failure])
   * 4. removeGeofences(['foo'], success, [failure])
   */
   static removeGeofences(success, failure) {
     if (!arguments.length)  {
       return NativeModule.removeGeofences();
-    } else {            
+    } else {
       NativeModule.removeGeofences().then(success).catch(failure);
     }
   }
@@ -504,13 +563,28 @@ class BackgroundGeolocation {
       return NativeModule.playSound(soundId);
     } else {
       NativeModule.playSound(soundId).then(success).catch(failure);
-    }    
+    }
   }
   /**
   * Insert a log message into the plugin's log database
   */
   static get logger() { return NativeModule.logger; }
-  
+
+  static transistorTrackerParams(deviceInfo) {
+    if (typeof(deviceInfo) === undefined) { throw "An instance of react-native-device-info must be provided"; }
+    if (typeof(deviceInfo.getModel) !== 'function') { throw "Invalid instance of DeviceInfo"; }
+    return {
+      device: {
+        uuid: (deviceInfo.getModel() + '-' + deviceInfo.getSystemVersion()).replace(/[\s\.,]/g, '-'),
+        model: deviceInfo.getModel(),
+        platform: deviceInfo.getSystemName(),
+        manufacturer: deviceInfo.getManufacturer(),
+        version: deviceInfo.getSystemVersion(),
+        framework: 'ReactNative'
+      }
+    }
+  }
+
   /**
   * Iterate and execute API methods to test validity of method signature for both Standard and Promise API
   */
@@ -519,14 +593,12 @@ class BackgroundGeolocation {
   }
 }
 
-export default BackgroundGeolocation;
-
 /**
 * Iterate and execute API methods to test validity of method signature for both Standard and Promise API
 */
 var test = function(bgGeo, delay) {
     delay = delay || 250;
-    
+
     var methods = [
         ['reset', {debug: true, logLevel: 5}],
         ['setConfig', {distanceFilter: 50}],
@@ -534,7 +606,7 @@ var test = function(bgGeo, delay) {
         ['getLog', null],
         ['emailLog', 'foo@bar.com'],
         ['on', 'location'],
-        ['ready', {}],  
+        ['ready', {}],
         ['configure', {debug: true, logLevel: 5, schedule: ['1-7 00:00-23:59']}],
         ['getState', null],
         ['startSchedule', null],
@@ -544,24 +616,24 @@ var test = function(bgGeo, delay) {
         ['start', null],
         ['startBackgroundTask', null],
         ['finish', 0],
-        ['changePace', true],        
-        ['getLocations', null],        
+        ['changePace', true],
+        ['getLocations', null],
         ['insertLocation', {}],
         ['sync', null],
         ['getOdometer', null],
         ['setOdometer', 0],
         ['resetOdometer'],
-        ['addGeofence', {identifier: 'test-geofence-1', radius: 100, latitude: 0, longitude:0, notifyOnEntry:true}],        
+        ['addGeofence', {identifier: 'test-geofence-1', radius: 100, latitude: 0, longitude:0, notifyOnEntry:true}],
         ['addGeofences', [{identifier: 'test-geofence-2', radius: 100, latitude: 0, longitude:0, notifyOnEntry:true}, {identifier: 'test-geofence-3', radius: 100, latitude: 0, longitude:0, notifyOnEntry:true}]],
         ['getGeofences', null],
         ['removeGeofence', 'test-geofence-1'],
         ['removeGeofences', null],
         ['getCurrentPosition', {}],
         ['watchPosition', {}],
-        ['stopWatchPosition', null],      
+        ['stopWatchPosition', null],
         ['isPowerSaveMode', null],
         ['getSensors', null],
-        ['playSound', 1509],        
+        ['playSound', 1509],
         ['destroyLocations', null],
         ['clearDatabase', null],
         ['destroyLog', null],
@@ -570,12 +642,12 @@ var test = function(bgGeo, delay) {
 
     var createCallback = function(type, method, params) {
         return function(result) {
-            console.log('- ' + method + '(' + params + ') - ' + type + ': ', result); 
+            console.log('- ' + method + '(' + params + ') - ' + type + ': ', result);
         }
-    }            
+    }
     var executeMethod = function(record) {
         console.log('* Execute method: ', record)
-        var method = '' + record[0];      
+        var method = '' + record[0];
         var params = record[1];
 
         var success = createCallback('success', method, params);
@@ -596,7 +668,7 @@ var test = function(bgGeo, delay) {
                     default:
                         bgGeo[method](params, success, failure);
                         break;
-                }                
+                }
             }
         } catch (e) {
             console.warn(e);
@@ -614,15 +686,15 @@ var test = function(bgGeo, delay) {
                 console.warn(e);
             }
         }, 10);
-    }        
+    }
     // Begin fetching methods.
     var intervalId = setInterval(function() {
-        var record = methods.shift();        
+        var record = methods.shift();
         if (!record || !methods.length) {
             clearInterval(intervalId);
             console.log('*** TEST COMPLETE ***');
             return;
-        }        
+        }
         executeMethod(record);
     }, delay);
 }

@@ -1,0 +1,53 @@
+#!/bin/sh
+
+###
+# Copies the Typescript modules from another project (eg: Free->Premium and vice-versa).
+# Re-writes each definition file's declare module "module-name" to the current module-name.
+#
+# Usage:
+# $ ./cp-declaration ../xxx-background-geolocation
+#
+
+if [ -z "$1" ]
+then
+	echo "ERROR: No source path provided"
+	exit
+fi
+# Strip trailing /
+SOURCE_PATH=$(echo $1 | tr -s /)
+SOURCE_PATH=${SOURCE_PATH%/}
+
+# Sample the source directory for path of /declarations
+if [ -d "$SOURCE_PATH/src/declarations" ]; then
+	SOURCE_PATH="$SOURCE_PATH/src/declarations"
+elif [ -d "$SOURCE_PATH/src/ionic/declarations" ]; then
+	SOURCE_PATH="$SOURCE_PATH/src/ionic/declarations"
+else
+	echo "ERROR: Invalid source path"
+	exit
+fi
+
+# Sample the destination directory for path of /declarations
+DESTINATION_PATH="."
+if [ -d "$DESTINATION_PATH/src/declarations" ]; then
+	DESTINATION_PATH="$DESTINATION_PATH/src"
+elif [ -d "$DESTINATION_PATH/src/ionic" ]; then
+	DESTINATION_PATH="$DESTINATION_PATH/src/ionic"
+else
+	echo "ERROR: Invalid destination.  Are you in a background-geolocation project?"
+	exit
+fi
+
+# This module's name
+MODULE_NAME="${PWD##*/}"
+
+cp -R -f "$SOURCE_PATH" "$DESTINATION_PATH"
+echo "MODULE $MODULE_NAME"
+echo "SOURCE: $SOURCE_PATH"
+echo "DESTINATION: $DESTINATION_PATH"
+
+
+# Finally, 'declare module "xxx-background-geolocation"' in every .d.ts file.
+find "$DESTINATION_PATH/declarations" -type f -name "*.d.ts" -print0 | xargs -0 sed -i '' -e "s/declare module.*/declare module \"$MODULE_NAME\" \{/g"
+
+

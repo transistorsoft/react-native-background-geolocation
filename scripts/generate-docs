@@ -1,0 +1,11 @@
+#!/bin/sh
+
+echo "Analytics ID: $GA_ID"
+cd node_modules/typedoc-theme-transistor && grunt
+cd ../..
+typedoc --out docs --includeDeclarations --excludeExternals --listInvalidSymbolLinks --name "React Native Background Geolocation" --theme ./node_modules/typedoc-theme-transistor/src/default --mode file --gaID $GA_ID --gaSite "auto" ./src/declarations/
+
+cp ./node_modules/typedoc-theme-transistor/bin/default/assets/css/main.css ./docs/assets/css/main.css
+cp docs/globals.html docs/index.html
+touch ./docs/.nojekyll
+

@@ -30,3 +30,5 @@ DerivedData
 npm-debug.log
 
 android/.idea
+
+package-lock.json

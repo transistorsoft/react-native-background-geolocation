@@ -7,9 +7,9 @@ Background Geolocation for React Native &middot; [![npm](https://img.shields.io/
 
 The *most* sophisticated background **location-tracking & geofencing** module with battery-conscious motion-detection intelligence for **iOS** and **Android**.
 
-The plugin's [Philosophy of Operation](../../wiki/Philosophy-of-Operation) is to use **motion-detection** APIs (using accelerometer, gyroscope and magnetometer) to detect when the device is *moving* and *stationary*.  
+The plugin's [Philosophy of Operation](../../wiki/Philosophy-of-Operation) is to use **motion-detection** APIs (using accelerometer, gyroscope and magnetometer) to detect when the device is *moving* and *stationary*.
 
-- When the device is detected to be **moving**, the plugin will *automatically* start recording a location according to the configured `distanceFilter` (meters).  
+- When the device is detected to be **moving**, the plugin will *automatically* start recording a location according to the configured `distanceFilter` (meters).
 
 - When the device is detected be **stationary**, the plugin will automatically turn off location-services to conserve energy.
 
@@ -29,14 +29,10 @@ The **[Android module](http://www.transistorsoft.com/shop/products/react-native-
 ![Settings](https://dl.dropboxusercontent.com/s/8oad228siog49kt/settings-framed-350.png?dl=1)
 
 # Contents
-- ### :books: [API Documentation](./docs/README.md)
-  - :wrench: [Configuration Options](./docs/README.md#wrench-configuration-options-1)
-  - :zap: [Events](./docs/README.md#zap-events-1)
-  - :small_blue_diamond: [Methods](./docs/README.md#large_blue_diamond-methods)        
+- ### :books: [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation)
 - ### [Installing the Plugin](#large_blue_diamond-installing-the-plugin)
 - ### [Setup Guides](#large_blue_diamond-setup-guides)
 - ### [Configure your License](#large_blue_diamond-configure-your-license)
-- ### [Android SDK Setup](#large_blue_diamond-android-sdk)
 - ### [Using the plugin](#large_blue_diamond-using-the-plugin)
 - ### [Example](#large_blue_diamond-example)
 - ### [Debugging](../../wiki/Debugging)
@@ -50,17 +46,16 @@ The **[Android module](http://www.transistorsoft.com/shop/products/react-native-
 $ npm install react-native-background-geolocation --save
 ```
 
-
 ## :large_blue_diamond: Setup Guides
 
 ### iOS
-- [`react-native link` Setup](docs/INSTALL-IOS-RNPM.md)
-- [Cocoapods](docs/INSTALL-IOS-COCOAPODS.md)
-- [Manual Setup](docs/INSTALL-IOS.md)
+- [`react-native link` Setup](help/INSTALL-IOS-RNPM.md)
+- [Cocoapods](help/INSTALL-IOS-COCOAPODS.md)
+- [Manual Setup](help/INSTALL-IOS.md)
 
 ### Android
-* [`react-native link` Setup](docs/INSTALL-ANDROID-RNPM.md)
-* [Manual Setup](docs/INSTALL-ANDROID.md)
+* [`react-native link` Setup](help/INSTALL-ANDROID-RNPM.md)
+* [Manual Setup](help/INSTALL-ANDROID.md)
 
 #### :information_source: Solving Android Gradle Conflicts.
 
@@ -100,32 +95,45 @@ For more information, see the Wiki [Solving Android Gradle Conflicts](../../wiki
 </manifest>
 ```
 
-
-## :large_blue_diamond: Android SDK
-
-If building from your local machine (as you should be), ensure you have the following items installed or updated in Android SDK Manager
-#### SDK Tools
-![](https://dl.dropboxusercontent.com/s/qdscbas4krc27c4/android-sdk-tools.png?dl=1)
-#### SDK Platforms
-![](https://dl.dropboxusercontent.com/s/qetghugog00puz2/android-sdk-platforms.png?dl=1)
-
-
 ## :large_blue_diamond: Using the plugin ##
 
 ```javascript
 import BackgroundGeolocation from "react-native-background-geolocation";
 ```
 
+### [Typescript](https://facebook.github.io/react-native/blog/2018/05/07/using-typescript-with-react-native) API:
+
+For those using [Typescript](https://facebook.github.io/react-native/blog/2018/05/07/using-typescript-with-react-native) (__recommended__), you can also `import` the interfaces:
+```javascript
+import BackgroundGeolocation, {
+  State,
+  Config,
+  Location,
+  LocationError,
+  Geofence,
+  GeofenceEvent,
+  GeofencesChangeEvent,
+  HeartbeatEvent,
+  HttpEvent,
+  MotionActivityEvent,
+  MotionChangeEvent,
+  ProviderChangeEvent,
+  ConnectivityChangeEvent
+} from "react-native-background-geolocation-android";
+
+```
+
+For more information, see [this blog post](https://medium.com/@transistorsoft/new-feature-typescript-api-4a160a2c853b)
 
 ## :large_blue_diamond: Example
 
 There are three main steps to using `BackgroundGeolocation`
-1. Wire up [event-listeners](./docs/README.md#zap-events)
-2. [`#configure`](./docs/README.md#configureconfig-successfn-failurefn) the plugin
-3. [`#start`](./docs/README.md#startsuccessfn-failurefn) the plugin
+1. Wire up event-listeners.
+2. `#ready` the plugin.
+3. `#start` the plugin.
 
 ```javascript
-
+// Import BackgroundGeolocation + any optional interfaces
 import BackgroundGeolocation from "react-native-background-geolocation";
 
 export default class App extends Component {
@@ -135,23 +143,23 @@ export default class App extends Component {
     //
 
     // This handler fires whenever bgGeo receives a location update.
-    BackgroundGeolocation.on('location', this.onLocation, this.onError);
+    BackgroundGeolocation.onLocation(this.onLocation, this.onError);
 
     // This handler fires when movement states changes (stationary->moving; moving->stationary)
-    BackgroundGeolocation.on('motionchange', this.onMotionChange);
+    BackgroundGeolocation.onMotionChange(this.onMotionChange);
 
     // This event fires when a change in motion activity is detected
-    BackgroundGeolocation.on('activitychange', this.onActivityChange);
+    BackgroundGeolocation.oActivityChange(this.onActivityChange);
 
     // This event fires when the user toggles location-services authorization
-    BackgroundGeolocation.on('providerchange', this.onProviderChange);
+    BackgroundGeolocation.onProviderChange(this.onProviderChange);
 
     ////
     // 2.  Execute #ready method (required)
     //
     BackgroundGeolocation.ready({
       // Geolocation Config
-      desiredAccuracy: 0,
+      desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
       distanceFilter: 10,
       // Activity Recognition
       stopTimeout: 1,
@@ -185,23 +193,23 @@ export default class App extends Component {
   }
 
   // You must remove listeners when your component unmounts
-  componentWillUnmount() {    
+  componentWillUnmount() {
     BackgroundGeolocation.removeListeners();
   }
   onLocation(location) {
-    console.log('- [event] location: ', location);
+    console.log('[location] -', location);
   }
   onError(error) {
-    console.warn('- [event] location error ', error);
+    console.warn('[location] ERROR -', error);
   }
-  onActivityChange(activity) {
-    console.log('- [event] activitychange: ', activity);  // eg: 'on_foot', 'still', 'in_vehicle'
+  onActivityChange(event) {
+    console.log('[activitychange] -', event);  // eg: 'on_foot', 'still', 'in_vehicle'
   }
   onProviderChange(provider) {
-    console.log('- [event] providerchange: ', provider);    
+    console.log('[providerchange] -', provider.enabled, provider.status);
   }
-  onMotionChange(location) {
-    console.log('- [event] motionchange: ', location.isMoving, location);
+  onMotionChange(event) {
+    console.log('[motionchange] -', event.isMoving, event.location);
   }
 }
 
@@ -222,17 +230,19 @@ BackgroundGeolocation.ready({
 
 ### Promise API
 
-The `BackgroundGeolocation` Javascript API supports [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for *nearly* every method (the exceptions are **`#watchPosition`** and adding event-listeners via **`#on`** method.  For more information, see the [API Documentation](docs/README.md#large_blue_diamond-methods)
+The `BackgroundGeolocation` Javascript API supports [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for *nearly* every method (the exceptions are **`#watchPosition`** and adding event-listeners via **`#on`** method.  For more information, see the [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation)
 
 ```javascript
 // Traditional API still works:
-BackgroundGeolocation.ready({desiredAccuracy: 0, distanceFilter: 50}).then(state => {
+BackgroundGeolocation.ready({
+  desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
+  distanceFilter: 50
+}).then(state => {
   console.log('- BackgroundGeolocation is ready: ', state);
 }).catch(error => {
   console.log('- BackgroundGeolocation error: ', error);
 });
 ```
-
 
 ## :large_blue_diamond: [Demo Application](https://github.com/transistorsoft/rn-background-geolocation-demo)
 

@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 2.14.0-beta.1</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 2.14.0-beta.2</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -52,6 +52,28 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-9 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Options provided to <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#watchposition">BackgroundGeolocation.watchPosition</a>.</p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-javascript">BackgroundGeolocation.watchPosition(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[watchPosition] -'</span>, location);
+}, (errorCode) =&gt; {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[watchPosition] ERROR -'</span>, errorCode);
+}, {
+  <span class="hljs-attr">interval</span>: <span class="hljs-number">1000</span>,
+  <span class="hljs-attr">desiredAccuracy</span>: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
+  <span class="hljs-attr">persist</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">extras</span>: {<span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span>},
+  <span class="hljs-attr">timeout</span>: <span class="hljs-number">60000</span>
+});</code></pre>
+						</dd>
+					</dl>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -82,9 +104,15 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="desiredaccuracy" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> desired<wbr>Accuracy</h3>
-					<div class="tsd-signature tsd-kind-icon">desired<wbr>Accuracy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<div class="tsd-signature tsd-kind-icon">desired<wbr>Accuracy<span class="tsd-signature-symbol">:</span> <a href="../modules/_react_native_background_geolocation_.html#locationaccuracy" class="tsd-signature-type">LocationAccuracy</a></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Specifies the accuracy required.  See <a href="_react_native_background_geolocation_.config.html#desiredaccuracy">Config.desiredAccuracy</a>.  Only <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#desired_accuracy_high">BackgroundGeolocation.DESIRED_ACCURACY_HIGH</a> uses GPS.
+							Defaults to <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#desired_accuracy_high">DESIRED_ACCURACY_HIGH</a>.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="extras" class="tsd-anchor"></a>
@@ -92,6 +120,11 @@
 					<div class="tsd-signature tsd-kind-icon">extras<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Object</span></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Arbitrary key/values to append to each recorded location.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="interval" class="tsd-anchor"></a>
@@ -99,6 +132,11 @@
 					<div class="tsd-signature tsd-kind-icon">interval<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Location update interval in <code>milliseconds</code>.  Defaults to <code>1000</code>.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="persist" class="tsd-anchor"></a>
@@ -106,6 +144,12 @@
 					<div class="tsd-signature tsd-kind-icon">persist<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Set <code>true</code> to persist each recorded location to the plugin&#39;s database.
+							Defaults to <code>true</code> when <a href="_react_native_background_geolocation_.state.html#enabled">State.enabled</a>, <code>false</code> otherwise.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="timeout" class="tsd-anchor"></a>
@@ -113,6 +157,12 @@
 					<div class="tsd-signature tsd-kind-icon">timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Time in <code>milliseconds</code> to wait before firing error callback when location fails to arrive.
+							Defaults to <code>60000</code>.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>

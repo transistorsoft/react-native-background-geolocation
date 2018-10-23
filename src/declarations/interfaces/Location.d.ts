@@ -4,22 +4,56 @@
 ///
 declare module "react-native-background-geolocation" {
   /**
+  * This object is attached to instances of [[Location.coords]].
   */
   interface Coords {
+    /**
+    * __[iOS Only]__ When the environment contains indoor-tracking hardware (eg: bluetooth beacons) the current floor within a building.
+    */
     floor?: number;
+    /**
+    * Latitude of the location.
+    */
     latitude: number;
+    /**
+    * Longitude of the location.
+    */
     longitude: number;
+    /**
+    * Accuracy in meters.
+    */
     accuracy: number;
+    /**
+    * Altitude above sea-level in meters.
+    */
     altitude?: number;
+    /**
+    * Altitude accuracy in meters.
+    */
     altitude_accuracy?: number;
+    /**
+    * Heading in degrees.
+    * ⚠️ Note:  Only present when location came from GPS.  `-1` otherwise.
+    */
     heading?: number;
+    /**
+    * Speed in meters / second.
+    * ⚠️ Note:  Only present when location came from GPS.  `-1` otherwise.
+    */
     speed?: number;
   }
 
   /**
+  * This object is attached to instances of [[Location.battery]].
   */
   interface Battery {
+    /**
+    * `true` when device is plugged in to power.
+    */
     is_charging: boolean;
+    /**
+    * Battery level.  `0.0` = empty; `1.0` = full charge.
+    */
     level: number;
   }
 

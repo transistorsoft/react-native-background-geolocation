@@ -8,8 +8,6 @@ declare module "react-native-background-geolocation" {
 	*   console.log('[connectivitychange] ', connectivityChangeEvent.connected);
 	* });
 	* ```
-	* ### ⚠️ Note:
-  	* - When **all** geofences have been removed, this [[GeofencesChangeEvent]] will provide empty lists for both [[on]] & [[off]].
 	*/
 	interface ConnectivityChangeEvent {
 	  /**

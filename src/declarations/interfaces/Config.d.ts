@@ -11,7 +11,7 @@ declare module "react-native-background-geolocation" {
   * ```javascript
   * BackgroundGeolocation.ready({
   *   desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
-  *   distanceFilter: 10.0,
+  *   distanceFilter: 10,
   *   stopOnTerminate: false,
   *   startOnBoot: true,
   *   url: 'http://my.server.com',
@@ -25,6 +25,12 @@ declare module "react-native-background-geolocation" {
   *   console.log('[ready] BackgroundGeolocation is configured and ready to use');
   *
   *   BackgroundGeolocation.start();
+  * })
+  *
+  * // Or with #setConfig
+  * BackgroundGeolocation.setConfig({
+  *   extras: {route_id: 1234},
+  *   url: 'https://my.new.server.com'
   * })
   * ```
   *
@@ -383,6 +389,7 @@ declare module "react-native-background-geolocation" {
     * ### ⚠️ Setting a value > 15 min is **not** recommended, particularly for Android.
     *
     * ### ℹ️ See also:
+    * - [[onMotionChange]]
     * - 📘 [Philosophy of Operation](github:wiki/Philosophy-of-Operation)
     */
     stopTimeout?: number;
@@ -505,9 +512,6 @@ declare module "react-native-background-geolocation" {
     * ✅ DESTROY: 70727f8b-df7d-48d0-acbd-15f10cacdf33
     * ```
     *
-    * - 📘 HTTP Guide: [[HttpEvent]].
-    * - 📘 [Philosophy of Operation](github:wiki/Philosophy-of-Operation)
-    *
     * |#| Log entry               | Description                                                           |
     * |-|-------------------------|-----------------------------------------------------------------------|
     * |1| `📍Location`            | Location received from native Location API.                           |
@@ -554,6 +558,10 @@ declare module "react-native-background-geolocation" {
     *   method: 'PUT'
     * });
     * ```
+    *
+    * ### ℹ️ See also:
+    * - 📘 See HTTP Guide: [[HttpEvent]]
+    *
     */
     method?: HttpMethod;
 
@@ -636,6 +644,7 @@ declare module "react-native-background-geolocation" {
     * ### ℹ️ See also:
     * - [[headers]]
     * - [[extras]]
+    * - 📘 See HTTP Guide: [[HttpEvent]]
     */
     params?: Object;
 
@@ -677,7 +686,7 @@ declare module "react-native-background-geolocation" {
     /**
     * Optional arbitrary key/values `{}` applied to each recorded location.
     *
-    * ℹ️ See [[HttpEvent]] for more information.
+    * 📘 See HTTP Guide: [[HttpEvent]]
     *
     * @example
     * ```javascript
@@ -822,6 +831,7 @@ declare module "react-native-background-geolocation" {
     * - [[maxBatchSize]]
     * - [[autoSync]]
     * - [[autoSyncThreshold]]
+    * 📘 See HTTP Guide: [[HttpEvent]]
     */
     batchSync?: boolean;
 
@@ -838,6 +848,7 @@ declare module "react-native-background-geolocation" {
     *
     * ### ℹ️ See also:
     * - [[batchSync]]
+    * 📘 See HTTP Guide: [[HttpEvent]]
     */
     maxBatchSize?: number;
 
@@ -963,9 +974,9 @@ declare module "react-native-background-geolocation" {
     * <%= variable_name %>
     * ```
     * ### ℹ️ See also:
-    * - [[HttpEvent]]
     * - [[locationTemplate]]
     * - [[httpRootProperty]]
+    * - 📘 HTTP Guide: [[HttpEvent]].
     *
     * @example
   	* ```javascript
@@ -1053,6 +1064,9 @@ declare module "react-native-background-geolocation" {
     * Maximum number of records to persist in plugin's SQLite database.
     *
     * Default `-1` means **no limit**.
+    *
+    * ### ℹ️ See also:
+    * - 📘 See HTTP Guide: [[HttpEvent]]
     */
     maxRecordsToPersist?: number;
 
@@ -1060,6 +1074,9 @@ declare module "react-native-background-geolocation" {
     * Controls the order that locations are selected from the database (and uploaded to your server).
     *
     * Defaults to ascending (`ASC`), where oldest locations are synced first.  Descending (`DESC`) uploads latest locations first.
+    *
+    * ### ℹ️ See also:
+    * - 📘 See HTTP Guide: [[HttpEvent]]
     */
     locationsOrderDirection?: string;
 
@@ -1082,6 +1099,9 @@ declare module "react-native-background-geolocation" {
     *   httpTimeout: 3000
     * );
     * ```
+    *
+    * ### ℹ️ See also:
+    * - 📘 See HTTP Guide: [[HttpEvent]]
     */
     httpTimeout?: number;
 
@@ -1285,6 +1305,7 @@ declare module "react-native-background-geolocation" {
     * The Android Scheduler uses [`AlarmManager`](https://developer.android.com/reference/android/app/AlarmManager#setExactAndAllowWhileIdle(int,%20long,%20android.app.PendingIntent)) and *typically* operates on-the-minute.
     *
     * ### ℹ️ See also:
+    * - [[startSchedule]]
     * - [[stopSchedule]]
     */
     schedule?: Array<string>;
@@ -1387,6 +1408,7 @@ declare module "react-native-background-geolocation" {
     * - [[BackgroundGeolocation.getLog]]
     * - [[BackgroundGeolocation.emailLog]]
     * - [[logMaxDays]]
+    * - [[destroyLog]]
     *
     * ### ⚠️ Warning:
     * - When submitting your app to production, take care to configure the **`logLevel`** appropriately (eg: **[[BackgroundGeolocation.LOG_LEVEL_ERROR]]**) since the logs can grow to several megabytes over a period of [[logMaxDays]].
@@ -1903,6 +1925,9 @@ declare module "react-native-background-geolocation" {
     *   notificationSmallIcon: "mipmap/my_custom_notification_small_icon"
     * });
     * ```
+    *
+    * ### ℹ️ See also:
+    * - [[notificationLargeIcon]]
     */
     notificationSmallIcon?: string;
 
@@ -1928,6 +1953,9 @@ declare module "react-native-background-geolocation" {
     *   notificationSmallIcon: "mipmap/my_custom_notification_small_icon"
     * });
     * ```
+    *
+    * ### ℹ️ See also:
+    * - [[notificationSmallIcon]]
     */
     notificationLargeIcon?: string;
 

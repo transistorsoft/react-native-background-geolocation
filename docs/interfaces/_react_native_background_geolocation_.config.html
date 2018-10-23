@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 2.14.0-beta.1</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 2.14.0-beta.2</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -62,7 +62,7 @@
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
   <span class="hljs-attr">desiredAccuracy</span>: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
-  <span class="hljs-attr">distanceFilter</span>: <span class="hljs-number">10.0</span>,
+  <span class="hljs-attr">distanceFilter</span>: <span class="hljs-number">10</span>,
   <span class="hljs-attr">stopOnTerminate</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">startOnBoot</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">url</span>: <span class="hljs-string">'http://my.server.com'</span>,
@@ -76,6 +76,12 @@
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[ready] BackgroundGeolocation is configured and ready to use'</span>);
 
   BackgroundGeolocation.start();
+})
+
+<span class="hljs-comment">// Or with #setConfig</span>
+BackgroundGeolocation.setConfig({
+  <span class="hljs-attr">extras</span>: {<span class="hljs-attr">route_id</span>: <span class="hljs-number">1234</span>},
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'https://my.new.server.com'</span>
 })</code></pre>
 							<h2 id="geolocation-options">Geolocation Options</h2>
 							<h3 id="-geolocation-common-options">[Geolocation] Common Options</h3>
@@ -814,7 +820,8 @@ Locations: <span class="hljs-variable">__</span>|<span class="hljs-variable">__<
 								<ul>
 									<li><a href="_react_native_background_geolocation_.config.html#maxbatchsize">maxBatchSize</a></li>
 									<li><a href="_react_native_background_geolocation_.config.html#autosync">autoSync</a></li>
-									<li><a href="_react_native_background_geolocation_.config.html#autosyncthreshold">autoSyncThreshold</a></li>
+									<li><a href="_react_native_background_geolocation_.config.html#autosyncthreshold">autoSyncThreshold</a>
+									📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
 								</ul>
 							</dd>
 						</dl>
@@ -1181,7 +1188,7 @@ BackgroundGeolocation.ready({
 						<div class="lead">
 							<p>Optional arbitrary key/values <code>{}</code> applied to each recorded location.</p>
 						</div>
-						<p>ℹ️ See <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a> for more information.</p>
+						<p>📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></p>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-example">example</dt>
 							<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
@@ -1464,9 +1471,9 @@ BackgroundGeolocation.ready({
 								<pre><code class="language-bash">&lt;%= variable_name %&gt;</code></pre>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
-									<li><a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
 									<li><a href="_react_native_background_geolocation_.config.html#locationtemplate">locationTemplate</a></li>
 									<li><a href="_react_native_background_geolocation_.config.html#httprootproperty">httpRootProperty</a></li>
+									<li>📘 HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a>.</li>
 								</ul>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
@@ -1748,6 +1755,10 @@ BackgroundGeolocation.ready({
   <span class="hljs-attr">url</span>: <span class="hljs-string">'https://my-server.com/locations'</span>,
   <span class="hljs-attr">httpTimeout</span>: <span class="hljs-number">3000</span>
 );</code></pre>
+								<h3 id="-see-also-">ℹ️ See also:</h3>
+								<ul>
+									<li>📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
+								</ul>
 							</dd>
 						</dl>
 					</div>
@@ -2055,6 +2066,10 @@ BackgroundGeolocation.ready({
 							<p>Controls the order that locations are selected from the database (and uploaded to your server).</p>
 						</div>
 						<p>Defaults to ascending (<code>ASC</code>), where oldest locations are synced first.  Descending (<code>DESC</code>) uploads latest locations first.</p>
+						<h3 id="-see-also-">ℹ️ See also:</h3>
+						<ul>
+							<li>📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
+						</ul>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
@@ -2151,6 +2166,7 @@ BackgroundGeolocation.ready({
 									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#getlog">BackgroundGeolocation.getLog</a></li>
 									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#emaillog">BackgroundGeolocation.emailLog</a></li>
 									<li><a href="_react_native_background_geolocation_.config.html#logmaxdays">logMaxDays</a></li>
+									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#destroylog">destroyLog</a></li>
 								</ul>
 								<h3 id="-warning-">⚠️ Warning:</h3>
 								<ul>
@@ -2200,7 +2216,8 @@ BackgroundGeolocation.ready({
 								You will not want to <a href="_react_native_background_geolocation_.config.html#batchsync">batchSync</a> <strong><code>true</code></strong> a large amount of data in a single HTTP request.</p>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
-									<li><a href="_react_native_background_geolocation_.config.html#batchsync">batchSync</a></li>
+									<li><a href="_react_native_background_geolocation_.config.html#batchsync">batchSync</a>
+									📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
 								</ul>
 							</dd>
 						</dl>
@@ -2235,6 +2252,10 @@ BackgroundGeolocation.ready({
 							<p>Maximum number of records to persist in plugin&#39;s SQLite database.</p>
 						</div>
 						<p>Default <code>-1</code> means <strong>no limit</strong>.</p>
+						<h3 id="-see-also-">ℹ️ See also:</h3>
+						<ul>
+							<li>📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
+						</ul>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
@@ -2254,6 +2275,10 @@ BackgroundGeolocation.ready({
   <span class="hljs-attr">url</span>: <span class="hljs-string">'http://my-server.com/locations'</span>,
   <span class="hljs-attr">method</span>: <span class="hljs-string">'PUT'</span>
 });</code></pre>
+								<h3 id="-see-also-">ℹ️ See also:</h3>
+								<ul>
+									<li>📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
+								</ul>
 							</dd>
 						</dl>
 					</div>
@@ -2366,6 +2391,10 @@ BackgroundGeolocation.ready({
 BackgroundGeolocation.ready({
   <span class="hljs-attr">notificationSmallIcon</span>: <span class="hljs-string">"mipmap/my_custom_notification_small_icon"</span>
 });</code></pre>
+								<h3 id="-see-also-">ℹ️ See also:</h3>
+								<ul>
+									<li><a href="_react_native_background_geolocation_.config.html#notificationsmallicon">notificationSmallIcon</a></li>
+								</ul>
 							</dd>
 						</dl>
 					</div>
@@ -2448,6 +2477,10 @@ BackgroundGeolocation.ready({
 BackgroundGeolocation.ready({
   <span class="hljs-attr">notificationSmallIcon</span>: <span class="hljs-string">"mipmap/my_custom_notification_small_icon"</span>
 });</code></pre>
+								<h3 id="-see-also-">ℹ️ See also:</h3>
+								<ul>
+									<li><a href="_react_native_background_geolocation_.config.html#notificationlargeicon">notificationLargeIcon</a></li>
+								</ul>
 							</dd>
 						</dl>
 					</div>
@@ -2526,6 +2559,7 @@ BackgroundGeolocation.ready({
 								<ul>
 									<li><a href="_react_native_background_geolocation_.config.html#headers">headers</a></li>
 									<li><a href="_react_native_background_geolocation_.config.html#extras">extras</a></li>
+									<li>📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
 								</ul>
 							</dd>
 						</dl>
@@ -2709,6 +2743,7 @@ schedule: [
 								<p>The Android Scheduler uses <a href="https://developer.android.com/reference/android/app/AlarmManager#setExactAndAllowWhileIdle(int,%20long,%20android.app.PendingIntent)"><code>AlarmManager</code></a> and <em>typically</em> operates on-the-minute.</p>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
+									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startschedule">startSchedule</a></li>
 									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#stopschedule">stopSchedule</a></li>
 								</ul>
 							</dd>
@@ -2907,6 +2942,7 @@ schedule: [
 								<h3 id="-setting-a-value-15-min-is-not-recommended-particularly-for-android-">⚠️ Setting a value &gt; 15 min is <strong>not</strong> recommended, particularly for Android.</h3>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
+									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onmotionchange">onMotionChange</a></li>
 									<li>📘 <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Philosophy-of-Operation">Philosophy of Operation</a></li>
 								</ul>
 							</dd>
@@ -2993,11 +3029,7 @@ BackgroundGeolocation.ready({
 ✅ Locked 1 records
 🔵 HTTP POST: 70727f8b-df7d-48d0-acbd-15f10cacdf33
 🔵 Response: 200
-✅ DESTROY: 70727f8b-df7d-48d0-acbd-15f10cacdf33</code></pre><ul>
-									<li>📘 HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a>.</li>
-									<li>📘 <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Philosophy-of-Operation">Philosophy of Operation</a></li>
-								</ul>
-								<table>
+✅ DESTROY: 70727f8b-df7d-48d0-acbd-15f10cacdf33</code></pre><table>
 									<thead>
 										<tr>
 											<th>#</th>

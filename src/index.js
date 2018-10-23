@@ -460,12 +460,11 @@ export default class BackgroundGeolocation {
   /**
   * Fetch the current position from location-services
   */
-  static getCurrentPosition(success, failure, options) {
-    if (typeof(success) == 'function') {
-      if (typeof(failure) == 'object') {
-        options = failure;
-        failure = emptyFn;
-      }
+  static getCurrentPosition(options, success, failure) {
+    if (typeof(options) === 'function') {
+      throw "#getCurrentPosition requires options {} as first argument";
+    }
+    if (typeof(success) === 'function') {
       NativeModule.getCurrentPosition(options).then(success).catch(failure);
     } else {
       return NativeModule.getCurrentPosition.apply(NativeModule, arguments);
@@ -475,14 +474,13 @@ export default class BackgroundGeolocation {
   * Begin watching a stream of locations
   */
   static watchPosition(success, failure, options) {
-    if (typeof(success) == 'object') {
+    if (typeof(success) === 'undefined') {
       throw TAG + '#watchPosition cannot use Promises since a Promise can only evaluate once while the supplied callback must be executed for each location';
     }
-    if (typeof(failure) == 'object') {
-      options = failure;
-      failure = emptyFn;
-    }
-    NativeModule.watchPosition(success, failure, options||{});
+    failure = failure || emptyFn;
+    options = options || {};
+
+    NativeModule.watchPosition(success, failure, options);
   }
   /**
   * Stop watching location
@@ -575,7 +573,7 @@ export default class BackgroundGeolocation {
     if (typeof(deviceInfo.getModel) !== 'function') { throw "Invalid instance of DeviceInfo"; }
     return {
       device: {
-        uuid: (deviceInfo.getModel() + '-' + deviceInfo.getSystemVersion()).replace(/[\s\.,]/g, '-'),
+        uuid: deviceInfo.getModel().replace(/[\s\.,]/g, '-'),
         model: deviceInfo.getModel(),
         platform: deviceInfo.getSystemName(),
         manufacturer: deviceInfo.getManufacturer(),

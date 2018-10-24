@@ -12,6 +12,8 @@ declare module "react-native-background-geolocation" {
   *   console.log('[geofenceschange] ', geofencesChangeEvent.on, geofencesChangeEvent.off);
   * });
   * ```
+  * ### ⚠️ Note:
+    * - When **all** geofences have been removed, empty lists will be provided for both [[on]] & [[off]].
   */
   interface GeofencesChangeEvent {
     on: Array<Geofence>;

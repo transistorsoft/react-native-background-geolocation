@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.14.0-beta.2] 2018-10-24
+- [Fixed] Documentation issue with method signature `getCurrentPosition`.
+- [iOS] Catch `NSInvalidArgumentException` when decoding `TSConfig`.
+- [Fixed] `react-native link` scripts were accidentally `.npmignore`d causing error `Unhandled 'error' event` when linking.
+
 ## [2.14.0-beta.1] 2018-10-19
 
 - [Added] Implement [Typescript API](https://facebook.github.io/react-native/blog/2018/05/07/using-typescript-with-react-native)

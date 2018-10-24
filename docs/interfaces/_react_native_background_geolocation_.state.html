@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 2.14.0-beta.1</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 2.14.0-beta.2</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -52,6 +52,19 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-9 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>This <code>State</code> object contains all the provided <a href="_react_native_background_geolocation_.config.html">Config</a> options in addition to:</p>
+						<ul>
+							<li><a href="_react_native_background_geolocation_.state.html#enabled">enabled</a>.</li>
+							<li><a href="_react_native_background_geolocation_.state.html#schedulerenabled">schedulerEnabled</a>.</li>
+							<li><a href="_react_native_background_geolocation_.state.html#trackingmode">trackingMode</a>.</li>
+							<li><a href="_react_native_background_geolocation_.state.html#odometer">odometer</a>.</li>
+						</ul>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -353,7 +366,8 @@ Locations: <span class="hljs-variable">__</span>|<span class="hljs-variable">__<
 								<ul>
 									<li><a href="_react_native_background_geolocation_.state.html#maxbatchsize">maxBatchSize</a></li>
 									<li><a href="_react_native_background_geolocation_.state.html#autosync">autoSync</a></li>
-									<li><a href="_react_native_background_geolocation_.state.html#autosyncthreshold">autoSyncThreshold</a></li>
+									<li><a href="_react_native_background_geolocation_.state.html#autosyncthreshold">autoSyncThreshold</a>
+									📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
 								</ul>
 							</dd>
 						</dl>
@@ -728,6 +742,12 @@ BackgroundGeolocation.ready({
 					<div class="tsd-signature tsd-kind-icon">enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><code>true</code> when the SDK has been enabled via methods <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#start">start</a> or <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a>.  When <code>false</code>, the
+							SDK is completely <strong>OFF</strong>.  No tracking of any kind will occur.  The SDK will consume no energy.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
 					<a name="extras" class="tsd-anchor"></a>
@@ -740,7 +760,7 @@ BackgroundGeolocation.ready({
 						<div class="lead">
 							<p>Optional arbitrary key/values <code>{}</code> applied to each recorded location.</p>
 						</div>
-						<p>ℹ️ See <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a> for more information.</p>
+						<p>📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></p>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-example">example</dt>
 							<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
@@ -1034,9 +1054,9 @@ BackgroundGeolocation.ready({
 								<pre><code class="language-bash">&lt;%= variable_name %&gt;</code></pre>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
-									<li><a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
 									<li><a href="_react_native_background_geolocation_.state.html#locationtemplate">locationTemplate</a></li>
 									<li><a href="_react_native_background_geolocation_.state.html#httprootproperty">httpRootProperty</a></li>
+									<li>📘 HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a>.</li>
 								</ul>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
@@ -1322,6 +1342,10 @@ BackgroundGeolocation.ready({
   <span class="hljs-attr">url</span>: <span class="hljs-string">'https://my-server.com/locations'</span>,
   <span class="hljs-attr">httpTimeout</span>: <span class="hljs-number">3000</span>
 );</code></pre>
+								<h3 id="-see-also-">ℹ️ See also:</h3>
+								<ul>
+									<li>📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
+								</ul>
 							</dd>
 						</dl>
 					</div>
@@ -1636,6 +1660,10 @@ BackgroundGeolocation.ready({
 							<p>Controls the order that locations are selected from the database (and uploaded to your server).</p>
 						</div>
 						<p>Defaults to ascending (<code>ASC</code>), where oldest locations are synced first.  Descending (<code>DESC</code>) uploads latest locations first.</p>
+						<h3 id="-see-also-">ℹ️ See also:</h3>
+						<ul>
+							<li>📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
+						</ul>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
@@ -1733,6 +1761,7 @@ BackgroundGeolocation.ready({
 									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#getlog">BackgroundGeolocation.getLog</a></li>
 									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#emaillog">BackgroundGeolocation.emailLog</a></li>
 									<li><a href="_react_native_background_geolocation_.state.html#logmaxdays">logMaxDays</a></li>
+									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#destroylog">destroyLog</a></li>
 								</ul>
 								<h3 id="-warning-">⚠️ Warning:</h3>
 								<ul>
@@ -1784,7 +1813,8 @@ BackgroundGeolocation.ready({
 								You will not want to <a href="_react_native_background_geolocation_.state.html#batchsync">batchSync</a> <strong><code>true</code></strong> a large amount of data in a single HTTP request.</p>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
-									<li><a href="_react_native_background_geolocation_.state.html#batchsync">batchSync</a></li>
+									<li><a href="_react_native_background_geolocation_.state.html#batchsync">batchSync</a>
+									📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
 								</ul>
 							</dd>
 						</dl>
@@ -1821,6 +1851,10 @@ BackgroundGeolocation.ready({
 							<p>Maximum number of records to persist in plugin&#39;s SQLite database.</p>
 						</div>
 						<p>Default <code>-1</code> means <strong>no limit</strong>.</p>
+						<h3 id="-see-also-">ℹ️ See also:</h3>
+						<ul>
+							<li>📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
+						</ul>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
@@ -1841,6 +1875,10 @@ BackgroundGeolocation.ready({
   <span class="hljs-attr">url</span>: <span class="hljs-string">'http://my-server.com/locations'</span>,
   <span class="hljs-attr">method</span>: <span class="hljs-string">'PUT'</span>
 });</code></pre>
+								<h3 id="-see-also-">ℹ️ See also:</h3>
+								<ul>
+									<li>📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
+								</ul>
 							</dd>
 						</dl>
 					</div>
@@ -1957,6 +1995,10 @@ BackgroundGeolocation.ready({
 BackgroundGeolocation.ready({
   <span class="hljs-attr">notificationSmallIcon</span>: <span class="hljs-string">"mipmap/my_custom_notification_small_icon"</span>
 });</code></pre>
+								<h3 id="-see-also-">ℹ️ See also:</h3>
+								<ul>
+									<li><a href="_react_native_background_geolocation_.state.html#notificationsmallicon">notificationSmallIcon</a></li>
+								</ul>
 							</dd>
 						</dl>
 					</div>
@@ -2041,6 +2083,10 @@ BackgroundGeolocation.ready({
 BackgroundGeolocation.ready({
   <span class="hljs-attr">notificationSmallIcon</span>: <span class="hljs-string">"mipmap/my_custom_notification_small_icon"</span>
 });</code></pre>
+								<h3 id="-see-also-">ℹ️ See also:</h3>
+								<ul>
+									<li><a href="_react_native_background_geolocation_.state.html#notificationlargeicon">notificationLargeIcon</a></li>
+								</ul>
 							</dd>
 						</dl>
 					</div>
@@ -2087,6 +2133,16 @@ BackgroundGeolocation.ready({
 					<div class="tsd-signature tsd-kind-icon">odometer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The current distance-travelled.</p>
+							<h3 id="-see-also-">ℹ️ See also:</h3>
+							<ul>
+								<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#resetodometer">resetOdometer</a>, <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#setodometer">setOdometer</a></li>
+								<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#getodometer">getOdometer</a></li>
+							</ul>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
 					<a name="params" class="tsd-anchor"></a>
@@ -2129,6 +2185,7 @@ BackgroundGeolocation.ready({
 								<ul>
 									<li><a href="_react_native_background_geolocation_.state.html#headers">headers</a></li>
 									<li><a href="_react_native_background_geolocation_.state.html#extras">extras</a></li>
+									<li>📘 See HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a></li>
 								</ul>
 							</dd>
 						</dl>
@@ -2316,6 +2373,7 @@ schedule: [
 								<p>The Android Scheduler uses <a href="https://developer.android.com/reference/android/app/AlarmManager#setExactAndAllowWhileIdle(int,%20long,%20android.app.PendingIntent)"><code>AlarmManager</code></a> and <em>typically</em> operates on-the-minute.</p>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
+									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startschedule">startSchedule</a></li>
 									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#stopschedule">stopSchedule</a></li>
 								</ul>
 							</dd>
@@ -2328,6 +2386,12 @@ schedule: [
 					<div class="tsd-signature tsd-kind-icon">scheduler<wbr>Enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><code>true</code> when the SDK is currently configured with a <a href="_react_native_background_geolocation_.state.html#schedule">schedule</a> and <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startschedule">startSchedule</a> has been executed.
+							<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#stopschedule">stopSchedule</a> will set this to <code>false</code>.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
 					<a name="startonboot" class="tsd-anchor"></a>
@@ -2528,6 +2592,7 @@ schedule: [
 								<h3 id="-setting-a-value-15-min-is-not-recommended-particularly-for-android-">⚠️ Setting a value &gt; 15 min is <strong>not</strong> recommended, particularly for Android.</h3>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
+									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onmotionchange">onMotionChange</a></li>
 									<li>📘 <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Philosophy-of-Operation">Philosophy of Operation</a></li>
 								</ul>
 							</dd>
@@ -2540,6 +2605,26 @@ schedule: [
 					<div class="tsd-signature tsd-kind-icon">tracking<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-signature-type">TrackingMode</a></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<table>
+								<thead>
+									<tr>
+										<th>Value</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody><tr>
+										<td><strong><code>0</code></strong></td>
+										<td>Monitoring geofences only</td>
+									</tr>
+									<tr>
+										<td><strong><code>1</code></strong></td>
+										<td>Monitoring location + geofences</td>
+									</tr>
+							</tbody></table>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
 					<a name="triggeractivities" class="tsd-anchor"></a>
@@ -2623,11 +2708,7 @@ BackgroundGeolocation.ready({
 ✅ Locked 1 records
 🔵 HTTP POST: 70727f8b-df7d-48d0-acbd-15f10cacdf33
 🔵 Response: 200
-✅ DESTROY: 70727f8b-df7d-48d0-acbd-15f10cacdf33</code></pre><ul>
-									<li>📘 HTTP Guide: <a href="_react_native_background_geolocation_.httpevent.html">HttpEvent</a>.</li>
-									<li>📘 <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Philosophy-of-Operation">Philosophy of Operation</a></li>
-								</ul>
-								<table>
+✅ DESTROY: 70727f8b-df7d-48d0-acbd-15f10cacdf33</code></pre><table>
 									<thead>
 										<tr>
 											<th>#</th>

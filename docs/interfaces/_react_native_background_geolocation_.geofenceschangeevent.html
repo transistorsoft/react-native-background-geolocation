@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 2.14.0-beta.1</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 2.14.0-beta.2</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -63,6 +63,10 @@
 						<dd><pre><code class="language-typescript">BackgroundGeolocation.onGeofencesChange(<span class="hljs-function"><span class="hljs-params">geofencesChangeEvent</span> =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[geofenceschange] '</span>, geofencesChangeEvent.on, geofencesChangeEvent.off);
 });</code></pre>
+							<h3 id="-note-">⚠️ Note:</h3>
+							<ul>
+								<li>When <strong>all</strong> geofences have been removed, empty lists will be provided for both <a href="_react_native_background_geolocation_.geofenceschangeevent.html#on">on</a> &amp; <a href="_react_native_background_geolocation_.geofenceschangeevent.html#off">off</a>.</li>
+							</ul>
 						</dd>
 					</dl>
 				</div>

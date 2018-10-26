@@ -1,5 +1,8 @@
 # Change Log
 
+## [2.14.0-beta.3] 2018-10-26
+- [Fixed] Mistake in module-name in index.d.ts
+
 ## [2.14.0-beta.2] 2018-10-24
 - [Fixed] Documentation issue with method signature `getCurrentPosition`.
 - [iOS] Catch `NSInvalidArgumentException` when decoding `TSConfig`.

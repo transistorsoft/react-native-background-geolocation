@@ -28,8 +28,8 @@
   },
   "rnpm": {
     "commands": {
-      "postlink": "node_modules/react-native-background-geolocation/scripts/postlink.js",
-      "postunlink": "node_modules/react-native-background-geolocation/scripts/postunlink.js"
+      "postlink": "node node_modules/react-native-background-geolocation/scripts/postlink.js",
+      "postunlink": "node node_modules/react-native-background-geolocation/scripts/postunlink.js"
     },
     "ios": {
       "sharedLibraries": [

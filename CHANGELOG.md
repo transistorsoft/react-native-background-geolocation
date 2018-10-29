@@ -1,5 +1,8 @@
 # Change Log
 
+## [2.14.1] 2018-10-29
+- [Fixed] react-native link on Windows.
+
 ## [2.14.0] 2018-10-29
 - [Fixed] Android `NullPointerException` on `WatchPositionCallback` with `watchPosition`.
 

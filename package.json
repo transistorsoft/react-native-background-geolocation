@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-geolocation",
-  "version": "2.14.0",
+  "version": "2.14.1",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -28,8 +28,8 @@
   },
   "rnpm": {
     "commands": {
-      "postlink": "node_modules/react-native-background-geolocation/scripts/postlink.js",
-      "postunlink": "node_modules/react-native-background-geolocation/scripts/postunlink.js"
+      "postlink": "node node_modules/react-native-background-geolocation/scripts/postlink.js",
+      "postunlink": "node node_modules/react-native-background-geolocation/scripts/postunlink.js"
     },
     "ios": {
       "sharedLibraries": [

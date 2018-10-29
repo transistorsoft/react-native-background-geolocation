@@ -1,5 +1,8 @@
 # Change Log
 
+## [2.14.0] 2018-10-29
+- [Fixed] Android `NullPointerException` on `WatchPositionCallback` with `watchPosition`.
+
 ## [2.14.0-beta.3] 2018-10-26
 - [Fixed] Mistake in module-name in index.d.ts
 

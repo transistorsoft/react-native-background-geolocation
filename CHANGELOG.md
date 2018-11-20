@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.14.2] 2018-11-20
+- [Added] Android SDK 28 requires new permission to use foreground-service.
+- [Fixed] Do not calculate odometer with geofence events.  Android geofence event's location timestamp does not correspond with the actual time the geofence fires since Android is performing some heuristics in the background to ensure the potential geofence event is not a false positive.  The actual geofence event can fire some minutes in the future (ie: the location timestamp will be some minutues in the past).  Using geofence location in odometer calculations will corrupt the odometer value.
+- [Fixed] Android could not dynamically update the `locationTemplate` / `geofenceTemplate` without `#stop` and application restart.
+- [Fixed] Android `startGeofences` after revoking & re-granting permission would fail to launch the plugin's Service.
+- [Fixed] iOS HTTP crash when using `batchSync: true`.  At application boot, there was a threading issue if the server returned an HTTP error, multiple instances of the HTTP service could run, causing a crash.
+
 ## [2.14.1] 2018-10-29
 - [Fixed] react-native link on Windows.
 

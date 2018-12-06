@@ -149,7 +149,7 @@ export default class App extends Component {
     BackgroundGeolocation.onMotionChange(this.onMotionChange);
 
     // This event fires when a change in motion activity is detected
-    BackgroundGeolocation.oActivityChange(this.onActivityChange);
+    BackgroundGeolocation.onActivityChange(this.onActivityChange);
 
     // This event fires when the user toggles location-services authorization
     BackgroundGeolocation.onProviderChange(this.onProviderChange);

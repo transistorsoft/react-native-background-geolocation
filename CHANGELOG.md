@@ -1,5 +1,10 @@
 # Change Log
 
+## [3.0.0-beta.2] - 2019-02-28
+- [Changed] Tweaking stationary region monitoring.
+- [Changed] Tweaking bad vendor detection to force stopTimeout timer when device is stationary for long periods and motion api hasn't respon
+ded.
+
 ## [3.0.0-beta.1] - 2019-02-27
 - [Changed] Major refactor of Android Service architecture.  The SDK no longer requires a foreground-service active at all times.  The foreground-service (and cooresponding persistent notification) will only be active while the SDK is in the *moving* state.  No breaking dart api changes.
 - [Changed] Improved Android debug notifications.

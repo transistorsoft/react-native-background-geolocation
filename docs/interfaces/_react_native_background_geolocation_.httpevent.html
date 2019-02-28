@@ -98,7 +98,7 @@ BackgroundGeolocation.ready({
 								<li>Successful HTTP response from your server (<code>200</code>, <code>201</code>, <code>204</code>).</li>
 								<li>Executing <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#destroylocations">BackgroundGeolocation.destroyLocations</a>.</li>
 								<li><a href="_react_native_background_geolocation_.config.html#maxdaystopersist">maxDaysToPersist</a> elapses and the location is destroyed.</li>
-								<li><a href="_react_native_background_geolocation_.config.html#maxrecordstopersist">maxRecordsToPersist</a> destroys oldest record in favour of latest.</li>
+								<li><a href="_react_native_background_geolocation_.config.html#maxrecordstopersist">maxRecordsToPersist</a> destroys oldest record in favor of latest.</li>
 							</ul>
 							<h3 id="the-http-service">The HTTP Service</h3>
 							<p>The SDK&#39;s HTTP service operates by selecting records from the database, locking them to prevent duplicate requests then uploading to your server.</p>
@@ -134,7 +134,7 @@ BackgroundGeolocation.ready({
 								<li><a href="_react_native_background_geolocation_.config.html#headers">headers</a> are appended to each HTTP Request.</li>
 								<li><a href="_react_native_background_geolocation_.config.html#extras">extras</a> are appended to each recorded location and persisted to the database record.</li>
 							</ul>
-							<h3 id="custom-json-schemas-a-href-_react_native_background_geolocation_-config-html-locationtemplate-locationtemplate-a-and-a-href-_react_native_background_geolocation_-config-html-geofencetemplate-geofencetemplate-a-">Custom <code>JSON</code> Schemas:  <a href="_react_native_background_geolocation_.config.html#locationtemplate">locationTemplate</a> and <a href="_react_native_background_geolocation_.config.html#geofencetemplate">geofenceTemplate</a></h3>
+							<h3 id="custom-json-schema-a-href-_react_native_background_geolocation_-config-html-locationtemplate-locationtemplate-a-and-a-href-_react_native_background_geolocation_-config-html-geofencetemplate-geofencetemplate-a-">Custom <code>JSON</code> Schema:  <a href="_react_native_background_geolocation_.config.html#locationtemplate">locationTemplate</a> and <a href="_react_native_background_geolocation_.config.html#geofencetemplate">geofenceTemplate</a></h3>
 							<p>The default HTTP <code>JSON</code> schema for both <a href="_react_native_background_geolocation_.location.html">Location</a> and <a href="_react_native_background_geolocation_.geofence.html">Geofence</a> can be overridden by the configuration options <a href="_react_native_background_geolocation_.config.html#locationtemplate">locationTemplate</a> and <a href="_react_native_background_geolocation_.config.html#geofencetemplate">geofenceTemplate</a>, allowing you to create any schema you wish.</p>
 							<h3 id="http-logging">HTTP Logging</h3>
 							<p>You can observe the plugin performing HTTP requests in the logs for both iOS and Android (<em>See Wiki <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Debugging</a></em>):</p>
@@ -279,6 +279,12 @@ BackgroundGeolocation.ready({
 						<a href="_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.devicesettingsrequest.html" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.geofence.html" class="tsd-kind-icon">Geofence</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
@@ -358,6 +364,9 @@ BackgroundGeolocation.ready({
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>

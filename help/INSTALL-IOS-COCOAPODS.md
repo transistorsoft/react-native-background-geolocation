@@ -1,7 +1,14 @@
 # iOS Installation with CocoaPods
 
+### With `yarn`
+
 ```shell
-$ npm install --save react-native-background-geolocation
+yarn add react-native-background-geolocation
+```
+
+### With `npm`
+```shell
+npm install react-native-background-geolocation --save
 ```
 
 If you use already [CocoaPods](https://cocoapods.org/) in your react-native
@@ -57,7 +64,7 @@ BackgroundFetch implements an `AppDelegate` method `didPerformFetchWithCompletio
 - Right click your app's root folder.  Select **`Add files to...`**.  Select **Other**.
 ![](https://dl.dropboxusercontent.com/s/gpsmz1ul1wyrhrs/Screenshot%202016-09-21%2016.17.35.png?dl=1)
 
-- Browse to **`{YourApp}/node_modules/react-native-background-fetch/ios/RNBackgroundFetch`**.  
+- Browse to **`{YourApp}/node_modules/react-native-background-fetch/ios/RNBackgroundFetch`**.
 - Add the file **`RNBackgroundFetch+AppDelegate.m`**:
 ![](https://dl.dropboxusercontent.com/s/uvi6nlx6xrl13fa/Screenshot%202016-09-21%2016.20.42.png?dl=1)
 

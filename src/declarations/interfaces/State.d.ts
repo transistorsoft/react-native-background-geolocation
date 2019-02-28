@@ -27,7 +27,7 @@ declare module "react-native-background-geolocation" {
     */
     trackingMode: TrackingMode;
     /**
-    * The current distance-travelled.
+    * The current distance-traveled.
     * ### ℹ️ See also:
     * - [[resetOdometer]], [[setOdometer]]
     * - [[getOdometer]]

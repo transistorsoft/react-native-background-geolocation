@@ -79,7 +79,7 @@
   }
 }).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[addGeofence] success'</span>);
-}).catchError(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
+}).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[addGeofence] FAILURE: '</span>, error);
 });</code></pre>
 							<p>Adding multiple geofences with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#addgeofences">addGeofences</a>.</p>
@@ -99,7 +99,7 @@
   notifyOnEntry: <span class="hljs-literal">true</span>
 }]).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[addGeofences] success'</span>);
-}).catchError(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
+}).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[addGeofences] FAILURE: '</span>, error);
 });</code></pre>
 							<p><strong>ℹ️ Note:</strong> Adding a geofence having an <a href="_react_native_background_geolocation_.geofence.html#identifier">identifier</a> which already exists within the SDK geofence database will cause the previous record to be destroyed and the new one inserted.</p>
@@ -114,7 +114,7 @@ BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-p
 });</code></pre>
 							<hr>
 							<h2 id="infinite-geofencing">Infinite Geofencing</h2>
-							<p>The Background Geolocation SDK contains unique and powerful geofencing features that allow you to monitor any number of circular geofences you wish (thousands even), in spite of limits imposed by the native platform APIs (<strong>20 for iOS; 100 for Android</strong>).</p>
+							<p>The Background Geolocation SDK contains unique and powerful Geofencing features that allow you to monitor any number of circular geofences you wish (thousands even), in spite of limits imposed by the native platform APIs (<strong>20 for iOS; 100 for Android</strong>).</p>
 							<p>The SDK achieves this by storing your geofences in its database, using a <a href="https://en.wikipedia.org/wiki/Spatial_query">geospatial query</a> to determine those geofences in proximity (<a href="_react_native_background_geolocation_.config.html#geofenceproximityradius">geofenceProximityRadius</a>), activating only those geofences closest to the device&#39;s current location (according the limit imposed by the corresponding platform).</p>
 							<ul>
 								<li>When the device is determined to be moving, the plugin periodically queries for geofences within the <a href="_react_native_background_geolocation_.config.html#geofenceproximityradius">geofenceProximityRadius</a> (eg. every minute) using the latest recorded location.  This geospatial query is <strong>very fast</strong>, even with tens-of-thousands geofences in the database.</li>
@@ -128,7 +128,7 @@ BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-p
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-javascript">BackgroundGeolocation.onGeofencesChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
-  <span class="hljs-keyword">let</span> on = event.on;     <span class="hljs-comment">//&lt;-- new geofences activiated.</span>
+  <span class="hljs-keyword">let</span> on = event.on;     <span class="hljs-comment">//&lt;-- new geofences activated.</span>
   <span class="hljs-keyword">let</span> off = event.off; <span class="hljs-comment">//&lt;-- geofences that were just de-activated.</span>
 
   <span class="hljs-comment">// Create map circles</span>
@@ -167,7 +167,7 @@ BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-p
 })</code></pre>
 							<hr>
 							<h2 id="querying-geofences">Querying Geofences</h2>
-							<p>Use the method <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#getgeofences">getGeofences</a> to retreive the entire Array of <a href="_react_native_background_geolocation_.geofence.html">Geofence</a> stored in the SDK&#39;s database.</p>
+							<p>Use the method <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#getgeofences">getGeofences</a> to retrieve the entire Array of <a href="_react_native_background_geolocation_.geofence.html">Geofence</a> stored in the SDK&#39;s database.</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript">BackgroundGeolocation.getGeofences().then(<span class="hljs-function"><span class="hljs-params">geofences</span> =&gt;</span> {
@@ -373,7 +373,7 @@ BackgroundGeolocation.ready({
 						</div>
 						<p>⚠️ The minimum reliable <code>radius</code> is <strong><code>200</code></strong> meters.  Anything less will likely not cause a geofence to trigger.  This is documented by Apple <a href="https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/LocationAwarenessPG/RegionMonitoring/RegionMonitoring.html">here</a>:</p>
 						<blockquote>
-							<p><em>&quot;The specific threshold distances are determined by the hardware and the location technologies that are currently available. For example, if Wi-Fi is disabled, region monitoring is significantly less accurate. However, for testing purposes, <strong>you can assume that the minimum distance is approximately 200 meters</strong></em>&quot;.</p>
+							<p><em>&quot;The specific threshold distances are determined by the hardware and the location technologies that are currently available. For example, if WiFi is disabled, region monitoring is significantly less accurate. However, for testing purposes, <strong>you can assume that the minimum distance is approximately 200 meters</strong></em>&quot;.</p>
 						</blockquote>
 					</div>
 				</section>
@@ -399,6 +399,12 @@ BackgroundGeolocation.ready({
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.devicesettingsrequest.html" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
 					</li>
 				</ul>
 				<ul class="current">
@@ -498,6 +504,9 @@ BackgroundGeolocation.ready({
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>

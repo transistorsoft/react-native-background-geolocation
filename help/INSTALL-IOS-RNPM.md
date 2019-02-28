@@ -1,25 +1,22 @@
 # iOS Installation with `react-native link`
 
-```shell
-$ npm install --save react-native-background-geolocation
-```
-
-#### With React Native 0.27+
+### With `yarn`
 
 ```shell
+yarn add react-native-background-geolocation
+
 react-native link react-native-background-geolocation
 react-native link react-native-background-fetch
 react-native link cocoa-lumberjack
 ```
 
-#### With older versions of React Native
-
-You need [`rnpm`](https://github.com/rnpm/rnpm) (`npm install -g rnpm`)
-
+### With `npm`
 ```shell
-rnpm link react-native-background-geolocation-android
-rnpm link react-native-background-fetch
-rnpm link cocoa-lumberjack
+npm install react-native-background-geolocation --save
+
+react-native link react-native-background-geolocation
+react-native link react-native-background-fetch
+react-native link cocoa-lumberjack
 ```
 
 ## XCode Configuration
@@ -28,8 +25,8 @@ rnpm link cocoa-lumberjack
 
 | Key | Value | Description |
 |-----|-------|-------------|
-| NSLocationAlwaysUsageDescription | This app requires background tracking | **Deprecated in iOS 11** The value here will be presented to the user when the plugin requests **Background Location** permission | 
-| NSLocationAlwaysAndWhenInUseUsageDescription | This app requires background tracking | **New for iOS 11** The value here will be presented to the user when the plugin requests **Background Location** permission | 
+| NSLocationAlwaysUsageDescription | This app requires background tracking | **Deprecated in iOS 11** The value here will be presented to the user when the plugin requests **Background Location** permission |
+| NSLocationAlwaysAndWhenInUseUsageDescription | This app requires background tracking | **New for iOS 11** The value here will be presented to the user when the plugin requests **Background Location** permission |
 | NSMotionUsageDescription | Accelerometer use increases battery efficiency by intelligently toggling location-tracking | The value here will be presented to the user when the app requests **Motion Activity** permission.|
 
 ![](https://dl.dropboxusercontent.com/s/j7udsab7brlj4yk/Screenshot%202016-09-22%2008.33.53.png?dl=1)

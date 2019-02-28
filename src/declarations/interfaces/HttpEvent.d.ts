@@ -49,7 +49,7 @@ declare module "react-native-background-geolocation" {
   * - Successful HTTP response from your server (`200`, `201`, `204`).
   * - Executing [[BackgroundGeolocation.destroyLocations]].
   * - [[maxDaysToPersist]] elapses and the location is destroyed.
-  * - [[maxRecordsToPersist]] destroys oldest record in favour of latest.
+  * - [[maxRecordsToPersist]] destroys oldest record in favor of latest.
   *
   * ### The HTTP Service
   *
@@ -89,7 +89,7 @@ declare module "react-native-background-geolocation" {
   * - [[headers]] are appended to each HTTP Request.
   * - [[extras]] are appended to each recorded location and persisted to the database record.
   *
-  * ### Custom `JSON` Schemas:  [[locationTemplate]] and [[geofenceTemplate]]
+  * ### Custom `JSON` Schema:  [[locationTemplate]] and [[geofenceTemplate]]
   *
   * The default HTTP `JSON` schema for both [[Location]] and [[Geofence]] can be overridden by the configuration options [[locationTemplate]] and [[geofenceTemplate]], allowing you to create any schema you wish.
   *

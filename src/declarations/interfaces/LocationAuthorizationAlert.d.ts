@@ -22,7 +22,7 @@ declare module "react-native-background-geolocation" {
     /**
     * The body text of the alert.
     *
-    * Defautls to: `To use background location, you must enable {locationAuthorizationRequest} in the Location Services settings`.
+    * Defaults to: `To use background location, you must enable {locationAuthorizationRequest} in the Location Services settings`.
     */
     instructions: string;
     /**

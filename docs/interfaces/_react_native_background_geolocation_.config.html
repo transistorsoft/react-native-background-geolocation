@@ -310,7 +310,7 @@ BackgroundGeolocation.setConfig({
 									<tr>
 										<td><a href="_react_native_background_geolocation_.config.html#autosync">autoSync</a></td>
 										<td><code>Boolean</code></td>
-										<td><strong>Default: <code>true</code></strong>.  If you&#39;ve enabeld HTTP feature by configuring an <a href="_react_native_background_geolocation_.config.html#url">url</a>, the plugin will attempt to upload each location to your server <strong>as it is recorded</strong>.</td>
+										<td><strong>Default: <code>true</code></strong>.  If you&#39;ve enabled HTTP feature by configuring an <a href="_react_native_background_geolocation_.config.html#url">url</a>, the plugin will attempt to upload each location to your server <strong>as it is recorded</strong>.</td>
 									</tr>
 									<tr>
 										<td><a href="_react_native_background_geolocation_.config.html#autosyncthreshold">autoSyncThreshold</a></td>
@@ -356,7 +356,7 @@ BackgroundGeolocation.setConfig({
 								<tbody><tr>
 										<td><a href="_react_native_background_geolocation_.config.html#stoponterminate">stopOnTerminate</a></td>
 										<td><code>Boolean</code></td>
-										<td><strong>Default: <code>true</code></strong>.  Set <code>false</code> to continue tracking after user teminates the app.</td>
+										<td><strong>Default: <code>true</code></strong>.  Set <code>false</code> to continue tracking after user terminates the app.</td>
 									</tr>
 									<tr>
 										<td><a href="_react_native_background_geolocation_.config.html#startonboot">startOnBoot</a></td>
@@ -606,9 +606,11 @@ BackgroundGeolocation.setConfig({
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#notificationtitle" class="tsd-kind-icon">notification<wbr>Title</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#params" class="tsd-kind-icon">params</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#pauseslocationupdatesautomatically" class="tsd-kind-icon">pauses<wbr>Location<wbr>Updates<wbr>Automatically</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#persistmode" class="tsd-kind-icon">persist<wbr>Mode</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#preventsuspend" class="tsd-kind-icon">prevent<wbr>Suspend</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#reset" class="tsd-kind-icon">reset</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#schedule" class="tsd-kind-icon">schedule</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#speedjumpfilter" class="tsd-kind-icon">speed<wbr>Jump<wbr>Filter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#startonboot" class="tsd-kind-icon">start<wbr>OnBoot</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#stationaryradius" class="tsd-kind-icon">stationary<wbr>Radius</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#stopafterelapsedminutes" class="tsd-kind-icon">stop<wbr>After<wbr>Elapsed<wbr>Minutes</a></li>
@@ -701,7 +703,7 @@ BackgroundGeolocation.setConfig({
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>By default, the Android plugin will ignore a received location when it is <em>identical</em> to the previous location.  Set <code>true</code> to override this behaviour and record <em>every</em> location, regardless if it is identical to the last location.</p>
+							<dd><p>By default, the Android plugin will ignore a received location when it is <em>identical</em> to the previous location.  Set <code>true</code> to override this behavior and record <em>every</em> location, regardless if it is identical to the last location.</p>
 								<p>In the logs, you will see a location being ignored:</p>
 								<pre><code><span class="hljs-string">TSLocationManager:</span>   ℹ️  <span class="hljs-string">IGNORED:</span> same <span class="hljs-keyword">as</span> last location</code></pre><p>An identical location is often generated when changing state from <em>stationary</em> -&gt; <em>moving</em>, where a single location is first requested (the <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onmotionchange">BackgroundGeolocation.onMotionChange</a> location) before turning on regular location updates.  Changing geolocation config params can also generate a duplicate location (eg: changing <a href="_react_native_background_geolocation_.config.html#distancefilter">distanceFilter</a>).</p>
 							</dd>
@@ -720,9 +722,9 @@ BackgroundGeolocation.setConfig({
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>Default is <code>true</code>.  If you&#39;ve enabeld HTTP feature by configuring an <a href="_react_native_background_geolocation_.config.html#url">url</a>, the plugin will attempt to HTTP POST each location to your
+							<dd><p>Default is <code>true</code>.  If you&#39;ve enabled HTTP feature by configuring an <a href="_react_native_background_geolocation_.config.html#url">url</a>, the plugin will attempt to HTTP POST each location to your
 									server <strong>as soon as it is recorded</strong>.  If you set <a href="_react_native_background_geolocation_.config.html#autosync">autoSync</a> <strong><code>false</code></strong>, it&#39;s up to you to <strong>manually</strong> execute the
-									<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#sync">BackgroundGeolocation.sync</a> method to initate the HTTP POST &mdash; the SDK will continue to persist <strong>every</strong> recorded location in the
+									<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#sync">BackgroundGeolocation.sync</a> method to initiate the HTTP POST &mdash; the SDK will continue to persist <strong>every</strong> recorded location in the
 								SQLite database until you execute <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#sync">BackgroundGeolocation.sync</a>.</p>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
@@ -758,7 +760,7 @@ BackgroundGeolocation.setConfig({
 							<dd><p>Defaults to <code>0</code> (no threshold).  If you configure a value greater-than <strong><code>0</code></strong>, the plugin will wait until that many locations are
 								recorded before executing HTTP requests to your server through your configured <a href="_react_native_background_geolocation_.config.html#url">url</a>.</p>
 								<p>ℹ️ Configuring <a href="_react_native_background_geolocation_.config.html#autosyncthreshold">autoSyncThreshold</a> in conjunction with <a href="_react_native_background_geolocation_.config.html#batchsync">batchSync</a> <strong><code>true</code></strong> <strong>can conserve battery</strong> by reducing the number of HTTP
-								requets, since HTTP requets consume <em>far</em> more energy / second than GPS.</p>
+								requests, since HTTP requests consume <em>far</em> more energy / second than GPS.</p>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
 							<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
@@ -786,7 +788,7 @@ Locations: <span class="hljs-variable">__</span>|<span class="hljs-variable">__<
 							<p>POST multiple locations to your <a href="_react_native_background_geolocation_.config.html#url">url</a> in a single HTTP request.</p>
 						</div>
 						<p>Default is <strong><code>false</code></strong>.  If you&#39;ve enabled HTTP feature by configuring an <a href="_react_native_background_geolocation_.config.html#url">url</a>, <a href="_react_native_background_geolocation_.config.html#batchsync">batchSync</a> <strong><code>true</code></strong> will POST <em>all</em> the locations
-							currently stored in native SQLite datbase to your server in a single HTTP POST request.  With <a href="_react_native_background_geolocation_.config.html#batchsync">batchSync</a> <strong><code>false</code></strong>, an HTTP POST
+							currently stored in native SQLite database to your server in a single HTTP POST request.  With <a href="_react_native_background_geolocation_.config.html#batchsync">batchSync</a> <strong><code>false</code></strong>, an HTTP POST
 						request will be initiated for <strong>each</strong> location in database.</p>
 						<h4 id="batchsync-true-all-accumulated-locations-posted-in-1-http-request-"><strong><code>batchSync: true</code></strong> &mdash; All accumulated locations POSTed in 1 HTTP request.</h4>
 						<dl class="tsd-comment-tags">
@@ -986,7 +988,7 @@ Locations: <span class="hljs-variable">__</span>|<span class="hljs-variable">__<
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>You will be responsible for handling disabled location authorization by listening to the <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onproviderchange">BackgroundGeolocation.onProviderChange</a> event.</p>
-								<p>By default, the plugin automatically shows a native alert (configured via <a href="_react_native_background_geolocation_.config.html#locationauthorizationalert">locationAuthorizationAlert</a> and <a href="_react_native_background_geolocation_.config.html#locationauthorizationrequest">locationAuthorizationRequest</a> to the user when location-services are disabled, directing them to the settings screen.  If you <strong>do not</strong> desire this automated behaviour, set <code>disableLocationAuthorizationAlert: true</code>.</p>
+								<p>By default, the plugin automatically shows a native alert (configured via <a href="_react_native_background_geolocation_.config.html#locationauthorizationalert">locationAuthorizationAlert</a> and <a href="_react_native_background_geolocation_.config.html#locationauthorizationrequest">locationAuthorizationRequest</a> to the user when location-services are disabled, directing them to the settings screen.  If you <strong>do not</strong> desire this automated behavior, set <code>disableLocationAuthorizationAlert: true</code>.</p>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
 							<dd><pre><code class="language-javascript">BackgroundGeolocation.onProviderChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
@@ -1020,7 +1022,7 @@ BackgroundGeolocation.ready({
 								<h3 id="-warning-">⚠️ Warning:</h3>
 								<ul>
 									<li>The plugin is <strong>HIGHLY</strong> optimized for motion-activity-updates.  If you <strong>do</strong> disable this, the plugin <em>will</em> drain more battery power.  You are <strong>STRONGLY</strong> advised against disabling this.  You should explain to your users with an appropriate <code>NSMotionUsageDescription</code> in your <code>Info.plist</code> file, for example:<blockquote>
-											<p>&quot;Motion activity detection increases battery efficiency by intelligently toggling location-tracking&quot; off when your device is detected to be stationry.</p>
+											<p>&quot;Motion activity detection increases battery efficiency by intelligently toggling location-tracking&quot; off when your device is detected to be stationary.</p>
 										</blockquote>
 									</li>
 								</ul>
@@ -1045,7 +1047,7 @@ BackgroundGeolocation.ready({
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><h3 id="ios">iOS</h3>
-								<p>Disables the accelerometer-based <strong>Stop-detection System</strong>.  When disabled, the plugin will use the default iOS behaviour of automatically
+								<p>Disables the accelerometer-based <strong>Stop-detection System</strong>.  When disabled, the plugin will use the default iOS behavior of automatically
 								turning off location-services when the device has stopped for <strong>exactly 15 minutes</strong>.  When disabled, you will no longer have control over <a href="_react_native_background_geolocation_.config.html#stoptimeout">stopTimeout</a>.</p>
 								<p>To <em>completely</em> disable automatically turning off iOS location-services, you must also provide <a href="_react_native_background_geolocation_.config.html#pauseslocationupdatesautomatically">pausesLocationUpdatesAutomatically</a> <strong><code>false</code></strong>.</p>
 							</dd>
@@ -1082,7 +1084,7 @@ BackgroundGeolocation.ready({
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><h3 id="-note-">ℹ️ Note:</h3>
 								<ul>
-									<li>To disable this behaviour, configure <a href="_react_native_background_geolocation_.config.html#disableelasticity">disableElasticity</a> <strong><code>true</code></strong>.</li>
+									<li>To disable this behavior, configure <a href="_react_native_background_geolocation_.config.html#disableelasticity">disableElasticity</a> <strong><code>true</code></strong>.</li>
 									<li>To control the scale of the automatic <code>distanceFilter</code> calculation, see <a href="_react_native_background_geolocation_.config.html#elasticitymultiplier">elasticityMultiplier</a></li>
 								</ul>
 								<p><code>distanceFilter</code> is auto-scaled by rounding speed to the nearest <code>5 m/s</code> and adding <code>distanceFilter</code> meters for each <code>5 m/s</code> increment.</p>
@@ -1392,7 +1394,7 @@ BackgroundGeolocation.ready({
 								<p>A persistent notification is required by the operating-system with a foreground-service.  It <strong>cannot</strong> be hidden.</p>
 								<h3 id="android-8-0">Android &lt; 8.0</h3>
 								<p>Defaults to <strong><code>false</code></strong>.  When the Android OS is under memory pressure from other applications (eg: a phone call), the OS can and will free up memory by terminating other processes and scheduling them for re-launch when memory becomes available.  If you find your tracking being <strong>terminated unexpectedly</strong>, <em>this</em> is why.</p>
-								<p>If you set this option to <strong><code>true</code></strong>, the plugin will run its Android service in the foreground, <strong>supplying the ongoing notification to be shown to the user while in this state</strong>.  Running as a foreground-service makes the tracking-service <strong>much</strong> more inmmune to OS killing it due to memory/battery pressure.  By default services are background, meaning that if the system needs to kill them to reclaim more memory (such as to display a large page in a web browser).</p>
+								<p>If you set this option to <strong><code>true</code></strong>, the plugin will run its Android service in the foreground, <strong>supplying the ongoing notification to be shown to the user while in this state</strong>.  Running as a foreground-service makes the tracking-service <strong>much</strong> more immune to OS killing it due to memory/battery pressure.  By default services are background, meaning that if the system needs to kill them to reclaim more memory (such as to display a large page in a web browser).</p>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
 									<li><a href="_react_native_background_geolocation_.config.html#notificationtitle">notificationTitle</a></li>
@@ -1439,7 +1441,7 @@ BackgroundGeolocation.ready({
 							<p>The radius around current location to query for geofences to activate monitoring upon.</p>
 						</div>
 						<p>The default and <em>minimum</em> is <code>1000</code> meters.  See related event <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#ongeofenceschange">BackgroundGeolocation.onGeofencesChange</a>.  When using Geofences, the
-							plugin activates only thoses in proximity (the maximim geofences allowed to be simultaneously monitored is limited by the platform,
+							plugin activates only those in proximity (the maximum geofences allowed to be simultaneously monitored is limited by the platform,
 							where <strong>iOS</strong> allows only 20 and <strong>Android</strong>.  However, the plugin allows you to create as many geofences as you wish (thousands even).
 						It stores these in its database and uses spatial queries to determine which <strong>20</strong> or <strong>100</strong> geofences to activate.</p>
 						<dl class="tsd-comment-tags">
@@ -1447,7 +1449,7 @@ BackgroundGeolocation.ready({
 							<dd><h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
 									<li>📘 <a href="_react_native_background_geolocation_.geofence.html">Geofence</a> Guide.</li>
-									<li><a href="https://www.transistorsoft.com/shop/products/assets/images/background-geolocation-infinite-geofencing.gif">View animation of this behaviour</a></li>
+									<li><a href="https://www.transistorsoft.com/shop/products/assets/images/background-geolocation-infinite-geofencing.gif">View animation of this behavior</a></li>
 								</ul>
 								<p><img src="https://dl.dropboxusercontent.com/s/7sggka4vcbrokwt/geofenceProximityRadius_iphone6_spacegrey_portrait.png?dl=1" alt=""></p>
 							</dd>
@@ -1467,7 +1469,7 @@ BackgroundGeolocation.ready({
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>The <code>geofenceTemplate</code> is similar to <a href="_react_native_background_geolocation_.config.html#locationtemplate">locationTemplate</a> with the addition of two extra <code>geofence.*</code> tags.</p>
-								<p>The <code>geofenceTemplate</code> will be evaulated for variables using Ruby <code>erb</code>-style tags:</p>
+								<p>The <code>geofenceTemplate</code> will be evaluated for variables using Ruby <code>erb</code>-style tags:</p>
 								<pre><code class="language-bash">&lt;%= variable_name %&gt;</code></pre>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
@@ -1545,7 +1547,7 @@ BackgroundGeolocation.{(
 										<tr>
 											<td><code>heading</code></td>
 											<td><code>Float</code></td>
-											<td>Degress</td>
+											<td>Degrees</td>
 										</tr>
 										<tr>
 											<td><code>accuracy</code></td>
@@ -1858,7 +1860,7 @@ BackgroundGeolocation.ready({
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>The <a href="_react_native_background_geolocation_.config.html#locationtemplate">locationTemplate</a> will be evaulated for variables using Ruby <code>erb</code>-style tags:</p>
+							<dd><p>The <a href="_react_native_background_geolocation_.config.html#locationtemplate">locationTemplate</a> will be evaluated for variables using Ruby <code>erb</code>-style tags:</p>
 								<pre><code class="language-bash">&lt;%= variable_name %&gt;</code></pre>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
@@ -1940,7 +1942,7 @@ BackgroundGeolocation.ready({
 										<tr>
 											<td><code>heading</code></td>
 											<td><code>Float</code></td>
-											<td>Degress</td>
+											<td>Degrees</td>
 										</tr>
 										<tr>
 											<td><code>accuracy</code></td>
@@ -2579,11 +2581,54 @@ BackgroundGeolocation.ready({
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><h3 id="-warning-">⚠️ Warning:</h3>
 								<ul>
-									<li>This option should generally be left <code>undefined</code>.  You should only specifiy this option if you know <em>exactly</em> what you&#39;re doing.</li>
+									<li>This option should generally be left <code>undefined</code>.  You should only specify this option if you know <em>exactly</em> what you&#39;re doing.</li>
 								</ul>
-								<p>The default behaviour of the plugin is to turn <strong>off</strong> location-services <em>automatically</em> when the device is detected to be stationary for <a href="_react_native_background_geolocation_.config.html#stoptimeout">stopTimeout</a> minutes.  When set to <code>false</code>, location-services will <strong>never</strong> be turned off (and <a href="_react_native_background_geolocation_.config.html#disablestopdetection">disableStopDetection</a> will automatically be set to <code>true</code>) &mdash; it&#39;s your responsibility to turn them off when you no longer need to track the device.  This feature should <strong>not</strong> generally be used.  <a href="_react_native_background_geolocation_.config.html#preventsuspend">preventSuspend</a> will no longer work either.</p>
+								<p>The default behavior of the plugin is to turn <strong>off</strong> location-services <em>automatically</em> when the device is detected to be stationary for <a href="_react_native_background_geolocation_.config.html#stoptimeout">stopTimeout</a> minutes.  When set to <code>false</code>, location-services will <strong>never</strong> be turned off (and <a href="_react_native_background_geolocation_.config.html#disablestopdetection">disableStopDetection</a> will automatically be set to <code>true</code>) &mdash; it&#39;s your responsibility to turn them off when you no longer need to track the device.  This feature should <strong>not</strong> generally be used.  <a href="_react_native_background_geolocation_.config.html#preventsuspend">preventSuspend</a> will no longer work either.</p>
 							</dd>
 						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="persistmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> persist<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">persist<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Allows you to specify which events to persist to the SDK&#39;s internal database:  locations | geofences | all (default).</p>
+						</div>
+						<p>Note that all recorded location and geofence events will <em>always</em> be provided to your [BackgroundGeolocation.onLocation] and [BackgroundGeolocation.onGeofence] events, just that the
+							persistence of those events in the SDK&#39;s internal SQLite database can be limited.  Any event which has not been persisted to the SDK&#39;s internal database
+						will also <strong>not</strong> therefore be uploaded to your [url] (if configured).</p>
+						<table>
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody><tr>
+									<td><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#persist_mode_all">BackgroundGeolocation.PERSIST_MODE_ALL</a></td>
+									<td>(<strong>DEFAULT</strong>) Persist both geofence and location events</td>
+								</tr>
+								<tr>
+									<td><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#persist_mode_location">BackgroundGeolocation.PERSIST_MODE_LOCATION</a></td>
+									<td>Persist only location events (ignore geofence events)</td>
+								</tr>
+								<tr>
+									<td><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#persist_mode_geofence">BackgroundGeolocation.PERSIST_MODE_GEOFENCE</a></td>
+									<td>Persist only geofence events (ignore location events)</td>
+								</tr>
+								<tr>
+									<td><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#persist_mode_none">BackgroundGeolocation.PERSIST_MODE_NONE</a></td>
+									<td>Persist nothing (neither geofence nor location events)</td>
+								</tr>
+						</tbody></table>
+						<h3 id="-warning">⚠️ Warning</h3>
+						<p>This option is designed for specializd use-cases and should generally not be used.  For example, some might wish to
+							run the plugin in regular tracking mode with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#start">BackgroundGeolocation.start</a> but only record geofence events.  In this case,
+						one would configure <code>persistMode: BackgroundGeolocation.PERSIST_MODE_GEOFENCE</code>.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
@@ -2601,7 +2646,7 @@ BackgroundGeolocation.ready({
 							<dd><p>Defaults to <strong><code>false</code></strong>.  Set <strong><code>true</code></strong> to prevent <strong>iOS</strong> from suspending your application after location-services have been switched off while running in the background.  Must be used in conjunction with a <a href="_react_native_background_geolocation_.config.html#heartbeatinterval">heartbeatInterval</a>.</p>
 								<h3 id="-warning-">⚠️ Warning:</h3>
 								<ul>
-									<li><strong><code>preventSuspend: true</code></strong> should <strong>only</strong> be used in <strong>very</strong> specific use-cases and should typically <strong>not</strong> be used as it <em>will</em> have a <strong>very noticable impact on battery performance.</strong>  You should carefully manage <strong><code>preventSuspend</code></strong>, engaging it for controlled periods-of-time.  You should <strong>not</strong> expect to run your app in this mode 24 hours / day, 7 days-a-week.</li>
+									<li><strong><code>preventSuspend: true</code></strong> should <strong>only</strong> be used in <strong>very</strong> specific use-cases and should typically <strong>not</strong> be used as it <em>will</em> have a <strong>very noticeable impact on battery performance.</strong>  You should carefully manage <strong><code>preventSuspend</code></strong>, engaging it for controlled periods-of-time.  You should <strong>not</strong> expect to run your app in this mode 24 hours / day, 7 days-a-week.</li>
 									<li>When a device is unplugged form power with the screen off, iOS will <em>still</em> throttle <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onheartbeat">BackgroundGeolocation.onHeartbeat</a> events about 2 minutes after entering the background state.  However, if the screen is lit up or even the <em>slightest</em> device-motion is detected, <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onheartbeat">BackgroundGeolocation.onHeartbeat</a> events will immediately resume.</li>
 								</ul>
 							</dd>
@@ -2635,7 +2680,7 @@ BackgroundGeolocation.ready({
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>Optionally, you can specify <strong><code>reset: true</code></strong> to <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#ready">BackgroundGeolocation.ready</a>.  This will esentially <em>force</em> the supplied <a href="_react_native_background_geolocation_.config.html">Config</a>
+							<dd><p>Optionally, you can specify <strong><code>reset: true</code></strong> to <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#ready">BackgroundGeolocation.ready</a>.  This will essentially <em>force</em> the supplied <a href="_react_native_background_geolocation_.config.html">Config</a>
 								to be applied with each launch of your application.</p>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
@@ -2643,7 +2688,7 @@ BackgroundGeolocation.ready({
   <span class="hljs-attr">reset</span>: <span class="hljs-literal">true</span>,  <span class="hljs-comment">// &lt;-- set true to ALWAYS apply supplied config; not just at first launch.</span>
   distanceFilter: <span class="hljs-number">50</span>
 }, (state) =&gt; {
-  conosle.log(<span class="hljs-string">'Ready with reset: true: '</span>, state.distanceFilter);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Ready with reset: true: '</span>, state.distanceFilter);
 });</code></pre>
 							</dd>
 						</dl>
@@ -2728,6 +2773,19 @@ BackgroundGeolocation.setConfig({
 schedule: [
     <span class="hljs-string">"2018-01-01-09:00 2019-01-01-17:00"</span>  <span class="hljs-comment">// &lt;-- track for 1 year</span>
   ]</code></pre>
+								<h2 id="scheduling-geofences-only-or-location-geofences-tracking">Scheduling Geofences-only or Location + Geofences Tracking</h2>
+								<p>You can choose to schedule either geofences-only (<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">BackgroundGeolocation.startGeofences</a>) or location + geofences (<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#start">BackgroundGeolocation.start</a>) tracking with each configured schedule by appending the text <code>geofence</code> or <code>location</code> (default):</p>
+								<p>In the following schedule, the SDK will engage <em>location + geofences</em> tracking between 9am to 5pm.  From 6pm to midnight, only <em>geofences</em> will be monitored.</p>
+								<pre><code class="language-javascript">schedule: [
+  <span class="hljs-string">"1-7 09:00-17:00 location"</span>,
+  <span class="hljs-string">"1-7 18:00-12:00 geofence"</span>
+]</code></pre>
+								<p>Since <code>location</code> is the default tracking-mode, it can be omitted:</p>
+								<pre><code class="language-javascript">schedule: [
+  <span class="hljs-string">"1-7 09:00-10:00"</span>,  <span class="hljs-comment">// &lt;-- location is default</span>
+  <span class="hljs-string">"1-7 10:00-11:00 geofence"</span>
+  <span class="hljs-string">"1-7 12:00-13:00"</span>,
+  <span class="hljs-string">"1-7 13:00-14:00 geofence"</span></code></pre>
 								<h3 id="ios">iOS</h3>
 								<ul>
 									<li>iOS <strong>cannot</strong> evaluate the Schedule at the <em>exact</em> time you configure &mdash; it can only evaluate the <strong><code>schedule</code></strong> <em>periodically</em>, whenever your app comes alive.</li>
@@ -2748,6 +2806,21 @@ schedule: [
 								</ul>
 							</dd>
 						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="speedjumpfilter" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> speed<wbr>Jump<wbr>Filter</h3>
+					<div class="tsd-signature tsd-kind-icon">speed<wbr>Jump<wbr>Filter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><strong><code>Android-only</code></strong> Experimental filter to ignore anomalous locations that suddenly jump an unusual distance from last.
+								The SDK will calculate an apparent speed and distance relative to last known location.  If the location suddenly
+							teleports from last location, it will be ignored.</p>
+						</div>
+						<p>The measurement is in meters/second.  The default is to throw away any location which apparently moved at 300 meters/second from last known location.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
@@ -2903,7 +2976,7 @@ schedule: [
 							<dd><p>Defaults to <strong><code>true</code></strong>.  When the user terminates the app, the plugin will <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#stop">BackgroundGeolocation.stop</a> tracking.  Set this to <strong><code>false</code></strong>
 								to continue tracking after application terminate.</p>
 								<p>If you <em>do</em> configure <strong><code>stopOnTerminate: false</code></strong>, your application <strong>will</strong> terminate at that time.  However, both Android and iOS differ
-								in their behaviour <em>after</em> this point:</p>
+								in their behavior <em>after</em> this point:</p>
 								<h3 id="ios">iOS</h3>
 								<p>Before an iOS app terminates, the plugin will ensure that a <strong>stationary geofence</strong> of <a href="_react_native_background_geolocation_.config.html#stationaryradius">stationaryRadius</a> meters is created around the last
 								known position.  When the user moves beyond the stationary geofence (typically ~200 meters), iOS will <strong>completely reboot your application in the background</strong>, and the plugin will resume tracking.  iOS maintains geofence monitoring at the OS level, in spite of application terminate / device reboot.</p>
@@ -3106,7 +3179,7 @@ BackgroundGeolocation.ready({
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>Defaults to <code>false</code>.  Set <code>true</code> in order to disable constant background-tracking and use only the iOS <a href="https://developer.apple.com/reference/corelocation/cllocationmanager/1423531-startmonitoringsignificantlocati?language=objc">Significant Changes API</a>.</p>
-								<p> ⚠️ If Apple has rejected your application, refusing to grant your app the privelege of using the <strong><code>UIBackgroundMode: &quot;location&quot;</code></strong>, this can be a solution.</p>
+								<p> ⚠️ If Apple has rejected your application, refusing to grant your app the privilege of using the <strong><code>UIBackgroundMode: &quot;location&quot;</code></strong>, this can be a solution.</p>
 								<p> ℹ️ The Significant Changes API will report a location only every <code>500</code> to <code>1000</code> meters (can be higher in non urban environments; depends upon the spacing of Cellular towers).  Many of the plugin&#39;s configuration parameters <strong>will be ignored</strong>, such as <a href="_react_native_background_geolocation_.config.html#distancefilter">distanceFilter</a>, <a href="_react_native_background_geolocation_.config.html#stationaryradius">stationaryRadius</a>, <a href="_react_native_background_geolocation_.config.html#activitytype">activityType</a>, etc.</p>
 							</dd>
 						</dl>
@@ -3300,6 +3373,9 @@ BackgroundGeolocation.ready({
 								<a href="_react_native_background_geolocation_.config.html#pauseslocationupdatesautomatically" class="tsd-kind-icon">pauses<wbr>Location<wbr>Updates<wbr>Automatically</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_react_native_background_geolocation_.config.html#persistmode" class="tsd-kind-icon">persist<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.config.html#preventsuspend" class="tsd-kind-icon">prevent<wbr>Suspend</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
@@ -3307,6 +3383,9 @@ BackgroundGeolocation.ready({
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.config.html#schedule" class="tsd-kind-icon">schedule</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_react_native_background_geolocation_.config.html#speedjumpfilter" class="tsd-kind-icon">speed<wbr>Jump<wbr>Filter</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.config.html#startonboot" class="tsd-kind-icon">start<wbr>OnBoot</a>
@@ -3350,6 +3429,12 @@ BackgroundGeolocation.ready({
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.devicesettingsrequest.html" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.geofence.html" class="tsd-kind-icon">Geofence</a>
@@ -3416,6 +3501,9 @@ BackgroundGeolocation.ready({
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>

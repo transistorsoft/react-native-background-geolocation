@@ -5,6 +5,8 @@
 //  Created by Christopher Scott on 2016-04-25.
 //
 //
+#import "TSConfig.h"
+
 @interface TSSchedule : NSObject
 {
     
@@ -15,6 +17,8 @@
 @property (nonatomic) NSDateComponents* offTime;
 @property (nonatomic) NSDate* offDate;
 @property (nonatomic) BOOL triggered;
+@property (nonatomic) TSTrackingMode trackingMode;
+
 @property (copy) void (^handlerBlock) (TSSchedule *schedule);
 
 

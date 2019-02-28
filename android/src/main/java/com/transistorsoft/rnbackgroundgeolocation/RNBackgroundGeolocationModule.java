@@ -2,9 +2,11 @@ package com.transistorsoft.rnbackgroundgeolocation;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.telecom.Call;
 import android.util.Log;
+import android.os.Build;
 
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.Callback;
@@ -15,6 +17,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
+import com.facebook.react.bridge.ReadableNativeMap;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
@@ -43,9 +46,12 @@ import com.transistorsoft.locationmanager.http.HttpResponse;
 import com.transistorsoft.locationmanager.location.TSCurrentPositionRequest;
 import com.transistorsoft.locationmanager.location.TSLocation;
 import com.transistorsoft.locationmanager.location.TSWatchPositionRequest;
+import com.transistorsoft.locationmanager.scheduler.TSScheduleManager;
 import com.transistorsoft.locationmanager.scheduler.ScheduleEvent;
+import com.transistorsoft.locationmanager.event.TerminateEvent;
 import com.transistorsoft.locationmanager.util.Sensors;
 import com.transistorsoft.locationmanager.logger.TSLog;
+import com.transistorsoft.locationmanager.device.DeviceSettingsRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -281,7 +287,11 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
     @Override
     public void onHostPause() {
-
+        Context context = getReactApplicationContext();
+        TSConfig config = TSConfig.getInstance(context);
+        if (config.getEnabled() && config.getEnableHeadless() && !config.getStopOnTerminate()) {
+            TSScheduleManager.getInstance(context).oneShot(TerminateEvent.ACTION, 10000);
+        }
     }
     @Override
     public void onHostDestroy() {
@@ -687,7 +697,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     @ReactMethod
-    public void playSound( int soundId) {
+    public void playSound(String soundId) {
         getAdapter().startTone(soundId);
     }
 
@@ -736,6 +746,57 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     public void isPowerSaveMode(Callback success, Callback error) {
         success.invoke(getAdapter().isPowerSaveMode());
     }
+
+    @ReactMethod
+    public void isIgnoringBatteryOptimizations(Callback success, Callback failure) {
+        boolean isIgnoring = getAdapter().isIgnoringBatteryOptimizations();
+        success.invoke(isIgnoring);
+    }
+
+    @ReactMethod
+    public void requestSettings(ReadableMap args, Callback success, Callback failure) throws JSONException {
+        String action = args.getString("action");
+        DeviceSettingsRequest request = getAdapter().requestSettings(action);
+
+        if (request != null) {
+            success.invoke(jsonToMap(request.toJson()));
+        } else {
+            failure.invoke("Failed to find " + action + " screen for device " + Build.MANUFACTURER + " " + Build.MODEL + "@" + Build.VERSION.RELEASE);
+        }
+    }
+
+    @ReactMethod
+    public void showSettings(ReadableMap args, Callback success, Callback failure) {
+        String action = args.getString("action");
+        boolean didShow = getAdapter().showSettings(action);
+        if (didShow) {
+            success.invoke();
+        } else {
+            failure.invoke("Failed to find " + action + " screen for device " + Build.MANUFACTURER + " " + Build.MODEL + "@" + Build.VERSION.RELEASE);
+        }
+    }
+
+    @ReactMethod
+    public void getProviderState(Callback success, Callback error) {
+        try {
+            success.invoke(jsonToMap(getAdapter().getProviderState().toJson()));
+        } catch (JSONException e) {
+            error.invoke(e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void requestPermission(final Callback success, final Callback error) {
+        getAdapter().requestPermission(new TSRequestPermissionCallback() {
+            @Override public void onSuccess(int status) {
+                success.invoke(status);
+            }
+            @Override public void onFailure(int status) {
+                error.invoke(status);
+            }
+        });
+    }
+
 
     @ReactMethod
     public void addEventListener(String event) {
@@ -953,15 +1014,6 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             }
         }
         return jsonArray;
-    }
-
-    // TODO placehold for implementing Android M permissions request.  Just return true for now.
-    private Boolean hasPermission(String permission) {
-        return true;
-    }
-    // TODO placehold for implementing Android M permissions request.  Just return true for now.
-    private void requestPermissions(int requestCode, String[] action) {
-
     }
 
     private void initializeLocationManager() {

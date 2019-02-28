@@ -74,6 +74,8 @@
 - (void) watchPosition:(TSWatchPositionRequest*)request;
 - (void) stopWatchPosition;
 - (NSDictionary*) getStationaryLocation;
+- (TSProviderChangeEvent*) getProviderState;
+- (void) requestPermission:(void(^)(NSNumber *status))success failure:(void(^)(NSNumber *status))failure;
 
 #pragma mark - HTTP & Persistence Methods
 

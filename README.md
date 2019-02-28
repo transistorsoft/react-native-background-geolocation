@@ -13,7 +13,7 @@ The plugin's [Philosophy of Operation](../../wiki/Philosophy-of-Operation) is to
 
 - When the device is detected be **stationary**, the plugin will automatically turn off location-services to conserve energy.
 
-Also available for [Cordova](https://github.com/transistorsoft/cordova-background-geolocation-lt), [NativeScript](https://github.com/transistorsoft/nativescript-background-geolocation-lt) and pure native apps.
+Also available for [Flutter](https://github.com/transistorsoft/flutter_background_geolocation), [Cordova](https://github.com/transistorsoft/cordova-background-geolocation-lt), [NativeScript](https://github.com/transistorsoft/nativescript-background-geolocation-lt) and pure native apps.
 
 ----------------------------------------------------------------------------
 
@@ -42,6 +42,13 @@ The **[Android module](http://www.transistorsoft.com/shop/products/react-native-
 
 ## :large_blue_diamond: Installing the Plugin
 
+### With `yarn`
+
+```bash
+yarn add react-native-background-geolocation
+```
+
+### With `npm`
 ```
 $ npm install react-native-background-geolocation --save
 ```
@@ -57,15 +64,6 @@ $ npm install react-native-background-geolocation --save
 * [`react-native link` Setup](help/INSTALL-ANDROID-RNPM.md)
 * [Manual Setup](help/INSTALL-ANDROID.md)
 
-#### :information_source: Solving Android Gradle Conflicts.
-
-Once of the most common build-issues with Android apps are gradle conflicts between modules specifying different versions of:
-- `compileSdkVersion`
-- `buildToolsVersion`
-- Google `play-services` / `firebase` version.
-- Google support libraries (ie `appcompat-v4`, `appcompat-v7`)
-
-For more information, see the Wiki [Solving Android Gradle Conflicts](../../wiki/Solving-Android-Gradle-Conflicts)
 
 ## :large_blue_diamond: Configure your license
 
@@ -119,7 +117,7 @@ import BackgroundGeolocation, {
   MotionChangeEvent,
   ProviderChangeEvent,
   ConnectivityChangeEvent
-} from "react-native-background-geolocation-android";
+} from "react-native-background-geolocation";
 
 ```
 

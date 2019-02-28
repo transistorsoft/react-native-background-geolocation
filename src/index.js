@@ -6,6 +6,9 @@ import {
 } from "react-native"
 
 import NativeModule from './NativeModule';
+import DeviceSettings from './DeviceSettings';
+
+let _deviceSettingsInstance = null;
 
 const TAG = "BackgroundGeolocation";
 
@@ -45,6 +48,11 @@ const LOCATION_AUTHORIZATION_ALWAYS       = "Always";
 const LOCATION_AUTHORIZATION_WHEN_IN_USE  = "WhenInUse";
 const LOCATION_AUTHORIZATION_ANY          = "Any";
 
+const PERSIST_MODE_ALL                    = 2;
+const PERSIST_MODE_LOCATION               = 1;
+const PERSIST_MODE_GEOFENCE               = -1;
+const PERSIST_MODE_NONE                   = 0;
+
 const emptyFn = function() {}
 
 export default class BackgroundGeolocation {
@@ -77,6 +85,18 @@ export default class BackgroundGeolocation {
   static get LOCATION_AUTHORIZATION_ALWAYS()        { return LOCATION_AUTHORIZATION_ALWAYS}
   static get LOCATION_AUTHORIZATION_WHEN_IN_USE()   { return LOCATION_AUTHORIZATION_WHEN_IN_USE}
   static get LOCATION_AUTHORIZATION_ANY()           { return LOCATION_AUTHORIZATION_ANY}
+
+  static get PERSIST_MODE_ALL()       { return PERSIST_MODE_ALL; }
+  static get PERSIST_MODE_LOCATION()  { return PERSIST_MODE_LOCATION; }
+  static get PERSIST_MODE_GEOFENCE()  { return PERSIST_MODE_GEOFENCE; }
+  static get PERSIST_MODE_NONE()      { return PERSIST_MODE_NONE; }
+
+  static get deviceSettings() {
+    if (_deviceSettingsInstance === null) {
+      _deviceSettingsInstance = new DeviceSettings();
+    }
+    return _deviceSettingsInstance;
+  }
 
   /**
   * Register HeadlessTask
@@ -118,6 +138,23 @@ export default class BackgroundGeolocation {
       NativeModule.configure(config).then(success).catch(failure);
     }
   }
+
+  static requestPermission(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.requestPermission();
+    } else {
+      NativeModule.requestPermission().then(success).catch(failure);
+    }
+  }
+
+  static getProviderState(success, failure) {
+    if (!arguments.length) {
+      return NativeModule.getProviderState();
+    } else {
+      NativeModule.getProviderState().then(success).catch(failure);
+    }
+  }
+
   /**
   * Listen to a plugin event
   */
@@ -140,8 +177,8 @@ export default class BackgroundGeolocation {
     this.addListener('motionchange', callback);
   }
 
-  static onHttp(success, failure) {
-    this.addListener('http', success, failure);
+  static onHttp(callback) {
+    this.addListener('http', callback);
   }
 
   static onHeartbeat(callback) {

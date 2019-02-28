@@ -24,7 +24,7 @@ declare module "react-native-background-geolocation" {
   *   }
   * }).then((success) => {
   *   console.log('[addGeofence] success');
-  * }).catchError((error) => {
+  * }).catch((error) => {
   *   console.log('[addGeofence] FAILURE: ', error);
   * });
   * ```
@@ -46,7 +46,7 @@ declare module "react-native-background-geolocation" {
   *   notifyOnEntry: true
   * }]).then((success) => {
   *   console.log('[addGeofences] success');
-  * }).catchError((error) => {
+  * }).catch((error) => {
   *   console.log('[addGeofences] FAILURE: ', error);
   * });
   * ```
@@ -71,7 +71,7 @@ declare module "react-native-background-geolocation" {
   *
   * ## Infinite Geofencing
   *
-  * The Background Geolocation SDK contains unique and powerful geofencing features that allow you to monitor any number of circular geofences you wish (thousands even), in spite of limits imposed by the native platform APIs (**20 for iOS; 100 for Android**).
+  * The Background Geolocation SDK contains unique and powerful Geofencing features that allow you to monitor any number of circular geofences you wish (thousands even), in spite of limits imposed by the native platform APIs (**20 for iOS; 100 for Android**).
   *
   * The SDK achieves this by storing your geofences in its database, using a [geospatial query](https://en.wikipedia.org/wiki/Spatial_query) to determine those geofences in proximity ([[geofenceProximityRadius]]), activating only those geofences closest to the device's current location (according the limit imposed by the corresponding platform).
   *
@@ -90,7 +90,7 @@ declare module "react-native-background-geolocation" {
   * @example
   * ```javascript
   * BackgroundGeolocation.onGeofencesChange((event) => {
-  *   let on = event.on;     //<-- new geofences activiated.
+  *   let on = event.on;     //<-- new geofences activated.
   *   let off = event.off; //<-- geofences that were just de-activated.
   *
   *   // Create map circles
@@ -133,7 +133,7 @@ declare module "react-native-background-geolocation" {
   *
   * ## Querying Geofences
   *
-  * Use the method [[getGeofences]] to retreive the entire Array of [[Geofence]] stored in the SDK's database.
+  * Use the method [[getGeofences]] to retrieve the entire Array of [[Geofence]] stored in the SDK's database.
   *
   * @example
   * ```typescript
@@ -214,7 +214,7 @@ declare module "react-native-background-geolocation" {
     * Radius of the circular geofence.
     *
     * ⚠️ The minimum reliable `radius` is __`200`__ meters.  Anything less will likely not cause a geofence to trigger.  This is documented by Apple [here](https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/LocationAwarenessPG/RegionMonitoring/RegionMonitoring.html):
-    * > *"The specific threshold distances are determined by the hardware and the location technologies that are currently available. For example, if Wi-Fi is disabled, region monitoring is significantly less accurate. However, for testing purposes, __you can assume that the minimum distance is approximately 200 meters__*".
+    * > *"The specific threshold distances are determined by the hardware and the location technologies that are currently available. For example, if WiFi is disabled, region monitoring is significantly less accurate. However, for testing purposes, __you can assume that the minimum distance is approximately 200 meters__*".
     */
     radius: number;
     /**

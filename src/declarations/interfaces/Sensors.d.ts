@@ -3,9 +3,9 @@ declare module "react-native-background-geolocation" {
 	* Detected device sensors related to motion-detection.
 	*/
 	interface Sensors {
-		/**
-		* `ios` | `android`
-		*/
+  	/**
+  	* `ios` | `android`
+  	*/
     platform: string;
     /**
     * `true` when the device has an accelerometer.

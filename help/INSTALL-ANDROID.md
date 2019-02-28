@@ -1,7 +1,20 @@
 # Android Manual Installation
 
-```bash
-$ npm install --save react-native-background-geolocation
+### With `yarn`
+
+```shell
+yarn add react-native-background-geolocation
+
+react-native link react-native-background-geolocation
+react-native link react-native-background-fetch
+```
+
+### With `npm`
+```shell
+npm install react-native-background-geolocation--save
+
+react-native link react-native-background-geolocation
+react-native link react-native-background-fetch
 ```
 
 ## Gradle Configuration
@@ -22,19 +35,31 @@ $ npm install --save react-native-background-geolocation
 ### :open_file_folder: **`android/build.gradle`**
 
 ```diff
+buildscript {
+    ext {
+        buildToolsVersion = "28.0.3"
+        minSdkVersion = 16
+        compileSdkVersion = 28
+        targetSdkVersion = 27
+        supportLibVersion = "28.0.0"
+        // You can control the SDK's version of play-services:location
+        // You should always use the latest available version.
++       googlePlayServicesLocationVersion = "16.0.0"
+    }
+    .
+    .
+    .
+}
+
 allprojects {
     repositories {
         mavenLocal()
+        google()
         jcenter()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
-        // Google now hosts their latest API dependencies on their own maven  server.
-        // React Native will eventually add this to their app template.
-+       maven {
-+           url 'https://maven.google.com'
-+       }
 +       maven {
 +           url "$rootDir/../node_modules/react-native-background-geolocation/android/libs"
 +       }
@@ -43,76 +68,14 @@ allprojects {
 +       }
     }
 }
-/**
--* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
--* !!! THE FOLLOWING IS OPTIONAL BUT HIGHLY RECOMMENDED FOR YOUR SANITY !!!
--* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-*
-* Do you hate Gradle conflicts where other plugin require some particular
-* version of play-services or define a compileSdkVersion, buildToolsVersion
-* which conflicts with that of your app?  Me too!
-*
-* If you define these key gradle configuration variables globally, the
-* background-geolocation plugin (and any other "wise" plugins you've installed)
-* can align themselves to YOUR desired versions!  You should define these variables
-* as desired according to current values in your app/build.gradle
-*
-* You'll find that more and more plugins are beginning to wise up to checking
-* for the presense of global gradle variables like this.
-*
-* BackgroundGeolocation is aware of the following variables:
-*/
-+ext {
-+    compileSdkVersion   = 27
-+    targetSdkVersion    = 27
-+    buildToolsVersion   = "27.0.3"
-+    supportLibVersion   = "27.1.1"
-+    playServicesVersion = "15.0.1"
-+}
 ```
+
 
 #### :information_source: Project-wide Configuration Properties
 
 The technique of **defining project-wide properties** can be found in the **Android Developer Document** [Gradle Tip &amp; Tricks](https://developer.android.com/studio/build/gradle-tips.html) (see *Configure project-wide properties*) and another good explanation [here](https://segunfamisa.com/posts/android-gradle-extra-properties).  The *BackgroundGeolocation* plugin [is aware of the presense of these configuration properties](../android/build.gradle#L3-L18).
 
 -------------------------------------------------------------------------------
-
-
-### :open_file_folder: **`android/app/build.gradle`**
-
-```diff
--/**
--* OPTIONAL:  If you've implemeted the "OPTIONAL BUT HIGHLY RECOMMENDED" note
--* above, you can define your compileSdkVersion, buildToolsVersion, targetSdkVersion
--* using your own global variables as well:
--* Android Studio is smart enough to be aware of the evaulated values here,
--* to offer upgrade notices when applicable.
--*
--*/
-android {
-+    compileSdkVersion rootProject.compileSdkVersion
-+    buildToolsVersion rootProject.buildToolsVersion
-
-    defaultConfig {
-+        targetSdkVersion rootProject.targetSdkVersion
-         .
-         .
-         .
-    }
-}
-
-dependencies {
-+   compile project(':react-native-background-geolocation')
-+   compile project(':react-native-background-fetch')
-    // You are advised to use latest appcompat-v7 corresponding to your compileSdkVersion
-    // eg:  if compileSdkVersion 27 -> appcompat-v7:27.x.x
-    //      if compileSdkVersion 26 -> appcompat-v7:26.x.x
-    //      if compileSdkVersion 25 -> appcompat-v7:25.x.x
-    // NOTE:  It's up to you to define the variable supportLibVersion
-    // as noted above.  IT IS HIGHLY RECOMMENDED TO DO THIS.
-+   compile "com.android.support:appcompat-v7:$rootProject.supportLibVersion"
-}
-```
 
 
 ## AndroidManifest.xml

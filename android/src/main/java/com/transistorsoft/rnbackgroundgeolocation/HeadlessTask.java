@@ -2,6 +2,7 @@ package com.transistorsoft.rnbackgroundgeolocation;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
@@ -34,7 +35,6 @@ public class HeadlessTask {
     private static String HEADLESS_TASK_NAME = "BackgroundGeolocation";
     // Hard-coded time-limit for headless-tasks is 30000 @todo configurable?
     private static int TASK_TIMEOUT = 30000;
-    private static Handler mHandler = new Handler();
 
     private final List<Integer> mTasks = new ArrayList<>();
 
@@ -89,7 +89,7 @@ public class HeadlessTask {
                 e.printStackTrace();
             }
         }
-        
+
         HeadlessJsTaskConfig config = new HeadlessJsTaskConfig(HEADLESS_TASK_NAME, clientEvent, TASK_TIMEOUT);
         try {
             startTask(event.getContext(), config);
@@ -116,7 +116,7 @@ public class HeadlessTask {
             reactInstanceManager.addReactInstanceEventListener(new ReactInstanceManager.ReactInstanceEventListener() {
                 @Override public void onReactContextInitialized(final ReactContext reactContext) {
                     // Hack to fix unknown problem executing asynchronous BackgroundTask when ReactContext is created *first time*.  Fixed by adding short delay before #invokeStartTask
-                    mHandler.postDelayed(new Runnable() {
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             invoke(reactContext, taskConfig);

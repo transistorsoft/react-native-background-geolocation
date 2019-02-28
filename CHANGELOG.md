@@ -1,5 +1,49 @@
 # Change Log
 
+## [3.0.0-beta.1] - 2019-02-27
+- [Changed] Major refactor of Android Service architecture.  The SDK no longer requires a foreground-service active at all times.  The foreground-service (and cooresponding persistent notification) will only be active while the SDK is in the *moving* state.  No breaking dart api changes.
+- [Changed] Improved Android debug notifications.
+
+- [Added] Added new Config options `persistMode` for specifying exactly which events get persisted: location | geofence | all | none.
+- [Added] Experimental Android-only Config option `speedJumpFilter (default 300 meters/second)` for detecting location anomalies.  The plugin will measure the distance and apparent speed of the current location relative to last location.  If the apparent speed is > `speedJumpFilter`, the location will be ignored.  Some users, particularly in Australia, curiously, have had locations suddenly jump hundreds of kilometers away, into the ocean.
+- [Changed] iOS and Android will not perform odometer updates when the calculated distance is less than the average accuracy of the current and previous location.  This is to prevent small odometer changes when the device is lingering around the same position.
+- [Fixed] Added Android gradle dependency `appcompat-v7`
+- [Fixed] Minor change to Android `HeadlessTask` to fix possible issue with `Looper`.
+
+- [Added] New `DeviceSettings` API for redirecting user to Android Settings screens, including vendor-specific screens (eg: Huawei, OnePlus, Xiaomi, etc).  This is an attempt to help direct the user to appropriate device-settings screens for poor Android vendors as detailed in the site [Don't kill my app](https://dontkillmyapp.com/).
+- [Added] `schedule` can now be configured to optionally execute geofences-only mode (ie: `#startGeofences`) per schedule entry.  See `schedule` docs.
+- [Changed] Update Gradle config to use `implementation` instead of deprecated `compile`
+- **[BREAKING]** Change Gradle `ext` configuration property `googlePlayServicesVersion` -> `googlePlayServicesLocationVersion`.  Now that Google has decoupled all their libraries, `play-services:location` now has its own version, independant of all other libs.
+
+`android/build.gradle`:
+```diff
+buildscript {
+    ext {
+        buildToolsVersion = "28.0.3"
+        minSdkVersion = 16
+        compileSdkVersion = 28
+        targetSdkVersion = 27
+        supportLibVersion = "28.0.0"
+-       googlePlayServicesVersion = "16.0.0"
++       googlePlayServicesLocationVersion = "16.0.0"
+    }
+}
+```
+
+- [Changed] Android Service: Return `START_STICKY` instead of `START_REDELIVER_INTENT`.
+- [Changed] Android: `setShowBadge(false)` on Android `NotificationChannel`.  Some users reporting that Android shows a badge-count on app icon when service is started / stopped.
+
+- [Fixed] Android `extras` provided to `watchPosition` were not being appended to location data.
+
+- [Fixed] Android NPE in `watchPosition`
+- [Added] Added method `getProviderState` for querying current state of location-services.
+- [Added] Added method `requestPermission` for manually requesting location-permission (`#start`, `#getCurrentPosition`, `#watchPosition` etc, will already automatically request permission.
+
+- [Changed] Upgrade Android logger dependency to latest version (`logback`).
+- [Fixed] Prevent Android foreground-service from auto-starting when location permission is revoked via Settings screen.
+- [Fixed] NPE in Android HTTP Service when manual sync is called.  Probably a threading issue with multiple sync operations executed simultaneously.
+
+
 ## [2.14.2] 2018-11-20
 - [Added] Android SDK 28 requires new permission to use foreground-service.
 - [Fixed] Do not calculate odometer with geofence events.  Android geofence event's location timestamp does not correspond with the actual time the geofence fires since Android is performing some heuristics in the background to ensure the potential geofence event is not a false positive.  The actual geofence event can fire some minutes in the future (ie: the location timestamp will be some minutues in the past).  Using geofence location in odometer calculations will corrupt the odometer value.

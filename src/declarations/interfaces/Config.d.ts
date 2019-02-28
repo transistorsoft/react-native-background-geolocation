@@ -105,7 +105,7 @@ declare module "react-native-background-geolocation" {
   | [[httpRootProperty]] | `String` | __Default: `location`__.  The root property of the JSON data where location-data will be appended. |
   | [[locationTemplate]] | `String` | __Default: `undefined`__.  Optional custom location data schema (eg: `{ "lat:<%= latitude %>, "lng":<%= longitude %> }`|
   | [[geofenceTemplate]] | `String` | __Default: `undefined`__.  Optional custom geofence data schema (eg: `{ "lat:<%= latitude %>, "lng":<%= longitude %>, "geofence":"<%= geofence.identifier %>:<%= geofence.action %>" }`|
-  | [[autoSync]] | `Boolean` | __Default: `true`__.  If you've enabeld HTTP feature by configuring an [[url]], the plugin will attempt to upload each location to your server **as it is recorded**.|
+  | [[autoSync]] | `Boolean` | __Default: `true`__.  If you've enabled HTTP feature by configuring an [[url]], the plugin will attempt to upload each location to your server **as it is recorded**.|
   | [[autoSyncThreshold]] | `Integer` | __Default: `0`__.  The minimum number of persisted records to trigger an [[autoSync]] action. |
   | [[batchSync]] | `Boolean` | __Default: `false`__.  If you've enabled HTTP feature by configuring an [[url]], [[batchSync]]: true will POST all the locations currently stored in native SQLite datbase to your server in a single HTTP POST request.|
   | [[maxBatchSize]] | `Integer` | __Default: `-1`__.  If you've enabled HTTP feature by configuring an [[url]] and [[batchSync]]: true, this parameter will limit the number of records attached to each batch.|
@@ -120,7 +120,7 @@ declare module "react-native-background-geolocation" {
 
   | Option      | Type      | Note                              |
   |-------------|-----------|-----------------------------------|
-  | [[stopOnTerminate]] | `Boolean` |  __Default: `true`__.  Set `false` to continue tracking after user teminates the app. |
+  | [[stopOnTerminate]] | `Boolean` |  __Default: `true`__.  Set `false` to continue tracking after user terminates the app. |
   | [[startOnBoot]] | `Boolean` | __Default: `false`__.  Set to `true` to enable background-tracking after the device reboots. |
   | [[heartbeatInterval]] | `Integer` | __Default: `60`__.  Rate in **seconds** to fire [[BackgroundGeolocation.onHeartbeat]] events. |
   | [[schedule]] | `Array` | __Default: `undefined`__.  Defines a schedule to automatically start/stop tracking at configured times |
@@ -210,7 +210,7 @@ declare module "react-native-background-geolocation" {
     * @break
     *
     * ### ℹ️ Note:
-    * - To disable this behaviour, configure [[disableElasticity]] __`true`__.
+    * - To disable this behavior, configure [[disableElasticity]] __`true`__.
     * - To control the scale of the automatic `distanceFilter` calculation, see [[elasticityMultiplier]]
     *
     * `distanceFilter` is auto-scaled by rounding speed to the nearest `5 m/s` and adding `distanceFilter` meters for each `5 m/s` increment.
@@ -322,7 +322,7 @@ declare module "react-native-background-geolocation" {
     * The radius around current location to query for geofences to activate monitoring upon.
     *
     * The default and *minimum* is `1000` meters.  See related event [[BackgroundGeolocation.onGeofencesChange]].  When using Geofences, the
-    * plugin activates only thoses in proximity (the maximim geofences allowed to be simultaneously monitored is limited by the platform,
+    * plugin activates only those in proximity (the maximum geofences allowed to be simultaneously monitored is limited by the platform,
     * where **iOS** allows only 20 and **Android**.  However, the plugin allows you to create as many geofences as you wish (thousands even).
     * It stores these in its database and uses spatial queries to determine which **20** or **100** geofences to activate.
     *
@@ -330,7 +330,7 @@ declare module "react-native-background-geolocation" {
     *
     * ### ℹ️ See also:
     * - 📘 [[Geofence]] Guide.
-    * - [View animation of this behaviour](https://www.transistorsoft.com/shop/products/assets/images/background-geolocation-infinite-geofencing.gif)
+    * - [View animation of this behavior](https://www.transistorsoft.com/shop/products/assets/images/background-geolocation-infinite-geofencing.gif)
     *
     * ![](https://dl.dropboxusercontent.com/s/7sggka4vcbrokwt/geofenceProximityRadius_iphone6_spacegrey_portrait.png?dl=1)
     */
@@ -431,7 +431,7 @@ declare module "react-native-background-geolocation" {
     *
     * ### iOS
     *
-    * Disables the accelerometer-based **Stop-detection System**.  When disabled, the plugin will use the default iOS behaviour of automatically
+    * Disables the accelerometer-based **Stop-detection System**.  When disabled, the plugin will use the default iOS behavior of automatically
     * turning off location-services when the device has stopped for **exactly 15 minutes**.  When disabled, you will no longer have control over [[stopTimeout]].
     *
     * To *completely* disable automatically turning off iOS location-services, you must also provide [[pausesLocationUpdatesAutomatically]] __`false`__.
@@ -729,9 +729,9 @@ declare module "react-native-background-geolocation" {
     * Immediately upload each recorded location to your configured [[url]].
     * @break
     *
-    * Default is `true`.  If you've enabeld HTTP feature by configuring an [[url]], the plugin will attempt to HTTP POST each location to your
+    * Default is `true`.  If you've enabled HTTP feature by configuring an [[url]], the plugin will attempt to HTTP POST each location to your
     * server **as soon as it is recorded**.  If you set [[autoSync]] __`false`__, it's up to you to **manually** execute the
-    * [[BackgroundGeolocation.sync]] method to initate the HTTP POST &mdash; the SDK will continue to persist **every** recorded location in the
+    * [[BackgroundGeolocation.sync]] method to initiate the HTTP POST &mdash; the SDK will continue to persist **every** recorded location in the
     * SQLite database until you execute [[BackgroundGeolocation.sync]].
     *
     * @example
@@ -759,7 +759,7 @@ declare module "react-native-background-geolocation" {
     * recorded before executing HTTP requests to your server through your configured [[url]].
     *
     * ℹ️ Configuring [[autoSyncThreshold]] in conjunction with [[batchSync]] __`true`__ **can conserve battery** by reducing the number of HTTP
-    * requets, since HTTP requets consume *far* more energy / second than GPS.
+    * requests, since HTTP requests consume *far* more energy / second than GPS.
     *
     * @example
     * ```typescript
@@ -785,7 +785,7 @@ declare module "react-native-background-geolocation" {
     * POST multiple locations to your [[url]] in a single HTTP request.
     *
     * Default is **`false`**.  If you've enabled HTTP feature by configuring an [[url]], [[batchSync]] __`true`__ will POST *all* the locations
-    * currently stored in native SQLite datbase to your server in a single HTTP POST request.  With [[batchSync]] __`false`__, an HTTP POST
+    * currently stored in native SQLite database to your server in a single HTTP POST request.  With [[batchSync]] __`false`__, an HTTP POST
     * request will be initiated for **each** location in database.
     *
     * #### __`batchSync: true`__ &mdash; All accumulated locations POSTed in 1 HTTP request.
@@ -856,7 +856,7 @@ declare module "react-native-background-geolocation" {
     * Optional custom template for rendering [[Location]] JSON request data in HTTP requests.
     * @break
     *
-    * The [[locationTemplate]] will be evaulated for variables using Ruby `erb`-style tags:
+    * The [[locationTemplate]] will be evaluated for variables using Ruby `erb`-style tags:
     *
     * ```bash
     * <%= variable_name %>
@@ -942,7 +942,7 @@ declare module "react-native-background-geolocation" {
     * | `latitude`            | `Float`  |             |
     * | `longitude`           | `Float`  |             |
     * | `speed`               | `Float`  | Meters      |
-    * | `heading`             | `Float`  | Degress     |
+    * | `heading`             | `Float`  | Degrees     |
     * | `accuracy`            | `Float`  | Meters      |
     * | `altitude`            | `Float`  | Meters      |
     * | `altitude_accuracy`   | `Float`  | Meters      |
@@ -968,7 +968,7 @@ declare module "react-native-background-geolocation" {
     *
     * The `geofenceTemplate` is similar to [[locationTemplate]] with the addition of two extra `geofence.*` tags.
     *
-    * The `geofenceTemplate` will be evaulated for variables using Ruby `erb`-style tags:
+    * The `geofenceTemplate` will be evaluated for variables using Ruby `erb`-style tags:
     *
     * ```bash
     * <%= variable_name %>
@@ -1036,7 +1036,7 @@ declare module "react-native-background-geolocation" {
     * | `latitude`            | `Float`  |             |
     * | `longitude`           | `Float`  |             |
     * | `speed`               | `Float`  | Meters      |
-    * | `heading`             | `Float`  | Degress     |
+    * | `heading`             | `Float`  | Degrees     |
     * | `accuracy`            | `Float`  | Meters      |
     * | `altitude`            | `Float`  | Meters      |
     * | `altitude_accuracy`   | `Float`  | Meters      |
@@ -1070,6 +1070,26 @@ declare module "react-native-background-geolocation" {
     */
     maxRecordsToPersist?: number;
 
+    /**
+    * Allows you to specify which events to persist to the SDK's internal database:  locations | geofences | all (default).
+    *
+    * Note that all recorded location and geofence events will *always* be provided to your [BackgroundGeolocation.onLocation] and [BackgroundGeolocation.onGeofence] events, just that the
+    * persistence of those events in the SDK's internal SQLite database can be limited.  Any event which has not been persisted to the SDK's internal database
+    * will also **not** therefore be uploaded to your [url] (if configured).
+    *
+    * | Name                                 | Description                                             |
+    * |--------------------------------------|---------------------------------------------------------|
+    * | [[BackgroundGeolocation.PERSIST_MODE_ALL]]                   | (__DEFAULT__) Persist both geofence and location events |
+    * | [[BackgroundGeolocation.PERSIST_MODE_LOCATION]]              | Persist only location events (ignore geofence events)   |
+    * | [[BackgroundGeolocation.PERSIST_MODE_GEOFENCE]]              | Persist only geofence events (ignore location events)   |
+    * | [[BackgroundGeolocation.PERSIST_MODE_NONE]]                  | Persist nothing (neither geofence nor location events)  |
+    *
+    * ### ⚠️ Warning
+    * This option is designed for specializd use-cases and should generally not be used.  For example, some might wish to
+    * run the plugin in regular tracking mode with [[BackgroundGeolocation.start]] but only record geofence events.  In this case,
+    * one would configure `persistMode: BackgroundGeolocation.PERSIST_MODE_GEOFENCE`.
+    */
+    persistMode?: boolean;
     /**
     * Controls the order that locations are selected from the database (and uploaded to your server).
     *
@@ -1113,7 +1133,7 @@ declare module "react-native-background-geolocation" {
     * to continue tracking after application terminate.
     *
     * If you *do* configure **`stopOnTerminate: false`**, your application **will** terminate at that time.  However, both Android and iOS differ
-    * in their behaviour *after* this point:
+    * in their behavior *after* this point:
     *
     * ### iOS
     *
@@ -1291,6 +1311,29 @@ declare module "react-native-background-geolocation" {
     *   ]
     * ```
     *
+    * ## Scheduling Geofences-only or Location + Geofences Tracking
+    *
+    * You can choose to schedule either geofences-only ([[BackgroundGeolocation.startGeofences]]) or location + geofences ([[BackgroundGeolocation.start]]) tracking with each configured schedule by appending the text `geofence` or `location` (default):
+    *
+    * In the following schedule, the SDK will engage *location + geofences* tracking between 9am to 5pm.  From 6pm to midnight, only *geofences* will be monitored.
+    *
+    * ```javascript
+    * schedule: [
+    *   "1-7 09:00-17:00 location",
+    *   "1-7 18:00-12:00 geofence"
+    * ]
+    * ```
+    *
+    * Since `location` is the default tracking-mode, it can be omitted:
+    *
+    * ```javascript
+    * schedule: [
+    *   "1-7 09:00-10:00",  // <-- location is default
+    *   "1-7 10:00-11:00 geofence"
+    *   "1-7 12:00-13:00",
+    *   "1-7 13:00-14:00 geofence"
+    * ```
+    *
     * ### iOS
     *
     * - iOS **cannot** evaluate the Schedule at the *exact* time you configure &mdash; it can only evaluate the **`schedule`** *periodically*, whenever your app comes alive.
@@ -1430,7 +1473,7 @@ declare module "react-native-background-geolocation" {
     * Forces [[BackgroundGeolocation.ready]] to apply supplied [[Config]] with each application launch.
     * @break
     *
-    * Optionally, you can specify **`reset: true`** to [[BackgroundGeolocation.ready]].  This will esentially *force* the supplied [[Config]]
+    * Optionally, you can specify **`reset: true`** to [[BackgroundGeolocation.ready]].  This will essentially *force* the supplied [[Config]]
     * to be applied with each launch of your application.
     *
     *
@@ -1440,7 +1483,7 @@ declare module "react-native-background-geolocation" {
     *   reset: true,  // <-- set true to ALWAYS apply supplied config; not just at first launch.
     *   distanceFilter: 50
     * }, (state) => {
-    *   conosle.log('Ready with reset: true: ', state.distanceFilter);
+    *   console.log('Ready with reset: true: ', state.distanceFilter);
     * });
     * ```
     */
@@ -1452,7 +1495,7 @@ declare module "react-native-background-geolocation" {
     *
     * Defaults to `false`.  Set `true` in order to disable constant background-tracking and use only the iOS [Significant Changes API](https://developer.apple.com/reference/corelocation/cllocationmanager/1423531-startmonitoringsignificantlocati?language=objc).
     *
-    *  ⚠️ If Apple has rejected your application, refusing to grant your app the privelege of using the **`UIBackgroundMode: "location"`**, this can be a solution.
+    *  ⚠️ If Apple has rejected your application, refusing to grant your app the privilege of using the **`UIBackgroundMode: "location"`**, this can be a solution.
     *
     *  ℹ️ The Significant Changes API will report a location only every `500` to `1000` meters (can be higher in non urban environments; depends upon the spacing of Cellular towers).  Many of the plugin's configuration parameters **will be ignored**, such as [[distanceFilter]], [[stationaryRadius]], [[activityType]], etc.
     */
@@ -1463,9 +1506,9 @@ declare module "react-native-background-geolocation" {
     * @break
     *
     * ### ⚠️ Warning:
-    * - This option should generally be left `undefined`.  You should only specifiy this option if you know *exactly* what you're doing.
+    * - This option should generally be left `undefined`.  You should only specify this option if you know *exactly* what you're doing.
     *
-    * The default behaviour of the plugin is to turn **off** location-services *automatically* when the device is detected to be stationary for [[stopTimeout]] minutes.  When set to `false`, location-services will **never** be turned off (and [[disableStopDetection]] will automatically be set to `true`) &mdash; it's your responsibility to turn them off when you no longer need to track the device.  This feature should **not** generally be used.  [[preventSuspend]] will no longer work either.
+    * The default behavior of the plugin is to turn **off** location-services *automatically* when the device is detected to be stationary for [[stopTimeout]] minutes.  When set to `false`, location-services will **never** be turned off (and [[disableStopDetection]] will automatically be set to `true`) &mdash; it's your responsibility to turn them off when you no longer need to track the device.  This feature should **not** generally be used.  [[preventSuspend]] will no longer work either.
     */
     pausesLocationUpdatesAutomatically?: boolean;
 
@@ -1516,7 +1559,7 @@ declare module "react-native-background-geolocation" {
     *
     * You will be responsible for handling disabled location authorization by listening to the [[BackgroundGeolocation.onProviderChange]] event.
     *
-    * By default, the plugin automatically shows a native alert (configured via [[locationAuthorizationAlert]] and [[locationAuthorizationRequest]] to the user when location-services are disabled, directing them to the settings screen.  If you **do not** desire this automated behaviour, set `disableLocationAuthorizationAlert: true`.
+    * By default, the plugin automatically shows a native alert (configured via [[locationAuthorizationAlert]] and [[locationAuthorizationRequest]] to the user when location-services are disabled, directing them to the settings screen.  If you **do not** desire this automated behavior, set `disableLocationAuthorizationAlert: true`.
     *
     *
     * @example
@@ -1583,7 +1626,7 @@ declare module "react-native-background-geolocation" {
     *
     * ### ⚠️ Warning:
     * - The plugin is **HIGHLY** optimized for motion-activity-updates.  If you **do** disable this, the plugin *will* drain more battery power.  You are **STRONGLY** advised against disabling this.  You should explain to your users with an appropriate `NSMotionUsageDescription` in your `Info.plist` file, for example:
-    * > "Motion activity detection increases battery efficiency by intelligently toggling location-tracking" off when your device is detected to be stationry.
+    * > "Motion activity detection increases battery efficiency by intelligently toggling location-tracking" off when your device is detected to be stationary.
     *
     * ### ℹ️ Note:
     * - This feature will ask the user for "Health updates" permission using the **`NSMotionUsageDescription`** in your `Info.plist`.  If you do not wish to ask the user for the "Health updates", set this option to `true`; However, you will no longer receive accurate activity data in the recorded locations.
@@ -1596,7 +1639,7 @@ declare module "react-native-background-geolocation" {
     *
     * Defaults to **`false`**.  Set **`true`** to prevent **iOS** from suspending your application after location-services have been switched off while running in the background.  Must be used in conjunction with a [[heartbeatInterval]].
     * ### ⚠️ Warning:
-    * - __`preventSuspend: true`__ should **only** be used in **very** specific use-cases and should typically **not** be used as it *will* have a **very noticable impact on battery performance.**  You should carefully manage **`preventSuspend`**, engaging it for controlled periods-of-time.  You should **not** expect to run your app in this mode 24 hours / day, 7 days-a-week.
+    * - __`preventSuspend: true`__ should **only** be used in **very** specific use-cases and should typically **not** be used as it *will* have a **very noticeable impact on battery performance.**  You should carefully manage **`preventSuspend`**, engaging it for controlled periods-of-time.  You should **not** expect to run your app in this mode 24 hours / day, 7 days-a-week.
     * - When a device is unplugged form power with the screen off, iOS will *still* throttle [[BackgroundGeolocation.onHeartbeat]] events about 2 minutes after entering the background state.  However, if the screen is lit up or even the *slightest* device-motion is detected, [[BackgroundGeolocation.onHeartbeat]] events will immediately resume.
     *
     * @example
@@ -1677,7 +1720,7 @@ declare module "react-native-background-geolocation" {
     * __`[Android only]`__ Allow recording locations which are duplicates of the previous.
     * @break
     *
-    * By default, the Android plugin will ignore a received location when it is *identical* to the previous location.  Set `true` to override this behaviour and record *every* location, regardless if it is identical to the last location.
+    * By default, the Android plugin will ignore a received location when it is *identical* to the previous location.  Set `true` to override this behavior and record *every* location, regardless if it is identical to the last location.
     *
     * In the logs, you will see a location being ignored:
     * ```
@@ -1713,6 +1756,16 @@ declare module "react-native-background-geolocation" {
     enableTimestampMeta?: boolean;
 
     /**
+    * __`Android-only`__ Experimental filter to ignore anomalous locations that suddenly jump an unusual distance from last.
+    * The SDK will calculate an apparent speed and distance relative to last known location.  If the location suddenly
+    * teleports from last location, it will be ignored.
+    *
+    * The measurement is in meters/second.  The default is to throw away any location which apparently moved at 300 meters/second from last known location.
+    */
+    speedJumpFilter?: number;
+
+    /**
+
     * __`[Android-only]`__ Configures a comma-separated list of motion-activities which are allow to trigger location-tracking.
     * @break
     *
@@ -1773,7 +1826,7 @@ declare module "react-native-background-geolocation" {
     *
     * Defaults to **`false`**.  When the Android OS is under memory pressure from other applications (eg: a phone call), the OS can and will free up memory by terminating other processes and scheduling them for re-launch when memory becomes available.  If you find your tracking being **terminated unexpectedly**, *this* is why.
     *
-    * If you set this option to **`true`**, the plugin will run its Android service in the foreground, **supplying the ongoing notification to be shown to the user while in this state**.  Running as a foreground-service makes the tracking-service **much** more inmmune to OS killing it due to memory/battery pressure.  By default services are background, meaning that if the system needs to kill them to reclaim more memory (such as to display a large page in a web browser).
+    * If you set this option to **`true`**, the plugin will run its Android service in the foreground, **supplying the ongoing notification to be shown to the user while in this state**.  Running as a foreground-service makes the tracking-service **much** more immune to OS killing it due to memory/battery pressure.  By default services are background, meaning that if the system needs to kill them to reclaim more memory (such as to display a large page in a web browser).
     *
     * ### ℹ️ See also:
     * - [[notificationTitle]]

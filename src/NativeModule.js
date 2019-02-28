@@ -98,6 +98,22 @@ export default class NativeModule {
     });
   }
 
+  static requestPermission() {
+    return new Promise((resolve, reject) => {
+      let success = (status) => { resolve(status) }
+      let failure = (status) => { reject(status) }
+      RNBackgroundGeolocation.requestPermission(success, failure);
+    });
+  }
+
+  static getProviderState() {
+    return new Promise((resolve, reject) => {
+      let success = (state) => { resolve(state) }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.getProviderState(success, failure);
+    });
+  }
+
   static setConfig(config) {
     return new Promise((resolve, reject) => {
       let success = (state) => { resolve(state) }

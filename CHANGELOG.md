@@ -1,5 +1,10 @@
 # Change Log
 
+## [3.0.0-beta.3] - 2019-03-02
+- [Changed] Improve trackingMode state-changes between location -> geofences-only.
+- [Changed] Improvements to geofences-only tracking.
+- [Changed] Improvements to stationary-geofence monitoring, detecting mock locations to prevent stopTimeout triggering.
+
 ## [3.0.0-beta.2] - 2019-02-28
 - [Changed] Tweaking stationary region monitoring.
 - [Changed] Tweaking bad vendor detection to force stopTimeout timer when device is stationary for long periods and motion api hasn't respon

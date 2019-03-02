@@ -1,5 +1,8 @@
 # Change Log
 
+## [3.0.0-beta.4] - 2019-03-02
+- [Fixed] Android bug in Config dirty-fields mechanism.
+
 ## [3.0.0-beta.3] - 2019-03-02
 - [Changed] Improve trackingMode state-changes between location -> geofences-only.
 - [Changed] Improvements to geofences-only tracking.

@@ -320,14 +320,21 @@ export default class BackgroundGeolocation {
   }
   /**
   * Signal to iOS that your background-task from #startBackgroundTask is complete
+  * TODO Rename native method #finish -> #stopBackgroundTask.
   */
-  static finish(taskId,  success, failure) {
+  static stopBackgroundTask(taskId,  success, failure) {
     // No taskId?  Ignore it.
     if (arguments.length == 1) {
-      return NativeModule.finish(taskId);
+      return NativeModule.stopBackgroundTask(taskId);
     } else {
-      NativeModule.finish(taskId).then(success).catch(failure);
+      NativeModule.stopBackgroundTask(taskId).then(success).catch(failure);
     }
+  }
+  /**
+  * @deprecated Use #stopBackgroundTask
+  */
+  static finish(taskId, success, failure) {
+    this.stopBackgroundTask.apply(this, arguments);
   }
   /**
   * Toggle motion-state between stationary <-> moving

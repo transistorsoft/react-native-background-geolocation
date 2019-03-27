@@ -9,11 +9,28 @@ def DEFAULT_SUPPORT_LIB_VERSION                     = "28.0.0"
 // Plugin dependencies
 def DEFAULT_GOOGLE_PLAY_SERVICES_LOCATION_VERSION   = "16.0.0"
 def DEFAULT_OK_HTTP_VERSION                         = "3.12.1"
-def DEFAULT_ANDROID_PERMISSIONS_VERSION             = "0.1.7"
+def DEFAULT_ANDROID_PERMISSIONS_VERSION             = "0.1.8"
 def DEFAULT_EVENTBUS_VERSION                        = "3.0.0"
+def DEFAULT_REMOVE_DEBUG_SOUNDS_IN_RELEASE          = true
 
 def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
+/**
+ * Purge all 1.3M of .mp3 / .wav debug sounds from release apk.
+ */
+def purgeDebugSounds(libraryVariants) {
+    libraryVariants.all { variant ->
+        variant.outputs.each { output ->
+            // remove all mp3 and wav files from resources
+            if (variant.buildType.name == 'release') {
+                variant.mergeResources.doLast {
+                    delete(fileTree(dir: variant.mergeResources.outputDir, includes: ['*mp3*', '*wav*']))
+                }
+            }
+        }
+    }
 }
 
 android {
@@ -25,6 +42,13 @@ android {
         targetSdkVersion safeExtGet('targetSdkVersion', DEFAULT_TARGET_SDK_VERSION)
         versionCode 1
         versionName "1.0"
+    }
+
+    def removeDebugSounds = safeExtGet('removeBackgroundGeolocationDebugSoundsInRelase', DEFAULT_REMOVE_DEBUG_SOUNDS_IN_RELEASE)
+
+    print("**************** removeSounds: ${removeDebugSounds}")
+    if (removeDebugSounds) {
+        purgeDebugSounds(libraryVariants)
     }
 }
 

@@ -1,5 +1,153 @@
 # Change Log
 
+## [3.0.0-rc.1] - 2019-03-27
+
+------------------------------------------------------------------------------
+### :warning: Breaking Changes
+
+#### [Changed] The license format has changed.  New `3.0.0` licenses are now available for customers in the [product dashboard](https://www.transistorsoft.com/shop/customers).
+![](https://dl.dropbox.com/s/3ohnvl9go4mi30t/Screenshot%202019-03-26%2023.07.46.png?dl=1)
+
+- For versions `< 3.0.0`, use *old* license keys.
+- For versions `>= 3.0.0`, use *new* license keys.
+
+#### [Changed] Proguard Rules.
+- For those minifying their generated Android APK by enabling the following in your `app/build.gradle`,
+
+```
+/**
+ * Run Proguard to shrink the Java bytecode in release builds.
+ */
+def enableProguardInReleaseBuilds = true
+```
+
+You must add the following line to your `proguard-rules.pro`:
+```
+-keepnames class com.facebook.react.ReactActivity
+```
+
+See the full required Proguard config in the Android Setup Doc.
+
+
+------------------------------------------------------------------------------
+
+### Fixes
+- [Fixed] Logic bugs in MotionActivity triggering between *stationary* / *moving* states.
+- [Fixed] Remove iOS react-native `#include` cruft `if __has_include(“XXX.h”)` for support RN libs during their transition to using Frameworks.  Fixes #669.
+- [Fixed] iOS crash with configured `schedule`: `index 2 beyond bounds [0 .. 1]' was thrown`.  Fixes #666.
+- [Fixed] `NullPointerException in logger`.  References #661.
+
+### New Features
+
+- [Added] Android implementation for `useSignificantChangesOnly` Config option.  Will request Android locations **without the persistent foreground service**.  You will receive location updates only a few times per hour:
+
+#### `useSignificantChangesOnly: true`:
+![](https://dl.dropboxusercontent.com/s/wdl9e156myv5b34/useSignificantChangesOnly.png?dl=1)
+
+#### `useSignificantChangesOnly: false`:
+![](https://dl.dropboxusercontent.com/s/hcxby3sujqanv9q/useSignificantChangesOnly-false.png?dl=1)
+
+- [Added] Android now implements a "stationary geofence", just like iOS.  It currently acts as a secondary triggering mechanism along with the current motion-activity API.  You will hear the "zap" sound effect when it triggers.  This also has the fortunate consequence of allowing mock-location apps (eg: Lockito) of being able to trigger tracking automatically.
+
+- [Added] The SDK detects mock locations and skips trigging the `stopTimeout` system, improving location simulation workflow.
+- [Added] Android-only Config option `geofenceModeHighAccuracy` for more control over geofence triggering responsiveness.  Runs a foreground-service during geofences-only mode (`#startGeofences`).  This will, of course, consume more power.
+```dart
+await BackgroundGeolocation.ready({
+  geofenceModeHighAccuracy: true,
+  desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_MEDIUM,
+  locationUpdateInterval: 5000,
+  distanceFilter: 50
+));
+
+BackgroundGeolocation.startGeofences();
+```
+
+#### `geofenceModeHighAccuracy: false` (Default)
+
+- Transition events are delayed in favour of lower power consumption.
+
+![](https://dl.dropboxusercontent.com/s/6nxbuersjcdqa8b/geofenceModeHighAccuracy-false.png?dl=1)
+
+#### `geofenceModeHighAccuracy: true`
+
+- Transition events are nearly instantaneous at the cost of higher power consumption.
+
+![](https://dl.dropbox.com/s/w53hqn7f7n1ug1o/geofenceModeHighAccuracy-true.png?dl=1)
+
+- [Added] Android implementation of `startBackgroundTask` / `stopBackgroundTask`.
+```dart
+  int taskId = await BackgroundGeolocation.startBackgroundTask();
+
+  // Do any work you like -- it's guaranteed to run, regardless of background/terminated.
+  // Your task has exactly 30s to do work before the service auto-stops itself.
+
+  getDataFromServer('https://foo.bar.com').then((result) => {
+    // Be sure to always signal completion of your taskId.
+    BackgroundGeolocation.stopBackgroundTask(taskId);
+  }).catch((error) => {
+    // Be sure to always signal completion of your taskId.
+    BackgroundGeolocation.stopBackgroundTask(taskId);
+  });
+```
+Logging for Android background-tasks looks like this (when you see an hourglass, a foreground-service is active)
+```
+ [BackgroundTaskManager onStartJob] ⏳ startBackgroundTask: 6
+ .
+ .
+ .
+ [BackgroundTaskManager$Task stop] ⏳ stopBackgroundTask: 6
+```
+- [Added] New custom Android debug sound FX.  See the [Config.debug](https://transistorsoft.github.io/cordova-background-geolocation/interfaces/_cordova_background_geolocation_.config.html#debug) for a new decription of iOS / Android sound FX **including a media player to play each.**
+![](https://dl.dropbox.com/s/zomejlm9egm1ujl/Screenshot%202019-03-26%2023.10.50.png?dl=1)
+
+:warning: These debug sound FX consume about **1.4MB** in the plugin's `tslocationmanager.aar`.  These assets can easily be stripped in your `release` builds by adding the following gradle task to your `app/build.gradle` (I'm working on an automated solution within the context of the plugin's `build.gradle`; so far, no luck).  [Big thanks](https://github.com/transistorsoft/react-native-background-geolocation-android/issues/667#issuecomment-475928108) to @mikehardy.
+```gradle
+/**
+ * Purge Background Geolocation debug sounds from release build.
+ */
+def purgeBackgroundGeolocationDebugResources(applicationVariants) {
+    applicationVariants.all { variant ->
+        if (variant.buildType.name == 'release') {
+            variant.mergeResources.doLast {
+                delete(fileTree(dir: variant.mergeResources.outputDir, includes: ['raw_tslocationmanager*']))
+
+            }
+        }
+    }
+}
+
+android {
+    //Remove debug sounds from BackgroundGeolocation plugin
+    purgeBackgroundGeolocationDebugResources(applicationVariants)
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    .
+    .
+    .
+}
+```
+
+### Removed
+- [Changed] Removed Android config option **`activityRecognitionInterval`** and **`minimumActivityRecognitionConfidence`**.  The addition of the new "stationary geofence" for Android should alleviate issues with poor devices failing to initiate tracking.  The Android SDK now uses the more modern [ActivityTransistionClient](https://medium.com/life360-engineering/beta-testing-googles-new-activity-transition-api-c9c418d4b553) API which is a higher level wrapper for the traditional [ActivityReconitionClient](https://developers.google.com/android/reference/com/google/android/gms/location/ActivityRecognitionClient).  `AcitvityTransitionClient` does not accept a polling `interval`, thus `actiivtyRecognitionInterval` is now unused.  Also, `ActivityTransitionClient` emits similar `on_foot`, `in_vehicle` events but no longer provides a `confidence`, thus `confidence` is now reported always as `100`.  If you've been implementing your own custom triggering logic based upon `confidence`, it's now pointless.  The `ActivityTransitionClient` will open doors for new features based upon transitions between activity states.
+
+```
+╔═════════════════════════════════════════════
+║ Motion Transition Result
+╠═════════════════════════════════════════════
+╟─ 🔴  EXIT: walking
+╟─ 🎾  ENTER: still
+╚═════════════════════════════════════════════
+```
+
+### Maintenance
+- [Changed] Update `android-permissions` dependency to `0.1.8`.
+
+## [3.0.0-beta.5] - 2019-03-20
+- [Fixed] Logic bugs in MotionActivity triggering between *stationary* / *moving* states.
+- [Added] Android-only Config option `geofenceModeHighAccuracy` for more control over geofence triggering accuracy.  Runs a foreground-service during geofences-only mode (`#startGeofences`).
+- [Added] Android implementation for `useSignificantChangesOnly` Config option.  Will request Android locations **without the persistent foreground service**.  You will receive location updates only a few times per hour.
+- [Changed] Update `android-permissions` dependency to `0.1.8`.
+
 ## [3.0.0-beta.4] - 2019-03-02
 - [Fixed] Android bug in Config dirty-fields mechanism.
 

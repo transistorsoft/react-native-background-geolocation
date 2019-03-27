@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.0-beta.3</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.0-rc.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -128,6 +128,11 @@ BackgroundGeolocation.setConfig({
 										<td><code>Integer</code></td>
 										<td><strong>Default: <code>100</code></strong>.  Location accuracy threshold in <strong>meters</strong> for odometer calculations.</td>
 									</tr>
+									<tr>
+										<td><a href="_react_native_background_geolocation_.config.html#usesignificantchangesonly">useSignificantChangesOnly</a></td>
+										<td><code>Boolean</code></td>
+										<td><strong>Default: <code>false</code></strong>.  Defaults to <code>false</code>.  Set <code>true</code> in order to disable constant background-tracking.  A location will be recorded only several times / hour.</td>
+									</tr>
 							</tbody></table>
 							<h3 id="-geolocation-ios-options">[Geolocation] iOS Options</h3>
 							<table>
@@ -142,11 +147,6 @@ BackgroundGeolocation.setConfig({
 										<td><a href="_react_native_background_geolocation_.config.html#stationaryradius">stationaryRadius</a></td>
 										<td><code>Integer</code></td>
 										<td><strong>Default: <code>25</code></strong>.  When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage.</td>
-									</tr>
-									<tr>
-										<td><a href="_react_native_background_geolocation_.config.html#usesignificantchangesonly">useSignificantChangesOnly</a></td>
-										<td><code>Boolean</code></td>
-										<td><strong>Default: <code>false</code></strong>.  Defaults to <code>false</code>.  Set <code>true</code> in order to disable constant background-tracking and use only the iOS <a href="https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html#//apple_ref/occ/instm/CLLocationManager/startMonitoringSignificantLocationChanges">Significant Changes API</a>.</td>
 									</tr>
 									<tr>
 										<td><a href="_react_native_background_geolocation_.config.html#locationauthorizationrequest">locationAuthorizationRequest</a></td>
@@ -205,19 +205,9 @@ BackgroundGeolocation.setConfig({
 									</tr>
 								</thead>
 								<tbody><tr>
-										<td><a href="_react_native_background_geolocation_.config.html#activityrecognitioninterval">activityRecognitionInterval</a></td>
-										<td><code>Integer</code></td>
-										<td><strong>Default: <code>10000</code></strong>.  The desired time between activity detections. Larger values will result in fewer activity detections while improving battery life. A value of <code>0</code> will result in activity detections at the fastest possible rate.</td>
-									</tr>
-									<tr>
 										<td><a href="_react_native_background_geolocation_.config.html#stoptimeout">stopTimeout</a></td>
 										<td><code>Integer</code></td>
 										<td><strong>Default: <code>5</code></strong>.  The number of <strong>minutes</strong> to wait before turning off location-services after the ActivityRecognition System (ARS) detects the device is <code>STILL</code></td>
-									</tr>
-									<tr>
-										<td><a href="_react_native_background_geolocation_.config.html#minimumactivityrecognitionconfidence">minimumActivityRecognitionConfidence</a></td>
-										<td><code>Integer</code></td>
-										<td><strong>Default: <code>75</code></strong>.  Each activity-recognition-result returned by the API is tagged with a &quot;confidence&quot; level expressed as a <code>%</code>.  You can set your desired confidence to trigger a state-change.</td>
 									</tr>
 									<tr>
 										<td><a href="_react_native_background_geolocation_.config.html#stopdetectiondelay">stopDetectionDelay</a></td>
@@ -497,6 +487,21 @@ BackgroundGeolocation.setConfig({
 										<td><strong>Default: <code>true</code></strong>.  Set <code>false</code> to disable triggering a geofence immediately if device is already inside it.</td>
 									</tr>
 							</tbody></table>
+							<h3 id="-geofencing-android-options">[Geofencing] Android Options</h3>
+							<table>
+								<thead>
+									<tr>
+										<th>Option</th>
+										<th>Type</th>
+										<th>Note</th>
+									</tr>
+								</thead>
+								<tbody><tr>
+										<td><a href="_react_native_background_geolocation_.config.html#geofencemodehighaccuracy">geofenceModeHighAccuracy</a></td>
+										<td><code>Boolean</code></td>
+										<td><strong>Default: <code>false</code></strong>.  Runs <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a> with a <em>foreground service</em> (along with its corresponding persitent notification).  This will make geofence triggering <strong>far more consistent</strong> at the expense of higher power usage.</td>
+									</tr>
+							</tbody></table>
 							<h2 id="logging-debug-options">Logging &amp; Debug Options</h2>
 							<ul>
 								<li><a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Logging &amp; Debugging Guide</a></li>
@@ -577,6 +582,7 @@ BackgroundGeolocation.setConfig({
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#forcereloadonschedule" class="tsd-kind-icon">force<wbr>Reload<wbr>OnSchedule</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#foregroundservice" class="tsd-kind-icon">foreground<wbr>Service</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#geofenceinitialtriggerentry" class="tsd-kind-icon">geofence<wbr>Initial<wbr>Trigger<wbr>Entry</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#geofencemodehighaccuracy" class="tsd-kind-icon">geofence<wbr>Mode<wbr>High<wbr>Accuracy</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#geofenceproximityradius" class="tsd-kind-icon">geofence<wbr>Proximity<wbr>Radius</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#geofencetemplate" class="tsd-kind-icon">geofence<wbr>Template</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#headers" class="tsd-kind-icon">headers</a></li>
@@ -635,15 +641,9 @@ BackgroundGeolocation.setConfig({
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Controls the sample-rate of the motion activity-recognition system.</p>
-						</div>
 						<dl class="tsd-comment-tags">
-							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>Defaults to <code>10000</code> (10 seconds).  This is primarily an <strong>Android</strong> option, since only Android can constantly monitor the activity-detection API
-									in the background (iOS uses a &quot;stationary geofence&quot; to detect device-motion).  The desired time between activity detections. Larger values
-									will result in fewer activity detections while improving battery life. A value of 0 will result in activity detections at the fastest possible
-								rate.</p>
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd><p>No longer used.</p>
 							</dd>
 						</dl>
 					</div>
@@ -842,14 +842,120 @@ Locations: <span class="hljs-variable">__</span>|<span class="hljs-variable">__<
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>Defaults to <strong><code>false</code></strong>.  When set to <strong><code>true</code></strong>, the plugin will emit debugging sounds and notifications for life-cycle events of <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html">BackgroundGeolocation</a>.</p>
-								<h3 id="ios">iOS</h3>
+								<h2 id="ios">iOS</h2>
 								<p>In you wish to hear debug sounds in the background, you must manually enable the background-mode:</p>
 								<p><strong><code>[x] Audio and Airplay</code></strong> background mode in <em>Background Capabilities</em> of XCode.</p>
-								<p><img src="https://dl.dropboxusercontent.com/s/fl7exx3g8whot9f/enable-background-audio.png?dl=1" alt="">\</p>
-								<h3 id="-see-also-">ℹ️ See also:</h3>
-								<ul>
-									<li><a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debug-Sounds">Debugging Sounds</a></li>
-								</ul>
+								<p><img src="https://dl.dropboxusercontent.com/s/fl7exx3g8whot9f/enable-background-audio.png?dl=1" alt=""></p>
+								<h2 id="event-debug-sound-effects">Event Debug Sound Effects</h2>
+								<table>
+									<thead>
+										<tr>
+											<th>Event</th>
+											<th>iOS</th>
+											<th>Android</th>
+										</tr>
+									</thead>
+									<tbody><tr>
+											<td><code>LOCATION_RECORDED</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/yestzqdb6gzx7an/location-recorded.mp3?dl=0"></audio></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropboxusercontent.com/s/d3e821scn5fppq6/tslocationmanager_ooooiii3_full_vol.wav?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>LOCATION_SAMPLE</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/7inowa0folzlal3/location-sample.mp3?dl=0"></audio></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/8bgiyifowyf9c7n/tslocationmanager_click_tap_done_checkbox5_full_vol.wav?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>LOCATION_ERROR</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/lwmx6j2ddzke1c7/location-error.mp3?dl=0"></audio></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/wadrz2x6elhc65l/tslocationmanager_digi_warn.mp3?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>LOCATION_SERVICES_ON</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/4cith8fg58bf5rh/location-services-on.mp3?dl=0"></audio></td>
+											<td>n/a</td>
+										</tr>
+										<tr>
+											<td><code>LOCATION_SERVICES_OFF</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/vdntndpzl1ebeq2/location-services-off.mp3?dl=0"></audio></td>
+											<td>n/a</td>
+										</tr>
+										<tr>
+											<td><code>STATIONARY_GEOFENCE_EXIT</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/6voj31fmmoqhveb/motionchange-true.mp3?dl=0"></audio></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/gjgv51pot3h2n3t/tslocationmanager_zap_fast.mp3?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>MOTIONCHANGE_FALSE</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/qjduicy3c9d4yfv/motionchange-false.mp3?dl=0"></audio></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/fm4j2t8nqzd5856/tslocationmanager_marimba_drop.mp3?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>MOTIONCHANGE_TRUE</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/6voj31fmmoqhveb/motionchange-true.mp3?dl=0"></audio></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/n5mn6tr7x994ivg/tslocationmanager_chime_short_chord_up.mp3?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>STOP_DETECTION_DELAY_INITIATED</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/34jf8sifr5nkyie/stopDetectionDelay.mp3?dl=0"></audio></td>
+											<td>n/a</td>
+										</tr>
+										<tr>
+											<td><code>STOP_TIMER_ON</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/s6dou5vv55glq5w/stop-timeout-start.mp3?dl=0"></audio></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/q4a9pf0vlztfafh/tslocationmanager_chime_bell_confirm.mp3?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>STOP_TIMER_OFF</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/c39phjw0vogg8lm/stop-timeout-cancel.mp3?dl=0"></audio></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/9o9v826was19lyi/tslocationmanager_bell_ding_pop.mp3?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>HEARTBEAT</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/5rdc38isc8yf323/heartbeat.mp3?dl=0"></audio></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/bsdtw21hscqqy67/tslocationmanager_peep_note1.wav?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>GEOFENCE_ENTER</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/i4hzh4rgmd1lo20/geofence-enter.mp3?dl=0"></audio></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/76up5ik215xwxh1/tslocationmanager_beep_trip_up_dry.mp3?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>GEOFENCE_EXIT</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/nwonzl1ni15qv1k/geofence-exit.mp3?dl=0"></audio></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/xuyyagffheyk8r7/tslocationmanager_beep_trip_dry.mp3?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>GEOFENCE_DWELL_START</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/djlpw2ejaioq0g2/geofence-dwell-start.mp3?dl=0"></audio></td>
+											<td>n/a</td>
+										</tr>
+										<tr>
+											<td><code>GEOFENCE_DWELL_CANCEL</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/37xvre56gz3ro58/geofence-dwell-cancel.mp3?dl=0"></audio></td>
+											<td>n/a</td>
+										</tr>
+										<tr>
+											<td><code>GEOFENCE_DWELL</code></td>
+											<td><code>GEOFENCE_ENTER</code> after <code>GEOFENCE_DWELL_START</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/uw5vjuatm3wnuid/tslocationmanager_beep_trip_up_echo.mp3?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>ERROR</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/13c50fnepyiknnb/error.mp3?dl=0"></audio></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/32e93c1t4kh69p1/tslocationmanager_music_timpani_error_01.mp3?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>WARNING</code></td>
+											<td>n/a</td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/wadrz2x6elhc65l/tslocationmanager_digi_warn.mp3?dl=0"></audio></td>
+										</tr>
+										<tr>
+											<td><code>BACKGROUND_FETCH</code></td>
+											<td><video controls name="media" height="50" width="200"><source src="https://dl.dropbox.com/s/am91js76s0ehjo1/background-fetch.mp3?dl=0"></audio></td>
+											<td>n/a</td>
+										</tr>
+								</tbody></table>
 							</dd>
 						</dl>
 					</div>
@@ -1426,6 +1532,50 @@ BackgroundGeolocation.ready({
 								<ul>
 									<li>📘 <a href="_react_native_background_geolocation_.geofence.html">Geofence</a> Guide.</li>
 								</ul>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="geofencemodehighaccuracy" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> geofence<wbr>Mode<wbr>High<wbr>Accuracy</h3>
+					<div class="tsd-signature tsd-kind-icon">geofence<wbr>Mode<wbr>High<wbr>Accuracy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><strong><code>[Android only]</code></strong> Enable high-accuracy for <strong>geofence-only</strong> mode (See <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">BackgroundGeolocation.startGeofences</a>).</p>
+						</div>
+						<h3 id="-warning-will-consume-more-power-">⚠️ Warning: Will consume more power.</h3>
+						<p>Defaults to <code>false</code>.  Runs Android&#39;s <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">BackgroundGeolocation.startGeofences</a> with a <em>foreground service</em> (along with its corresponding persitent notification;  See <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a> for a list of available notification config options, including <a href="_react_native_background_geolocation_.config.html#notificationtext">notificationText</a>, <a href="_react_native_background_geolocation_.config.html#notificationtitle">notificationTitle</a>).</p>
+						<p>Configuring <code>geofenceModeHighAccuracy: true</code> will make Android geofence triggering <strong>far more responsive</strong>.  In this mode, the usual config options to control location-services will be applied:</p>
+						<ul>
+							<li><a href="_react_native_background_geolocation_.config.html#desiredaccuracy">desiredAccuracy</a> (<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#desired_accuracy_medium">BackgroundGeolocation.DESIRED_ACCURACY_MEDIUM</a> works well).</li>
+							<li><a href="_react_native_background_geolocation_.config.html#locationupdateinterval">locationUpdateInterval</a></li>
+							<li><a href="_react_native_background_geolocation_.config.html#distancefilter">distanceFilter</a></li>
+							<li><a href="_react_native_background_geolocation_.config.html#defertime">deferTime</a></li>
+						</ul>
+						<p>With the default <code>geofenceModeHighAccuracy: false</code>, a device will have to move farther <em>into</em> a geofence before the <em>ENTER</em> event fires and farther <em>out of</em> a geofence before
+						the <em>EXIT</em> event fires.</p>
+						<p>The more aggressive you configure the location-update params above (at the cost of power consumption), the more responsive will be your geofence-triggering.</p>
+						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
+  geofenceModeHighAccuracy: <span class="hljs-literal">true</span>,
+  desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_MEDIUM,
+  locationUpdateInterval: <span class="hljs-number">5000</span>,
+  distanceFilter: <span class="hljs-number">50</span>
+}).then(state) {
+  BackgroundGeolocation.startGeofences();
+});</code></pre>
+							</dd>
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><p><strong><code>geofenceModeHighAccuracy: false</code></strong> (Default) &mdash; Transition events <strong>are delayed</strong>.
+								<img src="https://dl.dropboxusercontent.com/s/6nxbuersjcdqa8b/geofenceModeHighAccuracy-false.png?dl=1" alt=""></p>
+							</dd>
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><p><strong><code>geofenceModeHighAccuracy: true</code></strong> &mdash; Transition events are <strong>nearly instantaneous</strong>.
+								<img src="https://dl.dropbox.com/s/w53hqn7f7n1ug1o/geofenceModeHighAccuracy-true.png?dl=1" alt=""></p>
 							</dd>
 						</dl>
 					</div>
@@ -2292,20 +2442,9 @@ BackgroundGeolocation.ready({
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The minimum motion-activity confidence to conclude a device is moving.</p>
-						</div>
 						<dl class="tsd-comment-tags">
-							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>Defaults to <strong><code>75</code>%</strong>.  Each activity-recognition-result returned by the API is tagged with a &quot;confidence&quot; level expressed as a %.
-								You can set your desired confidence to trigger a <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onmotionchange">BackgroundGeolocation.onMotionChange</a> event.</p>
-								<p>This setting can be helpful for poor quality Android devices missing crucial motion sensors (accelerometer, gyroscope, magnetometer)
-								by adjusting the confidence lower.  You can determine missing sensors on a device using the method <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#getsensors">getSensors</a>.</p>
-							</dd>
-							<dt class="tsd-comment-tag-example">example</dt>
-							<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
-  <span class="hljs-attr">minimumActivityRecognitionConfidence</span>: <span class="hljs-number">50</span> <span class="hljs-comment">// &lt;-- trigger less confidently.</span>
-});</code></pre>
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd><p>No longer used.</p>
 							</dd>
 						</dl>
 					</div>
@@ -2591,7 +2730,7 @@ BackgroundGeolocation.ready({
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="persistmode" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> persist<wbr>Mode</h3>
-					<div class="tsd-signature tsd-kind-icon">persist<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<div class="tsd-signature tsd-kind-icon">persist<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-signature-type">PersistMode</a></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -3174,13 +3313,25 @@ BackgroundGeolocation.ready({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p><strong><code>[iOS only]</code></strong> Engages iOS &quot;significant location changes&quot; API for only periodic location updates every 500-1000 meters.</p>
+							<p>Set <code>true</code> in order to disable constant background-tracking.  Locations will be recorded only periodically.</p>
 						</div>
+						<p>Defaults to <code>false</code>.  A location will be recorded only every <code>500</code> to <code>1000</code> meters (can be higher in non urban environments; depends upon the spacing of Cellular towers).  Many of the plugin&#39;s configuration parameters <strong>will have no effect</strong>, such as <a href="_react_native_background_geolocation_.config.html#distancefilter">distanceFilter</a>, <a href="_react_native_background_geolocation_.config.html#stationaryradius">stationaryRadius</a>, <a href="_react_native_background_geolocation_.config.html#activitytype">activityType</a>, etc.</p>
+						<p>Using <code>significantChangesOnly: true</code> will provide <strong>significant</strong> power-saving at the expense of fewer recorded locations.</p>
+						<h3 id="ios">iOS</h3>
+						<p>Engages the iOS <a href="https://developer.apple.com/reference/corelocation/cllocationmanager/1423531-startmonitoringsignificantlocati?language=objc">Significant Location Changes API</a> API for only periodic location updates every 500-1000 meters.</p>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>Defaults to <code>false</code>.  Set <code>true</code> in order to disable constant background-tracking and use only the iOS <a href="https://developer.apple.com/reference/corelocation/cllocationmanager/1423531-startmonitoringsignificantlocati?language=objc">Significant Changes API</a>.</p>
-								<p> ⚠️ If Apple has rejected your application, refusing to grant your app the privilege of using the <strong><code>UIBackgroundMode: &quot;location&quot;</code></strong>, this can be a solution.</p>
-								<p> ℹ️ The Significant Changes API will report a location only every <code>500</code> to <code>1000</code> meters (can be higher in non urban environments; depends upon the spacing of Cellular towers).  Many of the plugin&#39;s configuration parameters <strong>will be ignored</strong>, such as <a href="_react_native_background_geolocation_.config.html#distancefilter">distanceFilter</a>, <a href="_react_native_background_geolocation_.config.html#stationaryradius">stationaryRadius</a>, <a href="_react_native_background_geolocation_.config.html#activitytype">activityType</a>, etc.</p>
+							<dd><p>⚠️ If Apple has rejected your application, refusing to grant your app the privilege of using the <strong><code>UIBackgroundMode: &quot;location&quot;</code></strong>, this can be a solution.</p>
+								<h3 id="android">Android</h3>
+								<p>A location will be recorded several times per hour while the device is in the <em>moving</em> state.  No foreground-service will be run (nor its corresponding persistent notification).</p>
+							</dd>
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><p><strong><code>useSignificantChanges: true</code></strong>
+								<img src="https://dl.dropboxusercontent.com/s/wdl9e156myv5b34/useSignificantChangesOnly.png?dl=1" alt=""></p>
+							</dd>
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><p><strong><code>useSignificantChanges: false</code> (Default)</strong>
+								<img src="https://dl.dropboxusercontent.com/s/hcxby3sujqanv9q/useSignificantChangesOnly-false.png?dl=1" alt=""></p>
 							</dd>
 						</dl>
 					</div>
@@ -3284,6 +3435,9 @@ BackgroundGeolocation.ready({
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.config.html#geofenceinitialtriggerentry" class="tsd-kind-icon">geofence<wbr>Initial<wbr>Trigger<wbr>Entry</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_react_native_background_geolocation_.config.html#geofencemodehighaccuracy" class="tsd-kind-icon">geofence<wbr>Mode<wbr>High<wbr>Accuracy</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.config.html#geofenceproximityradius" class="tsd-kind-icon">geofence<wbr>Proximity<wbr>Radius</a>

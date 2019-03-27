@@ -235,15 +235,20 @@ export default class NativeModule {
     return new Promise((resolve, reject) => {
       let success = (taskId)  => { resolve(taskId) }
       let failure = (error)   => { reject(error) }
-      RNBackgroundGeolocation.beginBackgroundTask(success);
+      RNBackgroundGeolocation.beginBackgroundTask(success, failure);
     });
   }
 
-  static finish(taskId) {
+  // TODO Rename native methods #finish -> #stopBackgroundTask
+  static stopBackgroundTask(taskId) {
     return new Promise((resolve, reject) => {
-      resolve();
-      if (!taskId) { return }
-      RNBackgroundGeolocation.finish(taskId);
+      if (!taskId) {
+        reject('INVALID_TASK_ID: ' + taskId);
+        return;
+      }
+      let success = (taskId) => { resolve(taskId) }
+      let failure = (error) =>  { reject(error) }
+      RNBackgroundGeolocation.finish(taskId, success, failure);
     });
   }
 

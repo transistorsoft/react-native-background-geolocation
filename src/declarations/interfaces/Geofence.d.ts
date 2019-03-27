@@ -148,6 +148,8 @@ declare module "react-native-background-geolocation" {
   *
   * The BackgroundGeolocation SDK allows you to optionally monitor *only* geofences without constant location-tracking.  To engage *geofences-only* mode, use the method [[startGeofences]] instead of [[start]].
   *
+  * Use option [[Config.geofenceModeHighAccuracy]]:true to improve the responsiveness of geofence events.
+  *
   * @example
   * ```typescript
   * BackgroundGeolocation.onGeofence(geofence => {
@@ -156,7 +158,8 @@ declare module "react-native-background-geolocation" {
   *
   * BackgroundGeolocation.ready({
   *   url: 'http://your.server.com/geofences',
-  *   autoSync: true
+  *   autoSync: true,
+  *   geofenceModeHighAccuracy: true   // <-- consumes more power; default is false.
   * }, state => {
   *   // engage geofences-only mode:
   *   BackgroundGeolocation.startGeofences();

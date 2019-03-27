@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.0-beta.3</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.0-rc.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -336,6 +336,7 @@ BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <sp
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences" class="tsd-kind-icon">start<wbr>Geofences</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#startschedule" class="tsd-kind-icon">start<wbr>Schedule</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#stop" class="tsd-kind-icon">stop</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#stopbackgroundtask" class="tsd-kind-icon">stop<wbr>Background<wbr>Task</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#stopschedule" class="tsd-kind-icon">stop<wbr>Schedule</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#stopwatchposition" class="tsd-kind-icon">stop<wbr>Watch<wbr>Position</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#sync" class="tsd-kind-icon">sync</a></li>
@@ -363,6 +364,8 @@ BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <sp
 									<p>Subscribe to changes in motion activity.</p>
 								</div>
 								<p>Your <code>callback</code> will be executed each time the activity-recognition system receives an event (<code>still, on_foot, in_vehicle, on_bicycle, running</code>).</p>
+								<h3 id="android">Android</h3>
+								<p>Android <a href="../interfaces/_react_native_background_geolocation_.motionactivityevent.html#confidence">MotionActivityEvent.confidence</a> always reports <code>100</code>%.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
 									<dd><pre><code class="language-javascript">BackgroundGeolocation.onActivityChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
@@ -415,6 +418,8 @@ BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <sp
 								</div>
 								<p>Fired when the state of the device&#39;s network-connectivity changes (enabled -&gt; disabled and vice-versa).  By default, the plugin will automatically fire
 								a <code>connectivitychange</code> event with the current state network-connectivity whenever the <a href="_react_native_background_geolocation_.backgroundgeolocation.html#start">start</a> method is executed.</p>
+								<p>ℹ️ The SDK subscribes internally to <code>connectivitychange</code> events &mdash; if you&#39;ve configured the SDK&#39;s HTTP Service (See <a href="../interfaces/_react_native_background_geolocation_.httpevent.html">HttpEvent</a>) and your app has queued locations,
+								the SDK will automatically initiate uploading to your configured <a href="../interfaces/_react_native_background_geolocation_.config.html#url">Config.url</a> when network connectivity is detected.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
 									<dd><pre><code class="language-javascript">BackgroundGeolocation.onConnectivityChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
@@ -1658,28 +1663,19 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 					<a name="finish" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> finish</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">finish<span class="tsd-signature-symbol">(</span>taskId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, success<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span>, failure<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">finish<span class="tsd-signature-symbol">(</span>taskId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, success<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span>, failure<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Signal completion of <a href="_react_native_background_geolocation_.backgroundgeolocation.html#startbackgroundtask">startBackgroundTask</a></p>
-								</div>
-								<p>Sends a signal to the native OS that your long-running task, addressed by <code>taskId</code> provided by <a href="_react_native_background_geolocation_.backgroundgeolocation.html#startbackgroundtask">startBackgroundTask</a> is complete and the OS may proceed
-								to suspend your application if applicable.</p>
 								<dl class="tsd-comment-tags">
-									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.startBackgroundTask().then(<span class="hljs-function">(<span class="hljs-params">taskId</span>) =&gt;</span> {
-  <span class="hljs-comment">// Perform some long-running task (eg: HTTP request)</span>
-  performLongRunningTask.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-comment">// When your long-running task is complete, signal completion of taskId.</span>
-    BackgroundGeolocation.finish(taskId);
-  });
-});</code></pre>
+									<dt class="tsd-comment-tag-alias">alias</dt>
+									<dd><p><a href="_react_native_background_geolocation_.backgroundgeolocation.html#stopbackgroundtask">stopBackgroundTask</a></p>
 									</dd>
+									<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+									<dd></dd>
 								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1694,7 +1690,7 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> failure: <span class="tsd-signature-type">Function</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -2451,7 +2447,7 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 					<a name="playsound" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> play<wbr>Sound</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">play<wbr>Sound<span class="tsd-signature-symbol">(</span>soundId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, success<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span>, failure<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">play<wbr>Sound<span class="tsd-signature-symbol">(</span>soundId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, success<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span>, failure<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -2460,7 +2456,7 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>soundId: <span class="tsd-signature-type">number</span></h5>
+									<h5>soundId: <span class="tsd-signature-type">any</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> success: <span class="tsd-signature-type">Function</span></h5>
@@ -3329,22 +3325,56 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">'location'</span>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Sends a signal to iOS that you wish to perform a long-running task.</p>
+									<p>Sends a signal to OS that you wish to perform a long-running task.</p>
 								</div>
-								<p>iOS will not suspend your app until you signal completion with the <a href="_react_native_background_geolocation_.backgroundgeolocation.html#finish">finish</a> method.  Your callback will be provided with a single parameter <code>taskId</code>
-								which you will send to the <a href="_react_native_background_geolocation_.backgroundgeolocation.html#finish">finish</a> method.</p>
+								<p>The will will keep your running in the background and not suspend it until you signal completion with the <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stopbackgroundtask">stopBackgroundTask</a> method.  Your callback will be provided with a single parameter <code>taskId</code>
+								which you will send to the <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stopbackgroundtask">stopBackgroundTask</a> method.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.startBackgroundTask().then(<span class="hljs-function">(<span class="hljs-params">taskId</span>) =&gt;</span> {
+									<dd><pre><code class="language-javascript">onLocation(location) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[location] '</span>, location);
+
   <span class="hljs-comment">// Perform some long-running task (eg: HTTP request)</span>
-  performLongRunningTask.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-comment">// When your long-running task is complete, signal completion of taskId.</span>
-    BackgroundGeolocation.finish(taskId);
+  BackgroundGeolocation.startBackgroundTask().then(<span class="hljs-function">(<span class="hljs-params">taskId</span>) =&gt;</span> {
+    performLongRunningTask.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      <span class="hljs-comment">// When your long-running task is complete, signal completion of taskId.</span>
+      BackgroundGeolocation.stopBackgroundTask(taskId);
+    }).catch(error) =&gt; {
+      <span class="hljs-comment">// Be sure to catch errors:  never leave you background-task hanging.</span>
+      <span class="hljs-built_in">console</span>.error(error);
+      BackgroundGeolocation.stopBackgroundTask();
+    });
   });
-});</code></pre>
+}</code></pre>
+										<h3 id="ios">iOS</h3>
+										<p>The iOS implementation uses <a href="https://developer.apple.com/documentation/uikit/uiapplication/1623031-beginbackgroundtaskwithexpiratio">beginBackgroundTaskWithExpirationHandler</a></p>
 										<p>⚠️ iOS provides <strong>exactly</strong> 180s of background-running time.  If your long-running task exceeds this time, the plugin has a fail-safe which will
-										automatically <a href="_react_native_background_geolocation_.backgroundgeolocation.html#finish">finish</a> your <strong><code>taskId</code></strong> to prevent the OS from force-killing your application.</p>
-									</dd>
+										automatically <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stopbackgroundtask">stopBackgroundTask</a> your <strong><code>taskId</code></strong> to prevent the OS from force-killing your application.</p>
+										<p>Logging of iOS background tasks looks like this:</p>
+										<pre><code>✅-[<span class="hljs-symbol">BackgroundTaskManager</span> createBackgroundTask] <span class="hljs-number">1</span>
+.
+.
+.
+
+✅-[<span class="hljs-symbol">BackgroundTaskManager</span> stopBackgroundTask:]<span class="hljs-symbol">_block_invoke</span> <span class="hljs-number">1</span> <span class="hljs-symbol">OF</span> (
+    <span class="hljs-number">1</span>
+)</code></pre><h3 id="android">Android</h3>
+										<p>The Android implementation launches a foreground-service, along with the accompanying persistent foreground-notification.  You can customize the text and icons of the notification using the following <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> options:</p>
+										<ul>
+											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#notificationtitle">notificationTitle</a></li>
+											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#notificationtext">notificationText</a></li>
+											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#notificationcolor">notificationColor</a></li>
+											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#notificationpriority">notificationPriority</a></li>
+											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#notificationsmallicon">notificationSmallIcon</a></li>
+											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#notificationlargeicon">notificationLargeIcon</a></li>
+										</ul>
+										<p>⚠️ The Android plugin hardcodes a limit of <strong>30s</strong> for your background-task before it automatically <code>FORCE KILL</code>s it.</p>
+										<p>Logging for Android background-tasks looks like this (when you see an hourglass ⏳ icon, a foreground-service is active)</p>
+										<pre><code> I TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.u</span><span class="hljs-selector-class">.BackgroundTaskManager</span> onStartJob] ⏳ startBackgroundTask: <span class="hljs-number">6</span>
+ .
+ .
+ .
+ I TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.u</span><span class="hljs-selector-class">.BackgroundTaskManager</span><span class="hljs-variable">$Task</span> stop] ⏳ stopBackgroundTask: <span class="hljs-number">6</span></code></pre></dd>
 								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3626,6 +3656,50 @@ BackgroundGeolocation.stopSchedule();</code></pre>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_react_native_background_geolocation_.state.html" class="tsd-signature-type">State</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="stopbackgroundtask" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> stop<wbr>Background<wbr>Task</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">stop<wbr>Background<wbr>Task<span class="tsd-signature-symbol">(</span>taskId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, success<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span>, failure<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Signal completion of <a href="_react_native_background_geolocation_.backgroundgeolocation.html#startbackgroundtask">startBackgroundTask</a></p>
+								</div>
+								<p>Sends a signal to the native OS that your long-running task, addressed by <code>taskId</code> provided by <a href="_react_native_background_geolocation_.backgroundgeolocation.html#startbackgroundtask">startBackgroundTask</a> is complete and the OS may proceed
+								to suspend your application if applicable.</p>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-javascript">BackgroundGeolocation.startBackgroundTask().then(<span class="hljs-function">(<span class="hljs-params">taskId</span>) =&gt;</span> {
+  <span class="hljs-comment">// Perform some long-running task (eg: HTTP request)</span>
+  performLongRunningTask.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-comment">// When your long-running task is complete, signal completion of taskId.</span>
+    BackgroundGeolocation.stopBackgroundTask(taskId);
+  });
+});</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>taskId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> success: <span class="tsd-signature-type">Function</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> failure: <span class="tsd-signature-type">Function</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -4220,6 +4294,9 @@ onSuspend() {
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#stop" class="tsd-kind-icon">stop</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#stopbackgroundtask" class="tsd-kind-icon">stop<wbr>Background<wbr>Task</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#stopschedule" class="tsd-kind-icon">stop<wbr>Schedule</a>

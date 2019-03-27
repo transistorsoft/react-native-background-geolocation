@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-geolocation",
-  "version": "3.0.0-beta.4",
+  "version": "3.0.0-rc.1",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -52,6 +52,7 @@
   "devDependencies": {
     "typedoc": "^0.12.0",
     "typedoc-plugin-gitlink": "^0.0.3",
+    "typedoc-plugin-mediaplayer": "^0.1.1",
     "typedoc-theme-transistor": "git+https://github.com/transistorsoft/typedoc-theme-transistor.git"
   }
 }

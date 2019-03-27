@@ -680,21 +680,24 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             @Override public void onFailure(String error) { failure.invoke(error); }
         });
     }
-    /**
-    * Android doesn't support (or require) background-tasks.  This method is here for compatibility with iOS API
-    */
+
+    // TODO Rename #beginBackgroundTask -> #startBackgroundTask
     @ReactMethod
-    public void beginBackgroundTask(Callback success) {
-        Integer taskId = 0;
+    public void beginBackgroundTask(final Callback success, Callback failure) {
+        getAdapter().startBackgroundTask(new TSBackgroundTaskCallback() {
+            @Override public void onStart(int taskId) {
+                success.invoke(taskId);
+            }
+        });
+    }
+
+    // TODO Rename #finish -> #stopBackgroundTask
+    @ReactMethod
+    public void finish(int taskId, Callback success, Callback failure) {
+        getAdapter().stopBackgroundTask(taskId);
         success.invoke(taskId);
     }
-    /**
-    * Android doesn't support (or require) background-tasks.  This method is here for compatibility with iOS API
-    */
-    @ReactMethod
-    public void finish(Integer taskId) {
 
-    }
 
     @ReactMethod
     public void playSound(String soundId) {

@@ -368,6 +368,9 @@ declare module "react-native-background-geolocation" {
     *
     * Your `callback` will be executed each time the activity-recognition system receives an event (`still, on_foot, in_vehicle, on_bicycle, running`).
     *
+    * ### Android
+    * Android [[MotionActivityEvent.confidence]] always reports `100`%.
+    *
     * @example
     * ```javascript
     * BackgroundGeolocation.onActivityChange((event) => {
@@ -509,6 +512,9 @@ declare module "react-native-background-geolocation" {
     *
     * Fired when the state of the device's network-connectivity changes (enabled -> disabled and vice-versa).  By default, the plugin will automatically fire
     * a `connectivitychange` event with the current state network-connectivity whenever the [[start]] method is executed.
+    *
+    * ℹ️ The SDK subscribes internally to `connectivitychange` events &mdash; if you've configured the SDK's HTTP Service (See [[HttpEvent]]) and your app has queued locations,
+    * the SDK will automatically initiate uploading to your configured [[Config.url]] when network connectivity is detected.
     *
     * @example
     * ```javascript
@@ -857,24 +863,69 @@ declare module "react-native-background-geolocation" {
     static stopSchedule(success?: (state:State) => void, failure?: (error:string) => void): Promise<State>;
 
     /**
-    * Sends a signal to iOS that you wish to perform a long-running task.
+    * Sends a signal to OS that you wish to perform a long-running task.
     *
-    * iOS will not suspend your app until you signal completion with the [[finish]] method.  Your callback will be provided with a single parameter `taskId`
-    * which you will send to the [[finish]] method.
+    * The will will keep your running in the background and not suspend it until you signal completion with the [[stopBackgroundTask]] method.  Your callback will be provided with a single parameter `taskId`
+    * which you will send to the [[stopBackgroundTask]] method.
     *
     * @example
     * ```javascript
-    * BackgroundGeolocation.startBackgroundTask().then((taskId) => {
+    * onLocation(location) {
+    *   console.log('[location] ', location);
+    *
     *   // Perform some long-running task (eg: HTTP request)
-    *   performLongRunningTask.then(() => {
-    *     // When your long-running task is complete, signal completion of taskId.
-    *     BackgroundGeolocation.finish(taskId);
+    *   BackgroundGeolocation.startBackgroundTask().then((taskId) => {
+    *     performLongRunningTask.then(() => {
+    *       // When your long-running task is complete, signal completion of taskId.
+    *       BackgroundGeolocation.stopBackgroundTask(taskId);
+    *     }).catch(error) => {
+    *       // Be sure to catch errors:  never leave you background-task hanging.
+    *       console.error(error);
+    *       BackgroundGeolocation.stopBackgroundTask();
+    *     });
     *   });
-    * });
+    * }
     * ```
     *
+    * ### iOS
+    * The iOS implementation uses [beginBackgroundTaskWithExpirationHandler](https://developer.apple.com/documentation/uikit/uiapplication/1623031-beginbackgroundtaskwithexpiratio)
+    *
     * ⚠️ iOS provides **exactly** 180s of background-running time.  If your long-running task exceeds this time, the plugin has a fail-safe which will
-    * automatically [[finish]] your **`taskId`** to prevent the OS from force-killing your application.
+    * automatically [[stopBackgroundTask]] your **`taskId`** to prevent the OS from force-killing your application.
+    *
+    * Logging of iOS background tasks looks like this:
+    * ```
+    * ✅-[BackgroundTaskManager createBackgroundTask] 1
+    * .
+    * .
+    * .
+    *
+    * ✅-[BackgroundTaskManager stopBackgroundTask:]_block_invoke 1 OF (
+    *     1
+    * )
+    * ```
+    * ### Android
+    *
+    * The Android implementation launches a foreground-service, along with the accompanying persistent foreground-notification.  You can customize the text and icons of the notification using the following [[Config]] options:
+    * - [[notificationTitle]]
+    * - [[notificationText]]
+    * - [[notificationColor]]
+    * - [[notificationPriority]]
+    * - [[notificationSmallIcon]]
+    * - [[notificationLargeIcon]]
+    *
+    * ⚠️ The Android plugin hardcodes a limit of **30s** for your background-task before it automatically `FORCE KILL`s it.
+    *
+    *
+    * Logging for Android background-tasks looks like this (when you see an hourglass ⏳ icon, a foreground-service is active)
+    * ```
+    *  I TSLocationManager: [c.t.l.u.BackgroundTaskManager onStartJob] ⏳ startBackgroundTask: 6
+    *  .
+    *  .
+    *  .
+    *  I TSLocationManager: [c.t.l.u.BackgroundTaskManager$Task stop] ⏳ stopBackgroundTask: 6
+    * ```
+    *
     */
     static startBackgroundTask(success?: (taskId:number) => void, failure?: Function): Promise<number>;
 
@@ -890,12 +941,18 @@ declare module "react-native-background-geolocation" {
     *   // Perform some long-running task (eg: HTTP request)
     *   performLongRunningTask.then(() => {
     *     // When your long-running task is complete, signal completion of taskId.
-    *     BackgroundGeolocation.finish(taskId);
+    *     BackgroundGeolocation.stopBackgroundTask(taskId);
     *   });
     * });
     * ```
     */
-    static finish(taskId: number, success?: Function, failure?: Function): Promise<void>;
+    static stopBackgroundTask(taskId: number, success?: Function, failure?: Function): Promise<number>;
+
+    /**
+    * @alias [[stopBackgroundTask]]
+    * @deprecated
+    */
+    static finish(taskId: number, success?: Function, failure?: Function): Promise<number>;
 
     /**
     * Retrieves the current [[Location]].
@@ -1393,7 +1450,7 @@ declare module "react-native-background-geolocation" {
     /**
     *
     */
-    static playSound(soundId:number, success?:Function, failure?:Function): Promise<void>;
+    static playSound(soundId:any, success?:Function, failure?:Function): Promise<void>;
 
     /**
     *

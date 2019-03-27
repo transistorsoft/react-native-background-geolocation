@@ -47,14 +47,13 @@ declare module "react-native-background-geolocation" {
   | [[stopAfterElapsedMinutes]] | `Integer`  | __Default: `0`__.  The plugin can optionally automatically stop tracking after some number of minutes elapses after the [[BackgroundGeolocation.start]] method was called. |
   | [[stopOnStationary]] | `Boolean`  | __Default: `false`__.  The plugin can optionally automatically stop tracking when the `stopTimeout` timer elapses. |
   | [[desiredOdometerAccuracy]] | `Integer`  | __Default: `100`__.  Location accuracy threshold in **meters** for odometer calculations. |
-
+  | [[useSignificantChangesOnly]] | `Boolean` | __Default: `false`__.  Defaults to `false`.  Set `true` in order to disable constant background-tracking.  A location will be recorded only several times / hour. |
 
   ### [Geolocation] iOS Options
 
   | Option      | Type      | Note                              |
   |-------------|-----------|-----------------------------------|
   | [[stationaryRadius]] | `Integer`  | __Default: `25`__.  When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage. |
-  | [[useSignificantChangesOnly]] | `Boolean` | __Default: `false`__.  Defaults to `false`.  Set `true` in order to disable constant background-tracking and use only the iOS [Significant Changes API](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html#//apple_ref/occ/instm/CLLocationManager/startMonitoringSignificantLocationChanges). |
   | [[locationAuthorizationRequest]] | [[LocationAuthorizationRequest]] | __Default: `Always`__.  The desired iOS location-authorization request, either `Always`, `WhenInUse` or `Any`. |
   | [[locationAuthorizationAlert]] | `Object` | When you configure the plugin [[locationAuthorizationRequest]] `Always` or `WhenInUse` and the user *changes* that value in the app's location-services settings or *disables* location-services, the plugin will display an Alert directing the user to the **Settings** screen. |
   | [[disableLocationAuthorizationAlert]] | `Boolean` | __Default: `false`__.  Disables automatic authorization alert when plugin detects the user has disabled location authorization.  You will be responsible for handling disabled location authorization by listening to the `providerchange` event.|
@@ -76,9 +75,7 @@ declare module "react-native-background-geolocation" {
 
   | Option      | Type      | Note                              |
   |-------------|-----------|-----------------------------------|
-  | [[activityRecognitionInterval]] | `Integer` | __Default: `10000`__.  The desired time between activity detections. Larger values will result in fewer activity detections while improving battery life. A value of `0` will result in activity detections at the fastest possible rate. |
   | [[stopTimeout]] | `Integer` | __Default: `5`__.  The number of **minutes** to wait before turning off location-services after the ActivityRecognition System (ARS) detects the device is `STILL` |
-  | [[minimumActivityRecognitionConfidence]] | `Integer` | __Default: `75`__.  Each activity-recognition-result returned by the API is tagged with a "confidence" level expressed as a `%`.  You can set your desired confidence to trigger a state-change.|
   | [[stopDetectionDelay]] | `Integer` | __Default: `0`__.  Number of **minutes** to delay the stop-detection system from being activated.|
   | [[disableStopDetection]] | `Boolean` | __Default: `false`__.  Disable accelerometer-based **Stop-detection System**. ⚠️ Not recommended|
 
@@ -161,6 +158,11 @@ declare module "react-native-background-geolocation" {
   | [[geofenceProximityRadius]] | `Integer`  | __Default: `1000`__.  Radius in **meters** to query for geofences within proximity. |
   | [[geofenceInitialTriggerEntry]] | `Boolean` | __Default: `true`__.  Set `false` to disable triggering a geofence immediately if device is already inside it.|
 
+  ### [Geofencing] Android Options
+
+  | Option      | Type      | Note                              |
+  |-------------|-----------|-----------------------------------|
+  | [[geofenceModeHighAccuracy]] | `Boolean`  | __Default: `false`__.  Runs [[startGeofences]] with a *foreground service* (along with its corresponding persitent notification).  This will make geofence triggering **far more consistent** at the expense of higher power usage. |
 
   ## Logging & Debug Options
 
@@ -348,6 +350,47 @@ declare module "react-native-background-geolocation" {
     geofenceInitialTriggerEntry?: boolean;
 
     /**
+    * __`[Android only]`__ Enable high-accuracy for **geofence-only** mode (See [[BackgroundGeolocation.startGeofences]]).
+    *
+    * ### ⚠️ Warning: Will consume more power.
+
+    * Defaults to `false`.  Runs Android's [[BackgroundGeolocation.startGeofences]] with a *foreground service* (along with its corresponding persitent notification;  See [[foregroundService]] for a list of available notification config options, including [[notificationText]], [[notificationTitle]]).
+    *
+    * Configuring `geofenceModeHighAccuracy: true` will make Android geofence triggering **far more responsive**.  In this mode, the usual config options to control location-services will be applied:
+    *
+    * - [[desiredAccuracy]] ([[BackgroundGeolocation.DESIRED_ACCURACY_MEDIUM]] works well).
+    * - [[locationUpdateInterval]]
+    * - [[distanceFilter]]
+    * - [[deferTime]]
+    *
+    * With the default `geofenceModeHighAccuracy: false`, a device will have to move farther *into* a geofence before the *ENTER* event fires and farther *out of* a geofence before
+    * the *EXIT* event fires.
+    *
+    * The more aggressive you configure the location-update params above (at the cost of power consumption), the more responsive will be your geofence-triggering.
+    *
+    * @example
+    * ```typescript
+    * BackgroundGeolocation.ready({
+    *   geofenceModeHighAccuracy: true,
+    *   desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_MEDIUM,
+    *   locationUpdateInterval: 5000,
+    *   distanceFilter: 50
+    * }).then(state) {
+    *   BackgroundGeolocation.startGeofences();
+    * });
+    * ```
+    *
+    * @example **`geofenceModeHighAccuracy: false`** (Default) &mdash; Transition events **are delayed**.
+    * ![](https://dl.dropboxusercontent.com/s/6nxbuersjcdqa8b/geofenceModeHighAccuracy-false.png?dl=1)
+    *
+    * @example **`geofenceModeHighAccuracy: true`** &mdash; Transition events are **nearly instantaneous**.
+    * ![](https://dl.dropbox.com/s/w53hqn7f7n1ug1o/geofenceModeHighAccuracy-true.png?dl=1)
+    *
+    *
+    */
+    geofenceModeHighAccuracy?: boolean;
+
+    /**
     * The maximum location accuracy allowed for a location to be used for [[Location.odometer]] calculations.
     *
     * Defaults to `100`.  If a location arrives having **`accuracy > desiredOdometerAccuracy`**, that location will not be used to update the
@@ -395,33 +438,12 @@ declare module "react-native-background-geolocation" {
     stopTimeout?: number;
 
     /**
-    * Controls the sample-rate of the motion activity-recognition system.
-    * @break
-    *
-    * Defaults to `10000` (10 seconds).  This is primarily an **Android** option, since only Android can constantly monitor the activity-detection API
-    * in the background (iOS uses a "stationary geofence" to detect device-motion).  The desired time between activity detections. Larger values
-    * will result in fewer activity detections while improving battery life. A value of 0 will result in activity detections at the fastest possible
-    * rate.
+    * @deprecated No longer used.
     */
     activityRecognitionInterval?: number;
 
     /**
-    * The minimum motion-activity confidence to conclude a device is moving.
-    * @break
-    *
-    * Defaults to **`75`%**.  Each activity-recognition-result returned by the API is tagged with a "confidence" level expressed as a %.
-    * You can set your desired confidence to trigger a [[BackgroundGeolocation.onMotionChange]] event.
-    *
-    * This setting can be helpful for poor quality Android devices missing crucial motion sensors (accelerometer, gyroscope, magnetometer)
-    * by adjusting the confidence lower.  You can determine missing sensors on a device using the method [[getSensors]].
-    *
-    *
-    * @example
-    * ```javascript
-    * BackgroundGeolocation.ready({
-    *   minimumActivityRecognitionConfidence: 50 // <-- trigger less confidently.
-    * });
-    * ```
+    * @deprecated No longer used.
     */
     minimumActivityRecognitionConfidence?: number;
 
@@ -1089,7 +1111,7 @@ declare module "react-native-background-geolocation" {
     * run the plugin in regular tracking mode with [[BackgroundGeolocation.start]] but only record geofence events.  In this case,
     * one would configure `persistMode: BackgroundGeolocation.PERSIST_MODE_GEOFENCE`.
     */
-    persistMode?: boolean;
+    persistMode?: PersistMode;
     /**
     * Controls the order that locations are selected from the database (and uploaded to your server).
     *
@@ -1359,16 +1381,39 @@ declare module "react-native-background-geolocation" {
     *
     * Defaults to **`false`**.  When set to **`true`**, the plugin will emit debugging sounds and notifications for life-cycle events of [[BackgroundGeolocation]].
     *
-    * ### iOS
+    * ## iOS
     *
     * In you wish to hear debug sounds in the background, you must manually enable the background-mode:
     *
     * **`[x] Audio and Airplay`** background mode in *Background Capabilities* of XCode.
     *
-    * ![](https://dl.dropboxusercontent.com/s/fl7exx3g8whot9f/enable-background-audio.png?dl=1)\
+    * ![](https://dl.dropboxusercontent.com/s/fl7exx3g8whot9f/enable-background-audio.png?dl=1)
     *
-    * ### ℹ️ See also:
-    * - [Debugging Sounds](github:wiki/Debug-Sounds)
+    * ## Event Debug Sound Effects
+    *
+    * | Event                      | iOS                     | Android                    |
+    * |----------------------------|-------------------------|----------------------------|
+    * | `LOCATION_RECORDED`        | <mediaplayer:https://dl.dropbox.com/s/yestzqdb6gzx7an/location-recorded.mp3?dl=0>        | <mediaplayer:https://dl.dropboxusercontent.com/s/d3e821scn5fppq6/tslocationmanager_ooooiii3_full_vol.wav?dl=0>      |
+    * | `LOCATION_SAMPLE`          | <mediaplayer:https://dl.dropbox.com/s/7inowa0folzlal3/location-sample.mp3?dl=0>          | <mediaplayer:https://dl.dropbox.com/s/8bgiyifowyf9c7n/tslocationmanager_click_tap_done_checkbox5_full_vol.wav?dl=0> |
+    * | `LOCATION_ERROR`           | <mediaplayer:https://dl.dropbox.com/s/lwmx6j2ddzke1c7/location-error.mp3?dl=0>           | <mediaplayer:https://dl.dropbox.com/s/wadrz2x6elhc65l/tslocationmanager_digi_warn.mp3?dl=0>                         |
+    * | `LOCATION_SERVICES_ON`     | <mediaplayer:https://dl.dropbox.com/s/4cith8fg58bf5rh/location-services-on.mp3?dl=0>     | n/a                                                                                                                 |
+    * | `LOCATION_SERVICES_OFF`    | <mediaplayer:https://dl.dropbox.com/s/vdntndpzl1ebeq2/location-services-off.mp3?dl=0>    | n/a                                                                                                                 |
+    * | `STATIONARY_GEOFENCE_EXIT` | <mediaplayer:https://dl.dropbox.com/s/6voj31fmmoqhveb/motionchange-true.mp3?dl=0>        | <mediaplayer:https://dl.dropbox.com/s/gjgv51pot3h2n3t/tslocationmanager_zap_fast.mp3?dl=0>                          |
+    * | `MOTIONCHANGE_FALSE`       | <mediaplayer:https://dl.dropbox.com/s/qjduicy3c9d4yfv/motionchange-false.mp3?dl=0>       | <mediaplayer:https://dl.dropbox.com/s/fm4j2t8nqzd5856/tslocationmanager_marimba_drop.mp3?dl=0>                      |
+    * | `MOTIONCHANGE_TRUE`        | <mediaplayer:https://dl.dropbox.com/s/6voj31fmmoqhveb/motionchange-true.mp3?dl=0>        | <mediaplayer:https://dl.dropbox.com/s/n5mn6tr7x994ivg/tslocationmanager_chime_short_chord_up.mp3?dl=0>              |
+    * | `STOP_DETECTION_DELAY_INITIATED` | <mediaplayer:https://dl.dropbox.com/s/34jf8sifr5nkyie/stopDetectionDelay.mp3?dl=0> | n/a                                                                                                                 |
+    * | `STOP_TIMER_ON`            | <mediaplayer:https://dl.dropbox.com/s/s6dou5vv55glq5w/stop-timeout-start.mp3?dl=0>       | <mediaplayer:https://dl.dropbox.com/s/q4a9pf0vlztfafh/tslocationmanager_chime_bell_confirm.mp3?dl=0>                |
+    * | `STOP_TIMER_OFF`           | <mediaplayer:https://dl.dropbox.com/s/c39phjw0vogg8lm/stop-timeout-cancel.mp3?dl=0>      | <mediaplayer:https://dl.dropbox.com/s/9o9v826was19lyi/tslocationmanager_bell_ding_pop.mp3?dl=0>                     |
+    * | `HEARTBEAT`                | <mediaplayer:https://dl.dropbox.com/s/5rdc38isc8yf323/heartbeat.mp3?dl=0>                | <mediaplayer:https://dl.dropbox.com/s/bsdtw21hscqqy67/tslocationmanager_peep_note1.wav?dl=0>                        |
+    * | `GEOFENCE_ENTER`           | <mediaplayer:https://dl.dropbox.com/s/i4hzh4rgmd1lo20/geofence-enter.mp3?dl=0>           | <mediaplayer:https://dl.dropbox.com/s/76up5ik215xwxh1/tslocationmanager_beep_trip_up_dry.mp3?dl=0>                  |
+    * | `GEOFENCE_EXIT`            | <mediaplayer:https://dl.dropbox.com/s/nwonzl1ni15qv1k/geofence-exit.mp3?dl=0>            | <mediaplayer:https://dl.dropbox.com/s/xuyyagffheyk8r7/tslocationmanager_beep_trip_dry.mp3?dl=0>                     |
+    * | `GEOFENCE_DWELL_START`     | <mediaplayer:https://dl.dropbox.com/s/djlpw2ejaioq0g2/geofence-dwell-start.mp3?dl=0>     | n/a                                                                                                                 |
+    * | `GEOFENCE_DWELL_CANCEL`    | <mediaplayer:https://dl.dropbox.com/s/37xvre56gz3ro58/geofence-dwell-cancel.mp3?dl=0>    | n/a                                                                                                                 |
+    * | `GEOFENCE_DWELL`           | `GEOFENCE_ENTER` after `GEOFENCE_DWELL_START`                                            | <mediaplayer:https://dl.dropbox.com/s/uw5vjuatm3wnuid/tslocationmanager_beep_trip_up_echo.mp3?dl=0>                 |
+    * | `ERROR`                    | <mediaplayer:https://dl.dropbox.com/s/13c50fnepyiknnb/error.mp3?dl=0>                    | <mediaplayer:https://dl.dropbox.com/s/32e93c1t4kh69p1/tslocationmanager_music_timpani_error_01.mp3?dl=0>            |
+    * | `WARNING`                  | n/a                                                                                      | <mediaplayer:https://dl.dropbox.com/s/wadrz2x6elhc65l/tslocationmanager_digi_warn.mp3?dl=0>                         |
+    * | `BACKGROUND_FETCH`         | <mediaplayer:https://dl.dropbox.com/s/am91js76s0ehjo1/background-fetch.mp3?dl=0>         | n/a                                                                                                                 |
+    *
     */
     debug?: boolean;
 
@@ -1490,14 +1535,30 @@ declare module "react-native-background-geolocation" {
     reset?: boolean;
 
     /**
-    * __`[iOS only]`__ Engages iOS "significant location changes" API for only periodic location updates every 500-1000 meters.
+    * Set `true` in order to disable constant background-tracking.  Locations will be recorded only periodically.
+    *
+    * Defaults to `false`.  A location will be recorded only every `500` to `1000` meters (can be higher in non urban environments; depends upon the spacing of Cellular towers).  Many of the plugin's configuration parameters **will have no effect**, such as [[distanceFilter]], [[stationaryRadius]], [[activityType]], etc.
+    *
+    * Using `significantChangesOnly: true` will provide **significant** power-saving at the expense of fewer recorded locations.
+    *
+    * ### iOS
+    *
+    * Engages the iOS [Significant Location Changes API](https://developer.apple.com/reference/corelocation/cllocationmanager/1423531-startmonitoringsignificantlocati?language=objc) API for only periodic location updates every 500-1000 meters.
     * @break
     *
-    * Defaults to `false`.  Set `true` in order to disable constant background-tracking and use only the iOS [Significant Changes API](https://developer.apple.com/reference/corelocation/cllocationmanager/1423531-startmonitoringsignificantlocati?language=objc).
+    * ⚠️ If Apple has rejected your application, refusing to grant your app the privilege of using the **`UIBackgroundMode: "location"`**, this can be a solution.
     *
-    *  ⚠️ If Apple has rejected your application, refusing to grant your app the privilege of using the **`UIBackgroundMode: "location"`**, this can be a solution.
     *
-    *  ℹ️ The Significant Changes API will report a location only every `500` to `1000` meters (can be higher in non urban environments; depends upon the spacing of Cellular towers).  Many of the plugin's configuration parameters **will be ignored**, such as [[distanceFilter]], [[stationaryRadius]], [[activityType]], etc.
+    * ### Android
+    *
+    * A location will be recorded several times per hour while the device is in the *moving* state.  No foreground-service will be run (nor its corresponding persistent notification).
+    *
+    * @example **`useSignificantChanges: true`**
+    * ![](https://dl.dropboxusercontent.com/s/wdl9e156myv5b34/useSignificantChangesOnly.png?dl=1)
+    *
+    * @example **`useSignificantChanges: false` (Default)**
+    * ![](https://dl.dropboxusercontent.com/s/hcxby3sujqanv9q/useSignificantChangesOnly-false.png?dl=1)
+
     */
     useSignificantChangesOnly?: boolean;
 

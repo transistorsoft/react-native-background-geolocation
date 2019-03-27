@@ -334,16 +334,17 @@ RCT_EXPORT_METHOD(changePace:(BOOL)moving success:(RCTResponseSenderBlock)succes
     success(@[]);
 }
 
-RCT_EXPORT_METHOD(beginBackgroundTask:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(beginBackgroundTask:(RCTResponseSenderBlock)callback failure:(RCTResponseSenderBlock)failure)
 {
     callback(@[@([locationManager createBackgroundTask])]);
 }
 /**
  * Called by js to signify the end of a background-geolocation event
  */
-RCT_EXPORT_METHOD(finish:(int)taskId)
+RCT_EXPORT_METHOD(finish:(int)taskId success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     [locationManager stopBackgroundTask:taskId];
+    success(@[@(taskId)]);
 }
 
 RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)

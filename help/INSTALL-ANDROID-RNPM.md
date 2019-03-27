@@ -92,6 +92,8 @@ allprojects {
 ### :open_file_folder: `proguard-rules.pro` (`android/app/proguard-rules.pro`)
 
 ```proguard
+-keepnames class com.facebook.react.ReactActivity
+
 # BackgroundGeolocation lib tslocationmanager.aar is *already* proguarded
 -keep class com.transistorsoft.** { *; }
 -dontwarn com.transistorsoft.**

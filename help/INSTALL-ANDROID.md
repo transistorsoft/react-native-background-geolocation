@@ -129,6 +129,8 @@ public class MainApplication extends ReactApplication {
 ### :open_file_folder: `proguard-rules.pro` (`android/app/proguard-rules.pro`)
 
 ```proguard
+-keepnames class com.facebook.react.ReactActivity
+
 # BackgroundGeolocation
 -keep class com.transistorsoft.** { *; }
 -dontwarn com.transistorsoft.**

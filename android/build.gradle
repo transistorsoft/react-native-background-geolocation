@@ -17,22 +17,6 @@ def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
-/**
- * Purge all 1.3M of .mp3 / .wav debug sounds from release apk.
- */
-def purgeDebugSounds(libraryVariants) {
-    libraryVariants.all { variant ->
-        variant.outputs.each { output ->
-            // remove all mp3 and wav files from resources
-            if (variant.buildType.name == 'release') {
-                variant.mergeResources.doLast {
-                    delete(fileTree(dir: variant.mergeResources.outputDir, includes: ['*mp3*', '*wav*']))
-                }
-            }
-        }
-    }
-}
-
 android {
     compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
     buildToolsVersion safeExtGet('buildToolsVersion', DEFAULT_BUILD_TOOLS_VERSION)
@@ -44,12 +28,8 @@ android {
         versionName "1.0"
     }
 
+    // TODO
     def removeDebugSounds = safeExtGet('removeBackgroundGeolocationDebugSoundsInRelase', DEFAULT_REMOVE_DEBUG_SOUNDS_IN_RELEASE)
-
-    print("**************** removeSounds: ${removeDebugSounds}")
-    if (removeDebugSounds) {
-        purgeDebugSounds(libraryVariants)
-    }
 }
 
 repositories{

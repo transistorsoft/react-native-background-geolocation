@@ -1,9 +1,16 @@
 # Change Log
 
+## [3.0.0-rc.4] - 2019-03-29
+
+- [Fixed] Android `NullPointerException` with `Bundle#getExtras`.
+- [Fixed] Android not persisting `providerchange` location when location-services re-enabled.
+
 ## [3.0.0-rc.3] - 2019-03-27
+
 - [Fixed] An Android foreground-service is launched on first install and fails to stop.
 
 ## [3.0.0-rc.2] - 2019-03-27
+
 - [Changed] Remove unused Gradle function.
 
 ## [3.0.0-rc.1] - 2019-03-27

@@ -43,14 +43,19 @@ if (project.pbxGroupByName('Frameworks')) {
 }
 project.removeFromPbxFrameworksBuildPhase(file);
 
-helpers.removeFromFrameworkSearchPaths(
-    project,
-    '$(PROJECT_DIR)/' +
-    path.relative(
-        projectConfig.sourceDir,
-        path.join(moduleDirectory, 'ios')
-    )
-);
+// Is this a Cocoapods installation?
+const podFile = path.join(sourceDirectory, 'Podfile');
+const hasPodfile = fs.existsSync(podFile);
+if (!hasPodfile) {
+    helpers.removeFromFrameworkSearchPaths(
+        project,
+        '$(PROJECT_DIR)/' +
+        path.relative(
+            projectConfig.sourceDir,
+            path.join(moduleDirectory, 'ios')
+        )
+    );
+}
 
 // disable BackgroundModes and remove "fetch" mode from plist file
 const systemCapabilities = helpers.getTargetAttributes(project).SystemCapabilities;

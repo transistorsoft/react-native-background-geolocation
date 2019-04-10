@@ -75,7 +75,8 @@ if (!project.hasFile(file.path)) {
 
 // Is this a Cocoapods installation?
 const podFile = path.join(sourceDirectory, 'Podfile');
-if (!fs.existsSync(podFile)) {
+const hasPodfile = fs.existsSync(podFile);
+if (!hasPodfile) {
     // Only add FRAMEWORK_SEARCH_PATHS for non-Cocoapod installation
     helpers.addToFrameworkSearchPaths(
         project,

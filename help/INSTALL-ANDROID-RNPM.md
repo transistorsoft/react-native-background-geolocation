@@ -4,17 +4,18 @@
 
 ```shell
 yarn add react-native-background-geolocation
-
-react-native link react-native-background-geolocation
-react-native link react-native-background-fetch
 ```
 
 ### With `npm`
 ```shell
-npm install react-native-background-geolocation--save
+npm install react-native-background-geolocation --save
+```
 
-react-native link react-native-background-geolocation
+### `react-native link`
+```shell
+react-native link react-native-background-geolocation-android
 react-native link react-native-background-fetch
+react-native link cocoa-lumberjack
 ```
 
 ## Gradle Configuration

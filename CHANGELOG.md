@@ -1,5 +1,11 @@
 # Change Log
 
+## [3.0.1] - 2019-04-15
+- [Added] Added android implementation for `react-native link` script to automatically add the required `maven url` and `ext.googlePlayServicesLocationVersion`.
+
+## [3.0.0]
+- [Changed] Promote `3.0.0-rc.5` to `3.0.0`.
+
 ## [3.0.0-rc.5] - 2019-03-31
 - [Fixed] Android: Another `NullPointerException` with `Bundle#getExtras`.
 

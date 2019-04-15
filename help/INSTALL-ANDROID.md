@@ -74,6 +74,8 @@ The technique of **defining project-wide properties** can be found in the **Andr
 
 ## AndroidManifest.xml
 
+If you've **not** [purchased a license](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans), **ignore this step** &mdash; the plugin is fully functional in *DEBUG* builds so you can try before you [buy](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans).
+
 :open_file_folder: **`android/app/src/main/AndroidManifest.xml`**
 
 ```diff
@@ -119,6 +121,8 @@ public class MainApplication extends ReactApplication {
 ```
 
 ## Proguard Config
+
+If you've enabled **`def enableProguardInReleaseBuilds = true`** in your `app/build.gradle`, be sure to add the following items to your `proguard-rules.pro`:
 
 ### :open_file_folder: `proguard-rules.pro` (`android/app/proguard-rules.pro`)
 

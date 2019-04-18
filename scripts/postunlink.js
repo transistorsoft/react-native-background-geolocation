@@ -92,7 +92,7 @@ fs.writeFileSync(projectConfig.pbxprojPath, project.writeSync());
 //
 const androidSrcDir = path.join(projectDirectory, 'android');
 const gradleFile = path.join(androidSrcDir, 'build.gradle');
-const moduleName = moduleDirectory.split('/').pop();
+const moduleName = (process.platform === 'win32') ? moduleDirectory.split('\\').pop() : moduleDirectory.split('/').pop();
 
 fs.readFile(gradleFile, 'utf8', function (err,data) {
   if (err) {

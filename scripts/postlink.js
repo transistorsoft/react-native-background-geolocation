@@ -153,7 +153,7 @@ fs.writeFileSync(projectConfig.pbxprojPath, project.writeSync());
 //
 const androidSrcDir = path.join(projectDirectory, 'android');
 const projectGradleFile = path.join(androidSrcDir, 'build.gradle');
-const moduleName = moduleDirectory.split('/').pop();
+const moduleName = (process.platform === 'win32') ? moduleDirectory.split('\\').pop() : moduleDirectory.split('/').pop();
 const pluginGradleFile = path.join(projectDirectory, 'node_modules', moduleName, "android", "build.gradle");
 
 const mavenUrl = [

@@ -1,5 +1,9 @@
 # Change Log
 
+## [3.0.2] - 2019-04-18
+- [Fixed] Windows bug in new `react-native link` script.
+- [Fixed] Android scheduler bug.  When app is terminated & restarted during a scheduled ON period, tracking-service does not restart.
+
 ## [3.0.1] - 2019-04-15
 - [Added] Added android implementation for `react-native link` script to automatically add the required `maven url` and `ext.googlePlayServicesLocationVersion`.
 

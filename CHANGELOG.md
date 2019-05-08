@@ -6,7 +6,7 @@
 - [Fixed] Android threading issue where 2 distinct `SingleLocationRequest` were issued the same id.  This could result in the foreground service quickly starting/stopping until `locationTimeout` expired.
 - [Fixed] Android issue where geofences could fail to query for new geofences-in-proximity after a restart.
 - [Fixed] Android issues re-booting device with location-services disabled or location-authorization revoked.
-- [Added] Implement support for [Custom Android Notification Layouts](/wiki/Android-Custom-Notification-Layout).
+- [Added] Implement support for [Custom Android Notification Layouts](/../../wiki/Android-Custom-Notification-Layout).
 - [Fixed] Android bug where service repeatedly starts/stops after rebooting the device with plugin in *moving* state.
 - [Fixed] Android headless `heartbeat` events were failing (incorrect `Context` was supplied to the event).
 

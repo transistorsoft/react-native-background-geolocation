@@ -73,6 +73,8 @@ public class HeadlessTask {
             params = event.getConnectivityChangeEvent().toJson();
         } else if (name.equals(BackgroundGeolocation.EVENT_ENABLEDCHANGE)) {
             clientEvent.putBoolean("params", event.getEnabledChangeEvent());
+        } else if (name.equals(BackgroundGeolocation.EVENT_NOTIFICATIONACTION)) {
+            clientEvent.putString("params", event.getNotificationEvent());
         } else {
             TSLog.logger.warn(TSLog.warn("Unknown Headless Event: " + name));
             clientEvent.putString("error", "Unknown event: " + name);

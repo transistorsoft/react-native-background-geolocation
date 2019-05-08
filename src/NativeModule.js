@@ -28,7 +28,8 @@ const EVENTS = [
   'watchposition',
   'powersavechange',
   'connectivitychange',
-  'enabledchange'
+  'enabledchange',
+  'notificationaction'
 ];
 
 /**
@@ -67,6 +68,32 @@ const LOGGER = {
 // Plugin event listener subscriptions
 let EVENT_SUBSCRIPTIONS = [];
 
+// Validate provided config for #ready, #setConfig
+const validateConfig = (config) => {
+  // Detect obsolete notification* fields and re-map to Notification instance.
+  if (
+    (config.notificationPriority) ||
+    (config.notificationText) ||
+    (config.notificationTitle) ||
+    (config.notificationChannelName) ||
+    (config.notificationColor) ||
+    (config.notificationSmallIcon) ||
+    (config.notificationLargeIcon)
+  ) {
+    console.warn('[BackgroundGeolocation] WARNING: Config.notification* fields (eg: notificationText) are all deprecated in favor of notification: {title: "My Title", text: "My Text"}  See docs for "Notification" class');
+    config.notification = {
+      text: config.notificationText,
+      title: config.notificationTitle,
+      color: config.notificationColor,
+      channelName: config.notificationChannelName,
+      smallIcon: config.notificationSmallIcon,
+      largeIcon: config.notificationLargeIcon,
+      priority: config.notificationPriority
+    };
+  }
+  return config;
+};
+
 class Subscription {
   constructor(subscription, callback) {
     this.subscription = subscription;
@@ -82,19 +109,20 @@ export default class NativeModule {
   /**
   * Core API Methods
   */
-  static ready(initialConfig) {
+  static ready(config) {
     return new Promise((resolve, reject) => {
       let success = (state) => { resolve(state) }
       let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.ready(initialConfig, success, failure);
+      RNBackgroundGeolocation.ready(validateConfig(config), success, failure);
     });
   }
 
   static configure(config) {
+    console.warn('[BackgroundGeolocation] Method #configure is deprecated in favor of #ready');
     return new Promise((resolve, reject) => {
       let success = (state) => { resolve(state) }
       let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.configure(config, success, failure);
+      RNBackgroundGeolocation.configure(validateConfig(config), success, failure);
     });
   }
 
@@ -118,7 +146,7 @@ export default class NativeModule {
     return new Promise((resolve, reject) => {
       let success = (state) => { resolve(state) }
       let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.setConfig(config, success, failure);
+      RNBackgroundGeolocation.setConfig(validateConfig(config), success, failure);
     });
   }
 
@@ -127,7 +155,7 @@ export default class NativeModule {
     return new Promise((resolve, reject) => {
       let success = (state)  => { resolve(state) }
       let failure = (error)  => { reject(error) }
-      RNBackgroundGeolocation.reset(config, success, failure);
+      RNBackgroundGeolocation.reset(validateConfig(config), success, failure);
     });
   }
 

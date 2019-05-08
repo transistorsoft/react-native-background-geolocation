@@ -1,5 +1,15 @@
 # Change Log
 
+## [3.0.4] - 2019-05-08
+- [Fixed] iOS: changing `pauseslocationUpdatesAutomatically` was not being applied.
+- [Changed] `reset` parameter provided to `#ready` has now been default to `true`.  This causes too many support issues for people using the plugin the first time.
+- [Fixed] Android threading issue where 2 distinct `SingleLocationRequest` were issued the same id.  This could result in the foreground service quickly starting/stopping until `locationTimeout` expired.
+- [Fixed] Android issue where geofences could fail to query for new geofences-in-proximity after a restart.
+- [Fixed] Android issues re-booting device with location-services disabled or location-authorization revoked.
+- [Added] Implement support for [Custom Android Notification Layouts](/wiki/Android-Custom-Notification-Layout).
+- [Fixed] Android bug where service repeatedly starts/stops after rebooting the device with plugin in *moving* state.
+- [Fixed] Android headless `heartbeat` events were failing (incorrect `Context` was supplied to the event).
+
 ## [3.0.2] - 2019-04-18
 - [Fixed] Windows bug in new `react-native link` script.
 - [Fixed] Android scheduler bug.  When app is terminated & restarted during a scheduled ON period, tracking-service does not restart.

@@ -134,13 +134,7 @@ declare module "react-native-background-geolocation" {
   |-------------|-----------|------------------------------------|
   | [[foregroundService]] | `Boolean` | __Default: `false`__.  Set `true` to make the plugin *mostly* immune to OS termination due to memory pressure from other apps. |
   | [[enableHeadless]] | `Boolean` | __Default: `false`__.  Set to `true` to enable "Headless" mode when the user terminates the application.  In this mode, you can respond to all the plugin's events in the native Android environment.  For more information, see the wiki for [Android Headless Mode](github:wiki/Android-Headless-Mode) |
-  | [[notificationPriority]] | [[NotificationPriority]] | __Default: `NOTIFICATION_PRIORITY_DEFAULT`__.  Controls the priority of the `foregroundService` notification and notification-bar icon. |
-  | [[notificationTitle]] | `String` | __Default: `Your App Name`__.  When running the service with [[foregroundService]]: true, Android requires a persistent notification in the Notification Bar.  Defaults to the application name |
-  | [[notificationText]] | `String` |  __Default: `Location service activated`__.  When running the service with [[foregroundService]]: true, Android requires a persistent notification in the Notification Bar.|
-  | [[notificationColor]] | `String` | __Default: `undefined`__.  When running the service with [[foregroundService]]: true, controls the color of the persistent notification in the Notification Bar. |
-  | [[notificationSmallIcon]] | `String` |  __Default: `Your App Icon`__.  When running the service with [[foregroundService]]: true, controls your customize notification *small* icon.  Defaults to your application icon.|
-  | [[notificationLargeIcon]] | `String` |  __Default: `undefined`__.  When running the service with [[foregroundService]]: true, controls your customize notification *large* icon.  Defaults to `undefined`.|
-  | [[notificationChannelName]] | `String` |  __Default: `app name`__.  On Android O+, the plugin's foreground-service needs to create a "Notification Channel".  The name of this channel can be seen in Settings->App & Notifications->Your App.  Defaults to `Your App`.|
+  | [[notification]]  | [[Notification]] | Configures the required persistent [[Notification]] of the foreground service. |
   | [[forceReloadOnMotionChange]] | `Boolean` | __Default: `false`__.  Launch your app whenever the [[BackgroundGeolocation.onMotionChange]] event fires. |
   | [[forceReloadOnLocationChange]] | `Boolean` | __Default: `false`__.  Launch your app whenever the [[BackgroundGeolocation.onLocation]] event fires. |
   | [[forceReloadOnGeofence]] | `Boolean` | __Default: `false`__.  Launch your app whenever the [[BackgroundGeolocation.onGeofence]] event fires. |
@@ -162,7 +156,7 @@ declare module "react-native-background-geolocation" {
 
   | Option      | Type      | Note                              |
   |-------------|-----------|-----------------------------------|
-  | [[geofenceModeHighAccuracy]] | `Boolean`  | __Default: `false`__.  Runs [[startGeofences]] with a *foreground service* (along with its corresponding persitent notification).  This will make geofence triggering **far more consistent** at the expense of higher power usage. |
+  | [[geofenceModeHighAccuracy]] | `Boolean`  | __Default: `false`__.  Runs [[startGeofences]] with a *foreground service* (along with its corresponding persitent [[Notification]]).  This will make geofence triggering **far more consistent** at the expense of higher power usage. |
 
   ## Logging & Debug Options
 
@@ -354,7 +348,7 @@ declare module "react-native-background-geolocation" {
     *
     * ### ⚠️ Warning: Will consume more power.
 
-    * Defaults to `false`.  Runs Android's [[BackgroundGeolocation.startGeofences]] with a *foreground service* (along with its corresponding persitent notification;  See [[foregroundService]] for a list of available notification config options, including [[notificationText]], [[notificationTitle]]).
+    * Defaults to `false`.  Runs Android's [[BackgroundGeolocation.startGeofences]] with a *foreground service* (along with its corresponding persistent [[Notification]].
     *
     * Configuring `geofenceModeHighAccuracy: true` will make Android geofence triggering **far more responsive**.  In this mode, the usual config options to control location-services will be applied:
     *
@@ -766,6 +760,14 @@ declare module "react-native-background-geolocation" {
     *   }
     * })
     * ```
+    * ----------------------------------------------------------------------
+    * ### ⚠️ Warning:  [[autoSyncThreshold]]
+    *
+    * If you've configured [[autoSyncThreshold]], it **will be ignored** during a `onMotionChange` event &mdash; all queued locations will be uploaded, since:
+    * - If an `onMotionChange` event fires **into the *moving* state**, the device may have been sitting dormant for a long period of time.  The plugin is *eager* to upload this state-change to the server as soon as possible.
+    * - If an `onMotionChange` event fires **into the *stationary* state**, the device may be *about to* lie dormant for a long period of time.  The plugin is *eager* to upload all queued locations to the server before going dormant.
+    * ----------------------------------------------------------------------
+    *
     * ### ℹ️ See also:
     * - [[autoSyncThreshold]]
     * - [[batchSync]]
@@ -800,6 +802,14 @@ declare module "react-native-background-geolocation" {
     *                         POST             POST
     *   Network: ______________|________________|___...
     * ```
+    * ----------------------------------------------------------------------
+    * ### ⚠️ Warning
+    *
+    * `autoSyncThreshold` **will be ignored** during a [[BackgroundGeolocation.onMotionChange]] event &mdash; all queued locations will be uploaded, since:
+    * - If an `onMotionChange` event fires **into the *moving* state**, the device may have been sitting dormant for a long period of time.  The plugin is *eager* to upload this state-change to the server as soon as possible.
+    * - If an `onMotionChange` event fires **into the *stationary* state**, the device may be *about to* lie dormant for a long period of time.  The plugin is *eager* to upload all queued locations to the server before going dormant.
+    * ----------------------------------------------------------------------
+    *
     */
     autoSyncThreshold?: number;
 
@@ -1515,20 +1525,26 @@ declare module "react-native-background-geolocation" {
     logMaxDays?: number;
 
     /**
-    * Forces [[BackgroundGeolocation.ready]] to apply supplied [[Config]] with each application launch.
+    * Controls whether the plugin should first reset the configuration when `#ready` is executed before applying the supplied config `{}`.
+    *
+    * Defaults to `false`.  The SDK can optionally re-apply its persisted configuration with each boot of your application, ignoring the config `{}`
+    * supplied to the `#ready` method.
+    *
     * @break
     *
-    * Optionally, you can specify **`reset: true`** to [[BackgroundGeolocation.ready]].  This will essentially *force* the supplied [[Config]]
-    * to be applied with each launch of your application.
-    *
+    * Optionally, you can specify **`reset: false`** to [[BackgroundGeolocation.ready]].
     *
     * @example
   	* ```javascript
+    * await BackgroundGeolocation.setConfig({
+    *   distanceFilter: 100
+    * });
+    *
     * BackgroundGeolocation.ready({
-    *   reset: true,  // <-- set true to ALWAYS apply supplied config; not just at first launch.
+    *   reset: false,  // <-- set false to ALWAYS re-apply persisted configuration, ignoring config provided to `#ready`
     *   distanceFilter: 50
     * }, (state) => {
-    *   console.log('Ready with reset: true: ', state.distanceFilter);
+    *   console.log('Ready with reset: false: ', state.distanceFilter);  // <-- 100, not 10
     * });
     * ```
     */
@@ -1551,7 +1567,7 @@ declare module "react-native-background-geolocation" {
     *
     * ### Android
     *
-    * A location will be recorded several times per hour while the device is in the *moving* state.  No foreground-service will be run (nor its corresponding persistent notification).
+    * A location will be recorded several times per hour while the device is in the *moving* state.  No foreground-service will be run (nor its corresponding persistent [[Notification]]).
     *
     * @example **`useSignificantChanges: true`**
     * ![](https://dl.dropboxusercontent.com/s/wdl9e156myv5b34/useSignificantChangesOnly.png?dl=1)
@@ -1880,21 +1896,16 @@ declare module "react-native-background-geolocation" {
     *
     * Defaults to `true` and cannot be set to `false`.  Due to strict new [Background Execution Limits](https://www.youtube.com/watch?v=Pumf_4yjTMc) in Android 8, the plugin *enforces* **`foregroundService: true`**.
     *
-    * A persistent notification is required by the operating-system with a foreground-service.  It **cannot** be hidden.
+    * A persistent [[Notification]] is required by the operating-system with a foreground-service.  It **cannot** be hidden.
     *
     * ### Android < 8.0
     *
     * Defaults to **`false`**.  When the Android OS is under memory pressure from other applications (eg: a phone call), the OS can and will free up memory by terminating other processes and scheduling them for re-launch when memory becomes available.  If you find your tracking being **terminated unexpectedly**, *this* is why.
     *
-    * If you set this option to **`true`**, the plugin will run its Android service in the foreground, **supplying the ongoing notification to be shown to the user while in this state**.  Running as a foreground-service makes the tracking-service **much** more immune to OS killing it due to memory/battery pressure.  By default services are background, meaning that if the system needs to kill them to reclaim more memory (such as to display a large page in a web browser).
+    * If you set this option to **`true`**, the plugin will run its Android service in the foreground, **supplying the ongoing [[Notification]]  to be shown to the user while in this state**.  Running as a foreground-service makes the tracking-service **much** more immune to OS killing it due to memory/battery pressure.  By default services are background, meaning that if the system needs to kill them to reclaim more memory (such as to display a large page in a web browser).
     *
     * ### ℹ️ See also:
-    * - [[notificationTitle]]
-    * - [[notificationText]]
-    * - [[notificationColor]]
-    * - [[notificationPriority]]
-    * - [[notificationSmallIcon]]
-    * - [[notificationLargeIcon]]
+    * - [[Notification]]
     * - 📘 For more information, see the [Android Service](https://developer.android.com/reference/android/app/Service.html#startForeground(int,%20android.app.Notification)) docs.
     */
     foregroundService?: boolean;
@@ -1966,135 +1977,63 @@ declare module "react-native-background-geolocation" {
     forceReloadOnSchedule?: boolean;
 
     /**
-    * When running the service with [[foregroundService]]: true, Android requires a persistent notification in the Notification Bar.  This will control the **priority** of that notification as well as the position of the notificaiton-bar icon.
+    * [__Android only]__ Configures the persistent foreground-service [[Notification]] required by Android.
     *
-    * The following `notificationPriority` values defined as static constants upon the [[BackgroundGeolocation]] object:
+    * ![](https://dl.dropbox.com/s/acuhy5cu4p7uofr/android-foreground-service-default.png?dl=1)
     *
-    * | Value                                                   | Description                                                                                             |
-    * |---------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-    * | [[BackgroundGeolocation.NOTIFICATION_PRIORITY_DEFAULT]] | Notification weighted to top of list; notification-bar icon weighted left                               |
-    * | [[BackgroundGeolocation.NOTIFICATION_PRIORITY_HIGH]]    | Notification **strongly** weighted to top of list; notification-bar icon **strongly** weighted to left  |
-    * | [[BackgroundGeolocation.NOTIFICATION_PRIORITY_LOW]]     | Notification weighted to bottom of list; notification-bar icon weighted right                           |
-    * | [[BackgroundGeolocation.NOTIFICATION_PRIORITY_MAX]]     | Same as `NOTIFICATION_PRIORITY_HIGH`                                                                    |
-    * | [[BackgroundGeolocation.NOTIFICATION_PRIORITY_MIN]]     | Notification **strongly** weighted to bottom of list; notification-bar icon **hidden**                  |
+    * See [Notification] for detailed usage.
     *
     * @example
-  	* ```javascript
+    * ```typescript
     * BackgroundGeolocation.ready({
-    *   foregroundService: true,
-    *   notificationPriority: BackgroundGeolocation.NOTIFICATION_PRIORITY_MIN
-    * });
+    *   notification: {
+    *     title: 'Background tracking engaged',
+    *     text: 'My notification text'
+    *   }
+    * })
     * ```
+    */
+    notification?: Notification;
+
+    /**
+    * ⚠️ DEPRECATED [[Notification.priority]]
+    * @deprecated
     */
     notificationPriority?: NotificationPriority;
 
     /**
-    * Configure the *title* of the persistent notification in the Notification Bar when running with [[foregroundService]] __`true`__
-    * @break
-    *
-    * Defaults to the application name from `AndroidManifest`.  When running the service with [[foregroundService]]: true, Android requires a persistent notification.  This will configure the **title** of that notification.
+    * ⚠️ DEPRECATED:  Use [[Notification.title]]
+    * @deprecated
     */
     notificationTitle?: string;
 
     /**
-    * Configure the *text* of the persistent notification in the Notification Bar when running with [[foregroundService]] __`true`__
-    * @break
-    *
-    * Defaults to *"Location service activated"*.  When running the service with [[foregroundService]]: true, Android requires a persistent notification.  This will configure the **text** of that notification.
+    * ⚠️ DEPRECATED:  Use [[Notification.text]]
+    * @deprecated
     */
     notificationText?: string;
 
     /**
-    * Configure the *color* of the persistent notification icon in the Notification Bar when running with [[foregroundService]] __`true`__
-    * @break
-    *
-    * Defaults to `null`.  When running the service with [[foregroundService]]: true, Android requires a persistent notification.  This will configure the **color** of the notification **icon** (API >= 21).
-    *
-    * Supported formats are:
-    * - `#RRGGBB`
-    * - `#AARRGGBB`
+    * ⚠️ DEPRECATED:  Use [[Notification.color]]
+    * @deprecated
     */
     notificationColor?: string;
 
     /**
-    * Configure the *small icon* of the persistent notification in the Notification Bar when running with [[foregroundService]] __`true`__
-    * @break
-    *
-    * When running the service with [[foregroundService]]: true, Android requires a persistent notification in the Notification Bar.  This allows you customize that icon.  Defaults to your application icon.
-    *
-    * ### ⚠️ Warning:
-    * - You must specify the **`type`** (`drawable|mipmap`) of resource you wish to use in the following format: `{type}/icon_name`
-    * - Do not append the file-extension (eg: `.png`)
-    *
-    * @example
-  	* ```javascript
-    * // 1. drawable
-    * BackgroundGeolocation.ready({
-    *   notificationSmallIcon: "drawable/my_custom_notification_small_icon"
-    * });
-    *
-    * // 2. mipmap
-    * BackgroundGeolocation.ready({
-    *   notificationSmallIcon: "mipmap/my_custom_notification_small_icon"
-    * });
-    * ```
-    *
-    * ### ℹ️ See also:
-    * - [[notificationLargeIcon]]
+    * ⚠️ DEPRECATED:  Use [[Notification.smallIcon]]
+    * @deprecated
     */
     notificationSmallIcon?: string;
 
     /**
-    * Configure the *large icon* of the persistent notification in the Notification Bar when running with [[foregroundService]] __`true`__
-    * @break
-    *
-    * When running the service with [[foregroundService]]: true, Android requires a persistent notification in the Notification Bar.  This allows you customize that icon.  Defaults to your application icon.
-    *
-    * ### ⚠️ Warning:
-    * - You must specify the **`type`** (`drawable|mipmap`) of resource you wish to use in the following format: `{type}/icon_name`
-    * - Do not append the file-extension (eg: `.png`)
-    *
-    * @example
-  	* ```javascript
-    * // 1. drawable
-    * BackgroundGeolocation.ready({
-    *   notificationSmallIcon: "drawable/my_custom_notification_small_icon"
-    * });
-    *
-    * // 2. mipmap
-    * BackgroundGeolocation.ready({
-    *   notificationSmallIcon: "mipmap/my_custom_notification_small_icon"
-    * });
-    * ```
-    *
-    * ### ℹ️ See also:
-    * - [[notificationSmallIcon]]
+    * ⚠️ DEPRECATED:  [[Notification.largeIcon]]
+    * @deprecated
     */
     notificationLargeIcon?: string;
 
     /**
-    * Configure the name of the plugin's notification-channel used to display the [[foregroundService]] notification.
-    * @break
-    *
-    * On Android O+, the plugin's foreground-service needs to create a "Notification Channel".  The name of this channel can be seen in:
-    * > `Settings->App & Notifications->Your App.`
-    *
-    * Defaults to your application's name from `AndroidManifest`.
-    *
-    * ![](https://dl.dropboxusercontent.com/s/zgcxau7lyjfuaw9/android-notificationChannelName.png?dl=1)\
-    *
-    *
-    * @example
-  	* ```javascript
-    * BackgroundGeolocation.ready({
-    *   notificationChannelName: "Location Tracker"
-    * });
-    *
-    * // or with #setConfig
-    * BackgroundGeolocation.setConfig({
-    *   notificationChannelName: "My new channel name"
-    * });
-    * ```
+    * ⚠️ DEPRECATED:  [[Notification.channelName]]
+    * @deprecated
     */
     notificationChannelName?: string;
   }

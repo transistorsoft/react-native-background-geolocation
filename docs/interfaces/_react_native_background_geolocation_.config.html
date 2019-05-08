@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.0</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.4</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -399,39 +399,9 @@ BackgroundGeolocation.setConfig({
 										<td><strong>Default: <code>false</code></strong>.  Set to <code>true</code> to enable &quot;Headless&quot; mode when the user terminates the application.  In this mode, you can respond to all the plugin&#39;s events in the native Android environment.  For more information, see the wiki for <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Android-Headless-Mode">Android Headless Mode</a></td>
 									</tr>
 									<tr>
-										<td><a href="_react_native_background_geolocation_.config.html#notificationpriority">notificationPriority</a></td>
-										<td><a href="../modules/_react_native_background_geolocation_.html#notificationpriority">NotificationPriority</a></td>
-										<td><strong>Default: <code>NOTIFICATION_PRIORITY_DEFAULT</code></strong>.  Controls the priority of the <code>foregroundService</code> notification and notification-bar icon.</td>
-									</tr>
-									<tr>
-										<td><a href="_react_native_background_geolocation_.config.html#notificationtitle">notificationTitle</a></td>
-										<td><code>String</code></td>
-										<td><strong>Default: <code>Your App Name</code></strong>.  When running the service with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a>: true, Android requires a persistent notification in the Notification Bar.  Defaults to the application name</td>
-									</tr>
-									<tr>
-										<td><a href="_react_native_background_geolocation_.config.html#notificationtext">notificationText</a></td>
-										<td><code>String</code></td>
-										<td><strong>Default: <code>Location service activated</code></strong>.  When running the service with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a>: true, Android requires a persistent notification in the Notification Bar.</td>
-									</tr>
-									<tr>
-										<td><a href="_react_native_background_geolocation_.config.html#notificationcolor">notificationColor</a></td>
-										<td><code>String</code></td>
-										<td><strong>Default: <code>undefined</code></strong>.  When running the service with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a>: true, controls the color of the persistent notification in the Notification Bar.</td>
-									</tr>
-									<tr>
-										<td><a href="_react_native_background_geolocation_.config.html#notificationsmallicon">notificationSmallIcon</a></td>
-										<td><code>String</code></td>
-										<td><strong>Default: <code>Your App Icon</code></strong>.  When running the service with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a>: true, controls your customize notification <em>small</em> icon.  Defaults to your application icon.</td>
-									</tr>
-									<tr>
-										<td><a href="_react_native_background_geolocation_.config.html#notificationlargeicon">notificationLargeIcon</a></td>
-										<td><code>String</code></td>
-										<td><strong>Default: <code>undefined</code></strong>.  When running the service with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a>: true, controls your customize notification <em>large</em> icon.  Defaults to <code>undefined</code>.</td>
-									</tr>
-									<tr>
-										<td><a href="_react_native_background_geolocation_.config.html#notificationchannelname">notificationChannelName</a></td>
-										<td><code>String</code></td>
-										<td><strong>Default: <code>app name</code></strong>.  On Android O+, the plugin&#39;s foreground-service needs to create a &quot;Notification Channel&quot;.  The name of this channel can be seen in Settings-&gt;App &amp; Notifications-&gt;Your App.  Defaults to <code>Your App</code>.</td>
+										<td><a href="_react_native_background_geolocation_.config.html#notification">notification</a></td>
+										<td><a href="_react_native_background_geolocation_.notification.html">Notification</a></td>
+										<td>Configures the required persistent <a href="_react_native_background_geolocation_.notification.html">Notification</a> of the foreground service.</td>
 									</tr>
 									<tr>
 										<td><a href="_react_native_background_geolocation_.config.html#forcereloadonmotionchange">forceReloadOnMotionChange</a></td>
@@ -499,7 +469,7 @@ BackgroundGeolocation.setConfig({
 								<tbody><tr>
 										<td><a href="_react_native_background_geolocation_.config.html#geofencemodehighaccuracy">geofenceModeHighAccuracy</a></td>
 										<td><code>Boolean</code></td>
-										<td><strong>Default: <code>false</code></strong>.  Runs <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a> with a <em>foreground service</em> (along with its corresponding persitent notification).  This will make geofence triggering <strong>far more consistent</strong> at the expense of higher power usage.</td>
+										<td><strong>Default: <code>false</code></strong>.  Runs <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a> with a <em>foreground service</em> (along with its corresponding persitent <a href="_react_native_background_geolocation_.notification.html">Notification</a>).  This will make geofence triggering <strong>far more consistent</strong> at the expense of higher power usage.</td>
 									</tr>
 							</tbody></table>
 							<h2 id="logging-debug-options">Logging &amp; Debug Options</h2>
@@ -603,6 +573,7 @@ BackgroundGeolocation.setConfig({
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#maxrecordstopersist" class="tsd-kind-icon">max<wbr>Records<wbr>ToPersist</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#method" class="tsd-kind-icon">method</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#minimumactivityrecognitionconfidence" class="tsd-kind-icon">minimum<wbr>Activity<wbr>Recognition<wbr>Confidence</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#notification" class="tsd-kind-icon">notification</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#notificationchannelname" class="tsd-kind-icon">notification<wbr>Channel<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#notificationcolor" class="tsd-kind-icon">notification<wbr>Color</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#notificationlargeicon" class="tsd-kind-icon">notification<wbr>Large<wbr>Icon</a></li>
@@ -735,6 +706,14 @@ BackgroundGeolocation.setConfig({
     user_id: <span class="hljs-number">1234</span>
   }
 })</code></pre>
+								<hr>
+								<h3 id="-warning-a-href-_react_native_background_geolocation_-config-html-autosyncthreshold-autosyncthreshold-a-">⚠️ Warning:  <a href="_react_native_background_geolocation_.config.html#autosyncthreshold">autoSyncThreshold</a></h3>
+								<p>If you&#39;ve configured <a href="_react_native_background_geolocation_.config.html#autosyncthreshold">autoSyncThreshold</a>, it <strong>will be ignored</strong> during a <code>onMotionChange</code> event &mdash; all queued locations will be uploaded, since:</p>
+								<ul>
+									<li>If an <code>onMotionChange</code> event fires <strong>into the <em>moving</em> state</strong>, the device may have been sitting dormant for a long period of time.  The plugin is <em>eager</em> to upload this state-change to the server as soon as possible.</li>
+									<li>If an <code>onMotionChange</code> event fires <strong>into the <em>stationary</em> state</strong>, the device may be <em>about to</em> lie dormant for a long period of time.  The plugin is <em>eager</em> to upload all queued locations to the server before going dormant.</li>
+								</ul>
+								<hr>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
 									<li><a href="_react_native_background_geolocation_.config.html#autosyncthreshold">autoSyncThreshold</a></li>
@@ -773,7 +752,15 @@ BackgroundGeolocation.setConfig({
 Locations: <span class="hljs-variable">__</span>|<span class="hljs-variable">__</span>|<span class="hljs-variable">__</span>|<span class="hljs-variable">__</span>|<span class="hljs-variable">__</span>|<span class="hljs-variable">____</span>|<span class="hljs-variable">__</span>|<span class="hljs-variable">__</span>|<span class="hljs-variable">__</span>|<span class="hljs-variable">__</span>|<span class="hljs-variable">___</span>...
 
                         POST             POST
-  Network: <span class="hljs-variable">______________</span>|<span class="hljs-variable">________________</span>|<span class="hljs-variable">___</span>...</code></pre></dd>
+  Network: <span class="hljs-variable">______________</span>|<span class="hljs-variable">________________</span>|<span class="hljs-variable">___</span>...</code></pre><hr>
+								<h3 id="-warning">⚠️ Warning</h3>
+								<p><code>autoSyncThreshold</code> <strong>will be ignored</strong> during a <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onmotionchange">BackgroundGeolocation.onMotionChange</a> event &mdash; all queued locations will be uploaded, since:</p>
+								<ul>
+									<li>If an <code>onMotionChange</code> event fires <strong>into the <em>moving</em> state</strong>, the device may have been sitting dormant for a long period of time.  The plugin is <em>eager</em> to upload this state-change to the server as soon as possible.</li>
+									<li>If an <code>onMotionChange</code> event fires <strong>into the <em>stationary</em> state</strong>, the device may be <em>about to</em> lie dormant for a long period of time.  The plugin is <em>eager</em> to upload all queued locations to the server before going dormant.</li>
+								</ul>
+								<hr>
+							</dd>
 						</dl>
 					</div>
 				</section>
@@ -1497,18 +1484,13 @@ BackgroundGeolocation.ready({
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><h3 id="-android-8-0-">⚠️ Android 8.0+</h3>
 								<p>Defaults to <code>true</code> and cannot be set to <code>false</code>.  Due to strict new <a href="https://www.youtube.com/watch?v=Pumf_4yjTMc">Background Execution Limits</a> in Android 8, the plugin <em>enforces</em> <strong><code>foregroundService: true</code></strong>.</p>
-								<p>A persistent notification is required by the operating-system with a foreground-service.  It <strong>cannot</strong> be hidden.</p>
+								<p>A persistent <a href="_react_native_background_geolocation_.notification.html">Notification</a> is required by the operating-system with a foreground-service.  It <strong>cannot</strong> be hidden.</p>
 								<h3 id="android-8-0">Android &lt; 8.0</h3>
 								<p>Defaults to <strong><code>false</code></strong>.  When the Android OS is under memory pressure from other applications (eg: a phone call), the OS can and will free up memory by terminating other processes and scheduling them for re-launch when memory becomes available.  If you find your tracking being <strong>terminated unexpectedly</strong>, <em>this</em> is why.</p>
-								<p>If you set this option to <strong><code>true</code></strong>, the plugin will run its Android service in the foreground, <strong>supplying the ongoing notification to be shown to the user while in this state</strong>.  Running as a foreground-service makes the tracking-service <strong>much</strong> more immune to OS killing it due to memory/battery pressure.  By default services are background, meaning that if the system needs to kill them to reclaim more memory (such as to display a large page in a web browser).</p>
+								<p>If you set this option to <strong><code>true</code></strong>, the plugin will run its Android service in the foreground, <strong>supplying the ongoing <a href="_react_native_background_geolocation_.notification.html">Notification</a>  to be shown to the user while in this state</strong>.  Running as a foreground-service makes the tracking-service <strong>much</strong> more immune to OS killing it due to memory/battery pressure.  By default services are background, meaning that if the system needs to kill them to reclaim more memory (such as to display a large page in a web browser).</p>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
-									<li><a href="_react_native_background_geolocation_.config.html#notificationtitle">notificationTitle</a></li>
-									<li><a href="_react_native_background_geolocation_.config.html#notificationtext">notificationText</a></li>
-									<li><a href="_react_native_background_geolocation_.config.html#notificationcolor">notificationColor</a></li>
-									<li><a href="_react_native_background_geolocation_.config.html#notificationpriority">notificationPriority</a></li>
-									<li><a href="_react_native_background_geolocation_.config.html#notificationsmallicon">notificationSmallIcon</a></li>
-									<li><a href="_react_native_background_geolocation_.config.html#notificationlargeicon">notificationLargeIcon</a></li>
+									<li><a href="_react_native_background_geolocation_.notification.html">Notification</a></li>
 									<li>📘 For more information, see the <a href="https://developer.android.com/reference/android/app/Service.html#startForeground(int,%20android.app.Notification)">Android Service</a> docs.</li>
 								</ul>
 							</dd>
@@ -1547,7 +1529,7 @@ BackgroundGeolocation.ready({
 							<p><strong><code>[Android only]</code></strong> Enable high-accuracy for <strong>geofence-only</strong> mode (See <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">BackgroundGeolocation.startGeofences</a>).</p>
 						</div>
 						<h3 id="-warning-will-consume-more-power-">⚠️ Warning: Will consume more power.</h3>
-						<p>Defaults to <code>false</code>.  Runs Android&#39;s <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">BackgroundGeolocation.startGeofences</a> with a <em>foreground service</em> (along with its corresponding persitent notification;  See <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a> for a list of available notification config options, including <a href="_react_native_background_geolocation_.config.html#notificationtext">notificationText</a>, <a href="_react_native_background_geolocation_.config.html#notificationtitle">notificationTitle</a>).</p>
+						<p>Defaults to <code>false</code>.  Runs Android&#39;s <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">BackgroundGeolocation.startGeofences</a> with a <em>foreground service</em> (along with its corresponding persistent <a href="_react_native_background_geolocation_.notification.html">Notification</a>.</p>
 						<p>Configuring <code>geofenceModeHighAccuracy: true</code> will make Android geofence triggering <strong>far more responsive</strong>.  In this mode, the usual config options to control location-services will be applied:</p>
 						<ul>
 							<li><a href="_react_native_background_geolocation_.config.html#desiredaccuracy">desiredAccuracy</a> (<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#desired_accuracy_medium">BackgroundGeolocation.DESIRED_ACCURACY_MEDIUM</a> works well).</li>
@@ -2450,6 +2432,30 @@ BackgroundGeolocation.ready({
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="notification" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> notification</h3>
+					<div class="tsd-signature tsd-kind-icon">notification<span class="tsd-signature-symbol">:</span> <a href="_react_native_background_geolocation_.notification.html" class="tsd-signature-type">Notification</a></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>[<strong>Android only]</strong> Configures the persistent foreground-service <a href="_react_native_background_geolocation_.notification.html">Notification</a> required by Android.</p>
+						</div>
+						<p><img src="https://dl.dropbox.com/s/acuhy5cu4p7uofr/android-foreground-service-default.png?dl=1" alt=""></p>
+						<p>See [Notification] for detailed usage.</p>
+						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
+  notification: {
+    title: <span class="hljs-string">'Background tracking engaged'</span>,
+    text: <span class="hljs-string">'My notification text'</span>
+  }
+})</code></pre>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="notificationchannelname" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> notification<wbr>Channel<wbr>Name</h3>
 					<div class="tsd-signature tsd-kind-icon">notification<wbr>Channel<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -2457,27 +2463,11 @@ BackgroundGeolocation.ready({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Configure the name of the plugin&#39;s notification-channel used to display the <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a> notification.</p>
+							<p>⚠️ DEPRECATED:  <a href="_react_native_background_geolocation_.notification.html#channelname">Notification.channelName</a></p>
 						</div>
 						<dl class="tsd-comment-tags">
-							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>On Android O+, the plugin&#39;s foreground-service needs to create a &quot;Notification Channel&quot;.  The name of this channel can be seen in:</p>
-								<blockquote>
-									<p><code>Settings-&gt;App &amp; Notifications-&gt;Your App.</code></p>
-								</blockquote>
-								<p>Defaults to your application&#39;s name from <code>AndroidManifest</code>.</p>
-								<p><img src="https://dl.dropboxusercontent.com/s/zgcxau7lyjfuaw9/android-notificationChannelName.png?dl=1" alt="">\</p>
-							</dd>
-							<dt class="tsd-comment-tag-example">example</dt>
-							<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
-  <span class="hljs-attr">notificationChannelName</span>: <span class="hljs-string">"Location Tracker"</span>
-});
-
-<span class="hljs-comment">// or with #setConfig</span>
-BackgroundGeolocation.setConfig({
-  <span class="hljs-attr">notificationChannelName</span>: <span class="hljs-string">"My new channel name"</span>
-});</code></pre>
-							</dd>
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd></dd>
 						</dl>
 					</div>
 				</section>
@@ -2489,17 +2479,11 @@ BackgroundGeolocation.setConfig({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Configure the <em>color</em> of the persistent notification icon in the Notification Bar when running with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a> <strong><code>true</code></strong></p>
+							<p>⚠️ DEPRECATED:  Use <a href="_react_native_background_geolocation_.notification.html#color">Notification.color</a></p>
 						</div>
 						<dl class="tsd-comment-tags">
-							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>Defaults to <code>null</code>.  When running the service with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a>: true, Android requires a persistent notification.  This will configure the <strong>color</strong> of the notification <strong>icon</strong> (API &gt;= 21).</p>
-								<p>Supported formats are:</p>
-								<ul>
-									<li><code>#RRGGBB</code></li>
-									<li><code>#AARRGGBB</code></li>
-								</ul>
-							</dd>
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd></dd>
 						</dl>
 					</div>
 				</section>
@@ -2511,32 +2495,11 @@ BackgroundGeolocation.setConfig({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Configure the <em>large icon</em> of the persistent notification in the Notification Bar when running with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a> <strong><code>true</code></strong></p>
+							<p>⚠️ DEPRECATED:  <a href="_react_native_background_geolocation_.notification.html#largeicon">Notification.largeIcon</a></p>
 						</div>
 						<dl class="tsd-comment-tags">
-							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>When running the service with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a>: true, Android requires a persistent notification in the Notification Bar.  This allows you customize that icon.  Defaults to your application icon.</p>
-								<h3 id="-warning-">⚠️ Warning:</h3>
-								<ul>
-									<li>You must specify the <strong><code>type</code></strong> (<code>drawable|mipmap</code>) of resource you wish to use in the following format: <code>{type}/icon_name</code></li>
-									<li>Do not append the file-extension (eg: <code>.png</code>)</li>
-								</ul>
-							</dd>
-							<dt class="tsd-comment-tag-example">example</dt>
-							<dd><pre><code class="language-javascript"><span class="hljs-comment">// 1. drawable</span>
-BackgroundGeolocation.ready({
-  <span class="hljs-attr">notificationSmallIcon</span>: <span class="hljs-string">"drawable/my_custom_notification_small_icon"</span>
-});
-
-<span class="hljs-comment">// 2. mipmap</span>
-BackgroundGeolocation.ready({
-  <span class="hljs-attr">notificationSmallIcon</span>: <span class="hljs-string">"mipmap/my_custom_notification_small_icon"</span>
-});</code></pre>
-								<h3 id="-see-also-">ℹ️ See also:</h3>
-								<ul>
-									<li><a href="_react_native_background_geolocation_.config.html#notificationsmallicon">notificationSmallIcon</a></li>
-								</ul>
-							</dd>
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd></dd>
 						</dl>
 					</div>
 				</section>
@@ -2548,44 +2511,11 @@ BackgroundGeolocation.ready({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>When running the service with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a>: true, Android requires a persistent notification in the Notification Bar.  This will control the <strong>priority</strong> of that notification as well as the position of the notificaiton-bar icon.</p>
+							<p>⚠️ DEPRECATED <a href="_react_native_background_geolocation_.notification.html#priority">Notification.priority</a></p>
 						</div>
-						<p>The following <code>notificationPriority</code> values defined as static constants upon the <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html">BackgroundGeolocation</a> object:</p>
-						<table>
-							<thead>
-								<tr>
-									<th>Value</th>
-									<th>Description</th>
-								</tr>
-							</thead>
-							<tbody><tr>
-									<td><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#notification_priority_default">BackgroundGeolocation.NOTIFICATION_PRIORITY_DEFAULT</a></td>
-									<td>Notification weighted to top of list; notification-bar icon weighted left</td>
-								</tr>
-								<tr>
-									<td><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#notification_priority_high">BackgroundGeolocation.NOTIFICATION_PRIORITY_HIGH</a></td>
-									<td>Notification <strong>strongly</strong> weighted to top of list; notification-bar icon <strong>strongly</strong> weighted to left</td>
-								</tr>
-								<tr>
-									<td><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#notification_priority_low">BackgroundGeolocation.NOTIFICATION_PRIORITY_LOW</a></td>
-									<td>Notification weighted to bottom of list; notification-bar icon weighted right</td>
-								</tr>
-								<tr>
-									<td><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#notification_priority_max">BackgroundGeolocation.NOTIFICATION_PRIORITY_MAX</a></td>
-									<td>Same as <code>NOTIFICATION_PRIORITY_HIGH</code></td>
-								</tr>
-								<tr>
-									<td><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#notification_priority_min">BackgroundGeolocation.NOTIFICATION_PRIORITY_MIN</a></td>
-									<td>Notification <strong>strongly</strong> weighted to bottom of list; notification-bar icon <strong>hidden</strong></td>
-								</tr>
-						</tbody></table>
 						<dl class="tsd-comment-tags">
-							<dt class="tsd-comment-tag-example">example</dt>
-							<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
-  <span class="hljs-attr">foregroundService</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">notificationPriority</span>: BackgroundGeolocation.NOTIFICATION_PRIORITY_MIN
-});</code></pre>
-							</dd>
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd></dd>
 						</dl>
 					</div>
 				</section>
@@ -2597,32 +2527,11 @@ BackgroundGeolocation.ready({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Configure the <em>small icon</em> of the persistent notification in the Notification Bar when running with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a> <strong><code>true</code></strong></p>
+							<p>⚠️ DEPRECATED:  Use <a href="_react_native_background_geolocation_.notification.html#smallicon">Notification.smallIcon</a></p>
 						</div>
 						<dl class="tsd-comment-tags">
-							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>When running the service with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a>: true, Android requires a persistent notification in the Notification Bar.  This allows you customize that icon.  Defaults to your application icon.</p>
-								<h3 id="-warning-">⚠️ Warning:</h3>
-								<ul>
-									<li>You must specify the <strong><code>type</code></strong> (<code>drawable|mipmap</code>) of resource you wish to use in the following format: <code>{type}/icon_name</code></li>
-									<li>Do not append the file-extension (eg: <code>.png</code>)</li>
-								</ul>
-							</dd>
-							<dt class="tsd-comment-tag-example">example</dt>
-							<dd><pre><code class="language-javascript"><span class="hljs-comment">// 1. drawable</span>
-BackgroundGeolocation.ready({
-  <span class="hljs-attr">notificationSmallIcon</span>: <span class="hljs-string">"drawable/my_custom_notification_small_icon"</span>
-});
-
-<span class="hljs-comment">// 2. mipmap</span>
-BackgroundGeolocation.ready({
-  <span class="hljs-attr">notificationSmallIcon</span>: <span class="hljs-string">"mipmap/my_custom_notification_small_icon"</span>
-});</code></pre>
-								<h3 id="-see-also-">ℹ️ See also:</h3>
-								<ul>
-									<li><a href="_react_native_background_geolocation_.config.html#notificationlargeicon">notificationLargeIcon</a></li>
-								</ul>
-							</dd>
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd></dd>
 						</dl>
 					</div>
 				</section>
@@ -2634,12 +2543,11 @@ BackgroundGeolocation.ready({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Configure the <em>text</em> of the persistent notification in the Notification Bar when running with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a> <strong><code>true</code></strong></p>
+							<p>⚠️ DEPRECATED:  Use <a href="_react_native_background_geolocation_.notification.html#text">Notification.text</a></p>
 						</div>
 						<dl class="tsd-comment-tags">
-							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>Defaults to <em>&quot;Location service activated&quot;</em>.  When running the service with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a>: true, Android requires a persistent notification.  This will configure the <strong>text</strong> of that notification.</p>
-							</dd>
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd></dd>
 						</dl>
 					</div>
 				</section>
@@ -2651,12 +2559,11 @@ BackgroundGeolocation.ready({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Configure the <em>title</em> of the persistent notification in the Notification Bar when running with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a> <strong><code>true</code></strong></p>
+							<p>⚠️ DEPRECATED:  Use <a href="_react_native_background_geolocation_.notification.html#title">Notification.title</a></p>
 						</div>
 						<dl class="tsd-comment-tags">
-							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>Defaults to the application name from <code>AndroidManifest</code>.  When running the service with <a href="_react_native_background_geolocation_.config.html#foregroundservice">foregroundService</a>: true, Android requires a persistent notification.  This will configure the <strong>title</strong> of that notification.</p>
-							</dd>
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd></dd>
 						</dl>
 					</div>
 				</section>
@@ -2815,19 +2722,24 @@ BackgroundGeolocation.ready({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Forces <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#ready">BackgroundGeolocation.ready</a> to apply supplied <a href="_react_native_background_geolocation_.config.html">Config</a> with each application launch.</p>
+							<p>Controls whether the plugin should first reset the configuration when <code>#ready</code> is executed before applying the supplied config <code>{}</code>.</p>
 						</div>
+						<p>Defaults to <code>false</code>.  The SDK can optionally re-apply its persisted configuration with each boot of your application, ignoring the config <code>{}</code>
+						supplied to the <code>#ready</code> method.</p>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>Optionally, you can specify <strong><code>reset: true</code></strong> to <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#ready">BackgroundGeolocation.ready</a>.  This will essentially <em>force</em> the supplied <a href="_react_native_background_geolocation_.config.html">Config</a>
-								to be applied with each launch of your application.</p>
+							<dd><p>Optionally, you can specify <strong><code>reset: false</code></strong> to <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#ready">BackgroundGeolocation.ready</a>.</p>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
-							<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
-  <span class="hljs-attr">reset</span>: <span class="hljs-literal">true</span>,  <span class="hljs-comment">// &lt;-- set true to ALWAYS apply supplied config; not just at first launch.</span>
+							<dd><pre><code class="language-javascript"><span class="hljs-keyword">await</span> BackgroundGeolocation.setConfig({
+  <span class="hljs-attr">distanceFilter</span>: <span class="hljs-number">100</span>
+});
+
+BackgroundGeolocation.ready({
+  <span class="hljs-attr">reset</span>: <span class="hljs-literal">false</span>,  <span class="hljs-comment">// &lt;-- set false to ALWAYS re-apply persisted configuration, ignoring config provided to `#ready`</span>
   distanceFilter: <span class="hljs-number">50</span>
 }, (state) =&gt; {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Ready with reset: true: '</span>, state.distanceFilter);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Ready with reset: false: '</span>, state.distanceFilter);  <span class="hljs-comment">// &lt;-- 100, not 10</span>
 });</code></pre>
 							</dd>
 						</dl>
@@ -3323,7 +3235,7 @@ BackgroundGeolocation.ready({
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>⚠️ If Apple has rejected your application, refusing to grant your app the privilege of using the <strong><code>UIBackgroundMode: &quot;location&quot;</code></strong>, this can be a solution.</p>
 								<h3 id="android">Android</h3>
-								<p>A location will be recorded several times per hour while the device is in the <em>moving</em> state.  No foreground-service will be run (nor its corresponding persistent notification).</p>
+								<p>A location will be recorded several times per hour while the device is in the <em>moving</em> state.  No foreground-service will be run (nor its corresponding persistent <a href="_react_native_background_geolocation_.notification.html">Notification</a>).</p>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
 							<dd><p><strong><code>useSignificantChanges: true</code></strong>
@@ -3500,6 +3412,9 @@ BackgroundGeolocation.ready({
 								<a href="_react_native_background_geolocation_.config.html#minimumactivityrecognitionconfidence" class="tsd-kind-icon">minimum<wbr>Activity<wbr>Recognition<wbr>Confidence</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_react_native_background_geolocation_.config.html#notification" class="tsd-kind-icon">notification</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.config.html#notificationchannelname" class="tsd-kind-icon">notification<wbr>Channel<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
@@ -3619,6 +3534,9 @@ BackgroundGeolocation.ready({
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.motionchangeevent.html" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.notification.html" class="tsd-kind-icon">Notification</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>

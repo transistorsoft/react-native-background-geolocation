@@ -28,7 +28,7 @@ declare module "react-native-background-geolocation" {
 	type LocationAccuracy = -2 | -1 | 0 | 10 | 100 | 1000 | 3000;
 
 	/**
-	 * Used for [[Config.notificationPriority]].
+	 * Used for [[Notification.priority]].
 	 *
 	 * | Value                             | Description                                                                                            |
 	 * |-----------------------------------|--------------------------------------------------------------------------------------------------------|

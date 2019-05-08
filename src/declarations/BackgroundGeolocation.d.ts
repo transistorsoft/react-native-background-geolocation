@@ -17,6 +17,7 @@
 /// <reference path="interfaces/State.d.ts" />
 /// <reference path="interfaces/WatchPositionRequest.d.ts" />
 /// <reference path="interfaces/DeviceSettings.d.ts" />
+/// <reference path="interfaces/Notification.d.ts" />
 
 declare module "react-native-background-geolocation" {
   /**
@@ -48,6 +49,7 @@ declare module "react-native-background-geolocation" {
   * | [[onConnectivityChange]] | Fired when network-connectivity changes (connected / disconnected).  |
   * | [[onPowerSaveChange]]    | Fired when state of operating-system's "power-saving" feature is enabled / disabled. |
   * | [[onEnabledChange]]      | Fired when the plugin is enabled / disabled via its [[start]] / [[stop]] methods.        |
+  * | [[onNotificationAction]] | __Android only__: Fired when a button is clicked on a custom [[Notification.layout]] of a foreground-service notification. |
   *
   * ## 🔧 [[Config]] API
   *
@@ -131,14 +133,13 @@ declare module "react-native-background-geolocation" {
   *
   * ```
   *
-  * ### ℹ️ Note:
-  * The configuration **`{}`** provided to the [[ready]] method is applied **only** when your app is **first booted** &mdash; for every launch thereafter, the plugin will automatically load the last known configuration from persistent storage.  If you wish to **force** the `#ready` method to *always* apply the supplied config `{}`, you can specify **`reset: true`**
-  *
   * @example
   * ```javascript
   * BackgroundGeolocation.ready({
-  *   reset: true,  // <-- true to always apply the supplied config
-  *   distanceFilter: 10
+  *   distanceFilter: 10,
+  *   stopOnTerminate: false,
+  *   logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
+  *   debug: true
   * }, (state) => {
   *   console.log('- BackgroundGeolocation is ready: ', state);
   * });
@@ -211,6 +212,7 @@ declare module "react-native-background-geolocation" {
     *
     */
     static deviceSettings: DeviceSettings;
+
     /**
     * @hidden
     */
@@ -326,6 +328,7 @@ declare module "react-native-background-geolocation" {
     *
     * Your `callback` will be executed each time the device has changed-state between **MOVING** or **STATIONARY**.
     *
+    *
     * @example
     * ```javascript
     * BackgroundGeolocation.onMotionChange((event) => {
@@ -336,6 +339,15 @@ declare module "react-native-background-geolocation" {
     *   }
     * });
     * ```
+    *
+    * ----------------------------------------------------------------------
+    * ### ⚠️ Warning:  `autoSyncThreshold`
+    *
+    * If you've configured [[Config.autoSyncThreshold]], it **will be ignored** during a `onMotionChange` event &mdash; all queued locations will be uploaded, since:
+    * - If an `onMotionChange` event fires **into the *moving* state**, the device may have been sitting dormant for a long period of time.  The plugin is *eager* to upload this state-change to the server as soon as possible.
+    * - If an `onMotionChange` event fires **into the *stationary* state**, the device may be about to lie dormant for a long period of time.  The plugin is *eager* to upload all queued locations to the server before going dormant.
+    * ----------------------------------------------------------------------
+    *
     * ### ℹ️ See also:
     * - [[stopTimeout]]
     * - 📘 [Philosophy of Operation](github:wiki/Philosophy-of-Operation)
@@ -549,7 +561,7 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```javascript
-    * BackgroundGeolocation.oPowerSaveChange((isPowerSaveMode) => {
+    * BackgroundGeolocation.onPowerSaveChange((isPowerSaveMode) => {
     *   console.log('[onPowerSaveChange: ', isPowerSaveMode);
     * });
     * ```
@@ -573,6 +585,11 @@ declare module "react-native-background-geolocation" {
     * @event enabledchange
     */
     static onEnabledChange(callback: (enabled:boolean) => void): void;
+
+    /**
+    * [__Android-only__] Subscribe to button-clicks of a custom [[Notification.layout]] on the Android foreground-service notification.
+    */
+    static onNotificationAction(callback: (buttonId:string) => void): void;
 
     /**
     * Registers a Javascript callback to execute in the Android "Headless" state, where the app has been terminated configured with
@@ -635,11 +652,8 @@ declare module "react-native-background-geolocation" {
     * });
     * ```
     *
-    * ### ⚠️ Note:
-    * The __`#ready`__ method only applies the supplied [[Config]] for the __first launch of the app__ &mdash; forever after, the plugin is going
-    * to *remember* __every configuration change__ you apply at runtime (eg: [[setConfig]]) and reload that *same config* every time your app boots.
-    * Changes to the [[Config]] supplied to [[ready]] *after* first launch will **not take effect**.  During development, it's helpful to provide
-    * [[reset]] __`true`__.
+    * ### ⚠️ Warning: You must call `#ready` **once** and **only once, each time your app is launched.  Do not hide the call to `#ready` within a view which is loaded only by clicking a UI action.  This is particularly important
+    * for iOS in the case where the OS relaunches your app in the background when the device is detected to be moving.  If you don't ensure that `#ready` is called in this case, tracking will not resume.
     *
     * ### The [[reset]] method.
     *
@@ -651,21 +665,6 @@ declare module "react-native-background-geolocation" {
     * // Reset to documented default-values with overrides
     * bgGeo.reset({
     *   distanceFilter:  10
-    * });
-    * ```
-    *
-    * ### [[reset]]: true
-    *
-    * Optionally, you can set [[reset]] to __`true`__  This is helpful during development.  This will essentially *force* the supplied [[Config]] to
-    * be applied with *each launch* of your application.
-    *
-    * @example
-    * ```javascript
-    * BackgroundGeolocation.ready({
-    *   reset: true,  // <-- set true to ALWAYS apply supplied config; not just at first launch.
-    *   distanceFilter: 50
-    * }).then((state) => {
-    *   console.log('[ready]', state)
     * });
     * ```
     */
@@ -906,13 +905,7 @@ declare module "react-native-background-geolocation" {
     * ```
     * ### Android
     *
-    * The Android implementation launches a foreground-service, along with the accompanying persistent foreground-notification.  You can customize the text and icons of the notification using the following [[Config]] options:
-    * - [[notificationTitle]]
-    * - [[notificationText]]
-    * - [[notificationColor]]
-    * - [[notificationPriority]]
-    * - [[notificationSmallIcon]]
-    * - [[notificationLargeIcon]]
+    * The Android implementation launches a foreground-service, along with the accompanying persistent foreground [[Notification]].
     *
     * ⚠️ The Android plugin hardcodes a limit of **30s** for your background-task before it automatically `FORCE KILL`s it.
     *

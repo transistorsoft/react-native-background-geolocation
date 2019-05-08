@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.0</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.4</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -124,6 +124,10 @@
 										<td><a href="_react_native_background_geolocation_.backgroundgeolocation.html#onenabledchange">onEnabledChange</a></td>
 										<td>Fired when the plugin is enabled / disabled via its <a href="_react_native_background_geolocation_.backgroundgeolocation.html#start">start</a> / <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a> methods.</td>
 									</tr>
+									<tr>
+										<td><a href="_react_native_background_geolocation_.backgroundgeolocation.html#onnotificationaction">onNotificationAction</a></td>
+										<td><strong>Android only</strong>: Fired when a button is clicked on a custom <a href="../interfaces/_react_native_background_geolocation_.notification.html#layout">Notification.layout</a> of a foreground-service notification.</td>
+									</tr>
 							</tbody></table>
 							<h2 id="-a-href-interfaces-_react_native_background_geolocation_-config-html-config-a-api">🔧 <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> API</h2>
 							<p><a href="_react_native_background_geolocation_.backgroundgeolocation.html">BackgroundGeolocation</a> is highly configurable.  See the <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> API for more information.</p>
@@ -204,13 +208,13 @@ BackgroundGeolocation.ready({
   }
 });
 </code></pre>
-							<h3 id="-note-">ℹ️ Note:</h3>
-							<p>The configuration <strong><code>{}</code></strong> provided to the <a href="_react_native_background_geolocation_.backgroundgeolocation.html#ready">ready</a> method is applied <strong>only</strong> when your app is <strong>first booted</strong> &mdash; for every launch thereafter, the plugin will automatically load the last known configuration from persistent storage.  If you wish to <strong>force</strong> the <code>#ready</code> method to <em>always</em> apply the supplied config <code>{}</code>, you can specify <strong><code>reset: true</code></strong></p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
-  <span class="hljs-attr">reset</span>: <span class="hljs-literal">true</span>,  <span class="hljs-comment">// &lt;-- true to always apply the supplied config</span>
-  distanceFilter: <span class="hljs-number">10</span>
+  <span class="hljs-attr">distanceFilter</span>: <span class="hljs-number">10</span>,
+  <span class="hljs-attr">stopOnTerminate</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">logLevel</span>: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
+  <span class="hljs-attr">debug</span>: <span class="hljs-literal">true</span>
 }, (state) =&gt; {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'- BackgroundGeolocation is ready: '</span>, state);
 });</code></pre>
@@ -317,6 +321,7 @@ BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <sp
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getstate" class="tsd-kind-icon">get<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#insertlocation" class="tsd-kind-icon">insert<wbr>Location</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#ispowersavemode" class="tsd-kind-icon">is<wbr>Power<wbr>Save<wbr>Mode</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#onnotificationaction" class="tsd-kind-icon">on<wbr>Notification<wbr>Action</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#playsound" class="tsd-kind-icon">play<wbr>Sound</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#ready" class="tsd-kind-icon">ready</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#registerheadlesstask" class="tsd-kind-icon">register<wbr>Headless<wbr>Task</a></li>
@@ -864,6 +869,14 @@ BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs
      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onMotionChange] Device has just STOPPED:  '</span>, event.location);
   }
 });</code></pre>
+										<hr>
+										<h3 id="-warning-autosyncthreshold">⚠️ Warning:  <code>autoSyncThreshold</code></h3>
+										<p>If you&#39;ve configured <a href="../interfaces/_react_native_background_geolocation_.config.html#autosyncthreshold">Config.autoSyncThreshold</a>, it <strong>will be ignored</strong> during a <code>onMotionChange</code> event &mdash; all queued locations will be uploaded, since:</p>
+										<ul>
+											<li>If an <code>onMotionChange</code> event fires <strong>into the <em>moving</em> state</strong>, the device may have been sitting dormant for a long period of time.  The plugin is <em>eager</em> to upload this state-change to the server as soon as possible.</li>
+											<li>If an <code>onMotionChange</code> event fires <strong>into the <em>stationary</em> state</strong>, the device may be about to lie dormant for a long period of time.  The plugin is <em>eager</em> to upload all queued locations to the server before going dormant.</li>
+										</ul>
+										<hr>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
 											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#stoptimeout">stopTimeout</a></li>
@@ -927,7 +940,7 @@ BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs
 										<p><img src="https://dl.dropboxusercontent.com/s/raz8lagrqayowia/Screenshot%202017-09-19%2010.33.49.png?dl=1" alt=""></p>
 									</dd>
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.oPowerSaveChange(<span class="hljs-function">(<span class="hljs-params">isPowerSaveMode</span>) =&gt;</span> {
+									<dd><pre><code class="language-javascript">BackgroundGeolocation.onPowerSaveChange(<span class="hljs-function">(<span class="hljs-params">isPowerSaveMode</span>) =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onPowerSaveChange: '</span>, isPowerSaveMode);
 });</code></pre>
 									</dd>
@@ -2444,6 +2457,49 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="onnotificationaction" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Notification<wbr>Action</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Notification<wbr>Action<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>[<strong>Android-only</strong>] Subscribe to button-clicks of a custom <a href="../interfaces/_react_native_background_geolocation_.notification.html#layout">Notification.layout</a> on the Android foreground-service notification.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>buttonId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>buttonId: <span class="tsd-signature-type">string</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a name="playsound" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> play<wbr>Sound</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -2500,11 +2556,8 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 }).then(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[ready] success'</span>, state);
 });</code></pre>
-										<h3 id="-note-">⚠️ Note:</h3>
-										<p>The <strong><code>#ready</code></strong> method only applies the supplied <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> for the <strong>first launch of the app</strong> &mdash; forever after, the plugin is going
-											to <em>remember</em> <strong>every configuration change</strong> you apply at runtime (eg: <a href="_react_native_background_geolocation_.backgroundgeolocation.html#setconfig">setConfig</a>) and reload that <em>same config</em> every time your app boots.
-											Changes to the <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> supplied to <a href="_react_native_background_geolocation_.backgroundgeolocation.html#ready">ready</a> <em>after</em> first launch will <strong>not take effect</strong>.  During development, it&#39;s helpful to provide
-										<a href="_react_native_background_geolocation_.backgroundgeolocation.html#reset">reset</a> <strong><code>true</code></strong>.</p>
+										<h3 id="-warning-you-must-call-ready-once-and-only-once-each-time-your-app-is-launched-do-not-hide-the-call-to-ready-within-a-view-which-is-loaded-only-by-clicking-a-ui-action-this-is-particularly-important">⚠️ Warning: You must call <code>#ready</code> <strong>once</strong> and **only once, each time your app is launched.  Do not hide the call to <code>#ready</code> within a view which is loaded only by clicking a UI action.  This is particularly important</h3>
+										<p>for iOS in the case where the OS relaunches your app in the background when the device is detected to be moving.  If you don&#39;t ensure that <code>#ready</code> is called in this case, tracking will not resume.</p>
 										<h3 id="the-a-href-_react_native_background_geolocation_-backgroundgeolocation-html-reset-reset-a-method-">The <a href="_react_native_background_geolocation_.backgroundgeolocation.html#reset">reset</a> method.</h3>
 										<p>If you wish, you can use the <a href="_react_native_background_geolocation_.backgroundgeolocation.html#reset">reset</a> method to reset all <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> options to documented default-values (with optional overrides):</p>
 									</dd>
@@ -2513,17 +2566,6 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 <span class="hljs-comment">// Reset to documented default-values with overrides</span>
 bgGeo.reset({
   <span class="hljs-attr">distanceFilter</span>:  <span class="hljs-number">10</span>
-});</code></pre>
-										<h3 id="-a-href-_react_native_background_geolocation_-backgroundgeolocation-html-reset-reset-a-true"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#reset">reset</a>: true</h3>
-										<p>Optionally, you can set <a href="_react_native_background_geolocation_.backgroundgeolocation.html#reset">reset</a> to <strong><code>true</code></strong>  This is helpful during development.  This will essentially <em>force</em> the supplied <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> to
-										be applied with <em>each launch</em> of your application.</p>
-									</dd>
-									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
-  <span class="hljs-attr">reset</span>: <span class="hljs-literal">true</span>,  <span class="hljs-comment">// &lt;-- set true to ALWAYS apply supplied config; not just at first launch.</span>
-  distanceFilter: <span class="hljs-number">50</span>
-}).then(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[ready]'</span>, state)
 });</code></pre>
 									</dd>
 								</dl>
@@ -3359,15 +3401,7 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">'location'</span>
 ✅-[<span class="hljs-symbol">BackgroundTaskManager</span> stopBackgroundTask:]<span class="hljs-symbol">_block_invoke</span> <span class="hljs-number">1</span> <span class="hljs-symbol">OF</span> (
     <span class="hljs-number">1</span>
 )</code></pre><h3 id="android">Android</h3>
-										<p>The Android implementation launches a foreground-service, along with the accompanying persistent foreground-notification.  You can customize the text and icons of the notification using the following <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> options:</p>
-										<ul>
-											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#notificationtitle">notificationTitle</a></li>
-											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#notificationtext">notificationText</a></li>
-											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#notificationcolor">notificationColor</a></li>
-											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#notificationpriority">notificationPriority</a></li>
-											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#notificationsmallicon">notificationSmallIcon</a></li>
-											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#notificationlargeicon">notificationLargeIcon</a></li>
-										</ul>
+										<p>The Android implementation launches a foreground-service, along with the accompanying persistent foreground <a href="../interfaces/_react_native_background_geolocation_.notification.html">Notification</a>.</p>
 										<p>⚠️ The Android plugin hardcodes a limit of <strong>30s</strong> for your background-task before it automatically <code>FORCE KILL</code>s it.</p>
 										<p>Logging for Android background-tasks looks like this (when you see an hourglass ⏳ icon, a foreground-service is active)</p>
 										<pre><code> I TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.u</span><span class="hljs-selector-class">.BackgroundTaskManager</span> onStartJob] ⏳ startBackgroundTask: <span class="hljs-number">6</span>
@@ -4239,6 +4273,9 @@ onSuspend() {
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#ispowersavemode" class="tsd-kind-icon">is<wbr>Power<wbr>Save<wbr>Mode</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#onnotificationaction" class="tsd-kind-icon">on<wbr>Notification<wbr>Action</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#playsound" class="tsd-kind-icon">play<wbr>Sound</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -4367,6 +4404,9 @@ onSuspend() {
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../interfaces/_react_native_background_geolocation_.motionchangeevent.html" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_react_native_background_geolocation_.notification.html" class="tsd-kind-icon">Notification</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../interfaces/_react_native_background_geolocation_.providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>

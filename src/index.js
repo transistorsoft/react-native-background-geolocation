@@ -217,6 +217,9 @@ export default class BackgroundGeolocation {
     this.addListener('powersavechange', callback);
   }
 
+  static onNotificationAction(callback) {
+    this.addListener('notificationaction', callback);
+  }
 
   /**
   * Remove a single plugin event-listener, supplying a reference to the handler initially supplied to #un

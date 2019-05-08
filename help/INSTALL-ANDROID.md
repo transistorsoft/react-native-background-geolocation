@@ -127,6 +127,7 @@ If you've enabled **`def enableProguardInReleaseBuilds = true`** in your `app/bu
 ### :open_file_folder: `proguard-rules.pro` (`android/app/proguard-rules.pro`)
 
 ```proguard
+-keepnames class com.transistorsoft.rnbackgroundgeolocation.RNBackgroundGeolocation
 -keepnames class com.facebook.react.ReactActivity
 
 # BackgroundGeolocation

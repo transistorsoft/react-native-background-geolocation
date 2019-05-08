@@ -107,6 +107,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         events.add(BackgroundGeolocation.EVENT_POWERSAVECHANGE);
         events.add(BackgroundGeolocation.EVENT_CONNECTIVITYCHANGE);
         events.add(BackgroundGeolocation.EVENT_ENABLEDCHANGE);
+        events.add(BackgroundGeolocation.EVENT_NOTIFICATIONACTION);
 
         reactContext.addLifecycleEventListener(this);
     }
@@ -199,6 +200,14 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     private class EnabledChangeCallback implements TSEnabledChangeCallback {
         @Override public void onEnabledChange(boolean enabled) {
             sendEvent(BackgroundGeolocation.EVENT_ENABLEDCHANGE, enabled);
+        }
+    }
+    /**
+     * notificationaction event callback
+     */
+    private class NotificationActionCallback implements TSNotificationActionCallback {
+        @Override public void onClick(String buttonId) {
+            sendEvent(BackgroundGeolocation.EVENT_NOTIFICATIONACTION, buttonId);
         }
     }
     /**
@@ -318,11 +327,18 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     @ReactMethod
     public void ready(ReadableMap params, final Callback success, final Callback failure) {
         TSConfig config = TSConfig.getInstance(getReactApplicationContext());
+
         if (config.isFirstBoot()) {
             config.updateWithJSONObject(mapToJson(setHeadlessJobService(params)));
-        } else if (params.hasKey("reset") && params.getBoolean("reset")) {
-            config.reset();
-            config.updateWithJSONObject(mapToJson(setHeadlessJobService(params)));
+        } else {
+            boolean reset = true;
+            if (params.hasKey("reset")) {
+                reset = params.getBoolean("reset");
+            }
+            if (reset) {
+                config.reset();
+                config.updateWithJSONObject(mapToJson(setHeadlessJobService(params)));
+            }
         }
         getAdapter().ready(new TSCallback() {
             @Override public void onSuccess() { success.invoke(getState()); }
@@ -845,6 +861,8 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                 adapter.onConnectivityChange(new ConnectivityChangeCallback());
             } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_ENABLEDCHANGE)) {
                 adapter.onEnabledChange(new EnabledChangeCallback());
+            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_NOTIFICATIONACTION)) {
+                adapter.onNotificationAction(new NotificationActionCallback());
             }
         }
     }

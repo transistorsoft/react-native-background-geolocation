@@ -26,6 +26,7 @@ static NSString *const EVENT_HEARTBEAT          = @"heartbeat";
 static NSString *const EVENT_POWERSAVECHANGE    = @"powersavechange";
 static NSString *const EVENT_CONNECTIVITYCHANGE = @"connectivitychange";
 static NSString *const EVENT_ENABLEDCHANGE      = @"enabledchange";
+static NSString *const EVENT_NOTIFICATIONACTION = @"notificationaction";
 
 @implementation RNBackgroundGeolocation {
     NSMutableDictionary *listeners;
@@ -137,7 +138,8 @@ RCT_EXPORT_MODULE();
         EVENT_HEARTBEAT,
         EVENT_WATCHPOSITION,
         EVENT_CONNECTIVITYCHANGE,
-        EVENT_ENABLEDCHANGE
+        EVENT_ENABLEDCHANGE,
+        EVENT_NOTIFICATIONACTION
     ];
 }
 
@@ -164,9 +166,12 @@ RCT_EXPORT_METHOD(ready:(NSDictionary*)params success:(RCTResponseSenderBlock)su
         TSConfig *config = [TSConfig sharedInstance];
         if (config.isFirstBoot) {
             [config updateWithDictionary:params];
-        } else if (params[@"reset"] && [[params objectForKey:@"reset"] boolValue]) {
-            [config reset];
-            [config updateWithDictionary:params];
+        } else {
+            BOOL reset = (params[@"reset"]) ? [params[@"reset"] boolValue] : YES;
+            if (reset) {
+                [config reset];
+                [config updateWithDictionary:params];
+            }
         }
         [self.locationManager ready];
         success(@[[config toDictionary]]);
@@ -222,6 +227,8 @@ RCT_EXPORT_METHOD(addEventListener:(NSString*)event)
                 [locationManager onConnectivityChange:onConnectivityChange];
             } else if ([event isEqualToString:EVENT_ENABLEDCHANGE]) {
                 [locationManager onEnabledChange:onEnabledChange];
+            } else if ([event isEqualToString:EVENT_NOTIFICATIONACTION]) {
+                // No iOS implementation.
             }
         }
     }

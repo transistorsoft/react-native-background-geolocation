@@ -1,5 +1,8 @@
 # Change Log
 
+## [3.0.5] - 2019-05-10
+- [Changed] Rollback `android-permissions` version back to `0.1.8`.  It relies on `support-annotations@28`.  This isn't a problem if one simply upgrades their `targetSdkVersion` but the support calls aren't worth the hassle, since the latest version doesn't offer anything the plugin needs.
+
 ## [3.0.4] - 2019-05-08
 - [Fixed] iOS: changing `pauseslocationUpdatesAutomatically` was not being applied.
 - [Changed] `reset` parameter provided to `#ready` has now been default to `true`.  This causes too many support issues for people using the plugin the first time.

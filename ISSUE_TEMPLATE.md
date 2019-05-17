@@ -5,7 +5,7 @@
 -->
 
 <!--
-  Provide a general summary of the issue in the Title above 
+  Provide a general summary of the issue in the Title above
 -->
 ## Your Environment
 * Plugin version:
@@ -14,6 +14,9 @@
 * Device manufacturer / model:
 * React Native version (`react-native -v`):
 * Plugin config
+```javascript <!-- Syntax-highlighting:  paste your code below -->
+PASTE_YOUR_CODE_HERE
+```
 
 ## Expected Behavior
 <!--- Tell us what should happen -->
@@ -33,7 +36,14 @@
 
 ## Debug logs
 <!-- include iOS / Android logs
-- ios XCode logs, 
+- ios XCode logs,
 - use #getLog #emailLog methods (@see docs)
-- Android: $ adb logcat
+- Android: $ adb logcat -s TSLocationManager
 -->
+<details><summary>Logs</summary>
+
+```
+PASTE_YOUR_LOGS_HERE
+```
+
+</details>

@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.0.6] - 2019-06-04
+- [Changed] Bump `CocoaLumberjack` dependency to `~> 3.5.1`.
+- [Fixed] Android `destroyLocations` callback was being executed in background-thread.
+- [Fixed] When Android geofence API receives a `GEOFENCE_NOT_AVAILABLE` error (can occur if Wifi is disabled), geofences must be re-registered.
+- [Fixed] Android `Config.disableStopDetection` was not implemented.
+- [Added] Add new Android Config options `scheduleUseAlarmManager` for forcing scheduler to use `AlarmManager` insead of `JobService` for more precise scheduling.
+
 ## [3.0.5] - 2019-05-10
 - [Changed] Rollback `android-permissions` version back to `0.1.8`.  It relies on `support-annotations@28`.  This isn't a problem if one simply upgrades their `targetSdkVersion` but the support calls aren't worth the hassle, since the latest version doesn't offer anything the plugin needs.
 

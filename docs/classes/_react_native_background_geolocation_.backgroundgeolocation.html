@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.5</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.6</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -725,11 +725,11 @@ BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.onHttp(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+									<dd><pre><code class="language-javascript">BackgroundGeolocation.onHttp(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> {
   <span class="hljs-keyword">let</span> status = response.status;
   <span class="hljs-keyword">let</span> success = response.success;
   <span class="hljs-keyword">let</span> responseText = response.responseText;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onHttp] '</span>, event);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onHttp] '</span>, response);
 });</code></pre>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
@@ -2556,8 +2556,11 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 }).then(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[ready] success'</span>, state);
 });</code></pre>
-										<h3 id="-warning-you-must-call-ready-once-and-only-once-each-time-your-app-is-launched-do-not-hide-the-call-to-ready-within-a-view-which-is-loaded-only-by-clicking-a-ui-action-this-is-particularly-important">⚠️ Warning: You must call <code>#ready</code> <strong>once</strong> and **only once, each time your app is launched.  Do not hide the call to <code>#ready</code> within a view which is loaded only by clicking a UI action.  This is particularly important</h3>
-										<p>for iOS in the case where the OS relaunches your app in the background when the device is detected to be moving.  If you don&#39;t ensure that <code>#ready</code> is called in this case, tracking will not resume.</p>
+										<h3 id="-warning-you-must-call-ready-once-and-only-once-each-time-your-app-is-launched-">⚠️ Warning: You must call <code>#ready</code> <strong>once</strong> and <strong>only</strong> once, each time your app is launched.</h3>
+										<ul>
+											<li>Do not hide the call to <code>#ready</code> within a view which is loaded only by clicking a UI action.  This is particularly important
+											for iOS in the case where the OS relaunches your app in the background when the device is detected to be moving.  If you don&#39;t ensure that <code>#ready</code> is called in this case, tracking will not resume.</li>
+										</ul>
 										<h3 id="the-a-href-_react_native_background_geolocation_-backgroundgeolocation-html-reset-reset-a-method-">The <a href="_react_native_background_geolocation_.backgroundgeolocation.html#reset">reset</a> method.</h3>
 										<p>If you wish, you can use the <a href="_react_native_background_geolocation_.backgroundgeolocation.html#reset">reset</a> method to reset all <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> options to documented default-values (with optional overrides):</p>
 									</dd>

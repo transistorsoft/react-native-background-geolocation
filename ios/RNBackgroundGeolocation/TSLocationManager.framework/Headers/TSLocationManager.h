@@ -112,6 +112,7 @@
 
 - (NSArray*) getGeofences;
 - (void) getGeofences:(void (^)(NSArray*))success failure:(void (^)(NSString*))failure;
+- (void) geofenceExists:(NSString*)identifier callback:(void (^)(BOOL))callback;
 
 #pragma mark - Sensor Methods
 

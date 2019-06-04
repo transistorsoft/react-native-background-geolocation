@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.5</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.6</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -150,6 +150,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#preventsuspend" class="tsd-kind-icon">prevent<wbr>Suspend</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#reset" class="tsd-kind-icon">reset</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#schedule" class="tsd-kind-icon">schedule</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#scheduleusealarmmanager" class="tsd-kind-icon">schedule<wbr>Use<wbr>Alarm<wbr>Manager</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#schedulerenabled" class="tsd-kind-icon">scheduler<wbr>Enabled</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#speedjumpfilter" class="tsd-kind-icon">speed<wbr>Jump<wbr>Filter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#startonboot" class="tsd-kind-icon">start<wbr>OnBoot</a></li>
@@ -2517,6 +2518,23 @@ schedule: [
 						</dl>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
+					<a name="scheduleusealarmmanager" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> schedule<wbr>Use<wbr>Alarm<wbr>Manager</h3>
+					<div class="tsd-signature tsd-kind-icon">schedule<wbr>Use<wbr>Alarm<wbr>Manager<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_react_native_background_geolocation_.config.html">Config</a>.<a href="_react_native_background_geolocation_.config.html#scheduleusealarmmanager">scheduleUseAlarmManager</a></p>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><strong>Android only</strong> Force the Android scheduler to use <code>AlarmManager</code> (more precise) instead of <code>JobScheduler</code>.  Defaults to <code>false</code>.</p>
+						</div>
+						<pre><code class="language-typescript">BackgroundGeolocation.ready(bg.Config(
+  schedule: [<span class="hljs-string">'1-7 09:00-17:00'</span>],
+  scheduleUseAlarmManager: <span class="hljs-literal">true</span>
+));</code></pre>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="schedulerenabled" class="tsd-anchor"></a>
 					<h3>scheduler<wbr>Enabled</h3>
@@ -3224,6 +3242,9 @@ BackgroundGeolocation.ready({
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.state.html#schedule" class="tsd-kind-icon">schedule</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
+								<a href="_react_native_background_geolocation_.state.html#scheduleusealarmmanager" class="tsd-kind-icon">schedule<wbr>Use<wbr>Alarm<wbr>Manager</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.state.html#schedulerenabled" class="tsd-kind-icon">scheduler<wbr>Enabled</a>

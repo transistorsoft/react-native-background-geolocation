@@ -1386,6 +1386,18 @@ declare module "react-native-background-geolocation" {
     schedule?: Array<string>;
 
     /**
+    * __Android only__ Force the Android scheduler to use `AlarmManager` (more precise) instead of `JobScheduler`.  Defaults to `false`.
+    *
+    * ```typescript
+    * BackgroundGeolocation.ready(bg.Config(
+    *   schedule: ['1-7 09:00-17:00'],
+    *   scheduleUseAlarmManager: true
+    * ));
+    * ```
+    */
+    scheduleUseAlarmManager?: boolean;
+
+    /**
     * Configure the plugin to emit sound effects and local-notifications during development.
     * @break
     *

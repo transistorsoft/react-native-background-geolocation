@@ -928,6 +928,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         if (jsonObject == null) {
             return map;
         }
+
         Iterator<String> iterator = jsonObject.keys();
         while (iterator.hasNext()) {
             String key = iterator.next();
@@ -944,6 +945,8 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                 map.putDouble(key, ((Long) value).doubleValue());
             } else if (value instanceof  Double) {
                 map.putDouble(key, (Double) value);
+            } else if (value instanceof Float) {
+                map.putDouble(key, ((Float) value).doubleValue());
             } else if (value instanceof String)  {
                 map.putString(key, (String) value);
             } else {

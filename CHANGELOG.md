@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.0.7] - 2019-06-17
+- [Fixed] iOS & Android:  Odometer issues:  clear odometer reference location on `#stop`, `#startGeofences`.
+- [Fixed] Odometer issues: Android must persist its odometer reference location since the foreground-service is no longer long-lived and the app may be terminated between motionchange events.
+- [Fixed] Return `Service.START_REDELIVER_INTENT` from `HeartbeatService` to prevent `null` Intent being delivered to `HeartbeatService`, causing a crash.
+- [Added] Implement Android [LocationSettingsRequest](https://developer.android.com/training/location/change-location-settings#get-settings).  Determines if device settings is currently configured according to the plugin's desired-settings (eg: gps enabled, location-services enabled).  If the device settings differs, an automatic dialog will perform the required settings changes automatically when user clicks [OK].
+- [Fixed] Android `triggerActivities` was not implemented refactor of `3.x`.
+
 ## [3.0.6] - 2019-06-04
 - [Changed] Bump `CocoaLumberjack` dependency to `~> 3.5.1`.
 - [Fixed] Android `destroyLocations` callback was being executed in background-thread.

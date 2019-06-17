@@ -30,7 +30,7 @@ static NSString *const EVENT_NOTIFICATIONACTION = @"notificationaction";
 
 @implementation RNBackgroundGeolocation {
     NSMutableDictionary *listeners;
-
+    BOOL ready;
     void(^onLocation)(TSLocation*);
     void(^onLocationError)(NSError*);
     void(^onMotionChange)(TSLocation*);
@@ -62,6 +62,8 @@ RCT_EXPORT_MODULE();
 {
     self = [super init];
     if (self) {
+        ready = NO;
+
         __typeof(self) __weak me = self;
 
         // Build event-listener blocks
@@ -162,6 +164,14 @@ RCT_EXPORT_METHOD(reset:(NSDictionary*)params success:(RCTResponseSenderBlock)su
  */
 RCT_EXPORT_METHOD(ready:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
+    if (ready) {
+        [locationManager log:@"warn" message:@"#ready already called.  Redirecting to #setConfig"];
+        TSConfig *config = [TSConfig sharedInstance];
+        [config updateWithDictionary:params];
+        success(@[[config toDictionary]]);
+        return;
+    }
+    ready = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
         TSConfig *config = [TSConfig sharedInstance];
         if (config.isFirstBoot) {

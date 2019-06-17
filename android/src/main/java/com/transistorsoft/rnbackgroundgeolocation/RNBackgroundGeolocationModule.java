@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.telecom.Call;
 import android.util.Log;
 import android.os.Build;
 
@@ -17,7 +16,6 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
-import com.facebook.react.bridge.ReadableNativeMap;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
@@ -57,7 +55,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by chris on 2015-10-30.
@@ -74,15 +71,15 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     public static final int REQUEST_ACTION_GET_CURRENT_POSITION = 2;
     public static final int REQUEST_ACTION_START_GEOFENCES      = 3;
 
-    private boolean initialized = false;
-    private Intent launchIntent;
-
     private static final String EVENT_WATCHPOSITION = "watchposition";
 
+    private boolean mInitialized = false;
+    private boolean mReady = false;
+    private Intent mLaunchIntent;
     // Map of event listener-counts
-    private final HashMap<String, Integer> listeners = new HashMap<>();
+    private final HashMap<String, Integer> mListeners = new HashMap<>();
+    private List<String> mEvents = new ArrayList<>();
 
-    private List<String> events = new ArrayList<>();
 
     public RNBackgroundGeolocationModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -95,19 +92,19 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             .commit();
 
         // These are the only events which can be subscribed to.
-        events.add(BackgroundGeolocation.EVENT_LOCATION);
-        events.add(BackgroundGeolocation.EVENT_MOTIONCHANGE);
-        events.add(BackgroundGeolocation.EVENT_ACTIVITYCHANGE);
-        events.add(BackgroundGeolocation.EVENT_PROVIDERCHANGE);
-        events.add(BackgroundGeolocation.EVENT_GEOFENCESCHANGE);
-        events.add(BackgroundGeolocation.EVENT_GEOFENCE);
-        events.add(BackgroundGeolocation.EVENT_HEARTBEAT);
-        events.add(BackgroundGeolocation.EVENT_HTTP);
-        events.add(BackgroundGeolocation.EVENT_SCHEDULE);
-        events.add(BackgroundGeolocation.EVENT_POWERSAVECHANGE);
-        events.add(BackgroundGeolocation.EVENT_CONNECTIVITYCHANGE);
-        events.add(BackgroundGeolocation.EVENT_ENABLEDCHANGE);
-        events.add(BackgroundGeolocation.EVENT_NOTIFICATIONACTION);
+        mEvents.add(BackgroundGeolocation.EVENT_LOCATION);
+        mEvents.add(BackgroundGeolocation.EVENT_MOTIONCHANGE);
+        mEvents.add(BackgroundGeolocation.EVENT_ACTIVITYCHANGE);
+        mEvents.add(BackgroundGeolocation.EVENT_PROVIDERCHANGE);
+        mEvents.add(BackgroundGeolocation.EVENT_GEOFENCESCHANGE);
+        mEvents.add(BackgroundGeolocation.EVENT_GEOFENCE);
+        mEvents.add(BackgroundGeolocation.EVENT_HEARTBEAT);
+        mEvents.add(BackgroundGeolocation.EVENT_HTTP);
+        mEvents.add(BackgroundGeolocation.EVENT_SCHEDULE);
+        mEvents.add(BackgroundGeolocation.EVENT_POWERSAVECHANGE);
+        mEvents.add(BackgroundGeolocation.EVENT_CONNECTIVITYCHANGE);
+        mEvents.add(BackgroundGeolocation.EVENT_ENABLEDCHANGE);
+        mEvents.add(BackgroundGeolocation.EVENT_NOTIFICATIONACTION);
 
         reactContext.addLifecycleEventListener(this);
     }
@@ -290,7 +287,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
 
     @Override
     public void onHostResume() {
-        if (!initialized) {
+        if (!mInitialized) {
             initializeLocationManager();
         }
     }
@@ -304,7 +301,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
     @Override
     public void onHostDestroy() {
-        initialized = false;
+        mInitialized = false;
         removeAllListeners();
         getAdapter().onActivityDestroy();
     }
@@ -328,6 +325,12 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     public void ready(ReadableMap params, final Callback success, final Callback failure) {
         TSConfig config = TSConfig.getInstance(getReactApplicationContext());
 
+        if (mReady) {
+            TSLog.logger.warn(TSLog.warn("#ready already called.  Redirecting to #setConfig"));
+            setConfig(params, success, failure);
+            return;
+        }
+        mReady = true;
         if (config.isFirstBoot()) {
             config.updateWithJSONObject(mapToJson(setHeadlessJobService(params)));
         } else {
@@ -819,21 +822,21 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
 
     @ReactMethod
     public void addEventListener(String event) {
-        if (!events.contains(event)) {
+        if (!mEvents.contains(event)) {
             Log.e(TAG, "[RNBackgroundGeolocation addListener] Unknown event: " + event);
             return;
         }
         BackgroundGeolocation adapter = getAdapter();
         Integer count;
 
-        synchronized(listeners) {
-            if (listeners.containsKey(event)) {
-                count = listeners.get(event);
+        synchronized(mListeners) {
+            if (mListeners.containsKey(event)) {
+                count = mListeners.get(event);
                 count++;
-                listeners.put(event, count);
+                mListeners.put(event, count);
             } else {
                 count = 1;
-                listeners.put(event, count);
+                mListeners.put(event, count);
             }
         }
         if (count == 1) {
@@ -871,12 +874,12 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     public void removeListener(String event) {
         Integer count;
 
-        synchronized (listeners) {
-            if (listeners.containsKey(event)) {
-                count = listeners.get(event);
+        synchronized (mListeners) {
+            if (mListeners.containsKey(event)) {
+                count = mListeners.get(event);
                 count--;
                 if (count > 0) {
-                    listeners.put(event, count);
+                    mListeners.put(event, count);
                 } else {
                     getAdapter().removeListeners(event);
                 }
@@ -891,8 +894,8 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     private void removeAllListeners() {
-        synchronized (listeners) {
-            listeners.clear();
+        synchronized (mListeners) {
+            mListeners.clear();
         }
         getAdapter().removeListeners();
     }
@@ -1045,9 +1048,9 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         if (activity == null) {
             return;
         }
-        launchIntent    = activity.getIntent();
+        mLaunchIntent = activity.getIntent();
 
-        if (launchIntent.hasExtra("forceReload")) {
+        if (mLaunchIntent.hasExtra("forceReload")) {
             activity.moveTaskToBack(true);
         }
         // Handle play-services connect errors.
@@ -1057,7 +1060,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                 handlePlayServicesConnectError(errorCode);
             }
         }));
-        initialized = true;
+        mInitialized = true;
     }
 
     private ReadableMap setHeadlessJobService(ReadableMap config) {
@@ -1077,12 +1080,12 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     private BackgroundGeolocation getAdapter() {
-        return BackgroundGeolocation.getInstance(getReactApplicationContext(), launchIntent);
+        return BackgroundGeolocation.getInstance(getReactApplicationContext(), mLaunchIntent);
     }
 
     @Override
     public void onCatalystInstanceDestroy() {
-        initialized = false;
+        mInitialized = false;
         removeAllListeners();
     }
 }

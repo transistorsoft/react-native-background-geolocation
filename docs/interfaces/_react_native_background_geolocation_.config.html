@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.6</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.7</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -133,6 +133,11 @@ BackgroundGeolocation.setConfig({
 										<td><code>Boolean</code></td>
 										<td><strong>Default: <code>false</code></strong>.  Defaults to <code>false</code>.  Set <code>true</code> in order to disable constant background-tracking.  A location will be recorded only several times / hour.</td>
 									</tr>
+									<tr>
+										<td><a href="_react_native_background_geolocation_.config.html#disablelocationauthorizationalert">disableLocationAuthorizationAlert</a></td>
+										<td><code>Boolean</code></td>
+										<td><strong>Default: <code>false</code></strong>.  Disables automatic authorization alert when plugin detects the user has disabled location authorization.  You will be responsible for handling disabled location authorization by listening to the <code>providerchange</code> event.</td>
+									</tr>
 							</tbody></table>
 							<h3 id="-geolocation-ios-options">[Geolocation] iOS Options</h3>
 							<table>
@@ -157,11 +162,6 @@ BackgroundGeolocation.setConfig({
 										<td><a href="_react_native_background_geolocation_.config.html#locationauthorizationalert">locationAuthorizationAlert</a></td>
 										<td><code>Object</code></td>
 										<td>When you configure the plugin <a href="_react_native_background_geolocation_.config.html#locationauthorizationrequest">locationAuthorizationRequest</a> <code>Always</code> or <code>WhenInUse</code> and the user <em>changes</em> that value in the app&#39;s location-services settings or <em>disables</em> location-services, the plugin will display an Alert directing the user to the <strong>Settings</strong> screen.</td>
-									</tr>
-									<tr>
-										<td><a href="_react_native_background_geolocation_.config.html#disablelocationauthorizationalert">disableLocationAuthorizationAlert</a></td>
-										<td><code>Boolean</code></td>
-										<td><strong>Default: <code>false</code></strong>.  Disables automatic authorization alert when plugin detects the user has disabled location authorization.  You will be responsible for handling disabled location authorization by listening to the <code>providerchange</code> event.</td>
 									</tr>
 							</tbody></table>
 							<h3 id="-geolocation-android-options">[Geolocation] Android Options</h3>
@@ -1082,7 +1082,18 @@ Locations: <span class="hljs-variable">__</span>|<span class="hljs-variable">__<
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>You will be responsible for handling disabled location authorization by listening to the <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onproviderchange">BackgroundGeolocation.onProviderChange</a> event.</p>
-								<p>By default, the plugin automatically shows a native alert (configured via <a href="_react_native_background_geolocation_.config.html#locationauthorizationalert">locationAuthorizationAlert</a> and <a href="_react_native_background_geolocation_.config.html#locationauthorizationrequest">locationAuthorizationRequest</a> to the user when location-services are disabled, directing them to the settings screen.  If you <strong>do not</strong> desire this automated behavior, set <code>disableLocationAuthorizationAlert: true</code>.</p>
+								<p>By default, the plugin automatically shows a native alert to the user when location-services are disabled, directing them to the settings screen.  If you <strong>do not</strong> desire this automated behavior, set <code>disableLocationAuthorizationAlert: true</code>.</p>
+								<h2 id="ios">iOS</h2>
+								<p>The iOS alert dialog text elements can be configured via <a href="_react_native_background_geolocation_.config.html#locationauthorizationalert">locationAuthorizationAlert</a> and <a href="_react_native_background_geolocation_.config.html#locationauthorizationrequest">locationAuthorizationRequest</a>.</p>
+								<h2 id="android">Android</h2>
+								<p>Android can detect when the user has configured the device&#39;s <em>Settings-&gt;Location</em> in a manner that does not match your location request (eg: <a href="_react_native_background_geolocation_.config.html#desiredaccuracy">desiredAccuracy</a>.  For example, if the user configures <em>Settings-&gt;Location-&gt;Mode</em> with <em>Battery Saving</em> (ie: Wifi only) but you&#39;ve specifically requested <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#desired_accuracy_high">DESIRED_ACCURACY_HIGH</a> (ie: GPS), Android will show a dialog asking the user to confirm the desired changes.  If the user clicks <code>[OK]</code>, the OS will automcatically modify the Device settings.</p>
+								<p><img src="https://www.dropbox.com/s/3kuw1gzzbnajhgf/android-location-resolution-dialog.png?dl=1" alt=""></p>
+								<p>This automated Android dialog will be shown in the following cases:</p>
+								<ul>
+									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onproviderchange">BackgroundGeolocation.onProviderChange</a></li>
+									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#start">BackgroundGeolocation.start</a></li>
+									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#requestpermission">BackgroundGeolocation.requestPermission</a></li>
+								</ul>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
 							<dd><pre><code class="language-javascript">BackgroundGeolocation.onProviderChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
@@ -2725,7 +2736,7 @@ BackgroundGeolocation.ready({
 						<div class="lead">
 							<p>Controls whether the plugin should first reset the configuration when <code>#ready</code> is executed before applying the supplied config <code>{}</code>.</p>
 						</div>
-						<p>Defaults to <code>false</code>.  The SDK can optionally re-apply its persisted configuration with each boot of your application, ignoring the config <code>{}</code>
+						<p>Defaults to <code>true</code>.  The SDK can optionally re-apply its persisted configuration with each boot of your application, ignoring the config <code>{}</code>
 						supplied to the <code>#ready</code> method.</p>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>

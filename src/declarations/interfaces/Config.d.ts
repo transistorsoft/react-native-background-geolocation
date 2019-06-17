@@ -48,6 +48,7 @@ declare module "react-native-background-geolocation" {
   | [[stopOnStationary]] | `Boolean`  | __Default: `false`__.  The plugin can optionally automatically stop tracking when the `stopTimeout` timer elapses. |
   | [[desiredOdometerAccuracy]] | `Integer`  | __Default: `100`__.  Location accuracy threshold in **meters** for odometer calculations. |
   | [[useSignificantChangesOnly]] | `Boolean` | __Default: `false`__.  Defaults to `false`.  Set `true` in order to disable constant background-tracking.  A location will be recorded only several times / hour. |
+  | [[disableLocationAuthorizationAlert]] | `Boolean` | __Default: `false`__.  Disables automatic authorization alert when plugin detects the user has disabled location authorization.  You will be responsible for handling disabled location authorization by listening to the `providerchange` event.|
 
   ### [Geolocation] iOS Options
 
@@ -56,7 +57,6 @@ declare module "react-native-background-geolocation" {
   | [[stationaryRadius]] | `Integer`  | __Default: `25`__.  When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage. |
   | [[locationAuthorizationRequest]] | [[LocationAuthorizationRequest]] | __Default: `Always`__.  The desired iOS location-authorization request, either `Always`, `WhenInUse` or `Any`. |
   | [[locationAuthorizationAlert]] | `Object` | When you configure the plugin [[locationAuthorizationRequest]] `Always` or `WhenInUse` and the user *changes* that value in the app's location-services settings or *disables* location-services, the plugin will display an Alert directing the user to the **Settings** screen. |
-  | [[disableLocationAuthorizationAlert]] | `Boolean` | __Default: `false`__.  Disables automatic authorization alert when plugin detects the user has disabled location authorization.  You will be responsible for handling disabled location authorization by listening to the `providerchange` event.|
 
 
   ### [Geolocation] Android Options
@@ -1539,7 +1539,7 @@ declare module "react-native-background-geolocation" {
     /**
     * Controls whether the plugin should first reset the configuration when `#ready` is executed before applying the supplied config `{}`.
     *
-    * Defaults to `false`.  The SDK can optionally re-apply its persisted configuration with each boot of your application, ignoring the config `{}`
+    * Defaults to `true`.  The SDK can optionally re-apply its persisted configuration with each boot of your application, ignoring the config `{}`
     * supplied to the `#ready` method.
     *
     * @break
@@ -1647,8 +1647,22 @@ declare module "react-native-background-geolocation" {
     *
     * You will be responsible for handling disabled location authorization by listening to the [[BackgroundGeolocation.onProviderChange]] event.
     *
-    * By default, the plugin automatically shows a native alert (configured via [[locationAuthorizationAlert]] and [[locationAuthorizationRequest]] to the user when location-services are disabled, directing them to the settings screen.  If you **do not** desire this automated behavior, set `disableLocationAuthorizationAlert: true`.
+    * By default, the plugin automatically shows a native alert to the user when location-services are disabled, directing them to the settings screen.  If you **do not** desire this automated behavior, set `disableLocationAuthorizationAlert: true`.
     *
+    * ## iOS
+    *
+    * The iOS alert dialog text elements can be configured via [[locationAuthorizationAlert]] and [[locationAuthorizationRequest]].
+    *
+    * ## Android
+    *
+    * Android can detect when the user has configured the device's *Settings->Location* in a manner that does not match your location request (eg: [[desiredAccuracy]].  For example, if the user configures *Settings->Location->Mode* with *Battery Saving* (ie: Wifi only) but you've specifically requested [[DESIRED_ACCURACY_HIGH]] (ie: GPS), Android will show a dialog asking the user to confirm the desired changes.  If the user clicks `[OK]`, the OS will automcatically modify the Device settings.
+    *
+    * ![](https://www.dropbox.com/s/3kuw1gzzbnajhgf/android-location-resolution-dialog.png?dl=1)
+    *
+    * This automated Android dialog will be shown in the following cases:
+    * - [[BackgroundGeolocation.onProviderChange]]
+    * - [[BackgroundGeolocation.start]]
+    * - [[BackgroundGeolocation.requestPermission]]
     *
     * @example
   	* ```javascript

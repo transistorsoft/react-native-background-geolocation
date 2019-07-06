@@ -1,5 +1,56 @@
 # Android Installation with `react-native link`
 
+React Native `>= 0.60` has introduced significant changes to component setup.  Be sure to follow the directions according to the version of `react-native` you're using.  If you haven't yet upgraded to `0.60`, it is **highly reccommended** to do so **now**.
+
+## 🆕 `react-native >= 0.60`
+
+### With `yarn`
+
+```shell
+yarn add react-native-background-geolocation
+yarn add react-native-background-fetch
+```
+
+### With `npm`
+```shell
+npm install react-native-background-geolocation --save
+npm install react-native-background-fetch --save
+```
+
+### `react-native link`
+```shell
+react-native link react-native-background-geolocation
+react-native link react-native-background-fetch
+```
+
+### Gradle Configuration
+
+The `react-native link` command has automatically added a new Gradle `ext` parameter **`googlePlayServicesLocationVersion`**.  You can Use this to control the version of `play-services:location` used by the Background Geolocation SDK.
+
+:information_source: You should always strive to use the latest available Google Play Services libraries.  You can determine the latest available version [here](https://developers.google.com/android/guides/setup).
+
+### :open_file_folder: **`android/build.gradle`**
+
+```diff
+buildscript {
+    ext {
++       googlePlayServicesLocationVersion = "17.0.0"
+        buildToolsVersion = "28.0.3"
+        minSdkVersion = 16
+        compileSdkVersion = 28
+        targetSdkVersion = 27
++       supportLibVersion = "1.0.2"  # <-- IMPORTANT:  For new AndroidX compatibility.
+    }
+    .
+    .
+    .
+}
+```
+
+-------------------------------------------------------------------------------------------
+
+## `react-native <= 0.59`
+
 ### With `yarn`
 
 ```shell
@@ -18,7 +69,7 @@ react-native link react-native-background-fetch
 react-native link cocoa-lumberjack
 ```
 
-## Gradle Configuration
+### Gradle Configuration
 
 The `react-native link` command has automatically added a new Gradle `ext` parameter **`googlePlayServicesLocationVersion`**.  You can Use this to control the version of `play-services:location` used by the Background Geolocation SDK.
 
@@ -29,7 +80,7 @@ The `react-native link` command has automatically added a new Gradle `ext` param
 ```diff
 buildscript {
     ext {
-+       googlePlayServicesLocationVersion = "16.0.0"
++       googlePlayServicesLocationVersion = "17.0.0"
         buildToolsVersion = "28.0.3"
         minSdkVersion = 16
         compileSdkVersion = 28
@@ -42,7 +93,9 @@ buildscript {
 }
 ```
 
-## AndroidManifest.xml
+-------------------------------------------------------------------------------------------
+
+## AndroidManifest.xml (License Configuration)
 
 If you've **not** [purchased a license](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans), **ignore this step** &mdash; the plugin is fully functional in *DEBUG* builds so you can try before you [buy](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans).
 

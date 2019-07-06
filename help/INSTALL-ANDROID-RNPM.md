@@ -23,6 +23,8 @@ react-native link react-native-background-geolocation
 react-native link react-native-background-fetch
 ```
 
+-------------------------------------------------------------------------------------------
+
 ## `react-native <= 0.60.0`
 
 ### With `yarn`

@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-geolocation",
-  "version": "3.0.7",
+  "version": "3.0.9",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -43,8 +43,7 @@
     "react-native": ">=0.36.0"
   },
   "dependencies": {
-    "react-native-background-fetch": "~2.6.0",
-    "cocoa-lumberjack": "^3.0.5",
+    "react-native-background-fetch": "~2.6.1",
     "fast-plist": "^0.1.2",
     "plist": "^2.0.1",
     "xcode": "^0.9.1"

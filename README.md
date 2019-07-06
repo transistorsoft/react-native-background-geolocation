@@ -55,6 +55,8 @@ $ npm install react-native-background-geolocation --save
 
 ## :large_blue_diamond: Setup Guides
 
+:warning: For `react-native >= 0.60.0`, use only [`react-native link` Setup](help/INSTALL-IOS-RNPM.md).
+
 ### iOS
 - [`react-native link` Setup](help/INSTALL-IOS-RNPM.md)
 - [Cocoapods](help/INSTALL-IOS-COCOAPODS.md)
@@ -156,6 +158,7 @@ export default class App extends Component {
     // 2.  Execute #ready method (required)
     //
     BackgroundGeolocation.ready({
+      reset: true,
       // Geolocation Config
       desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
       distanceFilter: 10,

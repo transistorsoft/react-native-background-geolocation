@@ -39,7 +39,7 @@ buildscript {
         minSdkVersion = 16
         compileSdkVersion = 28
         targetSdkVersion = 27
-+       supportLibVersion = "1.0.2"  # <-- IMPORTANT FOR AndroidX compatibility.
++       supportLibVersion = "1.0.2"  # <-- IMPORTANT:  For new AndroidX compatibility.
     }
     .
     .

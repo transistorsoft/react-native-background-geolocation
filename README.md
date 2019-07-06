@@ -55,7 +55,7 @@ $ npm install react-native-background-geolocation --save
 
 ## :large_blue_diamond: Setup Guides
 
-:warning: For `react-native >= 0.60.0`, use only `react-native link` Setup.
+:warning: For `react-native >= 0.60.0`, use **only** `react-native link` Setup. :warning:
 
 ### iOS
 - [`react-native link` Setup](help/INSTALL-IOS-RNPM.md) (**recommended**)

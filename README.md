@@ -38,7 +38,7 @@ The **[Android module](http://www.transistorsoft.com/shop/products/react-native-
 - ### [Debugging](../../wiki/Debugging)
 - ### [Demo Application](#large_blue_diamond-demo-application)
 - ### [Testing Server](#large_blue_diamond-simple-testing-server)
-
+- ### [Privacy Policy](help/PRIVACY_POLICY.md)
 
 ## :large_blue_diamond: Installing the Plugin
 

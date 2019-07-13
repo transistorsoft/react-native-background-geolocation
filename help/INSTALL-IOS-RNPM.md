@@ -23,6 +23,11 @@ react-native link react-native-background-geolocation
 react-native link react-native-background-fetch
 ```
 
+### `pod install`
+```shell
+$ cd ios
+$ pod install
+```
 -------------------------------------------------------------------------------------
 
 ## `react-native <= 0.59`
@@ -44,7 +49,13 @@ react-native link react-native-background-geolocation
 react-native link react-native-background-fetch
 react-native link cocoa-lumberjack
 ```
+### `pod install`
+```shell
+$ cd ios
+$ pod install
+```
 
+---------------------------------------------------------------------------------
 ## XCode Configuration
 
 - Edit **`Info.plist`**.  The plugin adds default values for the following `plist` elements.  You will need to change these values as desired.

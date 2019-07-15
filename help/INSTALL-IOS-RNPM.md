@@ -36,11 +36,13 @@ $ pod install
 
 ```shell
 yarn add react-native-background-geolocation
+yarn add cocoa-lumberjack
 ```
 
 ### With `npm`
 ```shell
 npm install react-native-background-geolocation --save
+npm install cocoa-lumberjack --save
 ```
 
 ### `react-native link`

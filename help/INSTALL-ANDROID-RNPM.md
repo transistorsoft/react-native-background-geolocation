@@ -80,7 +80,7 @@ The `react-native link` command has automatically added a new Gradle `ext` param
 ```diff
 buildscript {
     ext {
-+       googlePlayServicesLocationVersion = "17.0.0"
++       googlePlayServicesLocationVersion = "16.0.0"
         buildToolsVersion = "28.0.3"
         minSdkVersion = 16
         compileSdkVersion = 28

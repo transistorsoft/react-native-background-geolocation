@@ -21,7 +21,7 @@ declare module "react-native-background-geolocation" {
     * | `running`      |
     * | `walking`      |
     */
-    type: string;
+    activity: string;
     /**
     * Confidence of the reported device motion activity in %.
     */

@@ -1048,7 +1048,7 @@ declare module "react-native-background-geolocation" {
     * let locations = await BackgroundGeolocation.getLocations();
     * ```
     */
-    static getLocations(success?:(locations:Array<Object>) => void, failure?:Function): Promise<Array<Object>>;
+    static getLocations(success?:(locations:Array<Location>) => void, failure?:Function): Promise<Array<Object>>;
 
     /**
     * Retrieve the count of all locations current stored in the plugin's SQLite database.

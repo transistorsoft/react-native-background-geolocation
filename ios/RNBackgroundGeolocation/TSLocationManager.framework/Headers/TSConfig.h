@@ -155,6 +155,8 @@ TSConfig
 -(BOOL)hasSchedule;
 -(NSDictionary*)getLocationAuthorizationAlertStrings;
 -(BOOL)isFirstBoot;
+-(BOOL)didLaunchInBackground;
+
 # pragma mark Utility methods
 - (NSDictionary*) toDictionary;
 - (void) registerPlugin:(NSString*)pluginName;
@@ -177,6 +179,7 @@ TSConfig
 @property (nonatomic) TSTrackingMode trackingMode;
 @property (nonatomic) CLAuthorizationStatus lastLocationAuthorizationStatus;
 @property (nonatomic) BOOL iOSHasWarnedLocationServicesOff;
+@property (nonatomic) BOOL didLaunchInBackground;
 
 /// @name Geolocation Properties
 /**

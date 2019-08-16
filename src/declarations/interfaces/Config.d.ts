@@ -49,13 +49,13 @@ declare module "react-native-background-geolocation" {
   | [[desiredOdometerAccuracy]] | `Integer`  | __Default: `100`__.  Location accuracy threshold in **meters** for odometer calculations. |
   | [[useSignificantChangesOnly]] | `Boolean` | __Default: `false`__.  Defaults to `false`.  Set `true` in order to disable constant background-tracking.  A location will be recorded only several times / hour. |
   | [[disableLocationAuthorizationAlert]] | `Boolean` | __Default: `false`__.  Disables automatic authorization alert when plugin detects the user has disabled location authorization.  You will be responsible for handling disabled location authorization by listening to the `providerchange` event.|
+  | [[locationAuthorizationRequest]] | [[LocationAuthorizationRequest]] | __Default: `Always`__.  The desired location-authorization request, either `Always`, `WhenInUse` or `Any`. |
 
   ### [Geolocation] iOS Options
 
   | Option      | Type      | Note                              |
   |-------------|-----------|-----------------------------------|
   | [[stationaryRadius]] | `Integer`  | __Default: `25`__.  When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage. |
-  | [[locationAuthorizationRequest]] | [[LocationAuthorizationRequest]] | __Default: `Always`__.  The desired iOS location-authorization request, either `Always`, `WhenInUse` or `Any`. |
   | [[locationAuthorizationAlert]] | `Object` | When you configure the plugin [[locationAuthorizationRequest]] `Always` or `WhenInUse` and the user *changes* that value in the app's location-services settings or *disables* location-services, the plugin will display an Alert directing the user to the **Settings** screen. |
 
 
@@ -897,7 +897,7 @@ declare module "react-native-background-geolocation" {
     * @example
     * ```javascript
     * BackgroundGeolocation.ready({
-    *   locationTemplate: '{"lat":<%= latitude %>,"lng":<%= longitude %>,"event":"<%= event %>",isMoving:<%= isMoving %>}'
+    *   locationTemplate: '{"lat":<%= latitude %>,"lng":<%= longitude %>,"event":"<%= event %>",isMoving:<%= is_moving %>}'
     * });
     *
     * // Or use a compact [Array] template!
@@ -1601,10 +1601,12 @@ declare module "react-native-background-geolocation" {
     pausesLocationUpdatesAutomatically?: boolean;
 
     /**
-    * __`[iOS only]`__ Defines the *desired* iOS location-authorization request you *wish* for the user to authorize.
+    * Defines the *desired* location-authorization request you *wish* for the user to authorize: "Always" or "When In Use".
     * @break
     *
     * **`locationAuthorizationRequest`** tells the plugin the mode it *expects* to have been authorized with *by the user*.  If the user changes this mode in their settings, the plugin will detect this (See [[locationAuthorizationAlert]]).  Defaults to **`Always`**.  **`WhenInUse`** will display a **blue bar** at top-of-screen informing user that location-services are on.
+    *
+    * **Note:**  For *Android*, this option applies only to Android Q (API 29) and later.
     *
     * ![](https://dl.dropboxusercontent.com/s/88y3i4nkqq3o9ee/ios-location-authorization-dialog.png?dl=1)
     *

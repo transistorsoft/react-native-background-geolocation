@@ -1,5 +1,21 @@
 # Change Log
 
+## [3.2.0] - 2019-08-16
+- [Added] iOS 13 support.
+- [Added] Auto-linking support.  Do not use `react-native link` anymore.  See the Setup docs for Android and iOS.  Before installing `3.2.0`, first `react-native unlink` both `background-geolocation` and `background-fetch`.
+
+:warning: If you have a previous version of **`react-native-background-geolocation-android < 3.2.0`** installed into **`react-native >= 0.60`**, you should first `unlink` your previous version as `react-native link` is no longer required.
+
+```bash
+$ react-native unlink react-native-background-geolocation-android
+```
+
+- [Fixed] Android Geofence `DWELL` transition (`notifyOnDwell: true`) not firing.
+- [Fixed] iOS `logMaxDays` was hard-coded to `7`; Config option not being respected.
+- [Added] Android `Q` support (API 29) with new iOS-like location permission model which now requests `When In Use` or `Always`.  Android now supports the config option `locationAuthorizationRequest` which was traditionally iOS-only.  Also, Android Q now requires runtime permission from user for `ACTIVITY_RECOGNITION`.
+- [Changed] Another Android tweak to mitigate against error `Context.startForegroundService() did not then call Service.startForeground()`.
+- [Added] Add new Android gradle config parameter `appCompatVersion` to replace `supportLibVersion` for better AndroidX compatibility.  If `appCompatVersion` is not found, the plugin's gradle file falls back to `supportLibVersion`.  For react-native@0.60, you should start using the new `appCompatVersion`.
+
 ## [3.0.9] - 2019-07-06
 [Changed] Implement `react-native.config.js` ahead of deprecated `rnpm` config.
 - [Fixed] Added logic to detect when app is configured to use **AndroidX** dependencies, adjusting the required `appcompat` dependency accordingly.  If the gradle config `ext.supportLibVersion` corresponds to an AndroidX version (eg: `1.0.0`), the plugin assumes AndroidX.

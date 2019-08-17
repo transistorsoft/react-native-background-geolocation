@@ -33,5 +33,13 @@ declare module "react-native-background-geolocation" {
     * - [[getOdometer]]
     */
     odometer: number;
+    /**
+    * `true` when the iOS app was launched in the background.  Always `false` for Android.
+    * iOS apps can be launched in the background due to a background-fetch event, geofence events or exiting the [[Config.stationaryRadius]].
+    *
+    * One might use this flag to choose to load only minimal resources until the iOS app is determined to have launched into the foreground.
+    *
+    */
+    didLaunchInBackground: boolean;
   }
 }

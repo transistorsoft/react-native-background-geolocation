@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.0.9</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.2.0</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -138,6 +138,11 @@ BackgroundGeolocation.setConfig({
 										<td><code>Boolean</code></td>
 										<td><strong>Default: <code>false</code></strong>.  Disables automatic authorization alert when plugin detects the user has disabled location authorization.  You will be responsible for handling disabled location authorization by listening to the <code>providerchange</code> event.</td>
 									</tr>
+									<tr>
+										<td><a href="_react_native_background_geolocation_.config.html#locationauthorizationrequest">locationAuthorizationRequest</a></td>
+										<td><a href="../modules/_react_native_background_geolocation_.html#locationauthorizationrequest">LocationAuthorizationRequest</a></td>
+										<td><strong>Default: <code>Always</code></strong>.  The desired location-authorization request, either <code>Always</code>, <code>WhenInUse</code> or <code>Any</code>.</td>
+									</tr>
 							</tbody></table>
 							<h3 id="-geolocation-ios-options">[Geolocation] iOS Options</h3>
 							<table>
@@ -152,11 +157,6 @@ BackgroundGeolocation.setConfig({
 										<td><a href="_react_native_background_geolocation_.config.html#stationaryradius">stationaryRadius</a></td>
 										<td><code>Integer</code></td>
 										<td><strong>Default: <code>25</code></strong>.  When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage.</td>
-									</tr>
-									<tr>
-										<td><a href="_react_native_background_geolocation_.config.html#locationauthorizationrequest">locationAuthorizationRequest</a></td>
-										<td><a href="../modules/_react_native_background_geolocation_.html#locationauthorizationrequest">LocationAuthorizationRequest</a></td>
-										<td><strong>Default: <code>Always</code></strong>.  The desired iOS location-authorization request, either <code>Always</code>, <code>WhenInUse</code> or <code>Any</code>.</td>
 									</tr>
 									<tr>
 										<td><a href="_react_native_background_geolocation_.config.html#locationauthorizationalert">locationAuthorizationAlert</a></td>
@@ -1977,11 +1977,12 @@ BackgroundGeolocation.ready({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p><strong><code>[iOS only]</code></strong> Defines the <em>desired</em> iOS location-authorization request you <em>wish</em> for the user to authorize.</p>
+							<p>Defines the <em>desired</em> location-authorization request you <em>wish</em> for the user to authorize: &quot;Always&quot; or &quot;When In Use&quot;.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p><strong><code>locationAuthorizationRequest</code></strong> tells the plugin the mode it <em>expects</em> to have been authorized with <em>by the user</em>.  If the user changes this mode in their settings, the plugin will detect this (See <a href="_react_native_background_geolocation_.config.html#locationauthorizationalert">locationAuthorizationAlert</a>).  Defaults to <strong><code>Always</code></strong>.  <strong><code>WhenInUse</code></strong> will display a <strong>blue bar</strong> at top-of-screen informing user that location-services are on.</p>
+								<p><strong>Note:</strong>  For <em>Android</em>, this option applies only to Android Q (API 29) and later.</p>
 								<p><img src="https://dl.dropboxusercontent.com/s/88y3i4nkqq3o9ee/ios-location-authorization-dialog.png?dl=1" alt=""></p>
 								<p>If you configure <strong><code>Any</code></strong>, the plugin allow the user to choose either <code>Always</code> or <code>WhenInUse</code>.   The plugin will <strong>not</strong> show the <a href="_react_native_background_geolocation_.config.html#locationauthorizationalert">locationAuthorizationAlert</a> dialog when the user changes the selection in <code>Privacy-&gt;Location Services</code>.</p>
 								<h3 id="-warning-">⚠️ Warning:</h3>
@@ -2009,7 +2010,7 @@ BackgroundGeolocation.ready({
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
 							<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
-  <span class="hljs-attr">locationTemplate</span>: <span class="hljs-string">'{"lat":&lt;%= latitude %&gt;,"lng":&lt;%= longitude %&gt;,"event":"&lt;%= event %&gt;",isMoving:&lt;%= isMoving %&gt;}'</span>
+  <span class="hljs-attr">locationTemplate</span>: <span class="hljs-string">'{"lat":&lt;%= latitude %&gt;,"lng":&lt;%= longitude %&gt;,"event":"&lt;%= event %&gt;",isMoving:&lt;%= is_moving %&gt;}'</span>
 });
 
 <span class="hljs-comment">// Or use a compact [Array] template!</span>

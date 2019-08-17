@@ -1,35 +1,5 @@
 # iOS Installation with `react-native link`
 
-React Native `>= 0.60` has introduced significant changes to component setup.  Be sure to follow the directions according to the version of `react-native` you're using.  If you haven't yet upgraded to `0.60`, it is **highly reccommended** to do so **now**.
-
-## 🆕 `react-native >= 0.60`
-
-### With `yarn`
-
-```shell
-yarn add react-native-background-geolocation
-yarn add react-native-background-fetch
-```
-
-### With `npm`
-```shell
-npm install react-native-background-geolocation --save
-npm install react-native-background-fetch --save
-```
-
-### `react-native link`
-```shell
-react-native link react-native-background-geolocation
-react-native link react-native-background-fetch
-```
-
-### `pod install`
-```shell
-$ cd ios
-$ pod install
-```
--------------------------------------------------------------------------------------
-
 ## `react-native <= 0.59`
 
 ### With `yarn`
@@ -45,19 +15,19 @@ npm install react-native-background-geolocation --save
 npm install cocoa-lumberjack --save
 ```
 
-### `react-native link`
+## `react-native link`
 ```shell
 react-native link react-native-background-geolocation
 react-native link react-native-background-fetch
 react-native link cocoa-lumberjack
 ```
-### `pod install`
+
+## `pod install`
 ```shell
 $ cd ios
 $ pod install
 ```
 
----------------------------------------------------------------------------------
 ## XCode Configuration
 
 - Edit **`Info.plist`**.  The plugin adds default values for the following `plist` elements.  You will need to change these values as desired.

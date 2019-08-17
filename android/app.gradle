@@ -1,0 +1,22 @@
+
+android {
+	purgeBackgroundGeolocationDebugResources(applicationVariants)
+}
+
+/**
+* Background Geolocation's aar includes about 1.5M of mp3 sound-files for its debugging sound FX.
+* This method strips those mp3s out in RELEASE builds.
+*/
+def purgeBackgroundGeolocationDebugResources(applicationVariants) {
+    if ((rootProject.ext.has("removeBackgroundGeolocationDebugSoundsInRelease")) && (rootProject.ext.removeBackgroundGeolocationDebugSoundsInRelease == false)) return
+    applicationVariants.all { variant ->
+        if (variant.buildType.name == "release") {
+            println("[react-native-background-geolocation] Purging debug resources in release build")
+            variant.mergeResourcesProvider.configure {
+                doLast {
+                    delete(fileTree(dir: outputDir, includes: ["raw_tslocationmanager*"]))
+                }
+            }
+        }
+    }
+}

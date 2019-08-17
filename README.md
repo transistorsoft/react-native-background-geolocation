@@ -42,6 +42,16 @@ The **[Android module](http://www.transistorsoft.com/shop/products/react-native-
 
 ## :large_blue_diamond: Installing the Plugin
 
+-------------------------------------------------------------
+
+:warning: If you have a previous version of **`react-native-background-geolocation < 3.2.0`** installed into **`react-native >= 0.60`**, you should first `unlink` your previous version as `react-native link` is no longer required.
+
+```bash
+$ react-native unlink react-native-background-geolocation
+```
+
+-------------------------------------------------------------
+
 ### With `yarn`
 
 ```bash
@@ -55,14 +65,26 @@ $ npm install react-native-background-geolocation --save
 
 ## :large_blue_diamond: Setup Guides
 
-:warning: For `react-native >= 0.60.0`, use **only** `react-native link` Setup. :warning:
+## iOS
 
-### iOS
+### `react-native >= 0.60`
+
+- [Auto-linking Setup](help/INSTALL-IOS-AUTO.md)
+
+### `react-native < 0.60`
+
 - [`react-native link` Setup](help/INSTALL-IOS-RNPM.md) (**recommended**)
 - [Cocoapods](help/INSTALL-IOS-COCOAPODS.md)
 - [Manual Setup](help/INSTALL-IOS.md)
 
-### Android
+## Android
+
+### `react-native >= 0.60`
+
+- [Auto-linking Setup](help/INSTALL-ANDROID-AUTO.md)
+
+### `react-native < 0.60`
+
 * [`react-native link` Setup](help/INSTALL-ANDROID-RNPM.md) (**recommended**)
 * [Manual Setup](help/INSTALL-ANDROID.md)
 

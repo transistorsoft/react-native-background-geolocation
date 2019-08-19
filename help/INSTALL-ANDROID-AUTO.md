@@ -49,7 +49,6 @@ project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
 ]
 
-apply from: "../../node_modules/react-native/react.gradle"
 +apply from: "../../node_modules/react-native-background-geolocation/android/app.gradle"
 ```
 

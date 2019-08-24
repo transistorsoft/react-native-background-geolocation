@@ -17,7 +17,6 @@ npm install react-native-background-geolocation --save
 ```shell
 react-native link react-native-background-geolocation
 react-native link react-native-background-fetch
-react-native link cocoa-lumberjack
 ```
 
 ## Gradle Configuration

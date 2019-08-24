@@ -15,11 +15,20 @@ npm install react-native-background-geolocation --save
 npm install cocoa-lumberjack --save
 ```
 
+:warning: For those not using Cocoapods (you *should*), where your iOS app doesn't have a `Podfile`:
+```shell
+yarn add cocoa-lumberjack
+// <or npm>
+npm install cocoa-lumberjack
+```
+
 ## `react-native link`
 ```shell
 react-native link react-native-background-geolocation
 react-native link react-native-background-fetch
-react-native link cocoa-lumberjack
+// if (!using cocoapods)
+  react-native link cocoa-lumberjack
+//  
 ```
 
 ## `pod install`

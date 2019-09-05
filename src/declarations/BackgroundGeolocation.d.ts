@@ -809,7 +809,7 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```javascript
-    * let state = await BackgroundGeolocation.state();
+    * let state = await BackgroundGeolocation.getState();
     * console.log('[state] ', state.enabled, state.trackingMode);
     * ```
     */

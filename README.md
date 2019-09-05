@@ -65,28 +65,26 @@ $ npm install react-native-background-geolocation --save
 
 ## :large_blue_diamond: Setup Guides
 
-## iOS
-
 ### `react-native >= 0.60`
 
+### iOS
 - [Auto-linking Setup](help/INSTALL-IOS-AUTO.md)
+
+### Android
+- [Auto-linking Setup](help/INSTALL-ANDROID-AUTO.md)
+
+------------------------------------------------------------------------
 
 ### `react-native < 0.60`
 
+### iOS
 - [`react-native link` Setup](help/INSTALL-IOS-RNPM.md) (**recommended**)
 - [Cocoapods](help/INSTALL-IOS-COCOAPODS.md)
 - [Manual Setup](help/INSTALL-IOS.md)
 
-## Android
-
-### `react-native >= 0.60`
-
-- [Auto-linking Setup](help/INSTALL-ANDROID-AUTO.md)
-
-### `react-native < 0.60`
-
-* [`react-native link` Setup](help/INSTALL-ANDROID-RNPM.md) (**recommended**)
-* [Manual Setup](help/INSTALL-ANDROID.md)
+### Android
+- [`react-native link` Setup](help/INSTALL-ANDROID-RNPM.md) (**recommended**)
+- [Manual Setup](help/INSTALL-ANDROID.md)
 
 
 ## :large_blue_diamond: Configure your license
@@ -180,7 +178,6 @@ export default class App extends Component {
     // 2.  Execute #ready method (required)
     //
     BackgroundGeolocation.ready({
-      reset: true,
       // Geolocation Config
       desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
       distanceFilter: 10,
@@ -238,8 +235,6 @@ export default class App extends Component {
 
 ```
 
-:information_source: **NOTE:** The configuration **`{}`** provided to the `#ready` method is applied **only** when your app is **first booted** &mdash; for every launch thereafter, the plugin will automatically load the last known configuration from persistant storage.  If you wish to **force** the `#ready` method to *always* apply the supplied config `{}`, you can specify **`reset: true`**
-
 ```javascript
 BackgroundGeolocation.ready({
   reset: true,  // <-- true to always apply the supplied config
@@ -249,7 +244,7 @@ BackgroundGeolocation.ready({
 });
 ```
 
-:warning: Do not execute *any* API method which will require accessing location-services until the callback to **`#ready*` executes (eg: `#getCurrentPosition`, `#watchPosition`, `#start`).
+:warning: Do not execute *any* API method which will require accessing location-services until the callback to **`#ready`** executes (eg: `#getCurrentPosition`, `#watchPosition`, `#start`).
 
 ### Promise API
 

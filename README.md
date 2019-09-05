@@ -244,7 +244,7 @@ BackgroundGeolocation.ready({
 });
 ```
 
-:warning: Do not execute *any* API method which will require accessing location-services until the callback to **`#ready*` executes (eg: `#getCurrentPosition`, `#watchPosition`, `#start`).
+:warning: Do not execute *any* API method which will require accessing location-services until the callback to **`#ready`** executes (eg: `#getCurrentPosition`, `#watchPosition`, `#start`).
 
 ### Promise API
 

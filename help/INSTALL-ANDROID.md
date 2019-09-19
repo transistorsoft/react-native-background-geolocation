@@ -36,6 +36,7 @@ buildscript {
         compileSdkVersion = 28
         targetSdkVersion = 27
         supportLibVersion = "28.0.0"
+
         // You can control the SDK's version of play-services:location
         // You should always use the latest available version.
 +       googlePlayServicesLocationVersion = "16.0.0"
@@ -44,32 +45,25 @@ buildscript {
     .
     .
 }
-
-allprojects {
-    repositories {
-        mavenLocal()
-        google()
-        jcenter()
-        maven {
-            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
-            url "$rootDir/../node_modules/react-native/android"
-        }
-+       maven {
-+           url "$rootDir/../node_modules/react-native-background-geolocation/android/libs"
-+       }
-+       maven {
-+           url "$rootDir/../node_modules/react-native-background-fetch/android/libs"
-+       }
-    }
-}
 ```
 
+### :open_file_folder: **`android/app/build.gradle`**
 
-#### :information_source: Project-wide Configuration Properties
+Background Geolocation requires a gradle extension for your `app/build.gradle`.
 
-The technique of **defining project-wide properties** can be found in the **Android Developer Document** [Gradle Tip &amp; Tricks](https://developer.android.com/studio/build/gradle-tips.html) (see *Configure project-wide properties*) and another good explanation [here](https://segunfamisa.com/posts/android-gradle-extra-properties).  The *BackgroundGeolocation* plugin [is aware of the presense of these configuration properties](../android/build.gradle#L3-L18).
+```diff
+apply from: "../../node_modules/react-native/react.gradle"
 
--------------------------------------------------------------------------------
++Project background_geolocation = project(':react-native-background-geolocation')
++apply from: "${background_geolocation.projectDir}/app.gradle"
+.
+.
+.
+dependencies {
++   implementation project(':react-native-background-geolocation')
++   implementation project(':react-native-background-fetch')
+}
+```
 
 
 ## AndroidManifest.xml
@@ -122,36 +116,33 @@ public class MainApplication extends ReactApplication {
 
 ## Proguard Config
 
-If you've enabled **`def enableProguardInReleaseBuilds = true`** in your `app/build.gradle`, be sure to add the following items to your `proguard-rules.pro`:
 
-### :open_file_folder: `proguard-rules.pro` (`android/app/proguard-rules.pro`)
+If you've enabled **`def enableProguardInReleaseBuilds = true`** in your `app/build.gradle`, be sure to add the BackgroundGeolocation SDK's `proguard-rules.pro` to your **`proguardFiles`**:
 
-```proguard
--keepnames class com.transistorsoft.rnbackgroundgeolocation.RNBackgroundGeolocation
--keepnames class com.facebook.react.ReactActivity
+### :open_file_folder: `android/app/build.gradle`)
 
-# BackgroundGeolocation
--keep class com.transistorsoft.** { *; }
--dontwarn com.transistorsoft.**
-
-# OkHttp
--dontwarn okio.**
-
-# BackgroundGeolocation (EventBus)
--keepclassmembers class * extends de.greenrobot.event.util.ThrowableFailureEvent {
-    <init>(java.lang.Throwable);
+```diff
+/**
+ * Run Proguard to shrink the Java bytecode in release builds.
+ */
+def enableProguardInReleaseBuilds = true
+.
+.
+.
+android {
+    .
+    .
+    .
+    buildTypes {
+        release {
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            // Add following proguardFiles (leave existing one above untouched)
++           proguardFiles "${background_geolocation.projectDir}/proguard-rules.pro"
+            signingConfig signingConfigs.release
+        }
+    }
 }
--keepattributes *Annotation*
--keepclassmembers class ** {
-    @org.greenrobot.eventbus.Subscribe <methods>;
-}
--keep enum org.greenrobot.eventbus.ThreadMode { *; }
--keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-    <init>(java.lang.Throwable);
-}
-
-# logback
--keep class ch.qos.** { *; }
--keep class org.slf4j.** { *; }
--dontwarn ch.qos.logback.core.net.*
 ```
+
+:warning: If you get error `"ERROR: Could not get unknown property 'background_geolocation' for project ':app'"`, see [above](#open_file_folder-androidappbuildgradle) and make sure to define the `Project background_geolocation`.

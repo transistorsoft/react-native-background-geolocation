@@ -19,7 +19,7 @@ android {
     compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion safeExtGet('minSdkVersion', 16)
         targetSdkVersion safeExtGet('targetSdkVersion', DEFAULT_TARGET_SDK_VERSION)
         versionCode 1
         versionName "1.0"
@@ -43,7 +43,7 @@ dependencies {
     def androidPermissionsVersion = safeExtGet('androidPermissionsVersion', DEFAULT_ANDROID_PERMISSIONS_VERSION)
     def eventBusVersion = safeExtGet('eventBusVersion', DEFAULT_EVENTBUS_VERSION)
 
-    compileOnly 'com.facebook.react:react-native:+'
+    implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
     // tslocationmanager.aar
     implementation fileTree(include: ['*.aar'], dir: 'libs')
 
@@ -52,6 +52,6 @@ dependencies {
     implementation "org.greenrobot:eventbus:$eventBusVersion"
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation 'org.slf4j:slf4j-api:1.7.25'
-    implementation 'com.github.tony19:logback-android:1.3.0-2'
+    implementation 'com.github.tony19:logback-android:2.0.0'
     implementation "com.intentfilter:android-permissions:$androidPermissionsVersion"
 }

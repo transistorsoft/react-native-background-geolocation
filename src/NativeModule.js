@@ -421,6 +421,28 @@ export default class NativeModule {
     });
   }
 
+  static getGeofence(identifier) {
+    return new Promise((resolve, reject) => {
+      let success = (result) => { resolve(result) }
+      let failure = (error) => { reject(error) }
+      if ((typeof(identifier) !== 'string') || (identifier.length == 0)) {
+        failure('Invalid identifier: ' + identifier);
+        return;
+      }
+      RNBackgroundGeolocation.getGeofence(identifier, success, failure);
+    });
+  }
+
+  static geofenceExists(identifier) {
+    return new Promise((resolve, reject) => {
+      let callback = (result) => { resolve(result) }
+      if ((typeof(identifier) !== 'string') || (identifier.length == 0)) {
+        reject('Invalid identifier: ' + identifier);
+        return;
+      }
+      RNBackgroundGeolocation.geofenceExists(identifier, callback);
+    });
+  }
   /**
   * Logging & Debug Methods
   */

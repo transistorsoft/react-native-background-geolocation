@@ -295,7 +295,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     public void onHostPause() {
         Context context = getReactApplicationContext();
         TSConfig config = TSConfig.getInstance(context);
-        if (config.getEnabled() && config.getEnableHeadless() && !config.getStopOnTerminate()) {
+        if (config.getEnabled()) {
             TSScheduleManager.getInstance(context).oneShot(TerminateEvent.ACTION, 10000);
         }
     }
@@ -697,6 +697,42 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                 }
             }
             @Override public void onFailure(String error) { failure.invoke(error); }
+        });
+    }
+
+    @ReactMethod
+    public void getGeofence(String identifier, final Callback success, final Callback failure) {
+        getAdapter().getGeofence(identifier, new TSGetGeofenceCallback() {
+            @Override public void onSuccess(TSGeofence geofence) {
+                try {
+                    WritableMap data = new WritableNativeMap();
+                    data.putString("identifier", geofence.getIdentifier());
+                    data.putDouble("latitude", geofence.getLatitude());
+                    data.putDouble("longitude", geofence.getLongitude());
+                    data.putDouble("radius", geofence.getRadius());
+                    data.putBoolean("notifyOnEntry", geofence.getNotifyOnEntry());
+                    data.putBoolean("notifyOnExit", geofence.getNotifyOnExit());
+                    data.putBoolean("notifyOnDwell", geofence.getNotifyOnDwell());
+                    data.putInt("loiteringDelay", geofence.getLoiteringDelay());
+                    if (geofence.getExtras() != null) {
+                        data.putMap("extras", jsonToMap(geofence.getExtras()));
+                    }
+                    success.invoke(data);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    failure.invoke(e.getMessage());
+                }
+            }
+            @Override public void onFailure(String error) { failure.invoke(error); }
+        });
+    }
+
+    @ReactMethod
+    public void geofenceExists(String identifier, final Callback callback) {
+        getAdapter().geofenceExists(identifier, new TSGeofenceExistsCallback() {
+            @Override public void onResult(boolean exists) {
+                 callback.invoke(exists);
+            }
         });
     }
 

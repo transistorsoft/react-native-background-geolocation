@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.2.2</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.0</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -712,22 +712,27 @@ BackgroundGeolocation.ready({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p><strong><code>[iOS only]</code></strong> Disable the plugin requesting &quot;Motion &amp; Fitness&quot; authorization from the User.</p>
+							<p>Disable the plugin requesting &quot;Motion &amp; Fitness&quot; (ios) or &quot;Physical Activity&quot; (android &gt;= 10) authorization from the User.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>Defaults to <strong><code>false</code></strong>.  Set <strong><code>true</code></strong> to disable iOS <a href="https://developer.apple.com/reference/coremotion/cmmotionactivitymanager"><code>CMMotionActivityManager</code></a>-based motion-activity updates (eg: <code>walking</code>, <code>in_vehicle</code>).  This feature requires a device having the <strong>M7</strong> co-processor (ie: iPhone 5s and up).</p>
-								<h3 id="-warning-">⚠️ Warning:</h3>
-								<ul>
-									<li>The plugin is <strong>HIGHLY</strong> optimized for motion-activity-updates.  If you <strong>do</strong> disable this, the plugin <em>will</em> drain more battery power.  You are <strong>STRONGLY</strong> advised against disabling this.  You should explain to your users with an appropriate <code>NSMotionUsageDescription</code> in your <code>Info.plist</code> file, for example:<blockquote>
-											<p>&quot;Motion activity detection increases battery efficiency by intelligently toggling location-tracking&quot; off when your device is detected to be stationary.</p>
-										</blockquote>
-									</li>
-								</ul>
-								<h3 id="-note-">ℹ️ Note:</h3>
-								<ul>
-									<li>This feature will ask the user for &quot;Health updates&quot; permission using the <strong><code>NSMotionUsageDescription</code></strong> in your <code>Info.plist</code>.  If you do not wish to ask the user for the &quot;Health updates&quot;, set this option to <code>true</code>; However, you will no longer receive accurate activity data in the recorded locations.</li>
-								</ul>
+							<dd><p>Defaults to <strong><code>false</code></strong>.  Set to <strong><code>true</code></strong> to disable asking the user for this permission.</p>
+								<h2 id="ios">iOS</h2>
+								<p><img src="https://dl.dropbox.com/s/v3qt7ry1k4b3iir/ios-motion-permission.png?dl=1" alt=""></p>
+								<p>The plugin is <strong>HIGHLY</strong> optimized for motion-activity-updates.  If you <strong>do</strong> disable this, the plugin <em>will</em> drain more battery power.  You are <strong>STRONGLY</strong> advised against disabling this.  You should explain to your users with an appropriate <code>NSMotionUsageDescription</code> in your <code>Info.plist</code> file, for example:</p>
+								<blockquote>
+									<p>&quot;Motion activity detection increases battery efficiency by intelligently toggling location-tracking&quot; off when your device is detected to be stationary.</p>
+								</blockquote>
+								<h2 id="android">Android</h2>
+								<p>Android 10+ now requires run-time permission from the user for &quot;Physical Activity&quot;.
+								<img src="https://dl.dropbox.com/s/6v4391oz592bdjg/android-permission-physical-activity.png?dl=1" alt=""></p>
+								<p>Traditionally, the <code>background-geolocation</code> Android SDK has relied heavily upon the Motion API for determining when to toggle location-services on/off based upon whether the device is <em>moving</em> vs <em>stationary</em>.
+								However, the Android SDK has a fallback &quot;stationary geofence&quot; mechanism just like iOS, the exit of which will cause the plugin to change to the <em>moving</em> state, toggle location-services and begin tracking.  This will, of course, require the device moves a distance of typically <strong>200-500 meters</strong> before tracking engages.  With the Motion API authorized, the Android SDK typically requires just <strong>a few meters</strong> of movement for tracking to engage.</p>
+							</dd>
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
+  <span class="hljs-attr">disableMotionActivityUpdates</span>: <span class="hljs-literal">true</span>
+});</code></pre>
 							</dd>
 						</dl>
 					</div>
@@ -899,7 +904,7 @@ BackgroundGeolocation.ready({
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
 					<a name="extras" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> extras</h3>
-					<div class="tsd-signature tsd-kind-icon">extras<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Object</span></div>
+					<div class="tsd-signature tsd-kind-icon">extras<span class="tsd-signature-symbol">:</span> <a href="../modules/_react_native_background_geolocation_.html#extras" class="tsd-signature-type">Extras</a></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_react_native_background_geolocation_.config.html">Config</a>.<a href="_react_native_background_geolocation_.config.html#extras">extras</a></p>
 					</aside>
@@ -2997,11 +3002,11 @@ BackgroundGeolocation.ready({
 								<p>A location will be recorded several times per hour while the device is in the <em>moving</em> state.  No foreground-service will be run (nor its corresponding persistent <a href="_react_native_background_geolocation_.notification.html">Notification</a>).</p>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
-							<dd><p><strong><code>useSignificantChanges: true</code></strong>
+							<dd><p><strong><code>useSignificantChangesOnly: true</code></strong>
 								<img src="https://dl.dropboxusercontent.com/s/wdl9e156myv5b34/useSignificantChangesOnly.png?dl=1" alt=""></p>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
-							<dd><p><strong><code>useSignificantChanges: false</code> (Default)</strong>
+							<dd><p><strong><code>useSignificantChangesOnly: false</code> (Default)</strong>
 								<img src="https://dl.dropboxusercontent.com/s/hcxby3sujqanv9q/useSignificantChangesOnly-false.png?dl=1" alt=""></p>
 							</dd>
 						</dl>
@@ -3332,6 +3337,9 @@ BackgroundGeolocation.ready({
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_react_native_background_geolocation_.html#extras" class="tsd-kind-icon">Extras</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a>

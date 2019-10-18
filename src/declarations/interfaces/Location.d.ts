@@ -171,7 +171,7 @@ declare module "react-native-background-geolocation" {
     /**
     * Optional arbitrary meta-data attached to this location.
     */
-    extras?: Object;
+    extras?: Extras;
     /**
     * If this location was recorded due to a geofence transition, the corresponding geofence-event.
     */

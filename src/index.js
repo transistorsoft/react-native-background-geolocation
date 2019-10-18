@@ -505,6 +505,26 @@ export default class BackgroundGeolocation {
     }
   }
   /**
+  * Fetch a single geofence
+  */
+  static getGeofence(identifier, success, failure) {
+    if (arguments.length == 1) {
+      return NativeModule.getGeofence(identifier);
+    } else {
+      NativeModule.getGeofence(identifier).then(success).catch(failure);
+    }
+  }
+  /**
+  * Return true if geofence was added
+  */
+  static geofenceExists(identifier, success, failure) {
+    if (arguments.length == 1) {
+      return NativeModule.geofenceExists(identifier);
+    } else {
+      NativeModule.geofenceExists(identifier).then(success).catch(failure);
+    }
+  }
+  /**
   * Fetch the current position from location-services
   */
   static getCurrentPosition(options, success, failure) {

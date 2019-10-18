@@ -35,7 +35,7 @@ declare module "react-native-background-geolocation" {
     /**
     * Arbitrary key/values to append to each recorded location.
     */
-    extras?: Object;
+    extras?: Extras;
     /**
     * Time in `milliseconds` to wait before firing error callback when location fails to arrive.
     * Defaults to `60000`.

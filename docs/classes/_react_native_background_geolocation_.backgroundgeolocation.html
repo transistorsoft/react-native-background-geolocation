@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.2.2</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.0</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -310,8 +310,10 @@ BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <sp
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#destroylog" class="tsd-kind-icon">destroy<wbr>Log</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#emaillog" class="tsd-kind-icon">email<wbr>Log</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#finish" class="tsd-kind-icon">finish</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#geofenceexists" class="tsd-kind-icon">geofence<wbr>Exists</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getcount" class="tsd-kind-icon">get<wbr>Count</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getcurrentposition" class="tsd-kind-icon">get<wbr>Current<wbr>Position</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getgeofence" class="tsd-kind-icon">get<wbr>Geofence</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getgeofences" class="tsd-kind-icon">get<wbr>Geofences</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getlocations" class="tsd-kind-icon">get<wbr>Locations</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getlog" class="tsd-kind-icon">get<wbr>Log</a></li>
@@ -1708,6 +1710,62 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="geofenceexists" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> geofence<wbr>Exists</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">geofence<wbr>Exists<span class="tsd-signature-symbol">(</span>identifier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determine if a particular geofence exists in the SDK&#39;s database.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> exists = <span class="hljs-keyword">await</span> BackgroundGeolocation.geofenceExists(<span class="hljs-string">"HOME"</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[geofenceExists] '</span>, exists);</code></pre>
+										<h3 id="-see-also-">ℹ️ See also:</h3>
+										<ul>
+											<li>📘 <a href="../interfaces/_react_native_background_geolocation_.geofence.html">Geofence</a> Guide.</li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>identifier: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>exists<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>exists: <span class="tsd-signature-type">boolean</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a name="getcount" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Count</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -1849,6 +1907,83 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_react_native_background_geolocation_.location.html" class="tsd-signature-type">Location</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="getgeofence" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Geofence</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Geofence<span class="tsd-signature-symbol">(</span>identifier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, success<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span>, failure<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_react_native_background_geolocation_.geofence.html" class="tsd-signature-type">Geofence</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Fetch a single <a href="../interfaces/_react_native_background_geolocation_.geofence.html">Geofence</a> by identifier from the SDK&#39;s database.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> geofence = <span class="hljs-keyword">await</span> BackgroundGeolocation.getGeofence(<span class="hljs-string">"HOME"</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[getGeofence] '</span>, geofence);</code></pre>
+										<h3 id="-see-also-">ℹ️ See also:</h3>
+										<ul>
+											<li>📘 <a href="../interfaces/_react_native_background_geolocation_.geofence.html">Geofence</a> Guide.</li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>identifier: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> success: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>geofence<span class="tsd-signature-symbol">: </span><a href="../interfaces/_react_native_background_geolocation_.geofence.html" class="tsd-signature-type">Geofence</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>geofence: <a href="../interfaces/_react_native_background_geolocation_.geofence.html" class="tsd-signature-type">Geofence</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> failure: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>error: <span class="tsd-signature-type">string</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_react_native_background_geolocation_.geofence.html" class="tsd-signature-type">Geofence</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -4243,10 +4378,16 @@ onSuspend() {
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#finish" class="tsd-kind-icon">finish</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#geofenceexists" class="tsd-kind-icon">geofence<wbr>Exists</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#getcount" class="tsd-kind-icon">get<wbr>Count</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#getcurrentposition" class="tsd-kind-icon">get<wbr>Current<wbr>Position</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#getgeofence" class="tsd-kind-icon">get<wbr>Geofence</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#getgeofences" class="tsd-kind-icon">get<wbr>Geofences</a>
@@ -4428,6 +4569,9 @@ onSuspend() {
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_react_native_background_geolocation_.html#extras" class="tsd-kind-icon">Extras</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a>

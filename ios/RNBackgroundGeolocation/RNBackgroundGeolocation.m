@@ -446,6 +446,21 @@ RCT_EXPORT_METHOD(getGeofences:(RCTResponseSenderBlock)success failure:(RCTRespo
     }];
 }
 
+RCT_EXPORT_METHOD(getGeofence:(NSString*)identifier success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    [locationManager getGeofence:identifier success:^(TSGeofence* geofence) {
+        success(@[[geofence toDictionary]]);
+    } failure:^(NSString* error) {
+        failure(@[error]);
+    }];
+}
+
+RCT_EXPORT_METHOD(geofenceExists:(NSString*)identifier callback:(RCTResponseSenderBlock)callback)
+{
+    [locationManager geofenceExists:identifier callback:^(BOOL exists) {
+        callback(@[@(exists)]);
+    }];
+}
 
 RCT_EXPORT_METHOD(addGeofence:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {

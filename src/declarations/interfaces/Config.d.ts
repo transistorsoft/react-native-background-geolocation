@@ -78,13 +78,13 @@ declare module "react-native-background-geolocation" {
   | [[stopTimeout]] | `Integer` | __Default: `5`__.  The number of **minutes** to wait before turning off location-services after the ActivityRecognition System (ARS) detects the device is `STILL` |
   | [[stopDetectionDelay]] | `Integer` | __Default: `0`__.  Number of **minutes** to delay the stop-detection system from being activated.|
   | [[disableStopDetection]] | `Boolean` | __Default: `false`__.  Disable accelerometer-based **Stop-detection System**. ⚠️ Not recommended|
+  | [[disableMotionActivityUpdates]] | `Boolean` | __Default: `false`__.  Disable motion-activity updates (eg: "walking", "in_vehicle"). Requires permission from the user. ⚠️ The plugin is **HIGHLY** optimized to use the Motion API for improved battery performance.  You are **STRONLY** recommended to **NOT** disable this. |
 
   ### [Activity Recognition] iOS Options
 
   | Option      | Type      | Note                              |
   |-------------|-----------|-----------------------------------|
   | [[activityType]] | [[ActivityType]] |  __Default: [[BackgroundGeolocation.ACTIVITY_TYPE_OTHER]]__.  Presumably, this affects ios GPS algorithm.  See [Apple docs](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/CLLocationManager/CLLocationManager.html#//apple_ref/occ/instp/CLLocationManager/activityType) for more information |
-  | [[disableMotionActivityUpdates]] | `Boolean` | __Default: `false`__.  Disable iOS motion-activity updates (eg: "walking", "in_vehicle").  This feature requires a device having the **M7** co-processor (ie: iPhone 5s and up). ⚠️ The plugin is **HIGHLY** optimized to use this for improved battery performance.  You are **STRONLY** recommended to **NOT** disable this. |
 
 
   ## HTTP & Persistence Options
@@ -739,7 +739,7 @@ declare module "react-native-background-geolocation" {
     * }
     * ```
     */
-    extras?: Object;
+    extras?: Extras;
 
     /**
     * Immediately upload each recorded location to your configured [[url]].
@@ -1582,10 +1582,10 @@ declare module "react-native-background-geolocation" {
     *
     * A location will be recorded several times per hour while the device is in the *moving* state.  No foreground-service will be run (nor its corresponding persistent [[Notification]]).
     *
-    * @example **`useSignificantChanges: true`**
+    * @example **`useSignificantChangesOnly: true`**
     * ![](https://dl.dropboxusercontent.com/s/wdl9e156myv5b34/useSignificantChangesOnly.png?dl=1)
     *
-    * @example **`useSignificantChanges: false` (Default)**
+    * @example **`useSignificantChangesOnly: false` (Default)**
     * ![](https://dl.dropboxusercontent.com/s/hcxby3sujqanv9q/useSignificantChangesOnly-false.png?dl=1)
     */
     useSignificantChangesOnly?: boolean;
@@ -1724,17 +1724,32 @@ declare module "react-native-background-geolocation" {
     stopDetectionDelay?: number;
 
     /**
-    * __`[iOS only]`__ Disable the plugin requesting "Motion & Fitness" authorization from the User.
+    * Disable the plugin requesting "Motion & Fitness" (ios) or "Physical Activity" (android >= 10) authorization from the User.
     * @break
     *
-    * Defaults to **`false`**.  Set **`true`** to disable iOS [`CMMotionActivityManager`](https://developer.apple.com/reference/coremotion/cmmotionactivitymanager)-based motion-activity updates (eg: `walking`, `in_vehicle`).  This feature requires a device having the **M7** co-processor (ie: iPhone 5s and up).
+    * Defaults to **`false`**.  Set to **`true`** to disable asking the user for this permission.
     *
-    * ### ⚠️ Warning:
-    * - The plugin is **HIGHLY** optimized for motion-activity-updates.  If you **do** disable this, the plugin *will* drain more battery power.  You are **STRONGLY** advised against disabling this.  You should explain to your users with an appropriate `NSMotionUsageDescription` in your `Info.plist` file, for example:
+    * ## iOS
+    *
+    * ![](https://dl.dropbox.com/s/v3qt7ry1k4b3iir/ios-motion-permission.png?dl=1)
+    *
+    * The plugin is **HIGHLY** optimized for motion-activity-updates.  If you **do** disable this, the plugin *will* drain more battery power.  You are **STRONGLY** advised against disabling this.  You should explain to your users with an appropriate `NSMotionUsageDescription` in your `Info.plist` file, for example:
     * > "Motion activity detection increases battery efficiency by intelligently toggling location-tracking" off when your device is detected to be stationary.
     *
-    * ### ℹ️ Note:
-    * - This feature will ask the user for "Health updates" permission using the **`NSMotionUsageDescription`** in your `Info.plist`.  If you do not wish to ask the user for the "Health updates", set this option to `true`; However, you will no longer receive accurate activity data in the recorded locations.
+    * ## Android
+    *
+    * Android 10+ now requires run-time permission from the user for "Physical Activity".
+    * ![](https://dl.dropbox.com/s/6v4391oz592bdjg/android-permission-physical-activity.png?dl=1)
+    *
+    * Traditionally, the `background-geolocation` Android SDK has relied heavily upon the Motion API for determining when to toggle location-services on/off based upon whether the device is *moving* vs *stationary*.
+    * However, the Android SDK has a fallback "stationary geofence" mechanism just like iOS, the exit of which will cause the plugin to change to the *moving* state, toggle location-services and begin tracking.  This will, of course, require the device moves a distance of typically **200-500 meters** before tracking engages.  With the Motion API authorized, the Android SDK typically requires just **a few meters** of movement for tracking to engage.
+    *
+    * @example
+    * ```javascript
+    * BackgroundGeolocation.ready({
+    *   disableMotionActivityUpdates: true
+    * });
+    * ```
     */
     disableMotionActivityUpdates?: boolean;
 

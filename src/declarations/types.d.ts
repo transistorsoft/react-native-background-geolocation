@@ -96,4 +96,6 @@ declare module "react-native-background-geolocation" {
 	type HttpMethod = "POST" | "PUT" | "OPTIONS";
 
 	type PersistMode = -1 | 0 | 1 | 2;
+
+	type Extras = {[key: string]: string|null|number|boolean|Extras|string[]|number[]|boolean[]|Extras[]};
 }

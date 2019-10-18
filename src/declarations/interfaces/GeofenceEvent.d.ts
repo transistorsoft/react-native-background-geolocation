@@ -25,6 +25,6 @@ declare module "react-native-background-geolocation" {
     /**
     * Optional [[Geofence.extras]]
     */
-    extras?: Object;
+    extras?: Extras;
   }
 }

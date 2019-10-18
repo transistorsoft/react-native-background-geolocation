@@ -250,6 +250,6 @@ declare module "react-native-background-geolocation" {
     /**
     * Arbitrary key-values appended to the geofence event and posted to your configured [[Config.url]].
     */
-    extras?: Object;
+    extras?: Extras;
   }
 }

@@ -1256,6 +1256,33 @@ declare module "react-native-background-geolocation" {
     static getGeofences(success?:(geofences:Array<Geofence>) => void, failure?: (error:string) => void): Promise<Array<Geofence>>;
 
     /**
+    * Fetch a single [[Geofence]] by identifier from the SDK's database.
+    *
+    * @example
+    * ```javascript
+    * let geofence = await BackgroundGeolocation.getGeofence("HOME");
+    * console.log('[getGeofence] ', geofence);
+    * ```
+    *
+    * ### ℹ️ See also:
+    * - 📘 [[Geofence]] Guide.
+    */
+    static getGeofence(identifier:string, success?:(geofence:Geofence) => void, failure?: (error:string) => void): Promise<Geofence>;
+
+    /**
+    * Determine if a particular geofence exists in the SDK's database.
+    *
+    * @example
+    * ```javascript
+    * let exists = await BackgroundGeolocation.geofenceExists("HOME");
+    * console.log('[geofenceExists] ', exists);
+    * ```
+    * ### ℹ️ See also:
+    * - 📘 [[Geofence]] Guide.
+    */
+    static geofenceExists(identifier:string, callback?:(exists:boolean) => void): Promise<boolean>;
+
+    /**
     * Sets the [[logLevel]].
     */
     static setLogLevel(value: LogLevel, success?:(state:State) => void, failure?:Function): Promise<State>;

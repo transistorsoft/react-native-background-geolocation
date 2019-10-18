@@ -40,6 +40,6 @@ declare module "react-native-background-geolocation" {
     /**
     * Optional meta-data to attach to the location. These `extras` will be merged to the configured [[Config.extras]] and persisted / POSTed to your server (if you've configured a [[Config.url]].
     */
-    extras?: Object;
+    extras?: Extras;
   }
 }

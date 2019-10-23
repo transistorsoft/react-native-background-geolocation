@@ -33,6 +33,7 @@ import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
 import com.transistorsoft.locationmanager.adapter.TSConfig;
 import com.transistorsoft.locationmanager.adapter.callback.*;
 import com.transistorsoft.locationmanager.data.LocationModel;
+import com.transistorsoft.locationmanager.data.SQLQuery;
 import com.transistorsoft.locationmanager.event.ActivityChangeEvent;
 import com.transistorsoft.locationmanager.event.ConnectivityChangeEvent;
 import com.transistorsoft.locationmanager.event.GeofenceEvent;
@@ -55,6 +56,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by chris on 2015-10-30.
@@ -484,7 +486,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     public void destroyLog(final Callback success, final Callback failure) {
         getAdapter().destroyLog(new TSCallback() {
             @Override public void onSuccess() {
-                success.invoke();
+                success.invoke(true);
             }
             @Override public void onFailure(String error) {
                 failure.invoke(error);
@@ -760,8 +762,10 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     @ReactMethod
-    public void getLog(final Callback success, final Callback failure) {
-        getAdapter().getLog(new TSGetLogCallback() {
+    public void getLog(final Callback success, ReadableMap params, final Callback failure) {
+        SQLQuery query = parseSQLQuery(params);
+
+        TSLog.getLog(query, new TSGetLogCallback() {
             @Override public void onSuccess(String log) {
                 success.invoke(log);
             }
@@ -772,8 +776,24 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     @ReactMethod
-    public void emailLog(String email, final Callback success, final Callback failure) {
-        getAdapter().emailLog(email, getCurrentActivity(), new TSEmailLogCallback() {
+    public void emailLog(String email, ReadableMap params,  final Callback success, final Callback failure) {
+        SQLQuery query = parseSQLQuery(params);
+
+        TSLog.emailLog(getCurrentActivity(), email, query, new TSEmailLogCallback() {
+            @Override public void onSuccess() {
+                success.invoke();
+            }
+            @Override public void onFailure(String error) {
+                failure.invoke(error);
+            }
+        });
+    }
+
+    @ReactMethod
+    public void uploadLog(String url, ReadableMap params,  final Callback success, final Callback failure) {
+        SQLQuery query = parseSQLQuery(params);
+
+        TSLog.uploadLog(getReactApplicationContext(), url, query, new TSCallback() {
             @Override public void onSuccess() {
                 success.invoke();
             }
@@ -786,6 +806,25 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     @ReactMethod
     public void log(String level, String message) throws JSONException {
         TSLog.log(level, message);
+    }
+
+    private SQLQuery parseSQLQuery(ReadableMap params) {
+        SQLQuery query = SQLQuery.create();
+        if (params.hasKey("start")) {
+            Double start = params.getDouble("start");
+            query.setStart(start.longValue());
+        }
+        if (params.hasKey("end")) {
+            Double end = params.getDouble("end");
+            query.setEnd(end.longValue());
+        }
+        if (params.hasKey("order")) {
+            query.setOrder(params.getInt("order"));
+        }
+        if (params.hasKey("limit")) {
+            query.setLimit(params.getInt("limit"));
+        }
+        return query;
     }
 
     @ReactMethod

@@ -7,6 +7,7 @@ import {
 
 import NativeModule from './NativeModule';
 import DeviceSettings from './DeviceSettings';
+import Logger from './Logger';
 
 let _deviceSettingsInstance = null;
 
@@ -633,7 +634,7 @@ export default class BackgroundGeolocation {
   /**
   * Insert a log message into the plugin's log database
   */
-  static get logger() { return NativeModule.logger; }
+  static get logger() { return Logger; }
 
   static transistorTrackerParams(deviceInfo) {
     if (typeof(deviceInfo) === undefined) { throw "An instance of react-native-device-info must be provided"; }

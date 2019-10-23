@@ -135,12 +135,6 @@ declare module "react-native-background-geolocation" {
   | [[foregroundService]] | `Boolean` | __Default: `false`__.  Set `true` to make the plugin *mostly* immune to OS termination due to memory pressure from other apps. |
   | [[enableHeadless]] | `Boolean` | __Default: `false`__.  Set to `true` to enable "Headless" mode when the user terminates the application.  In this mode, you can respond to all the plugin's events in the native Android environment.  For more information, see the wiki for [Android Headless Mode](github:wiki/Android-Headless-Mode) |
   | [[notification]]  | [[Notification]] | Configures the required persistent [[Notification]] of the foreground service. |
-  | [[forceReloadOnMotionChange]] | `Boolean` | __Default: `false`__.  Launch your app whenever the [[BackgroundGeolocation.onMotionChange]] event fires. |
-  | [[forceReloadOnLocationChange]] | `Boolean` | __Default: `false`__.  Launch your app whenever the [[BackgroundGeolocation.onLocation]] event fires. |
-  | [[forceReloadOnGeofence]] | `Boolean` | __Default: `false`__.  Launch your app whenever the [[BackgroundGeolocation.onGeofence]] event fires. |
-  | [[forceReloadOnHeartbeat]] | `Boolean` | __Default: `false`__.  Launch your app whenever the [[BackgroundGeolocation.onHeartbeat]] event fires. |
-  | [[forceReloadOnSchedule]] | `Boolean` | __Default: `false`__.  Launch your app whenever a [[BackgroundGeolocation.onSchedule]] event fires. |
-  | [[forceReloadOnBoot]] | `Boolean` | __Default: `false`__.  If the user reboots the device with the plugin configured for [[startOnBoot]]: true, your app will launch when the device is rebooted. |
 
 
   ## Geofencing Options
@@ -987,6 +981,7 @@ declare module "react-native-background-geolocation" {
     * | `battery.level`       | `Float`  | 0-100%      |
     * | `battery.is_charging` | `Boolean`| Is device plugged in?|
     * | `mock`                | `Boolean`| `true` when location was recorded from a Mock location app. |
+    * | `is_moving`           | `Boolean`| `true` if location was recorded while device was in *moving* state.|
     *
     * ### ℹ️ See also:
     * - 📘 HTTP Guide: [[HttpEvent]].
@@ -1081,6 +1076,8 @@ declare module "react-native-background-geolocation" {
     * | `activity.confidence` | `Integer`| 0-100%      |
     * | `battery.level`       | `Float`  | 0-100%      |
     * | `battery.is_charging` | `Boolean`| Is device plugged in?|
+    * | `mock`                | `Boolean`| `true` when geofence was recorded from a Mock location app. |
+    * | `is_moving`           | `Boolean`| `true` if geofence was recorded while device was in *moving* state.|
     */
     geofenceTemplate?: string;
 
@@ -1206,16 +1203,6 @@ declare module "react-native-background-geolocation" {
     * reboot.
     *
     * ### Android
-    *
-    * Android will reboot the plugin's background-service *immediately* after device reboot.  However, just like [[stopOnTerminate]] __`false`__,
-    * the plugin will be running "headless" without your Application code.  If you wish for your Application to boot as well, you may
-    * configure any of the following **`forceReloadOnXXX`** options:
-    *
-    * - [[forceReloadOnLocationChange]]
-    * - [[forceReloadOnMotionChange]]
-    * - [[forceReloadOnGeofence]]
-    * - [[forceReloadOnBoot]]
-    * - [[forceReloadOnHeartbeat]]
     *
     * ### ℹ️ See also:
     * - [[enableHeadless]]
@@ -1955,6 +1942,8 @@ declare module "react-native-background-geolocation" {
     foregroundService?: boolean;
 
     /**
+    * @deprecated __Banned in Android 10.  Use [[Config.enableHeadless]] instead.__
+    *
     * Force launch your terminated App after a [[BackgroundGeolocation.onLocation]] event.
     * @break
     *
@@ -1966,6 +1955,8 @@ declare module "react-native-background-geolocation" {
     forceReloadOnLocationChange?: boolean;
 
     /**
+    * @deprecated __Banned in Android 10.  Use [[Config.enableHeadless]] instead.__
+    *
     * Force launch your terminated App after a [[BackgroundGeolocation.onMotionChange]] event.
     * @break
     *
@@ -1977,6 +1968,8 @@ declare module "react-native-background-geolocation" {
     forceReloadOnMotionChange?: boolean;
 
     /**
+    * @deprecated __Banned in Android 10.  Use [[Config.enableHeadless]] instead.__
+    *
     * Force launch your terminated App after a [[BackgroundGeolocation.onGeofence]] event.
     * @break
     *
@@ -1988,6 +1981,8 @@ declare module "react-native-background-geolocation" {
     forceReloadOnGeofence?: boolean;
 
     /**
+    * @deprecated __Banned in Android 10.  Use [[Config.enableHeadless]] instead.__
+    *
     * Force launch your terminated App after a device reboot or application update.
     * @break
     *
@@ -1999,6 +1994,8 @@ declare module "react-native-background-geolocation" {
     forceReloadOnBoot?: boolean;
 
     /**
+    * @deprecated __Banned in Android 10.  Use [[Config.enableHeadless]] instead.__
+    *
     * Force launch your terminated App after a [[BackgroundGeolocation.onHeartbeat]] event.
     * @break
     *
@@ -2010,6 +2007,8 @@ declare module "react-native-background-geolocation" {
     forceReloadOnHeartbeat?: boolean;
 
     /**
+    * @deprecated __Banned in Android 10.  Use [[Config.enableHeadless]] instead.__
+    *
     * Force launch your terminated App after a [[BackgroundGeolocation.onSchedule]] event.
     * @break
     *

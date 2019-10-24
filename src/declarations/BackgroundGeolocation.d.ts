@@ -18,6 +18,8 @@
 /// <reference path="interfaces/WatchPositionRequest.d.ts" />
 /// <reference path="interfaces/DeviceSettings.d.ts" />
 /// <reference path="interfaces/Notification.d.ts" />
+/// <reference path="interfaces/SQLQuery.d.ts" />
+///
 
 declare module "react-native-background-geolocation" {
   /**
@@ -212,6 +214,11 @@ declare module "react-native-background-geolocation" {
     *
     */
     static deviceSettings: DeviceSettings;
+
+    /**
+    * [[Logger]] API
+    */
+    static logger: Logger;
 
     /**
     * @hidden
@@ -1288,105 +1295,17 @@ declare module "react-native-background-geolocation" {
     static setLogLevel(value: LogLevel, success?:(state:State) => void, failure?:Function): Promise<State>;
 
     /**
-    * Returns the entire contents of the log database.
-    * @break
-    *
-    * Depending on the configured [[logLevel]], the plugin can store an *immense* amount of helpful logging information for debugging location-tracking
-    * problems.
-    *
-    * ### ℹ️ See also:
-    * - [[logMaxDays]] (default `3` days)
-    * - [[logLevel]]   (default [[LOG_LEVEL_OFF]])
-    * - [[emailLog]]
-    * - 📘[Debugging Guide](github:wiki/Debugging)
-    * log data:
-    *
-    * @example
-    * ```javascript
-    * BackgroundGeolocation.getLog.then((log) => {
-    *   // Warning:  this string could be several megabytes.
-    *   console.log('[log] success: ', log);
-    * });
-    * ```
-    * ```
-    * 09-19 11:12:18.716 ╔═════════════════════════════════════════════
-    * 09-19 11:12:18.716 ║ BackgroundGeolocation Service started
-    * 09-19 11:12:18.716 ╠═════════════════════════════════════════════
-    * 09-19 11:12:18.723 [c.t.l.BackgroundGeolocationService d]
-    * 09-19 11:12:18.723   ✅  Started in foreground
-    * 09-19 11:12:18.737 [c.t.l.ActivityRecognitionService a]
-    * 09-19 11:12:18.737   🎾  Start activity updates: 10000
-    * 09-19 11:12:18.761 [c.t.l.BackgroundGeolocationService k]
-    * 09-19 11:12:18.761   🔴  Stop heartbeat
-    * 09-19 11:12:18.768 [c.t.l.BackgroundGeolocationService a]
-    * 09-19 11:12:18.768   🎾  Start heartbeat (60)
-    * 09-19 11:12:18.778 [c.t.l.BackgroundGeolocationService a]
-    * 09-19 11:12:18.778   🔵  setPace: null → false
-    * 09-19 11:12:18.781 [c.t.l.adapter.TSConfig c] ℹ️   Persist config
-    * 09-19 11:12:18.794 [c.t.locationmanager.util.b a]
-    * 09-19 11:12:18.794   ℹ️  LocationAuthorization: Permission granted
-    * 09-19 11:12:18.842 [c.t.l.http.HttpService flush]
-    * 09-19 11:12:18.842 ╔═════════════════════════════════════════════
-    * 09-19 11:12:18.842 ║ HTTP Service
-    * 09-19 11:12:18.842 ╠═════════════════════════════════════════════
-    * 09-19 11:12:19.000 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)
-    * 09-19 11:12:21.314 [c.t.l.l.SingleLocationRequest$2 onLocationResult]
-    * 09-19 11:12:21.314 ╔═════════════════════════════════════════════
-    * 09-19 11:12:21.314 ║ SingleLocationRequest: 1
-    * 09-19 11:12:21.314 ╠═════════════════════════════════════════════
-    * 09-19 11:12:21.314 ╟─ 📍  Location[fused 45.519239,-73.617058 hAcc=15]999923706055 vAcc=2 sAcc=??? bAcc=???
-    * 09-19 11:12:21.327 [c.t.l.l.TSLocationManager onSingleLocationResult]
-    * 09-19 11:12:21.327   🔵  Acquired motionchange position, isMoving: false
-    * 09-19 11:12:21.342 [c.t.l.l.TSLocationManager a] 15.243
-    * 09-19 11:12:21.405 [c.t.locationmanager.data.a.c persist]
-    * 09-19 11:12:21.405   ✅  INSERT: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
-    * 09-19 11:12:21.423 [c.t.l.http.HttpService flush]
-    * 09-19 11:12:21.423 ╔═════════════════════════════════════════════
-    * 09-19 11:12:21.423 ║ HTTP Service
-    * 09-19 11:12:21.423 ╠═════════════════════════════════════════════
-    * 09-19 11:12:21.446 [c.t.locationmanager.data.a.c first]
-    * 09-19 11:12:21.446   ✅  Locked 1 records
-    * 09-19 11:12:21.454 [c.t.l.http.HttpService a]
-    * 09-19 11:12:21.454   🔵  HTTP POST: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
-    * 09-19 11:12:22.083 [c.t.l.http.HttpService$a onResponse]
-    * 09-19 11:12:22.083   🔵  Response: 200
-    * 09-19 11:12:22.100 [c.t.locationmanager.data.a.c destroy]
-    * 09-19 11:12:22.100   ✅  DESTROY: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
-    * 09-19 11:12:55.226 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)
-    *```
+    * @deprecated Use [[Logger.getLog]].
     */
     static getLog(success?:(log:string) => void, failure?:(error:string) => void): Promise<string>;
 
     /**
-    * Email the result of [[getLog]] using device's mail client.
-    *
-    * @example
-    * ```javascript
-    * BackgroundGeolocation.emailLog('foo@bar.com').then((success) => {
-    *   console.log('[emailLog] success');
-    * }).catch((error) => {
-    *   console.log('[emailLog] FAILURE: ', error);
-    * });
-    * ```
-    * ### ℹ️ See also:
-    * - [[logLevel]]
-    * - [[getLog]]
-    * - 📘[Debugging Guide](github:wiki/Debugging).
+    * @deprecated Use [[Logger.emailLog]].
     */
     static emailLog(email:string, success?:Function, failure?:(error:string) => void): Promise<void>;
 
     /**
-    * Destroy the entire contents of plugin's log database.
-    *
-    * @example
-    * ```javascript
-    * BackgroundGeolocation.destroyLog();
-    * ```
-    * ### ℹ️ See also:
-    * - [[logLevel]]
-    * - [[getLog]]
-    * - [[emailLog]]
-    * - 📘[Debugging Guide](github:wiki/Debugging)
+    * @deprecated Use [[Logger.destroyLog]].
     */
     static destroyLog(success?:Function, failure?:Function): Promise<void>;
 
@@ -1472,11 +1391,6 @@ declare module "react-native-background-geolocation" {
     *
     */
     static playSound(soundId:any, success?:Function, failure?:Function): Promise<void>;
-
-    /**
-    *
-    */
-    static logger: Logger;
 
     /**
     * Convenience method to compose a [[params]] Object suitable for posting to the **Transistor Software Test Server** at http://tracker.transistorsoft.com.  You must provide a reference to **`Device`** instance.

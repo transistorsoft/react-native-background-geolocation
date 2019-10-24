@@ -20,6 +20,7 @@
 #import "TSConfig.h"
 #import "TSCurrentPositionRequest.h"
 #import "TSWatchPositionRequest.h"
+#import "LogQuery.h"
 
 @interface TSLocationManager : NSObject <CLLocationManagerDelegate>
 
@@ -96,7 +97,11 @@
 #pragma mark - Logging & Debug Methods
 
 - (void) getLog:(void(^)(NSString* log))success failure:(void(^)(NSString* error))failure;
+- (void) getLog:(LogQuery*)query success:(void(^)(NSString* log))success failure:(void(^)(NSString* error))failure;
 - (void) emailLog:(NSString*)email success:(void(^)(void))success failure:(void(^)(NSString* error))failure;
+- (void) emailLog:(NSString*)email query:(LogQuery*)query success:(void(^)(void))success failure:(void(^)(NSString* error))failure;
+- (void) uploadLog:(NSString*)url query:(LogQuery*)query success:(void(^)(void))success failure:(void(^)(NSString* error))failure;
+
 - (BOOL) destroyLog;
 - (void) setLogLevel:(TSLogLevel)level;
 - (void) playSound:(SystemSoundID)soundId;

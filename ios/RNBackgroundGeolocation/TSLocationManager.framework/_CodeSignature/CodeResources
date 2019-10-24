@@ -8,6 +8,14 @@
 		<data>
 		OZVdBVZxlmvxHgRGA5v3Qua+ZRk=
 		</data>
+		<key>Headers/LogQuery.h</key>
+		<data>
+		kTLr282hQEbsld80ev5wPrepslo=
+		</data>
+		<key>Headers/SQLQuery.h</key>
+		<data>
+		AzXxdzK/YPVwiQShCjUn34Fgk7E=
+		</data>
 		<key>Headers/TSActivityChangeEvent.h</key>
 		<data>
 		3b/JDKeYspSzawvjtA0V4o0QG2k=
@@ -54,7 +62,7 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		0q9whSUlraTS2ZQtRg7Ynb2S6zQ=
+		T4awnAFJekEW0wQFQj42EIkTA8E=
 		</data>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
 		<data>
@@ -96,6 +104,28 @@
 			<key>hash2</key>
 			<data>
 			VJupChEwECX4hmPtzqLaMSmQqC3qLcsSnWa00STPXdo=
+			</data>
+		</dict>
+		<key>Headers/LogQuery.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kTLr282hQEbsld80ev5wPrepslo=
+			</data>
+			<key>hash2</key>
+			<data>
+			yEjbCu5h6chDw9uYPPNSLmSKu3FBuSmja1j/arVyfJs=
+			</data>
+		</dict>
+		<key>Headers/SQLQuery.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			AzXxdzK/YPVwiQShCjUn34Fgk7E=
+			</data>
+			<key>hash2</key>
+			<data>
+			JnptjKWZv3DIKWo8qN3SmPgn6kx8c0FnWRUn80E1E9I=
 			</data>
 		</dict>
 		<key>Headers/TSActivityChangeEvent.h</key>
@@ -223,11 +253,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			0q9whSUlraTS2ZQtRg7Ynb2S6zQ=
+			T4awnAFJekEW0wQFQj42EIkTA8E=
 			</data>
 			<key>hash2</key>
 			<data>
-			BGA7NCfUDG6xhHqUWWwry1PsXjPDF4yffH7ceSok7II=
+			Mm7XFV4mKU5DQJRW+vb+qTct08oc9AL004z2HZF9Et0=
 			</data>
 		</dict>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>

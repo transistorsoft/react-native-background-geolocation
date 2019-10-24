@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.0</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -1342,6 +1342,11 @@ BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs
 					<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_react_native_background_geolocation_.logger.html" class="tsd-signature-type">Logger</a></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><a href="../interfaces/_react_native_background_geolocation_.logger.html">Logger</a> API</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -1581,19 +1586,9 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 							<aside class="tsd-sources">
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Destroy the entire contents of plugin&#39;s log database.</p>
-								</div>
 								<dl class="tsd-comment-tags">
-									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.destroyLog();</code></pre>
-										<h3 id="-see-also-">ℹ️ See also:</h3>
-										<ul>
-											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#loglevel">logLevel</a></li>
-											<li><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getlog">getLog</a></li>
-											<li><a href="_react_native_background_geolocation_.backgroundgeolocation.html#emaillog">emailLog</a></li>
-											<li>📘<a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Debugging Guide</a></li>
-										</ul>
+									<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+									<dd><p>Use <a href="../interfaces/_react_native_background_geolocation_.logger.html#destroylog">Logger.destroyLog</a>.</p>
 									</dd>
 								</dl>
 							</div>
@@ -1621,22 +1616,9 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 							<aside class="tsd-sources">
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Email the result of <a href="_react_native_background_geolocation_.backgroundgeolocation.html#getlog">getLog</a> using device&#39;s mail client.</p>
-								</div>
 								<dl class="tsd-comment-tags">
-									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.emailLog(<span class="hljs-string">'foo@bar.com'</span>).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[emailLog] success'</span>);
-}).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[emailLog] FAILURE: '</span>, error);
-});</code></pre>
-										<h3 id="-see-also-">ℹ️ See also:</h3>
-										<ul>
-											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#loglevel">logLevel</a></li>
-											<li><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getlog">getLog</a></li>
-											<li>📘<a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Debugging Guide</a>.</li>
-										</ul>
+									<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+									<dd><p>Use <a href="../interfaces/_react_native_background_geolocation_.logger.html#emaillog">Logger.emailLog</a>.</p>
 									</dd>
 								</dl>
 							</div>
@@ -2123,71 +2105,10 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 							<aside class="tsd-sources">
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the entire contents of the log database.</p>
-								</div>
 								<dl class="tsd-comment-tags">
-									<dt class="tsd-comment-tag-break">break</dt>
-									<dd><p>Depending on the configured <a href="../interfaces/_react_native_background_geolocation_.config.html#loglevel">logLevel</a>, the plugin can store an <em>immense</em> amount of helpful logging information for debugging location-tracking
-										problems.</p>
-										<h3 id="-see-also-">ℹ️ See also:</h3>
-										<ul>
-											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#logmaxdays">logMaxDays</a> (default <code>3</code> days)</li>
-											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#loglevel">logLevel</a>   (default <a href="_react_native_background_geolocation_.backgroundgeolocation.html#log_level_off">LOG_LEVEL_OFF</a>)</li>
-											<li><a href="_react_native_background_geolocation_.backgroundgeolocation.html#emaillog">emailLog</a></li>
-											<li>📘<a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Debugging Guide</a>
-											log data:</li>
-										</ul>
+									<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+									<dd><p>Use <a href="../interfaces/_react_native_background_geolocation_.logger.html#getlog">Logger.getLog</a>.</p>
 									</dd>
-									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.getLog.then(<span class="hljs-function">(<span class="hljs-params">log</span>) =&gt;</span> {
-  <span class="hljs-comment">// Warning:  this string could be several megabytes.</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[log] success: '</span>, log);
-});</code></pre>
-										<pre><code>09-19 11:12:18.716 ╔═════════════════════════════════════════════
-09-19 11:12:18.716 ║ BackgroundGeolocation<span class="hljs-built_in"> Service </span>started
-09-19 11:12:18.716 ╠═════════════════════════════════════════════
-09-19 11:12:18.723 [c.t.l.BackgroundGeolocationService d]
-09-19 11:12:18.723   ✅  Started <span class="hljs-keyword">in</span> foreground
-09-19 11:12:18.737 [c.t.l.ActivityRecognitionService a]
-09-19 11:12:18.737   🎾  Start activity updates: 10000
-09-19 11:12:18.761 [c.t.l.BackgroundGeolocationService k]
-09-19 11:12:18.761   🔴  Stop heartbeat
-09-19 11:12:18.768 [c.t.l.BackgroundGeolocationService a]
-09-19 11:12:18.768   🎾  Start heartbeat (60)
-09-19 11:12:18.778 [c.t.l.BackgroundGeolocationService a]
-09-19 11:12:18.778   🔵  setPace: <span class="hljs-literal">null</span> → <span class="hljs-literal">false</span>
-09-19 11:12:18.781 [c.t.l.adapter.TSConfig c] ℹ️   Persist<span class="hljs-built_in"> config
-</span>09-19 11:12:18.794 [c.t.locationmanager.util.b a]
-09-19 11:12:18.794   ℹ️  LocationAuthorization: Permission granted
-09-19 11:12:18.842 [c.t.l.http.HttpService flush]
-09-19 11:12:18.842 ╔═════════════════════════════════════════════
-09-19 11:12:18.842 ║ HTTP<span class="hljs-built_in"> Service
-</span>09-19 11:12:18.842 ╠═════════════════════════════════════════════
-09-19 11:12:19.000 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)
-09-19 11:12:21.314 [c.t.l.l.SingleLocationRequest<span class="hljs-variable">$2</span> onLocationResult]
-09-19 11:12:21.314 ╔═════════════════════════════════════════════
-09-19 11:12:21.314 ║ SingleLocationRequest: 1
-09-19 11:12:21.314 ╠═════════════════════════════════════════════
-09-19 11:12:21.314 ╟─ 📍  Location[fused 45.519239,-73.617058 <span class="hljs-attribute">hAcc</span>=15]999923706055 <span class="hljs-attribute">vAcc</span>=2 <span class="hljs-attribute">sAcc</span>=??? <span class="hljs-attribute">bAcc</span>=???
-09-19 11:12:21.327 [c.t.l.l.TSLocationManager onSingleLocationResult]
-09-19 11:12:21.327   🔵  Acquired motionchange position, isMoving: <span class="hljs-literal">false</span>
-09-19 11:12:21.342 [c.t.l.l.TSLocationManager a] 15.243
-09-19 11:12:21.405 [c.t.locationmanager.data.a.c persist]
-09-19 11:12:21.405   ✅  INSERT: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
-09-19 11:12:21.423 [c.t.l.http.HttpService flush]
-09-19 11:12:21.423 ╔═════════════════════════════════════════════
-09-19 11:12:21.423 ║ HTTP<span class="hljs-built_in"> Service
-</span>09-19 11:12:21.423 ╠═════════════════════════════════════════════
-09-19 11:12:21.446 [c.t.locationmanager.data.a.c first]
-09-19 11:12:21.446   ✅  Locked 1 records
-09-19 11:12:21.454 [c.t.l.http.HttpService a]
-09-19 11:12:21.454   🔵  HTTP POST: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
-09-19 11:12:22.083 [c.t.l.http.HttpService<span class="hljs-variable">$a</span> onResponse]
-09-19 11:12:22.083   🔵  Response: 200
-09-19 11:12:22.100 [c.t.locationmanager.data.a.c destroy]
-09-19 11:12:22.100   ✅  DESTROY: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
-09-19 11:12:55.226 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)</code></pre></dd>
 								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4556,6 +4477,9 @@ onSuspend() {
 						<a href="../interfaces/_react_native_background_geolocation_.providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_react_native_background_geolocation_.sqlquery.html" class="tsd-kind-icon">SQLQuery</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../interfaces/_react_native_background_geolocation_.sensors.html" class="tsd-kind-icon">Sensors</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
@@ -4593,6 +4517,9 @@ onSuspend() {
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>

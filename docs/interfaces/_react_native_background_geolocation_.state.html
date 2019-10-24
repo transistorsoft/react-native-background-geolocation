@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.0</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -896,7 +896,7 @@ BackgroundGeolocation.ready({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p><code>true</code> when the SDK has been enabled via methods <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#start">start</a> or <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a>.  When <code>false</code>, the
+							<p><code>true</code> when the SDK has been enabled via methods <a href="_react_native_background_geolocation_.sqlquery.html#start">start</a> or <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a>.  When <code>false</code>, the
 							SDK is completely <strong>OFF</strong>.  No tracking of any kind will occur.  The SDK will consume no energy.</p>
 						</div>
 					</div>
@@ -982,10 +982,11 @@ BackgroundGeolocation.ready({
 						<p>Inherited from <a href="_react_native_background_geolocation_.config.html">Config</a>.<a href="_react_native_background_geolocation_.config.html#forcereloadonboot">forceReloadOnBoot</a></p>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Force launch your terminated App after a device reboot or application update.</p>
-						</div>
 						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd><p><strong>Banned in Android 10.  Use <a href="_react_native_background_geolocation_.config.html#enableheadless">Config.enableHeadless</a> instead.</strong></p>
+								<p>Force launch your terminated App after a device reboot or application update.</p>
+							</dd>
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>When the user reboots their device with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html">BackgroundGeolocation</a> configured with <a href="_react_native_background_geolocation_.state.html#startonboot">startOnBoot</a> <strong><code>true</code></strong>, only the plugin&#39;s pure native background-service begins running, <strong>&quot;headless&quot;</strong>, in this case.  The background service will continue tracking the location.  However, the background service <em>can</em> optionally <strong>re-launch</strong> your foreground application.</p>
 								<h3 id="-warning-">⚠️ Warning:</h3>
@@ -1004,10 +1005,11 @@ BackgroundGeolocation.ready({
 						<p>Inherited from <a href="_react_native_background_geolocation_.config.html">Config</a>.<a href="_react_native_background_geolocation_.config.html#forcereloadongeofence">forceReloadOnGeofence</a></p>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Force launch your terminated App after a <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#ongeofence">BackgroundGeolocation.onGeofence</a> event.</p>
-						</div>
 						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd><p><strong>Banned in Android 10.  Use <a href="_react_native_background_geolocation_.config.html#enableheadless">Config.enableHeadless</a> instead.</strong></p>
+								<p>Force launch your terminated App after a <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#ongeofence">BackgroundGeolocation.onGeofence</a> event.</p>
+							</dd>
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>When the user terminates your Android app with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html">BackgroundGeolocation</a> configured with <a href="_react_native_background_geolocation_.state.html#stoponterminate">stopOnTerminate</a> <strong><code>false</code></strong>, the foreground <code>MainActivity</code> (where your Javascript app lives) <em>will</em> terminate &mdash; only the plugin&#39;s pure native background-service is running, <strong>&quot;headless&quot;</strong>, in this case.  The background service will continue tracking the location.  However, the background service <em>can</em> optionally <strong>re-launch</strong> your foreground application.</p>
 								<h3 id="-warning-">⚠️ Warning:</h3>
@@ -1026,10 +1028,11 @@ BackgroundGeolocation.ready({
 						<p>Inherited from <a href="_react_native_background_geolocation_.config.html">Config</a>.<a href="_react_native_background_geolocation_.config.html#forcereloadonheartbeat">forceReloadOnHeartbeat</a></p>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Force launch your terminated App after a <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onheartbeat">BackgroundGeolocation.onHeartbeat</a> event.</p>
-						</div>
 						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd><p><strong>Banned in Android 10.  Use <a href="_react_native_background_geolocation_.config.html#enableheadless">Config.enableHeadless</a> instead.</strong></p>
+								<p>Force launch your terminated App after a <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onheartbeat">BackgroundGeolocation.onHeartbeat</a> event.</p>
+							</dd>
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>When the user terminates your Android app with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html">BackgroundGeolocation</a> configured with <a href="_react_native_background_geolocation_.state.html#stoponterminate">stopOnTerminate</a> <strong><code>false</code></strong>, the foreground <code>MainActivity</code> (where your application code lives) <em>will</em> terminate &mdash; only the plugin&#39;s pure native background-service is running, <strong>&quot;headless&quot;</strong>, in this case.  The background service will continue tracking the location.  However, the background service <em>can</em> optionally <strong>re-launch</strong> your foreground application.</p>
 								<h3 id="-warning-">⚠️ Warning:</h3>
@@ -1048,10 +1051,11 @@ BackgroundGeolocation.ready({
 						<p>Inherited from <a href="_react_native_background_geolocation_.config.html">Config</a>.<a href="_react_native_background_geolocation_.config.html#forcereloadonlocationchange">forceReloadOnLocationChange</a></p>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Force launch your terminated App after a <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onlocation">BackgroundGeolocation.onLocation</a> event.</p>
-						</div>
 						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd><p><strong>Banned in Android 10.  Use <a href="_react_native_background_geolocation_.config.html#enableheadless">Config.enableHeadless</a> instead.</strong></p>
+								<p>Force launch your terminated App after a <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onlocation">BackgroundGeolocation.onLocation</a> event.</p>
+							</dd>
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>When the user terminates your Android app with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html">BackgroundGeolocation</a> configured with <a href="_react_native_background_geolocation_.state.html#stoponterminate">stopOnTerminate</a> <strong><code>false</code></strong>, the foreground <code>MainActivity</code> (where your Javascript app lives) <em>will</em> terminate &mdash; only the plugin&#39;s pure native background-service is running, <strong>&quot;headless&quot;</strong>, in this case.  The background service will continue tracking the location.  However, the background service <em>can</em> optionally <strong>re-launch</strong> your foreground application.</p>
 								<h3 id="-warning-">⚠️ Warning:</h3>
@@ -1070,10 +1074,11 @@ BackgroundGeolocation.ready({
 						<p>Inherited from <a href="_react_native_background_geolocation_.config.html">Config</a>.<a href="_react_native_background_geolocation_.config.html#forcereloadonmotionchange">forceReloadOnMotionChange</a></p>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Force launch your terminated App after a <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onmotionchange">BackgroundGeolocation.onMotionChange</a> event.</p>
-						</div>
 						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd><p><strong>Banned in Android 10.  Use <a href="_react_native_background_geolocation_.config.html#enableheadless">Config.enableHeadless</a> instead.</strong></p>
+								<p>Force launch your terminated App after a <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onmotionchange">BackgroundGeolocation.onMotionChange</a> event.</p>
+							</dd>
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>When the user terminates your Android app with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html">BackgroundGeolocation</a> configured with <a href="_react_native_background_geolocation_.state.html#stoponterminate">stopOnTerminate</a> <strong><code>false</code></strong>, the foreground <code>MainActivity</code> (where your Javascript app lives) <em>will</em> terminate &mdash; only the plugin&#39;s pure native background-service is running, <strong>&quot;headless&quot;</strong>, in this case.  The background service will continue tracking the location.  However, the background service <em>can</em> optionally <strong>re-launch</strong> your foreground application.</p>
 								<h3 id="-warning-">⚠️ Warning:</h3>
@@ -1092,10 +1097,11 @@ BackgroundGeolocation.ready({
 						<p>Inherited from <a href="_react_native_background_geolocation_.config.html">Config</a>.<a href="_react_native_background_geolocation_.config.html#forcereloadonschedule">forceReloadOnSchedule</a></p>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Force launch your terminated App after a <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onschedule">BackgroundGeolocation.onSchedule</a> event.</p>
-						</div>
 						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+							<dd><p><strong>Banned in Android 10.  Use <a href="_react_native_background_geolocation_.config.html#enableheadless">Config.enableHeadless</a> instead.</strong></p>
+								<p>Force launch your terminated App after a <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onschedule">BackgroundGeolocation.onSchedule</a> event.</p>
+							</dd>
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>When the user terminates your Android app with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html">BackgroundGeolocation</a> configured with <a href="_react_native_background_geolocation_.state.html#stoponterminate">stopOnTerminate</a> <strong><code>false</code></strong>, the foreground <code>MainActivity</code> (where your Javascript app lives) <em>will</em> terminate &mdash; only the plugin&#39;s pure native background-service is running, <strong>&quot;headless&quot;</strong>, in this case.  The background service will continue tracking the location.  However, the background service <em>can</em> optionally <strong>re-launch</strong> your foreground application.</p>
 								<h3 id="-warning-">⚠️ Warning:</h3>
@@ -1376,6 +1382,16 @@ BackgroundGeolocation.{(
 											<td><code>battery.is_charging</code></td>
 											<td><code>Boolean</code></td>
 											<td>Is device plugged in?</td>
+										</tr>
+										<tr>
+											<td><code>mock</code></td>
+											<td><code>Boolean</code></td>
+											<td><code>true</code> when geofence was recorded from a Mock location app.</td>
+										</tr>
+										<tr>
+											<td><code>is_moving</code></td>
+											<td><code>Boolean</code></td>
+											<td><code>true</code> if geofence was recorded while device was in <em>moving</em> state.</td>
 										</tr>
 								</tbody></table>
 							</dd>
@@ -1786,6 +1802,11 @@ BackgroundGeolocation.ready({
 											<td><code>Boolean</code></td>
 											<td><code>true</code> when location was recorded from a Mock location app.</td>
 										</tr>
+										<tr>
+											<td><code>is_moving</code></td>
+											<td><code>Boolean</code></td>
+											<td><code>true</code> if location was recorded while device was in <em>moving</em> state.</td>
+										</tr>
 								</tbody></table>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
@@ -1956,10 +1977,8 @@ BackgroundGeolocation.ready({
 });</code></pre>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
-									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#getlog">BackgroundGeolocation.getLog</a></li>
-									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#emaillog">BackgroundGeolocation.emailLog</a></li>
 									<li><a href="_react_native_background_geolocation_.state.html#logmaxdays">logMaxDays</a></li>
-									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#destroylog">destroyLog</a></li>
+									<li><a href="_react_native_background_geolocation_.logger.html">Logger</a></li>
 								</ul>
 								<h3 id="-warning-">⚠️ Warning:</h3>
 								<ul>
@@ -2449,7 +2468,7 @@ BackgroundGeolocation.ready({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Configures an automated, cron-like schedule for the plugin to <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#start">start</a> / <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a> tracking at pre-defined times.</p>
+							<p>Configures an automated, cron-like schedule for the plugin to <a href="_react_native_background_geolocation_.sqlquery.html#start">start</a> / <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a> tracking at pre-defined times.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-example">example</dt>
@@ -2621,16 +2640,6 @@ schedule: [
 									&quot;background-fetch&quot; events, which typically fire about every 15 minutes &mdash; these too are capable of rebooting your app after a device
 								reboot.</p>
 								<h3 id="android">Android</h3>
-								<p>Android will reboot the plugin&#39;s background-service <em>immediately</em> after device reboot.  However, just like <a href="_react_native_background_geolocation_.state.html#stoponterminate">stopOnTerminate</a> <strong><code>false</code></strong>,
-									the plugin will be running &quot;headless&quot; without your Application code.  If you wish for your Application to boot as well, you may
-								configure any of the following <strong><code>forceReloadOnXXX</code></strong> options:</p>
-								<ul>
-									<li><a href="_react_native_background_geolocation_.state.html#forcereloadonlocationchange">forceReloadOnLocationChange</a></li>
-									<li><a href="_react_native_background_geolocation_.state.html#forcereloadonmotionchange">forceReloadOnMotionChange</a></li>
-									<li><a href="_react_native_background_geolocation_.state.html#forcereloadongeofence">forceReloadOnGeofence</a></li>
-									<li><a href="_react_native_background_geolocation_.state.html#forcereloadonboot">forceReloadOnBoot</a></li>
-									<li><a href="_react_native_background_geolocation_.state.html#forcereloadonheartbeat">forceReloadOnHeartbeat</a></li>
-								</ul>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
 								<ul>
 									<li><a href="_react_native_background_geolocation_.state.html#enableheadless">enableHeadless</a></li>
@@ -2681,7 +2690,7 @@ schedule: [
 						<div class="lead">
 							<p>Automatically <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a> tracking after <em>x</em> minutes.</p>
 						</div>
-						<p>The plugin can optionally automatically <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a> after some number of minutes elapses after the <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#start">start</a> method was called.</p>
+						<p>The plugin can optionally automatically <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a> after some number of minutes elapses after the <a href="_react_native_background_geolocation_.sqlquery.html#start">start</a> method was called.</p>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-example">example</dt>
 							<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
@@ -3078,6 +3087,9 @@ BackgroundGeolocation.ready({
 						<a href="_react_native_background_geolocation_.providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-kind-icon">SQLQuery</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.sensors.html" class="tsd-kind-icon">Sensors</a>
 					</li>
 				</ul>
@@ -3361,6 +3373,9 @@ BackgroundGeolocation.ready({
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>

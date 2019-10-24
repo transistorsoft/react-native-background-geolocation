@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.0</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -175,7 +175,7 @@ BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-p
 })</code></pre>
 							<hr>
 							<h2 id="monitoring-only-geofences">Monitoring <em>only</em> geofences</h2>
-							<p>The BackgroundGeolocation SDK allows you to optionally monitor <em>only</em> geofences without constant location-tracking.  To engage <em>geofences-only</em> mode, use the method <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a> instead of <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#start">start</a>.</p>
+							<p>The BackgroundGeolocation SDK allows you to optionally monitor <em>only</em> geofences without constant location-tracking.  To engage <em>geofences-only</em> mode, use the method <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a> instead of <a href="_react_native_background_geolocation_.sqlquery.html#start">start</a>.</p>
 							<p>Use option <a href="_react_native_background_geolocation_.config.html#geofencemodehighaccuracy">Config.geofenceModeHighAccuracy</a>:true to improve the responsiveness of geofence events.</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
@@ -191,8 +191,8 @@ BackgroundGeolocation.ready({
   <span class="hljs-comment">// engage geofences-only mode:</span>
   BackgroundGeolocation.startGeofences();
 })</code></pre>
-							<h2 id="toggling-between-tracking-modes-a-href-classes-_react_native_background_geolocation_-backgroundgeolocation-html-start-start-a-and-a-href-classes-_react_native_background_geolocation_-backgroundgeolocation-html-startgeofences-startgeofences-a-">Toggling between tracking-modes <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#start">start</a> and <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a></h2>
-							<p>The SDK can easily be toggled between <a href="_react_native_background_geolocation_.state.html#trackingmode">State.trackingMode</a> simply by executing the corresponding <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#start">start</a> or <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a> methods.</p>
+							<h2 id="toggling-between-tracking-modes-a-href-_react_native_background_geolocation_-sqlquery-html-start-start-a-and-a-href-classes-_react_native_background_geolocation_-backgroundgeolocation-html-startgeofences-startgeofences-a-">Toggling between tracking-modes <a href="_react_native_background_geolocation_.sqlquery.html#start">start</a> and <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a></h2>
+							<p>The SDK can easily be toggled between <a href="_react_native_background_geolocation_.state.html#trackingmode">State.trackingMode</a> simply by executing the corresponding <a href="_react_native_background_geolocation_.sqlquery.html#start">start</a> or <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a> methods.</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript"><span class="hljs-comment">// Listen to geofence events</span>
@@ -478,6 +478,9 @@ BackgroundGeolocation.ready({
 						<a href="_react_native_background_geolocation_.providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-kind-icon">SQLQuery</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.sensors.html" class="tsd-kind-icon">Sensors</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
@@ -515,6 +518,9 @@ BackgroundGeolocation.ready({
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>

@@ -575,9 +575,10 @@ RCT_EXPORT_METHOD(insertLocation:(NSDictionary*)params success:(RCTResponseSende
     }];
 }
 
-RCT_EXPORT_METHOD(getLog:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(getLog:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    [locationManager getLog:^(NSString* log) {
+    LogQuery *query = [[LogQuery alloc] initWithDictionary:params];
+    [locationManager getLog:query success:^(NSString* log) {
         success(@[log]);
     } failure:^(NSString* error) {
         failure(@[error]);
@@ -588,20 +589,32 @@ RCT_EXPORT_METHOD(destroyLog:(RCTResponseSenderBlock)success failure:(RCTRespons
 {
     BOOL result = [locationManager destroyLog];
     if (result) {
-        success(@[]);
+        success(@[@(result)]);
     } else {
-        failure(@[]);
+        failure(@[@(result)]);
     }
 }
 
-RCT_EXPORT_METHOD(emailLog:(NSString*)email success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(emailLog:(NSString*)email query:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    [locationManager emailLog:email success:^{
-        success(@[]);
+    LogQuery *query = [[LogQuery alloc] initWithDictionary:params];
+    [locationManager emailLog:email query:query success:^{
+        success(@[@(YES)]);
     } failure:^(NSString* error) {
         failure(@[error]);
     }];
 }
+
+RCT_EXPORT_METHOD(uploadLog:(NSString*)url query:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    LogQuery *query = [[LogQuery alloc] initWithDictionary:params];
+    [locationManager uploadLog:url query:query success:^{
+        success(@[@(YES)]);
+    } failure:^(NSString* error) {
+        failure(@[error]);
+    }];
+}
+
 
 RCT_EXPORT_METHOD(log:(NSString*)level message:(NSString*)message)
 {

@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.0</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -55,87 +55,110 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Append your own log-messages into the plugin&#39;s logging database.  The following methods are available at <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#logger">BackgroundGeolocation.logger</a>:</p>
+						<h1 id="logger-api">Logger API</h1>
 					</div>
-					<h3 id="methods">Methods</h3>
-					<table>
-						<thead>
-							<tr>
-								<th>method</th>
-								<th>logLevel</th>
-								<th>icon</th>
-							</tr>
-						</thead>
-						<tbody><tr>
-								<td><code>error</code></td>
-								<td><code>ERROR</code></td>
-								<td>❗️</td>
-							</tr>
-							<tr>
-								<td><code>warn</code></td>
-								<td><code>WARNING</code></td>
-								<td>⚠️</td>
-							</tr>
-							<tr>
-								<td><code>debug</code></td>
-								<td><code>DEBUG</code></td>
-								<td>🐞</td>
-							</tr>
-							<tr>
-								<td><code>info</code></td>
-								<td><code>INFO</code></td>
-								<td>ℹ️</td>
-							</tr>
-							<tr>
-								<td><code>notice</code></td>
-								<td><code>INFO</code></td>
-								<td>🔵</td>
-							</tr>
-							<tr>
-								<td><code>header</code></td>
-								<td><code>INFO</code></td>
-								<td><em>message wrapped in box</em></td>
-							</tr>
-							<tr>
-								<td><code>on</code></td>
-								<td><code>INFO</code></td>
-								<td>🎾</td>
-							</tr>
-							<tr>
-								<td><code>off</code></td>
-								<td><code>INFO</code></td>
-								<td>🔴</td>
-							</tr>
-							<tr>
-								<td><code>ok</code></td>
-								<td><code>INFO</code></td>
-								<td>✅</td>
-							</tr>
-					</tbody></table>
+					<p>The Background Geolocation SDK includes powerful logging features for debugging location-tracking problems.  The SDK stores log-entries for a period of <a href="_react_native_background_geolocation_.config.html#logmaxdays">Config.logMaxDays</a> (default <code>3</code>).  The volume of logging events
+					inserted into the database is controlled via <a href="_react_native_background_geolocation_.config.html#loglevel">Config.logLevel</a>.</p>
+					<p>For more information, see the 📘<a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Debugging Guide</a>.</p>
+					<p>The <code>Logger</code> API is accessed via <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#logger">BackgroundGeolocation.logger</a> property:</p>
 					<dl class="tsd-comment-tags">
 						<dt class="tsd-comment-tag-example">example</dt>
-						<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.error(<span class="hljs-string">"Something bad happened"</span>);
-BackgroundGeolocation.logger.warn(<span class="hljs-string">"Something weird happened"</span>);
-BackgroundGeolocation.logger.debug(<span class="hljs-string">"Debug message"</span>);
-BackgroundGeolocation.logger.info(<span class="hljs-string">"Something informative"</span>);
-BackgroundGeolocation.logger.notice(<span class="hljs-string">"Something interesting"</span>);
-BackgroundGeolocation.logger.header(<span class="hljs-string">"Something bold"</span>);
-BackgroundGeolocation.logger.on(<span class="hljs-string">"Something on or positive"</span>);
-BackgroundGeolocation.logger.off(<span class="hljs-string">"Something off or negative"</span>);
-BackgroundGeolocation.logger.ok(<span class="hljs-string">"Something affirmative happened"</span>);</code></pre>
-							<h3 id="viewing-logs">Viewing Logs</h3>
-							<p>When developing for Android, it&#39;s a good idea to <em>tail</em> the Android device logs with <a href="https://developer.android.com/studio/command-line/logcat">logcat</a>:</p>
+						<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
+<span class="hljs-keyword">let</span> log = <span class="hljs-keyword">await</span> Logger.getLog();</code></pre>
+							<h2 id="fetching-the-logs-">Fetching the Logs:</h2>
+							<p>Logs can be fetched from the SDK in three ways:</p>
+							<ol>
+								<li><a href="_react_native_background_geolocation_.logger.html#getlog">getLog</a></li>
+								<li><a href="_react_native_background_geolocation_.logger.html#emaillog">emailLog</a></li>
+								<li><a href="_react_native_background_geolocation_.logger.html#uploadlog">uploadLog</a></li>
+							</ol>
+							<h2 id="inserting-your-own-log-messages">Inserting your own log messages</h2>
+							<p>You can even insert your own log messages into the SDK&#39;s Log database using the following methods:</p>
+							<table>
+								<thead>
+									<tr>
+										<th>method</th>
+										<th>logLevel</th>
+										<th>icon</th>
+									</tr>
+								</thead>
+								<tbody><tr>
+										<td><a href="_react_native_background_geolocation_.logger.html#error">error</a></td>
+										<td><code>ERROR</code></td>
+										<td>❗️</td>
+									</tr>
+									<tr>
+										<td><a href="_react_native_background_geolocation_.logger.html#warn">warn</a></td>
+										<td><code>WARNING</code></td>
+										<td>⚠️</td>
+									</tr>
+									<tr>
+										<td><a href="_react_native_background_geolocation_.logger.html#debug">debug</a></td>
+										<td><code>DEBUG</code></td>
+										<td>🐞</td>
+									</tr>
+									<tr>
+										<td><a href="_react_native_background_geolocation_.logger.html#info">info</a></td>
+										<td><code>INFO</code></td>
+										<td>ℹ️</td>
+									</tr>
+									<tr>
+										<td><a href="_react_native_background_geolocation_.logger.html#notice">notice</a></td>
+										<td><code>INFO</code></td>
+										<td>🔵</td>
+									</tr>
+							</tbody></table>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
-						<dd><pre><code class="language-bash">$ adb logcat -s TSLocationManager</code></pre>
-							<h3 id="-see-also-">ℹ️ See also:</h3>
-							<ul>
-								<li><a href="_react_native_background_geolocation_.config.html#loglevel">logLevel</a></li>
-								<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#getlog">getLog</a></li>
-								<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#emaillog">emailLog</a></li>
-								<li><a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Debugging Guide</a></li>
-							</ul>
-						</dd>
+						<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
+BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
+  Logger.debug(<span class="hljs-string">"Location received in Javascript: "</span> + location.uuid);
+});</code></pre>
+							<h2 id="example-logs">Example Logs</h2>
+							<pre><code>09-19 11:12:18.716 ╔═════════════════════════════════════════════
+09-19 11:12:18.716 ║ BackgroundGeolocation<span class="hljs-built_in"> Service </span>started
+09-19 11:12:18.716 ╠═════════════════════════════════════════════
+09-19 11:12:18.723 [c.t.l.BackgroundGeolocationService d]
+09-19 11:12:18.723   ✅  Started <span class="hljs-keyword">in</span> foreground
+09-19 11:12:18.737 [c.t.l.ActivityRecognitionService a]
+09-19 11:12:18.737   🎾  Start activity updates: 10000
+09-19 11:12:18.761 [c.t.l.BackgroundGeolocationService k]
+09-19 11:12:18.761   🔴  Stop heartbeat
+09-19 11:12:18.768 [c.t.l.BackgroundGeolocationService a]
+09-19 11:12:18.768   🎾  Start heartbeat (60)
+09-19 11:12:18.778 [c.t.l.BackgroundGeolocationService a]
+09-19 11:12:18.778   🔵  setPace: <span class="hljs-literal">null</span> → <span class="hljs-literal">false</span>
+09-19 11:12:18.781 [c.t.l.adapter.TSConfig c] ℹ️   Persist<span class="hljs-built_in"> config
+</span>09-19 11:12:18.794 [c.t.locationmanager.util.b a]
+09-19 11:12:18.794   ℹ️  LocationAuthorization: Permission granted
+09-19 11:12:18.842 [c.t.l.http.HttpService flush]
+09-19 11:12:18.842 ╔═════════════════════════════════════════════
+09-19 11:12:18.842 ║ HTTP<span class="hljs-built_in"> Service
+</span>09-19 11:12:18.842 ╠═════════════════════════════════════════════
+09-19 11:12:19.000 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)
+09-19 11:12:21.314 [c.t.l.l.SingleLocationRequest<span class="hljs-variable">$2</span> onLocationResult]
+09-19 11:12:21.314 ╔═════════════════════════════════════════════
+09-19 11:12:21.314 ║ SingleLocationRequest: 1
+09-19 11:12:21.314 ╠═════════════════════════════════════════════
+09-19 11:12:21.314 ╟─ 📍  Location[fused 45.519239,-73.617058 <span class="hljs-attribute">hAcc</span>=15]999923706055 <span class="hljs-attribute">vAcc</span>=2 <span class="hljs-attribute">sAcc</span>=??? <span class="hljs-attribute">bAcc</span>=???
+09-19 11:12:21.327 [c.t.l.l.TSLocationManager onSingleLocationResult]
+09-19 11:12:21.327   🔵  Acquired motionchange position, isMoving: <span class="hljs-literal">false</span>
+09-19 11:12:21.342 [c.t.l.l.TSLocationManager a] 15.243
+09-19 11:12:21.405 [c.t.locationmanager.data.a.c persist]
+09-19 11:12:21.405   ✅  INSERT: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
+09-19 11:12:21.423 [c.t.l.http.HttpService flush]
+09-19 11:12:21.423 ╔═════════════════════════════════════════════
+09-19 11:12:21.423 ║ HTTP<span class="hljs-built_in"> Service
+</span>09-19 11:12:21.423 ╠═════════════════════════════════════════════
+09-19 11:12:21.446 [c.t.locationmanager.data.a.c first]
+09-19 11:12:21.446   ✅  Locked 1 records
+09-19 11:12:21.454 [c.t.l.http.HttpService a]
+09-19 11:12:21.454   🔵  HTTP POST: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
+09-19 11:12:22.083 [c.t.l.http.HttpService<span class="hljs-variable">$a</span> onResponse]
+09-19 11:12:22.083   🔵  Response: 200
+09-19 11:12:22.100 [c.t.locationmanager.data.a.c destroy]
+09-19 11:12:22.100   ✅  DESTROY: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
+09-19 11:12:55.226 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)</code></pre></dd>
 					</dl>
 				</div>
 			</section>
@@ -154,15 +177,22 @@ BackgroundGeolocation.logger.ok(<span class="hljs-string">"Something affirmative
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#order_asc" class="tsd-kind-icon">ORDER_<wbr>ASC</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#order_desc" class="tsd-kind-icon">ORDER_<wbr>DESC</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#debug" class="tsd-kind-icon">debug</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#error" class="tsd-kind-icon">error</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#header" class="tsd-kind-icon">header</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#info" class="tsd-kind-icon">info</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#notice" class="tsd-kind-icon">notice</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#off" class="tsd-kind-icon">off</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#ok" class="tsd-kind-icon">ok</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#on" class="tsd-kind-icon">on</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#warn" class="tsd-kind-icon">warn</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#destroylog" class="tsd-kind-icon">destroy<wbr>Log</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#emaillog" class="tsd-kind-icon">email<wbr>Log</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#getlog" class="tsd-kind-icon">get<wbr>Log</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#uploadlog" class="tsd-kind-icon">upload<wbr>Log</a></li>
 							</ul>
 						</section>
 					</div>
@@ -171,11 +201,46 @@ BackgroundGeolocation.logger.ok(<span class="hljs-string">"Something affirmative
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="order_asc" class="tsd-anchor"></a>
+					<h3>ORDER_<wbr>ASC</h3>
+					<div class="tsd-signature tsd-kind-icon">ORDER_<wbr>ASC<span class="tsd-signature-symbol">:</span> <a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-signature-type">SQLQueryOrder</a></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><code>-1</code>.  Used to order results of <a href="_react_native_background_geolocation_.sqlquery.html">SQLQuery</a> ascending.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="order_desc" class="tsd-anchor"></a>
+					<h3>ORDER_<wbr>DESC</h3>
+					<div class="tsd-signature tsd-kind-icon">ORDER_<wbr>DESC<span class="tsd-signature-symbol">:</span> <a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-signature-type">SQLQueryOrder</a></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><code>1</code>.  Used to order results of <a href="_react_native_background_geolocation_.sqlquery.html">SQLQuery</a> descending.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="debug" class="tsd-anchor"></a>
 					<h3>debug</h3>
 					<div class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Inserts a debug log message into the SDK&#39;s log database</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.debug(<span class="hljs-string">"This is a debug message"</span>);</code></pre>
+								<p>&nbsp;</p>
+							<pre><code>D TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log] This is <span class="hljs-selector-tag">a</span> debug message</code></pre></dd>
+						</dl>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -204,34 +269,18 @@ BackgroundGeolocation.logger.ok(<span class="hljs-string">"Something affirmative
 					<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>message: <span class="tsd-signature-type">string</span></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Inserts an &quot;error&quot; log message into the SDK&#39;s log database</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.error(<span class="hljs-string">"Something BAD"</span>);</code></pre>
+								<p>&nbsp;</p>
+								<pre><code>E TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log]
+E TSLocationManager: ‼ Something BAD</code></pre></dd>
+						</dl>
 					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="header" class="tsd-anchor"></a>
-					<h3>header</h3>
-					<div class="tsd-signature tsd-kind-icon">header<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-					<aside class="tsd-sources">
-					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -260,6 +309,18 @@ BackgroundGeolocation.logger.ok(<span class="hljs-string">"Something affirmative
 					<div class="tsd-signature tsd-kind-icon">info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Inserts an &quot;info&quot; log message into the SDK&#39;s log database</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.info(<span class="hljs-string">"Something informative"</span>);</code></pre>
+								<p>&nbsp;</p>
+								<pre><code>E TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log]
+I TSLocationManager:   ℹ️  Something informative</code></pre></dd>
+						</dl>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -288,90 +349,18 @@ BackgroundGeolocation.logger.ok(<span class="hljs-string">"Something affirmative
 					<div class="tsd-signature tsd-kind-icon">notice<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>message: <span class="tsd-signature-type">string</span></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Inserts a &quot;notice&quot; log message into the SDK&#39;s log database</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.notice(<span class="hljs-string">"A Notice"</span>);</code></pre>
+								<p>&nbsp;</p>
+								<pre><code>E TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log]
+I TSLocationManager:   🔵  A Notice</code></pre></dd>
+						</dl>
 					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="off" class="tsd-anchor"></a>
-					<h3>off</h3>
-					<div class="tsd-signature tsd-kind-icon">off<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>message: <span class="tsd-signature-type">string</span></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="ok" class="tsd-anchor"></a>
-					<h3>ok</h3>
-					<div class="tsd-signature tsd-kind-icon">ok<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>message: <span class="tsd-signature-type">string</span></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="on" class="tsd-anchor"></a>
-					<h3>on</h3>
-					<div class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-					<aside class="tsd-sources">
-					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -400,6 +389,18 @@ BackgroundGeolocation.logger.ok(<span class="hljs-string">"Something affirmative
 					<div class="tsd-signature tsd-kind-icon">warn<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Inserts a &quot;warning&quot; log message into the SDK&#39;s log database</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.warn(<span class="hljs-string">"Something WEIRD"</span>);</code></pre>
+								<p>&nbsp;</p>
+								<pre><code>E TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log]
+E TSLocationManager: ⚠️  Something WEIRD</code></pre></dd>
+						</dl>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -421,6 +422,284 @@ BackgroundGeolocation.logger.ok(<span class="hljs-string">"Something affirmative
 							</li>
 						</ul>
 					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="destroylog" class="tsd-anchor"></a>
+					<h3>destroy<wbr>Log</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">destroy<wbr>Log<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Destroy the entire contents of SDK&#39;s log database.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.destroyLog();</code></pre>
+										<h3 id="-see-also-">ℹ️ See also:</h3>
+										<ul>
+											<li><a href="_react_native_background_geolocation_.config.html#loglevel">Config.logLevel</a></li>
+											<li><a href="_react_native_background_geolocation_.logger.html#getlog">getLog</a></li>
+											<li><a href="_react_native_background_geolocation_.logger.html#emaillog">emailLog</a></li>
+											<li><a href="_react_native_background_geolocation_.logger.html#uploadlog">uploadLog</a></li>
+											<li>📘<a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Debugging Guide</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="emaillog" class="tsd-anchor"></a>
+					<h3>email<wbr>Log</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">email<wbr>Log<span class="tsd-signature-symbol">(</span>email<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, query<span class="tsd-signature-symbol">?: </span><a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-signature-type">SQLQuery</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Email the result of <a href="_react_native_background_geolocation_.logger.html#getlog">getLog</a> using device&#39;s mail client.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
+Logger.emailLog(<span class="hljs-string">'foo@bar.com'</span>).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[emailLog] success'</span>);
+}).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[emailLog] FAILURE: '</span>, error);
+});
+
+<span class="hljs-comment">// Or constrain results by providing a SQLQuery</span>
+Logger.emailLog(<span class="hljs-string">'foo@bar.com'</span>, {
+  <span class="hljs-attr">start</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-09-19'</span>),
+  <span class="hljs-attr">end</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-09-20'</span>),
+  <span class="hljs-attr">order</span>: Logger.ORDER_ASC,
+  <span class="hljs-attr">limit</span>: <span class="hljs-number">1000</span>
+});</code></pre>
+										<h3 id="-see-also-">ℹ️ See also:</h3>
+										<ul>
+											<li><a href="_react_native_background_geolocation_.config.html#loglevel">Config.logLevel</a></li>
+											<li><a href="_react_native_background_geolocation_.logger.html#getlog">getLog</a></li>
+											<li><a href="_react_native_background_geolocation_.logger.html#uploadlog">uploadLog</a></li>
+											<li>📘<a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Debugging Guide</a>.</li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>email: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> query: <a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-signature-type">SQLQuery</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="getlog" class="tsd-anchor"></a>
+					<h3>get<wbr>Log</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Log<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">?: </span><a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-signature-type">SQLQuery</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the records from log database as a <code>String</code>.  Provide an optional <a href="_react_native_background_geolocation_.sqlquery.html">SQLQuery</a> to contrain results between dates.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-break">break</dt>
+									<dd><p>Depending on the configured <a href="_react_native_background_geolocation_.config.html#loglevel">Config.logLevel</a>, the plugin can store an <em>immense</em> amount of helpful logging information for debugging location-tracking
+										problems.</p>
+										<h3 id="-see-also-">ℹ️ See also:</h3>
+										<ul>
+											<li><a href="_react_native_background_geolocation_.config.html#logmaxdays">Config.logMaxDays</a> (default <code>3</code> days)</li>
+											<li><a href="_react_native_background_geolocation_.config.html#loglevel">Config.logLevel</a>   (default <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#log_level_off">LOG_LEVEL_OFF</a>)</li>
+											<li><a href="_react_native_background_geolocation_.logger.html#emaillog">emailLog</a></li>
+											<li><a href="_react_native_background_geolocation_.logger.html#uploadlog">uploadLog</a></li>
+											<li><a href="_react_native_background_geolocation_.logger.html#getlog">getLog</a></li>
+											<li>📘<a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Debugging Guide</a></li>
+										</ul>
+									</dd>
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.getLog().then(<span class="hljs-function">(<span class="hljs-params">log</span>) =&gt;</span> {
+  <span class="hljs-comment">// Warning:  this string could be several megabytes.</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[log] success: '</span>, log);
+});
+
+<span class="hljs-comment">// Or constrain results by providing a SQLQuery</span>
+<span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
+
+<span class="hljs-keyword">let</span> log = <span class="hljs-keyword">await</span> Logger.getLog({
+  <span class="hljs-attr">start</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-09-19 11:12'</span>),
+  <span class="hljs-attr">end</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-09-19 11:13'</span>),
+  <span class="hljs-attr">order</span>: Logger.ORDER_ASC,
+  <span class="hljs-attr">limit</span>: <span class="hljs-number">100</span>
+});</code></pre>
+										<pre><code>09-19 11:12:18.716 ╔═════════════════════════════════════════════
+09-19 11:12:18.716 ║ BackgroundGeolocation<span class="hljs-built_in"> Service </span>started
+09-19 11:12:18.716 ╠═════════════════════════════════════════════
+09-19 11:12:18.723 [c.t.l.BackgroundGeolocationService d]
+09-19 11:12:18.723   ✅  Started <span class="hljs-keyword">in</span> foreground
+09-19 11:12:18.737 [c.t.l.ActivityRecognitionService a]
+09-19 11:12:18.737   🎾  Start activity updates: 10000
+09-19 11:12:18.761 [c.t.l.BackgroundGeolocationService k]
+09-19 11:12:18.761   🔴  Stop heartbeat
+09-19 11:12:18.768 [c.t.l.BackgroundGeolocationService a]
+09-19 11:12:18.768   🎾  Start heartbeat (60)
+09-19 11:12:18.778 [c.t.l.BackgroundGeolocationService a]
+09-19 11:12:18.778   🔵  setPace: <span class="hljs-literal">null</span> → <span class="hljs-literal">false</span>
+09-19 11:12:18.781 [c.t.l.adapter.TSConfig c] ℹ️   Persist<span class="hljs-built_in"> config
+</span>09-19 11:12:18.794 [c.t.locationmanager.util.b a]
+09-19 11:12:18.794   ℹ️  LocationAuthorization: Permission granted
+09-19 11:12:18.842 [c.t.l.http.HttpService flush]
+09-19 11:12:18.842 ╔═════════════════════════════════════════════
+09-19 11:12:18.842 ║ HTTP<span class="hljs-built_in"> Service
+</span>09-19 11:12:18.842 ╠═════════════════════════════════════════════
+09-19 11:12:19.000 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)
+09-19 11:12:21.314 [c.t.l.l.SingleLocationRequest<span class="hljs-variable">$2</span> onLocationResult]
+09-19 11:12:21.314 ╔═════════════════════════════════════════════
+09-19 11:12:21.314 ║ SingleLocationRequest: 1
+09-19 11:12:21.314 ╠═════════════════════════════════════════════
+09-19 11:12:21.314 ╟─ 📍  Location[fused 45.519239,-73.617058 <span class="hljs-attribute">hAcc</span>=15]999923706055 <span class="hljs-attribute">vAcc</span>=2 <span class="hljs-attribute">sAcc</span>=??? <span class="hljs-attribute">bAcc</span>=???
+09-19 11:12:21.327 [c.t.l.l.TSLocationManager onSingleLocationResult]
+09-19 11:12:21.327   🔵  Acquired motionchange position, isMoving: <span class="hljs-literal">false</span>
+09-19 11:12:21.342 [c.t.l.l.TSLocationManager a] 15.243
+09-19 11:12:21.405 [c.t.locationmanager.data.a.c persist]
+09-19 11:12:21.405   ✅  INSERT: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
+09-19 11:12:21.423 [c.t.l.http.HttpService flush]
+09-19 11:12:21.423 ╔═════════════════════════════════════════════
+09-19 11:12:21.423 ║ HTTP<span class="hljs-built_in"> Service
+</span>09-19 11:12:21.423 ╠═════════════════════════════════════════════
+09-19 11:12:21.446 [c.t.locationmanager.data.a.c first]
+09-19 11:12:21.446   ✅  Locked 1 records
+09-19 11:12:21.454 [c.t.l.http.HttpService a]
+09-19 11:12:21.454   🔵  HTTP POST: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
+09-19 11:12:22.083 [c.t.l.http.HttpService<span class="hljs-variable">$a</span> onResponse]
+09-19 11:12:22.083   🔵  Response: 200
+09-19 11:12:22.100 [c.t.locationmanager.data.a.c destroy]
+09-19 11:12:22.100   ✅  DESTROY: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
+09-19 11:12:55.226 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)</code></pre></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> query: <a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-signature-type">SQLQuery</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="uploadlog" class="tsd-anchor"></a>
+					<h3>upload<wbr>Log</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">upload<wbr>Log<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, query<span class="tsd-signature-symbol">?: </span><a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-signature-type">SQLQuery</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Upload the result of <a href="_react_native_background_geolocation_.logger.html#getlog">getLog</a> to provided url.  Provide an optional <a href="_react_native_background_geolocation_.sqlquery.html">SQLQuery</a> to contrain results between dates.  The file-upload
+									request will attach your configured <a href="_react_native_background_geolocation_.config.html#headers">Config.headers</a> for authentication.</p>
+								</div>
+								<h2 id="example">Example</h2>
+								<pre><code class="language-javascript">BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">'https://my.server.com/users/123/logs'</span>).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[uploadLog] success'</span>);
+}).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[uploadLog] FAILURE:'</span>, error);
+});
+
+<span class="hljs-comment">// Or constrain results by providing a [SQLQuery]:</span>
+BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">'https://my.server.com/users/123/logs'</span>, {
+  <span class="hljs-attr">start</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-10-20 09:00'</span>),
+  <span class="hljs-attr">end</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-10-20 11:59'</span>)
+}).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[uploadLog] success'</span>);
+}).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[uploadLog] FAILURE:'</span>, error);
+});</code></pre>
+								<h2 id="multipart-file-upload">MultiPart File Upload</h2>
+								<p>The SDK will upload the gzipped log-file to your server as a <em>Multi-part</em> file upload, the same log-file as used in <a href="_react_native_background_geolocation_.logger.html#emaillog">emailLog</a>.  This is what I see with my <a href="https://github.com/transistorsoft/background-geolocation-console">Node server</a> at <code>request.files</code>:</p>
+								<pre><code class="language-javascript">app.post(<span class="hljs-string">'/log'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[body]: '</span>, req.body);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[files]: '</span>, req.files);
+  res.status(<span class="hljs-number">200</span>).send();
+});</code></pre>
+								<p><img src="https://dl.dropbox.com/s/cn86cu0vieor0j4/uploadLog-npm-server-request.png?dl=1" alt=""></p>
+								<h2 id="form-part">Form Part</h2>
+								<p>In addition to the log-file, the SDK will upload a form as well, containing the following parameters:</p>
+								<table>
+									<thead>
+										<tr>
+											<th>Key</th>
+											<th>Value</th>
+										</tr>
+									</thead>
+									<tbody><tr>
+											<td><strong><code>state</code></strong></td>
+											<td><em>JSON-encoded result of SDK&#39;s <code>#getState</code></em></td>
+										</tr>
+										<tr>
+											<td><strong><code>model</code></strong></td>
+											<td><em>Device model</em></td>
+										</tr>
+										<tr>
+											<td><strong><code>manufacturer</code></strong></td>
+											<td><em>Device manufacturer</em></td>
+										</tr>
+										<tr>
+											<td><strong><code>platform</code></strong></td>
+											<td><em>iOS or Android</em></td>
+										</tr>
+										<tr>
+											<td><strong><code>version</code></strong></td>
+											<td><em>OS version</em></td>
+										</tr>
+								</tbody></table>
+								<h3 id="-see-also-">ℹ️ See also:</h3>
+								<ul>
+									<li><a href="_react_native_background_geolocation_.config.html#loglevel">Config.logLevel</a></li>
+									<li><a href="_react_native_background_geolocation_.logger.html#getlog">getLog</a></li>
+									<li><a href="_react_native_background_geolocation_.logger.html#emaillog">emailLog</a></li>
+									<li><a href="_react_native_background_geolocation_.logger.html#destroylog">destroyLog</a></li>
+									<li>📘<a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Debugging Guide</a>.</li>
+								</ul>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>url: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> query: <a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-signature-type">SQLQuery</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -478,13 +757,16 @@ BackgroundGeolocation.logger.ok(<span class="hljs-string">"Something affirmative
 						<a href="_react_native_background_geolocation_.logger.html" class="tsd-kind-icon">Logger</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_react_native_background_geolocation_.logger.html#order_asc" class="tsd-kind-icon">ORDER_<wbr>ASC</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_react_native_background_geolocation_.logger.html#order_desc" class="tsd-kind-icon">ORDER_<wbr>DESC</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.logger.html#debug" class="tsd-kind-icon">debug</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.logger.html#error" class="tsd-kind-icon">error</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_react_native_background_geolocation_.logger.html#header" class="tsd-kind-icon">header</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.logger.html#info" class="tsd-kind-icon">info</a>
@@ -493,16 +775,19 @@ BackgroundGeolocation.logger.ok(<span class="hljs-string">"Something affirmative
 								<a href="_react_native_background_geolocation_.logger.html#notice" class="tsd-kind-icon">notice</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_react_native_background_geolocation_.logger.html#off" class="tsd-kind-icon">off</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_react_native_background_geolocation_.logger.html#ok" class="tsd-kind-icon">ok</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_react_native_background_geolocation_.logger.html#on" class="tsd-kind-icon">on</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.logger.html#warn" class="tsd-kind-icon">warn</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_react_native_background_geolocation_.logger.html#destroylog" class="tsd-kind-icon">destroy<wbr>Log</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_react_native_background_geolocation_.logger.html#emaillog" class="tsd-kind-icon">email<wbr>Log</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_react_native_background_geolocation_.logger.html#getlog" class="tsd-kind-icon">get<wbr>Log</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_react_native_background_geolocation_.logger.html#uploadlog" class="tsd-kind-icon">upload<wbr>Log</a>
 							</li>
 						</ul>
 					</li>
@@ -519,6 +804,9 @@ BackgroundGeolocation.logger.ok(<span class="hljs-string">"Something affirmative
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-kind-icon">SQLQuery</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.sensors.html" class="tsd-kind-icon">Sensors</a>
@@ -558,6 +846,9 @@ BackgroundGeolocation.logger.ok(<span class="hljs-string">"Something affirmative
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>

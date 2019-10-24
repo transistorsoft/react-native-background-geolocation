@@ -98,4 +98,15 @@ declare module "react-native-background-geolocation" {
 	type PersistMode = -1 | 0 | 1 | 2;
 
 	type Extras = {[key: string]: string|null|number|boolean|Extras|string[]|number[]|boolean[]|Extras[]};
+
+	/**
+	* Controls ordering of [[SQLQuery.order]]
+	*
+	* | Name                 | Value |
+	* |----------------------|-------|
+	* | [[Logger.ORDER_ASC]] | `1`   |
+	* | [[Logger.ORDER_DESC]]| `-1`  |
+	*/
+	type SQLQueryOrder = -1 | 1;
+
 }

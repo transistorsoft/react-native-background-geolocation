@@ -575,9 +575,9 @@ export default class BackgroundGeolocation {
   */
   static getLog(success, failure) {
     if (!arguments.length) {
-      return NativeModule.getLog();
+      return Logger.getLog();
     } else {
-      NativeModule.getLog().then(success).catch(failure);
+      Logger.getLog().then(success).catch(failure);
     }
   }
   /**
@@ -585,9 +585,9 @@ export default class BackgroundGeolocation {
   */
   static destroyLog(success, failure) {
     if (!arguments.length) {
-      return NativeModule.destroyLog();
+      return Logger.destroyLog();
     } else {
-      NativeModule.destroyLog().then(success).catch(failure);
+      Logger.destroyLog().then(success).catch(failure);
     }
   }
   /**
@@ -596,9 +596,9 @@ export default class BackgroundGeolocation {
   static emailLog(email, success, failure) {
     if (typeof(email) != 'string') { throw TAG + "#emailLog requires an email address as 1st argument"}
     if (arguments.length == 1) {
-      return NativeModule.emailLog(email);
+      return Logger.emailLog(email);
     } else {
-      NativeModule.emailLog(email).then(success).catch(failure);
+      Logger.emailLog(email).then(success).catch(failure);
     }
   }
   /**

@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.3.2 - 2019-10-25
+- [Fixed] Android bug in params order to getLog.  Thanks @mikehardy.
+- [Fixed] Typo in Javascript API callback in `destroyLog`.  Thanks @mikehardy.
+
 ## 3.3.1 - 2019-10-23
 - [Fixed] Android NPE
 ```

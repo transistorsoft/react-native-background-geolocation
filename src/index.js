@@ -574,6 +574,7 @@ export default class BackgroundGeolocation {
   * Fetch the entire contents of log database returned as a String
   */
   static getLog(success, failure) {
+    console.warn('[' + TAG + ' getLog] Deprecated.  Use BackgroundGeolocation.logger.getLog');
     if (!arguments.length) {
       return Logger.getLog();
     } else {
@@ -584,6 +585,7 @@ export default class BackgroundGeolocation {
   * Destroy all contents of log database
   */
   static destroyLog(success, failure) {
+    console.warn('[' + TAG + ' destroyLog] Deprecated.  Use BackgroundGeolocation.logger.destroyLog');
     if (!arguments.length) {
       return Logger.destroyLog();
     } else {
@@ -594,6 +596,7 @@ export default class BackgroundGeolocation {
   * Open deafult email client on device to email the contents of log database attached as a compressed file attachement
   */
   static emailLog(email, success, failure) {
+    console.warn('[' + TAG + ' emailLog] Deprecated.  Use BackgroundGeolocation.logger.emailLog');
     if (typeof(email) != 'string') { throw TAG + "#emailLog requires an email address as 1st argument"}
     if (arguments.length == 1) {
       return Logger.emailLog(email);

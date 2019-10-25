@@ -82,7 +82,7 @@ export default class Logger {
 
   static destroyLog() {
     return new Promise((resolve, reject) => {
-      let success = (sucess) => { resolve(sucesss) }
+      let success = (success) => { resolve(success) }
       let failure = (error)  => { reject(error) }
       RNBackgroundGeolocation.destroyLog(success, failure);
     });

@@ -762,7 +762,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     @ReactMethod
-    public void getLog(final Callback success, ReadableMap params, final Callback failure) {
+    public void getLog(ReadableMap params, final Callback success, final Callback failure) {
         SQLQuery query = parseSQLQuery(params);
 
         TSLog.getLog(query, new TSGetLogCallback() {

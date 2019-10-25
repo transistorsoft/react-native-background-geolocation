@@ -1,3 +1,6 @@
+/// <reference path="../types.d.ts" />
+/// <reference path="./SQLQuery.d.ts" />
+
 declare module "react-native-background-geolocation" {
   /**
   * # Logger API

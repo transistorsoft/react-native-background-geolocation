@@ -10,27 +10,13 @@ import {
 const { RNBackgroundGeolocation } = NativeModules;
 const EventEmitter = new NativeEventEmitter(RNBackgroundGeolocation);
 
+import TransistorAuthorizationToken from "./TransistorAuthorizationToken";
+
+import * as Events from "./Events";
+
 const TAG               = "TSLocationManager";
 const PLATFORM_ANDROID  = "android";
 const PLATFORM_IOS      = "ios";
-
-const EVENTS = [
-  'heartbeat',
-  'http',
-  'location',
-  'error',
-  'motionchange',
-  'geofence',
-  'schedule',
-  'activitychange',
-  'providerchange',
-  'geofenceschange',
-  'watchposition',
-  'powersavechange',
-  'connectivitychange',
-  'enabledchange',
-  'notificationaction'
-];
 
 /**
 * Logging API
@@ -91,6 +77,9 @@ const validateConfig = (config) => {
       priority: config.notificationPriority
     };
   }
+
+  config = TransistorAuthorizationToken.applyIf(config);
+
   return config;
 };
 
@@ -101,11 +90,12 @@ class Subscription {
   }
 }
 
+// Cached copy of DeviceInfo.
+let deviceInfo = null;
 /**
 * Native API
 */
 export default class NativeModule {
-  static get EVENTS() { return EVENTS; }
   /**
   * Core API Methods
   */
@@ -160,15 +150,15 @@ export default class NativeModule {
   }
 
   static addListener(event, success, failure) {
-    if (EVENTS.indexOf(event) < 0) {
+    if (!Events[event.toUpperCase()]) {
       throw (TAG + "#addListener - Unknown event '" + event + "'");
     }
     let handler = (response) => {
-      if (response.hasOwnProperty("error")) {
+      if (response.hasOwnProperty("error") && (response.error != null)) {
         if (typeof(failure) === 'function') {
           failure(response.error);
         } else {
-          console.warn(event + ' event error occurred without a failure callback handler.');
+          console.warn(event + ' event error occurred without a failure callback handler: ', response);
         }
       } else {
         success(response);
@@ -192,16 +182,14 @@ export default class NativeModule {
       EVENT_SUBSCRIPTIONS.splice(EVENT_SUBSCRIPTIONS.indexOf(found), 1);
       RNBackgroundGeolocation.removeListener(event);
       EventEmitter.removeListener(event, found.subscription.listener);
-    } else {
-      console.warn('[BackgroundGeolocation removeListener] ERROR - Failed to find Subscription for event ', event);
     }
   }
 
   static removeListeners() {
     return new Promise((resolve, reject) => {
-      let success = () => {
-        for (let n=0,len=EVENTS.length;n<len;n++) {
-          EventEmitter.removeAllListeners(EVENTS[n]);
+      let success = async () => {
+        for (const event in Events) {
+          EventEmitter.removeAllListeners(Events[event.toUpperCase()]);
         }
         EVENT_SUBSCRIPTIONS = [];
         resolve();
@@ -493,6 +481,21 @@ export default class NativeModule {
       let success = (result)  => { resolve(result) }
       let failure = (error)   => { reject(error) }
       RNBackgroundGeolocation.getSensors(success, failure);
+    });
+  }
+
+  static getDeviceInfo() {
+    return new Promise((resolve, reject) => {
+      if (deviceInfo != null) {
+        return resolve(deviceInfo);
+      }
+      let success = (result) => {
+        // Cache DeviceInfo
+        deviceInfo = result;
+        resolve(result)
+      }
+      let failure = (error)  => { reject(error) }
+      RNBackgroundGeolocation.getDeviceInfo(success, failure);
     });
   }
 

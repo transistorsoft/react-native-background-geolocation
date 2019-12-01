@@ -1,26 +1,26 @@
 declare module "react-native-background-geolocation" {
   /**
-  * Used for selecting a range of records from the SDK's database.
+  * Used for selecting a range of records from the SDK"s database.
   * Used with the methods:
   * - [[Logger.getLog]]
   * - [[Logger.emailLog]]
   * - [[Logger.uploadLog]]
   *
-  * ```javascript
+  * ```typescript
   * // Constrain results between optionl start/end dates using a SQLQuery
   * let log = await BackgroundGeolocation.logger.getLog({
-  *   start: Date.parse('2019-10-21 13:00'),  // <-- optional HH:mm:ss
-  *   end: Date.parse('2019-10-22')
+  *   start: Date.parse("2019-10-21 13:00"),  // <-- optional HH:mm:ss
+  *   end: Date.parse("2019-10-22")
   * });
   *
   * // Or just a start date
   * let log = await BackgroundGeolocation.logger.getLog({
-  *   start: Date.parse('2019-10-21 13:00')
+  *   start: Date.parse("2019-10-21 13:00")
   * });
   *
   * // Or just an end date
   * BackgroundGeolocation.logger.uploadLog("http://my.server.com/users/123/logs", {
-  *   end: Date.parse('2019-10-21')
+  *   end: Date.parse("2019-10-21")
   * ));
   *
   * // Select first 100 records from log

@@ -13,7 +13,7 @@ declare module "react-native-background-geolocation" {
   * The `Logger` API is accessed via [[BackgroundGeolocation.logger]] property:
   *
   * @example
-  * ```javascript
+  * ```typescript
   * let Logger = BackgroundGeolocation.logger;
   * let log = await Logger.getLog();
   * ```
@@ -38,7 +38,7 @@ declare module "react-native-background-geolocation" {
   * |[[notice]]    |`INFO`    | 🔵              |
   *
   * @example
-  * ```javascript
+  * ```typescript
   * let Logger = BackgroundGeolocation.logger;
   * BackgroundGeolocation.onLocation((location) => {
   *   Logger.debug("Location received in Javascript: " + location.uuid);
@@ -106,7 +106,7 @@ declare module "react-native-background-geolocation" {
     * Inserts an "error" log message into the SDK's log database
     *
     * @example
-    * ```javascript
+    * ```typescript
     * BackgroundGeolocation.logger.error("Something BAD");
     * ```
     * &nbsp;
@@ -120,7 +120,7 @@ declare module "react-native-background-geolocation" {
     * Inserts a "warning" log message into the SDK's log database
     *
     * @example
-    * ```javascript
+    * ```typescript
     * BackgroundGeolocation.logger.warn("Something WEIRD");
     * ```
     * &nbsp;
@@ -135,7 +135,7 @@ declare module "react-native-background-geolocation" {
     * Inserts a debug log message into the SDK's log database
     *
     * @example
-    * ```javascript
+    * ```typescript
     * BackgroundGeolocation.logger.debug("This is a debug message");
     * ```
     * &nbsp;
@@ -148,7 +148,7 @@ declare module "react-native-background-geolocation" {
     * Inserts an "info" log message into the SDK's log database
     *
     * @example
-    * ```javascript
+    * ```typescript
     * BackgroundGeolocation.logger.info("Something informative");
     * ```
     * &nbsp;
@@ -162,7 +162,7 @@ declare module "react-native-background-geolocation" {
     * Inserts a "notice" log message into the SDK's log database
     *
     * @example
-    * ```javascript
+    * ```typescript
     * BackgroundGeolocation.logger.notice("A Notice");
     * ```
     * &nbsp;
@@ -189,18 +189,18 @@ declare module "react-native-background-geolocation" {
     * - 📘[Debugging Guide](github:wiki/Debugging)
     *
     * @example
-    * ```javascript
+    * ```typescript
     * BackgroundGeolocation.logger.getLog().then((log) => {
     *   // Warning:  this string could be several megabytes.
-    *   console.log('[log] success: ', log);
+    *   console.log("[log] success: ", log);
     * });
     *
     * // Or constrain results by providing a SQLQuery
     * let Logger = BackgroundGeolocation.logger;
     *
     * let log = await Logger.getLog({
-    *   start: Date.parse('2019-09-19 11:12'),
-    *   end: Date.parse('2019-09-19 11:13'),
+    *   start: Date.parse("2019-09-19 11:12"),
+    *   end: Date.parse("2019-09-19 11:13"),
     *   order: Logger.ORDER_ASC,
     *   limit: 100
     * });
@@ -258,18 +258,18 @@ declare module "react-native-background-geolocation" {
     * Email the result of [[getLog]] using device's mail client.
     *
     * @example
-    * ```javascript
+    * ```typescript
     * let Logger = BackgroundGeolocation.logger;
-    * Logger.emailLog('foo@bar.com').then((success) => {
-    *   console.log('[emailLog] success');
+    * Logger.emailLog("foo@bar.com").then((success) => {
+    *   console.log("[emailLog] success");
     * }).catch((error) => {
-    *   console.log('[emailLog] FAILURE: ', error);
+    *   console.log("[emailLog] FAILURE: ", error);
     * });
     *
     * // Or constrain results by providing a SQLQuery
-    * Logger.emailLog('foo@bar.com', {
-    *   start: Date.parse('2019-09-19'),
-    *   end: Date.parse('2019-09-20'),
+    * Logger.emailLog("foo@bar.com", {
+    *   start: Date.parse("2019-09-19"),
+    *   end: Date.parse("2019-09-20"),
     *   order: Logger.ORDER_ASC,
     *   limit: 1000
     * });
@@ -288,31 +288,31 @@ declare module "react-native-background-geolocation" {
     *
     * ## Example
     *
-    * ```javascript
-    * BackgroundGeolocation.logger.uploadLog('https://my.server.com/users/123/logs').then((success) => {
-    *   console.log('[uploadLog] success');
+    * ```typescript
+    * BackgroundGeolocation.logger.uploadLog("https://my.server.com/users/123/logs").then((success) => {
+    *   console.log("[uploadLog] success");
     * }).catch((error) => {
-    *   console.log('[uploadLog] FAILURE:', error);
+    *   console.log("[uploadLog] FAILURE:", error);
     * });
     *
     * // Or constrain results by providing a [SQLQuery]:
-    * BackgroundGeolocation.logger.uploadLog('https://my.server.com/users/123/logs', {
-    *   start: Date.parse('2019-10-20 09:00'),
-    *   end: Date.parse('2019-10-20 11:59')
+    * BackgroundGeolocation.logger.uploadLog("https://my.server.com/users/123/logs", {
+    *   start: Date.parse("2019-10-20 09:00"),
+    *   end: Date.parse("2019-10-20 11:59")
     * }).then((success) => {
-    *   console.log('[uploadLog] success');
+    *   console.log("[uploadLog] success");
     * }).catch((error) => {
-    *   console.log('[uploadLog] FAILURE:', error);
+    *   console.log("[uploadLog] FAILURE:", error);
     * });
     * ```
     *
     * ## MultiPart File Upload
     * The SDK will upload the gzipped log-file to your server as a *Multi-part* file upload, the same log-file as used in [[emailLog]].  This is what I see with my [Node server](https://github.com/transistorsoft/background-geolocation-console) at `request.files`:
     *
-    * ```javascript
-    * app.post('/log', async function(req, res) {
-    *   console.log('[body]: ', req.body);
-    *   console.log('[files]: ', req.files);
+    * ```typescript
+    * app.post("/log", async function(req, res) {
+    *   console.log("[body]: ", req.body);
+    *   console.log("[files]: ", req.files);
     *   res.status(200).send();
     * });
     * ```
@@ -343,7 +343,7 @@ declare module "react-native-background-geolocation" {
     * Destroy the entire contents of SDK's log database.
     *
     * @example
-    * ```javascript
+    * ```typescript
     * BackgroundGeolocation.logger.destroyLog();
     * ```
     *

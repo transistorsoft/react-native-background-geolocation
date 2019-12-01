@@ -5,7 +5,7 @@ declare module "react-native-background-geolocation" {
 	* @example
 	* ```typescript
 	* BackgroundGeolocation.onConnectivityChange(connectivityChangeEvent => {
-	*   console.log('[connectivitychange] ', connectivityChangeEvent.connected);
+	*   console.log("[connectivitychange] ", connectivityChangeEvent.connected);
 	* });
 	* ```
 	*/

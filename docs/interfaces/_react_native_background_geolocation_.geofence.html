@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.2</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.4.0</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -78,9 +78,9 @@
     route_id: <span class="hljs-number">1234</span>
   }
 }).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[addGeofence] success'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[addGeofence] success"</span>);
 }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[addGeofence] FAILURE: '</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[addGeofence] FAILURE: "</span>, error);
 });</code></pre>
 							<p>Adding multiple geofences with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#addgeofences">addGeofences</a>.</p>
 						</dd>
@@ -98,9 +98,9 @@
   longitude: <span class="hljs-number">-73.71678582</span>,
   notifyOnEntry: <span class="hljs-literal">true</span>
 }]).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[addGeofences] success'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[addGeofences] success"</span>);
 }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[addGeofences] FAILURE: '</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[addGeofences] FAILURE: "</span>, error);
 });</code></pre>
 							<p><strong>ℹ️ Note:</strong> Adding a geofence having an <a href="_react_native_background_geolocation_.geofence.html#identifier">identifier</a> which already exists within the SDK geofence database will cause the previous record to be destroyed and the new one inserted.</p>
 							<hr>
@@ -110,7 +110,7 @@
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript"><span class="hljs-comment">// Listen for geofence events.</span>
 BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-params">geofence</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[geofence] '</span>, geofence.identifier, geofence.action);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[geofence] "</span>, geofence.identifier, geofence.action);
 });</code></pre>
 							<hr>
 							<h2 id="infinite-geofencing">Infinite Geofencing</h2>
@@ -127,7 +127,7 @@ BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-p
 							<p>As the SDK periodically queries for geofences within the <a href="_react_native_background_geolocation_.config.html#geofenceproximityradius">geofenceProximityRadius</a>, you can listen for changes in the actively-monitored geofences using the event <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#ongeofenceschange">onGeofencesChange</a>.  This event will let you know those geofences which have <em>begun</em> to be <em>actively monitored</em> (<a href="_react_native_background_geolocation_.geofenceschangeevent.html#on">GeofencesChangeEvent.on</a>) in addition to those which just <em>ceased</em> to be actively monitored (<a href="_react_native_background_geolocation_.geofenceschangeevent.html#off">GeofencesChangeEvent.off</a>).</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
-						<dd><pre><code class="language-javascript">BackgroundGeolocation.onGeofencesChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+						<dd><pre><code class="language-typescript">BackgroundGeolocation.onGeofencesChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
   <span class="hljs-keyword">let</span> on = event.on;     <span class="hljs-comment">//&lt;-- new geofences activated.</span>
   <span class="hljs-keyword">let</span> off = event.off; <span class="hljs-comment">//&lt;-- geofences that were just de-activated.</span>
 
@@ -154,8 +154,8 @@ BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-p
 							</ul>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
-						<dd><pre><code class="language-typescript">BackgroundGeolocation.removeGeofence(<span class="hljs-string">'HOME'</span>).then(<span class="hljs-function"><span class="hljs-params">success</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[removeGeofence] success'</span>);
+						<dd><pre><code class="language-typescript">BackgroundGeolocation.removeGeofence(<span class="hljs-string">"HOME"</span>).then(<span class="hljs-function"><span class="hljs-params">success</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[removeGeofence] success"</span>);
 })</code></pre>
 							<ul>
 								<li>Removing <em>all</em> geofences with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#removegeofences">removeGeofences</a>:</li>
@@ -163,7 +163,7 @@ BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-p
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript">BackgroundGeolocation.removeGeofences().then(<span class="hljs-function"><span class="hljs-params">success</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[removeGeofences] all geofences have been destroyed'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[removeGeofences] all geofences have been destroyed"</span>);
 })</code></pre>
 							<hr>
 							<h2 id="querying-geofences">Querying Geofences</h2>
@@ -171,7 +171,7 @@ BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-p
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript">BackgroundGeolocation.getGeofences().then(<span class="hljs-function"><span class="hljs-params">geofences</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[getGeofences] '</span>, geofences);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[getGeofences] "</span>, geofences);
 })</code></pre>
 							<hr>
 							<h2 id="monitoring-only-geofences">Monitoring <em>only</em> geofences</h2>
@@ -180,11 +180,11 @@ BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-p
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript">BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-params">geofence</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[geofence] '</span>, geofence);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[geofence] "</span>, geofence);
 })
 
 BackgroundGeolocation.ready({
-  url: <span class="hljs-string">'http://your.server.com/geofences'</span>,
+  url: <span class="hljs-string">"http://your.server.com/geofences"</span>,
   autoSync: <span class="hljs-literal">true</span>,
   geofenceModeHighAccuracy: <span class="hljs-literal">true</span>   <span class="hljs-comment">// &lt;-- consumes more power; default is false.</span>
 }, <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> {
@@ -197,12 +197,12 @@ BackgroundGeolocation.ready({
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript"><span class="hljs-comment">// Listen to geofence events</span>
 BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-params">geofence</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[geofence] '</span>, geofence);
-  <span class="hljs-keyword">if</span> (geofence.identifier == <span class="hljs-string">'DANGER_ZONE'</span>) {
-    <span class="hljs-keyword">if</span> (geofence.action == <span class="hljs-string">'ENTER'</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[geofence] "</span>, geofence);
+  <span class="hljs-keyword">if</span> (geofence.identifier == <span class="hljs-string">"DANGER_ZONE"</span>) {
+    <span class="hljs-keyword">if</span> (geofence.action == <span class="hljs-string">"ENTER"</span>) {
       <span class="hljs-comment">// Entering the danger-zone, we want to aggressively track location.</span>
       BackgroundGeolocation.start();
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (geofence.action == <span class="hljs-string">'EXIT'</span>) {
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (geofence.action == <span class="hljs-string">"EXIT"</span>) {
       <span class="hljs-comment">// Exiting the danger-zone, we resume geofences-only tracking.</span>
       BackgroundGeolocation.startGeofences();
     }
@@ -223,7 +223,7 @@ BackgroundGeolocation.addGeofence({
 BackgroundGeolocation.ready({
   desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
   distanceFilter: <span class="hljs-number">10</span>,
-  url: <span class="hljs-string">'http://your.server.com/locations'</span>,
+  url: <span class="hljs-string">"http://your.server.com/locations"</span>,
   autoSync: <span class="hljs-literal">true</span>
 }, <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> {
   BackgroundGeolocation.startGeofences();
@@ -388,6 +388,12 @@ BackgroundGeolocation.ready({
 						<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html" class="tsd-kind-icon">Background<wbr>Geolocation</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.authorization.html" class="tsd-kind-icon">Authorization</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.battery.html" class="tsd-kind-icon">Battery</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
@@ -401,6 +407,9 @@ BackgroundGeolocation.ready({
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
@@ -485,6 +494,9 @@ BackgroundGeolocation.ready({
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.state.html" class="tsd-kind-icon">State</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>

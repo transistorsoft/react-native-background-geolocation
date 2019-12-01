@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.2</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.4.0</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -142,16 +142,16 @@ BackgroundGeolocation.setConfig({
 							<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
   notification: {
     actions: [  <span class="hljs-comment">// &lt;-- register button listeners</span>
-      <span class="hljs-string">'notificationButtonPause'</span>
+      <span class="hljs-string">"notificationButtonPause"</span>
     ]
   }
 });
 
 <span class="hljs-comment">// Listen to custom button clicks:</span>
 BackgroundGeolocation.onNotificationAction(<span class="hljs-function">(<span class="hljs-params">buttonId</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onNotificationAction] - '</span>, buttonId);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onNotificationAction] - "</span>, buttonId);
   <span class="hljs-keyword">switch</span>(buttonId) {
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'notificationButtonPause'</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"notificationButtonPause"</span>:
       BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>);
       <span class="hljs-keyword">break</span>;
     .
@@ -183,16 +183,16 @@ BackgroundGeolocation.onNotificationAction(<span class="hljs-function">(<span cl
 								<p><img src="https://dl.dropboxusercontent.com/s/zgcxau7lyjfuaw9/android-notificationChannelName.png?dl=1" alt="">\</p>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
-							<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
-  <span class="hljs-attr">notification</span>: {
-    <span class="hljs-attr">channelName</span>: <span class="hljs-string">"Location Tracker"</span>
+							<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
+  notification: {
+    channelName: <span class="hljs-string">"Location Tracker"</span>
   }
 });
 
 <span class="hljs-comment">// or with #setConfig</span>
 BackgroundGeolocation.setConfig({
-  <span class="hljs-attr">notification</span>: {
-    <span class="hljs-attr">channelName</span>: <span class="hljs-string">"My new channel name"</span>
+  notification: {
+    channelName: <span class="hljs-string">"My new channel name"</span>
   }
 });</code></pre>
 							</dd>
@@ -241,16 +241,16 @@ BackgroundGeolocation.setConfig({
 								</ul>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
-							<dd><pre><code class="language-javascript"><span class="hljs-comment">// 1. drawable</span>
+							<dd><pre><code class="language-typescript"><span class="hljs-comment">// 1. drawable</span>
 BackgroundGeolocation.ready({
-  <span class="hljs-attr">notification</span>: {
-    <span class="hljs-attr">smallIcon</span>: <span class="hljs-string">"drawable/my_custom_notification_small_icon"</span>
+  notification: {
+    smallIcon: <span class="hljs-string">"drawable/my_custom_notification_small_icon"</span>
 });
 
 <span class="hljs-comment">// 2. mipmap</span>
 BackgroundGeolocation.ready({
-  <span class="hljs-attr">notification</span>: {
-    <span class="hljs-attr">smallIcon</span>: <span class="hljs-string">"mipmap/my_custom_notification_small_icon"</span>
+  notification: {
+    smallIcon: <span class="hljs-string">"mipmap/my_custom_notification_small_icon"</span>
   }
 });</code></pre>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
@@ -349,21 +349,21 @@ BackgroundGeolocation.ready({
 							<dt class="tsd-comment-tag-example">example</dt>
 							<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
   notification: {
-    actions: [  <span class="hljs-comment">// &lt;-- register button listeners</span>
-      <span class="hljs-string">'notificationButtonFoo'</span>,
-      <span class="hljs-string">'notificationButtonBar'</span>
+    actions: [  // &lt;-- register button listeners
+      "notificationButtonFoo",
+      "notificationButtonBar"
     ]
   }
 });
 
-<span class="hljs-comment">// Listen to custom button clicks:</span>
-BackgroundGeolocation.onNotificationAction(<span class="hljs-function">(<span class="hljs-params">buttonId</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onNotificationAction] - '</span>, buttonId);
-  <span class="hljs-keyword">switch</span>(buttonId) {
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'notificationButtonFoo'</span>:
-      <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'notificationButtonBar'</span>:
-      <span class="hljs-keyword">break</span>;
+// Listen to custom button clicks:
+BackgroundGeolocation.onNotificationAction((buttonId) =&gt; {
+  console.log("[onNotificationAction] - ", buttonId);
+  switch(buttonId) {
+    case "notificationButtonFoo":
+      break;
+    case "notificationButtonBar':
+      break;
   }
 });</code></pre>
 								<h3 id="sample-layout">Sample Layout</h3>
@@ -449,27 +449,27 @@ BackgroundGeolocation.onNotificationAction(<span class="hljs-function">(<span cl
 							<dt class="tsd-comment-tag-example">example</dt>
 							<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
   notification: {
-    title: <span class="hljs-string">'The title'</span>,
-    text: <span class="hljs-string">'The text'</span>,
-    layout: <span class="hljs-string">'notification_layout'</span>,
+    title: <span class="hljs-string">"The title"</span>,
+    text: <span class="hljs-string">"The text"</span>,
+    layout: <span class="hljs-string">"notification_layout"</span>,
     actions: [
-      <span class="hljs-string">'notificationButtonFoo'</span>,  <span class="hljs-comment">// &lt;-- register button click-listeners</span>
-      <span class="hljs-string">'notificationButtonBar'</span>
+      <span class="hljs-string">"notificationButtonFoo"</span>,  <span class="hljs-comment">// &lt;-- register button click-listeners</span>
+      <span class="hljs-string">"notificationButtonBar"</span>
     ],
     strings: {
-      <span class="hljs-string">'myCustomTextBox1'</span>: <span class="hljs-string">'custom TextBox element'</span>
+      <span class="hljs-string">"myCustomTextBox1"</span>: <span class="hljs-string">"custom TextBox element"</span>
     }
   }
 });
 
 <span class="hljs-comment">// Listen to custom notification button clicks (notification.actions)</span>
 BackgroundGeolocation.onNotificationAction(<span class="hljs-function">(<span class="hljs-params">buttonId</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onNotificationAction] - '</span>, buttonId);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onNotificationAction] - "</span>, buttonId);
   <span class="hljs-keyword">switch</span>(buttonId) {
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'notificationButtonFoo'</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"notificationButtonFoo"</span>:
       <span class="hljs-comment">// Handle button click on [Foo]</span>
       <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'notificationButtonBar'</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"notificationButtonBar"</span>:
       <span class="hljs-comment">// Handle button click on [Bar]</span>
       <span class="hljs-keyword">break</span>;
   }
@@ -519,10 +519,10 @@ BackgroundGeolocation.onNotificationAction(<span class="hljs-function">(<span cl
 						</tbody></table>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-example">example</dt>
-							<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
-  <span class="hljs-attr">foregroundService</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">notification</span>: {
-    <span class="hljs-attr">priority</span>: BackgroundGeolocation.NOTIFICATION_PRIORITY_MIN
+							<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
+  foregroundService: <span class="hljs-literal">true</span>,
+  notification: {
+    priority: BackgroundGeolocation.NOTIFICATION_PRIORITY_MIN
 });</code></pre>
 							</dd>
 						</dl>
@@ -548,17 +548,17 @@ BackgroundGeolocation.onNotificationAction(<span class="hljs-function">(<span cl
 								</ul>
 							</dd>
 							<dt class="tsd-comment-tag-example">example</dt>
-							<dd><pre><code class="language-javascript"><span class="hljs-comment">// 1. drawable</span>
+							<dd><pre><code class="language-typescript"><span class="hljs-comment">// 1. drawable</span>
 BackgroundGeolocation.ready({
-  <span class="hljs-attr">notification</span>: {
-    <span class="hljs-attr">smallIcon</span>: <span class="hljs-string">"drawable/my_custom_notification_small_icon"</span>
+  notification: {
+    smallIcon: <span class="hljs-string">"drawable/my_custom_notification_small_icon"</span>
   }
 });
 
 <span class="hljs-comment">// 2. mipmap</span>
 BackgroundGeolocation.ready({
-  <span class="hljs-attr">notification</span>: {
-    <span class="hljs-attr">smallIcon</span>: <span class="hljs-string">"mipmap/my_custom_notification_small_icon"</span>
+  notification: {
+    smallIcon: <span class="hljs-string">"mipmap/my_custom_notification_small_icon"</span>
   }
 });</code></pre>
 								<h3 id="-see-also-">ℹ️ See also:</h3>
@@ -645,6 +645,12 @@ BackgroundGeolocation.ready({
 						<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html" class="tsd-kind-icon">Background<wbr>Geolocation</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.authorization.html" class="tsd-kind-icon">Authorization</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.battery.html" class="tsd-kind-icon">Battery</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
@@ -658,6 +664,9 @@ BackgroundGeolocation.ready({
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
@@ -745,6 +754,9 @@ BackgroundGeolocation.ready({
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.state.html" class="tsd-kind-icon">State</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>

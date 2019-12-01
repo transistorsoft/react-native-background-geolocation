@@ -27,6 +27,7 @@ static NSString *const EVENT_POWERSAVECHANGE    = @"powersavechange";
 static NSString *const EVENT_CONNECTIVITYCHANGE = @"connectivitychange";
 static NSString *const EVENT_ENABLEDCHANGE      = @"enabledchange";
 static NSString *const EVENT_NOTIFICATIONACTION = @"notificationaction";
+static NSString *const EVENT_AUTHORIZATION      = @"authorization";
 
 @implementation RNBackgroundGeolocation {
     NSMutableDictionary *listeners;
@@ -44,6 +45,7 @@ static NSString *const EVENT_NOTIFICATIONACTION = @"notificationaction";
     void(^onPowerSaveChange)(TSPowerSaveChangeEvent*);
     void(^onConnectivityChange)(TSConnectivityChangeEvent*);
     void(^onEnabledChange)(TSEnabledChangeEvent*);
+    void(^onAuthorization)(TSAuthorizationEvent*);
 }
 
 @synthesize locationManager;
@@ -111,6 +113,9 @@ RCT_EXPORT_MODULE();
         onEnabledChange = ^void(TSEnabledChangeEvent *event) {
             [me sendEvent:EVENT_ENABLEDCHANGE body:@(event.enabled)];
         };
+        onAuthorization = ^void(TSAuthorizationEvent *event) {
+            [me sendEvent:EVENT_AUTHORIZATION body:[event toDictionary]];
+        };
 
         // EventEmitter listener-counts
         listeners = [NSMutableDictionary new];
@@ -141,7 +146,8 @@ RCT_EXPORT_MODULE();
         EVENT_WATCHPOSITION,
         EVENT_CONNECTIVITYCHANGE,
         EVENT_ENABLEDCHANGE,
-        EVENT_NOTIFICATIONACTION
+        EVENT_NOTIFICATIONACTION,
+        EVENT_AUTHORIZATION
     ];
 }
 
@@ -181,6 +187,10 @@ RCT_EXPORT_METHOD(ready:(NSDictionary*)params success:(RCTResponseSenderBlock)su
             if (reset) {
                 [config reset];
                 [config updateWithDictionary:params];
+            } else if ([params objectForKey:@"authorization"]) {
+                [config updateWithBlock:^(TSConfigBuilder *builder) {
+                    builder.authorization = [TSAuthorization createWithDictionary:[params objectForKey:@"authorization"]];
+                }];
             }
         }
         [self.locationManager ready];
@@ -237,6 +247,8 @@ RCT_EXPORT_METHOD(addEventListener:(NSString*)event)
                 [locationManager onConnectivityChange:onConnectivityChange];
             } else if ([event isEqualToString:EVENT_ENABLEDCHANGE]) {
                 [locationManager onEnabledChange:onEnabledChange];
+            } else if ([event isEqualToString:EVENT_AUTHORIZATION]) {
+                [[TSHttpService sharedInstance] onAuthorization:onAuthorization];
             } else if ([event isEqualToString:EVENT_NOTIFICATIONACTION]) {
                 // No iOS implementation.
             }
@@ -633,6 +645,11 @@ RCT_EXPORT_METHOD(getSensors:(RCTResponseSenderBlock)successCallback failure:(RC
     successCallback(@[sensors]);
 }
 
+RCT_EXPORT_METHOD(getDeviceInfo:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure) {
+    TSDeviceInfo *deviceInfo = [TSDeviceInfo sharedInstance];
+    success(@[[deviceInfo toDictionary:@"react-native"]]);
+}
+
 RCT_EXPORT_METHOD(isPowerSaveMode:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failure)
 {
     BOOL isPowerSaveMode = [locationManager isPowerSaveMode];
@@ -665,6 +682,24 @@ RCT_EXPORT_METHOD(requestPermission:(RCTResponseSenderBlock)success failure:(RCT
     } failure:^(NSNumber *status) {
         failure(@[status]);
     }];
+}
+
+RCT_EXPORT_METHOD(getTransistorToken:(NSString*)orgname username:(NSString*)username url:(NSString*)url success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure) {
+
+    [TransistorAuthorizationToken findOrCreateWithOrg:orgname
+                                             username:username
+                                                 url:url
+                                            framework:@"react-native"
+                                              success:^(TransistorAuthorizationToken *token) {
+        success(@[[token toDictionary]]);
+    } failure:^(NSError *error) {
+        failure(@[@{@"status":@(error.code), @"message":error.localizedDescription}]);
+    }];
+}
+
+RCT_EXPORT_METHOD(destroyTransistorToken:(NSString*)url success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure) {
+    [TransistorAuthorizationToken destroyWithUrl:url];
+    success(@[@(YES)]);
 }
 
 RCT_EXPORT_METHOD(playSound:(int)soundId)

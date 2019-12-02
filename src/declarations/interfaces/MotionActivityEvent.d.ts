@@ -5,7 +5,7 @@ declare module "react-native-background-geolocation" {
   * @example
   * ```typescript
   * BackgroundGeolocation.onActivityChange(activityChangeEvent => {
-  *   console.log('[activitychange] ', activityChangeEvent.activity, activityChangeEvent.confidence);
+  *   console.log("[activitychange] ", activityChangeEvent.activity, activityChangeEvent.confidence);
   * });
   * ```
   */

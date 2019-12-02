@@ -92,7 +92,7 @@ typedef enum tsLocationType : NSInteger {
 /**
  * Render location-data as JSON string
  */
-- (NSString*)toJson:(NSError**)error;
+- (NSData*)toJson:(NSError**)error;
 /**
  * Render location-data as NSDictionary
  */

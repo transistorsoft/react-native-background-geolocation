@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.2</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.4.0</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -63,7 +63,7 @@
 					<p>The <code>Logger</code> API is accessed via <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#logger">BackgroundGeolocation.logger</a> property:</p>
 					<dl class="tsd-comment-tags">
 						<dt class="tsd-comment-tag-example">example</dt>
-						<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
+						<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
 <span class="hljs-keyword">let</span> log = <span class="hljs-keyword">await</span> Logger.getLog();</code></pre>
 							<h2 id="fetching-the-logs-">Fetching the Logs:</h2>
 							<p>Logs can be fetched from the SDK in three ways:</p>
@@ -110,7 +110,7 @@
 							</tbody></table>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
-						<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
+						<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
 BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
   Logger.debug(<span class="hljs-string">"Location received in Javascript: "</span> + location.uuid);
 });</code></pre>
@@ -243,7 +243,7 @@ BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.debug(<span class="hljs-string">"This is a debug message"</span>);</code></pre>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.debug(<span class="hljs-string">"This is a debug message"</span>);</code></pre>
 										<p>&nbsp;</p>
 									<pre><code>D TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log] This is <span class="hljs-selector-tag">a</span> debug message</code></pre></dd>
 								</dl>
@@ -274,7 +274,7 @@ BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.destroyLog();</code></pre>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.destroyLog();</code></pre>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
 											<li><a href="_react_native_background_geolocation_.config.html#loglevel">Config.logLevel</a></li>
@@ -306,19 +306,19 @@ BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
-Logger.emailLog(<span class="hljs-string">'foo@bar.com'</span>).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[emailLog] success'</span>);
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
+Logger.emailLog(<span class="hljs-string">"foo@bar.com"</span>).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[emailLog] success"</span>);
 }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[emailLog] FAILURE: '</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[emailLog] FAILURE: "</span>, error);
 });
 
 <span class="hljs-comment">// Or constrain results by providing a SQLQuery</span>
-Logger.emailLog(<span class="hljs-string">'foo@bar.com'</span>, {
-  <span class="hljs-attr">start</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-09-19'</span>),
-  <span class="hljs-attr">end</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-09-20'</span>),
-  <span class="hljs-attr">order</span>: Logger.ORDER_ASC,
-  <span class="hljs-attr">limit</span>: <span class="hljs-number">1000</span>
+Logger.emailLog(<span class="hljs-string">"foo@bar.com"</span>, {
+  start: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-09-19"</span>),
+  end: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-09-20"</span>),
+  order: Logger.ORDER_ASC,
+  limit: <span class="hljs-number">1000</span>
 });</code></pre>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
@@ -359,7 +359,7 @@ Logger.emailLog(<span class="hljs-string">'foo@bar.com'</span>, {
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.error(<span class="hljs-string">"Something BAD"</span>);</code></pre>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.error(<span class="hljs-string">"Something BAD"</span>);</code></pre>
 										<p>&nbsp;</p>
 										<pre><code>E TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log]
 E TSLocationManager: ‼ Something BAD</code></pre></dd>
@@ -404,19 +404,19 @@ E TSLocationManager: ‼ Something BAD</code></pre></dd>
 										</ul>
 									</dd>
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.getLog().then(<span class="hljs-function">(<span class="hljs-params">log</span>) =&gt;</span> {
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.getLog().then(<span class="hljs-function">(<span class="hljs-params">log</span>) =&gt;</span> {
   <span class="hljs-comment">// Warning:  this string could be several megabytes.</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[log] success: '</span>, log);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[log] success: "</span>, log);
 });
 
 <span class="hljs-comment">// Or constrain results by providing a SQLQuery</span>
 <span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
 
 <span class="hljs-keyword">let</span> log = <span class="hljs-keyword">await</span> Logger.getLog({
-  <span class="hljs-attr">start</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-09-19 11:12'</span>),
-  <span class="hljs-attr">end</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-09-19 11:13'</span>),
-  <span class="hljs-attr">order</span>: Logger.ORDER_ASC,
-  <span class="hljs-attr">limit</span>: <span class="hljs-number">100</span>
+  start: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-09-19 11:12"</span>),
+  end: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-09-19 11:13"</span>),
+  order: Logger.ORDER_ASC,
+  limit: <span class="hljs-number">100</span>
 });</code></pre>
 										<pre><code>09-19 11:12:18.716 ╔═════════════════════════════════════════════
 09-19 11:12:18.716 ║ BackgroundGeolocation<span class="hljs-built_in"> Service </span>started
@@ -490,7 +490,7 @@ E TSLocationManager: ‼ Something BAD</code></pre></dd>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.info(<span class="hljs-string">"Something informative"</span>);</code></pre>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.info(<span class="hljs-string">"Something informative"</span>);</code></pre>
 										<p>&nbsp;</p>
 										<pre><code>E TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log]
 I TSLocationManager:   ℹ️  Something informative</code></pre></dd>
@@ -522,7 +522,7 @@ I TSLocationManager:   ℹ️  Something informative</code></pre></dd>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.notice(<span class="hljs-string">"A Notice"</span>);</code></pre>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.notice(<span class="hljs-string">"A Notice"</span>);</code></pre>
 										<p>&nbsp;</p>
 										<pre><code>E TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log]
 I TSLocationManager:   🔵  A Notice</code></pre></dd>
@@ -554,26 +554,26 @@ I TSLocationManager:   🔵  A Notice</code></pre></dd>
 									request will attach your configured <a href="_react_native_background_geolocation_.config.html#headers">Config.headers</a> for authentication.</p>
 								</div>
 								<h2 id="example">Example</h2>
-								<pre><code class="language-javascript">BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">'https://my.server.com/users/123/logs'</span>).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[uploadLog] success'</span>);
+								<pre><code class="language-typescript">BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">"https://my.server.com/users/123/logs"</span>).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[uploadLog] success"</span>);
 }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[uploadLog] FAILURE:'</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[uploadLog] FAILURE:"</span>, error);
 });
 
 <span class="hljs-comment">// Or constrain results by providing a [SQLQuery]:</span>
-BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">'https://my.server.com/users/123/logs'</span>, {
-  <span class="hljs-attr">start</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-10-20 09:00'</span>),
-  <span class="hljs-attr">end</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-10-20 11:59'</span>)
+BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">"https://my.server.com/users/123/logs"</span>, {
+  start: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-10-20 09:00"</span>),
+  end: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-10-20 11:59"</span>)
 }).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[uploadLog] success'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[uploadLog] success"</span>);
 }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[uploadLog] FAILURE:'</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[uploadLog] FAILURE:"</span>, error);
 });</code></pre>
 								<h2 id="multipart-file-upload">MultiPart File Upload</h2>
 								<p>The SDK will upload the gzipped log-file to your server as a <em>Multi-part</em> file upload, the same log-file as used in <a href="_react_native_background_geolocation_.logger.html#emaillog">emailLog</a>.  This is what I see with my <a href="https://github.com/transistorsoft/background-geolocation-console">Node server</a> at <code>request.files</code>:</p>
-								<pre><code class="language-javascript">app.post(<span class="hljs-string">'/log'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[body]: '</span>, req.body);
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[files]: '</span>, req.files);
+								<pre><code class="language-typescript">app.post(<span class="hljs-string">"/log"</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[body]: "</span>, req.body);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[files]: "</span>, req.files);
   res.status(<span class="hljs-number">200</span>).send();
 });</code></pre>
 								<p><img src="https://dl.dropbox.com/s/cn86cu0vieor0j4/uploadLog-npm-server-request.png?dl=1" alt=""></p>
@@ -645,7 +645,7 @@ BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">'https://my.ser
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.logger.warn(<span class="hljs-string">"Something WEIRD"</span>);</code></pre>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.warn(<span class="hljs-string">"Something WEIRD"</span>);</code></pre>
 										<p>&nbsp;</p>
 										<pre><code>E TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log]
 E TSLocationManager: ⚠️  Something WEIRD</code></pre></dd>
@@ -670,6 +670,12 @@ E TSLocationManager: ⚠️  Something WEIRD</code></pre></dd>
 						<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html" class="tsd-kind-icon">Background<wbr>Geolocation</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.authorization.html" class="tsd-kind-icon">Authorization</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.battery.html" class="tsd-kind-icon">Battery</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
@@ -683,6 +689,9 @@ E TSLocationManager: ⚠️  Something WEIRD</code></pre></dd>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
@@ -773,6 +782,9 @@ E TSLocationManager: ⚠️  Something WEIRD</code></pre></dd>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.state.html" class="tsd-kind-icon">State</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>

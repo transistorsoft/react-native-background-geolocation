@@ -4,6 +4,22 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Headers/AtomicBoolean.h</key>
+		<data>
+		iulwe2cseAnuq4FMRuzguqSGmtA=
+		</data>
+		<key>Headers/ConfigModule.h</key>
+		<data>
+		gzMUdc4PBYVyMGeTQU3cxl+iOu4=
+		</data>
+		<key>Headers/HttpRequest.h</key>
+		<data>
+		BraZBVest0MaAOR0T/DLkUD3yko=
+		</data>
+		<key>Headers/HttpResponse.h</key>
+		<data>
+		ooF6YNwFwDXte9dCIFrN7ZyelJk=
+		</data>
 		<key>Headers/LocationManager.h</key>
 		<data>
 		OZVdBVZxlmvxHgRGA5v3Qua+ZRk=
@@ -20,9 +36,17 @@
 		<data>
 		3b/JDKeYspSzawvjtA0V4o0QG2k=
 		</data>
+		<key>Headers/TSAuthorization.h</key>
+		<data>
+		ejGHmB3cWE9NhMtsgdktieAc+Ag=
+		</data>
+		<key>Headers/TSAuthorizationEvent.h</key>
+		<data>
+		Wn2hOqYVOsqarkCWuGd+3MDO/rU=
+		</data>
 		<key>Headers/TSConfig.h</key>
 		<data>
-		2TLRdMsnQ6TBhJF3lqdmNDxXWrQ=
+		rTxpzW7LDtEmPplPkStsSrTCNbs=
 		</data>
 		<key>Headers/TSConnectivityChangeEvent.h</key>
 		<data>
@@ -31,6 +55,10 @@
 		<key>Headers/TSCurrentPositionRequest.h</key>
 		<data>
 		yKTpnW40XVP/6siKMvaUdYenXqk=
+		</data>
+		<key>Headers/TSDeviceInfo.h</key>
+		<data>
+		FOgl0Uqc/E9BOCbp8T6/WXSmHN4=
 		</data>
 		<key>Headers/TSEnabledChangeEvent.h</key>
 		<data>
@@ -56,13 +84,17 @@
 		<data>
 		FHoiEPenT4EqPXBHHLUlX5Z8FIE=
 		</data>
+		<key>Headers/TSHttpService.h</key>
+		<data>
+		pcxwT40YhlFi5W+RkVbK+atyEJU=
+		</data>
 		<key>Headers/TSLocation.h</key>
 		<data>
-		H2SO59pyzj07ps5vPdo8bi0bMSo=
+		XmQdYVFPQDSjz2QIk2E+63c/YyU=
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		T4awnAFJekEW0wQFQj42EIkTA8E=
+		LBq6odqsT+gQH2L4KqwbZ1IJZrk=
 		</data>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
 		<data>
@@ -84,9 +116,13 @@
 		<data>
 		TCTUqTfuhG+ea4V0XoLX0jQA7ek=
 		</data>
+		<key>Headers/TransistorAuthorizationToken.h</key>
+		<data>
+		u7e0pmQH8+zfeF5amhlJGnFps2k=
+		</data>
 		<key>Info.plist</key>
 		<data>
-		tj06VIeP1AjRxa1S2MpB02/1f2A=
+		4MrGCYNKGHY27xHQTL+ffgeWp3A=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -95,6 +131,50 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Headers/AtomicBoolean.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			iulwe2cseAnuq4FMRuzguqSGmtA=
+			</data>
+			<key>hash2</key>
+			<data>
+			Co5kPSddgHKnm87htV7FC+FzdFq9CzuzEbm4oezKGt8=
+			</data>
+		</dict>
+		<key>Headers/ConfigModule.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			gzMUdc4PBYVyMGeTQU3cxl+iOu4=
+			</data>
+			<key>hash2</key>
+			<data>
+			t2gXgKd/4HVoIAX4I5G8iHDwpCgPCjfgkMP0Z5kLE1o=
+			</data>
+		</dict>
+		<key>Headers/HttpRequest.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			BraZBVest0MaAOR0T/DLkUD3yko=
+			</data>
+			<key>hash2</key>
+			<data>
+			NkYXZYCSAjAhQbTnGkPJ/vPwIW0iwfDSqC0nv+AiH2k=
+			</data>
+		</dict>
+		<key>Headers/HttpResponse.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ooF6YNwFwDXte9dCIFrN7ZyelJk=
+			</data>
+			<key>hash2</key>
+			<data>
+			zFxEjz2dJ50KekLFoF3JB7rRNGF2V+WD/AnORU+mg5k=
+			</data>
+		</dict>
 		<key>Headers/LocationManager.h</key>
 		<dict>
 			<key>hash</key>
@@ -139,15 +219,37 @@
 			kWXU/pPxGT22LjiNn9TQPFG1ucvfFcMKGiEJrQYuW3E=
 			</data>
 		</dict>
+		<key>Headers/TSAuthorization.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ejGHmB3cWE9NhMtsgdktieAc+Ag=
+			</data>
+			<key>hash2</key>
+			<data>
+			moNjVyqpDlKPFVD5U18V2PJ+BK2pmEsuktmApT1YE68=
+			</data>
+		</dict>
+		<key>Headers/TSAuthorizationEvent.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Wn2hOqYVOsqarkCWuGd+3MDO/rU=
+			</data>
+			<key>hash2</key>
+			<data>
+			39Dl3JzmUFOB1jZ1UIcODGYk3u2bYiRCQBzFxE8K7j4=
+			</data>
+		</dict>
 		<key>Headers/TSConfig.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2TLRdMsnQ6TBhJF3lqdmNDxXWrQ=
+			rTxpzW7LDtEmPplPkStsSrTCNbs=
 			</data>
 			<key>hash2</key>
 			<data>
-			yD2SvTiYGOjyaefn+kkC53bzFzv12U/EiQ+fpG5QSOc=
+			89Lmeuhr3WJ/z2402BDM2rjmmiFHX9wC3pce9u/kYL0=
 			</data>
 		</dict>
 		<key>Headers/TSConnectivityChangeEvent.h</key>
@@ -170,6 +272,17 @@
 			<key>hash2</key>
 			<data>
 			bnfli5n57enpBEZC5kQ6T87yaGFCxzELlZO/1I+KAkY=
+			</data>
+		</dict>
+		<key>Headers/TSDeviceInfo.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			FOgl0Uqc/E9BOCbp8T6/WXSmHN4=
+			</data>
+			<key>hash2</key>
+			<data>
+			bjXqjQFM1qi16G/cPJxVEGX4wJS3rixsLaSmXLb0zJE=
 			</data>
 		</dict>
 		<key>Headers/TSEnabledChangeEvent.h</key>
@@ -238,26 +351,37 @@
 			67ssRd+6wtL1ObBx8c+x8fFQLEM6qSHBeW0CnUqCRwU=
 			</data>
 		</dict>
+		<key>Headers/TSHttpService.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			pcxwT40YhlFi5W+RkVbK+atyEJU=
+			</data>
+			<key>hash2</key>
+			<data>
+			j325mmavC0Yu3nNgnc4e5dGm2ODK03HJOImdeviU/HQ=
+			</data>
+		</dict>
 		<key>Headers/TSLocation.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			H2SO59pyzj07ps5vPdo8bi0bMSo=
+			XmQdYVFPQDSjz2QIk2E+63c/YyU=
 			</data>
 			<key>hash2</key>
 			<data>
-			Wxphk+EUiBGHibOB/GZAu2Dv2Biz7oeA7fxGC28rCOc=
+			VKFXGOgHqSWyCnKLO5O+gAUXNJep3B93VJM/rERRArQ=
 			</data>
 		</dict>
 		<key>Headers/TSLocationManager.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			T4awnAFJekEW0wQFQj42EIkTA8E=
+			LBq6odqsT+gQH2L4KqwbZ1IJZrk=
 			</data>
 			<key>hash2</key>
 			<data>
-			Mm7XFV4mKU5DQJRW+vb+qTct08oc9AL004z2HZF9Et0=
+			T7iG0ohgHx5YGXpn8ZCoXH868DxuP2xLMxxiM3/jNxo=
 			</data>
 		</dict>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
@@ -313,6 +437,17 @@
 			<key>hash2</key>
 			<data>
 			6LM8P1xMusGh1+03M0X4gP/R/JUrrjrsqz58KE3Q2+g=
+			</data>
+		</dict>
+		<key>Headers/TransistorAuthorizationToken.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			u7e0pmQH8+zfeF5amhlJGnFps2k=
+			</data>
+			<key>hash2</key>
+			<data>
+			UhY362SyloF998ML4MZxDcYLlsTYdyVCxIXu5XdvILo=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

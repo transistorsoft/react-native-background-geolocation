@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.2</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.4.0</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -55,7 +55,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Used for selecting a range of records from the SDK&#39;s database.
+						<p>Used for selecting a range of records from the SDK&quot;s database.
 						Used with the methods:</p>
 						<ul>
 							<li><a href="_react_native_background_geolocation_.logger.html#getlog">Logger.getLog</a></li>
@@ -63,34 +63,34 @@
 							<li><a href="_react_native_background_geolocation_.logger.html#uploadlog">Logger.uploadLog</a></li>
 						</ul>
 					</div>
-					<pre><code class="language-javascript"><span class="hljs-comment">// Constrain results between optionl start/end dates using a SQLQuery</span>
+					<pre><code class="language-typescript"><span class="hljs-comment">// Constrain results between optionl start/end dates using a SQLQuery</span>
 <span class="hljs-keyword">let</span> log = <span class="hljs-keyword">await</span> BackgroundGeolocation.logger.getLog({
-  <span class="hljs-attr">start</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-10-21 13:00'</span>),  <span class="hljs-comment">// &lt;-- optional HH:mm:ss</span>
-  end: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-10-22'</span>)
+  start: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-10-21 13:00"</span>),  <span class="hljs-comment">// &lt;-- optional HH:mm:ss</span>
+  end: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-10-22"</span>)
 });
 
 <span class="hljs-comment">// Or just a start date</span>
 <span class="hljs-keyword">let</span> log = <span class="hljs-keyword">await</span> BackgroundGeolocation.logger.getLog({
-  <span class="hljs-attr">start</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-10-21 13:00'</span>)
+  start: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-10-21 13:00"</span>)
 });
 
 <span class="hljs-comment">// Or just an end date</span>
 BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">"http://my.server.com/users/123/logs"</span>, {
-  <span class="hljs-attr">end</span>: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">'2019-10-21'</span>)
+  end: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-10-21"</span>)
 ));
 
 <span class="hljs-comment">// Select first 100 records from log</span>
 <span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
 Logger.emailLog(<span class="hljs-string">"foo@bar.com"</span>, {
-  <span class="hljs-attr">order</span>: Logger.ORDER_ASC,
-  <span class="hljs-attr">limit</span>: <span class="hljs-number">100</span>
+  order: Logger.ORDER_ASC,
+  limit: <span class="hljs-number">100</span>
 ));
 
 <span class="hljs-comment">// Select most recent 100 records from log</span>
 <span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
 Logger.emailLog(<span class="hljs-string">"foo@bar.com"</span>, {
-  <span class="hljs-attr">order</span>: Logger.ORDER_DESC,
-  <span class="hljs-attr">limit</span>: <span class="hljs-number">100</span>
+  order: Logger.ORDER_DESC,
+  limit: <span class="hljs-number">100</span>
 ));</code></pre>
 				</div>
 			</section>
@@ -178,6 +178,12 @@ Logger.emailLog(<span class="hljs-string">"foo@bar.com"</span>, {
 						<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html" class="tsd-kind-icon">Background<wbr>Geolocation</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.authorization.html" class="tsd-kind-icon">Authorization</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.battery.html" class="tsd-kind-icon">Battery</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
@@ -191,6 +197,9 @@ Logger.emailLog(<span class="hljs-string">"foo@bar.com"</span>, {
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
@@ -260,6 +269,9 @@ Logger.emailLog(<span class="hljs-string">"foo@bar.com"</span>, {
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.state.html" class="tsd-kind-icon">State</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_react_native_background_geolocation_.watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>

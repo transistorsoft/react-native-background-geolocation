@@ -47,7 +47,7 @@ declare module "react-native-background-geolocation" {
     * | [[BackgroundGeolocation.NOTIFICATION_PRIORITY_MIN]]     | Notification **strongly** weighted to bottom of list; notification-bar icon **hidden**                  |
     *
     * @example
-    * ```javascript
+    * ```typescript
     * BackgroundGeolocation.ready({
     *   foregroundService: true,
     *   notification: {
@@ -96,7 +96,7 @@ declare module "react-native-background-geolocation" {
     * - Do not append the file-extension (eg: `.png`)
     *
     * @example
-    * ```javascript
+    * ```typescript
     * // 1. drawable
     * BackgroundGeolocation.ready({
     *   notification: {
@@ -128,7 +128,7 @@ declare module "react-native-background-geolocation" {
     * - Do not append the file-extension (eg: `.png`)
     *
     * @example
-    * ```javascript
+    * ```typescript
     * // 1. drawable
     * BackgroundGeolocation.ready({
     *   notification: {
@@ -230,19 +230,19 @@ declare module "react-native-background-geolocation" {
     * BackgroundGeolocation.ready({
     *   notification: {
     *     actions: [  // <-- register button listeners
-    *       'notificationButtonFoo',
-    *       'notificationButtonBar'
+    *       "notificationButtonFoo",
+    *       "notificationButtonBar"
     *     ]
     *   }
     * });
     *
     * // Listen to custom button clicks:
     * BackgroundGeolocation.onNotificationAction((buttonId) => {
-    *   console.log('[onNotificationAction] - ', buttonId);
+    *   console.log("[onNotificationAction] - ", buttonId);
     *   switch(buttonId) {
-    *     case 'notificationButtonFoo':
+    *     case "notificationButtonFoo":
     *       break;
-    *     case 'notificationButtonBar':
+    *     case "notificationButtonBar':
     *       break;
     *   }
     * });
@@ -337,27 +337,27 @@ declare module "react-native-background-geolocation" {
     * ```typescript
     * BackgroundGeolocation.ready({
     *   notification: {
-    *     title: 'The title',
-    *     text: 'The text',
-    *     layout: 'notification_layout',
+    *     title: "The title",
+    *     text: "The text",
+    *     layout: "notification_layout",
     *     actions: [
-    *       'notificationButtonFoo',  // <-- register button click-listeners
-    *       'notificationButtonBar'
+    *       "notificationButtonFoo",  // <-- register button click-listeners
+    *       "notificationButtonBar"
     *     ],
     *     strings: {
-    *       'myCustomTextBox1': 'custom TextBox element'
+    *       "myCustomTextBox1": "custom TextBox element"
     *     }
     *   }
     * });
     *
     * // Listen to custom notification button clicks (notification.actions)
     * BackgroundGeolocation.onNotificationAction((buttonId) => {
-    *   console.log('[onNotificationAction] - ', buttonId);
+    *   console.log("[onNotificationAction] - ", buttonId);
     *   switch(buttonId) {
-    *     case 'notificationButtonFoo':
+    *     case "notificationButtonFoo":
     *       // Handle button click on [Foo]
     *       break;
-    *     case 'notificationButtonBar':
+    *     case "notificationButtonBar":
     *       // Handle button click on [Bar]
     *       break;
     *   }
@@ -422,16 +422,16 @@ declare module "react-native-background-geolocation" {
     * BackgroundGeolocation.ready({
     *   notification: {
     *     actions: [  // <-- register button listeners
-    *       'notificationButtonPause'
+    *       "notificationButtonPause"
     *     ]
     *   }
     * });
     *
     * // Listen to custom button clicks:
     * BackgroundGeolocation.onNotificationAction((buttonId) => {
-    *   console.log('[onNotificationAction] - ', buttonId);
+    *   console.log("[onNotificationAction] - ", buttonId);
     *   switch(buttonId) {
-    *     case 'notificationButtonPause':
+    *     case "notificationButtonPause":
     *       BackgroundGeolocation.changePace(false);
     *       break;
     *     .
@@ -456,7 +456,7 @@ declare module "react-native-background-geolocation" {
     *
     *
     * @example
-    * ```javascript
+    * ```typescript
     * BackgroundGeolocation.ready({
     *   notification: {
     *     channelName: "Location Tracker"

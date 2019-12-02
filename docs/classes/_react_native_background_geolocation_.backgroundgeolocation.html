@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.3.2</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.4.0</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -125,6 +125,10 @@
 										<td>Fired when the plugin is enabled / disabled via its <a href="_react_native_background_geolocation_.backgroundgeolocation.html#start">start</a> / <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a> methods.</td>
 									</tr>
 									<tr>
+										<td><a href="_react_native_background_geolocation_.backgroundgeolocation.html#onauthorization">onAuthorization</a></td>
+										<td>Fired when a response from <a href="../interfaces/_react_native_background_geolocation_.authorization.html#refreshurl">Authorization.refreshUrl</a> is received.</td>
+									</tr>
+									<tr>
 										<td><a href="_react_native_background_geolocation_.backgroundgeolocation.html#onnotificationaction">onNotificationAction</a></td>
 										<td><strong>Android only</strong>: Fired when a button is clicked on a custom <a href="../interfaces/_react_native_background_geolocation_.notification.html#layout">Notification.layout</a> of a foreground-service notification.</td>
 									</tr>
@@ -146,29 +150,29 @@
 
 <span class="hljs-comment">// This handler fires whenever bgGeo receives a location update.</span>
 BackgroundGeolocation.onLocation(<span class="hljs-function"><span class="hljs-params">location</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[location] '</span>, location);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[location] "</span>, location);
 }, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[location] ERROR: '</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[location] ERROR: "</span>, error);
 });
 
 <span class="hljs-comment">// This handler fires when movement states changes (stationary-&gt;moving; moving-&gt;stationary)</span>
 BackgroundGeolocation.onMotionChange(<span class="hljs-function"><span class="hljs-params">location</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[motionchange] '</span>, location);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[motionchange] "</span>, location);
 });
 
 <span class="hljs-comment">// This handler fires on HTTP responses</span>
 BackgroundGeolocation.onHttp(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[http] '</span>, response);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[http] "</span>, response);
 });
 
 <span class="hljs-comment">// This event fires when a change in motion activity is detected</span>
 BackgroundGeolocation.onActivityChange(<span class="hljs-function"><span class="hljs-params">activityEvent</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[activitychange] '</span>, activityEvent);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[activitychange] "</span>, activityEvent);
 });
 
 <span class="hljs-comment">// This event fires when the user toggles location-services authorization</span>
 BackgroundGeolocation.onProviderChange(<span class="hljs-function"><span class="hljs-params">providerEvent</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[providerchange] '</span>, providerEvent);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[providerchange] "</span>, providerEvent);
 });
 
 <span class="hljs-comment">////</span>
@@ -186,7 +190,7 @@ BackgroundGeolocation.ready({
   stopOnTerminate: <span class="hljs-literal">false</span>,   <span class="hljs-comment">// &lt;-- Allow the background-service to continue tracking when app terminated.</span>
   startOnBoot: <span class="hljs-literal">true</span>,        <span class="hljs-comment">// &lt;-- Auto start tracking when device is powered-up.</span>
   <span class="hljs-comment">// HTTP / SQLite config</span>
-  url: <span class="hljs-string">'http://yourserver.com/locations'</span>,
+  url: <span class="hljs-string">"http://yourserver.com/locations"</span>,
   batchSync: <span class="hljs-literal">false</span>,       <span class="hljs-comment">// &lt;-- Set true to sync locations to server in a single HTTP request.</span>
   autoSync: <span class="hljs-literal">true</span>,         <span class="hljs-comment">// &lt;-- Set true to sync each location to server as it arrives.</span>
   headers: {              <span class="hljs-comment">// &lt;-- Optional HTTP headers</span>
@@ -210,13 +214,13 @@ BackgroundGeolocation.ready({
 </code></pre>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
-						<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
-  <span class="hljs-attr">distanceFilter</span>: <span class="hljs-number">10</span>,
-  <span class="hljs-attr">stopOnTerminate</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">logLevel</span>: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
-  <span class="hljs-attr">debug</span>: <span class="hljs-literal">true</span>
-}, (state) =&gt; {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'- BackgroundGeolocation is ready: '</span>, state);
+						<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
+  distanceFilter: <span class="hljs-number">10</span>,
+  stopOnTerminate: <span class="hljs-literal">false</span>,
+  logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
+  debug: <span class="hljs-literal">true</span>
+}, <span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"- BackgroundGeolocation is ready: "</span>, state);
 });</code></pre>
 							<h3 id="-warning-">⚠️ Warning:</h3>
 							<p>Do not execute <em>any</em> API method which will require accessing location-services until the callback to <a href="_react_native_background_geolocation_.backgroundgeolocation.html#ready">ready</a> executes (eg: <a href="_react_native_background_geolocation_.backgroundgeolocation.html#getcurrentposition">getCurrentPosition</a>, <a href="_react_native_background_geolocation_.backgroundgeolocation.html#watchposition">watchPosition</a>, <a href="_react_native_background_geolocation_.backgroundgeolocation.html#start">start</a>).</p>
@@ -224,11 +228,11 @@ BackgroundGeolocation.ready({
 							<p>The <code>BackgroundGeolocation</code> Javascript API supports <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promises</a> for <em>nearly</em> every method (the exceptions are <a href="_react_native_background_geolocation_.backgroundgeolocation.html#watchposition">watchPosition</a> and adding event-listeners via <strong><code>#onEventName</code></strong> methods.)</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
-						<dd><pre><code class="language-javascript"><span class="hljs-comment">// Traditional API still works:</span>
-BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">distanceFilter</span>: <span class="hljs-number">50</span>}).then(<span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'- BackgroundGeolocation is ready: '</span>, state);
+						<dd><pre><code class="language-typescript"><span class="hljs-comment">// Traditional API still works:</span>
+BackgroundGeolocation.ready({desiredAccuracy: <span class="hljs-number">0</span>, distanceFilter: <span class="hljs-number">50</span>}).then(<span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"- BackgroundGeolocation is ready: "</span>, state);
 }).catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'- BackgroundGeolocation error: '</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"- BackgroundGeolocation error: "</span>, error);
 });</code></pre>
 						</dd>
 					</dl>
@@ -308,11 +312,14 @@ BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <sp
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#changepace" class="tsd-kind-icon">change<wbr>Pace</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#destroylocations" class="tsd-kind-icon">destroy<wbr>Locations</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#destroylog" class="tsd-kind-icon">destroy<wbr>Log</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#destroytransistorauthorizationtoken" class="tsd-kind-icon">destroy<wbr>Transistor<wbr>Authorization<wbr>Token</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#emaillog" class="tsd-kind-icon">email<wbr>Log</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#findorcreatetransistorauthorizationtoken" class="tsd-kind-icon">find<wbr>OrCreate<wbr>Transistor<wbr>Authorization<wbr>Token</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#finish" class="tsd-kind-icon">finish</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#geofenceexists" class="tsd-kind-icon">geofence<wbr>Exists</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getcount" class="tsd-kind-icon">get<wbr>Count</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getcurrentposition" class="tsd-kind-icon">get<wbr>Current<wbr>Position</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getdeviceinfo" class="tsd-kind-icon">get<wbr>Device<wbr>Info</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getgeofence" class="tsd-kind-icon">get<wbr>Geofence</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getgeofences" class="tsd-kind-icon">get<wbr>Geofences</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getlocations" class="tsd-kind-icon">get<wbr>Locations</a></li>
@@ -323,6 +330,7 @@ BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <sp
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#getstate" class="tsd-kind-icon">get<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#insertlocation" class="tsd-kind-icon">insert<wbr>Location</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#ispowersavemode" class="tsd-kind-icon">is<wbr>Power<wbr>Save<wbr>Mode</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#onauthorization" class="tsd-kind-icon">on<wbr>Authorization</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#onnotificationaction" class="tsd-kind-icon">on<wbr>Notification<wbr>Action</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#playsound" class="tsd-kind-icon">play<wbr>Sound</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#ready" class="tsd-kind-icon">ready</a></li>
@@ -375,8 +383,8 @@ BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <sp
 								<p>Android <a href="../interfaces/_react_native_background_geolocation_.motionactivityevent.html#confidence">MotionActivityEvent.confidence</a> always reports <code>100</code>%.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.onActivityChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onActivityChange] '</span>, event);
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.onActivityChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onActivityChange] "</span>, event);
 });</code></pre>
 									</dd>
 								</dl>
@@ -429,8 +437,8 @@ BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <sp
 								the SDK will automatically initiate uploading to your configured <a href="../interfaces/_react_native_background_geolocation_.config.html#url">Config.url</a> when network connectivity is detected.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.onConnectivityChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onConnectivityChange] '</span>, event);
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.onConnectivityChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onConnectivityChange] "</span>, event);
 });</code></pre>
 									</dd>
 								</dl>
@@ -477,13 +485,13 @@ BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <sp
 								<div class="lead">
 									<p>Subscribe to changes in plugin <a href="../interfaces/_react_native_background_geolocation_.state.html#enabled">State.enabled</a>.</p>
 								</div>
-								<p>Fired when the plugin&#39;s <a href="../interfaces/_react_native_background_geolocation_.state.html#enabled">State.enabled</a> changes.  For example, executing <a href="_react_native_background_geolocation_.backgroundgeolocation.html#start">start</a> and <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a> will cause the <code>onEnabledChnage</code> event to fire.
-									This event is primarily designed for use with the configuration option <a href="../interfaces/_react_native_background_geolocation_.config.html#stopafterelapsedminutes">stopAfterElapsedMinutes</a>, which automatically executes the plugin&#39;s
+								<p>Fired when the SDK&#39;s <a href="../interfaces/_react_native_background_geolocation_.state.html#enabled">State.enabled</a> changes.  For example, executing <a href="_react_native_background_geolocation_.backgroundgeolocation.html#start">start</a> and <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a> will cause the <code>onEnabledChnage</code> event to fire.
+									This event is primarily designed for use with the configuration option <a href="../interfaces/_react_native_background_geolocation_.config.html#stopafterelapsedminutes">stopAfterElapsedMinutes</a>, which automatically executes the SDK&#39;s
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a> method.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.onEnabledChange(<span class="hljs-function"><span class="hljs-params">isEnabled</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onEnabledChanged] isEnabled? '</span>, isEnabled);
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.onEnabledChange(<span class="hljs-function"><span class="hljs-params">isEnabled</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onEnabledChanged] isEnabled? "</span>, isEnabled);
 });</code></pre>
 									</dd>
 								</dl>
@@ -534,7 +542,7 @@ BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <sp
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
 									<dd><pre><code class="language-typescript">BackgroundGeolocation.onGeofence(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onGeofence] '</span>, event);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onGeofence] "</span>, event);
 });</code></pre>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
@@ -595,7 +603,7 @@ BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <sp
 								<p>It&#39;s when this list of monitored geofences <em>changes</em>, that the plugin will fire the <code>onGeofencesChange</code> event.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.onGeofencesChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.onGeofencesChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
   <span class="hljs-keyword">let</span> on = event.on;     <span class="hljs-comment">//&lt;-- new geofences activated.</span>
   <span class="hljs-keyword">let</span> off = event.off; <span class="hljs-comment">//&lt;-- geofences that were just de-activated.</span>
 
@@ -661,19 +669,19 @@ BackgroundGeolocation.ready({<span class="hljs-attr">desiredAccuracy</span>: <sp
 								<p>Your <code>callback</code> will be executed for each <a href="../interfaces/_react_native_background_geolocation_.config.html#heartbeatinterval">heartbeatInterval</a> while the device is in <strong>stationary</strong> state (<strong>iOS</strong> requires <a href="../interfaces/_react_native_background_geolocation_.config.html#preventsuspend">preventSuspend</a>: true as well).</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
-  <span class="hljs-attr">heartbeatInterval</span>: <span class="hljs-number">60</span>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
+  heartbeatInterval: <span class="hljs-number">60</span>
 });
 
 BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onHeartbeat] '</span>, event);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onHeartbeat] "</span>, event);
 
   <span class="hljs-comment">// You could request a new location if you wish.</span>
   BackgroundGeolocation.getCurrentPosition({
-    <span class="hljs-attr">samples</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">persist</span>: <span class="hljs-literal">true</span>
+    samples: <span class="hljs-number">1</span>,
+    persist: <span class="hljs-literal">true</span>
   }).then(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[getCurrentPosition] '</span>, location);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[getCurrentPosition] "</span>, location);
   });
 })</code></pre>
 										<h3 id="-note-">⚠️ Note:</h3>
@@ -727,11 +735,11 @@ BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.onHttp(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> {
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.onHttp(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> {
   <span class="hljs-keyword">let</span> status = response.status;
   <span class="hljs-keyword">let</span> success = response.success;
   <span class="hljs-keyword">let</span> responseText = response.responseText;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onHttp] '</span>, response);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onHttp] "</span>, response);
 });</code></pre>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
@@ -785,10 +793,10 @@ BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs
 								<p>Every location recorded by the SDK is provided to your <code>callback</code>, including those from <a href="_react_native_background_geolocation_.backgroundgeolocation.html#onmotionchange">onMotionChange</a>, <a href="_react_native_background_geolocation_.backgroundgeolocation.html#getcurrentposition">getCurrentPosition</a> and <a href="_react_native_background_geolocation_.backgroundgeolocation.html#watchposition">watchPosition</a>.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onLocation] success: '</span>, location);
-}, (error) =&gt; {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onLocation] ERROR: '</span>, error);
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onLocation] success: "</span>, location);
+}, <span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onLocation] ERROR: "</span>, error);
 });</code></pre>
 										<h3 id="error-codes">Error Codes</h3>
 										<p>If the native location API fails to return a location, the <code>failure</code> callback will be provided a <a href="../modules/_react_native_background_geolocation_.html#locationerror">LocationError</a>.</p>
@@ -864,11 +872,11 @@ BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs
 								<p>Your <code>callback</code> will be executed each time the device has changed-state between <strong>MOVING</strong> or <strong>STATIONARY</strong>.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.onMotionChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.onMotionChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (event.isMoving) {
-     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onMotionChange] Device has just started MOVING '</span>, event.location);
+     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onMotionChange] Device has just started MOVING "</span>, event.location);
   } <span class="hljs-keyword">else</span> {
-     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onMotionChange] Device has just STOPPED:  '</span>, event.location);
+     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onMotionChange] Device has just STOPPED:  "</span>, event.location);
   }
 });</code></pre>
 										<hr>
@@ -942,8 +950,8 @@ BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs
 										<p><img src="https://dl.dropboxusercontent.com/s/raz8lagrqayowia/Screenshot%202017-09-19%2010.33.49.png?dl=1" alt=""></p>
 									</dd>
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.onPowerSaveChange(<span class="hljs-function">(<span class="hljs-params">isPowerSaveMode</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onPowerSaveChange: '</span>, isPowerSaveMode);
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.onPowerSaveChange(<span class="hljs-function">(<span class="hljs-params">isPowerSaveMode</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onPowerSaveChange: "</span>, isPowerSaveMode);
 });</code></pre>
 									</dd>
 								</dl>
@@ -993,21 +1001,21 @@ BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs
 								<p>Your <code>callback</code> fill be executed whenever a change in the state of the device&#39;s <strong>Location Services</strong> has been detected.  eg: &quot;GPS ON&quot;, &quot;WiFi only&quot;.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.onProviderChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onProviderChange: '</span>, event);
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.onProviderChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onProviderChange: "</span>, event);
 
   <span class="hljs-keyword">switch</span>(event.status) {
     <span class="hljs-keyword">case</span> BackgroundGeolocation.AUTHORIZATION_STATUS_DENIED:
       <span class="hljs-comment">// Android &amp; iOS</span>
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'- Location authorization denied'</span>);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"- Location authorization denied"</span>);
       <span class="hljs-keyword">break</span>;
     <span class="hljs-keyword">case</span> BackgroundGeolocation.AUTHORIZATION_STATUS_ALWAYS:
       <span class="hljs-comment">// Android &amp; iOS</span>
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'- Location always granted'</span>);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"- Location always granted"</span>);
       <span class="hljs-keyword">break</span>;
     <span class="hljs-keyword">case</span> BackgroundGeolocation.AUTHORIZATION_STATUS_WHEN_IN_USE:
       <span class="hljs-comment">// iOS only</span>
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'- Location WhenInUse granted'</span>);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"- Location WhenInUse granted"</span>);
       <span class="hljs-keyword">break</span>;
   }
 });</code></pre>
@@ -1068,11 +1076,11 @@ BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs
 								will reflect the state according to your <a href="../interfaces/_react_native_background_geolocation_.config.html#schedule">schedule</a>.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.onSchedule(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.onSchedule(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (state.enabled) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onSchedule] scheduled start tracking'</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onSchedule] scheduled start tracking"</span>);
   } <span class="hljs-keyword">else</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onSchedule] scheduled stop tracking'</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onSchedule] scheduled stop tracking"</span>);
   }
 });</code></pre>
 									</dd>
@@ -1367,22 +1375,22 @@ BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.addGeofence({
-  <span class="hljs-attr">identifier</span>: <span class="hljs-string">"Home"</span>,
-  <span class="hljs-attr">radius</span>: <span class="hljs-number">150</span>,
-  <span class="hljs-attr">latitude</span>: <span class="hljs-number">45.51921926</span>,
-  <span class="hljs-attr">longitude</span>: <span class="hljs-number">-73.61678581</span>,
-  <span class="hljs-attr">notifyOnEntry</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">notifyOnExit</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">notifyOnDwell</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">loiteringDelay</span>: <span class="hljs-number">30000</span>,  <span class="hljs-comment">// 30 seconds</span>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.addGeofence({
+  identifier: <span class="hljs-string">"Home"</span>,
+  radius: <span class="hljs-number">150</span>,
+  latitude: <span class="hljs-number">45.51921926</span>,
+  longitude: <span class="hljs-number">-73.61678581</span>,
+  notifyOnEntry: <span class="hljs-literal">true</span>,
+  notifyOnExit: <span class="hljs-literal">false</span>,
+  notifyOnDwell: <span class="hljs-literal">true</span>,
+  loiteringDelay: <span class="hljs-number">30000</span>,  <span class="hljs-comment">// 30 seconds</span>
   extras: {               <span class="hljs-comment">// Optional arbitrary meta-data</span>
     zone_id: <span class="hljs-number">1234</span>
   }
 }).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[addGeofence] success'</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[addGeofence] success"</span>);
 }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[addGeofence] FAILURE: '</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[addGeofence] FAILURE: "</span>, error);
 });</code></pre>
 										<h3 id="-note-">ℹ️ Note:</h3>
 										<ul>
@@ -1443,18 +1451,18 @@ BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> geofences = [{
-  <span class="hljs-attr">identifier</span>: <span class="hljs-string">'foo'</span>,
-  <span class="hljs-attr">radius</span>: <span class="hljs-number">200</span>,
-  <span class="hljs-attr">latitude</span>: <span class="hljs-number">45.51921926</span>,
-  <span class="hljs-attr">longitude</span>: <span class="hljs-number">-73.61678581</span>,
-  <span class="hljs-attr">notifyOnEntry</span>: <span class="hljs-literal">true</span>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> geofences = [{
+  identifier: <span class="hljs-string">"foo"</span>,
+  radius: <span class="hljs-number">200</span>,
+  latitude: <span class="hljs-number">45.51921926</span>,
+  longitude: <span class="hljs-number">-73.61678581</span>,
+  notifyOnEntry: <span class="hljs-literal">true</span>
 },
-  <span class="hljs-attr">identifier</span>: <span class="hljs-string">'bar'</span>,
-  <span class="hljs-attr">radius</span>: <span class="hljs-number">200</span>,
-  <span class="hljs-attr">latitude</span>: <span class="hljs-number">45.51921926</span>,
-  <span class="hljs-attr">longitude</span>: <span class="hljs-number">-73.61678581</span>,
-  <span class="hljs-attr">notifyOnEntry</span>: <span class="hljs-literal">true</span>
+  identifier: <span class="hljs-string">"bar"</span>,
+  radius: <span class="hljs-number">200</span>,
+  latitude: <span class="hljs-number">45.51921926</span>,
+  longitude: <span class="hljs-number">-73.61678581</span>,
+  notifyOnEntry: <span class="hljs-literal">true</span>
 }];
 
 BackgroundGeolocation.addGeofences(geofences);</code></pre>
@@ -1495,7 +1503,7 @@ BackgroundGeolocation.addGeofences(geofences);</code></pre>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Manually toggles the plugin&#39;s <strong>motion state</strong> between <strong>stationary</strong> and <strong>moving</strong>.</p>
+									<p>Manually toggles the SDK&#39;s <strong>motion state</strong> between <strong>stationary</strong> and <strong>moving</strong>.</p>
 								</div>
 								<p>When provided a value of  <strong><code>true</code></strong>, the plugin will engage location-services and begin aggressively tracking the device&#39;s location <em>immediately</em>,
 								bypassing stationary monitoring.</p>
@@ -1503,7 +1511,7 @@ BackgroundGeolocation.addGeofences(geofences);</code></pre>
 								to turn <strong>off</strong> location-services and return the plugin to the <strong>stationary</strong> state.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.changePace(<span class="hljs-literal">true</span>);  <span class="hljs-comment">// &lt;-- Location-services ON ("moving" state)</span>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.changePace(<span class="hljs-literal">true</span>);  <span class="hljs-comment">// &lt;-- Location-services ON ("moving" state)</span>
 BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span class="hljs-comment">// &lt;-- Location-services OFF ("stationary" state)</span></code></pre>
 									</dd>
 								</dl>
@@ -1554,11 +1562,11 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Remove all records in plugin&#39;s SQLite database.</p>
+									<p>Remove all records in SDK&#39;s SQLite database.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> success = <span class="hljs-keyword">await</span> BackgroundGeolocation.destroyLocations();</code></pre>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> success = <span class="hljs-keyword">await</span> BackgroundGeolocation.destroyLocations();</code></pre>
 									</dd>
 								</dl>
 							</div>
@@ -1602,6 +1610,40 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="destroytransistorauthorizationtoken" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> destroy<wbr>Transistor<wbr>Authorization<wbr>Token</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">destroy<wbr>Transistor<wbr>Authorization<wbr>Token<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Destroys the cached Transistor JSON Web Token used to authorize with the Demo Server at <a href="http://tracker.transistorsoft.com">http://tracker.transistorsoft.com</a> or your local instance of <a href="https://github.com/transistorsoft/background-geolocation-console">background-geolocation-console</a></p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">await</span> BackgroundGeolocation.destroyTransistorAuthorizationToken();</code></pre>
+										<h3 id="-see-also-">ℹ️ See also:</h3>
+										<ul>
+											<li><a href="_react_native_background_geolocation_.backgroundgeolocation.html#findorcreatetransistorauthorizationtoken">findOrCreateTransistorAuthorizationToken</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> url: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1657,6 +1699,72 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="findorcreatetransistorauthorizationtoken" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> find<wbr>OrCreate<wbr>Transistor<wbr>Authorization<wbr>Token</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">find<wbr>OrCreate<wbr>Transistor<wbr>Authorization<wbr>Token<span class="tsd-signature-symbol">(</span>orgname<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, username<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, url<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-signature-type">TransistorAuthorizationToken</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a <em>JSON Web Token</em> (<a href="https://jwt.io/">JWT</a>) suitable for <a href="../interfaces/_react_native_background_geolocation_.authorization.html">Authorization</a> with the Transistor Software demo server at <a href="http://tracker.transistorsoft.com">http://tracker.transistorsoft.com</a>.</p>
+								</div>
+								<p>To learn how to upload locations to the <em>Transistor Demo Server</em>, see <a href="../interfaces/_react_native_background_geolocation_.transistorauthorizationtoken.html">TransistorAuthorizationToken</a>.
+								<img src="https://dl.dropboxusercontent.com/s/3abuyyhioyypk8c/screenshot-tracker-transistorsoft.png?dl=1" alt=""></p>
+								<p>This token is typically provided to <a href="../interfaces/_react_native_background_geolocation_.config.html#transistorauthorizationtoken">Config.transistorAuthorizationToken</a> when first configuring the SDK with <a href="_react_native_background_geolocation_.backgroundgeolocation.html#ready">ready</a>.</p>
+								<h3 id="params">Params</h3>
+								<h4 id="-param-string-orgname"><code>@param {String} orgname</code></h4>
+								<p>Represents a &quot;company&quot; or &quot;organization&quot;; a container for posting locations from multiple devices to the same account.  <code>orgname</code> is used for accessing your device results in web app, eg: <a href="http://tracker.transistorsoft.com/my-organization-name">http://tracker.transistorsoft.com/my-organization-name</a>.</p>
+								<h4 id="-param-string-username"><code>@param {String} username</code></h4>
+								<p>Appended to the <a href="../interfaces/_react_native_background_geolocation_.deviceinfo.html#model">DeviceInfo.model</a> as a means of creating a consistent and unique device identifier.  For example:</p>
+								<ul>
+									<li><code>Pixel 3a-my-username</code></li>
+									<li><code>A310-my-username</code></li>
+									<li><code>iPhone 11,3-my-username</code></li>
+								</ul>
+								<h4 id="-param-string-url-http-tracker-transistorsoft-com-"><code>@param {String} url [http://tracker.transistorsoft.com]</code></h4>
+								<p>The server to register with and receive authentication tokens from.  Defaults to <code>http://tracker.transistorsoft.com</code>.  If you have a local instance of <a href="https://github.com/transistorsoft/background-geolocation-console">background-geolocation-console</a> running
+								on your localhost, you would provide the <strong>ip address</strong> of your server, eg: <code>http://192.168.0.100:9000</code>.</p>
+								<hr>
+								<p>When the SDK receives the <a href="../interfaces/_react_native_background_geolocation_.transistorauthorizationtoken.html">TransistorAuthorizationToken</a> from <code>url</code>, it will be cached in persistant-storage within the native code.  If the SDK doesn&quot;t find a cached token on the client, it will automatically register for one from <code>url</code>, using the provided <code>orgname</code> and <code>username</code>.  Otherwise, the cached token will be immediately returned.</p>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> orgname      = <span class="hljs-string">"my-company-name"</span>;
+<span class="hljs-keyword">let</span> username     = <span class="hljs-string">"my-username"</span>;
+
+<span class="hljs-keyword">let</span> token = <span class="hljs-keyword">await</span> BackgroundGeolocation.findOrCreateTransistorAuthorizationToken(orgname, username);
+
+BackgroundGeolocation.ready({
+  transistorAuthorizationToken: token
+});</code></pre>
+										<h3 id="-see-also-">ℹ️ See also:</h3>
+										<ul>
+											<li><a href="_react_native_background_geolocation_.backgroundgeolocation.html#destroytransistorauthorizationtoken">destroyTransistorAuthorizationToken</a></li>
+											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#transistorauthorizationtoken">Config.transistorAuthorizationToken</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>orgname: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>username: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> url: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-signature-type">TransistorAuthorizationToken</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a name="finish" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> finish</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -1707,8 +1815,8 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> exists = <span class="hljs-keyword">await</span> BackgroundGeolocation.geofenceExists(<span class="hljs-string">"HOME"</span>);
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[geofenceExists] '</span>, exists);</code></pre>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> exists = <span class="hljs-keyword">await</span> BackgroundGeolocation.geofenceExists(<span class="hljs-string">"HOME"</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[geofenceExists] "</span>, exists);</code></pre>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
 											<li>📘 <a href="../interfaces/_react_native_background_geolocation_.geofence.html">Geofence</a> Guide.</li>
@@ -1759,11 +1867,11 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Retrieve the count of all locations current stored in the plugin&#39;s SQLite database.</p>
+									<p>Retrieve the count of all locations current stored in the SDK&#39;s SQLite database.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> count = <span class="hljs-keyword">await</span> BackgroundGeolocation.getCount();</code></pre>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> count = <span class="hljs-keyword">await</span> BackgroundGeolocation.getCount();</code></pre>
 									</dd>
 								</dl>
 							</div>
@@ -1823,8 +1931,8 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 										<p>See <a href="../modules/_react_native_background_geolocation_.html#locationerror">LocationError</a>.</p>
 									</dd>
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> location = <span class="hljs-keyword">await</span> BackgroundGeolocation.getCurrentPosition({
-  <span class="hljs-attr">timeout</span>: <span class="hljs-number">30</span>,          <span class="hljs-comment">// 30 second timeout to fetch location</span>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> location = <span class="hljs-keyword">await</span> BackgroundGeolocation.getCurrentPosition({
+  timeout: <span class="hljs-number">30</span>,          <span class="hljs-comment">// 30 second timeout to fetch location</span>
   maximumAge: <span class="hljs-number">5000</span>,     <span class="hljs-comment">// Accept the last-known-location if not older than 5000 ms.</span>
   desiredAccuracy: <span class="hljs-number">10</span>,  <span class="hljs-comment">// Try to fetch a location with an accuracy of `10` meters.</span>
   samples: <span class="hljs-number">3</span>,           <span class="hljs-comment">// How many location samples to attempt.</span>
@@ -1893,6 +2001,20 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="getdeviceinfo" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Device<wbr>Info</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Device<wbr>Info<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_react_native_background_geolocation_.deviceinfo.html" class="tsd-signature-type">DeviceInfo</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_react_native_background_geolocation_.deviceinfo.html" class="tsd-signature-type">DeviceInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a name="getgeofence" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Geofence</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -1908,8 +2030,8 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> geofence = <span class="hljs-keyword">await</span> BackgroundGeolocation.getGeofence(<span class="hljs-string">"HOME"</span>);
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[getGeofence] '</span>, geofence);</code></pre>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> geofence = <span class="hljs-keyword">await</span> BackgroundGeolocation.getGeofence(<span class="hljs-string">"HOME"</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[getGeofence] "</span>, geofence);</code></pre>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
 											<li>📘 <a href="../interfaces/_react_native_background_geolocation_.geofence.html">Geofence</a> Guide.</li>
@@ -1985,8 +2107,8 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> geofences = <span class="hljs-keyword">await</span> BackgroundGeolocation.getGeofences();
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[getGeofences: '</span>, geofences);</code></pre>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> geofences = <span class="hljs-keyword">await</span> BackgroundGeolocation.getGeofences();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[getGeofences: "</span>, geofences);</code></pre>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
 											<li>📘 <a href="../interfaces/_react_native_background_geolocation_.geofence.html">Geofence</a> Guide.</li>
@@ -2055,11 +2177,11 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Retrieve a List of <a href="../interfaces/_react_native_background_geolocation_.location.html">Location</a> currently stored in the plugin&#39;s SQLite database.</p>
+									<p>Retrieve a List of <a href="../interfaces/_react_native_background_geolocation_.location.html">Location</a> currently stored in the SDK&#39;s SQLite database.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> locations = <span class="hljs-keyword">await</span> BackgroundGeolocation.getLocations();</code></pre>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> locations = <span class="hljs-keyword">await</span> BackgroundGeolocation.getLocations();</code></pre>
 									</dd>
 								</dl>
 							</div>
@@ -2178,7 +2300,7 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 								current <strong>odometer</strong> reading:</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> odometer = <span class="hljs-keyword">await</span> BackgroundGeolocation.getOdometer();</code></pre>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> odometer = <span class="hljs-keyword">await</span> BackgroundGeolocation.getOdometer();</code></pre>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
 											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#desiredodometeraccuracy">desiredOdometerAccuracy</a>.</li>
@@ -2242,8 +2364,8 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 								</ul>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> providerState = <span class="hljs-keyword">await</span> BackgroundGeolocation.getProviderState();
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'- Provider state: '</span>, providerState);</code></pre>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> providerState = <span class="hljs-keyword">await</span> BackgroundGeolocation.getProviderState();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"- Provider state: "</span>, providerState);</code></pre>
 									</dd>
 								</dl>
 							</div>
@@ -2300,7 +2422,7 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 										<a href="../interfaces/_react_native_background_geolocation_.config.html#minimumactivityrecognitionconfidence">minimumActivityRecognitionConfidence</a>.</p>
 									</dd>
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> sensors = <span class="hljs-keyword">await</span> BackgroundGeolocation.sensors;
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> sensors = <span class="hljs-keyword">await</span> BackgroundGeolocation.sensors;
 <span class="hljs-built_in">console</span>.log(sensors);</code></pre>
 									</dd>
 								</dl>
@@ -2352,8 +2474,8 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> state = <span class="hljs-keyword">await</span> BackgroundGeolocation.getState();
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[state] '</span>, state.enabled, state.trackingMode);</code></pre>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> state = <span class="hljs-keyword">await</span> BackgroundGeolocation.getState();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[state] "</span>, state.enabled, state.trackingMode);</code></pre>
 									</dd>
 								</dl>
 							</div>
@@ -2477,7 +2599,7 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 										<p><img src="https://dl.dropboxusercontent.com/s/raz8lagrqayowia/Screenshot%202017-09-19%2010.33.49.png?dl=1" alt=""></p>
 									</dd>
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-keyword">let</span> isPowerSaveMode = <span class="hljs-keyword">await</span> BackgroundGeolocation.isPowerSaveMode;</code></pre>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> isPowerSaveMode = <span class="hljs-keyword">await</span> BackgroundGeolocation.isPowerSaveMode;</code></pre>
 									</dd>
 								</dl>
 							</div>
@@ -2509,6 +2631,63 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="onauthorization" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Authorization</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Authorization<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Subscribe to <a href="../interfaces/_react_native_background_geolocation_.authorization.html">Authorization</a> events.</p>
+								</div>
+								<p>Fired when <a href="../interfaces/_react_native_background_geolocation_.authorization.html#refreshurl">Authorization.refreshUrl</a> responds, either successfully or not.  If successful, <a href="../interfaces/_react_native_background_geolocation_.authorizationevent.html#success">AuthorizationEvent.success</a> will be <code>true</code> and <a href="../interfaces/_react_native_background_geolocation_.authorizationevent.html#response">AuthorizationEvent.response</a> will
+								contain the decoded JSON response returned from the server.</p>
+								<p>If authorization failed, <a href="../interfaces/_react_native_background_geolocation_.authorizationevent.html#error">AuthorizationEvent.error</a> will contain the error message.</p>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.onAuthorization(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (event.success) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[authorization] ERROR: "</span>, event.error);
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[authorization] SUCCESS: "</span>, event.response);
+  }
+});</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/_react_native_background_geolocation_.authorizationevent.html" class="tsd-signature-type">AuthorizationEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/_react_native_background_geolocation_.authorizationevent.html" class="tsd-signature-type">AuthorizationEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -2600,17 +2779,17 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 								The plugin always remembers the configuration you apply to it.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
-  <span class="hljs-attr">desiredAccuracy</span>: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
-  <span class="hljs-attr">distanceFilter</span>: <span class="hljs-number">10</span>,
-  <span class="hljs-attr">stopOnTerminate</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">startOnBoot</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">url</span>: <span class="hljs-string">'http://your.server.com'</span>,
-  <span class="hljs-attr">headers</span>: {
-   <span class="hljs-string">'my-auth-token'</span>: <span class="hljs-string">'secret-token'</span>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
+  desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
+  distanceFilter: <span class="hljs-number">10</span>,
+  stopOnTerminate: <span class="hljs-literal">false</span>,
+  startOnBoot: <span class="hljs-literal">true</span>,
+  url: <span class="hljs-string">"http://your.server.com"</span>,
+  headers: {
+   <span class="hljs-string">"my-auth-token"</span>: <span class="hljs-string">"secret-token"</span>
   }
 }).then(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
- <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[ready] success'</span>, state);
+ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[ready] success"</span>, state);
 });</code></pre>
 										<h3 id="-warning-you-must-call-ready-once-and-only-once-each-time-your-app-is-launched-">⚠️ Warning: You must call <code>#ready</code> <strong>once</strong> and <strong>only</strong> once, each time your app is launched.</h3>
 										<ul>
@@ -2621,10 +2800,10 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 										<p>If you wish, you can use the <a href="_react_native_background_geolocation_.backgroundgeolocation.html#reset">reset</a> method to reset all <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> options to documented default-values (with optional overrides):</p>
 									</dd>
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.reset();
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.reset();
 <span class="hljs-comment">// Reset to documented default-values with overrides</span>
 bgGeo.reset({
-  <span class="hljs-attr">distanceFilter</span>:  <span class="hljs-number">10</span>
+  distanceFilter:  <span class="hljs-number">10</span>
 });</code></pre>
 									</dd>
 								</dl>
@@ -2708,16 +2887,16 @@ bgGeo.reset({
 									<dt class="tsd-comment-tag-example">example</dt>
 									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> BackgroundGeolocationHeadlessTask = <span class="hljs-keyword">async</span> (event) =&gt; {
   <span class="hljs-keyword">let</span> params = event.params;
-   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[BackgroundGeolocation HeadlessTask] -'</span>, event.name, params);
+   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[BackgroundGeolocation HeadlessTask] -"</span>, event.name, params);
 
    <span class="hljs-keyword">switch</span> (event.name) {
-     <span class="hljs-keyword">case</span> <span class="hljs-string">'heartbeat'</span>:
+     <span class="hljs-keyword">case</span> <span class="hljs-string">"heartbeat"</span>:
        <span class="hljs-comment">// Use await for async tasks</span>
        <span class="hljs-keyword">let</span> location = <span class="hljs-keyword">await</span> BackgroundGeolocation.getCurrentPosition({
          samples: <span class="hljs-number">1</span>,
          persist: <span class="hljs-literal">false</span>
        });
-       <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[BackgroundGeolocation HeadlessTask] - getCurrentPosition:'</span>, location);
+       <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[BackgroundGeolocation HeadlessTask] - getCurrentPosition:"</span>, location);
        <span class="hljs-keyword">break</span>;
    }
 }
@@ -2762,7 +2941,7 @@ BackgroundGeolocation.registerHeadlessTask(BackgroundGeolocationHeadlessTask);</
 					<a name="removealllisteners" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> remove<wbr>All<wbr>Listeners</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">remove<wbr>All<wbr>Listeners<span class="tsd-signature-symbol">(</span>success<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span>, failure<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>All<wbr>Listeners<span class="tsd-signature-symbol">(</span>success<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span>, failure<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -2782,7 +2961,7 @@ BackgroundGeolocation.registerHeadlessTask(BackgroundGeolocationHeadlessTask);</
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> failure: <span class="tsd-signature-type">Function</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -2802,10 +2981,10 @@ BackgroundGeolocation.registerHeadlessTask(BackgroundGeolocationHeadlessTask);</
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.removeGeofence(<span class="hljs-string">"Home"</span>).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[removeGeofence] success'</span>);
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.removeGeofence(<span class="hljs-string">"Home"</span>).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[removeGeofence] success"</span>);
 }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[removeGeofence] FAILURE: '</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[removeGeofence] FAILURE: "</span>, error);
 });</code></pre>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
@@ -2928,13 +3107,13 @@ BackgroundGeolocation.registerHeadlessTask(BackgroundGeolocationHeadlessTask);</
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
 									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> locationHandler = <span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[location] - '</span>, location)
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[location] - "</span>, location)
 }
 BackgroundGeolocation.onLocation(locationHandler)
 .
 .
 <span class="hljs-comment">// Remove the listener providing a reference to the original callback.</span>
-BackgroundGeolocation.removeListener(<span class="hljs-string">'location'</span>, locationHandler)</code></pre>
+BackgroundGeolocation.removeListener(<span class="hljs-string">"location"</span>, locationHandler)</code></pre>
 									</dd>
 								</dl>
 							</div>
@@ -2961,7 +3140,7 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">'location'</span>
 					<a name="removelisteners" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> remove<wbr>Listeners</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">remove<wbr>Listeners<span class="tsd-signature-symbol">(</span>success<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span>, failure<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>Listeners<span class="tsd-signature-symbol">(</span>success<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span>, failure<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -2986,7 +3165,7 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">'location'</span>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> failure: <span class="tsd-signature-type">Function</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -3011,10 +3190,10 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">'location'</span>
 								</ul>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.requestPermission().then(<span class="hljs-function">(<span class="hljs-params">status</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[requestPermission] SUCCESS'</span>);
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.requestPermission().then(<span class="hljs-function">(<span class="hljs-params">status</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[requestPermission] SUCCESS"</span>);
 }).catch(<span class="hljs-function">(<span class="hljs-params">status</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[requestPermission] REJECTED'</span>, status);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[requestPermission] REJECTED"</span>, status);
 });</code></pre>
 									</dd>
 								</dl>
@@ -3134,9 +3313,9 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">'location'</span>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.resetOdometer().then(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.resetOdometer().then(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
   <span class="hljs-comment">// This is the location where odometer was set at.</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[setOdometer] success: '</span>, location);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[setOdometer] success: "</span>, location);
 });</code></pre>
 										<h3 id="-note-">⚠️ Note:</h3>
 										<ul>
@@ -3171,19 +3350,19 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">'location'</span>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Re-configure the plugin&#39;s <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> parameters.  This is the method to use when you wish to <em>change</em>
+									<p>Re-configure the SDK&#39;s <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> parameters.  This is the method to use when you wish to <em>change</em>
 									the plugin <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> <em>after</em> <a href="_react_native_background_geolocation_.backgroundgeolocation.html#ready">ready</a> has been executed.</p>
 								</div>
 								<p>The supplied <a href="../interfaces/_react_native_background_geolocation_.config.html">Config</a> will be appended to the current configuration and applied in realtime.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.setConfig({
-  <span class="hljs-attr">desiredAccuracy</span>: Config.DESIRED_ACCURACY_HIGH,
-  <span class="hljs-attr">distanceFilter</span>: <span class="hljs-number">100.0</span>,
-  <span class="hljs-attr">stopOnTerminate</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">startOnBoot</span>: <span class="hljs-literal">true</span>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.setConfig({
+  desiredAccuracy: Config.DESIRED_ACCURACY_HIGH,
+  distanceFilter: <span class="hljs-number">100.0</span>,
+  stopOnTerminate: <span class="hljs-literal">false</span>,
+  startOnBoot: <span class="hljs-literal">true</span>
 }).then(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[setConfig] success: '</span>, state);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[setConfig] success: "</span>, state);
 })</code></pre>
 									</dd>
 								</dl>
@@ -3287,9 +3466,9 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">'location'</span>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.setOdometer(<span class="hljs-number">1234.56</span>).then(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.setOdometer(<span class="hljs-number">1234.56</span>).then(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
   <span class="hljs-comment">// This is the location where odometer was set at.</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[setOdometer] success: '</span>, location);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[setOdometer] success: "</span>, location);
 });</code></pre>
 										<h3 id="-note-">⚠️ Note:</h3>
 										<ul>
@@ -3346,15 +3525,15 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">'location'</span>
 								<div class="lead">
 									<p>Enable location + geofence tracking.</p>
 								</div>
-								<p>This is the plugin&#39;s power <strong>ON</strong> button.  The plugin will initially start into its <strong>stationary</strong> state, fetching an initial location before
+								<p>This is the SDK&#39;s power <strong>ON</strong> button.  The plugin will initially start into its <strong>stationary</strong> state, fetching an initial location before
 									turning off location services.  Android will be monitoring its <strong>Activity Recognition System</strong> while iOS will create a stationary geofence around
 								the current location.</p>
 								<h3 id="-note-">⚠️ Note:</h3>
 								<p>If you&#39;ve configured a <a href="../interfaces/_react_native_background_geolocation_.config.html#schedule">schedule</a>, this method will override that schedule and engage tracking immediately.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.start().then(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[start] success - '</span>, state);
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.start().then(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[start] success - "</span>, state);
 });</code></pre>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
@@ -3432,8 +3611,8 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">'location'</span>
 								which you will send to the <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stopbackgroundtask">stopBackgroundTask</a> method.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">onLocation(location) {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[location] '</span>, location);
+									<dd><pre><code class="language-typescript">onLocation(location) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[location] "</span>, location);
 
   <span class="hljs-comment">// Perform some long-running task (eg: HTTP request)</span>
   BackgroundGeolocation.startBackgroundTask().then(<span class="hljs-function">(<span class="hljs-params">taskId</span>) =&gt;</span> {
@@ -3519,28 +3698,28 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">'location'</span>
 								simply use the usual <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a> method.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-comment">// Add a geofence.</span>
+									<dd><pre><code class="language-typescript"><span class="hljs-comment">// Add a geofence.</span>
 BackgroundGeolocation.addGeofence({
-  <span class="hljs-attr">notifyOnExit</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">radius</span>: <span class="hljs-number">200</span>,
-  <span class="hljs-attr">identifier</span>: <span class="hljs-string">'ZONE_OF_INTEREST'</span>,
-  <span class="hljs-attr">latitude</span>: <span class="hljs-number">37.234232</span>,
-  <span class="hljs-attr">longitude</span>: <span class="hljs-number">42.234234</span>
+  notifyOnExit: <span class="hljs-literal">true</span>,
+  radius: <span class="hljs-number">200</span>,
+  identifier: <span class="hljs-string">"ZONE_OF_INTEREST"</span>,
+  latitude: <span class="hljs-number">37.234232</span>,
+  longitude: <span class="hljs-number">42.234234</span>
 });
 
 <span class="hljs-comment">// Listen to geofence events.</span>
 BackgroundGeolocation.onGeofence(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[onGeofence] -  '</span>, event);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[onGeofence] -  "</span>, event);
 });
 
 <span class="hljs-comment">// Configure the plugin</span>
 BackgroundGeolocation.ready({
-  <span class="hljs-attr">url</span>: <span class="hljs-string">'http://my.server.com'</span>,
-  <span class="hljs-attr">autoSync</span>: <span class="hljs-literal">true</span>
-}).then(<span class="hljs-function">(<span class="hljs-params">(state</span>) =&gt;</span> {
+  url: <span class="hljs-string">"http://my.server.com"</span>,
+  autoSync: <span class="hljs-literal">true</span>
+}).then(<span class="hljs-function">(<span class="hljs-params">(<span class="hljs-params">state</span>) =&gt; {
   <span class="hljs-comment">// Start monitoring geofences.</span>
-  BackgroundGeolocation.startGeofences();
-});</code></pre>
+  BackgroundGeolocation.startGeofences(<span class="hljs-params"></span>);
+}</span>);</span></code></pre>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
 											<li><a href="_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a></li>
@@ -3617,8 +3796,8 @@ BackgroundGeolocation.ready({
 								<p>To halt scheduled tracking, use <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stopschedule">stopSchedule</a>.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.startSchedule.then(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[startSchedule] success: '</span>, state);
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.startSchedule.then(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[startSchedule] success: "</span>, state);
 })</code></pre>
 										<h3 id="-see-also-">ℹ️ See also:</h3>
 										<ul>
@@ -3693,12 +3872,12 @@ BackgroundGeolocation.ready({
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.stop();</code></pre>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.stop();</code></pre>
 										<h3 id="-note-">⚠️ Note:</h3>
 										<p>If you&#39;ve configured a <a href="../interfaces/_react_native_background_geolocation_.config.html#schedule">schedule</a>, <strong><code>#stop</code></strong> will <strong>not</strong> halt the Scheduler.  You must explicitly <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stopschedule">stopSchedule</a> as well:</p>
 									</dd>
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-comment">// Later when you want to stop the Scheduler (eg: user logout)</span>
+									<dd><pre><code class="language-typescript"><span class="hljs-comment">// Later when you want to stop the Scheduler (eg: user logout)</span>
 BackgroundGeolocation.stopSchedule();</code></pre>
 									</dd>
 								</dl>
@@ -3770,7 +3949,7 @@ BackgroundGeolocation.stopSchedule();</code></pre>
 								to suspend your application if applicable.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.startBackgroundTask().then(<span class="hljs-function">(<span class="hljs-params">taskId</span>) =&gt;</span> {
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.startBackgroundTask().then(<span class="hljs-function">(<span class="hljs-params">taskId</span>) =&gt;</span> {
   <span class="hljs-comment">// Perform some long-running task (eg: HTTP request)</span>
   performLongRunningTask.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
     <span class="hljs-comment">// When your long-running task is complete, signal completion of taskId.</span>
@@ -3812,13 +3991,13 @@ BackgroundGeolocation.stopSchedule();</code></pre>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.stopSchedule.then(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[stopSchedule] success: '</span>, state);
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.stopSchedule.then(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[stopSchedule] success: "</span>, state);
 })</code></pre>
 										<p>⚠️ <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stopschedule">stopSchedule</a> will <strong>not</strong> execute <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a> if the plugin is currently tracking.  You must explicitly execute <a href="_react_native_background_geolocation_.backgroundgeolocation.html#stop">stop</a>.</p>
 									</dd>
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript"><span class="hljs-comment">// Later when you want to stop the Scheduler (eg: user logout)</span>
+									<dd><pre><code class="language-typescript"><span class="hljs-comment">// Later when you want to stop the Scheduler (eg: user logout)</span>
 <span class="hljs-keyword">await</span> BackgroundGeolocation.stopSchedule().then(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (state.enabled) {
     BackgroundGeolocation.stop();
@@ -3899,9 +4078,9 @@ BackgroundGeolocation.stopSchedule();</code></pre>
 									<dd><pre><code class="language-typescript">onResume() {
   <span class="hljs-comment">// Start watching position while app in foreground.</span>
   BackgroundGeolocation.watchPosition(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[watchPosition] -'</span>, location);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[watchPosition] -"</span>, location);
   }, <span class="hljs-function">(<span class="hljs-params">errorCode</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[watchPosition] ERROR -'</span>, errorCode);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[watchPosition] ERROR -"</span>, errorCode);
   }, {
    interval: <span class="hljs-number">1000</span>
   })
@@ -3955,10 +4134,10 @@ onSuspend() {
 								be called with an error message.  If you are <strong>not</strong> using the HTTP features, <a href="_react_native_background_geolocation_.backgroundgeolocation.html#sync">sync</a> will delete all records from its SQLite database.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-javascript">BackgroundGeolocation.sync(<span class="hljs-function">(<span class="hljs-params">records</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[sync] success: '</span>, records);
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.sync(<span class="hljs-function">(<span class="hljs-params">records</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[sync] success: "</span>, records);
 }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[sync] FAILURE: '</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[sync] FAILURE: "</span>, error);
 });
 </code></pre>
 										<p> ℹ️ For more information, see the <strong>HTTP Guide</strong> at <a href="../interfaces/_react_native_background_geolocation_.httpevent.html">HttpEvent</a>.</p>
@@ -4007,29 +4186,9 @@ onSuspend() {
 							<aside class="tsd-sources">
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Convenience method to compose a <a href="../interfaces/_react_native_background_geolocation_.config.html#params">params</a> Object suitable for posting to the <strong>Transistor Software Test Server</strong> at <a href="http://tracker.transistorsoft.com">http://tracker.transistorsoft.com</a>.  You must provide a reference to <strong><code>Device</code></strong> instance.</p>
-								</div>
-								<h4 id="cordova">Cordova</h4>
-								<ul>
-									<li>Provide an instance of <code>cordova-plugin-device</code> (Ionic: <code>@ionic-native/device</code>).</li>
-								</ul>
-								<h4 id="react-native">React Native</h4>
-								<ul>
-									<li>Provide an instance of <code>react-native-device-info</code></li>
-								</ul>
-								<p>The test server is a great way to debug location problems, since the results can easily be shared with <em>Transistor Software</em> when requesting support.</p>
-								<p><img src="https://dl.dropboxusercontent.com/s/3abuyyhioyypk8c/screenshot-tracker-transistorsoft.png?dl=1" alt=""></p>
 								<dl class="tsd-comment-tags">
-									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
-  url: <span class="hljs-string">'http://tracker.transistorsoft.com/locations/my-username'</span>,
-  params: BackgroundGeolocation.transistorTrackerParams(device)
-})</code></pre>
-										<h3 id="-note-">⚠️ Note:</h3>
-										<ul>
-											<li>To <em>view</em> your tracking results in the browser, the url is just <strong><code>/YOUR-USERNAME</code></strong> &mdash; not <code>/locations/YOUR-USERNAME</code></li>
-										</ul>
+									<dt class="tsd-comment-tag-deprecated">deprecated</dt>
+									<dd><p>Use <a href="../interfaces/_react_native_background_geolocation_.config.html#transistorauthorizationtoken">Config.transistorAuthorizationToken</a></p>
 									</dd>
 								</dl>
 							</div>
@@ -4068,9 +4227,9 @@ onSuspend() {
 									<dd><pre><code class="language-typescript">onResume() {
   <span class="hljs-comment">// Start watching position while app in foreground.</span>
   BackgroundGeolocation.watchPosition(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[watchPosition] -'</span>, location);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[watchPosition] -"</span>, location);
   }, <span class="hljs-function">(<span class="hljs-params">errorCode</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[watchPosition] ERROR -'</span>, errorCode);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[watchPosition] ERROR -"</span>, errorCode);
   }, {
     interval: <span class="hljs-number">1000</span>
   })
@@ -4293,7 +4452,13 @@ onSuspend() {
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#destroylog" class="tsd-kind-icon">destroy<wbr>Log</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#destroytransistorauthorizationtoken" class="tsd-kind-icon">destroy<wbr>Transistor<wbr>Authorization<wbr>Token</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#emaillog" class="tsd-kind-icon">email<wbr>Log</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#findorcreatetransistorauthorizationtoken" class="tsd-kind-icon">find<wbr>OrCreate<wbr>Transistor<wbr>Authorization<wbr>Token</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#finish" class="tsd-kind-icon">finish</a>
@@ -4306,6 +4471,9 @@ onSuspend() {
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#getcurrentposition" class="tsd-kind-icon">get<wbr>Current<wbr>Position</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#getdeviceinfo" class="tsd-kind-icon">get<wbr>Device<wbr>Info</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#getgeofence" class="tsd-kind-icon">get<wbr>Geofence</a>
@@ -4336,6 +4504,9 @@ onSuspend() {
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#ispowersavemode" class="tsd-kind-icon">is<wbr>Power<wbr>Save<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#onauthorization" class="tsd-kind-icon">on<wbr>Authorization</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#onnotificationaction" class="tsd-kind-icon">on<wbr>Notification<wbr>Action</a>
@@ -4420,6 +4591,12 @@ onSuspend() {
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_react_native_background_geolocation_.authorization.html" class="tsd-kind-icon">Authorization</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_react_native_background_geolocation_.authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../interfaces/_react_native_background_geolocation_.battery.html" class="tsd-kind-icon">Battery</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
@@ -4433,6 +4610,9 @@ onSuspend() {
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../interfaces/_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_react_native_background_geolocation_.deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../interfaces/_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
@@ -4484,6 +4664,9 @@ onSuspend() {
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../interfaces/_react_native_background_geolocation_.state.html" class="tsd-kind-icon">State</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../interfaces/_react_native_background_geolocation_.watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>

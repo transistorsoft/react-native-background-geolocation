@@ -5,7 +5,7 @@ declare module "react-native-background-geolocation" {
   * @example
   * ```typescript
   * BackgroundGeolocation.onHttp(httpEvent => {
-  *   console.log('[http] ', httpEvent.success, httpEvent.status);
+  *   console.log("[http] ", httpEvent.success, httpEvent.status);
   * });
   * ```
   *
@@ -18,11 +18,11 @@ declare module "react-native-background-geolocation" {
   * ```typescript
   * // Listen for HTTP responses.
   * BackgroundGeolocation.onHttp(response => {
-  *   console.log('[http] response: ', response.success, response.status, response.responseText);
+  *   console.log("[http] response: ", response.success, response.status, response.responseText);
   * });
   *
   * BackgroundGeolocation.ready({
-  *   url: 'https://my-server.com/locations',
+  *   url: "https://my-server.com/locations",
   *   autoSync: true,
   *   autoSyncThreshold: 5,
   *   batchSync: true,
@@ -36,10 +36,10 @@ declare module "react-native-background-geolocation" {
   *   extras: {
   *     route_id: 8675309
   *   },
-  *   locationsOrderDirection: 'DESC',
+  *   locationsOrderDirection: "DESC",
   *   maxDaysToPersist: 14
   * }, state => {
-  *   console.log('[ready] success: ', state);
+  *   console.log("[ready] success: ", state);
   * });
   * ```
   *
@@ -92,6 +92,10 @@ declare module "react-native-background-geolocation" {
   * ### Custom `JSON` Schema:  [[locationTemplate]] and [[geofenceTemplate]]
   *
   * The default HTTP `JSON` schema for both [[Location]] and [[Geofence]] can be overridden by the configuration options [[locationTemplate]] and [[geofenceTemplate]], allowing you to create any schema you wish.
+  *
+  * ### Strong Encryption
+  *
+  * The JSON payload in HTTP requests can be encrypted.  See [[Config.encrypt]].
   *
   * ### HTTP Logging
   *

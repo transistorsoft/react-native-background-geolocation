@@ -9,7 +9,7 @@ declare module "react-native-background-geolocation" {
   * @example
   * ```typescript
   * BackgroundGeolocation.onGeofencesChange(geofencesChangeEvent => {
-  *   console.log('[geofenceschange] ', geofencesChangeEvent.on, geofencesChangeEvent.off);
+  *   console.log("[geofenceschange] ", geofencesChangeEvent.on, geofencesChangeEvent.off);
   * });
   * ```
   * ### ⚠️ Note:

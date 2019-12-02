@@ -23,9 +23,9 @@ declare module "react-native-background-geolocation" {
   *     route_id: 1234
   *   }
   * }).then((success) => {
-  *   console.log('[addGeofence] success');
+  *   console.log("[addGeofence] success");
   * }).catch((error) => {
-  *   console.log('[addGeofence] FAILURE: ', error);
+  *   console.log("[addGeofence] FAILURE: ", error);
   * });
   * ```
   *
@@ -45,9 +45,9 @@ declare module "react-native-background-geolocation" {
   *   longitude: -73.71678582,
   *   notifyOnEntry: true
   * }]).then((success) => {
-  *   console.log('[addGeofences] success');
+  *   console.log("[addGeofences] success");
   * }).catch((error) => {
-  *   console.log('[addGeofences] FAILURE: ', error);
+  *   console.log("[addGeofences] FAILURE: ", error);
   * });
   * ```
   *
@@ -63,7 +63,7 @@ declare module "react-native-background-geolocation" {
   * ```typescript
   * // Listen for geofence events.
   * BackgroundGeolocation.onGeofence(geofence => {
-  *   console.log('[geofence] ', geofence.identifier, geofence.action);
+  *   console.log("[geofence] ", geofence.identifier, geofence.action);
   * });
   * ```
   *
@@ -88,7 +88,7 @@ declare module "react-native-background-geolocation" {
   * As the SDK periodically queries for geofences within the [[geofenceProximityRadius]], you can listen for changes in the actively-monitored geofences using the event [[onGeofencesChange]].  This event will let you know those geofences which have *begun* to be *actively monitored* ([[GeofencesChangeEvent.on]]) in addition to those which just *ceased* to be actively monitored ([[GeofencesChangeEvent.off]]).
   *
   * @example
-  * ```javascript
+  * ```typescript
   * BackgroundGeolocation.onGeofencesChange((event) => {
   *   let on = event.on;     //<-- new geofences activated.
   *   let off = event.off; //<-- geofences that were just de-activated.
@@ -117,8 +117,8 @@ declare module "react-native-background-geolocation" {
   * - Removing a single geofence by [[identifier]] with [[removeGeofence]]:
   * @example
   * ```typescript
-  * BackgroundGeolocation.removeGeofence('HOME').then(success => {
-  *   console.log('[removeGeofence] success');
+  * BackgroundGeolocation.removeGeofence("HOME").then(success => {
+  *   console.log("[removeGeofence] success");
   * })
   * ```
   *
@@ -126,7 +126,7 @@ declare module "react-native-background-geolocation" {
   * @example
   * ```typescript
   * BackgroundGeolocation.removeGeofences().then(success => {
-  *   console.log('[removeGeofences] all geofences have been destroyed');
+  *   console.log("[removeGeofences] all geofences have been destroyed");
   * })
   * ```
   * ---------------------------------------------------------------------------------------------------
@@ -138,7 +138,7 @@ declare module "react-native-background-geolocation" {
   * @example
   * ```typescript
   * BackgroundGeolocation.getGeofences().then(geofences => {
-  *   console.log('[getGeofences] ', geofences);
+  *   console.log("[getGeofences] ", geofences);
   * })
   * ```
   *
@@ -153,11 +153,11 @@ declare module "react-native-background-geolocation" {
   * @example
   * ```typescript
   * BackgroundGeolocation.onGeofence(geofence => {
-  *   console.log('[geofence] ', geofence);
+  *   console.log("[geofence] ", geofence);
   * })
   *
   * BackgroundGeolocation.ready({
-  *   url: 'http://your.server.com/geofences',
+  *   url: "http://your.server.com/geofences",
   *   autoSync: true,
   *   geofenceModeHighAccuracy: true   // <-- consumes more power; default is false.
   * }, state => {
@@ -174,12 +174,12 @@ declare module "react-native-background-geolocation" {
   * ```typescript
   * // Listen to geofence events
   * BackgroundGeolocation.onGeofence(geofence => {
-  *   console.log('[geofence] ', geofence);
-  *   if (geofence.identifier == 'DANGER_ZONE') {
-  *     if (geofence.action == 'ENTER') {
+  *   console.log("[geofence] ", geofence);
+  *   if (geofence.identifier == "DANGER_ZONE") {
+  *     if (geofence.action == "ENTER") {
   *       // Entering the danger-zone, we want to aggressively track location.
   *       BackgroundGeolocation.start();
-  *     } else if (geofence.action == 'EXIT') {
+  *     } else if (geofence.action == "EXIT") {
   *       // Exiting the danger-zone, we resume geofences-only tracking.
   *       BackgroundGeolocation.startGeofences();
   *     }
@@ -200,7 +200,7 @@ declare module "react-native-background-geolocation" {
   * BackgroundGeolocation.ready({
   *   desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
   *   distanceFilter: 10,
-  *   url: 'http://your.server.com/locations',
+  *   url: "http://your.server.com/locations",
   *   autoSync: true
   * }, state => {
   *   BackgroundGeolocation.startGeofences();

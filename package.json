@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-geolocation",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

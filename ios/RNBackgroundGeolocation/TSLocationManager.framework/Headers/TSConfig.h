@@ -170,7 +170,6 @@ TSConfig
 - (NSDictionary*) toDictionary:(BOOL)redact;
 
 // Logs a safe version of toDictionary with sensitive information redacted
-- (NSDictionary*) toLog;
 - (NSString*) toJson;
 - (void) registerPlugin:(NSString*)pluginName;
 - (BOOL) hasPluginForEvent:(NSString*)eventName;

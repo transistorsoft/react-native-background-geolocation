@@ -1,5 +1,10 @@
 # Change Log
 
+## 3.4.2 - 2019-12-03
+- [Fixed] iOS crash when launching first time `-[__NSDictionaryM setObject:forKey:]: object cannot be nil (key: authorization)'`
+- [Changed] Remove Android warning `In order to enable encryption, you must provide the com.transistorsoft.locationmanager.ENCRYPTION_PASSWORD` when using `encrypt: false`.
+- [Fixed] Added headless implementation for `geofenceschange` event.
+
 ## 3.4.1 - 2019-12-02
 - [Fixed] Android bug rendering `Authorization.toJson` when no `Config.authorization` defined.
 

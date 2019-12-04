@@ -16,5 +16,5 @@
 -(NSDictionary*) toDictionary:(BOOL)redact;
 -(BOOL) isEqual;
 - (id) valueFromDictionary:(NSDictionary*)values forKey:(NSString*)key forObject:(id)object defaultValue:(id)defaultValue;
-    
+
 @end

@@ -10,7 +10,7 @@
 		</data>
 		<key>Headers/ConfigModule.h</key>
 		<data>
-		gzMUdc4PBYVyMGeTQU3cxl+iOu4=
+		t2poqjNBoI2NSY/6Z/Js4Xb7NTg=
 		</data>
 		<key>Headers/HttpRequest.h</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Headers/TSConfig.h</key>
 		<data>
-		rTxpzW7LDtEmPplPkStsSrTCNbs=
+		/fFlQ/J0EKHY4jDAXMKfYXDG528=
 		</data>
 		<key>Headers/TSConnectivityChangeEvent.h</key>
 		<data>
@@ -122,7 +122,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		4MrGCYNKGHY27xHQTL+ffgeWp3A=
+		l5AUON/lrFKSNugLnp8XeXjQJT0=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -146,11 +146,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			gzMUdc4PBYVyMGeTQU3cxl+iOu4=
+			t2poqjNBoI2NSY/6Z/Js4Xb7NTg=
 			</data>
 			<key>hash2</key>
 			<data>
-			t2gXgKd/4HVoIAX4I5G8iHDwpCgPCjfgkMP0Z5kLE1o=
+			O8vBITezTQSTDxTmQ1rw01+K7zYuPsP8wM0Y4Wl4lw0=
 			</data>
 		</dict>
 		<key>Headers/HttpRequest.h</key>
@@ -245,11 +245,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rTxpzW7LDtEmPplPkStsSrTCNbs=
+			/fFlQ/J0EKHY4jDAXMKfYXDG528=
 			</data>
 			<key>hash2</key>
 			<data>
-			89Lmeuhr3WJ/z2402BDM2rjmmiFHX9wC3pce9u/kYL0=
+			4grUx7236zH7+mcgd5/cFS3TmJohfrHoHphW9vnXheo=
 			</data>
 		</dict>
 		<key>Headers/TSConnectivityChangeEvent.h</key>

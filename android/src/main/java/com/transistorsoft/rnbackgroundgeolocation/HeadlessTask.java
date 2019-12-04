@@ -65,6 +65,8 @@ public class HeadlessTask {
             params = event.getBootEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_GEOFENCE)) {
             params = event.getGeofenceEvent().toJson();
+        } else if (name.equals(BackgroundGeolocation.EVENT_GEOFENCESCHANGE)) {
+            params = event.getGeofencesChangeEvent().toJson();
         } else if (name.equals(BackgroundGeolocation.EVENT_HEARTBEAT)) {
             params = event.getHeartbeatEvent().toJson();
         } else if (name.equals(BackgroundGeolocation.EVENT_POWERSAVECHANGE)) {

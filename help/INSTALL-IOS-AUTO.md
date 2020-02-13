@@ -6,14 +6,14 @@
 ```shell
 yarn add react-native-background-geolocation
 
-yarn add react-native-background-fetch
+yarn add react-native-background-fetch@2.7.1
 ```
 
 ### With `npm`
 ```shell
 npm install react-native-background-geolocation --save
 
-npm install react-native-background-fetch --save
+npm install react-native-background-fetch@2.7.1 --save
 ```
 
 ## `pod install`

@@ -1,6 +1,7 @@
 /// <reference path="./GeofenceEvent.d.ts" />
 /// <reference path="./MotionActivityEvent.d.ts" />
 /// <reference path="./ProviderChangeEvent.d.ts" />
+/// <reference path="../types.d.ts" />
 ///
 declare module "react-native-background-geolocation" {
   /**
@@ -141,7 +142,7 @@ declare module "react-native-background-geolocation" {
     /**
     * `true` if location was recorded while plugin is in the *moving* state.
     */
-    isMoving: boolean;
+    is_moving: boolean;
     /**
     * Universally Unique Identifier.  You can use this to match locations recorded at your server with those in the logs.
     * It can also be used to ensure if the plugin has ever posted the same location *twice*.

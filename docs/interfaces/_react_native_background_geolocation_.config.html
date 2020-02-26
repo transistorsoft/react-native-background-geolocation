@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.4.2</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.6.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -162,6 +162,11 @@ BackgroundGeolocation.setConfig({
 										<td><a href="_react_native_background_geolocation_.config.html#locationauthorizationalert">locationAuthorizationAlert</a></td>
 										<td><code>Object</code></td>
 										<td>When you configure the plugin <a href="_react_native_background_geolocation_.config.html#locationauthorizationrequest">locationAuthorizationRequest</a> <code>Always</code> or <code>WhenInUse</code> and the user <em>changes</em> that value in the app&#39;s location-services settings or <em>disables</em> location-services, the plugin will display an Alert directing the user to the <strong>Settings</strong> screen.</td>
+									</tr>
+									<tr>
+										<td><a href="_react_native_background_geolocation_.config.html#showsbackgroundlocationindicator">showsBackgroundLocationIndicator</a></td>
+										<td><code>Boolean</code></td>
+										<td>A <code>boolean</code> indicating whether the status bar changes its appearance when an app uses location services in the background with <code>Always</code> authorization.</td>
 									</tr>
 							</tbody></table>
 							<h3 id="-geolocation-android-options">[Geolocation] Android Options</h3>
@@ -561,6 +566,7 @@ BackgroundGeolocation.setConfig({
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#reset" class="tsd-kind-icon">reset</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#schedule" class="tsd-kind-icon">schedule</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#scheduleusealarmmanager" class="tsd-kind-icon">schedule<wbr>Use<wbr>Alarm<wbr>Manager</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#showsbackgroundlocationindicator" class="tsd-kind-icon">shows<wbr>Background<wbr>Location<wbr>Indicator</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#speedjumpfilter" class="tsd-kind-icon">speed<wbr>Jump<wbr>Filter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#startonboot" class="tsd-kind-icon">start<wbr>OnBoot</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.config.html#stationaryradius" class="tsd-kind-icon">stationary<wbr>Radius</a></li>
@@ -2125,7 +2131,7 @@ BackgroundGeolocation.ready({
   locationAuthorizationAlert: {
     titleWhenNotEnabled: <span class="hljs-string">"Yo, location-services not enabled"</span>,
     titleWhenOff: <span class="hljs-string">"Yo, location-services OFF"</span>,
-    instructions: <span class="hljs-string">"You must enable "</span>Always<span class="hljs-string">" in location-services, buddy"</span>,
+    instructions: <span class="hljs-string">"You must enable 'Always' in location-services, buddy"</span>,
     cancelButton: <span class="hljs-string">"Cancel"</span>,
     settingsButton: <span class="hljs-string">"Settings"</span>
   }
@@ -3068,6 +3074,21 @@ schedule: [
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="showsbackgroundlocationindicator" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> shows<wbr>Background<wbr>Location<wbr>Indicator</h3>
+					<div class="tsd-signature tsd-kind-icon">shows<wbr>Background<wbr>Location<wbr>Indicator<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>[<strong>iOS Only</strong>] A Boolean indicating whether the status bar changes its appearance when an app uses location services in the background with <code>Always</code> authorization.</p>
+						</div>
+						<p>The default value of this property is <code>false</code>. The background location usage indicator is a blue bar or a blue pill in the status bar on iOS; on watchOS the indicator is a small icon. Users can tap the indicator to return to your app.</p>
+						<p>This property affects only apps that received <code>Always</code> authorization. When such an app moves to the background, the system uses this property to determine whether to change the status bar appearance to indicate that location services are in use. Set this value to true to maintain transparency with the user.</p>
+						<p>For apps with When In Use authorization, the system changes the appearance of the status bar when the app uses location services in the background.</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="speedjumpfilter" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> speed<wbr>Jump<wbr>Filter</h3>
 					<div class="tsd-signature tsd-kind-icon">speed<wbr>Jump<wbr>Filter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -3714,6 +3735,9 @@ BackgroundGeolocation.ready({
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.config.html#scheduleusealarmmanager" class="tsd-kind-icon">schedule<wbr>Use<wbr>Alarm<wbr>Manager</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_react_native_background_geolocation_.config.html#showsbackgroundlocationindicator" class="tsd-kind-icon">shows<wbr>Background<wbr>Location<wbr>Indicator</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.config.html#speedjumpfilter" class="tsd-kind-icon">speed<wbr>Jump<wbr>Filter</a>

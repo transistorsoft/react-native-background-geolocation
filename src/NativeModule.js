@@ -158,7 +158,7 @@ export default class NativeModule {
         if (typeof(failure) === 'function') {
           failure(response.error);
         } else {
-          console.warn(event + ' event error occurred without a failure callback handler: ', response);
+          success(response);
         }
       } else {
         success(response);

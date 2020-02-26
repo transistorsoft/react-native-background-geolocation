@@ -58,6 +58,7 @@ declare module "react-native-background-geolocation" {
   |-------------|-----------|-----------------------------------|
   | [[stationaryRadius]] | `Integer`  | __Default: `25`__.  When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage. |
   | [[locationAuthorizationAlert]] | `Object` | When you configure the plugin [[locationAuthorizationRequest]] `Always` or `WhenInUse` and the user *changes* that value in the app's location-services settings or *disables* location-services, the plugin will display an Alert directing the user to the **Settings** screen. |
+  | [[showsBackgroundLocationIndicator]] | `Boolean` | A `boolean` indicating whether the status bar changes its appearance when an app uses location services in the background with `Always` authorization. |
 
 
   ### [Geolocation] Android Options
@@ -1792,6 +1793,17 @@ declare module "react-native-background-geolocation" {
     pausesLocationUpdatesAutomatically?: boolean;
 
     /**
+    * [__iOS Only__] A Boolean indicating whether the status bar changes its appearance when an app uses location services in the background with `Always` authorization.
+    *
+    * The default value of this property is `false`. The background location usage indicator is a blue bar or a blue pill in the status bar on iOS; on watchOS the indicator is a small icon. Users can tap the indicator to return to your app.
+    *
+    * This property affects only apps that received `Always` authorization. When such an app moves to the background, the system uses this property to determine whether to change the status bar appearance to indicate that location services are in use. Set this value to true to maintain transparency with the user.
+    *
+    * For apps with When In Use authorization, the system changes the appearance of the status bar when the app uses location services in the background.
+    */
+    showsBackgroundLocationIndicator?: boolean;
+
+    /**
     * Defines the *desired* location-authorization request you *wish* for the user to authorize: "Always" or "When In Use".
     * @break
     *
@@ -1822,7 +1834,7 @@ declare module "react-native-background-geolocation" {
     *   locationAuthorizationAlert: {
     *     titleWhenNotEnabled: "Yo, location-services not enabled",
     *     titleWhenOff: "Yo, location-services OFF",
-    *     instructions: "You must enable "Always" in location-services, buddy",
+    *     instructions: "You must enable 'Always' in location-services, buddy",
     *     cancelButton: "Cancel",
     *     settingsButton: "Settings"
     *   }

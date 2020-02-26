@@ -76,6 +76,7 @@ typedef enum TSPersistMode : NSInteger {
 @property (nonatomic) BOOL geofenceInitialTriggerEntry;
 @property (nonatomic) CLLocationAccuracy desiredOdometerAccuracy;
 @property (nonatomic) BOOL enableTimestampMeta;
+@property (nonatomic) BOOL showsBackgroundLocationIndicator;
 
 // ActivityRecognition
 @property (nonatomic) BOOL isMoving;
@@ -217,6 +218,7 @@ TSConfig
 @property (nonatomic, readonly) BOOL geofenceInitialTriggerEntry;
 @property (nonatomic, readonly) CLLocationAccuracy desiredOdometerAccuracy;
 @property (nonatomic) BOOL enableTimestampMeta;
+@property (nonatomic) BOOL showsBackgroundLocationIndicator;
 
 /// @name ActivityRecognition Properties
 @property (nonatomic, readonly) CLActivityType activityType;

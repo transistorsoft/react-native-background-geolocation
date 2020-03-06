@@ -62,10 +62,10 @@ declare module "react-native-background-geolocation" {
    * @example
    * ```
    * {
-   *    "timestamp":     [Date],     // <-- Javascript Date instance
-   *    "event":         [String],    // <-- motionchange|geofence|heartbeat
-   *    "is_moving":     [Boolean],  // <-- The motion-state when location was recorded.
-   *    "uuid":          [String],   // <-- Universally unique identifier
+   *    "timestamp":     [ISO-8601 UTC], // <-- eg:  "2015-05-05T04:31:54.123Z"
+   *    "event":         [String],       // <-- motionchange|geofence|heartbeat
+   *    "is_moving":     [Boolean],      // <-- The motion-state when location was recorded.
+   *    "uuid":          [String],       // <-- Universally unique identifier
    *    "coords": {
    *        "latitude":  [Double],
    *        "longitude": [Double],

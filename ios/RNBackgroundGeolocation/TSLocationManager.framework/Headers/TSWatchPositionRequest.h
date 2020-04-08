@@ -9,13 +9,13 @@
 
 @interface TSWatchPositionRequest : NSObject
 
-@property (nonatomic) double interval;
-@property (nonatomic) CLLocationAccuracy desiredAccuracy;
-@property (nonatomic) BOOL persist;
-@property (nonatomic) NSDictionary* extras;
-@property (nonatomic) double timeout;
-@property (nonatomic, copy) void (^success)(TSLocation*);
-@property (nonatomic, copy) void (^failure)(NSError*);
+@property (atomic) double interval;
+@property (atomic) CLLocationAccuracy desiredAccuracy;
+@property (atomic) BOOL persist;
+@property (atomic) NSDictionary* extras;
+@property (atomic) double timeout;
+@property (atomic, copy) void (^success)(TSLocation*);
+@property (atomic, copy) void (^failure)(NSError*);
 
 -(instancetype) init;
 -(instancetype) initWithSuccess:(void (^)(TSLocation*))success failure:(void (^)(NSError*))failure;

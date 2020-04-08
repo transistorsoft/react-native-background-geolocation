@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.6.1</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.6.2</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -139,6 +139,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#maxrecordstopersist" class="tsd-kind-icon">max<wbr>Records<wbr>ToPersist</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#method" class="tsd-kind-icon">method</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#minimumactivityrecognitionconfidence" class="tsd-kind-icon">minimum<wbr>Activity<wbr>Recognition<wbr>Confidence</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#motiontriggerdelay" class="tsd-kind-icon">motion<wbr>Trigger<wbr>Delay</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#notification" class="tsd-kind-icon">notification</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#notificationchannelname" class="tsd-kind-icon">notification<wbr>Channel<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported"><a href="_react_native_background_geolocation_.state.html#notificationcolor" class="tsd-kind-icon">notification<wbr>Color</a></li>
@@ -2300,6 +2301,52 @@ BackgroundGeolocation.ready({
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
+					<a name="motiontriggerdelay" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> motion<wbr>Trigger<wbr>Delay</h3>
+					<div class="tsd-signature tsd-kind-icon">motion<wbr>Trigger<wbr>Delay<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_react_native_background_geolocation_.config.html">Config</a>.<a href="_react_native_background_geolocation_.config.html#motiontriggerdelay">motionTriggerDelay</a></p>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><strong><code>[Android only]</code></strong>  Optionally add a delay in milliseconds to trigger Android into the <em>moving</em> state when Motion API reports the device is moving (eg: <code>on_foot</code>, <code>in_vehicle</code>)</p>
+						</div>
+						<p>This can help prevent false-positive motion-triggering when one moves about their home, for example.  Only if the Motion API stays in the <em>moving</em> state for <code>motionTriggerDelay</code> milliseconds will the plugin trigger into the <em>moving</em> state and begin tracking the location.
+						If the Motion API returns to the <code>still</code> state before <code>motionTriggerDelay</code> times-out, the trigger to the <em>moving</em> state will be cancelled.</p>
+						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code class="language-typescript"><span class="hljs-comment">// Delay Android motion-triggering by 30000ms</span>
+BackgroundGeolocation.ready({
+  motionTriggerDelay: <span class="hljs-number">30000</span>
+})</code></pre>
+							</dd>
+							<dt class="tsd-comment-tag-break">break</dt>
+							<dd><p>The following <code>logcat</code> shows an Android device detecting motion <strong><code>on_foot</code></strong> but returning to <strong><code>still</code></strong> before <strong><code>motionTriggerDelay</code></strong> expires, cancelling the transition to the <em>moving</em> state (see <code>⏰ Cancel OneShot: MOTION_TRIGGER_DELAY</code>):</p>
+							</dd>
+							<dt class="tsd-comment-tag-logcat">logcat</dt>
+							<dd><pre><code class="language-bash"> 04-08 10:58:03.419 TSLocationManager: ╔═════════════════════════════════════════════
+ 04-08 10:58:03.419 TSLocationManager: ║ Motion Transition Result
+ 04-08 10:58:03.419 TSLocationManager: ╠═════════════════════════════════════════════
+ 04-08 10:58:03.419 TSLocationManager: ╟─ 🔴  EXIT: still
+ 04-08 10:58:03.419 TSLocationManager: ╟─ 🎾  ENTER: on_foot
+ 04-08 10:58:03.419 TSLocationManager: ╚═════════════════════════════════════════════
+ 04-08 10:58:03.416 TSLocationManager:   ⏰ Scheduled OneShot: MOTION_TRIGGER_DELAY <span class="hljs-keyword">in</span> 30000ms
+ .
+ . &lt;motionTriggerDelay timer started&gt;
+ .
+ 04-08 10:58:19.385 TSLocationManager: ╔═════════════════════════════════════════════
+ 04-08 10:58:19.385 TSLocationManager: ║ Motion Transition Result
+ 04-08 10:58:19.385 TSLocationManager: ╠═════════════════════════════════════════════
+ 04-08 10:58:19.385 TSLocationManager: ╟─ 🔴  EXIT: on_foot
+ 04-08 10:58:19.385 TSLocationManager: ╟─ 🎾  ENTER: still
+ 04-08 10:58:19.385 TSLocationManager: ╚═════════════════════════════════════════════
+ 04-08 10:58:19.381 TSLocationManager: [c.t.l.s.TSScheduleManager cancelOneShot]
+ 04-08 10:58:19.381 TSLocationManager:   ⏰ Cancel OneShot: MOTION_TRIGGER_DELAY &lt;-- timer cancelled</code></pre>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
 					<a name="notification" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> notification</h3>
 					<div class="tsd-signature tsd-kind-icon">notification<span class="tsd-signature-symbol">:</span> <a href="_react_native_background_geolocation_.notification.html" class="tsd-signature-type">Notification</a></div>
@@ -3514,6 +3561,9 @@ BackgroundGeolocation.ready({
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.state.html#minimumactivityrecognitionconfidence" class="tsd-kind-icon">minimum<wbr>Activity<wbr>Recognition<wbr>Confidence</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
+								<a href="_react_native_background_geolocation_.state.html#motiontriggerdelay" class="tsd-kind-icon">motion<wbr>Trigger<wbr>Delay</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-not-exported">
 								<a href="_react_native_background_geolocation_.state.html#notification" class="tsd-kind-icon">notification</a>

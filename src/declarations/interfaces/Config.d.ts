@@ -2121,6 +2121,45 @@ declare module "react-native-background-geolocation" {
     triggerActivities?: string;
 
     /**
+    * __`[Android only]`__  Optionally add a delay in milliseconds to trigger Android into the *moving* state when Motion API reports the device is moving (eg: `on_foot`, `in_vehicle`)
+    *
+    * This can help prevent false-positive motion-triggering when one moves about their home, for example.  Only if the Motion API stays in the *moving* state for `motionTriggerDelay` milliseconds will the plugin trigger into the *moving* state and begin tracking the location.
+    * If the Motion API returns to the `still` state before `motionTriggerDelay` times-out, the trigger to the *moving* state will be cancelled.
+    *
+    * @example
+    * ```typescript
+    * // Delay Android motion-triggering by 30000ms
+    * BackgroundGeolocation.ready({
+    *   motionTriggerDelay: 30000
+    * })
+    * ```
+    * @break
+    * The following `logcat` shows an Android device detecting motion __`on_foot`__ but returning to __`still`__ before __`motionTriggerDelay`__ expires, cancelling the transition to the *moving* state (see `⏰ Cancel OneShot: MOTION_TRIGGER_DELAY`):
+    * @logcat
+    * ```bash
+    *  04-08 10:58:03.419 TSLocationManager: ╔═════════════════════════════════════════════
+    *  04-08 10:58:03.419 TSLocationManager: ║ Motion Transition Result
+    *  04-08 10:58:03.419 TSLocationManager: ╠═════════════════════════════════════════════
+    *  04-08 10:58:03.419 TSLocationManager: ╟─ 🔴  EXIT: still
+    *  04-08 10:58:03.419 TSLocationManager: ╟─ 🎾  ENTER: on_foot
+    *  04-08 10:58:03.419 TSLocationManager: ╚═════════════════════════════════════════════
+    *  04-08 10:58:03.416 TSLocationManager:   ⏰ Scheduled OneShot: MOTION_TRIGGER_DELAY in 30000ms
+    *  .
+    *  . <motionTriggerDelay timer started>
+    *  .
+    *  04-08 10:58:19.385 TSLocationManager: ╔═════════════════════════════════════════════
+    *  04-08 10:58:19.385 TSLocationManager: ║ Motion Transition Result
+    *  04-08 10:58:19.385 TSLocationManager: ╠═════════════════════════════════════════════
+    *  04-08 10:58:19.385 TSLocationManager: ╟─ 🔴  EXIT: on_foot
+    *  04-08 10:58:19.385 TSLocationManager: ╟─ 🎾  ENTER: still
+    *  04-08 10:58:19.385 TSLocationManager: ╚═════════════════════════════════════════════
+    *  04-08 10:58:19.381 TSLocationManager: [c.t.l.s.TSScheduleManager cancelOneShot]
+    *  04-08 10:58:19.381 TSLocationManager:   ⏰ Cancel OneShot: MOTION_TRIGGER_DELAY <-- timer cancelled
+    * ```
+    */
+    motionTriggerDelay?: number;
+
+    /**
     * __`[Android only]`__ Enables "Headless" operation allowing you to respond to events after you app has been terminated with [[stopOnTerminate]] __`false`__.
     * @break
     *

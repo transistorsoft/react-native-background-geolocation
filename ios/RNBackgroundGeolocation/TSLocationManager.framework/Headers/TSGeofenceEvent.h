@@ -22,7 +22,7 @@
 @property (nonatomic, readonly) BOOL isLoitering;
 @property (nonatomic, readonly) BOOL isFinishedLoitering;
 
--(id)initWithGeofence:(TSGeofence*)geofence region:(CLCircularRegion*)circularRegion action:(NSString*)actionName;
+-(instancetype)initWithGeofence:(TSGeofence*)geofence region:(CLCircularRegion*)circularRegion action:(NSString*)actionName;
 -(void) startLoiteringAt:(CLLocation*)location callback:(void (^)(void))callback;
 -(BOOL) isLoiteringAt:(CLLocation*)location;
 -(void) setTriggerLocation:(CLLocation*)location;

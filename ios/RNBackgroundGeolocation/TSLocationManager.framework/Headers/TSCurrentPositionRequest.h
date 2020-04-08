@@ -9,14 +9,14 @@
 
 @interface TSCurrentPositionRequest : NSObject
 
-@property (nonatomic) NSTimeInterval timeout;
-@property (nonatomic) double maximumAge;
-@property (nonatomic) BOOL persist;
-@property (nonatomic) int samples;
-@property (nonatomic) CLLocationAccuracy desiredAccuracy;
-@property (nonatomic) NSDictionary* extras;
-@property (nonatomic, copy) void (^success)(TSLocation*);
-@property (nonatomic, copy) void (^failure)(NSError*);
+@property (atomic) NSTimeInterval timeout;
+@property (atomic) double maximumAge;
+@property (atomic) BOOL persist;
+@property (atomic) int samples;
+@property (atomic) CLLocationAccuracy desiredAccuracy;
+@property (atomic) NSDictionary* extras;
+@property (atomic, copy) void (^success)(TSLocation*);
+@property (atomic, copy) void (^failure)(NSError*);
 
 -(instancetype) init;
 -(instancetype) initWithSuccess:(void (^)(TSLocation*))success failure:(void (^)(NSError*))failure;

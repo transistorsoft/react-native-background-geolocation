@@ -20,15 +20,22 @@ typedef enum tsLocationError : NSInteger {
     TS_LOCATION_ERROR_TIMEOUT = 408
 } tsLocationError;
 
+@property (readonly) NSInteger currentAttempts;
+@property (atomic) NSTimer *timeoutTimer;
+@property (atomic) NSTimer *watchPositionTimer;
+@property (atomic, readonly) NSTimeInterval locationTimeout;
 
-@property (strong, nonatomic) CLLocationManager* locationManager;
-@property (nonatomic, readonly) UIBackgroundTaskIdentifier preventSuspendTask;
-@property (strong, nonatomic) CLLocation* lastLocation;
-@property (strong, nonatomic) CLLocation* bestLocation;
-@property (nonatomic) NSInteger maxLocationAttempts;
-@property (nonatomic) CLLocationDistance distanceFilter;
-@property (nonatomic) CLLocationAccuracy desiredAccuracy;
-@property (nonatomic) CLActivityType activityType;
+@property (atomic, readonly) BOOL isAcquiringBackgroundTime;
+@property (atomic, readonly) NSTimer *preventSuspendTimer;
+
+@property (strong, atomic, readonly) CLLocationManager* locationManager;
+@property (atomic, readonly) UIBackgroundTaskIdentifier preventSuspendTask;
+@property (strong, atomic, readonly) CLLocation* lastLocation;
+@property (strong, atomic, readonly) CLLocation* bestLocation;
+@property (atomic) NSInteger maxLocationAttempts;
+@property (atomic) CLLocationDistance distanceFilter;
+@property (atomic) CLLocationAccuracy desiredAccuracy;
+@property (atomic) CLActivityType activityType;
 @property (readonly) BOOL isUpdating;
 @property (readonly) BOOL isWatchingPosition;
 

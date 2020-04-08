@@ -22,11 +22,15 @@
 		</data>
 		<key>Headers/LocationManager.h</key>
 		<data>
-		OZVdBVZxlmvxHgRGA5v3Qua+ZRk=
+		26z5bx4aKmOQHVA1ZOZc5stfhzQ=
 		</data>
 		<key>Headers/LogQuery.h</key>
 		<data>
 		kTLr282hQEbsld80ev5wPrepslo=
+		</data>
+		<key>Headers/SOMotionDetector.h</key>
+		<data>
+		He905T3H+v9zlWr1obquQPbaMIs=
 		</data>
 		<key>Headers/SQLQuery.h</key>
 		<data>
@@ -44,6 +48,10 @@
 		<data>
 		Wn2hOqYVOsqarkCWuGd+3MDO/rU=
 		</data>
+		<key>Headers/TSCallback.h</key>
+		<data>
+		ArylyEwFXPP51rl3NYGid9GhKik=
+		</data>
 		<key>Headers/TSConfig.h</key>
 		<data>
 		8NrAmesyPeOv6wRcaXqgULReY8k=
@@ -54,7 +62,7 @@
 		</data>
 		<key>Headers/TSCurrentPositionRequest.h</key>
 		<data>
-		yKTpnW40XVP/6siKMvaUdYenXqk=
+		S4inI0CB0en0/gQPerpA0sd5Cu0=
 		</data>
 		<key>Headers/TSDeviceInfo.h</key>
 		<data>
@@ -70,7 +78,11 @@
 		</data>
 		<key>Headers/TSGeofenceEvent.h</key>
 		<data>
-		uyBOtTRKxh3NZ8v3mZrs5lUxSIA=
+		kbrNiP/I4GOi/koYa9y5MVnyyvU=
+		</data>
+		<key>Headers/TSGeofenceManager.h</key>
+		<data>
+		LlHclgnJCVhQ5Nj3h0Of9vaZ8+o=
 		</data>
 		<key>Headers/TSGeofencesChangeEvent.h</key>
 		<data>
@@ -86,15 +98,15 @@
 		</data>
 		<key>Headers/TSHttpService.h</key>
 		<data>
-		pcxwT40YhlFi5W+RkVbK+atyEJU=
+		X4h7hILw8BHSXwL+vd/IwkQM+bk=
 		</data>
 		<key>Headers/TSLocation.h</key>
 		<data>
-		XmQdYVFPQDSjz2QIk2E+63c/YyU=
+		ZOhXybXZGss84kW1u83mEd3w49o=
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		LBq6odqsT+gQH2L4KqwbZ1IJZrk=
+		i37kPF8rasNRqyQznOB0mP7naN8=
 		</data>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
 		<data>
@@ -104,9 +116,13 @@
 		<data>
 		CXnFy7GKyGc92cKNJg5cDZQkWR4=
 		</data>
+		<key>Headers/TSReachability.h</key>
+		<data>
+		PjdK2ziSMxq9p3WVr57RVU2D1iI=
+		</data>
 		<key>Headers/TSSchedule.h</key>
 		<data>
-		vgr7b6b9rkKglJmzp3gHFjTT77M=
+		X2adtUoiGI3hvo0qao7XXqtPNcw=
 		</data>
 		<key>Headers/TSScheduleEvent.h</key>
 		<data>
@@ -114,7 +130,7 @@
 		</data>
 		<key>Headers/TSWatchPositionRequest.h</key>
 		<data>
-		TCTUqTfuhG+ea4V0XoLX0jQA7ek=
+		OVmE804m1lo8t7N9GOq6DPGnNew=
 		</data>
 		<key>Headers/TransistorAuthorizationToken.h</key>
 		<data>
@@ -122,7 +138,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		I7iRn3ALhpdpB1rd5RUnFCiwkcg=
+		7RX0rNJv/oxO95Ody4kayMpDzeg=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -179,11 +195,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			OZVdBVZxlmvxHgRGA5v3Qua+ZRk=
+			26z5bx4aKmOQHVA1ZOZc5stfhzQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			VJupChEwECX4hmPtzqLaMSmQqC3qLcsSnWa00STPXdo=
+			K+ugS2feQFtamIKRtv0U4zDRnpANQSSa0N9HR9UT34Q=
 			</data>
 		</dict>
 		<key>Headers/LogQuery.h</key>
@@ -195,6 +211,17 @@
 			<key>hash2</key>
 			<data>
 			yEjbCu5h6chDw9uYPPNSLmSKu3FBuSmja1j/arVyfJs=
+			</data>
+		</dict>
+		<key>Headers/SOMotionDetector.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			He905T3H+v9zlWr1obquQPbaMIs=
+			</data>
+			<key>hash2</key>
+			<data>
+			/1mxRYF+wAKdpuWkyINBwOyf3NJ4GWwLxgnR1O9Gfgk=
 			</data>
 		</dict>
 		<key>Headers/SQLQuery.h</key>
@@ -241,6 +268,17 @@
 			39Dl3JzmUFOB1jZ1UIcODGYk3u2bYiRCQBzFxE8K7j4=
 			</data>
 		</dict>
+		<key>Headers/TSCallback.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ArylyEwFXPP51rl3NYGid9GhKik=
+			</data>
+			<key>hash2</key>
+			<data>
+			qej02+htk4hySJkU1CuUDF1rs152ngTp/OjNesQwChw=
+			</data>
+		</dict>
 		<key>Headers/TSConfig.h</key>
 		<dict>
 			<key>hash</key>
@@ -267,11 +305,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			yKTpnW40XVP/6siKMvaUdYenXqk=
+			S4inI0CB0en0/gQPerpA0sd5Cu0=
 			</data>
 			<key>hash2</key>
 			<data>
-			bnfli5n57enpBEZC5kQ6T87yaGFCxzELlZO/1I+KAkY=
+			k23D8S3YLWI9EXc7fh0u9dnTuyT1QA/VDOpqSP9By40=
 			</data>
 		</dict>
 		<key>Headers/TSDeviceInfo.h</key>
@@ -311,11 +349,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			uyBOtTRKxh3NZ8v3mZrs5lUxSIA=
+			kbrNiP/I4GOi/koYa9y5MVnyyvU=
 			</data>
 			<key>hash2</key>
 			<data>
-			YR4K7Qx+VJtb2rcuBGTeuOIgXHB2anXN/Nm1eTh36Eo=
+			uqAXMHhkpnkHHYwUJwWW/b1jNM0oGp6iT7dhiGZxVKA=
+			</data>
+		</dict>
+		<key>Headers/TSGeofenceManager.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			LlHclgnJCVhQ5Nj3h0Of9vaZ8+o=
+			</data>
+			<key>hash2</key>
+			<data>
+			txYh0hNYTRk56ZfXBSwTszSWiU2op2DMUiMstToT4ik=
 			</data>
 		</dict>
 		<key>Headers/TSGeofencesChangeEvent.h</key>
@@ -355,33 +404,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			pcxwT40YhlFi5W+RkVbK+atyEJU=
+			X4h7hILw8BHSXwL+vd/IwkQM+bk=
 			</data>
 			<key>hash2</key>
 			<data>
-			j325mmavC0Yu3nNgnc4e5dGm2ODK03HJOImdeviU/HQ=
+			Nk9FOrH+1UwDxBRejaCszwm5cckCb2SVtRkRSk/XcK0=
 			</data>
 		</dict>
 		<key>Headers/TSLocation.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			XmQdYVFPQDSjz2QIk2E+63c/YyU=
+			ZOhXybXZGss84kW1u83mEd3w49o=
 			</data>
 			<key>hash2</key>
 			<data>
-			VKFXGOgHqSWyCnKLO5O+gAUXNJep3B93VJM/rERRArQ=
+			TSvnvdnSzHeA3LKw8qJMQJR/HBmlgLQ+446VE9u1atk=
 			</data>
 		</dict>
 		<key>Headers/TSLocationManager.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			LBq6odqsT+gQH2L4KqwbZ1IJZrk=
+			i37kPF8rasNRqyQznOB0mP7naN8=
 			</data>
 			<key>hash2</key>
 			<data>
-			T7iG0ohgHx5YGXpn8ZCoXH868DxuP2xLMxxiM3/jNxo=
+			N2lVS/ct7m6QQhaiGF7+jGm0CIlwPVtGju27+vyz+Ns=
 			</data>
 		</dict>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
@@ -406,15 +455,26 @@
 			KUP8RBL0QCPUcyLqJwo904f3BEnS4fXKuPLBHvFBImM=
 			</data>
 		</dict>
+		<key>Headers/TSReachability.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			PjdK2ziSMxq9p3WVr57RVU2D1iI=
+			</data>
+			<key>hash2</key>
+			<data>
+			DhGFY26DAzA+IwoHlDFl9mGZ3E6svYsxOF5ZmbWp5RE=
+			</data>
+		</dict>
 		<key>Headers/TSSchedule.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			vgr7b6b9rkKglJmzp3gHFjTT77M=
+			X2adtUoiGI3hvo0qao7XXqtPNcw=
 			</data>
 			<key>hash2</key>
 			<data>
-			CbPQ4/Eht89oWUWGjR0Dp2hDYJLhAun+fTpw9HmSIBs=
+			vpdCBVuV9sWsMe2kKOyILe2XVQSycTDxYEF3c5bKjfc=
 			</data>
 		</dict>
 		<key>Headers/TSScheduleEvent.h</key>
@@ -432,11 +492,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			TCTUqTfuhG+ea4V0XoLX0jQA7ek=
+			OVmE804m1lo8t7N9GOq6DPGnNew=
 			</data>
 			<key>hash2</key>
 			<data>
-			6LM8P1xMusGh1+03M0X4gP/R/JUrrjrsqz58KE3Q2+g=
+			aYB4EOhEvIJFOvKVz1tcgNtmxtAm6WaILNxdHtcoZl8=
 			</data>
 		</dict>
 		<key>Headers/TransistorAuthorizationToken.h</key>

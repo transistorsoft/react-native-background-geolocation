@@ -1,6 +1,9 @@
 # Change Log
 
-## 3.6.1 - 2020-03-20
+## 3.6.2 - 2020-04-08
+- [Added] [Android] Add new `Config.motionTriggerDelay (milliseconds)` for preventing false-positive triggering of location-tracking (while walking around one's house, for example).  If the motion API triggers back to `still` before `motionTriggerDelay` expires, triggering to the *moving* state will be cancelled.
+- [Fixed] Address issue with rare reports of iOS crashing with error referencing `SOMotionDetector.m`.
+- [Fixed] Odometer issue with Android/iOS:  Do not persist `lastOdometerLocation` when plugin is disabled.
 - [Added] iOS `Config.showsBackgroundLocationIndicator`, A Boolean indicating whether the status bar changes its appearance when an app uses location services in the background.
 - [Changed] `cordova-plugin-background-fetch` dependency updated to `3.x` with new iOS 13 `BGTaskScheduler` API.
 - [Fixed] `synchronize` methods in `TSLocationManager` to address Android NPE related to `buildTSLocation`.

@@ -10,6 +10,7 @@ def DEFAULT_GOOGLE_PLAY_SERVICES_LOCATION_VERSION   = "17.0.0"
 def DEFAULT_OK_HTTP_VERSION                         = "3.12.1"
 def DEFAULT_ANDROID_PERMISSIONS_VERSION             = "0.1.8"
 def DEFAULT_EVENTBUS_VERSION                        = "3.0.0"
+def DEFAULT_LOCAL_BROADCAST_MANAGER_VERSION         = "1.0.0"
 
 def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
@@ -42,7 +43,7 @@ dependencies {
     def okHttpVersion = safeExtGet('okHttpVersion', DEFAULT_OK_HTTP_VERSION)
     def androidPermissionsVersion = safeExtGet('androidPermissionsVersion', DEFAULT_ANDROID_PERMISSIONS_VERSION)
     def eventBusVersion = safeExtGet('eventBusVersion', DEFAULT_EVENTBUS_VERSION)
-
+    def localBroadcastManagerVersion = safeExtGet('localBroadcastManagerVersion', DEFAULT_LOCAL_BROADCAST_MANAGER_VERSION)
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
     // tslocationmanager.aar
     implementation fileTree(include: ['*.aar'], dir: 'libs')
@@ -54,4 +55,5 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:1.7.25'
     implementation 'com.github.tony19:logback-android:2.0.0'
     implementation "com.intentfilter:android-permissions:$androidPermissionsVersion"
+    implementation "androidx.localbroadcastmanager:localbroadcastmanager:$localBroadcastManagerVersion"
 }

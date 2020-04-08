@@ -15,6 +15,8 @@
 #import "TSAuthorizationEvent.h"
 #import "AtomicBoolean.h"
 #import "HttpRequest.h"
+#import "TSReachability.h"
+#import "TSCallback.h"
 
 @class TSHttpService;
 
@@ -27,7 +29,18 @@
 
 @property (copy) void (^httpResponseBlock) (HttpRequest *request, HttpResponse *response);
 
-@property (nonatomic, readonly) BOOL hasNetworkConnection;
+@property (nonatomic) AtomicBoolean *isBusy;
+@property (nonatomic) BOOL hasNetworkConnection;
+
+@property (nonatomic, readonly) NSMutableArray *syncedRecords;
+@property (nonatomic, readonly) TSReachability *reachability;
+@property (nonatomic, readonly) UIBackgroundTaskIdentifier bgTask;
+
+@property (nonatomic, readonly) NSMutableSet *connectivityChangeListeners;
+@property (nonatomic, readonly) NSMutableSet *authorizationListeners;
+
+@property (nonatomic) TSCallback *callback;
+@property (nonatomic) long autoSyncThreshold;
 
 #pragma mark - Methods
 -(void)flush;
@@ -35,11 +48,11 @@
 -(void)flush:(void(^)(NSArray*))success failure:(void(^)(NSError*))failure;
 -(void)startMonitoring;
 -(void)stopMonitoring;
--(BOOL)hasNetworkConnection;
+
 -(void)onConnectivityChange:(void (^)(TSConnectivityChangeEvent*))success;
 -(void)onAuthorization:(void(^)(TSAuthorizationEvent*))callback;
 -(void)un:(NSString*)event callback:(void(^)(id))callback;
 -(void)removeListeners;
 -(void)removeListeners:(NSString*)event;
--(BOOL)isBusy;
+
 @end

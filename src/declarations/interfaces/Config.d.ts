@@ -58,6 +58,7 @@ declare module "react-native-background-geolocation" {
   |-------------|-----------|-----------------------------------|
   | [[stationaryRadius]] | `Integer`  | __Default: `25`__.  When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage. |
   | [[locationAuthorizationAlert]] | `Object` | When you configure the plugin [[locationAuthorizationRequest]] `Always` or `WhenInUse` and the user *changes* that value in the app's location-services settings or *disables* location-services, the plugin will display an Alert directing the user to the **Settings** screen. |
+  | [[showsBackgroundLocationIndicator]] | `Boolean` | A `boolean` indicating whether the status bar changes its appearance when an app uses location services in the background with `Always` authorization. |
 
 
   ### [Geolocation] Android Options
@@ -1607,25 +1608,27 @@ declare module "react-native-background-geolocation" {
     * | Event                      | iOS                     | Android                    |
     * |----------------------------|-------------------------|----------------------------|
     * | `LOCATION_RECORDED`        | <mediaplayer:https://dl.dropbox.com/s/yestzqdb6gzx7an/location-recorded.mp3?dl=0>        | <mediaplayer:https://dl.dropboxusercontent.com/s/d3e821scn5fppq6/tslocationmanager_ooooiii3_full_vol.wav?dl=0>      |
-    * | `LOCATION_SAMPLE`          | <mediaplayer:https://dl.dropbox.com/s/7inowa0folzlal3/location-sample.mp3?dl=0>          | <mediaplayer:https://dl.dropbox.com/s/8bgiyifowyf9c7n/tslocationmanager_click_tap_done_checkbox5_full_vol.wav?dl=0> |
-    * | `LOCATION_ERROR`           | <mediaplayer:https://dl.dropbox.com/s/lwmx6j2ddzke1c7/location-error.mp3?dl=0>           | <mediaplayer:https://dl.dropbox.com/s/wadrz2x6elhc65l/tslocationmanager_digi_warn.mp3?dl=0>                         |
-    * | `LOCATION_SERVICES_ON`     | <mediaplayer:https://dl.dropbox.com/s/4cith8fg58bf5rh/location-services-on.mp3?dl=0>     | n/a                                                                                                                 |
-    * | `LOCATION_SERVICES_OFF`    | <mediaplayer:https://dl.dropbox.com/s/vdntndpzl1ebeq2/location-services-off.mp3?dl=0>    | n/a                                                                                                                 |
-    * | `STATIONARY_GEOFENCE_EXIT` | <mediaplayer:https://dl.dropbox.com/s/6voj31fmmoqhveb/motionchange-true.mp3?dl=0>        | <mediaplayer:https://dl.dropbox.com/s/gjgv51pot3h2n3t/tslocationmanager_zap_fast.mp3?dl=0>                          |
-    * | `MOTIONCHANGE_FALSE`       | <mediaplayer:https://dl.dropbox.com/s/qjduicy3c9d4yfv/motionchange-false.mp3?dl=0>       | <mediaplayer:https://dl.dropbox.com/s/fm4j2t8nqzd5856/tslocationmanager_marimba_drop.mp3?dl=0>                      |
-    * | `MOTIONCHANGE_TRUE`        | <mediaplayer:https://dl.dropbox.com/s/6voj31fmmoqhveb/motionchange-true.mp3?dl=0>        | <mediaplayer:https://dl.dropbox.com/s/n5mn6tr7x994ivg/tslocationmanager_chime_short_chord_up.mp3?dl=0>              |
-    * | `STOP_DETECTION_DELAY_INITIATED` | <mediaplayer:https://dl.dropbox.com/s/34jf8sifr5nkyie/stopDetectionDelay.mp3?dl=0> | n/a                                                                                                                 |
-    * | `STOP_TIMER_ON`            | <mediaplayer:https://dl.dropbox.com/s/s6dou5vv55glq5w/stop-timeout-start.mp3?dl=0>       | <mediaplayer:https://dl.dropbox.com/s/q4a9pf0vlztfafh/tslocationmanager_chime_bell_confirm.mp3?dl=0>                |
-    * | `STOP_TIMER_OFF`           | <mediaplayer:https://dl.dropbox.com/s/c39phjw0vogg8lm/stop-timeout-cancel.mp3?dl=0>      | <mediaplayer:https://dl.dropbox.com/s/9o9v826was19lyi/tslocationmanager_bell_ding_pop.mp3?dl=0>                     |
-    * | `HEARTBEAT`                | <mediaplayer:https://dl.dropbox.com/s/5rdc38isc8yf323/heartbeat.mp3?dl=0>                | <mediaplayer:https://dl.dropbox.com/s/bsdtw21hscqqy67/tslocationmanager_peep_note1.wav?dl=0>                        |
-    * | `GEOFENCE_ENTER`           | <mediaplayer:https://dl.dropbox.com/s/i4hzh4rgmd1lo20/geofence-enter.mp3?dl=0>           | <mediaplayer:https://dl.dropbox.com/s/76up5ik215xwxh1/tslocationmanager_beep_trip_up_dry.mp3?dl=0>                  |
-    * | `GEOFENCE_EXIT`            | <mediaplayer:https://dl.dropbox.com/s/nwonzl1ni15qv1k/geofence-exit.mp3?dl=0>            | <mediaplayer:https://dl.dropbox.com/s/xuyyagffheyk8r7/tslocationmanager_beep_trip_dry.mp3?dl=0>                     |
-    * | `GEOFENCE_DWELL_START`     | <mediaplayer:https://dl.dropbox.com/s/djlpw2ejaioq0g2/geofence-dwell-start.mp3?dl=0>     | n/a                                                                                                                 |
-    * | `GEOFENCE_DWELL_CANCEL`    | <mediaplayer:https://dl.dropbox.com/s/37xvre56gz3ro58/geofence-dwell-cancel.mp3?dl=0>    | n/a                                                                                                                 |
-    * | `GEOFENCE_DWELL`           | `GEOFENCE_ENTER` after `GEOFENCE_DWELL_START`                                            | <mediaplayer:https://dl.dropbox.com/s/uw5vjuatm3wnuid/tslocationmanager_beep_trip_up_echo.mp3?dl=0>                 |
-    * | `ERROR`                    | <mediaplayer:https://dl.dropbox.com/s/13c50fnepyiknnb/error.mp3?dl=0>                    | <mediaplayer:https://dl.dropbox.com/s/32e93c1t4kh69p1/tslocationmanager_music_timpani_error_01.mp3?dl=0>            |
-    * | `WARNING`                  | n/a                                                                                      | <mediaplayer:https://dl.dropbox.com/s/wadrz2x6elhc65l/tslocationmanager_digi_warn.mp3?dl=0>                         |
-    * | `BACKGROUND_FETCH`         | <mediaplayer:https://dl.dropbox.com/s/am91js76s0ehjo1/background-fetch.mp3?dl=0>         | n/a                                                                                                                 |
+    * | `LOCATION_SAMPLE`          | <mediaplayer:https://dl.dropbox.com/s/8gp2nkzza2hql4r/location-sample.mp3?dl=0>          | <mediaplayer:https://dl.dropboxusercontent.com/s/8bgiyifowyf9c7n/tslocationmanager_click_tap_done_checkbox5_full_vol.wav?dl=0> |
+    * | `LOCATION_ERROR`           | <mediaplayer:https://dl.dropbox.com/s/l3rmf99rj3g5u6b/location-error.mp3?dl=0>           | <mediaplayer:https://dl.dropboxusercontent.com/s/wadrz2x6elhc65l/tslocationmanager_digi_warn.mp3?dl=0>                         |
+    * | `LOCATION_SERVICES_ON`     | <mediaplayer:https://dl.dropbox.com/s/urbjiqn0f4g1jhi/location-services-on.mp3?dl=0>     | n/a                                                                                                                 |
+    * | `LOCATION_SERVICES_OFF`    | <mediaplayer:https://dl.dropbox.com/s/0wb7qajfb0yy9w0/location-services-off.mp3?dl=0>    | n/a                                                                                                                 |
+    * | `STATIONARY_GEOFENCE_EXIT` | <mediaplayer:https://dl.dropbox.com/s/p8ee60qvfgx4vi5/motionchange-true.mp3?dl=0>        | <mediaplayer:https://dl.dropboxusercontent.com/s/gjgv51pot3h2n3t/tslocationmanager_zap_fast.mp3?dl=0>                          |
+    * | `MOTIONCHANGE_FALSE`       | <mediaplayer:https://dl.dropbox.com/s/xk00hsfi87nrw3q/motionchange-false.mp3?dl=0>       | <mediaplayer:https://dl.dropboxusercontent.com/s/fm4j2t8nqzd5856/tslocationmanager_marimba_drop.mp3?dl=0>                      |
+    * | `MOTIONCHANGE_TRUE`        | <mediaplayer:https://dl.dropbox.com/s/p8ee60qvfgx4vi5/motionchange-true.mp3?dl=0>        | <mediaplayer:https://dl.dropboxusercontent.com/s/n5mn6tr7x994ivg/tslocationmanager_chime_short_chord_up.mp3?dl=0>              |
+    * | `MOTION_TRIGGER_DELAY_START` | n/a | <mediaplayer:https://dl.dropboxusercontent.com/s/cb3fa0zp0c4xjmt/tslocationmanager_dot_retry.wav?dl=0>                                                                                                            |
+    * | `MOTION_TRIGGER_DELAY_CANCEL`| n/a | <mediaplayer:https://dl.dropboxusercontent.com/s/4pg3r4xooi9pe0g/tslocationmanager_dot_stopaction2.wav?dl=0>                                                                                                      |
+    * | `STOP_DETECTION_DELAY_INITIATED` | <mediaplayer:https://dl.dropbox.com/s/y898zopjfolx42d/stopDetectionDelay.mp3?dl=0> | n/a                                                                                                                 |
+    * | `STOP_TIMER_ON`            | <mediaplayer:https://dl.dropbox.com/s/7mjcmnszhjo6ywj/stop-timeout-start.mp3?dl=0>       | <mediaplayer:https://dl.dropboxusercontent.com/s/q4a9pf0vlztfafh/tslocationmanager_chime_bell_confirm.mp3?dl=0>                |
+    * | `STOP_TIMER_OFF`           | <mediaplayer:https://dl.dropbox.com/s/qnsdu7b6vxic01i/stop-timeout-cancel.mp3?dl=0>      | <mediaplayer:https://dl.dropboxusercontent.com/s/9o9v826was19lyi/tslocationmanager_bell_ding_pop.mp3?dl=0>                     |
+    * | `HEARTBEAT`                | <mediaplayer:https://dl.dropbox.com/s/90vyfo3woe52ijo/heartbeat.mp3?dl=0>                | <mediaplayer:https://dl.dropboxusercontent.com/s/bsdtw21hscqqy67/tslocationmanager_peep_note1.wav?dl=0>                        |
+    * | `GEOFENCE_ENTER`           | <mediaplayer:https://dl.dropbox.com/s/h3047lybsggats7/geofence-enter.mp3?dl=0>           | <mediaplayer:https://dl.dropboxusercontent.com/s/76up5ik215xwxh1/tslocationmanager_beep_trip_up_dry.mp3?dl=0>                  |
+    * | `GEOFENCE_EXIT`            | <mediaplayer:https://dl.dropbox.com/s/2e8bg22c6g9zwxr/geofence-exit.mp3?dl=0>            | <mediaplayer:https://dl.dropboxusercontent.com/s/xuyyagffheyk8r7/tslocationmanager_beep_trip_dry.mp3?dl=0>                     |
+    * | `GEOFENCE_DWELL_START`     | <mediaplayer:https://dl.dropbox.com/s/7nysvyjxuxm9pms/geofence-dwell-start.mp3?dl=0>     | n/a                                                                                                                 |
+    * | `GEOFENCE_DWELL_CANCEL`    | <mediaplayer:https://dl.dropbox.com/s/sk2hur6nxch1zvm/geofence-dwell-cancel.mp3?dl=0>    | n/a                                                                                                                 |
+    * | `GEOFENCE_DWELL`           | `GEOFENCE_ENTER` after `GEOFENCE_DWELL_START`                                            | <mediaplayer:https://dl.dropboxusercontent.com/s/uw5vjuatm3wnuid/tslocationmanager_beep_trip_up_echo.mp3?dl=0>                 |
+    * | `ERROR`                    | <mediaplayer:https://dl.dropbox.com/s/h5b52m056pfc734/error.mp3?dl=0>                    | <mediaplayer:https://dl.dropboxusercontent.com/s/32e93c1t4kh69p1/tslocationmanager_music_timpani_error_01.mp3?dl=0>            |
+    * | `WARNING`                  | n/a                                                                                      | <mediaplayer:https://dl.dropboxusercontent.com/s/wadrz2x6elhc65l/tslocationmanager_digi_warn.mp3?dl=0>                         |
+    * | `BACKGROUND_FETCH`         | <mediaplayer:https://dl.dropbox.com/s/mcsjqye0xx2kapk/background-fetch.mp3?dl=0>         | n/a                                                                                                                 |
     *
     */
     debug?: boolean;
@@ -1792,6 +1795,17 @@ declare module "react-native-background-geolocation" {
     pausesLocationUpdatesAutomatically?: boolean;
 
     /**
+    * [__iOS Only__] A Boolean indicating whether the status bar changes its appearance when an app uses location services in the background with `Always` authorization.
+    *
+    * The default value of this property is `false`. The background location usage indicator is a blue bar or a blue pill in the status bar on iOS; on watchOS the indicator is a small icon. Users can tap the indicator to return to your app.
+    *
+    * This property affects only apps that received `Always` authorization. When such an app moves to the background, the system uses this property to determine whether to change the status bar appearance to indicate that location services are in use. Set this value to true to maintain transparency with the user.
+    *
+    * For apps with When In Use authorization, the system changes the appearance of the status bar when the app uses location services in the background.
+    */
+    showsBackgroundLocationIndicator?: boolean;
+
+    /**
     * Defines the *desired* location-authorization request you *wish* for the user to authorize: "Always" or "When In Use".
     * @break
     *
@@ -1822,7 +1836,7 @@ declare module "react-native-background-geolocation" {
     *   locationAuthorizationAlert: {
     *     titleWhenNotEnabled: "Yo, location-services not enabled",
     *     titleWhenOff: "Yo, location-services OFF",
-    *     instructions: "You must enable "Always" in location-services, buddy",
+    *     instructions: "You must enable 'Always' in location-services, buddy",
     *     cancelButton: "Cancel",
     *     settingsButton: "Settings"
     *   }
@@ -2107,6 +2121,45 @@ declare module "react-native-background-geolocation" {
     * ```
     */
     triggerActivities?: string;
+
+    /**
+    * __`[Android only]`__  Optionally add a delay in milliseconds to trigger Android into the *moving* state when Motion API reports the device is moving (eg: `on_foot`, `in_vehicle`)
+    *
+    * This can help prevent false-positive motion-triggering when one moves about their home, for example.  Only if the Motion API stays in the *moving* state for `motionTriggerDelay` milliseconds will the plugin trigger into the *moving* state and begin tracking the location.
+    * If the Motion API returns to the `still` state before `motionTriggerDelay` times-out, the trigger to the *moving* state will be cancelled.
+    *
+    * @example
+    * ```typescript
+    * // Delay Android motion-triggering by 30000ms
+    * BackgroundGeolocation.ready({
+    *   motionTriggerDelay: 30000
+    * })
+    * ```
+    * @break
+    * The following `logcat` shows an Android device detecting motion __`on_foot`__ but returning to __`still`__ before __`motionTriggerDelay`__ expires, cancelling the transition to the *moving* state (see `⏰ Cancel OneShot: MOTION_TRIGGER_DELAY`):
+    * @logcat
+    * ```bash
+    *  04-08 10:58:03.419 TSLocationManager: ╔═════════════════════════════════════════════
+    *  04-08 10:58:03.419 TSLocationManager: ║ Motion Transition Result
+    *  04-08 10:58:03.419 TSLocationManager: ╠═════════════════════════════════════════════
+    *  04-08 10:58:03.419 TSLocationManager: ╟─ 🔴  EXIT: still
+    *  04-08 10:58:03.419 TSLocationManager: ╟─ 🎾  ENTER: on_foot
+    *  04-08 10:58:03.419 TSLocationManager: ╚═════════════════════════════════════════════
+    *  04-08 10:58:03.416 TSLocationManager:   ⏰ Scheduled OneShot: MOTION_TRIGGER_DELAY in 30000ms
+    *  .
+    *  . <motionTriggerDelay timer started>
+    *  .
+    *  04-08 10:58:19.385 TSLocationManager: ╔═════════════════════════════════════════════
+    *  04-08 10:58:19.385 TSLocationManager: ║ Motion Transition Result
+    *  04-08 10:58:19.385 TSLocationManager: ╠═════════════════════════════════════════════
+    *  04-08 10:58:19.385 TSLocationManager: ╟─ 🔴  EXIT: on_foot
+    *  04-08 10:58:19.385 TSLocationManager: ╟─ 🎾  ENTER: still
+    *  04-08 10:58:19.385 TSLocationManager: ╚═════════════════════════════════════════════
+    *  04-08 10:58:19.381 TSLocationManager: [c.t.l.s.TSScheduleManager cancelOneShot]
+    *  04-08 10:58:19.381 TSLocationManager:   ⏰ Cancel OneShot: MOTION_TRIGGER_DELAY <-- timer cancelled
+    * ```
+    */
+    motionTriggerDelay?: number;
 
     /**
     * __`[Android only]`__ Enables "Headless" operation allowing you to respond to events after you app has been terminated with [[stopOnTerminate]] __`false`__.

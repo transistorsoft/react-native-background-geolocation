@@ -10,6 +10,7 @@
 #import "TSHttpEvent.h"
 #import "TSHeartbeatEvent.h"
 #import "TSScheduleEvent.h"
+#import "TSGeofenceManager.h"
 #import "TSGeofencesChangeEvent.h"
 #import "TSPowerSaveChangeEvent.h"
 #import "TSConnectivityChangeEvent.h"
@@ -25,6 +26,7 @@
 #import "TSDeviceInfo.h"
 #import "TSAuthorization.h"
 #import "TSHttpService.h"
+#import "SOMotionDetector.h"
 
 FOUNDATION_EXPORT double TSLocationManagerVersionNumber;
 FOUNDATION_EXPORT const unsigned char TSLocationManagerVersionString[];
@@ -34,11 +36,63 @@ FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 
 #pragma mark - Properties
 
+// Flags
+@property (nonatomic, readonly) BOOL enabled;
+@property (nonatomic, readonly) BOOL isConfigured;
+@property (nonatomic, readonly) BOOL isDebuggingMotionDetection;
+@property (nonatomic, readonly) BOOL isUpdatingLocation;
+@property (nonatomic, readonly) BOOL isRequestingLocation;
+@property (nonatomic, readonly) BOOL isMonitoringSignificantLocationChanges;
+@property (nonatomic, readonly) NSDate *suspendedAt;
+@property (nonatomic, readonly) BOOL isLaunchedInBackground;
+
+// LocationManagers
+@property (nonatomic, strong, readonly) CLLocationManager *locationManager;
+@property (nonatomic, strong, readonly) LocationManager *currentPositionManager;
+@property (nonatomic, strong, readonly) LocationManager *watchPositionManager;
+@property (nonatomic, strong, readonly) LocationManager *stateManager;
+
+// Location Resources
+@property (nonatomic, strong, readonly) CLLocation *stationaryLocation;
+@property (nonatomic, strong, readonly) CLLocation *lastLocation;
+@property (nonatomic, strong, readonly) CLLocation *lastGoodLocation;
+@property (nonatomic, strong, readonly) CLLocation *lastOdometerLocation;
+
+// GeofeneManager
+@property (nonatomic, strong, readonly) TSGeofenceManager *geofenceManager;
+
 @property (nonatomic) UIViewController* viewController;
-@property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic) NSDate *stoppedAt;
 @property (nonatomic) UIBackgroundTaskIdentifier preventSuspendTask;
 @property (nonatomic, readonly) BOOL clientReady;
+
+@property (nonatomic, readonly) BOOL isAcquiringState;
+@property (nonatomic, readonly) BOOL wasAcquiringState;
+@property (nonatomic, readonly) BOOL isAcquiringBackgroundTime;
+@property (nonatomic, readonly) BOOL isAcquiringStationaryLocation;
+@property (nonatomic, readonly) BOOL isAcquiringSpeed;
+@property (nonatomic, readonly) BOOL isHeartbeatEnabled;
+
+// Events listeners
+@property (nonatomic, readonly) NSMutableSet *currentPositionRequests;
+@property (nonatomic, readonly) NSMutableArray *watchPositionRequests;
+@property (nonatomic, readonly) NSMutableSet *locationListeners;
+@property (nonatomic, readonly) NSMutableSet *motionChangeListeners;
+@property (nonatomic, readonly) NSMutableSet *activityChangeListeners;
+@property (nonatomic, readonly) NSMutableSet *providerChangeListeners;
+@property (nonatomic, readonly) NSMutableSet *httpListeners;
+@property (nonatomic, readonly) NSMutableSet *scheduleListeners;
+@property (nonatomic, readonly) NSMutableSet *heartbeatListeners;
+@property (nonatomic, readonly) NSMutableSet *powerSaveChangeListeners;
+@property (nonatomic, readonly) NSMutableSet *enabledChangeListeners;
+
+// Callback for requestPermission.
+@property (nonatomic) TSCallback *requestPermissionCallback;
+
+// Event Queue
+@property (nonatomic, readonly)  NSMutableSet *eventQueue;
+
+@property (nonatomic) SOMotionType currentMotionType;
 
 + (TSLocationManager *)sharedInstance;
 
@@ -143,5 +197,7 @@ FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 - (void) onResume:(NSNotification *)notification;
 - (void) onAppTerminate;
 
+# pragma mark - Private Methods
+- (void) fireMotionActivityChangeEvent:(TSActivityChangeEvent*)event;
 @end
 

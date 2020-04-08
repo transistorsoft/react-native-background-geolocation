@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.4.2</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.6.2</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -62,7 +62,7 @@
 						<dd><pre><code class="language-typescript">BackgroundGeolocation.onHttp(<span class="hljs-function"><span class="hljs-params">httpEvent</span> =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[http] "</span>, httpEvent.success, httpEvent.status);
 });</code></pre>
-							<h2 id="http-guide">HTTP Guide</h2>
+							<h1 id="http-guide">HTTP Guide</h1>
 							<hr>
 							<p>The <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html">BackgroundGeolocation</a> SDK hosts its own flexible and robust native HTTP &amp; SQLite persistence services.  To enable the HTTP service, simply configure the SDK with an <a href="_react_native_background_geolocation_.config.html#url">url</a>:</p>
 						</dd>
@@ -92,7 +92,7 @@ BackgroundGeolocation.ready({
 }, <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[ready] success: "</span>, state);
 });</code></pre>
-							<h3 id="the-sqlite-database">The SQLite Database</h3>
+							<h2 id="the-sqlite-database">The SQLite Database</h2>
 							<p>The SDK immediately inserts each recorded location into its SQLite database.  This database is designed to act as a temporary buffer for the HTTP service and the SDK <strong>strongly</strong> desires an <em>empty</em> database.  The only way that locations are destroyed from the database are:</p>
 							<ul>
 								<li>Successful HTTP response from your server (<code>200</code>, <code>201</code>, <code>204</code>).</li>
@@ -100,7 +100,8 @@ BackgroundGeolocation.ready({
 								<li><a href="_react_native_background_geolocation_.config.html#maxdaystopersist">maxDaysToPersist</a> elapses and the location is destroyed.</li>
 								<li><a href="_react_native_background_geolocation_.config.html#maxrecordstopersist">maxRecordsToPersist</a> destroys oldest record in favor of latest.</li>
 							</ul>
-							<h3 id="the-http-service">The HTTP Service</h3>
+							<hr>
+							<h2 id="the-http-service">The HTTP Service</h2>
 							<p>The SDK&#39;s HTTP service operates by selecting records from the database, locking them to prevent duplicate requests then uploading to your server.</p>
 							<ul>
 								<li>By default, the HTTP Service will select a single record (oldest first; see <a href="_react_native_background_geolocation_.config.html#locationsorderdirection">locationsOrderDirection</a>) and execute an HTTP request to your <a href="_react_native_background_geolocation_.config.html#url">url</a>.</li>
@@ -109,7 +110,8 @@ BackgroundGeolocation.ready({
 								<li>Configuring <a href="_react_native_background_geolocation_.config.html#batchsync">batchSync</a> <strong><code>true</code></strong> instructs the HTTP Service to select <em>all</em> records in the database and upload them to your server in a single HTTP request.</li>
 								<li>Use <a href="_react_native_background_geolocation_.config.html#maxbatchsize">maxBatchSize</a> to limit the number of records selected for each <a href="_react_native_background_geolocation_.config.html#batchsync">batchSync</a> request.  The HTTP service will execute <em>synchronous</em> HTTP <em>batch</em> requests until the database is empty.</li>
 							</ul>
-							<h3 id="http-failures">HTTP Failures</h3>
+							<hr>
+							<h2 id="http-failures">HTTP Failures</h2>
 							<p>If your server does <em>not</em> return a <code>20x</code> response (eg: <code>200</code>, <code>201</code>, <code>204</code>), the SDK will <strong><code>UNLOCK</code></strong> that record.  Another attempt to upload will be made in the future (until <a href="_react_native_background_geolocation_.config.html#maxdaystopersist">maxDaysToPersist</a>) when:</p>
 							<ul>
 								<li>When another location is recorded.</li>
@@ -119,26 +121,42 @@ BackgroundGeolocation.ready({
 								<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onconnectivitychange">onConnectivityChange</a> events.</li>
 								<li><strong>[iOS]</strong> Background <code>fetch</code> events.</li>
 							</ul>
-							<h3 id="receiving-the-http-response-">Receiving the HTTP Response.</h3>
+							<hr>
+							<h2 id="receiving-the-http-response-">Receiving the HTTP Response.</h2>
 							<p>You can capture the HTTP response from your server by listening to the <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onhttp">onHttp</a> event.</p>
-							<h3 id="-a-href-_react_native_background_geolocation_-config-html-autosync-autosync-a-"><a href="_react_native_background_geolocation_.config.html#autosync">autoSync</a></h3>
-							<p>By default, the SDK will attempt to immediately upload each recorded location to your configured <a href="_react_native_background_geolocation_.config.html#url">url</a>.</p>
+							<hr>
+							<h2 id="autosync-true"><code>autoSync: true</code></h2>
+							<p>By default, the SDK is configured for <a href="_react_native_background_geolocation_.config.html#autosync">autoSync</a>:true and will attempt to immediately upload each recorded location to your configured <a href="_react_native_background_geolocation_.config.html#url">url</a>.</p>
 							<ul>
 								<li>Use <a href="_react_native_background_geolocation_.config.html#autosyncthreshold">autoSyncThreshold</a> to throttle HTTP requests.  This will instruct the SDK to accumulate that number of records in the database before calling upon the HTTP Service.  This is a good way to <strong>conserve battery</strong>, since HTTP requests consume more energy/second than the GPS.</li>
 							</ul>
-							<h3 id="manual-a-href-classes-_react_native_background_geolocation_-backgroundgeolocation-html-sync-sync-a-">Manual <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#sync">sync</a></h3>
+							<hr>
+							<h2 id="manual-invoking-upload">Manual Invoking Upload</h2>
 							<p>The SDK&#39;s HTTP Service can be summoned into action at <strong>any time</strong> via the method <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#sync">BackgroundGeolocation.sync</a>.</p>
-							<h3 id="-a-href-_react_native_background_geolocation_-config-html-params-params-a-a-href-_react_native_background_geolocation_-config-html-headers-headers-a-and-a-href-_react_native_background_geolocation_-config-html-extras-extras-a-"><a href="_react_native_background_geolocation_.config.html#params">params</a>, <a href="_react_native_background_geolocation_.config.html#headers">headers</a> and <a href="_react_native_background_geolocation_.config.html#extras">extras</a></h3>
+							<hr>
+							<h2 id="-a-href-_react_native_background_geolocation_-config-html-params-params-a-a-href-_react_native_background_geolocation_-config-html-headers-headers-a-and-a-href-_react_native_background_geolocation_-config-html-extras-extras-a-"><a href="_react_native_background_geolocation_.config.html#params">params</a>, <a href="_react_native_background_geolocation_.config.html#headers">headers</a> and <a href="_react_native_background_geolocation_.config.html#extras">extras</a></h2>
 							<ul>
 								<li>The SDK&#39;s HTTP Service appends configured <a href="_react_native_background_geolocation_.config.html#params">params</a> to root of the <code>JSON</code> data of each HTTP request.</li>
 								<li><a href="_react_native_background_geolocation_.config.html#headers">headers</a> are appended to each HTTP Request.</li>
 								<li><a href="_react_native_background_geolocation_.config.html#extras">extras</a> are appended to each recorded location and persisted to the database record.</li>
 							</ul>
-							<h3 id="custom-json-schema-a-href-_react_native_background_geolocation_-config-html-locationtemplate-locationtemplate-a-and-a-href-_react_native_background_geolocation_-config-html-geofencetemplate-geofencetemplate-a-">Custom <code>JSON</code> Schema:  <a href="_react_native_background_geolocation_.config.html#locationtemplate">locationTemplate</a> and <a href="_react_native_background_geolocation_.config.html#geofencetemplate">geofenceTemplate</a></h3>
+							<hr>
+							<h2 id="custom-json-schema-a-href-_react_native_background_geolocation_-config-html-locationtemplate-locationtemplate-a-and-a-href-_react_native_background_geolocation_-config-html-geofencetemplate-geofencetemplate-a-">Custom <code>JSON</code> Schema:  <a href="_react_native_background_geolocation_.config.html#locationtemplate">locationTemplate</a> and <a href="_react_native_background_geolocation_.config.html#geofencetemplate">geofenceTemplate</a></h2>
 							<p>The default HTTP <code>JSON</code> schema for both <a href="_react_native_background_geolocation_.location.html">Location</a> and <a href="_react_native_background_geolocation_.geofence.html">Geofence</a> can be overridden by the configuration options <a href="_react_native_background_geolocation_.config.html#locationtemplate">locationTemplate</a> and <a href="_react_native_background_geolocation_.config.html#geofencetemplate">geofenceTemplate</a>, allowing you to create any schema you wish.</p>
-							<h3 id="strong-encryption">Strong Encryption</h3>
+							<hr>
+							<h2 id="disabling-http-requests-on-cellular-connections">Disabling HTTP requests on Cellular connections</h2>
+							<p>If you&#39;re concerned with Cellular data-usage, you can configure the plugin&#39;s HTTP Service to upload only when connected to Wifi:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
+  <span class="hljs-attr">autoSync</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">disableAutoSyncOnCellular</span>: <span class="hljs-literal">true</span>
+});</code></pre>
+							<hr>
+							<h2 id="strong-encryption">Strong Encryption</h2>
 							<p>The JSON payload in HTTP requests can be encrypted.  See <a href="_react_native_background_geolocation_.config.html#encrypt">Config.encrypt</a>.</p>
-							<h3 id="http-logging">HTTP Logging</h3>
+							<hr>
+							<h2 id="http-logging">HTTP Logging</h2>
 							<p>You can observe the plugin performing HTTP requests in the logs for both iOS and Android (<em>See Wiki <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Debugging</a></em>):</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
@@ -192,6 +210,130 @@ BackgroundGeolocation.ready({
 										<td>After your server returns a <strong><code>20x</code></strong> response, the SDK deletes that record from the database.  Otherwise, the SDK will <strong><code>UNLOCK</code></strong> that record and try again in the future.</td>
 									</tr>
 							</tbody></table>
+							<p>&nbsp;</p>
+							<hr>
+							<h2 id="controlling-the-sdk-with-http-responses-rpc-">Controlling the SDK with HTTP Responses (<em>RPC</em>)</h2>
+							<p>The SDK has a <em>&quot;Remote Procedure Call&quot; (RPC)</em> mechanism, allowing you to invoke commands upon the SDK&#39;s API by returing a JSON response from the server containing the key <code>&quot;background_geolocation&quot;: [...]</code>.</p>
+							<p>Within the returned <code>[...]</code>, you may return one or more commands to invoke upon the SDK.  Each command takes the form of an <code>[]</code>, with a required first element <code>String command</code>, along with an optional
+							second element <code>Argument:string|boolean|number|Object</code> depending upon the context of the <code>command</code>.</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-javascript">{
+  <span class="hljs-string">"background_geolocation"</span>: [
+    [<span class="hljs-string">"command1"</span>, <span class="hljs-attr">argument</span>:string|boolean|number|<span class="hljs-built_in">Object</span>],
+    [<span class="hljs-string">"command2"</span>]
+    .
+    .
+    .
+  ]
+}</code></pre>
+							<p>The SDK will run each of these commands synchronously upon itself.</p>
+							<h3 id="supported-rpc-commands">Supported RPC Commands</h3>
+							<table>
+								<thead>
+									<tr>
+										<th>Command</th>
+										<th>Arguments</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody><tr>
+										<td><code>start</code></td>
+										<td>None.</td>
+										<td><code>BackgroundGeolocation.start()</code></td>
+									</tr>
+									<tr>
+										<td><code>stop</code></td>
+										<td>None.</td>
+										<td><code>BackgroundGeolocation.stop()</code></td>
+									</tr>
+									<tr>
+										<td><code>startGeofences</code></td>
+										<td>None.</td>
+										<td><code>BackgroundGeolocation.startGeofences()</code></td>
+									</tr>
+									<tr>
+										<td><code>changePace</code></td>
+										<td><code>Boolean</code></td>
+										<td><code>BackgroundGeolocation.changePace(argument)</code></td>
+									</tr>
+									<tr>
+										<td><code>setConfig</code></td>
+										<td><code>{Config}</code></td>
+										<td><code>BackgroundGeolocation.setConfig(argument)</code></td>
+									</tr>
+									<tr>
+										<td><code>addGeofence</code></td>
+										<td><code>{Geofence}</code></td>
+										<td><code>BackgroundGeolocation.addGeofence(argument)</code></td>
+									</tr>
+									<tr>
+										<td><code>addGeofences</code></td>
+										<td><code>[{Geofence}, ...]</code></td>
+										<td><code>BackgroundGeolocation.addGeofences(argument)</code></td>
+									</tr>
+									<tr>
+										<td><code>removeGeofence</code></td>
+										<td><code>identifier:String</code></td>
+										<td><code>BackgroundGeolocation.removeGeofence(argument)</code></td>
+									</tr>
+									<tr>
+										<td><code>removeGeofences</code></td>
+										<td>None or <code>[identifier:String,...]</code></td>
+										<td><code>BackgroundGeolocation.removeGeofences(argument)</code> If provided no argument, remove all; otherwise remove provided list of identifiers</td>
+									</tr>
+									<tr>
+										<td><code>uploadLog</code></td>
+										<td><code>url:String</code></td>
+										<td>The url to upload log to.</td>
+									</tr>
+									<tr>
+										<td><code>destroyLog</code></td>
+										<td>None</td>
+										<td><code>BackgroundGeolocation.destroyLog</code></td>
+									</tr>
+							</tbody></table>
+							<h3 id="simple-example-stop">Simple Example: <code>#stop</code></h3>
+							<p>Your server could return a response telling the SDK to <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#stop">BackgroundGeolocation.stop</a>:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-json">{
+  <span class="hljs-attr">"background_geolocation"</span>: [
+    [<span class="hljs-string">"stop"</span>]
+  ]
+}</code></pre>
+							<p>When returning just a single command, you can optionally omit the root <code>[ ]</code>:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-json">{
+  <span class="hljs-attr">"background_geolocation"</span>: [<span class="hljs-string">"stop"</span>]
+}</code></pre>
+							<h3 id="arguments">Arguments</h3>
+							<p>The 2nd param to each action is optional but depends upon the context of the command.  For example, <code>#changePace</code> requires a <code>boolean</code> argument:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-json">{
+  <span class="hljs-attr">"background_geolocation"</span>: [
+    [<span class="hljs-string">"changePace"</span>, <span class="hljs-literal">true</span>]
+  ]
+}</code></pre>
+							<h3 id="object-arguments">Object Arguments</h3>
+							<p>Some commands receive an <code>{ }</code> argument, like <code>#setConfig</code>:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-json">{
+  <span class="hljs-attr">"background_geolocation"</span>: [<span class="hljs-string">"setConfig"</span>, {<span class="hljs-attr">"distanceFilter"</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">"locationUpdateInterval"</span>: <span class="hljs-number">1000</span>}]
+}</code></pre>
+							<h3 id="multiple-actions">Multiple Actions</h3>
+							<p>You could tell the plugin to both <code>#start</code> and <code>#changePace</code>:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-json">{
+  <span class="hljs-attr">"background_geolocation"</span>: [
+    [<span class="hljs-string">"start"</span>],
+    [<span class="hljs-string">"changePace"</span>, <span class="hljs-literal">true</span>]
+  ]
+}</code></pre>
 						</dd>
 					</dl>
 				</div>

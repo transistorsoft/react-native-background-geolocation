@@ -21,8 +21,7 @@
 
 @property (copy) void (^handlerBlock) (TSSchedule *schedule);
 
-
--(TSSchedule*)initWithRecord:(NSString*)data andHandler:(void (^)(TSSchedule*))handler;
+-(instancetype)initWithRecord:(NSString*)data andHandler:(void (^)(TSSchedule*))handler;
 
 -(void)make:(NSDateComponents*)NSDateComponents;
 -(BOOL)isNext:(NSDate*)now;

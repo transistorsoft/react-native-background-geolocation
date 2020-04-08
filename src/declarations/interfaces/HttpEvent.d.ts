@@ -9,7 +9,7 @@ declare module "react-native-background-geolocation" {
   * });
   * ```
   *
-  * ## HTTP Guide
+  * # HTTP Guide
   * ---------------------------------------------------------------------------------------
   *
   * The [[BackgroundGeolocation]] SDK hosts its own flexible and robust native HTTP & SQLite persistence services.  To enable the HTTP service, simply configure the SDK with an [[url]]:
@@ -43,7 +43,7 @@ declare module "react-native-background-geolocation" {
   * });
   * ```
   *
-  * ### The SQLite Database
+  * ## The SQLite Database
   *
   * The SDK immediately inserts each recorded location into its SQLite database.  This database is designed to act as a temporary buffer for the HTTP service and the SDK __strongly__ desires an *empty* database.  The only way that locations are destroyed from the database are:
   * - Successful HTTP response from your server (`200`, `201`, `204`).
@@ -51,7 +51,9 @@ declare module "react-native-background-geolocation" {
   * - [[maxDaysToPersist]] elapses and the location is destroyed.
   * - [[maxRecordsToPersist]] destroys oldest record in favor of latest.
   *
-  * ### The HTTP Service
+  * ----------------------------------------------------------------------------------------------------------
+  *
+  * ## The HTTP Service
   *
   * The SDK's HTTP service operates by selecting records from the database, locking them to prevent duplicate requests then uploading to your server.
   * - By default, the HTTP Service will select a single record (oldest first; see [[locationsOrderDirection]]) and execute an HTTP request to your [[url]].
@@ -60,7 +62,9 @@ declare module "react-native-background-geolocation" {
   * - Configuring [[batchSync]] __`true`__ instructs the HTTP Service to select *all* records in the database and upload them to your server in a single HTTP request.
   * - Use [[maxBatchSize]] to limit the number of records selected for each [[batchSync]] request.  The HTTP service will execute *synchronous* HTTP *batch* requests until the database is empty.
   *
-  * ### HTTP Failures
+  * ----------------------------------------------------------------------------------------------------------
+  *
+  * ## HTTP Failures
   *
   * If your server does *not* return a `20x` response (eg: `200`, `201`, `204`), the SDK will __`UNLOCK`__ that record.  Another attempt to upload will be made in the future (until [[maxDaysToPersist]]) when:
   * - When another location is recorded.
@@ -70,34 +74,62 @@ declare module "react-native-background-geolocation" {
   * - [[onConnectivityChange]] events.
   * - __[iOS]__ Background `fetch` events.
   *
-  * ### Receiving the HTTP Response.
+  * ----------------------------------------------------------------------------------------------------------
+  *
+  * ## Receiving the HTTP Response.
   *
   * You can capture the HTTP response from your server by listening to the [[onHttp]] event.
   *
-  * ### [[autoSync]]
+  * ----------------------------------------------------------------------------------------------------------
   *
-  * By default, the SDK will attempt to immediately upload each recorded location to your configured [[url]].
+  * ## `autoSync: true`
+  *
+  * By default, the SDK is configured for [[autoSync]]:true and will attempt to immediately upload each recorded location to your configured [[url]].
   * - Use [[autoSyncThreshold]] to throttle HTTP requests.  This will instruct the SDK to accumulate that number of records in the database before calling upon the HTTP Service.  This is a good way to **conserve battery**, since HTTP requests consume more energy/second than the GPS.
   *
-  * ### Manual [[sync]]
+  * ----------------------------------------------------------------------------------------------------------
+  *
+  * ## Manual Invoking Upload
   *
   * The SDK's HTTP Service can be summoned into action at __any time__ via the method [[BackgroundGeolocation.sync]].
   *
-  * ### [[params]], [[headers]] and [[extras]]
+  * ----------------------------------------------------------------------------------------------------------
+  *
+  * ## [[params]], [[headers]] and [[extras]]
   *
   * - The SDK's HTTP Service appends configured [[params]] to root of the `JSON` data of each HTTP request.
   * - [[headers]] are appended to each HTTP Request.
   * - [[extras]] are appended to each recorded location and persisted to the database record.
   *
-  * ### Custom `JSON` Schema:  [[locationTemplate]] and [[geofenceTemplate]]
+  * ----------------------------------------------------------------------------------------------------------
+  *
+  * ## Custom `JSON` Schema:  [[locationTemplate]] and [[geofenceTemplate]]
   *
   * The default HTTP `JSON` schema for both [[Location]] and [[Geofence]] can be overridden by the configuration options [[locationTemplate]] and [[geofenceTemplate]], allowing you to create any schema you wish.
   *
-  * ### Strong Encryption
+  * ----------------------------------------------------------------------------------------------------------
+  *
+  * ## Disabling HTTP requests on Cellular connections
+  *
+  * If you're concerned with Cellular data-usage, you can configure the plugin's HTTP Service to upload only when connected to Wifi:
+  *
+  * @example
+  * ```javascript
+  * BackgroundGeolocation.ready({
+  *   autoSync: true,
+  *   disableAutoSyncOnCellular: true
+  * });
+  * ```
+  *
+  * ----------------------------------------------------------------------------------------------------------
+  *
+  * ## Strong Encryption
   *
   * The JSON payload in HTTP requests can be encrypted.  See [[Config.encrypt]].
   *
-  * ### HTTP Logging
+  * ----------------------------------------------------------------------------------------------------------
+  *
+  * ## HTTP Logging
   *
   * You can observe the plugin performing HTTP requests in the logs for both iOS and Android (_See Wiki [Debugging](github:wiki/Debugging)_):
   *
@@ -126,6 +158,107 @@ declare module "react-native-background-geolocation" {
   * |5| `🔵Response`            | Response from your server.                                            |
   * |6| `✅DESTROY\|UNLOCK`     | After your server returns a __`20x`__ response, the SDK deletes that record from the database.  Otherwise, the SDK will __`UNLOCK`__ that record and try again in the future. |
   *
+  * &nbsp;
+  *
+  * ----------------------------------------------------------------------------------------------------------
+  *
+  * ## Controlling the SDK with HTTP Responses (*RPC*)
+  *
+  * The SDK has a *"Remote Procedure Call" (RPC)* mechanism, allowing you to invoke commands upon the SDK's API by returing a JSON response from the server containing the key `"background_geolocation": [...]`.
+  *
+  * Within the returned `[...]`, you may return one or more commands to invoke upon the SDK.  Each command takes the form of an `[]`, with a required first element `String command`, along with an optional
+  * second element `Argument:string|boolean|number|Object` depending upon the context of the `command`.
+  *
+  * @example
+  * ```javascript
+  * {
+  *   "background_geolocation": [
+  *     ["command1", argument:string|boolean|number|Object],
+  *     ["command2"]
+  *     .
+  *     .
+  *     .
+  *   ]
+  * }
+  * ```
+  *
+  * The SDK will run each of these commands synchronously upon itself.
+  *
+  * ### Supported RPC Commands
+  *
+  * | Command               | Arguments                   | Description                               |
+  * |-----------------------|-----------------------------|-------------------------------------------|
+  * | `start`               | None. | `BackgroundGeolocation.start()` |
+  * | `stop`                | None. | `BackgroundGeolocation.stop()` |
+  * | `startGeofences`      | None. | `BackgroundGeolocation.startGeofences()` |
+  * | `changePace`          | `Boolean` | `BackgroundGeolocation.changePace(argument)` |
+  * | `setConfig`           | `{Config}` | `BackgroundGeolocation.setConfig(argument)` |
+  * | `addGeofence`         | `{Geofence}` | `BackgroundGeolocation.addGeofence(argument)` |
+  * | `addGeofences`        | `[{Geofence}, ...]` | `BackgroundGeolocation.addGeofences(argument)` |
+  * | `removeGeofence`      | `identifier:String` | `BackgroundGeolocation.removeGeofence(argument)` |
+  * | `removeGeofences`     | None or `[identifier:String,...]` | `BackgroundGeolocation.removeGeofences(argument)` If provided no argument, remove all; otherwise remove provided list of identifiers |
+  * | `uploadLog`           | `url:String` | The url to upload log to. |
+  * | `destroyLog`          | None | `BackgroundGeolocation.destroyLog` |
+  *
+  * ### Simple Example: `#stop`
+  *
+  * Your server could return a response telling the SDK to [[BackgroundGeolocation.stop]]:
+  *
+  * @example
+  * ```json
+  * {
+  *   "background_geolocation": [
+  *     ["stop"]
+  *   ]
+  * }
+  * ```
+  *
+  * When returning just a single command, you can optionally omit the root `[ ]`:
+  *
+  * @example
+  * ```json
+  * {
+  *   "background_geolocation": ["stop"]
+  * }
+  * ```
+  *
+  * ### Arguments
+  *
+  * The 2nd param to each action is optional but depends upon the context of the command.  For example, `#changePace` requires a `boolean` argument:
+  *
+  * @example
+  * ```json
+  * {
+  *   "background_geolocation": [
+  *     ["changePace", true]
+  *   ]
+  * }
+  * ```
+  *
+  * ### Object Arguments
+  *
+  * Some commands receive an `{ }` argument, like `#setConfig`:
+  *
+  * @example
+  * ```json
+  * {
+  *   "background_geolocation": ["setConfig", {"distanceFilter": 0, "locationUpdateInterval": 1000}]
+  * }
+  * ```
+  *
+  * ### Multiple Actions
+  *
+  * You could tell the plugin to both `#start` and `#changePace`:
+  *
+  * @example
+  * ```json
+  * {
+  *   "background_geolocation": [
+  *     ["start"],
+  *     ["changePace", true]
+  *   ]
+  * }
+  * ```
   */
   interface HttpEvent {
     /**

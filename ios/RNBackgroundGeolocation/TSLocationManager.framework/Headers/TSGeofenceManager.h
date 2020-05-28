@@ -40,6 +40,7 @@ extern NSString *const PROVISIONAL_ALWAYS_REGION_IDENTIFIER;
 -(void) removeListeners;
 -(void) start;
 -(void) stop;
+-(void) ready;
 -(void) setLocation:(CLLocation*)location isMoving:(BOOL)isMoving;
 -(void) setProximityRadius:(CLLocationDistance)radius;
 -(BOOL) isMonitoringRegion:(CLCircularRegion*)region;

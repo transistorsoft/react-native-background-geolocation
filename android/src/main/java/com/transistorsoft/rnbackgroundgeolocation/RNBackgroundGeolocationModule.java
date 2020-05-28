@@ -512,6 +512,16 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     @ReactMethod
+    public void destroyLocation(String uuid, final Callback success, final Callback failure) {
+        getAdapter().destroyLocation(uuid, new TSCallback() {
+            @Override public void onSuccess() { success.invoke(); }
+            @Override public void onFailure(String error) {
+                failure.invoke(error);
+            }
+        });
+    }
+
+    @ReactMethod
     public void destroyLog(final Callback success, final Callback failure) {
         getAdapter().destroyLog(new TSCallback() {
             @Override public void onSuccess() {
@@ -796,7 +806,10 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                 }
             }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                WritableMap params = new WritableNativeMap();
+                params.putString("status", error);
+                params.putString("message", error);
+                failure.invoke(params);
             }
         });
     }
@@ -1175,7 +1188,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                     jsonArray.put(readableArray.getBoolean(i));
                     break;
                 case Number:
-                    jsonArray.put(readableArray.getInt(i));
+                    jsonArray.put(readableArray.getDouble(i));
                     break;
                 case String:
                     jsonArray.put(readableArray.getString(i));

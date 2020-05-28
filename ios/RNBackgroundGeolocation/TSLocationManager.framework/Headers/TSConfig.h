@@ -153,6 +153,9 @@ TSConfig
 - (void)reset;
 - (void)reset:(BOOL)silent;
 
+# pragma mark Geolocation methods
+- (BOOL) getPausesLocationUpdates;
+
 # pragma mark Events
 - (void)onChange:(NSString*)property callback:(void(^)(id))block;
 - (void) removeListeners;

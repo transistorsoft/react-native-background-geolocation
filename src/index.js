@@ -66,6 +66,11 @@ export default class BackgroundGeolocation {
   static get LOG_LEVEL_DEBUG()              { return LOG_LEVEL_DEBUG; }
   static get LOG_LEVEL_VERBOSE()            { return LOG_LEVEL_VERBOSE; }
 
+  static get ACTIVITY_TYPE_OTHER()                  { return ACTIVITY_TYPE_OTHER;}
+  static get ACTIVITY_TYPE_AUTOMOTIVE_NAVIGATION()  { return ACTIVITY_TYPE_AUTOMOTIVE_NAVIGATION;}
+  static get ACTIVITY_TYPE_FITNESS()                { return ACTIVITY_TYPE_FITNESS;}
+  static get ACTIVITY_TYPE_OTHER_NAVIGATION()       { return ACTIVITY_TYPE_OTHER_NAVIGATION;}
+
   static get DESIRED_ACCURACY_NAVIGATION()  { return DESIRED_ACCURACY_NAVIGATION; }
   static get DESIRED_ACCURACY_HIGH()        { return DESIRED_ACCURACY_HIGH; }
   static get DESIRED_ACCURACY_MEDIUM()      { return DESIRED_ACCURACY_MEDIUM; }
@@ -397,6 +402,15 @@ export default class BackgroundGeolocation {
       NativeModule.destroyLocations().then(success).catch(failure);
     }
   }
+  /**
+  * Destroy a single location by uuid
+  */
+  static destroyLocation(uuid) {
+    return NativeModule.destroyLocation(uuid);
+  }
+  /**
+  * Destroy a single record by uuid
+  */
   // @deprecated
   static clearDatabase(success, failure) {
     return this.destroyLocations.apply(this, arguments);

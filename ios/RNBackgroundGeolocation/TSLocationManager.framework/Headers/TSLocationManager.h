@@ -148,6 +148,8 @@ FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 - (BOOL) clearDatabase;
 - (BOOL) destroyLocations;
 - (void) destroyLocations:(void(^)(void))success failure:(void(^)(NSString* error))failure;
+- (void) destroyLocation:(NSString*)uuid;
+- (void) destroyLocation:(NSString*)uuid success:(void(^)(void))success failure:(void(^)(NSString* error))failure;
 - (void) insertLocation:(NSDictionary*)params success:(void(^)(NSString* uuid))success failure:(void(^)(NSString* error))failure;
 - (int) getCount;
 

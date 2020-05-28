@@ -349,6 +349,14 @@ export default class NativeModule {
     });
   }
 
+  static destroyLocation(uuid) {
+    return new Promise((resolve, reject) => {
+      let success = () => { resolve() }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.destroyLocation(uuid, success, failure);
+    });
+  }
+
   static insertLocation(params) {
     return new Promise((resolve, reject) => {
       let success = (location)  => { resolve(location) }

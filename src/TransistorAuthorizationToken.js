@@ -29,6 +29,10 @@ export default class TransistorAuthorizationToken {
 				console.warn('[TransistorAuthorizationToken findOrCreate] ERROR: ', error);
 				// Return a dummy token on error.  this is a weird thing to do but it probably failed due to no network connection to demo server.
 				// Once app will request the token once again after restarting one's app.
+				if (error.status == '403') {
+					reject(error);
+					return;
+				}
 				resolve({
 					accessToken: DUMMY_TOKEN,
 					refreshToken: DUMMY_TOKEN,

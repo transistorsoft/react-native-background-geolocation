@@ -1103,6 +1103,16 @@ declare module "react-native-background-geolocation" {
     */
     static destroyLocations(success?:Function, failure?:Function): Promise<void>;
 
+    /**
+    * Destroy a single location by [[Location.uuid]]
+    *
+    * @example
+    * ```typescript
+    * await BackgroundGeolocation.destroyLocation(location.uuid);
+    * ```
+    */
+    static destroyLocation(uuid:String): Promise<void>;
+
     static insertLocation(params:Location, success?:(location:Location) => void, failure?:Function): Promise<Location>;
 
     /**

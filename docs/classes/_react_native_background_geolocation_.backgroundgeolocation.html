@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.6.2</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.7.0</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -310,6 +310,7 @@ BackgroundGeolocation.ready({desiredAccuracy: <span class="hljs-number">0</span>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#addgeofence" class="tsd-kind-icon">add<wbr>Geofence</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#addgeofences" class="tsd-kind-icon">add<wbr>Geofences</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#changepace" class="tsd-kind-icon">change<wbr>Pace</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#destroylocation" class="tsd-kind-icon">destroy<wbr>Location</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#destroylocations" class="tsd-kind-icon">destroy<wbr>Locations</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#destroylog" class="tsd-kind-icon">destroy<wbr>Log</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#destroytransistorauthorizationtoken" class="tsd-kind-icon">destroy<wbr>Transistor<wbr>Authorization<wbr>Token</a></li>
@@ -1544,6 +1545,36 @@ BackgroundGeolocation.changePace(<span class="hljs-literal">false</span>); <span
 											</ul>
 										</li>
 									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="destroylocation" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> destroy<wbr>Location</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">destroy<wbr>Location<span class="tsd-signature-symbol">(</span>uuid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">String</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Destroy a single location by <a href="../interfaces/_react_native_background_geolocation_.location.html#uuid">Location.uuid</a></p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">await</span> BackgroundGeolocation.destroyLocation(location.uuid);</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>uuid: <span class="tsd-signature-type">String</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -4444,6 +4475,9 @@ onSuspend() {
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#changepace" class="tsd-kind-icon">change<wbr>Pace</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#destroylocation" class="tsd-kind-icon">destroy<wbr>Location</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#destroylocations" class="tsd-kind-icon">destroy<wbr>Locations</a>

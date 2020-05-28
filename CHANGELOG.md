@@ -1,5 +1,19 @@
 # Change Log
 
+## 3.7.0 - 2020-05-28
+
+- [Fixed][Android] `onGeofence` event-handler fails to be fired when `maxRecordsToPersist: 0`.
+- [Fixed][Android] `requestPermission` method was always returning `AUTHORIZATION_STATUS_ALWAYS` even when *When in Use* was selected.
+- [Fixed][Android] Android plugin was importing an `androidx` dependency `localbroadcastmanager` without first checking if `useAndroidX` was set to `true`.
+- [Fixed][iOS] When using `disableStopDetection: true` with `pausesLocationUpdatesAutomatically: true`, the `CLLocationManagerDelegate didPauseLocationUpdates` the `motionchange` event reported `isMoving: true`.
+- [Fixed][Android] Ensure location failure callback is executed on main-thread.
+- [Changed][Android] Gradle import `tslocationmanager.aar` using `api` rather than `implementation` in order to allow overrides in `AndroidManifest.xml`.
+- [Fixed][iOS] When upgrading from a version previous to `3.4.0`, if any records exist within plugin's SQLite database, those records could fail to be properly migrated to new schema.
+- [Added] New method `BackgroundGeolocation.destroyLocation(uuid)` for destroying a single location by `Location.uuid`.
+- [Fixed] Allow firebase-adapter to validate license flavors on same key (eg: .development, .staging).
+- [Fixed] iOS geofence listeners on `onGeofence` method *could possibly* fail to be called when a geofence event causes iOS to re-launch the app in the background (this would **not** prevent the plugin posting the geofence event to your `Config.url`, only a failure of the Javascript `onGeofence` to be fired).
+- [Changed] Android library `tslocationmanager.aar` is now compiled using `androidx`.  For backwards-compatibility with those how haven't migrated to `androidX`, a *reverse-jetified* build is included.  Usage is detected automatically based upon `android.useAndroidX` in one's `gradle.properties`.
+
 ## 3.6.2 - 2020-04-08
 - [Added] [Android] Add new `Config.motionTriggerDelay (milliseconds)` for preventing false-positive triggering of location-tracking (while walking around one's house, for example).  If the motion API triggers back to `still` before `motionTriggerDelay` expires, triggering to the *moving* state will be cancelled.
 - [Fixed] Address issue with rare reports of iOS crashing with error referencing `SOMotionDetector.m`.

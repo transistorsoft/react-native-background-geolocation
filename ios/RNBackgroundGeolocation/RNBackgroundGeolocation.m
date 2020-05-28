@@ -568,6 +568,16 @@ RCT_EXPORT_METHOD(destroyLocations:(RCTResponseSenderBlock)success failure:(RCTR
         failure(@[]);
     }
 }
+
+RCT_EXPORT_METHOD(destroyLocation:(NSString*)uuid success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+{
+    [locationManager destroyLocation:uuid success:^{
+        success(@[]);
+    } failure:^(NSString* error) {
+        failure(@[error]);
+    }];
+}
+
 RCT_EXPORT_METHOD(getCount:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     int count = [locationManager getCount];

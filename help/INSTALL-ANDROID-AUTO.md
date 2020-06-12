@@ -19,7 +19,7 @@ npm install react-native-background-fetch --save
 
 ## Configure `react-native-background-fetch`
 
-You must perform the [Android Setup](https://github.com/transistorsoft/react-native-background-fetch/blob/master/docs/INSTALL-AUTO-ANDROID.md for `react-native-background-fetch`.
+You must perform the [Android Setup](https://github.com/transistorsoft/react-native-background-fetch/blob/master/docs/INSTALL-AUTO-ANDROID.md) for `react-native-background-fetch`.
 
 ## Gradle Configuration
 

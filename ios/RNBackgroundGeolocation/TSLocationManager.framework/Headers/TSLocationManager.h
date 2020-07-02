@@ -86,6 +86,9 @@ FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 @property (nonatomic, readonly) NSMutableSet *powerSaveChangeListeners;
 @property (nonatomic, readonly) NSMutableSet *enabledChangeListeners;
 
+// [Optional] User-supplied block to render location-data for SQLite database / Firebase adapter INSERT.
+@property (copy) NSDictionary* (^beforeInsertBlock) (TSLocation *location);
+
 // Callback for requestPermission.
 @property (nonatomic) TSCallback *requestPermissionCallback;
 

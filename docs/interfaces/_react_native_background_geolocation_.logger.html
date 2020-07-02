@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.7.0</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.8.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -55,7 +55,9 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<h1 id="logger-api">Logger API</h1>
+						<a href="#logger-api" id="logger-api" style="color: inherit; text-decoration: none;">
+							<h1>Logger API</h1>
+						</a>
 					</div>
 					<p>The Background Geolocation SDK includes powerful logging features for debugging location-tracking problems.  The SDK stores log-entries for a period of <a href="_react_native_background_geolocation_.config.html#logmaxdays">Config.logMaxDays</a> (default <code>3</code>).  The volume of logging events
 					inserted into the database is controlled via <a href="_react_native_background_geolocation_.config.html#loglevel">Config.logLevel</a>.</p>
@@ -65,14 +67,18 @@
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
 <span class="hljs-keyword">let</span> log = <span class="hljs-keyword">await</span> Logger.getLog();</code></pre>
-							<h2 id="fetching-the-logs-">Fetching the Logs:</h2>
+							<a href="#fetching-the-logs" id="fetching-the-logs" style="color: inherit; text-decoration: none;">
+								<h2>Fetching the Logs:</h2>
+							</a>
 							<p>Logs can be fetched from the SDK in three ways:</p>
 							<ol>
 								<li><a href="_react_native_background_geolocation_.logger.html#getlog">getLog</a></li>
 								<li><a href="_react_native_background_geolocation_.logger.html#emaillog">emailLog</a></li>
 								<li><a href="_react_native_background_geolocation_.logger.html#uploadlog">uploadLog</a></li>
 							</ol>
-							<h2 id="inserting-your-own-log-messages">Inserting your own log messages</h2>
+							<a href="#inserting-your-own-log-messages" id="inserting-your-own-log-messages" style="color: inherit; text-decoration: none;">
+								<h2>Inserting your own log messages</h2>
+							</a>
 							<p>You can even insert your own log messages into the SDK&#39;s Log database using the following methods:</p>
 							<table>
 								<thead>
@@ -112,53 +118,55 @@
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
 BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-params">location</span>) =&gt;</span> {
-  Logger.debug(<span class="hljs-string">"Location received in Javascript: "</span> + location.uuid);
+  Logger.debug(<span class="hljs-string">&quot;Location received in Javascript: &quot;</span> + location.uuid);
 });</code></pre>
-							<h2 id="example-logs">Example Logs</h2>
-							<pre><code>09-19 11:12:18.716 ╔═════════════════════════════════════════════
-09-19 11:12:18.716 ║ BackgroundGeolocation<span class="hljs-built_in"> Service </span>started
-09-19 11:12:18.716 ╠═════════════════════════════════════════════
-09-19 11:12:18.723 [c.t.l.BackgroundGeolocationService d]
-09-19 11:12:18.723   ✅  Started <span class="hljs-keyword">in</span> foreground
-09-19 11:12:18.737 [c.t.l.ActivityRecognitionService a]
-09-19 11:12:18.737   🎾  Start activity updates: 10000
-09-19 11:12:18.761 [c.t.l.BackgroundGeolocationService k]
-09-19 11:12:18.761   🔴  Stop heartbeat
-09-19 11:12:18.768 [c.t.l.BackgroundGeolocationService a]
-09-19 11:12:18.768   🎾  Start heartbeat (60)
-09-19 11:12:18.778 [c.t.l.BackgroundGeolocationService a]
-09-19 11:12:18.778   🔵  setPace: <span class="hljs-literal">null</span> → <span class="hljs-literal">false</span>
-09-19 11:12:18.781 [c.t.l.adapter.TSConfig c] ℹ️   Persist<span class="hljs-built_in"> config
-</span>09-19 11:12:18.794 [c.t.locationmanager.util.b a]
-09-19 11:12:18.794   ℹ️  LocationAuthorization: Permission granted
-09-19 11:12:18.842 [c.t.l.http.HttpService flush]
-09-19 11:12:18.842 ╔═════════════════════════════════════════════
-09-19 11:12:18.842 ║ HTTP<span class="hljs-built_in"> Service
-</span>09-19 11:12:18.842 ╠═════════════════════════════════════════════
-09-19 11:12:19.000 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)
-09-19 11:12:21.314 [c.t.l.l.SingleLocationRequest<span class="hljs-variable">$2</span> onLocationResult]
-09-19 11:12:21.314 ╔═════════════════════════════════════════════
-09-19 11:12:21.314 ║ SingleLocationRequest: 1
-09-19 11:12:21.314 ╠═════════════════════════════════════════════
-09-19 11:12:21.314 ╟─ 📍  Location[fused 45.519239,-73.617058 <span class="hljs-attribute">hAcc</span>=15]999923706055 <span class="hljs-attribute">vAcc</span>=2 <span class="hljs-attribute">sAcc</span>=??? <span class="hljs-attribute">bAcc</span>=???
-09-19 11:12:21.327 [c.t.l.l.TSLocationManager onSingleLocationResult]
-09-19 11:12:21.327   🔵  Acquired motionchange position, isMoving: <span class="hljs-literal">false</span>
-09-19 11:12:21.342 [c.t.l.l.TSLocationManager a] 15.243
-09-19 11:12:21.405 [c.t.locationmanager.data.a.c persist]
-09-19 11:12:21.405   ✅  INSERT: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
-09-19 11:12:21.423 [c.t.l.http.HttpService flush]
-09-19 11:12:21.423 ╔═════════════════════════════════════════════
-09-19 11:12:21.423 ║ HTTP<span class="hljs-built_in"> Service
-</span>09-19 11:12:21.423 ╠═════════════════════════════════════════════
-09-19 11:12:21.446 [c.t.locationmanager.data.a.c first]
-09-19 11:12:21.446   ✅  Locked 1 records
-09-19 11:12:21.454 [c.t.l.http.HttpService a]
-09-19 11:12:21.454   🔵  HTTP POST: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
-09-19 11:12:22.083 [c.t.l.http.HttpService<span class="hljs-variable">$a</span> onResponse]
-09-19 11:12:22.083   🔵  Response: 200
-09-19 11:12:22.100 [c.t.locationmanager.data.a.c destroy]
-09-19 11:12:22.100   ✅  DESTROY: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
-09-19 11:12:55.226 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)</code></pre></dd>
+							<a href="#example-logs" id="example-logs" style="color: inherit; text-decoration: none;">
+								<h2>Example Logs</h2>
+							</a>
+							<pre><code><span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">716</span> ╔═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">716</span> ║ BackgroundGeolocation Service started
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">716</span> ╠═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">723</span><span class="hljs-meta"> [c.t.l.BackgroundGeolocationService d]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">723</span>   ✅  Started in foreground
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">737</span><span class="hljs-meta"> [c.t.l.ActivityRecognitionService a]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">737</span>   🎾  Start activity updates: <span class="hljs-number">10000</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">761</span><span class="hljs-meta"> [c.t.l.BackgroundGeolocationService k]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">761</span>   🔴  Stop heartbeat
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">768</span><span class="hljs-meta"> [c.t.l.BackgroundGeolocationService a]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">768</span>   🎾  Start heartbeat (<span class="hljs-number">60</span>)
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">778</span><span class="hljs-meta"> [c.t.l.BackgroundGeolocationService a]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">778</span>   🔵  setPace: null → false
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">781</span><span class="hljs-meta"> [c.t.l.adapter.TSConfig c] ℹ️   Persist config
+09-19 11:12:18.794 [c.t.locationmanager.util.b a]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">794</span>   ℹ️  LocationAuthorization: Permission granted
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">842</span><span class="hljs-meta"> [c.t.l.http.HttpService flush]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">842</span> ╔═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">842</span> ║ HTTP Service
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">842</span> ╠═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">19</span>.<span class="hljs-number">000</span><span class="hljs-meta"> [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)
+09-19 11:12:21.314 [c.t.l.l.SingleLocationRequest$2 onLocationResult]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">314</span> ╔═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">314</span> ║ SingleLocationRequest: <span class="hljs-number">1</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">314</span> ╠═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">314</span> ╟─ 📍  Location[fused <span class="hljs-number">45</span>.<span class="hljs-number">519239</span>,-<span class="hljs-number">73</span>.<span class="hljs-number">617058</span> hAcc=<span class="hljs-number">15</span>]<span class="hljs-number">999923706055</span> vAcc=<span class="hljs-number">2</span> sAcc=??? bAcc=???
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">327</span><span class="hljs-meta"> [c.t.l.l.TSLocationManager onSingleLocationResult]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">327</span>   🔵  Acquired motionchange position, isMoving: false
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">342</span><span class="hljs-meta"> [c.t.l.l.TSLocationManager a] 15.243
+09-19 11:12:21.405 [c.t.locationmanager.data.a.c persist]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">405</span>   ✅  INSERT: bca<span class="hljs-number">5</span>acc<span class="hljs-number">8</span>-e<span class="hljs-number">358</span>-<span class="hljs-number">4</span>d<span class="hljs-number">8</span>f-<span class="hljs-number">827</span>f-b<span class="hljs-number">8</span>c<span class="hljs-number">0</span>d<span class="hljs-number">556</span>b<span class="hljs-number">7</span>bb
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">423</span><span class="hljs-meta"> [c.t.l.http.HttpService flush]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">423</span> ╔═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">423</span> ║ HTTP Service
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">423</span> ╠═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">446</span><span class="hljs-meta"> [c.t.locationmanager.data.a.c first]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">446</span>   ✅  Locked <span class="hljs-number">1</span> records
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">454</span><span class="hljs-meta"> [c.t.l.http.HttpService a]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">454</span>   🔵  HTTP POST: bca<span class="hljs-number">5</span>acc<span class="hljs-number">8</span>-e<span class="hljs-number">358</span>-<span class="hljs-number">4</span>d<span class="hljs-number">8</span>f-<span class="hljs-number">827</span>f-b<span class="hljs-number">8</span>c<span class="hljs-number">0</span>d<span class="hljs-number">556</span>b<span class="hljs-number">7</span>bb
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">22</span>.<span class="hljs-number">083</span><span class="hljs-meta"> [c.t.l.http.HttpService$a onResponse]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">22</span>.<span class="hljs-number">083</span>   🔵  Response: <span class="hljs-number">200</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">22</span>.<span class="hljs-number">100</span><span class="hljs-meta"> [c.t.locationmanager.data.a.c destroy]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">22</span>.<span class="hljs-number">100</span>   ✅  DESTROY: bca<span class="hljs-number">5</span>acc<span class="hljs-number">8</span>-e<span class="hljs-number">358</span>-<span class="hljs-number">4</span>d<span class="hljs-number">8</span>f-<span class="hljs-number">827</span>f-b<span class="hljs-number">8</span>c<span class="hljs-number">0</span>d<span class="hljs-number">556</span>b<span class="hljs-number">7</span>bb
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">55</span>.<span class="hljs-number">226</span><span class="hljs-meta"> [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)</span></code></pre></dd>
 					</dl>
 				</div>
 			</section>
@@ -174,33 +182,33 @@ BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#order_asc" class="tsd-kind-icon">ORDER_<wbr>ASC</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#order_desc" class="tsd-kind-icon">ORDER_<wbr>DESC</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.logger.html#order_asc" class="tsd-kind-icon">ORDER_<wbr>ASC</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.logger.html#order_desc" class="tsd-kind-icon">ORDER_<wbr>DESC</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-not-exported">
+						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#debug" class="tsd-kind-icon">debug</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#destroylog" class="tsd-kind-icon">destroy<wbr>Log</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#emaillog" class="tsd-kind-icon">email<wbr>Log</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#error" class="tsd-kind-icon">error</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#getlog" class="tsd-kind-icon">get<wbr>Log</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#info" class="tsd-kind-icon">info</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#notice" class="tsd-kind-icon">notice</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#uploadlog" class="tsd-kind-icon">upload<wbr>Log</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.logger.html#warn" class="tsd-kind-icon">warn</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.logger.html#debug" class="tsd-kind-icon">debug</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.logger.html#destroylog" class="tsd-kind-icon">destroy<wbr>Log</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.logger.html#emaillog" class="tsd-kind-icon">email<wbr>Log</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.logger.html#error" class="tsd-kind-icon">error</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.logger.html#getlog" class="tsd-kind-icon">get<wbr>Log</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.logger.html#info" class="tsd-kind-icon">info</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.logger.html#notice" class="tsd-kind-icon">notice</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.logger.html#uploadlog" class="tsd-kind-icon">upload<wbr>Log</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.logger.html#warn" class="tsd-kind-icon">warn</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="order_asc" class="tsd-anchor"></a>
 					<h3>ORDER_<wbr>ASC</h3>
 					<div class="tsd-signature tsd-kind-icon">ORDER_<wbr>ASC<span class="tsd-signature-symbol">:</span> <a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-signature-type">SQLQueryOrder</a></div>
@@ -212,7 +220,7 @@ BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="order_desc" class="tsd-anchor"></a>
 					<h3>ORDER_<wbr>DESC</h3>
 					<div class="tsd-signature tsd-kind-icon">ORDER_<wbr>DESC<span class="tsd-signature-symbol">:</span> <a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-signature-type">SQLQueryOrder</a></div>
@@ -225,12 +233,12 @@ BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="debug" class="tsd-anchor"></a>
 					<h3>debug</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -243,7 +251,7 @@ BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.debug(<span class="hljs-string">"This is a debug message"</span>);</code></pre>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.debug(<span class="hljs-string">&quot;This is a debug message&quot;</span>);</code></pre>
 										<p>&nbsp;</p>
 									<pre><code>D TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log] This is <span class="hljs-selector-tag">a</span> debug message</code></pre></dd>
 								</dl>
@@ -258,10 +266,10 @@ BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="destroylog" class="tsd-anchor"></a>
 					<h3>destroy<wbr>Log</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">destroy<wbr>Log<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -275,7 +283,9 @@ BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
 									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.destroyLog();</code></pre>
-										<h3 id="-see-also-">ℹ️ See also:</h3>
+										<a href="#ℹ️-see-also" id="ℹ️-see-also" style="color: inherit; text-decoration: none;">
+											<h3>ℹ️ See also:</h3>
+										</a>
 										<ul>
 											<li><a href="_react_native_background_geolocation_.config.html#loglevel">Config.logLevel</a></li>
 											<li><a href="_react_native_background_geolocation_.logger.html#getlog">getLog</a></li>
@@ -290,10 +300,10 @@ BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="emaillog" class="tsd-anchor"></a>
 					<h3>email<wbr>Log</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">email<wbr>Log<span class="tsd-signature-symbol">(</span>email<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, query<span class="tsd-signature-symbol">?: </span><a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-signature-type">SQLQuery</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -307,20 +317,22 @@ BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
 									<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
-Logger.emailLog(<span class="hljs-string">"foo@bar.com"</span>).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[emailLog] success"</span>);
+Logger.emailLog(<span class="hljs-string">&quot;foo@bar.com&quot;</span>).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[emailLog] success&quot;</span>);
 }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[emailLog] FAILURE: "</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[emailLog] FAILURE: &quot;</span>, error);
 });
 
 <span class="hljs-comment">// Or constrain results by providing a SQLQuery</span>
-Logger.emailLog(<span class="hljs-string">"foo@bar.com"</span>, {
-  start: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-09-19"</span>),
-  end: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-09-20"</span>),
+Logger.emailLog(<span class="hljs-string">&quot;foo@bar.com&quot;</span>, {
+  start: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">&quot;2019-09-19&quot;</span>),
+  end: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">&quot;2019-09-20&quot;</span>),
   order: Logger.ORDER_ASC,
   limit: <span class="hljs-number">1000</span>
 });</code></pre>
-										<h3 id="-see-also-">ℹ️ See also:</h3>
+										<a href="#ℹ️-see-also" id="ℹ️-see-also" style="color: inherit; text-decoration: none;">
+											<h3>ℹ️ See also:</h3>
+										</a>
 										<ul>
 											<li><a href="_react_native_background_geolocation_.config.html#loglevel">Config.logLevel</a></li>
 											<li><a href="_react_native_background_geolocation_.logger.html#getlog">getLog</a></li>
@@ -343,10 +355,10 @@ Logger.emailLog(<span class="hljs-string">"foo@bar.com"</span>, {
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="error" class="tsd-anchor"></a>
 					<h3>error</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -359,7 +371,7 @@ Logger.emailLog(<span class="hljs-string">"foo@bar.com"</span>, {
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.error(<span class="hljs-string">"Something BAD"</span>);</code></pre>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.error(<span class="hljs-string">&quot;Something BAD&quot;</span>);</code></pre>
 										<p>&nbsp;</p>
 										<pre><code>E TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log]
 E TSLocationManager: ‼ Something BAD</code></pre></dd>
@@ -375,10 +387,10 @@ E TSLocationManager: ‼ Something BAD</code></pre></dd>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="getlog" class="tsd-anchor"></a>
 					<h3>get<wbr>Log</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">get<wbr>Log<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">?: </span><a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-signature-type">SQLQuery</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -393,7 +405,9 @@ E TSLocationManager: ‼ Something BAD</code></pre></dd>
 									<dt class="tsd-comment-tag-break">break</dt>
 									<dd><p>Depending on the configured <a href="_react_native_background_geolocation_.config.html#loglevel">Config.logLevel</a>, the plugin can store an <em>immense</em> amount of helpful logging information for debugging location-tracking
 										problems.</p>
-										<h3 id="-see-also-">ℹ️ See also:</h3>
+										<a href="#ℹ️-see-also" id="ℹ️-see-also" style="color: inherit; text-decoration: none;">
+											<h3>ℹ️ See also:</h3>
+										</a>
 										<ul>
 											<li><a href="_react_native_background_geolocation_.config.html#logmaxdays">Config.logMaxDays</a> (default <code>3</code> days)</li>
 											<li><a href="_react_native_background_geolocation_.config.html#loglevel">Config.logLevel</a>   (default <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#log_level_off">BackgroundGeolocation.LOG_LEVEL_OFF</a>)</li>
@@ -406,62 +420,62 @@ E TSLocationManager: ‼ Something BAD</code></pre></dd>
 									<dt class="tsd-comment-tag-example">example</dt>
 									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.getLog().then(<span class="hljs-function">(<span class="hljs-params">log</span>) =&gt;</span> {
   <span class="hljs-comment">// Warning:  this string could be several megabytes.</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[log] success: "</span>, log);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[log] success: &quot;</span>, log);
 });
 
 <span class="hljs-comment">// Or constrain results by providing a SQLQuery</span>
 <span class="hljs-keyword">let</span> Logger = BackgroundGeolocation.logger;
 
 <span class="hljs-keyword">let</span> log = <span class="hljs-keyword">await</span> Logger.getLog({
-  start: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-09-19 11:12"</span>),
-  end: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-09-19 11:13"</span>),
+  start: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">&quot;2019-09-19 11:12&quot;</span>),
+  end: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">&quot;2019-09-19 11:13&quot;</span>),
   order: Logger.ORDER_ASC,
   limit: <span class="hljs-number">100</span>
 });</code></pre>
-										<pre><code>09-19 11:12:18.716 ╔═════════════════════════════════════════════
-09-19 11:12:18.716 ║ BackgroundGeolocation<span class="hljs-built_in"> Service </span>started
-09-19 11:12:18.716 ╠═════════════════════════════════════════════
-09-19 11:12:18.723 [c.t.l.BackgroundGeolocationService d]
-09-19 11:12:18.723   ✅  Started <span class="hljs-keyword">in</span> foreground
-09-19 11:12:18.737 [c.t.l.ActivityRecognitionService a]
-09-19 11:12:18.737   🎾  Start activity updates: 10000
-09-19 11:12:18.761 [c.t.l.BackgroundGeolocationService k]
-09-19 11:12:18.761   🔴  Stop heartbeat
-09-19 11:12:18.768 [c.t.l.BackgroundGeolocationService a]
-09-19 11:12:18.768   🎾  Start heartbeat (60)
-09-19 11:12:18.778 [c.t.l.BackgroundGeolocationService a]
-09-19 11:12:18.778   🔵  setPace: <span class="hljs-literal">null</span> → <span class="hljs-literal">false</span>
-09-19 11:12:18.781 [c.t.l.adapter.TSConfig c] ℹ️   Persist<span class="hljs-built_in"> config
-</span>09-19 11:12:18.794 [c.t.locationmanager.util.b a]
-09-19 11:12:18.794   ℹ️  LocationAuthorization: Permission granted
-09-19 11:12:18.842 [c.t.l.http.HttpService flush]
-09-19 11:12:18.842 ╔═════════════════════════════════════════════
-09-19 11:12:18.842 ║ HTTP<span class="hljs-built_in"> Service
-</span>09-19 11:12:18.842 ╠═════════════════════════════════════════════
-09-19 11:12:19.000 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)
-09-19 11:12:21.314 [c.t.l.l.SingleLocationRequest<span class="hljs-variable">$2</span> onLocationResult]
-09-19 11:12:21.314 ╔═════════════════════════════════════════════
-09-19 11:12:21.314 ║ SingleLocationRequest: 1
-09-19 11:12:21.314 ╠═════════════════════════════════════════════
-09-19 11:12:21.314 ╟─ 📍  Location[fused 45.519239,-73.617058 <span class="hljs-attribute">hAcc</span>=15]999923706055 <span class="hljs-attribute">vAcc</span>=2 <span class="hljs-attribute">sAcc</span>=??? <span class="hljs-attribute">bAcc</span>=???
-09-19 11:12:21.327 [c.t.l.l.TSLocationManager onSingleLocationResult]
-09-19 11:12:21.327   🔵  Acquired motionchange position, isMoving: <span class="hljs-literal">false</span>
-09-19 11:12:21.342 [c.t.l.l.TSLocationManager a] 15.243
-09-19 11:12:21.405 [c.t.locationmanager.data.a.c persist]
-09-19 11:12:21.405   ✅  INSERT: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
-09-19 11:12:21.423 [c.t.l.http.HttpService flush]
-09-19 11:12:21.423 ╔═════════════════════════════════════════════
-09-19 11:12:21.423 ║ HTTP<span class="hljs-built_in"> Service
-</span>09-19 11:12:21.423 ╠═════════════════════════════════════════════
-09-19 11:12:21.446 [c.t.locationmanager.data.a.c first]
-09-19 11:12:21.446   ✅  Locked 1 records
-09-19 11:12:21.454 [c.t.l.http.HttpService a]
-09-19 11:12:21.454   🔵  HTTP POST: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
-09-19 11:12:22.083 [c.t.l.http.HttpService<span class="hljs-variable">$a</span> onResponse]
-09-19 11:12:22.083   🔵  Response: 200
-09-19 11:12:22.100 [c.t.locationmanager.data.a.c destroy]
-09-19 11:12:22.100   ✅  DESTROY: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
-09-19 11:12:55.226 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)</code></pre></dd>
+										<pre><code><span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">716</span> ╔═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">716</span> ║ BackgroundGeolocation Service started
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">716</span> ╠═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">723</span><span class="hljs-meta"> [c.t.l.BackgroundGeolocationService d]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">723</span>   ✅  Started in foreground
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">737</span><span class="hljs-meta"> [c.t.l.ActivityRecognitionService a]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">737</span>   🎾  Start activity updates: <span class="hljs-number">10000</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">761</span><span class="hljs-meta"> [c.t.l.BackgroundGeolocationService k]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">761</span>   🔴  Stop heartbeat
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">768</span><span class="hljs-meta"> [c.t.l.BackgroundGeolocationService a]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">768</span>   🎾  Start heartbeat (<span class="hljs-number">60</span>)
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">778</span><span class="hljs-meta"> [c.t.l.BackgroundGeolocationService a]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">778</span>   🔵  setPace: null → false
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">781</span><span class="hljs-meta"> [c.t.l.adapter.TSConfig c] ℹ️   Persist config
+09-19 11:12:18.794 [c.t.locationmanager.util.b a]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">794</span>   ℹ️  LocationAuthorization: Permission granted
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">842</span><span class="hljs-meta"> [c.t.l.http.HttpService flush]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">842</span> ╔═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">842</span> ║ HTTP Service
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">18</span>.<span class="hljs-number">842</span> ╠═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">19</span>.<span class="hljs-number">000</span><span class="hljs-meta"> [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)
+09-19 11:12:21.314 [c.t.l.l.SingleLocationRequest$2 onLocationResult]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">314</span> ╔═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">314</span> ║ SingleLocationRequest: <span class="hljs-number">1</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">314</span> ╠═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">314</span> ╟─ 📍  Location[fused <span class="hljs-number">45</span>.<span class="hljs-number">519239</span>,-<span class="hljs-number">73</span>.<span class="hljs-number">617058</span> hAcc=<span class="hljs-number">15</span>]<span class="hljs-number">999923706055</span> vAcc=<span class="hljs-number">2</span> sAcc=??? bAcc=???
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">327</span><span class="hljs-meta"> [c.t.l.l.TSLocationManager onSingleLocationResult]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">327</span>   🔵  Acquired motionchange position, isMoving: false
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">342</span><span class="hljs-meta"> [c.t.l.l.TSLocationManager a] 15.243
+09-19 11:12:21.405 [c.t.locationmanager.data.a.c persist]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">405</span>   ✅  INSERT: bca<span class="hljs-number">5</span>acc<span class="hljs-number">8</span>-e<span class="hljs-number">358</span>-<span class="hljs-number">4</span>d<span class="hljs-number">8</span>f-<span class="hljs-number">827</span>f-b<span class="hljs-number">8</span>c<span class="hljs-number">0</span>d<span class="hljs-number">556</span>b<span class="hljs-number">7</span>bb
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">423</span><span class="hljs-meta"> [c.t.l.http.HttpService flush]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">423</span> ╔═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">423</span> ║ HTTP Service
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">423</span> ╠═════════════════════════════════════════════
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">446</span><span class="hljs-meta"> [c.t.locationmanager.data.a.c first]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">446</span>   ✅  Locked <span class="hljs-number">1</span> records
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">454</span><span class="hljs-meta"> [c.t.l.http.HttpService a]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">21</span>.<span class="hljs-number">454</span>   🔵  HTTP POST: bca<span class="hljs-number">5</span>acc<span class="hljs-number">8</span>-e<span class="hljs-number">358</span>-<span class="hljs-number">4</span>d<span class="hljs-number">8</span>f-<span class="hljs-number">827</span>f-b<span class="hljs-number">8</span>c<span class="hljs-number">0</span>d<span class="hljs-number">556</span>b<span class="hljs-number">7</span>bb
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">22</span>.<span class="hljs-number">083</span><span class="hljs-meta"> [c.t.l.http.HttpService$a onResponse]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">22</span>.<span class="hljs-number">083</span>   🔵  Response: <span class="hljs-number">200</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">22</span>.<span class="hljs-number">100</span><span class="hljs-meta"> [c.t.locationmanager.data.a.c destroy]</span>
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">22</span>.<span class="hljs-number">100</span>   ✅  DESTROY: bca<span class="hljs-number">5</span>acc<span class="hljs-number">8</span>-e<span class="hljs-number">358</span>-<span class="hljs-number">4</span>d<span class="hljs-number">8</span>f-<span class="hljs-number">827</span>f-b<span class="hljs-number">8</span>c<span class="hljs-number">0</span>d<span class="hljs-number">556</span>b<span class="hljs-number">7</span>bb
+<span class="hljs-attribute">09</span>-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:<span class="hljs-number">12</span>:<span class="hljs-number">55</span>.<span class="hljs-number">226</span><span class="hljs-meta"> [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)</span></code></pre></dd>
 								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -474,10 +488,10 @@ E TSLocationManager: ‼ Something BAD</code></pre></dd>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="info" class="tsd-anchor"></a>
 					<h3>info</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">info<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -490,7 +504,7 @@ E TSLocationManager: ‼ Something BAD</code></pre></dd>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.info(<span class="hljs-string">"Something informative"</span>);</code></pre>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.info(<span class="hljs-string">&quot;Something informative&quot;</span>);</code></pre>
 										<p>&nbsp;</p>
 										<pre><code>E TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log]
 I TSLocationManager:   ℹ️  Something informative</code></pre></dd>
@@ -506,10 +520,10 @@ I TSLocationManager:   ℹ️  Something informative</code></pre></dd>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="notice" class="tsd-anchor"></a>
 					<h3>notice</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">notice<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -522,7 +536,7 @@ I TSLocationManager:   ℹ️  Something informative</code></pre></dd>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.notice(<span class="hljs-string">"A Notice"</span>);</code></pre>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.notice(<span class="hljs-string">&quot;A Notice&quot;</span>);</code></pre>
 										<p>&nbsp;</p>
 										<pre><code>E TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log]
 I TSLocationManager:   🔵  A Notice</code></pre></dd>
@@ -538,10 +552,10 @@ I TSLocationManager:   🔵  A Notice</code></pre></dd>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="uploadlog" class="tsd-anchor"></a>
 					<h3>upload<wbr>Log</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">upload<wbr>Log<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, query<span class="tsd-signature-symbol">?: </span><a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-signature-type">SQLQuery</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -553,31 +567,37 @@ I TSLocationManager:   🔵  A Notice</code></pre></dd>
 									<p>Upload the result of <a href="_react_native_background_geolocation_.logger.html#getlog">getLog</a> to provided url.  Provide an optional <a href="_react_native_background_geolocation_.sqlquery.html">SQLQuery</a> to contrain results between dates.  The file-upload
 									request will attach your configured <a href="_react_native_background_geolocation_.config.html#headers">Config.headers</a> for authentication.</p>
 								</div>
-								<h2 id="example">Example</h2>
-								<pre><code class="language-typescript">BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">"https://my.server.com/users/123/logs"</span>).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[uploadLog] success"</span>);
+								<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+									<h2>Example</h2>
+								</a>
+								<pre><code class="language-typescript">BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">&quot;https://my.server.com/users/123/logs&quot;</span>).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[uploadLog] success&quot;</span>);
 }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[uploadLog] FAILURE:"</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[uploadLog] FAILURE:&quot;</span>, error);
 });
 
 <span class="hljs-comment">// Or constrain results by providing a [SQLQuery]:</span>
-BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">"https://my.server.com/users/123/logs"</span>, {
-  start: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-10-20 09:00"</span>),
-  end: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">"2019-10-20 11:59"</span>)
+BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">&quot;https://my.server.com/users/123/logs&quot;</span>, {
+  start: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">&quot;2019-10-20 09:00&quot;</span>),
+  end: <span class="hljs-built_in">Date</span>.parse(<span class="hljs-string">&quot;2019-10-20 11:59&quot;</span>)
 }).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[uploadLog] success"</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[uploadLog] success&quot;</span>);
 }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[uploadLog] FAILURE:"</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[uploadLog] FAILURE:&quot;</span>, error);
 });</code></pre>
-								<h2 id="multipart-file-upload">MultiPart File Upload</h2>
+								<a href="#multipart-file-upload" id="multipart-file-upload" style="color: inherit; text-decoration: none;">
+									<h2>MultiPart File Upload</h2>
+								</a>
 								<p>The SDK will upload the gzipped log-file to your server as a <em>Multi-part</em> file upload, the same log-file as used in <a href="_react_native_background_geolocation_.logger.html#emaillog">emailLog</a>.  This is what I see with my <a href="https://github.com/transistorsoft/background-geolocation-console">Node server</a> at <code>request.files</code>:</p>
-								<pre><code class="language-typescript">app.post(<span class="hljs-string">"/log"</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[body]: "</span>, req.body);
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[files]: "</span>, req.files);
+								<pre><code class="language-typescript">app.post(<span class="hljs-string">&quot;/log&quot;</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[body]: &quot;</span>, req.body);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[files]: &quot;</span>, req.files);
   res.status(<span class="hljs-number">200</span>).send();
 });</code></pre>
 								<p><img src="https://dl.dropbox.com/s/cn86cu0vieor0j4/uploadLog-npm-server-request.png?dl=1" alt=""></p>
-								<h2 id="form-part">Form Part</h2>
+								<a href="#form-part" id="form-part" style="color: inherit; text-decoration: none;">
+									<h2>Form Part</h2>
+								</a>
 								<p>In addition to the log-file, the SDK will upload a form as well, containing the following parameters:</p>
 								<table>
 									<thead>
@@ -607,7 +627,9 @@ BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">"https://my.ser
 											<td><em>OS version</em></td>
 										</tr>
 								</tbody></table>
-								<h3 id="-see-also-">ℹ️ See also:</h3>
+								<a href="#ℹ️-see-also" id="ℹ️-see-also" style="color: inherit; text-decoration: none;">
+									<h3>ℹ️ See also:</h3>
+								</a>
 								<ul>
 									<li><a href="_react_native_background_geolocation_.config.html#loglevel">Config.logLevel</a></li>
 									<li><a href="_react_native_background_geolocation_.logger.html#getlog">getLog</a></li>
@@ -629,10 +651,10 @@ BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">"https://my.ser
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="warn" class="tsd-anchor"></a>
 					<h3>warn</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">warn<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -645,7 +667,7 @@ BackgroundGeolocation.logger.uploadLog(<span class="hljs-string">"https://my.ser
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.warn(<span class="hljs-string">"Something WEIRD"</span>);</code></pre>
+									<dd><pre><code class="language-typescript">BackgroundGeolocation.logger.warn(<span class="hljs-string">&quot;Something WEIRD&quot;</span>);</code></pre>
 										<p>&nbsp;</p>
 										<pre><code>E TSLocationManager: [c<span class="hljs-selector-class">.t</span><span class="hljs-selector-class">.l</span><span class="hljs-selector-class">.logger</span><span class="hljs-selector-class">.TSLog</span> log]
 E TSLocationManager: ⚠️  Something WEIRD</code></pre></dd>
@@ -669,160 +691,160 @@ E TSLocationManager: ⚠️  Something WEIRD</code></pre></dd>
 					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html" class="tsd-kind-icon">Background<wbr>Geolocation</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.authorization.html" class="tsd-kind-icon">Authorization</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.battery.html" class="tsd-kind-icon">Battery</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.config.html" class="tsd-kind-icon">Config</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.connectivitychangeevent.html" class="tsd-kind-icon">Connectivity<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.coords.html" class="tsd-kind-icon">Coords</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.devicesettingsrequest.html" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofence.html" class="tsd-kind-icon">Geofence</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofenceevent.html" class="tsd-kind-icon">Geofence<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofenceschangeevent.html" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.heartbeatevent.html" class="tsd-kind-icon">Heartbeat<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.httpevent.html" class="tsd-kind-icon">Http<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.location.html" class="tsd-kind-icon">Location</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.locationauthorizationalert.html" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class="current tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.logger.html" class="tsd-kind-icon">Logger</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.logger.html#order_asc" class="tsd-kind-icon">ORDER_<wbr>ASC</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.logger.html#order_desc" class="tsd-kind-icon">ORDER_<wbr>DESC</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.logger.html#debug" class="tsd-kind-icon">debug</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.logger.html#destroylog" class="tsd-kind-icon">destroy<wbr>Log</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.logger.html#emaillog" class="tsd-kind-icon">email<wbr>Log</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.logger.html#error" class="tsd-kind-icon">error</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.logger.html#getlog" class="tsd-kind-icon">get<wbr>Log</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.logger.html#info" class="tsd-kind-icon">info</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.logger.html#notice" class="tsd-kind-icon">notice</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.logger.html#uploadlog" class="tsd-kind-icon">upload<wbr>Log</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.logger.html#warn" class="tsd-kind-icon">warn</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.motionchangeevent.html" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.notification.html" class="tsd-kind-icon">Notification</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-kind-icon">SQLQuery</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.sensors.html" class="tsd-kind-icon">Sensors</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.state.html" class="tsd-kind-icon">State</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#extras" class="tsd-kind-icon">Extras</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>
 					</li>
 				</ul>

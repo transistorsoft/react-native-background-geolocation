@@ -160,8 +160,12 @@ RCT_EXPORT_METHOD(registerPlugin:(NSString*)pluginName)
 RCT_EXPORT_METHOD(reset:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
     TSConfig *config = [TSConfig sharedInstance];
-    [config reset];
-    [config updateWithDictionary:params];
+    if ([[params allKeys] count] > 0) {
+        [config reset:YES];
+        [config updateWithDictionary:params];
+    } else {
+        [config reset];
+    }
     success(@[[config toDictionary]]);
 }
 
@@ -185,7 +189,7 @@ RCT_EXPORT_METHOD(ready:(NSDictionary*)params success:(RCTResponseSenderBlock)su
         } else {
             BOOL reset = (params[@"reset"]) ? [params[@"reset"] boolValue] : YES;
             if (reset) {
-                [config reset];
+                [config reset:YES];
                 [config updateWithDictionary:params];
             } else if ([params objectForKey:@"authorization"]) {
                 [config updateWithBlock:^(TSConfigBuilder *builder) {

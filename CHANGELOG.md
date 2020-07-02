@@ -1,5 +1,102 @@
 # Change Log
 
+## 3.8.1 - 2020-07-09
+- [Fixed][iOS] Geofence `EXIT` sometimes not firing when using `notifyOnDwell`.
+- [Changed][Android] Refactor geofencing-only mode to not initiate "Infinite Geofencing" when the total number of added geofences is `< 99` (the maximum number of simultaneous geofences that can be monitored on Android).  This prevents the SDK from periodically requesting location to query "geofences within `geofenceProximityRadius`".  iOS already has this behaviour (where its maximum simultaneous geofences is `19`).
+- [Fixed][iOS] When using `#ready` with `reset: true` (the default), and `autoSync: false`, the SDK could initiate HTTP service if any records exist within plugin's SQLite database, since `reset: true` causes `autoSync: true` for a fraction of a millisecond, initiating the HTTP Service.
+- [Fixed][Android] :warning: `com.android.tools.build:gradle:4.0.0` no longer allows "*direct local aar dependencies*".  The Android Setup now requires a custom __`maven url`__ to be added to your app's root __`android/build.gradle`__:
+```diff
+allprojects {
+    repositories {
+        mavenLocal()
+        maven {
+            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+            url("$rootDir/../node_modules/react-native/android")
+        }
+        maven {
+            // Android JSC is installed from npm
+            url("$rootDir/../node_modules/jsc-android/dist")
+        }
++       maven {
++           // Required for react-native-background-geolocation
++           url("${project(':react-native-background-geolocation-android').projectDir}/libs")
++       }
++       maven {
++           // Required for react-native-background-fetch
++           url("${project(':react-native-background-fetch').projectDir}/libs")
++       }
++    }
+}
+```
+- [Fixed][Android] `onConnectivityChange` can report incorrect value for `enabled` when toggling between Wifi Off / Airplane mode.
+- [Added][Android] New Config option `Notification.sticky` (default `false`) for allowing the Android foreground-service notification to be always shown.  The default behavior is the only show the notification when the SDK is in the *moving* state, but Some developers have expressed the need to provide full disclosure to their users when the SDK is enabled, regardless if the device is stationary with location-services OFF.
+- [Added] Support for providing a native "beforeInsert" block in iOS `AppDelegate.m` and Android `MainApplication.java`.  The returned object will be inserted into the SDK's SQLite database and uploaded to your `Config.url`.
+__iOS__ `AppDelegate.m`
+```obj-c
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    .
+    .
+    .
+    // [OPTIONAL] This block is called before a location is inserted into the background_geolocation SQLite database.
+    // - The returned NSDictionary will be inserted.
+    // - If you return nil, no record will be inserted.
+    TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
+    bgGeo.beforeInsertBlock = ^NSDictionary *(TSLocation *tsLocation) {
+        CLLocation *location = tsLocation.location;
+
+        NSLog(@"[beforeInsertBlock] %@: %@", tsLocation.uuid, location);
+
+        // Return a custom schema or nil to cancel SQLite insert.
+        return @{
+            @"lat": @(location.coordinate.latitude),
+            @"lng": @(location.coordinate.longitude),
+            @"battery": @{
+                @"level": tsLocation.batteryLevel,
+                @"is_charging": @(tsLocation.batteryIsCharging)
+            }
+        };
+    };
+
+    return YES;
+}
+```
+__Android__ `MainApplication.java`
+```java
+public class MainApplication extends Application implements ReactApplication {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        .
+        .
+        .
+        // [OPTIONAL] This block is called before a location is inserted into the background_geolocation SQLite database.
+        // - The returned NSDictionary will be inserted.
+        // - If you return nil, no record will be inserted.
+        BackgroundGeolocation.getInstance(this).setBeforeInsertBlock(new TSBeforeInsertBlock() {
+            @Override
+            public JSONObject onBeforeInsert(TSLocation tsLocation) {
+                Location location = tsLocation.getLocation();
+                JSONObject json = new JSONObject();
+                JSONObject battery = new JSONObject();
+                try {
+                    json.put("lat", location.getLatitude());
+                    json.put("lng", location.getLongitude());
+
+                    battery.put("level", tsLocation.getBatteryLevel());
+                    battery.put("is_charging", tsLocation.getBatteryIsCharging());
+                    json.put("battery", battery);
+                    return json;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        });
+    }
+}
+```
+
+
 ## 3.7.0 - 2020-05-28
 
 - [Fixed][Android] `onGeofence` event-handler fails to be fired when `maxRecordsToPersist: 0`.

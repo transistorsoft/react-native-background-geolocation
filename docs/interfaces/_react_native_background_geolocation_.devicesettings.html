@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.7.0</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.8.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -71,16 +71,16 @@
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`- Screen seen? <span class="hljs-subst">${request.seen}</span> <span class="hljs-subst">${request.lastSeenAt}</span>`</span>);
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`- Device: <span class="hljs-subst">${request.manufacturer}</span> <span class="hljs-subst">${request.model}</span> <span class="hljs-subst">${request.version}</span>`</span>);
 
-    <span class="hljs-comment">// If we've already shown this screen to the user, we don't want to annoy them.</span>
+    <span class="hljs-comment">// If we&#x27;ve already shown this screen to the user, we don&#x27;t want to annoy them.</span>
     <span class="hljs-keyword">if</span> (request.seen) {
       <span class="hljs-keyword">return</span>;
     }
 
-    <span class="hljs-comment">// It's your responsibility to instruct the user what exactly</span>
+    <span class="hljs-comment">// It&#x27;s your responsibility to instruct the user what exactly</span>
     <span class="hljs-comment">// to do here, perhaps with a Confirm Dialog:</span>
     showMyConfirmDialog({
-      title: <span class="hljs-string">"Settings request"</span>,
-      text: <span class="hljs-string">"Please disable battery optimizations for your device"</span>
+      title: <span class="hljs-string">&quot;Settings request&quot;</span>,
+      text: <span class="hljs-string">&quot;Please disable battery optimizations for your device&quot;</span>
     }).then(<span class="hljs-function">(<span class="hljs-params">confirmed</span>) =&gt;</span> {
       <span class="hljs-keyword">if</span> (confirmed) {
         <span class="hljs-comment">// User clicked [Confirm] button.  Execute the redirect to settings screen:</span>
@@ -110,24 +110,24 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
+						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.devicesettings.html#isignoringbatteryoptimizations" class="tsd-kind-icon">is<wbr>Ignoring<wbr>Battery<wbr>Optimizations</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.devicesettings.html#show" class="tsd-kind-icon">show</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.devicesettings.html#showignorebatteryoptimizations" class="tsd-kind-icon">show<wbr>Ignore<wbr>Battery<wbr>Optimizations</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.devicesettings.html#showpowermanager" class="tsd-kind-icon">show<wbr>Power<wbr>Manager</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.devicesettings.html#isignoringbatteryoptimizations" class="tsd-kind-icon">is<wbr>Ignoring<wbr>Battery<wbr>Optimizations</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.devicesettings.html#show" class="tsd-kind-icon">show</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.devicesettings.html#showignorebatteryoptimizations" class="tsd-kind-icon">show<wbr>Ignore<wbr>Battery<wbr>Optimizations</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.devicesettings.html#showpowermanager" class="tsd-kind-icon">show<wbr>Power<wbr>Manager</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="isignoringbatteryoptimizations" class="tsd-anchor"></a>
 					<h3>is<wbr>Ignoring<wbr>Battery<wbr>Optimizations</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">is<wbr>Ignoring<wbr>Battery<wbr>Optimizations<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -150,10 +150,10 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="show" class="tsd-anchor"></a>
 					<h3>show</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">show<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="_react_native_background_geolocation_.devicesettingsrequest.html" class="tsd-signature-type">DeviceSettingsRequest</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -175,10 +175,10 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="showignorebatteryoptimizations" class="tsd-anchor"></a>
 					<h3>show<wbr>Ignore<wbr>Battery<wbr>Optimizations</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">show<wbr>Ignore<wbr>Battery<wbr>Optimizations<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_react_native_background_geolocation_.devicesettingsrequest.html" class="tsd-signature-type">DeviceSettingsRequest</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -205,16 +205,16 @@
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`- Screen seen? <span class="hljs-subst">${request.seen}</span> <span class="hljs-subst">${request.lastSeenAt}</span>`</span>);
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`- Device: <span class="hljs-subst">${request.manufacturer}</span> <span class="hljs-subst">${request.model}</span> <span class="hljs-subst">${request.version}</span>`</span>);
 
-    <span class="hljs-comment">// If we've already shown this screen to the user, we don't want to annoy them.</span>
+    <span class="hljs-comment">// If we&#x27;ve already shown this screen to the user, we don&#x27;t want to annoy them.</span>
     <span class="hljs-keyword">if</span> (request.seen) {
       <span class="hljs-keyword">return</span>;
     }
 
-    <span class="hljs-comment">// It's your responsibility to instruct the user what exactly</span>
+    <span class="hljs-comment">// It&#x27;s your responsibility to instruct the user what exactly</span>
     <span class="hljs-comment">// to do here, perhaps with a Confirm Dialog:</span>
     showMyConfirmDialog({
-      title: <span class="hljs-string">"Settings request"</span>,
-      text: <span class="hljs-string">"Please disable battery optimizations for your device"</span>
+      title: <span class="hljs-string">&quot;Settings request&quot;</span>,
+      text: <span class="hljs-string">&quot;Please disable battery optimizations for your device&quot;</span>
     }).then(<span class="hljs-function">(<span class="hljs-params">confirmed</span>) =&gt;</span> {
       <span class="hljs-keyword">if</span> (confirmed) {
         <span class="hljs-comment">// User clicked [Confirm] button.  Execute the redirect to settings screen:</span>
@@ -234,10 +234,10 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="showpowermanager" class="tsd-anchor"></a>
 					<h3>show<wbr>Power<wbr>Manager</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
 						<li class="tsd-signature tsd-kind-icon">show<wbr>Power<wbr>Manager<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_react_native_background_geolocation_.devicesettingsrequest.html" class="tsd-signature-type">DeviceSettingsRequest</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -258,20 +258,22 @@
 								For this reason, you&#39;ll have to evaluate the provided properties <a href="_react_native_background_geolocation_.devicesettingsrequest.html#seen">DeviceSettingsRequest.seen</a> &amp; <a href="_react_native_background_geolocation_.devicesettingsrequest.html#lastseenat">DeviceSettingsRequest.lastSeenAt</a> and determine for yourself whether to <a href="_react_native_background_geolocation_.devicesettings.html#show">DeviceSettings.show</a> this screen.</p>
 								<p>In your success-callback, it&#39;s completely <strong>up to you</strong> to instruct the user what exactly to do on that screen, based upon the provided <a href="_react_native_background_geolocation_.devicesettingsrequest.html">DeviceSettingsRequest</a> properties <code>manufacturer</code>, <code>model</code> and <code>version</code>.</p>
 								<p><strong>Note:</strong>  Based upon the <code>manufacturer</code> / <code>model</code> / OS <code>version</code>, a Device <strong>may not have</strong> a particular Settings screen implemented (eg: Google Pixel).  In this case, the <code>Promise</code> will fire an exception.</p>
-								<h2 id="example">Example</h2>
+								<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+									<h2>Example</h2>
+								</a>
 								<pre><code class="language-typescript">BackgroundGeolocation.deviceSettings.showPowerManager().then(<span class="hljs-function">(<span class="hljs-params">request:DeviceSettingsRequest</span>) =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`- Screen seen? <span class="hljs-subst">${request.seen}</span> <span class="hljs-subst">${request.lastSeenAt}</span>`</span>);
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`- Device: <span class="hljs-subst">${request.manufacturer}</span> <span class="hljs-subst">${request.model}</span> <span class="hljs-subst">${request.version}</span>`</span>);
 
-  <span class="hljs-comment">// If we've already shown this screen to the user, we don't want to annoy them.</span>
+  <span class="hljs-comment">// If we&#x27;ve already shown this screen to the user, we don&#x27;t want to annoy them.</span>
   <span class="hljs-keyword">if</span> (request.seen) {
     <span class="hljs-keyword">return</span>;
   }
-  <span class="hljs-comment">// It's your responsibility to instruct the user what exactly</span>
+  <span class="hljs-comment">// It&#x27;s your responsibility to instruct the user what exactly</span>
   <span class="hljs-comment">// to do here, perhaps with a Confirm Dialog:</span>
   showMyConfirmDialog({
-    title: <span class="hljs-string">"Device Power Management"</span>,
-    text: <span class="hljs-string">"Please white-list the app in your Device's Power Management settings by clicking this then selecting that."</span>
+    title: <span class="hljs-string">&quot;Device Power Management&quot;</span>,
+    text: <span class="hljs-string">&quot;Please white-list the app in your Device&#x27;s Power Management settings by clicking this then selecting that.&quot;</span>
   }).then(<span class="hljs-function">(<span class="hljs-params">confirmed</span>) =&gt;</span> {
     <span class="hljs-keyword">if</span> (confirmed) {
       <span class="hljs-comment">// User clicked [Confirm] button.  Execute the redirect to settings screen:</span>
@@ -283,7 +285,9 @@
   <span class="hljs-comment">// a particular Settings screen.</span>
   <span class="hljs-built_in">console</span>.log(error);
 });</code></pre>
-								<h2 id="vendor-settings-screens">Vendor Settings Screens</h2>
+								<a href="#vendor-settings-screens" id="vendor-settings-screens" style="color: inherit; text-decoration: none;">
+									<h2>Vendor Settings Screens</h2>
+								</a>
 								<p>The following Android Settings screen will be shown depending on Vendor / OS version:</p>
 								<table>
 									<thead>
@@ -342,139 +346,139 @@
 					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html" class="tsd-kind-icon">Background<wbr>Geolocation</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.authorization.html" class="tsd-kind-icon">Authorization</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.battery.html" class="tsd-kind-icon">Battery</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.config.html" class="tsd-kind-icon">Config</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.connectivitychangeevent.html" class="tsd-kind-icon">Connectivity<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.coords.html" class="tsd-kind-icon">Coords</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class="current tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
 						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.devicesettings.html#isignoringbatteryoptimizations" class="tsd-kind-icon">is<wbr>Ignoring<wbr>Battery<wbr>Optimizations</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.devicesettings.html#show" class="tsd-kind-icon">show</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.devicesettings.html#showignorebatteryoptimizations" class="tsd-kind-icon">show<wbr>Ignore<wbr>Battery<wbr>Optimizations</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.devicesettings.html#showpowermanager" class="tsd-kind-icon">show<wbr>Power<wbr>Manager</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.devicesettingsrequest.html" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofence.html" class="tsd-kind-icon">Geofence</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofenceevent.html" class="tsd-kind-icon">Geofence<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofenceschangeevent.html" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.heartbeatevent.html" class="tsd-kind-icon">Heartbeat<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.httpevent.html" class="tsd-kind-icon">Http<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.location.html" class="tsd-kind-icon">Location</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.locationauthorizationalert.html" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.logger.html" class="tsd-kind-icon">Logger</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.motionchangeevent.html" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.notification.html" class="tsd-kind-icon">Notification</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-kind-icon">SQLQuery</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.sensors.html" class="tsd-kind-icon">Sensors</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.state.html" class="tsd-kind-icon">State</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#extras" class="tsd-kind-icon">Extras</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>
 					</li>
 				</ul>

@@ -1,6 +1,6 @@
 # Change Log
 
-## 3.8.1 - 2020-07-09
+## 3.8.1 - 2020-07-13
 - [Fixed][iOS] Geofence `EXIT` sometimes not firing when using `notifyOnDwell`.
 - [Changed][Android] Refactor geofencing-only mode to not initiate "Infinite Geofencing" when the total number of added geofences is `< 99` (the maximum number of simultaneous geofences that can be monitored on Android).  This prevents the SDK from periodically requesting location to query "geofences within `geofenceProximityRadius`".  iOS already has this behaviour (where its maximum simultaneous geofences is `19`).
 - [Fixed][iOS] When using `#ready` with `reset: true` (the default), and `autoSync: false`, the SDK could initiate HTTP service if any records exist within plugin's SQLite database, since `reset: true` causes `autoSync: true` for a fraction of a millisecond, initiating the HTTP Service.

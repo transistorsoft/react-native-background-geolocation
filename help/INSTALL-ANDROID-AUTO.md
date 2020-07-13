@@ -27,20 +27,44 @@ Add the following `ext` variables to control the version of Google dependency ve
 
 :information_source: You should always strive to use the latest available Google Play Services libraries.  You can determine the latest available version [here](https://developers.google.com/android/guides/setup).
 
+In addition, custom `maven url` for both `background-geolocation` and `background-fetch` are required.
+
 ### :open_file_folder: **`android/build.gradle`**
 
 ```diff
 buildscript {
     ext {
-+       googlePlayServicesLocationVersion = "17.0.0"
-        buildToolsVersion = "28.0.3"
++       googlePlayServicesLocationVersion = "17.0.0"  // Or higher.
+        buildToolsVersion = "28.0.3"    // Or higher.
         minSdkVersion = 16
-        compileSdkVersion = 28
-        targetSdkVersion = 28
-        supportLibVersion = "1.0.2"
-+       appCompatVersion = "1.0.2"  # <-- IMPORTANT:  For new AndroidX compatibility.
+        compileSdkVersion = 28          // Or higher.
+        targetSdkVersion = 28           // Or higher.
+        supportLibVersion = "1.0.2"     // For pre AndroidX apps.  Not required when using AndroidX
++       appCompatVersion = "1.1.0"      // Or higher.  Required for new AndroidX compatibility.
     }
     ...
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        maven {
+            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+            url("$rootDir/../node_modules/react-native/android")
+        }
+        maven {
+            // Android JSC is installed from npm
+            url("$rootDir/../node_modules/jsc-android/dist")
+        }
++       maven {
++           // Required for react-native-background-geolocation
++           url("${project(':react-native-background-geolocation').projectDir}/libs")
++       }
++       maven {
++           // Required for react-native-background-fetch
++           url("${project(':react-native-background-fetch').projectDir}/libs")
++       }
++    }
 }
 ```
 

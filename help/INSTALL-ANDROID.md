@@ -45,6 +45,28 @@ buildscript {
     .
     .
 }
+
+allprojects {
+    repositories {
+        mavenLocal()
+        maven {
+            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+            url("$rootDir/../node_modules/react-native/android")
+        }
+        maven {
+            // Android JSC is installed from npm
+            url("$rootDir/../node_modules/jsc-android/dist")
+        }
++       maven {
++           // Required for react-native-background-geolocation
++           url("${project(':react-native-background-geolocation').projectDir}/libs")
++       }
++       maven {
++           // Required for react-native-background-fetch
++           url("${project(':react-native-background-fetch').projectDir}/libs")
++       }
++    }
+}
 ```
 
 ### :open_file_folder: **`android/app/build.gradle`**

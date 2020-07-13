@@ -58,6 +58,13 @@ declare module "react-native-background-geolocation" {
     priority?: NotificationPriority;
 
     /**
+    * Configure the Android Foreground Service icon and notification to be displayed __always__.  Defaults to `false`.
+    *
+    * The default behaviour is for the notification to be shown only while the SDK detects the device to be *moving*.  Some developers desire to provide full-disclosure to their users when the SDK has been enabled.
+    */
+    sticky?: boolean;
+
+    /**
     * Configure the *title* of the persistent notification in the Notification Bar when running with [[Config.foregroundService]] __`true`__
     * @break
     *

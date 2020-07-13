@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.7.0</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.8.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -63,12 +63,14 @@
 						<li>The minimum reliable <a href="_react_native_background_geolocation_.geofence.html#radius">radius</a> is <code>200</code> meters.</li>
 						<li>Geofence monitoring <em>requires</em> the user authorize <a href="_react_native_background_geolocation_.config.html#locationauthorizationrequest">locationAuthorizationRequest</a> <strong><code>Always</code></strong> &mdash; <strong><code>When in Use</code></strong> will <strong>not</strong> work.</li>
 					</ul>
-					<h2 id="adding-geofences">Adding Geofences</h2>
+					<a href="#adding-geofences" id="adding-geofences" style="color: inherit; text-decoration: none;">
+						<h2>Adding Geofences</h2>
+					</a>
 					<p>Adding a single geofence with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#addgeofence">addGeofence</a>.</p>
 					<dl class="tsd-comment-tags">
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript">BackgroundGeolocation.addGeofence({
-  identifier: <span class="hljs-string">"Home"</span>,
+  identifier: <span class="hljs-string">&quot;Home&quot;</span>,
   radius: <span class="hljs-number">200</span>,
   latitude: <span class="hljs-number">45.51921926</span>,
   longitude: <span class="hljs-number">-73.61678581</span>,
@@ -78,42 +80,46 @@
     route_id: <span class="hljs-number">1234</span>
   }
 }).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[addGeofence] success"</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[addGeofence] success&quot;</span>);
 }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[addGeofence] FAILURE: "</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[addGeofence] FAILURE: &quot;</span>, error);
 });</code></pre>
 							<p>Adding multiple geofences with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#addgeofences">addGeofences</a>.</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript">BackgroundGeolocation.addGeofences([{
-  identifier: <span class="hljs-string">"Home"</span>,
+  identifier: <span class="hljs-string">&quot;Home&quot;</span>,
   radius: <span class="hljs-number">200</span>,
   latitude: <span class="hljs-number">45.51921926</span>,
   longitude: <span class="hljs-number">-73.61678581</span>,
   notifyOnEntry: <span class="hljs-literal">true</span>,
 }, {
-  identifier: <span class="hljs-string">"Work"</span>,
+  identifier: <span class="hljs-string">&quot;Work&quot;</span>,
   radius: <span class="hljs-number">200</span>,
   latitude: <span class="hljs-number">45.61921927</span>,
   longitude: <span class="hljs-number">-73.71678582</span>,
   notifyOnEntry: <span class="hljs-literal">true</span>
 }]).then(<span class="hljs-function">(<span class="hljs-params">success</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[addGeofences] success"</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[addGeofences] success&quot;</span>);
 }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[addGeofences] FAILURE: "</span>, error);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[addGeofences] FAILURE: &quot;</span>, error);
 });</code></pre>
 							<p><strong>ℹ️ Note:</strong> Adding a geofence having an <a href="_react_native_background_geolocation_.geofence.html#identifier">identifier</a> which already exists within the SDK geofence database will cause the previous record to be destroyed and the new one inserted.</p>
 							<hr>
-							<h2 id="listening-for-geofence-events">Listening for Geofence Events</h2>
+							<a href="#listening-for-geofence-events" id="listening-for-geofence-events" style="color: inherit; text-decoration: none;">
+								<h2>Listening for Geofence Events</h2>
+							</a>
 							<p>Listen to geofence events with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#ongeofence">BackgroundGeolocation.onGeofence</a>.</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript"><span class="hljs-comment">// Listen for geofence events.</span>
 BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-params">geofence</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[geofence] "</span>, geofence.identifier, geofence.action);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[geofence] &quot;</span>, geofence.identifier, geofence.action);
 });</code></pre>
 							<hr>
-							<h2 id="infinite-geofencing">Infinite Geofencing</h2>
+							<a href="#infinite-geofencing" id="infinite-geofencing" style="color: inherit; text-decoration: none;">
+								<h2>Infinite Geofencing</h2>
+							</a>
 							<p>The Background Geolocation SDK contains unique and powerful Geofencing features that allow you to monitor any number of circular geofences you wish (thousands even), in spite of limits imposed by the native platform APIs (<strong>20 for iOS; 100 for Android</strong>).</p>
 							<p>The SDK achieves this by storing your geofences in its database, using a <a href="https://en.wikipedia.org/wiki/Spatial_query">geospatial query</a> to determine those geofences in proximity (<a href="_react_native_background_geolocation_.config.html#geofenceproximityradius">geofenceProximityRadius</a>), activating only those geofences closest to the device&#39;s current location (according the limit imposed by the corresponding platform).</p>
 							<ul>
@@ -123,7 +129,9 @@ BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-p
 							</ul>
 							<p><img src="https://dl.dropboxusercontent.com/s/7sggka4vcbrokwt/geofenceProximityRadius_iphone6_spacegrey_portrait.png?dl=1" alt=""></p>
 							<hr>
-							<h2 id="listening-for-changes-in-the-actively-monitored-set-of-geofences-">Listening for changes in the actively-monitored set-of-geofences.</h2>
+							<a href="#listening-for-changes-in-the-actively-monitored-set-of-geofences" id="listening-for-changes-in-the-actively-monitored-set-of-geofences" style="color: inherit; text-decoration: none;">
+								<h2>Listening for changes in the actively-monitored set-of-geofences.</h2>
+							</a>
 							<p>As the SDK periodically queries for geofences within the <a href="_react_native_background_geolocation_.config.html#geofenceproximityradius">geofenceProximityRadius</a>, you can listen for changes in the actively-monitored geofences using the event <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#ongeofenceschange">onGeofencesChange</a>.  This event will let you know those geofences which have <em>begun</em> to be <em>actively monitored</em> (<a href="_react_native_background_geolocation_.geofenceschangeevent.html#on">GeofencesChangeEvent.on</a>) in addition to those which just <em>ceased</em> to be actively monitored (<a href="_react_native_background_geolocation_.geofenceschangeevent.html#off">GeofencesChangeEvent.off</a>).</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
@@ -141,21 +149,25 @@ BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-p
     removeGeofenceMarker(identifier);
   }
 });</code></pre>
-							<h3 id="-note-">⚠️ Note:</h3>
+							<a href="#⚠️-note" id="⚠️-note" style="color: inherit; text-decoration: none;">
+								<h3>⚠️ Note:</h3>
+							</a>
 							<ul>
 								<li>When <strong>all</strong> geofences have been removed, the <a href="_react_native_background_geolocation_.geofenceschangeevent.html">GeofencesChangeEvent</a> will provide empty lists for both <a href="_react_native_background_geolocation_.geofenceschangeevent.html#on">GeofencesChangeEvent.on</a> &amp; <a href="_react_native_background_geolocation_.geofenceschangeevent.html#off">GeofencesChangeEvent.off</a>.</li>
 							</ul>
 							<hr>
-							<h2 id="removing-geofences">Removing Geofences</h2>
-							<p>Once a geofence has been inserted into the SDK&#39;s database using <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#addgeofence">addGeofence</a> or <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#addgeofences">addGeofences</a>, they will be monitored <em>forever</em>.  If you&#39;ve configured <a href="_react_native_background_geolocation_.config.html#stoponterminate">stopOnTerminate</a> <strong><code>false</code></strong> and <a href="_react_native_background_geolocation_.config.html#startonboot">startOnBoot</a> <strong><code>true</code></strong>, geofences will continue to be monitored even if the application is terminated or device rebooted.
-							To cease monitoring a geofence or <em>geofences</em>, you must <em>remove</em> them from the SDK&#39;s database.</p>
+							<a href="#removing-geofences" id="removing-geofences" style="color: inherit; text-decoration: none;">
+								<h2>Removing Geofences</h2>
+							</a>
+							<p>Once a geofence has been inserted into the SDK&#39;s database using <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#addgeofence">addGeofence</a> or <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#addgeofences">addGeofences</a>, they will be monitored <em>forever*.  If you&#39;ve configured <a href="_react_native_background_geolocation_.config.html#stoponterminate">stopOnTerminate</a> <strong><code>false</code></strong> and <a href="_react_native_background_geolocation_.config.html#startonboot">startOnBoot</a> <strong><code>true</code></strong>, geofences will continue to be monitored even if the application is terminated or device rebooted.
+							To cease monitoring a geofence or *geofences</em>, you must <em>remove</em> them from the SDK&#39;s database.</p>
 							<ul>
 								<li>Removing a single geofence by <a href="_react_native_background_geolocation_.geofence.html#identifier">identifier</a> with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#removegeofence">removeGeofence</a>:</li>
 							</ul>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
-						<dd><pre><code class="language-typescript">BackgroundGeolocation.removeGeofence(<span class="hljs-string">"HOME"</span>).then(<span class="hljs-function"><span class="hljs-params">success</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[removeGeofence] success"</span>);
+						<dd><pre><code class="language-typescript">BackgroundGeolocation.removeGeofence(<span class="hljs-string">&quot;HOME&quot;</span>).then(<span class="hljs-function"><span class="hljs-params">success</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[removeGeofence] success&quot;</span>);
 })</code></pre>
 							<ul>
 								<li>Removing <em>all</em> geofences with <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#removegeofences">removeGeofences</a>:</li>
@@ -163,46 +175,52 @@ BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-p
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript">BackgroundGeolocation.removeGeofences().then(<span class="hljs-function"><span class="hljs-params">success</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[removeGeofences] all geofences have been destroyed"</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[removeGeofences] all geofences have been destroyed&quot;</span>);
 })</code></pre>
 							<hr>
-							<h2 id="querying-geofences">Querying Geofences</h2>
+							<a href="#querying-geofences" id="querying-geofences" style="color: inherit; text-decoration: none;">
+								<h2>Querying Geofences</h2>
+							</a>
 							<p>Use the method <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#getgeofences">getGeofences</a> to retrieve the entire Array of <a href="_react_native_background_geolocation_.geofence.html">Geofence</a> stored in the SDK&#39;s database.</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript">BackgroundGeolocation.getGeofences().then(<span class="hljs-function"><span class="hljs-params">geofences</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[getGeofences] "</span>, geofences);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[getGeofences] &quot;</span>, geofences);
 })</code></pre>
 							<hr>
-							<h2 id="monitoring-only-geofences">Monitoring <em>only</em> geofences</h2>
+							<a href="#monitoring-only-geofences" id="monitoring-only-geofences" style="color: inherit; text-decoration: none;">
+								<h2>Monitoring <em>only</em> geofences</h2>
+							</a>
 							<p>The BackgroundGeolocation SDK allows you to optionally monitor <em>only</em> geofences without constant location-tracking.  To engage <em>geofences-only</em> mode, use the method <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a> instead of <a href="_react_native_background_geolocation_.sqlquery.html#start">start</a>.</p>
 							<p>Use option <a href="_react_native_background_geolocation_.config.html#geofencemodehighaccuracy">Config.geofenceModeHighAccuracy</a>:true to improve the responsiveness of geofence events.</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript">BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-params">geofence</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[geofence] "</span>, geofence);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[geofence] &quot;</span>, geofence);
 })
 
 BackgroundGeolocation.ready({
-  url: <span class="hljs-string">"http://your.server.com/geofences"</span>,
+  url: <span class="hljs-string">&quot;http://your.server.com/geofences&quot;</span>,
   autoSync: <span class="hljs-literal">true</span>,
   geofenceModeHighAccuracy: <span class="hljs-literal">true</span>   <span class="hljs-comment">// &lt;-- consumes more power; default is false.</span>
 }, <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> {
   <span class="hljs-comment">// engage geofences-only mode:</span>
   BackgroundGeolocation.startGeofences();
 })</code></pre>
-							<h2 id="toggling-between-tracking-modes-a-href-_react_native_background_geolocation_-sqlquery-html-start-start-a-and-a-href-classes-_react_native_background_geolocation_-backgroundgeolocation-html-startgeofences-startgeofences-a-">Toggling between tracking-modes <a href="_react_native_background_geolocation_.sqlquery.html#start">start</a> and <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a></h2>
+							<a href="#toggling-between-tracking-modes-start-and-startgeofences" id="toggling-between-tracking-modes-start-and-startgeofences" style="color: inherit; text-decoration: none;">
+								<h2>Toggling between tracking-modes <a href="_react_native_background_geolocation_.sqlquery.html#start">start</a> and <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a></h2>
+							</a>
 							<p>The SDK can easily be toggled between <a href="_react_native_background_geolocation_.state.html#trackingmode">State.trackingMode</a> simply by executing the corresponding <a href="_react_native_background_geolocation_.sqlquery.html#start">start</a> or <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a> methods.</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript"><span class="hljs-comment">// Listen to geofence events</span>
 BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-params">geofence</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[geofence] "</span>, geofence);
-  <span class="hljs-keyword">if</span> (geofence.identifier == <span class="hljs-string">"DANGER_ZONE"</span>) {
-    <span class="hljs-keyword">if</span> (geofence.action == <span class="hljs-string">"ENTER"</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[geofence] &quot;</span>, geofence);
+  <span class="hljs-keyword">if</span> (geofence.identifier == <span class="hljs-string">&quot;DANGER_ZONE&quot;</span>) {
+    <span class="hljs-keyword">if</span> (geofence.action == <span class="hljs-string">&quot;ENTER&quot;</span>) {
       <span class="hljs-comment">// Entering the danger-zone, we want to aggressively track location.</span>
       BackgroundGeolocation.start();
-    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (geofence.action == <span class="hljs-string">"EXIT"</span>) {
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (geofence.action == <span class="hljs-string">&quot;EXIT&quot;</span>) {
       <span class="hljs-comment">// Exiting the danger-zone, we resume geofences-only tracking.</span>
       BackgroundGeolocation.startGeofences();
     }
@@ -211,7 +229,7 @@ BackgroundGeolocation.onGeofence(<span class="hljs-function"><span class="hljs-p
 
 <span class="hljs-comment">// Add a geofence.</span>
 BackgroundGeolocation.addGeofence({
-  identifier: <span class="hljs-string">"DANGER_ZONE"</span>,
+  identifier: <span class="hljs-string">&quot;DANGER_ZONE&quot;</span>,
   radius: <span class="hljs-number">1000</span>,
   latitude: <span class="hljs-number">45.51921926</span>,
   longitude: <span class="hljs-number">-73.61678581</span>,
@@ -223,7 +241,7 @@ BackgroundGeolocation.addGeofence({
 BackgroundGeolocation.ready({
   desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
   distanceFilter: <span class="hljs-number">10</span>,
-  url: <span class="hljs-string">"http://your.server.com/locations"</span>,
+  url: <span class="hljs-string">&quot;http://your.server.com/locations&quot;</span>,
   autoSync: <span class="hljs-literal">true</span>
 }, <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> {
   BackgroundGeolocation.startGeofences();
@@ -244,26 +262,26 @@ BackgroundGeolocation.ready({
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.geofence.html#extras" class="tsd-kind-icon">extras</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.geofence.html#identifier" class="tsd-kind-icon">identifier</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.geofence.html#latitude" class="tsd-kind-icon">latitude</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.geofence.html#loiteringdelay" class="tsd-kind-icon">loitering<wbr>Delay</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.geofence.html#longitude" class="tsd-kind-icon">longitude</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.geofence.html#notifyondwell" class="tsd-kind-icon">notify<wbr>OnDwell</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.geofence.html#notifyonentry" class="tsd-kind-icon">notify<wbr>OnEntry</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.geofence.html#notifyonexit" class="tsd-kind-icon">notify<wbr>OnExit</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.geofence.html#radius" class="tsd-kind-icon">radius</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.geofence.html#extras" class="tsd-kind-icon">extras</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.geofence.html#identifier" class="tsd-kind-icon">identifier</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.geofence.html#latitude" class="tsd-kind-icon">latitude</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.geofence.html#loiteringdelay" class="tsd-kind-icon">loitering<wbr>Delay</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.geofence.html#longitude" class="tsd-kind-icon">longitude</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.geofence.html#notifyondwell" class="tsd-kind-icon">notify<wbr>OnDwell</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.geofence.html#notifyonentry" class="tsd-kind-icon">notify<wbr>OnEntry</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.geofence.html#notifyonexit" class="tsd-kind-icon">notify<wbr>OnExit</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.geofence.html#radius" class="tsd-kind-icon">radius</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="extras" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> extras</h3>
 					<div class="tsd-signature tsd-kind-icon">extras<span class="tsd-signature-symbol">:</span> <a href="../modules/_react_native_background_geolocation_.html#extras" class="tsd-signature-type">Extras</a></div>
@@ -275,7 +293,7 @@ BackgroundGeolocation.ready({
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="identifier" class="tsd-anchor"></a>
 					<h3>identifier</h3>
 					<div class="tsd-signature tsd-kind-icon">identifier<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -287,7 +305,7 @@ BackgroundGeolocation.ready({
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="latitude" class="tsd-anchor"></a>
 					<h3>latitude</h3>
 					<div class="tsd-signature tsd-kind-icon">latitude<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -299,7 +317,7 @@ BackgroundGeolocation.ready({
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="loiteringdelay" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> loitering<wbr>Delay</h3>
 					<div class="tsd-signature tsd-kind-icon">loitering<wbr>Delay<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -311,7 +329,7 @@ BackgroundGeolocation.ready({
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="longitude" class="tsd-anchor"></a>
 					<h3>longitude</h3>
 					<div class="tsd-signature tsd-kind-icon">longitude<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -323,7 +341,7 @@ BackgroundGeolocation.ready({
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="notifyondwell" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> notify<wbr>OnDwell</h3>
 					<div class="tsd-signature tsd-kind-icon">notify<wbr>OnDwell<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
@@ -335,7 +353,7 @@ BackgroundGeolocation.ready({
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="notifyonentry" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> notify<wbr>OnEntry</h3>
 					<div class="tsd-signature tsd-kind-icon">notify<wbr>OnEntry<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
@@ -351,7 +369,7 @@ BackgroundGeolocation.ready({
 						</ul>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="notifyonexit" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> notify<wbr>OnExit</h3>
 					<div class="tsd-signature tsd-kind-icon">notify<wbr>OnExit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
@@ -363,7 +381,7 @@ BackgroundGeolocation.ready({
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="radius" class="tsd-anchor"></a>
 					<h3>radius</h3>
 					<div class="tsd-signature tsd-kind-icon">radius<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -375,7 +393,7 @@ BackgroundGeolocation.ready({
 						</div>
 						<p>⚠️ The minimum reliable <code>radius</code> is <strong><code>200</code></strong> meters.  Anything less will likely not cause a geofence to trigger.  This is documented by Apple <a href="https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/LocationAwarenessPG/RegionMonitoring/RegionMonitoring.html">here</a>:</p>
 						<blockquote>
-							<p><em>&quot;The specific threshold distances are determined by the hardware and the location technologies that are currently available. For example, if WiFi is disabled, region monitoring is significantly less accurate. However, for testing purposes, <strong>you can assume that the minimum distance is approximately 200 meters</strong></em>&quot;.</p>
+							<p>*&quot;The specific threshold distances are determined by the hardware and the location technologies that are currently available. For example, if WiFi is disabled, region monitoring is significantly less accurate. However, for testing purposes, <strong>you can assume that the minimum distance is approximately 200 meters</strong>*&quot;.</p>
 						</blockquote>
 					</div>
 				</section>
@@ -387,154 +405,154 @@ BackgroundGeolocation.ready({
 					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html" class="tsd-kind-icon">Background<wbr>Geolocation</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.authorization.html" class="tsd-kind-icon">Authorization</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.battery.html" class="tsd-kind-icon">Battery</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.config.html" class="tsd-kind-icon">Config</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.connectivitychangeevent.html" class="tsd-kind-icon">Connectivity<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.coords.html" class="tsd-kind-icon">Coords</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.devicesettingsrequest.html" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class="current tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofence.html" class="tsd-kind-icon">Geofence</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.geofence.html#extras" class="tsd-kind-icon">extras</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.geofence.html#identifier" class="tsd-kind-icon">identifier</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.geofence.html#latitude" class="tsd-kind-icon">latitude</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.geofence.html#loiteringdelay" class="tsd-kind-icon">loitering<wbr>Delay</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.geofence.html#longitude" class="tsd-kind-icon">longitude</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.geofence.html#notifyondwell" class="tsd-kind-icon">notify<wbr>OnDwell</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.geofence.html#notifyonentry" class="tsd-kind-icon">notify<wbr>OnEntry</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.geofence.html#notifyonexit" class="tsd-kind-icon">notify<wbr>OnExit</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.geofence.html#radius" class="tsd-kind-icon">radius</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofenceevent.html" class="tsd-kind-icon">Geofence<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofenceschangeevent.html" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.heartbeatevent.html" class="tsd-kind-icon">Heartbeat<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.httpevent.html" class="tsd-kind-icon">Http<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.location.html" class="tsd-kind-icon">Location</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.locationauthorizationalert.html" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.logger.html" class="tsd-kind-icon">Logger</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.motionchangeevent.html" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.notification.html" class="tsd-kind-icon">Notification</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-kind-icon">SQLQuery</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.sensors.html" class="tsd-kind-icon">Sensors</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.state.html" class="tsd-kind-icon">State</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#extras" class="tsd-kind-icon">Extras</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>
 					</li>
 				</ul>

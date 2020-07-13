@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.7.0</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.8.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -60,26 +60,28 @@
 					<dl class="tsd-comment-tags">
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript">BackgroundGeolocation.onHttp(<span class="hljs-function"><span class="hljs-params">httpEvent</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[http] "</span>, httpEvent.success, httpEvent.status);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[http] &quot;</span>, httpEvent.success, httpEvent.status);
 });</code></pre>
-							<h1 id="http-guide">HTTP Guide</h1>
+							<a href="#http-guide" id="http-guide" style="color: inherit; text-decoration: none;">
+								<h1>HTTP Guide</h1>
+							</a>
 							<hr>
 							<p>The <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html">BackgroundGeolocation</a> SDK hosts its own flexible and robust native HTTP &amp; SQLite persistence services.  To enable the HTTP service, simply configure the SDK with an <a href="_react_native_background_geolocation_.config.html#url">url</a>:</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript"><span class="hljs-comment">// Listen for HTTP responses.</span>
 BackgroundGeolocation.onHttp(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[http] response: "</span>, response.success, response.status, response.responseText);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[http] response: &quot;</span>, response.success, response.status, response.responseText);
 });
 
 BackgroundGeolocation.ready({
-  url: <span class="hljs-string">"https://my-server.com/locations"</span>,
+  url: <span class="hljs-string">&quot;https://my-server.com/locations&quot;</span>,
   autoSync: <span class="hljs-literal">true</span>,
   autoSyncThreshold: <span class="hljs-number">5</span>,
   batchSync: <span class="hljs-literal">true</span>,
   maxBatchSize: <span class="hljs-number">50</span>,
   headers: {
-    AUTHENTICATION_TOKEN: <span class="hljs-string">"23kasdlfkjlksjflkasdZIds"</span>
+    AUTHENTICATION_TOKEN: <span class="hljs-string">&quot;23kasdlfkjlksjflkasdZIds&quot;</span>
   },
   params: {
     user_id: <span class="hljs-number">1234</span>
@@ -87,12 +89,14 @@ BackgroundGeolocation.ready({
   extras: {
     route_id: <span class="hljs-number">8675309</span>
   },
-  locationsOrderDirection: <span class="hljs-string">"DESC"</span>,
+  locationsOrderDirection: <span class="hljs-string">&quot;DESC&quot;</span>,
   maxDaysToPersist: <span class="hljs-number">14</span>
 }, <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[ready] success: "</span>, state);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[ready] success: &quot;</span>, state);
 });</code></pre>
-							<h2 id="the-sqlite-database">The SQLite Database</h2>
+							<a href="#the-sqlite-database" id="the-sqlite-database" style="color: inherit; text-decoration: none;">
+								<h2>The SQLite Database</h2>
+							</a>
 							<p>The SDK immediately inserts each recorded location into its SQLite database.  This database is designed to act as a temporary buffer for the HTTP service and the SDK <strong>strongly</strong> desires an <em>empty</em> database.  The only way that locations are destroyed from the database are:</p>
 							<ul>
 								<li>Successful HTTP response from your server (<code>200</code>, <code>201</code>, <code>204</code>).</li>
@@ -101,7 +105,9 @@ BackgroundGeolocation.ready({
 								<li><a href="_react_native_background_geolocation_.config.html#maxrecordstopersist">maxRecordsToPersist</a> destroys oldest record in favor of latest.</li>
 							</ul>
 							<hr>
-							<h2 id="the-http-service">The HTTP Service</h2>
+							<a href="#the-http-service" id="the-http-service" style="color: inherit; text-decoration: none;">
+								<h2>The HTTP Service</h2>
+							</a>
 							<p>The SDK&#39;s HTTP service operates by selecting records from the database, locking them to prevent duplicate requests then uploading to your server.</p>
 							<ul>
 								<li>By default, the HTTP Service will select a single record (oldest first; see <a href="_react_native_background_geolocation_.config.html#locationsorderdirection">locationsOrderDirection</a>) and execute an HTTP request to your <a href="_react_native_background_geolocation_.config.html#url">url</a>.</li>
@@ -111,7 +117,9 @@ BackgroundGeolocation.ready({
 								<li>Use <a href="_react_native_background_geolocation_.config.html#maxbatchsize">maxBatchSize</a> to limit the number of records selected for each <a href="_react_native_background_geolocation_.config.html#batchsync">batchSync</a> request.  The HTTP service will execute <em>synchronous</em> HTTP <em>batch</em> requests until the database is empty.</li>
 							</ul>
 							<hr>
-							<h2 id="http-failures">HTTP Failures</h2>
+							<a href="#http-failures" id="http-failures" style="color: inherit; text-decoration: none;">
+								<h2>HTTP Failures</h2>
+							</a>
 							<p>If your server does <em>not</em> return a <code>20x</code> response (eg: <code>200</code>, <code>201</code>, <code>204</code>), the SDK will <strong><code>UNLOCK</code></strong> that record.  Another attempt to upload will be made in the future (until <a href="_react_native_background_geolocation_.config.html#maxdaystopersist">maxDaysToPersist</a>) when:</p>
 							<ul>
 								<li>When another location is recorded.</li>
@@ -122,29 +130,41 @@ BackgroundGeolocation.ready({
 								<li><strong>[iOS]</strong> Background <code>fetch</code> events.</li>
 							</ul>
 							<hr>
-							<h2 id="receiving-the-http-response-">Receiving the HTTP Response.</h2>
+							<a href="#receiving-the-http-response" id="receiving-the-http-response" style="color: inherit; text-decoration: none;">
+								<h2>Receiving the HTTP Response.</h2>
+							</a>
 							<p>You can capture the HTTP response from your server by listening to the <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onhttp">onHttp</a> event.</p>
 							<hr>
-							<h2 id="autosync-true"><code>autoSync: true</code></h2>
+							<a href="#autosync-true" id="autosync-true" style="color: inherit; text-decoration: none;">
+								<h2><code>autoSync: true</code></h2>
+							</a>
 							<p>By default, the SDK is configured for <a href="_react_native_background_geolocation_.config.html#autosync">autoSync</a>:true and will attempt to immediately upload each recorded location to your configured <a href="_react_native_background_geolocation_.config.html#url">url</a>.</p>
 							<ul>
 								<li>Use <a href="_react_native_background_geolocation_.config.html#autosyncthreshold">autoSyncThreshold</a> to throttle HTTP requests.  This will instruct the SDK to accumulate that number of records in the database before calling upon the HTTP Service.  This is a good way to <strong>conserve battery</strong>, since HTTP requests consume more energy/second than the GPS.</li>
 							</ul>
 							<hr>
-							<h2 id="manual-invoking-upload">Manual Invoking Upload</h2>
+							<a href="#manual-invoking-upload" id="manual-invoking-upload" style="color: inherit; text-decoration: none;">
+								<h2>Manual Invoking Upload</h2>
+							</a>
 							<p>The SDK&#39;s HTTP Service can be summoned into action at <strong>any time</strong> via the method <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#sync">BackgroundGeolocation.sync</a>.</p>
 							<hr>
-							<h2 id="-a-href-_react_native_background_geolocation_-config-html-params-params-a-a-href-_react_native_background_geolocation_-config-html-headers-headers-a-and-a-href-_react_native_background_geolocation_-config-html-extras-extras-a-"><a href="_react_native_background_geolocation_.config.html#params">params</a>, <a href="_react_native_background_geolocation_.config.html#headers">headers</a> and <a href="_react_native_background_geolocation_.config.html#extras">extras</a></h2>
+							<a href="#params-headers-and-extras" id="params-headers-and-extras" style="color: inherit; text-decoration: none;">
+								<h2><a href="_react_native_background_geolocation_.config.html#params">params</a>, <a href="_react_native_background_geolocation_.config.html#headers">headers</a> and <a href="_react_native_background_geolocation_.config.html#extras">extras</a></h2>
+							</a>
 							<ul>
 								<li>The SDK&#39;s HTTP Service appends configured <a href="_react_native_background_geolocation_.config.html#params">params</a> to root of the <code>JSON</code> data of each HTTP request.</li>
 								<li><a href="_react_native_background_geolocation_.config.html#headers">headers</a> are appended to each HTTP Request.</li>
 								<li><a href="_react_native_background_geolocation_.config.html#extras">extras</a> are appended to each recorded location and persisted to the database record.</li>
 							</ul>
 							<hr>
-							<h2 id="custom-json-schema-a-href-_react_native_background_geolocation_-config-html-locationtemplate-locationtemplate-a-and-a-href-_react_native_background_geolocation_-config-html-geofencetemplate-geofencetemplate-a-">Custom <code>JSON</code> Schema:  <a href="_react_native_background_geolocation_.config.html#locationtemplate">locationTemplate</a> and <a href="_react_native_background_geolocation_.config.html#geofencetemplate">geofenceTemplate</a></h2>
+							<a href="#custom-json-schema--locationtemplate-and-geofencetemplate" id="custom-json-schema--locationtemplate-and-geofencetemplate" style="color: inherit; text-decoration: none;">
+								<h2>Custom <code>JSON</code> Schema:  <a href="_react_native_background_geolocation_.config.html#locationtemplate">locationTemplate</a> and <a href="_react_native_background_geolocation_.config.html#geofencetemplate">geofenceTemplate</a></h2>
+							</a>
 							<p>The default HTTP <code>JSON</code> schema for both <a href="_react_native_background_geolocation_.location.html">Location</a> and <a href="_react_native_background_geolocation_.geofence.html">Geofence</a> can be overridden by the configuration options <a href="_react_native_background_geolocation_.config.html#locationtemplate">locationTemplate</a> and <a href="_react_native_background_geolocation_.config.html#geofencetemplate">geofenceTemplate</a>, allowing you to create any schema you wish.</p>
 							<hr>
-							<h2 id="disabling-http-requests-on-cellular-connections">Disabling HTTP requests on Cellular connections</h2>
+							<a href="#disabling-http-requests-on-cellular-connections" id="disabling-http-requests-on-cellular-connections" style="color: inherit; text-decoration: none;">
+								<h2>Disabling HTTP requests on Cellular connections</h2>
+							</a>
 							<p>If you&#39;re concerned with Cellular data-usage, you can configure the plugin&#39;s HTTP Service to upload only when connected to Wifi:</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
@@ -153,25 +173,29 @@ BackgroundGeolocation.ready({
   <span class="hljs-attr">disableAutoSyncOnCellular</span>: <span class="hljs-literal">true</span>
 });</code></pre>
 							<hr>
-							<h2 id="strong-encryption">Strong Encryption</h2>
+							<a href="#strong-encryption" id="strong-encryption" style="color: inherit; text-decoration: none;">
+								<h2>Strong Encryption</h2>
+							</a>
 							<p>The JSON payload in HTTP requests can be encrypted.  See <a href="_react_native_background_geolocation_.config.html#encrypt">Config.encrypt</a>.</p>
 							<hr>
-							<h2 id="http-logging">HTTP Logging</h2>
+							<a href="#http-logging" id="http-logging" style="color: inherit; text-decoration: none;">
+								<h2>HTTP Logging</h2>
+							</a>
 							<p>You can observe the plugin performing HTTP requests in the logs for both iOS and Android (<em>See Wiki <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Debugging</a></em>):</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code>╔═════════════════════════════════════════════
 ║ LocationService: location
 ╠═════════════════════════════════════════════
-╟─ 📍 Location[45.519199,-73.617054]
-✅ INSERT: 70727f8b-df7d-48d0-acbd-15f10cacdf33
+╟─ 📍 Location[<span class="hljs-number">45.519199</span>,<span class="hljs-number">-73.617054</span>]
+✅ INSERT: <span class="hljs-number">70727f</span>8b-df7d<span class="hljs-number">-48</span>d0-acbd<span class="hljs-number">-15f</span>10cacdf33
 ╔═════════════════════════════════════════════
-║ HTTP<span class="hljs-built_in"> Service
-</span>╠═════════════════════════════════════════════
-✅ Locked 1 records
-🔵 HTTP POST: 70727f8b-df7d-48d0-acbd-15f10cacdf33
-🔵 Response: 200
-✅ DESTROY: 70727f8b-df7d-48d0-acbd-15f10cacdf33</code></pre><table>
+║ HTTP Service
+╠═════════════════════════════════════════════
+✅ Locked <span class="hljs-number">1</span> records
+🔵 HTTP POST: <span class="hljs-number">70727f</span>8b-df7d<span class="hljs-number">-48</span>d0-acbd<span class="hljs-number">-15f</span>10cacdf33
+🔵 Response: <span class="hljs-number">200</span>
+✅ DESTROY: <span class="hljs-number">70727f</span>8b-df7d<span class="hljs-number">-48</span>d0-acbd<span class="hljs-number">-15f</span>10cacdf33</code></pre><table>
 								<thead>
 									<tr>
 										<th>#</th>
@@ -212,23 +236,27 @@ BackgroundGeolocation.ready({
 							</tbody></table>
 							<p>&nbsp;</p>
 							<hr>
-							<h2 id="controlling-the-sdk-with-http-responses-rpc-">Controlling the SDK with HTTP Responses (<em>RPC</em>)</h2>
-							<p>The SDK has a <em>&quot;Remote Procedure Call&quot; (RPC)</em> mechanism, allowing you to invoke commands upon the SDK&#39;s API by returing a JSON response from the server containing the key <code>&quot;background_geolocation&quot;: [...]</code>.</p>
+							<a href="#controlling-the-sdk-with-http-responses-rpc" id="controlling-the-sdk-with-http-responses-rpc" style="color: inherit; text-decoration: none;">
+								<h2>Controlling the SDK with HTTP Responses (<em>RPC</em>)</h2>
+							</a>
+							<p>The SDK has a *&quot;Remote Procedure Call&quot; (RPC)* mechanism, allowing you to invoke commands upon the SDK&#39;s API by returing a JSON response from the server containing the key <code>&quot;background_geolocation&quot;: [...]</code>.</p>
 							<p>Within the returned <code>[...]</code>, you may return one or more commands to invoke upon the SDK.  Each command takes the form of an <code>[]</code>, with a required first element <code>String command</code>, along with an optional
 							second element <code>Argument:string|boolean|number|Object</code> depending upon the context of the <code>command</code>.</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-javascript">{
-  <span class="hljs-string">"background_geolocation"</span>: [
-    [<span class="hljs-string">"command1"</span>, <span class="hljs-attr">argument</span>:string|boolean|number|<span class="hljs-built_in">Object</span>],
-    [<span class="hljs-string">"command2"</span>]
+  <span class="hljs-string">&quot;background_geolocation&quot;</span>: [
+    [<span class="hljs-string">&quot;command1&quot;</span>, <span class="hljs-attr">argument</span>:string|boolean|number|<span class="hljs-built_in">Object</span>],
+    [<span class="hljs-string">&quot;command2&quot;</span>]
     .
     .
     .
   ]
 }</code></pre>
 							<p>The SDK will run each of these commands synchronously upon itself.</p>
-							<h3 id="supported-rpc-commands">Supported RPC Commands</h3>
+							<a href="#supported-rpc-commands" id="supported-rpc-commands" style="color: inherit; text-decoration: none;">
+								<h3>Supported RPC Commands</h3>
+							</a>
 							<table>
 								<thead>
 									<tr>
@@ -293,45 +321,53 @@ BackgroundGeolocation.ready({
 										<td><code>BackgroundGeolocation.destroyLog</code></td>
 									</tr>
 							</tbody></table>
-							<h3 id="simple-example-stop">Simple Example: <code>#stop</code></h3>
+							<a href="#simple-example-stop" id="simple-example-stop" style="color: inherit; text-decoration: none;">
+								<h3>Simple Example: <code>#stop</code></h3>
+							</a>
 							<p>Your server could return a response telling the SDK to <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#stop">BackgroundGeolocation.stop</a>:</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-json">{
-  <span class="hljs-attr">"background_geolocation"</span>: [
-    [<span class="hljs-string">"stop"</span>]
+  <span class="hljs-attr">&quot;background_geolocation&quot;</span>: [
+    [<span class="hljs-string">&quot;stop&quot;</span>]
   ]
 }</code></pre>
 							<p>When returning just a single command, you can optionally omit the root <code>[ ]</code>:</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-json">{
-  <span class="hljs-attr">"background_geolocation"</span>: [<span class="hljs-string">"stop"</span>]
+  <span class="hljs-attr">&quot;background_geolocation&quot;</span>: [<span class="hljs-string">&quot;stop&quot;</span>]
 }</code></pre>
-							<h3 id="arguments">Arguments</h3>
+							<a href="#arguments" id="arguments" style="color: inherit; text-decoration: none;">
+								<h3>Arguments</h3>
+							</a>
 							<p>The 2nd param to each action is optional but depends upon the context of the command.  For example, <code>#changePace</code> requires a <code>boolean</code> argument:</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-json">{
-  <span class="hljs-attr">"background_geolocation"</span>: [
-    [<span class="hljs-string">"changePace"</span>, <span class="hljs-literal">true</span>]
+  <span class="hljs-attr">&quot;background_geolocation&quot;</span>: [
+    [<span class="hljs-string">&quot;changePace&quot;</span>, <span class="hljs-literal">true</span>]
   ]
 }</code></pre>
-							<h3 id="object-arguments">Object Arguments</h3>
+							<a href="#object-arguments" id="object-arguments" style="color: inherit; text-decoration: none;">
+								<h3>Object Arguments</h3>
+							</a>
 							<p>Some commands receive an <code>{ }</code> argument, like <code>#setConfig</code>:</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-json">{
-  <span class="hljs-attr">"background_geolocation"</span>: [<span class="hljs-string">"setConfig"</span>, {<span class="hljs-attr">"distanceFilter"</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">"locationUpdateInterval"</span>: <span class="hljs-number">1000</span>}]
+  <span class="hljs-attr">&quot;background_geolocation&quot;</span>: [<span class="hljs-string">&quot;setConfig&quot;</span>, {<span class="hljs-attr">&quot;distanceFilter&quot;</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">&quot;locationUpdateInterval&quot;</span>: <span class="hljs-number">1000</span>}]
 }</code></pre>
-							<h3 id="multiple-actions">Multiple Actions</h3>
+							<a href="#multiple-actions" id="multiple-actions" style="color: inherit; text-decoration: none;">
+								<h3>Multiple Actions</h3>
+							</a>
 							<p>You could tell the plugin to both <code>#start</code> and <code>#changePace</code>:</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-json">{
-  <span class="hljs-attr">"background_geolocation"</span>: [
-    [<span class="hljs-string">"start"</span>],
-    [<span class="hljs-string">"changePace"</span>, <span class="hljs-literal">true</span>]
+  <span class="hljs-attr">&quot;background_geolocation&quot;</span>: [
+    [<span class="hljs-string">&quot;start&quot;</span>],
+    [<span class="hljs-string">&quot;changePace&quot;</span>, <span class="hljs-literal">true</span>]
   ]
 }</code></pre>
 						</dd>
@@ -350,20 +386,20 @@ BackgroundGeolocation.ready({
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.httpevent.html#responsetext" class="tsd-kind-icon">response<wbr>Text</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.httpevent.html#status" class="tsd-kind-icon">status</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.httpevent.html#success" class="tsd-kind-icon">success</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.httpevent.html#responsetext" class="tsd-kind-icon">response<wbr>Text</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.httpevent.html#status" class="tsd-kind-icon">status</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.httpevent.html#success" class="tsd-kind-icon">success</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="responsetext" class="tsd-anchor"></a>
 					<h3>response<wbr>Text</h3>
 					<div class="tsd-signature tsd-kind-icon">response<wbr>Text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -375,7 +411,7 @@ BackgroundGeolocation.ready({
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="status" class="tsd-anchor"></a>
 					<h3>status</h3>
 					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -387,7 +423,7 @@ BackgroundGeolocation.ready({
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="success" class="tsd-anchor"></a>
 					<h3>success</h3>
 					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
@@ -407,60 +443,60 @@ BackgroundGeolocation.ready({
 					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html" class="tsd-kind-icon">Background<wbr>Geolocation</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.authorization.html" class="tsd-kind-icon">Authorization</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.battery.html" class="tsd-kind-icon">Battery</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.config.html" class="tsd-kind-icon">Config</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.connectivitychangeevent.html" class="tsd-kind-icon">Connectivity<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.coords.html" class="tsd-kind-icon">Coords</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.devicesettingsrequest.html" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofence.html" class="tsd-kind-icon">Geofence</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofenceevent.html" class="tsd-kind-icon">Geofence<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofenceschangeevent.html" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.heartbeatevent.html" class="tsd-kind-icon">Heartbeat<wbr>Event</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class="current tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.httpevent.html" class="tsd-kind-icon">Http<wbr>Event</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.httpevent.html#responsetext" class="tsd-kind-icon">response<wbr>Text</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.httpevent.html#status" class="tsd-kind-icon">status</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.httpevent.html#success" class="tsd-kind-icon">success</a>
 							</li>
 						</ul>
@@ -470,73 +506,73 @@ BackgroundGeolocation.ready({
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.location.html" class="tsd-kind-icon">Location</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.locationauthorizationalert.html" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.logger.html" class="tsd-kind-icon">Logger</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.motionchangeevent.html" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.notification.html" class="tsd-kind-icon">Notification</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-kind-icon">SQLQuery</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.sensors.html" class="tsd-kind-icon">Sensors</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.state.html" class="tsd-kind-icon">State</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#extras" class="tsd-kind-icon">Extras</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>
 					</li>
 				</ul>

@@ -49,10 +49,10 @@ dependencies {
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
     // tslocationmanager.aar
     if (useAndroidX) {
-        api fileTree(include: ['*.aar'], dir: 'libs')
+        api(group: 'com.transistorsoft', name:'tslocationmanager', version: '+')
         implementation "androidx.localbroadcastmanager:localbroadcastmanager:$localBroadcastManagerVersion"
     } else {
-        api fileTree(include: ['*.aar'], dir: 'libs/reverse')
+        api(group: 'com.transistorsoft', name:'tslocationmanager-reverse', version: '+')
     }
 
     implementation "$appCompatLibName:$appCompatVersion"

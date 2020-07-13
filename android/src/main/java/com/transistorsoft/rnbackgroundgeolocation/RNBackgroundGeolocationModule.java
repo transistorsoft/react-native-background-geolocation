@@ -82,7 +82,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
 
     private boolean mInitialized = false;
     private boolean mReady = false;
-    private Intent mLaunchIntent;
+
     // Map of event listener-counts
     private final HashMap<String, Integer> mListeners = new HashMap<>();
     private List<String> mEvents = new ArrayList<>();
@@ -1209,11 +1209,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         if (activity == null) {
             return;
         }
-        mLaunchIntent = activity.getIntent();
 
-        if (mLaunchIntent.hasExtra("forceReload")) {
-            activity.moveTaskToBack(true);
-        }
         // Handle play-services connect errors.
         getAdapter().onPlayServicesConnectError((new TSPlayServicesConnectErrorCallback() {
             @Override
@@ -1241,7 +1237,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     private BackgroundGeolocation getAdapter() {
-        return BackgroundGeolocation.getInstance(getReactApplicationContext(), mLaunchIntent);
+        return BackgroundGeolocation.getInstance(getReactApplicationContext());
     }
 
     @Override

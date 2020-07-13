@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.7.0</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.8.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -62,34 +62,38 @@
 					<p><code>&quot;Authorization&quot;: &quot;Bearer XXX.YYY.ZZZ&quot;</code></p>
 					<p>When using <a href="_react_native_background_geolocation_.config.html#authorization">Config.authorization</a>, you do <strong>not</strong> need to manually configure <a href="_react_native_background_geolocation_.config.html#headers">Config.headers</a> with the <code>Authorization</code> parameter.  It is all <strong>automatic</strong>.</p>
 					<p>If provided with <a href="_react_native_background_geolocation_.authorization.html#refreshurl">refreshUrl</a>, <a href="_react_native_background_geolocation_.authorization.html#refreshtoken">refreshToken</a> and <a href="_react_native_background_geolocation_.authorization.html#refreshpayload">refreshPayload</a>, the SDK can automatically re-register for a new token after expiration, such as when an HTTP response <code>401 Unauthorized</code> is received.</p>
-					<h2 id="configuration">Configuration</h2>
+					<a href="#configuration" id="configuration" style="color: inherit; text-decoration: none;">
+						<h2>Configuration</h2>
+					</a>
 					<dl class="tsd-comment-tags">
 						<dt class="tsd-comment-tag-example">example</dt>
-						<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> myToken = <span class="hljs-keyword">this</span>.getMyAuthorizationToken();
+						<dd><pre><code class="language-typescript"><span class="hljs-keyword">let</span> myToken = <span class="hljs-built_in">this</span>.getMyAuthorizationToken();
 
 BackgroundGeolocation.onAuthorization(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (event.success) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[authorization] ERROR: "</span>, event.error);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[authorization] ERROR: &quot;</span>, event.error);
   } <span class="hljs-keyword">else</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[authorization] SUCCESS: "</span>, event.response);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[authorization] SUCCESS: &quot;</span>, event.response);
   }
 });
 
 BackgroundGeolocation.ready({
-  url: <span class="hljs-string">"https://app.your.server.com/users/locations"</span>,
+  url: <span class="hljs-string">&quot;https://app.your.server.com/users/locations&quot;</span>,
   autoSync: <span class="hljs-literal">true</span>,
   authorization: {
-    strategy: <span class="hljs-string">"JWT"</span>,
+    strategy: <span class="hljs-string">&quot;JWT&quot;</span>,
     accessToken: myToken.accessToken,
     refreshToken: myToken.refreshToken
-    refreshUrl: <span class="hljs-string">"https://auth.your.server.com/tokens"</span>,
+    refreshUrl: <span class="hljs-string">&quot;https://auth.your.server.com/tokens&quot;</span>,
     refreshPayload: {
-      the_refresh_token_field_name: <span class="hljs-string">"{refreshToken}"</span>
+      the_refresh_token_field_name: <span class="hljs-string">&quot;{refreshToken}&quot;</span>
     },
     expires: myToken.expiresAt
   }
 });</code></pre>
-							<h2 id="receiving-the-response-from-a-href-_react_native_background_geolocation_-authorization-html-refreshurl-refreshurl-a-">Receiving the Response from <a href="_react_native_background_geolocation_.authorization.html#refreshurl">refreshUrl</a>.</h2>
+							<a href="#receiving-the-response-from-refreshurl" id="receiving-the-response-from-refreshurl" style="color: inherit; text-decoration: none;">
+								<h2>Receiving the Response from <a href="_react_native_background_geolocation_.authorization.html#refreshurl">refreshUrl</a>.</h2>
+							</a>
 							<p>Whenever a response is received from <a href="_react_native_background_geolocation_.authorization.html#refreshurl">refreshUrl</a>, the SDK will fire the <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onauthorization">BackgroundGeolocation.onAuthorization</a> event.  Your callback will be provided an <a href="_react_native_background_geolocation_.authorizationevent.html">AuthorizationEvent</a>.  Check <a href="_react_native_background_geolocation_.authorizationevent.html#success">AuthorizationEvent.success</a>:</p>
 							<ul>
 								<li>When successful, <a href="_react_native_background_geolocation_.authorizationevent.html#response">AuthorizationEvent.response</a> will contain the decoded JSON from <a href="_react_native_background_geolocation_.authorization.html#refreshurl">refreshUrl</a>.</li>
@@ -99,9 +103,9 @@ BackgroundGeolocation.ready({
 						<dt class="tsd-comment-tag-example">example</dt>
 						<dd><pre><code class="language-typescript">BackgroundGeolocation.onAuthorization(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (event.success) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[authorization] ERROR: "</span>, event.error);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[authorization] ERROR: &quot;</span>, event.error);
   } <span class="hljs-keyword">else</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"[authorization] SUCCESS: "</span>, event.response);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[authorization] SUCCESS: &quot;</span>, event.response);
   }
 });</code></pre>
 						</dd>
@@ -120,23 +124,23 @@ BackgroundGeolocation.ready({
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.authorization.html#accesstoken" class="tsd-kind-icon">access<wbr>Token</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.authorization.html#expires" class="tsd-kind-icon">expires</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.authorization.html#refreshpayload" class="tsd-kind-icon">refresh<wbr>Payload</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.authorization.html#refreshtoken" class="tsd-kind-icon">refresh<wbr>Token</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.authorization.html#refreshurl" class="tsd-kind-icon">refresh<wbr>Url</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_react_native_background_geolocation_.authorization.html#strategy" class="tsd-kind-icon">strategy</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.authorization.html#accesstoken" class="tsd-kind-icon">access<wbr>Token</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.authorization.html#expires" class="tsd-kind-icon">expires</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.authorization.html#refreshpayload" class="tsd-kind-icon">refresh<wbr>Payload</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.authorization.html#refreshtoken" class="tsd-kind-icon">refresh<wbr>Token</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.authorization.html#refreshurl" class="tsd-kind-icon">refresh<wbr>Url</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.authorization.html#strategy" class="tsd-kind-icon">strategy</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="accesstoken" class="tsd-anchor"></a>
 					<h3>access<wbr>Token</h3>
 					<div class="tsd-signature tsd-kind-icon">access<wbr>Token<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -151,7 +155,7 @@ BackgroundGeolocation.ready({
 						<p>You do <strong>not</strong> need to manually configure <a href="_react_native_background_geolocation_.config.html#headers">Config.headers</a> with the <code>Authorization</code> parameter.  It is all <strong>automatic</strong>.</p>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="expires" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> expires</h3>
 					<div class="tsd-signature tsd-kind-icon">expires<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -163,7 +167,7 @@ BackgroundGeolocation.ready({
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="refreshpayload" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> refresh<wbr>Payload</h3>
 					<div class="tsd-signature tsd-kind-icon">refresh<wbr>Payload<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
@@ -179,28 +183,28 @@ BackgroundGeolocation.ready({
 							<dt class="tsd-comment-tag-example">example</dt>
 							<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
   authorization: {
-    strategy: <span class="hljs-string">"JWT"</span>,
-    accessToken: <span class="hljs-string">"XXX.YYY.ZZZ"</span>,
-    refreshUrl: <span class="hljs-string">"https://auth.your.server.com/tokens"</span>,
-    refreshToken: <span class="hljs-string">"smTsfaspfgaadsfgqZerUt0wueflasdfkaxjdfeKIacb"</span>,
+    strategy: <span class="hljs-string">&quot;JWT&quot;</span>,
+    accessToken: <span class="hljs-string">&quot;XXX.YYY.ZZZ&quot;</span>,
+    refreshUrl: <span class="hljs-string">&quot;https://auth.your.server.com/tokens&quot;</span>,
+    refreshToken: <span class="hljs-string">&quot;smTsfaspfgaadsfgqZerUt0wueflasdfkaxjdfeKIacb&quot;</span>,
     refreshPayload: {
-      my_refresh_token: <span class="hljs-string">"{refreshToken}"</span>,
-      grant_type: <span class="hljs-string">"refresh_token"</span>,
-      foo: <span class="hljs-string">"another arbitrary field"</span>
+      my_refresh_token: <span class="hljs-string">&quot;{refreshToken}&quot;</span>,
+      grant_type: <span class="hljs-string">&quot;refresh_token&quot;</span>,
+      foo: <span class="hljs-string">&quot;another arbitrary field&quot;</span>
     }
   }
 });</code></pre>
 								<p>with the configuration above, a <strong><code>curl</code></strong> representation of the SDK&#39;s FORM POST, might look like this:</p>
 								<pre><code class="language-bash">$ curl -X POST \
-  -F <span class="hljs-string">'my_refresh_token=smTsfaspfgaadsfgqZerUt0wueflasdfkaxjdfeKIacb'</span> \
-  -F <span class="hljs-string">'grant_type=refresh_token'</span> \
-  -F <span class="hljs-string">'foo=another arbitrary field'</span> \
+  -F <span class="hljs-string">&#x27;my_refresh_token=smTsfaspfgaadsfgqZerUt0wueflasdfkaxjdfeKIacb&#x27;</span> \
+  -F <span class="hljs-string">&#x27;grant_type=refresh_token&#x27;</span> \
+  -F <span class="hljs-string">&#x27;foo=another arbitrary field&#x27;</span> \
   https://auth.your.server.com/tokens</code></pre>
 							</dd>
 						</dl>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="refreshtoken" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> refresh<wbr>Token</h3>
 					<div class="tsd-signature tsd-kind-icon">refresh<wbr>Token<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -212,7 +216,7 @@ BackgroundGeolocation.ready({
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="refreshurl" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> refresh<wbr>Url</h3>
 					<div class="tsd-signature tsd-kind-icon">refresh<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -230,22 +234,22 @@ BackgroundGeolocation.ready({
 						</ol>
 						<p>The SDK is designed to operate with <em>any</em> response data-structure.  For example, one authorization server might return a complex response such as:</p>
 						<pre><code class="language-json">{
-  <span class="hljs-attr">"token"</span>: {
-    <span class="hljs-attr">"access_token"</span>: <span class="hljs-string">"XXX.YYY.ZZZ"</span>,
-    <span class="hljs-attr">"expires_at"</span>: <span class="hljs-number">3900</span>
+  <span class="hljs-attr">&quot;token&quot;</span>: {
+    <span class="hljs-attr">&quot;access_token&quot;</span>: <span class="hljs-string">&quot;XXX.YYY.ZZZ&quot;</span>,
+    <span class="hljs-attr">&quot;expires_at&quot;</span>: <span class="hljs-number">3900</span>
   },
-  <span class="hljs-attr">"refresh_token"</span>: <span class="hljs-string">"smTsfaspfgaadsfgqZerUt0wueflasdfkaxjdfeKIacb"</span>
+  <span class="hljs-attr">&quot;refresh_token&quot;</span>: <span class="hljs-string">&quot;smTsfaspfgaadsfgqZerUt0wueflasdfkaxjdfeKIacb&quot;</span>
 }</code></pre>
 						<p>While another server might return a flat response, such as:</p>
 						<pre><code class="language-json">{
- <span class="hljs-attr">"accessToken"</span>: <span class="hljs-string">"XXX.YYY.ZZZ"</span>,
- <span class="hljs-attr">"refreshToken"</span>: <span class="hljs-string">"smTsfaspfgaadsfgqZerUt0wueflasdfkaxjdfeKIacb"</span>,
- <span class="hljs-attr">"expiry"</span>: <span class="hljs-number">3900</span>
+ <span class="hljs-attr">&quot;accessToken&quot;</span>: <span class="hljs-string">&quot;XXX.YYY.ZZZ&quot;</span>,
+ <span class="hljs-attr">&quot;refreshToken&quot;</span>: <span class="hljs-string">&quot;smTsfaspfgaadsfgqZerUt0wueflasdfkaxjdfeKIacb&quot;</span>,
+ <span class="hljs-attr">&quot;expiry&quot;</span>: <span class="hljs-number">3900</span>
 }</code></pre>
 						<p>When the response from the server is received, the event <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onauthorization">BackgroundGeolocation.onAuthorization</a> will be fired, provided with the <a href="_react_native_background_geolocation_.authorizationevent.html">AuthorizationEvent</a>.</p>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="strategy" class="tsd-anchor"></a>
 					<h3>strategy</h3>
 					<div class="tsd-signature tsd-kind-icon">strategy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -267,143 +271,143 @@ BackgroundGeolocation.ready({
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class="current tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.authorization.html" class="tsd-kind-icon">Authorization</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.authorization.html#accesstoken" class="tsd-kind-icon">access<wbr>Token</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.authorization.html#expires" class="tsd-kind-icon">expires</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.authorization.html#refreshpayload" class="tsd-kind-icon">refresh<wbr>Payload</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.authorization.html#refreshtoken" class="tsd-kind-icon">refresh<wbr>Token</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.authorization.html#refreshurl" class="tsd-kind-icon">refresh<wbr>Url</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.authorization.html#strategy" class="tsd-kind-icon">strategy</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.battery.html" class="tsd-kind-icon">Battery</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.config.html" class="tsd-kind-icon">Config</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.connectivitychangeevent.html" class="tsd-kind-icon">Connectivity<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.coords.html" class="tsd-kind-icon">Coords</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.devicesettingsrequest.html" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofence.html" class="tsd-kind-icon">Geofence</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofenceevent.html" class="tsd-kind-icon">Geofence<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.geofenceschangeevent.html" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.heartbeatevent.html" class="tsd-kind-icon">Heartbeat<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.httpevent.html" class="tsd-kind-icon">Http<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.location.html" class="tsd-kind-icon">Location</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.locationauthorizationalert.html" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.logger.html" class="tsd-kind-icon">Logger</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.motionchangeevent.html" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.notification.html" class="tsd-kind-icon">Notification</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-kind-icon">SQLQuery</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.sensors.html" class="tsd-kind-icon">Sensors</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.state.html" class="tsd-kind-icon">State</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_react_native_background_geolocation_.watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#extras" class="tsd-kind-icon">Extras</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>
 					</li>
 				</ul>

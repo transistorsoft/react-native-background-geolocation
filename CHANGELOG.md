@@ -1,5 +1,65 @@
 # Change Log
 
+# 3.9.0 &mdash; 2020-08-20
+
+- [Added][iOS] iOS 14 introduces a new switch on the initial location authorization dialog, allowing the user to "disable precise location".  In support of this, a new method `BackgroundGeolocation.requestTemporaryFullAccuracy` has been added for requesting the user enable "temporary high accuracy" (until the next launch of your app), in addition to a new attribute `ProviderChangeEvent.accuracyAuthorization` for learning its state in the event `onProviderChange`:
+![](https://dl.dropbox.com/s/dj93xpg51vspqk0/ios-14-precise-on.png?dl=1)
+
+```javascript
+BackgroundGeolocation.onProviderChange((event) => {
+  print("[providerchange]", event);
+  // Did the user disable precise locadtion in iOS 14+?
+  if (event.accuracyAuthorization == BackgroundGeolocation.ACCURACY_AUTHORIZATION_REDUCED) {
+    // Supply "Purpose" key from Info.plist as 1st argument.
+    BackgroundGeolocation.requestTemporaryFullAccuracy("DemoPurpose").then((accuracyAuthorization) => {
+      if (accuracyAuthorization == BackgroundGeolocation.ACCURACY_AUTHORIZATION_FULL) {
+        console.log("[requestTemporaryFullAccuracy] GRANTED:", accuracyAuthorization);
+      } else {
+        console.log("[requestTemporaryFullAccuracy] DENIED:", accuracyAuthorization);
+      }
+    }).catch((error) => {
+      console.log("[requestTemporaryFullAccuracy] FAILED TO SHOW DIALOG:", error);
+    });
+  }
+}
+```
+These changes are fully compatible with Android, which will always return `BackgroundGeolocation.ACCURACY_AUTHORIZATION_FULL`
+
+- [Added][Android] Add `onChange` listener for `Config.locationAuthorizationRequest` to request location-authorization.
+- [Changed][iOS] If `locationAuthorizationRequest == 'WhenInUse'` and the user has granted the higher level of `Always` authorization, do not show `locationAuthorizationAlert`.
+- [Changed][iOS] When `locationAuthorizationRequest: 'Always'`, the SDK will now initially request `WhenInUse` followed immediately with another request for `Always`, rather than having to wait an unknown length of time for iOS to show the authorization upgrade dialog:
+- [Added][iOS] Apple has changed the behaviour of location authorization &mdash; if an app initially requests `When In Use` location authorization then later requests `Always` authorization, iOS will *immediately* show the authorization upgrade dialog (`[Keep using When in Use`] / `[Change to Always allow]`).
+
+__Example__
+```javascript
+componentDidMount() {
+  BackgroundGeolocation.ready({
+    locationAuthorizationRequest: 'WhenInUse',
+    .
+    .
+    .
+  });
+}
+
+async onClickStartTracking() {
+  await BackgroundGeolocation.start();
+
+  //
+  // some time later -- could be immediately after, hours later, days later, etc.
+  //
+  // Simply update `locationAuthorizationRequest` to "Always" -- the SDK will cause iOS to automatically show the authorization upgrade dialog.
+  BackgroundGeolocation.setConfig({
+    locationAuthorizationRequest: 'Always'
+  });
+}
+```
+
+![](https://dl.dropbox.com/s/0alq10i4pcm2o9q/ios-when-in-use-to-always-CHANGELOG.gif?dl=1)
+
+- [Fixed][iOS] when `getCurrentPosition` is provided with `extras`, those `extras` overwrite any configured `Config.extras` rather than merging.
+- [Fixed][Android] When cancelling Alarms, use `FLAG_UPDATE_CURRENT` instead of `FLAG_CANCEL_CURRENT` -- there are [reports](https://stackoverflow.com/questions/29344971/java-lang-securityexception-too-many-alarms-500-registered-from-pid-10790-u) of older Samsung devices failing to garbadge-collect Alarms, causing the number of alarms to exceed maximum 500, generating an exception.
+[Fixed][Android] Modify `isMainActivityActive` code to look specifically for `MainActivity` instead of any activity.  Some apps might use their own custom activity during headless operation.
+
 ## 3.8.1 - 2020-07-13
 - [Fixed][iOS] Geofence `EXIT` sometimes not firing when using `notifyOnDwell`.
 - [Changed][Android] Refactor geofencing-only mode to not initiate "Infinite Geofencing" when the total number of added geofences is `< 99` (the maximum number of simultaneous geofences that can be monitored on Android).  This prevents the SDK from periodically requesting location to query "geofences within `geofenceProximityRadius`".  iOS already has this behaviour (where its maximum simultaneous geofences is `19`).

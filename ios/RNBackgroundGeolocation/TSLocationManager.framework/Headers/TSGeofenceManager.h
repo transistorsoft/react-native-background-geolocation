@@ -12,7 +12,6 @@
 #import "TSGeofencesChangeEvent.h"
 
 extern NSString *const STATIONARY_REGION_IDENTIFIER;
-extern NSString *const PROVISIONAL_ALWAYS_REGION_IDENTIFIER;
 
 @interface TSGeofenceManager : NSObject<CLLocationManagerDelegate>
 {

@@ -9,7 +9,7 @@
 
 @interface TSWatchPositionRequest : NSObject
 
-@property (atomic) double interval;
+@property (nonatomic) double interval;
 @property (atomic) CLLocationAccuracy desiredAccuracy;
 @property (atomic) BOOL persist;
 @property (atomic) NSDictionary* extras;

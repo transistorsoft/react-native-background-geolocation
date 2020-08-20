@@ -977,6 +977,12 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         });
     }
 
+    @ReactMethod
+    public void requestTemporaryFullAccuracy(String purpose, Callback success, Callback failure) {
+        // Note:  No Android implementation -- this is an iOS-only mechanism currently.
+        // return iOS CLAccuracyAuthorizationFull (0)
+        success.invoke(LocationProviderChangeEvent.ACCURACY_AUTHORIZATION_FULL);
+    }
 
     @ReactMethod
     public void addEventListener(String event) {

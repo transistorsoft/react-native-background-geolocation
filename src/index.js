@@ -56,6 +56,9 @@ const PERSIST_MODE_LOCATION               = 1;
 const PERSIST_MODE_GEOFENCE               = -1;
 const PERSIST_MODE_NONE                   = 0;
 
+const ACCURACY_AUTHORIZATION_FULL        = 0;
+const ACCURACY_AUTHORIZATION_REDUCED     = 1;
+
 const emptyFn = function() {}
 
 export default class BackgroundGeolocation {
@@ -98,6 +101,9 @@ export default class BackgroundGeolocation {
   static get PERSIST_MODE_LOCATION()  { return PERSIST_MODE_LOCATION; }
   static get PERSIST_MODE_GEOFENCE()  { return PERSIST_MODE_GEOFENCE; }
   static get PERSIST_MODE_NONE()      { return PERSIST_MODE_NONE; }
+
+  static get ACCURACY_AUTHORIZATION_FULL()      { return ACCURACY_AUTHORIZATION_FULL; }
+  static get ACCURACY_AUTHORIZATION_REDUCED()   { return ACCURACY_AUTHORIZATION_REDUCED; }
 
   static get deviceSettings() {
     if (_deviceSettingsInstance === null) {
@@ -153,6 +159,10 @@ export default class BackgroundGeolocation {
     } else {
       NativeModule.requestPermission().then(success).catch(failure);
     }
+  }
+
+  static requestTemporaryFullAccuracy(purpose) {
+    return NativeModule.requestTemporaryFullAccuracy(purpose);
   }
 
   static getProviderState(success, failure) {

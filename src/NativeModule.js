@@ -124,6 +124,14 @@ export default class NativeModule {
     });
   }
 
+  static requestTemporaryFullAccuracy(purpose) {
+    return new Promise((resolve, reject) => {
+      let success = (status) => { resolve(status) }
+      let failure = (error) => { reject(error) }
+      RNBackgroundGeolocation.requestTemporaryFullAccuracy(purpose, success, failure);
+    });
+  }
+
   static getProviderState() {
     return new Promise((resolve, reject) => {
       let success = (state) => { resolve(state) }

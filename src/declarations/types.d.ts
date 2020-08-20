@@ -65,6 +65,14 @@ declare module "react-native-background-geolocation" {
 	type AuthorizationStatus = 0 | 1 | 2 | 3 | 4;
 
 	/**
+	* | Name                                    | Value     |
+	* |-----------------------------------------|-----------|
+	* | [[ACCURACY_AUTHORIZATION_FULL]] 		| 0     	|
+	* | [[ACCURACY_AUTHORIZATION_REDUCED]]     	| 1         |
+	*/
+	type AccuracyAuthorization = 0 | 1;
+
+	/**
 	* | Value    | Description                                                           |
 	* |----------|-----------------------------------------------------------------------|
 	* | `0`      | Geofences-only monitoring ([[BackgroundGeolocation.startGeofences]]). |

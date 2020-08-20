@@ -9,10 +9,12 @@
 @interface TSProviderChangeEvent : NSObject
 
 @property (nonatomic, readonly) CLAuthorizationStatus status;
+@property (nonatomic, readonly) NSInteger accuracyAuthorization;
 @property (nonatomic, readonly) BOOL gps;
 @property (nonatomic, readonly) BOOL network;
 @property (nonatomic, readonly) BOOL enabled;
+@property (nonatomic, readonly) CLLocationManager* manager;
 
--(id) initWithStatus:(CLAuthorizationStatus)status authorizationRequest:(NSString*)authorizationRequest;
+-(id) initWithManager:(CLLocationManager*)manager status:(CLAuthorizationStatus)status authorizationRequest:(NSString*)authorizationRequest;
 -(NSDictionary*) toDictionary;
 @end

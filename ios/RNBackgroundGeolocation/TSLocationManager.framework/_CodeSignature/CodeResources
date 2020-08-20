@@ -54,7 +54,7 @@
 		</data>
 		<key>Headers/TSConfig.h</key>
 		<data>
-		cwXPmfBJIk/dF/B6ajPmjehb+KE=
+		MrMeLJP2HECTyM1rKKEqXz0goLs=
 		</data>
 		<key>Headers/TSConnectivityChangeEvent.h</key>
 		<data>
@@ -82,7 +82,7 @@
 		</data>
 		<key>Headers/TSGeofenceManager.h</key>
 		<data>
-		AOegjZHFfrPfOt8PuXi0ee2VDJI=
+		4Qvy/tgridoR+/ugedbBRf0DRbw=
 		</data>
 		<key>Headers/TSGeofencesChangeEvent.h</key>
 		<data>
@@ -106,7 +106,7 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		Gxr75+DPLDgqe4JIvWDxys6D5Ys=
+		tORXWQ9fea7+Z3NdNSzbuT7u0E0=
 		</data>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
 		<data>
@@ -114,7 +114,7 @@
 		</data>
 		<key>Headers/TSProviderChangeEvent.h</key>
 		<data>
-		CXnFy7GKyGc92cKNJg5cDZQkWR4=
+		YyxcthmmiWSrR/sJOGvajFPOOnI=
 		</data>
 		<key>Headers/TSReachability.h</key>
 		<data>
@@ -130,7 +130,7 @@
 		</data>
 		<key>Headers/TSWatchPositionRequest.h</key>
 		<data>
-		OVmE804m1lo8t7N9GOq6DPGnNew=
+		LQGUCobz59a3mD6a5TUDkDb+FL8=
 		</data>
 		<key>Headers/TransistorAuthorizationToken.h</key>
 		<data>
@@ -138,7 +138,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		fw4q4cg3BZECWbjPzihTBFlYxbI=
+		YiN11HCKhcIwzyyJV8yVkEP3buk=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -283,11 +283,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			cwXPmfBJIk/dF/B6ajPmjehb+KE=
+			MrMeLJP2HECTyM1rKKEqXz0goLs=
 			</data>
 			<key>hash2</key>
 			<data>
-			Yt2Fd93CbD9WSb4Y8HUbg2DPjiunxezuiYaIBJXRXjw=
+			gvcO1iqxLgcWIi+AgwgR2LnbRHRv76oaMhUpjvyBMlo=
 			</data>
 		</dict>
 		<key>Headers/TSConnectivityChangeEvent.h</key>
@@ -360,11 +360,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			AOegjZHFfrPfOt8PuXi0ee2VDJI=
+			4Qvy/tgridoR+/ugedbBRf0DRbw=
 			</data>
 			<key>hash2</key>
 			<data>
-			IalcTqLZme8u3H5beE7Lvi+JtHhFEvZwVN5xtXpEINE=
+			FLREH95bTwvsPByCMwXpYpAL/g59PSi1Qds4PrDvspI=
 			</data>
 		</dict>
 		<key>Headers/TSGeofencesChangeEvent.h</key>
@@ -426,11 +426,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Gxr75+DPLDgqe4JIvWDxys6D5Ys=
+			tORXWQ9fea7+Z3NdNSzbuT7u0E0=
 			</data>
 			<key>hash2</key>
 			<data>
-			5f6MsJqTDcyzft8xVuuTFbs/M5TKOwtQK9D6b2C7Nzg=
+			IG0O50tIyUkMMoRO1Kfg+7n7FnNxQaeykrKhUI1Qdgs=
 			</data>
 		</dict>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
@@ -448,11 +448,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			CXnFy7GKyGc92cKNJg5cDZQkWR4=
+			YyxcthmmiWSrR/sJOGvajFPOOnI=
 			</data>
 			<key>hash2</key>
 			<data>
-			KUP8RBL0QCPUcyLqJwo904f3BEnS4fXKuPLBHvFBImM=
+			oN0yLAbc79aWtuo1rQxRReeqpPi5Z/OZNHRTUg2IHlw=
 			</data>
 		</dict>
 		<key>Headers/TSReachability.h</key>
@@ -492,11 +492,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			OVmE804m1lo8t7N9GOq6DPGnNew=
+			LQGUCobz59a3mD6a5TUDkDb+FL8=
 			</data>
 			<key>hash2</key>
 			<data>
-			aYB4EOhEvIJFOvKVz1tcgNtmxtAm6WaILNxdHtcoZl8=
+			oa7LHO4v40I7MPKG06RFKl32PoKZyAq5VDinKtKGh+w=
 			</data>
 		</dict>
 		<key>Headers/TransistorAuthorizationToken.h</key>

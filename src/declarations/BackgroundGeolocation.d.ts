@@ -204,6 +204,9 @@ declare module "react-native-background-geolocation" {
     static PERSIST_MODE_GEOFENCE: PersistMode;
     static PERSIST_MODE_NONE: PersistMode;
 
+    static ACCURACY_AUTHORIZATION_FULL: AccuracyAuthorization;
+    static ACCURACY_AUTHORIZATION_REDUCED: AccuracyAuthorization;
+
     /**
     * [[DeviceSettings]] API
     *
@@ -1408,23 +1411,101 @@ declare module "react-native-background-geolocation" {
     static getProviderState(success?:(state:ProviderChangeEvent) => void, failure?:Function): Promise<ProviderChangeEvent>;
 
     /**
-    * Initiates a location permission dialog with the user.
+    * Manually request location permission from the user with the configured [[Config.locationAuthorizationRequest]].
     *
-    * If the user has already provided authorization for location-services, your `success` callback will be executed immediately.
+    * The method will resolve successful if *either* __`WhenInUse`__ or __`Always`__ is authorized, regardless of [[Config.locationAuthorizationRequest]].  Otherwise an error will be returned (eg: user denies location permission).
+    *
+    * If the user has already provided authorization for location-services, the method will resolve successfully immediately.
+    *
+    * If iOS has *already* presented the location authorization dialog and the user has not currently authorized your desired [[Config.locationAuthorizationRequest]], the SDK will present an error dialog offering to direct the user to your app's Settings screen.
+    * - To disable this behaviour, see [[Config.disableLocationAuthorizationAlert]].
+    * - To customize the text on this dialog, see [[Config.locationAuthorizationAlert]].
     *
     * ### ⚠️ Note:
     * - The SDK will **already request permission** from the user when you execute [[start]], [[startGeofences]], [[getCurrentPosition]], etc.  You **do not need to explicitly execute this method** with typical use-cases.
     *
     * @example
     * ```typescript
-    * BackgroundGeolocation.requestPermission().then((status) => {
-    *   console.log("[requestPermission] SUCCESS");
-    * }).catch((status) => {
-    *   console.log("[requestPermission] REJECTED", status);
-    * });
+    * async componentDidMount() {
+    *   // Listen to onProviderChange to be notified when location authorization changes occur.
+    *   BackgroundGeolocation.onProviderChange((event) => {
+    *     console.log('[providerchange]', event);
+    *   });
+    *
+    *   // First ready the plugin with your configuration.
+    *   let state = await BackgroundGeolocation.ready({
+    *     locationAuthorizationRequest: 'Always'
+    *   });
+    *
+    *   // Manually request permission with configured locationAuthorizationRequest.
+    *   try {
+    *     int status = await BackgroundGeolocation.requestPermission();
+    *     console.log('[requestPermission] success: ', status);
+    *   } catch(status) {
+    *     console.warn('[requestPermission] FAILURE: ', status);
+    *   }
+    * }
     * ```
+    *
+    * ### ℹ️ See also:
+    * - [[Config.locationAuthorizationRequest]]
+    * - [[Config.disableLocationAuthorizationAlert]]
+    * - [[Config.LocationAuthorizationAlert]]
+    * - [[requestTemporaryFullAccuracy]] (*iOS 14+*)
     */
     static requestPermission(success?:(status:AuthorizationStatus) => void, failure?:(status:AuthorizationStatus) => void): Promise<AuthorizationStatus>;
+
+    /**
+    * __`[iOS 14+]`__ iOS 14 has introduced a new __`[Precise: On]`__ switch on the location authorization dialog allowing users to disable high-accuracy location.
+    *
+    * The method [`requestTemporaryFullAccuracy` (Apple docs)](https://developer.apple.com/documentation/corelocation/cllocationmanager/3600217-requesttemporaryfullaccuracyauth?language=objc) will allow you to present a dialog to the user requesting temporary *full accuracy* for the lifetime of this application run (until terminate).
+    *
+    * ![](https://dl.dropbox.com/s/dj93xpg51vspqk0/ios-14-precise-on.png?dl=1)
+    *
+    * ## Configuration &mdash; `Info.plist`
+    *
+    * In order to use this method, you must configure your __`Info.plist`__ with the `Dictionary` key:
+    * __`Privacy - Location Temporary Usage Description Dictionary`__
+    *
+    * ![](https://dl.dropbox.com/s/52f5lnjc4d9g8w7/ios-14-Privacy-Location-Temporary-Usage-Description-Dictionary.png?dl=1)
+    *
+    * The keys of this `Dictionary` (eg: `Delivery`) are supplied as the first argument to the method.  The `value` will be printed on the dialog shown to the user, explaing the purpose of your request for full accuracy.
+    *
+    * If the dialog fails to be presented, an error will be thrown:
+    * - The Info.plist file doesn’t have an entry for the given purposeKey value.
+    * - The app is already authorized for full accuracy.
+    * - The app is in the background.
+    *
+    * ![](https://dl.dropbox.com/s/8cc0sniv3pvpetl/ios-14-requestTemporaryFullAccuracy.png?dl=1)
+    *
+    * __Note:__ Android and older versions of iOS `< 14` will return [[BackgroundGeolocation.ACCURACY_AUTHORIZATION_FULL]].
+    *
+    * @example
+    *
+    * ```javascript
+    * BackgroundGeolocation.onProviderChange((event) => {
+    *   if (event.accuracyAuthorization == BackgroundGeolocation.ACCURACY_AUTHORIZATION_REDUCED) {
+    *     // Supply "Purpose" key from Info.plist as 1st argument.
+    *     BackgroundGeolocation.requestTemporaryFullAccuracy("Delivery").then((accuracyAuthorization) => {
+    *       if (accuracyAuthorization == BackgroundGeolocation.ACCURACY_AUTHORIZATION_FULL) {
+    *         console.log('[requestTemporaryFullAccuracy] GRANTED: ', accuracyAuthorization);
+    *       } else {
+    *         console.log('[requestTemporaryFullAccuracy] DENIED: ', accuracyAuthorization);
+    *       }
+    *     }).catch((error) => {
+    *       console.warn("[requestTemporaryFullAccuracy] FAILED TO SHOW DIALOG: ", error);
+    *     });
+    *   }
+    * });
+    * ```
+    *
+    * __See also:__
+    * - [[ProviderChangeEvent.accuracyAuthorization]].
+    * - [What's new in iOS 14 `CoreLocation`](https://levelup.gitconnected.com/whats-new-with-corelocation-in-ios-14-bd28421c95c4)
+    *
+    */
+    static requestTemporaryFullAccuracy(purpose:string):Promise<AccuracyAuthorization>;
+
     /**
     *
     */

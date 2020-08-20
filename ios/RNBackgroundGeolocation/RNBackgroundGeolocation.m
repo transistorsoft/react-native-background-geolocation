@@ -698,6 +698,14 @@ RCT_EXPORT_METHOD(requestPermission:(RCTResponseSenderBlock)success failure:(RCT
     }];
 }
 
+RCT_EXPORT_METHOD(requestTemporaryFullAccuracy:(NSString*)purpose success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure) {
+    [locationManager requestTemporaryFullAccuracy:purpose success:^(NSInteger accuracyAuthorization) {
+        success(@[@(accuracyAuthorization)]);
+    } failure:^(NSError *error) {
+        failure(error.userInfo[@"NSDebugDescription"]);
+    }];
+}
+
 RCT_EXPORT_METHOD(getTransistorToken:(NSString*)orgname username:(NSString*)username url:(NSString*)url success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure) {
 
     [TransistorAuthorizationToken findOrCreateWithOrg:orgname

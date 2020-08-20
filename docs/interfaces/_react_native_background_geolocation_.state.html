@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.8.1</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.9.0</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -784,6 +784,7 @@ Locations: <span class="hljs-variable">__</span>|<span class="hljs-variable">__<
 									<h2>iOS</h2>
 								</a>
 								<p>The iOS alert dialog text elements can be configured via <a href="_react_native_background_geolocation_.state.html#locationauthorizationalert">locationAuthorizationAlert</a> and <a href="_react_native_background_geolocation_.state.html#locationauthorizationrequest">locationAuthorizationRequest</a>.</p>
+								<p><img src="https://dl.dropbox.com/s/wk66ave2mzq6m6a/ios-locationAuthorizationAlert.jpg?dl=1" alt=""></p>
 								<a href="#android" id="android" style="color: inherit; text-decoration: none;">
 									<h2>Android</h2>
 								</a>
@@ -1945,20 +1946,85 @@ BackgroundGeolocation.ready({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Defines the <em>desired</em> location-authorization request you <em>wish</em> for the user to authorize: &quot;Always&quot; or &quot;When In Use&quot;.</p>
+							<p>Defines the <em>desired</em> location-authorization request you <em>wish</em> for the user to authorize:</p>
+							<ul>
+								<li><strong><code>Always</code></strong></li>
+								<li><strong><code>WhenInUse</code></strong></li>
+								<li><strong><code>Any</code></strong></li>
+							</ul>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p><strong><code>locationAuthorizationRequest</code></strong> tells the plugin the mode it <em>expects</em> to have been authorized with <em>by the user<em>.  If the user changes this mode in their settings, the plugin will detect this (See <a href="_react_native_background_geolocation_.state.html#locationauthorizationalert">locationAuthorizationAlert</a>).  Defaults to <strong><code>Always</code></strong>.  <strong><code>WhenInUse</code></strong> will display a **blue bar</em></em> at top-of-screen informing user that location-services are on.</p>
-								<p><strong>Note:</strong>  For <em>Android</em>, this option applies only to Android Q (API 29) and later.</p>
-								<p><img src="https://dl.dropboxusercontent.com/s/88y3i4nkqq3o9ee/ios-location-authorization-dialog.png?dl=1" alt=""></p>
-								<p>If you configure <strong><code>Any</code></strong>, the plugin allow the user to choose either <code>Always</code> or <code>WhenInUse</code>.   The plugin will <strong>not</strong> show the <a href="_react_native_background_geolocation_.state.html#locationauthorizationalert">locationAuthorizationAlert</a> dialog when the user changes the selection in <code>Privacy-&gt;Location Services</code>.</p>
-								<a href="#⚠️-warning" id="⚠️-warning" style="color: inherit; text-decoration: none;">
-									<h3>⚠️ Warning:</h3>
+							<dd><p><strong><code>locationAuthorizationRequest</code></strong> tells the plugin the mode it <em>expects</em> to have been authorized with <em>by the user</em>.  Defaults to <strong><code>Always</code></strong>.  If you <em>don&#39;t care</em> what the user authorizes, you may configure <strong><code>locationAuthorizationRequest: &quot;Any&quot;</code></strong>.</p>
+								<p>If you configure <strong><code>locationAuthorizationRequest: &#39;Always&#39;</code></strong> but the user authorizes only <strong><code>[When in Use]</code></strong> , the plugin will detect this and show the <a href="_react_native_background_geolocation_.state.html#locationauthorizationalert">locationAuthorizationAlert</a> dialog (see <a href="_react_native_background_geolocation_.state.html#disablelocationauthorizationalert">disableLocationAuthorizationAlert</a> to disable this behaviour).</p>
+								<a href="#ios" id="ios" style="color: inherit; text-decoration: none;">
+									<h2>iOS</h2>
 								</a>
-								<ul>
-									<li>Configuring <strong><code>WhenInUse</code></strong> will disable many of the plugin&#39;s features, since iOS forbids any API which operates in the background to operate (such as <strong>geofences</strong>, which the plugin relies upon to automatically engage background tracking).</li>
-								</ul>
+								<p>iOS 13 introduced a significant modification to <em>location authorization</em> (See this <a href="https://medium.com/@transistorsoft/ios-13-and-android-q-support-beb7595d2c24">blog entry</a>).  No longer will the <strong><code>[Always allow]</code></strong> option appear on the initial authorization dialog.  Instead, iOS will prompt the user with a second &quot;authorization upgrade&quot; dialog, asking the user if they&#39;d like to grant <strong><code>[Keep Only While Using ]</code></strong> or <strong><code>[Change to Always Allow]</code></strong>.</p>
+								<a href="#1--locationauthorizationrequest-39always39" id="1--locationauthorizationrequest-39always39" style="color: inherit; text-decoration: none;">
+									<h3>1.  <strong><code>locationAuthorizationRequest: &#39;Always&#39;</code></strong>:</h3>
+								</a>
+								<p>If your app requests <strong><code>locationAuthorizationRequest: &#39;Always&#39;</code></strong>, the user must first authorize <strong><code>[Alow While Using App]</code></strong>, followed <em>immediately</em> by a second dialog prompting the user to upgrade location authorization with <strong><code>[Change to Always Allow]</code></strong>:</p>
+								<p><img src="https://dl.dropbox.com/s/0alq10i4pcm2o9q/ios-when-in-use-to-always-CHANGELOG.gif?dl=1" alt=""></p>
+								<p>If the user <strong>denies</strong> <strong><code>Always</code></strong> authorization, the <a href="_react_native_background_geolocation_.state.html#locationauthorizationalert">locationAuthorizationAlert</a> will be shown (see <a href="_react_native_background_geolocation_.state.html#disablelocationauthorizationalert">disableLocationAuthorizationAlert</a> to disable this behaviour).</p>
+								<p><img src="https://dl.dropbox.com/s/wk66ave2mzq6m6a/ios-locationAuthorizationAlert.jpg?dl=1" alt=""></p>
+								<a href="#2--locationauthorizationrequest-39wheninuse39" id="2--locationauthorizationrequest-39wheninuse39" style="color: inherit; text-decoration: none;">
+									<h3>2.  <strong><code>locationAuthorizationRequest: &#39;WhenInUse&#39;</code></strong>:</h3>
+								</a>
+								<p>Only the initial dialog will be shown:</p>
+								<p><img src="https://dl.dropbox.com/s/n38qehw3cjhzngy/ios13-location-authorization.png?dl=1" alt=""></p>
+								<p><em>However</em>, if your app <em>later</em> uses <strong><code>setConfig</code></strong> to change <strong><code>locationAuthorizationRequest: &#39;Always&#39;</code></strong>, iOS will <em>immediately</em> show the &quot;authorization upgrade&quot; dialog:</p>
+								<p><img src="https://dl.dropbox.com/s/5syokc8rtrc9q35/ios13-location-authorization-upgrade-always.png?dl=1" alt=""></p>
+								<a href="#3--locationauthorizationrequest-39any39" id="3--locationauthorizationrequest-39any39" style="color: inherit; text-decoration: none;">
+									<h3>3.  <strong><code>locationAuthorizationRequest: &#39;Any&#39;</code></strong>:</h3>
+								</a>
+								<p>The SDK will request <code>Always</code> authorization.  The initial location authorization dialog will be shown:</p>
+								<p><img src="https://dl.dropbox.com/s/n38qehw3cjhzngy/ios13-location-authorization.png?dl=1" alt=""></p>
+								<p>However, at some <em>unknown time</em> in the future, iOS will prompt the user with the location authorization upgrade dialog:</p>
+								<p><img src="https://dl.dropbox.com/s/5syokc8rtrc9q35/ios13-location-authorization-upgrade-always.png?dl=1" alt=""></p>
+							</dd>
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code class="language-javascript">onAppLaunch() {
+  <span class="hljs-comment">// Initially configure for &#x27;WhenInUse&#x27;.</span>
+  BackgroundGeolocation.ready({
+    <span class="hljs-attr">locationAuthorizationRequest</span>: <span class="hljs-string">&#x27;WhenInUse&#x27;</span>,
+    .
+    .
+    .
+  });
+}
+
+<span class="hljs-keyword">async</span> onClickStartTracking() {
+  <span class="hljs-comment">// Initial location authorization dialog for &quot;When in Use&quot; authotization</span>
+  <span class="hljs-comment">// will be shown here.</span>
+  <span class="hljs-keyword">await</span> BackgroundGeolocation.start();
+  <span class="hljs-comment">// some time later -- could be immediately after, hours later, days later, etc.,</span>
+  <span class="hljs-comment">// you can upgrade the config to &#x27;Always&#x27; whenever you wish:</span>
+  upgradeToAlwaysAllow();
+}
+
+upgradeToAlwaysAllow() {
+  <span class="hljs-comment">// Simply update `locationAuthorizationRequest` to &quot;Always&quot; -- the SDK</span>
+  <span class="hljs-comment">// will cause iOS to immediately show the authorization upgrade dialog</span>
+  <span class="hljs-comment">// for &quot;Change to Always Allow&quot;:</span>
+  BackgroundGeolocation.setConfig({
+    <span class="hljs-attr">locationAuthorizationRequest</span>: <span class="hljs-string">&#x27;Always&#x27;</span>
+  });
+}</code></pre>
+								<a href="#android" id="android" style="color: inherit; text-decoration: none;">
+									<h2>Android</h2>
+								</a>
+								<a href="#android-10" id="android-10" style="color: inherit; text-decoration: none;">
+									<h3>Android 10</h3>
+								</a>
+								<p>Like iOS 12, Android 10 now forces your app to offer <em>both</em> <strong><code>[Allow all the time]</code></strong> and <strong><code>[Allow only while using]</code></strong> options.</p>
+								<p><img src="https://dl.dropbox.com/s/jv3g2sgap69qhfx/android-10-location-authorization-dialog.png?dl=1" alt=""></p>
+								<a href="#android-11" id="android-11" style="color: inherit; text-decoration: none;">
+									<h3>Android 11+</h3>
+								</a>
+								<p>Just as in iOS 13, Android 11 has <a href="https://developer.android.com/preview/privacy/location">changed location authorization</a> and no longer offers the <strong><code>[Allow all the time]</code></strong> button on the location authorization dialog.  Instead, Android will now offer a link <strong>Allow in settings</strong>, where the user must <em>explicity</em> authorize <strong><code>[Allow all the time]</code></strong>.</p>
+								<p><img src="https://dl.dropbox.com/s/kbfwqf2pffwvcc2/android11-location-authorization-always.png?dl=1" alt="">
+								<img src="https://dl.dropbox.com/s/dy65k8b0sgj5cgy/android11-location-authorization-upgrade-settings.png?dl=1" alt=""></p>
 							</dd>
 						</dl>
 					</div>
@@ -3539,81 +3605,6 @@ BackgroundGeolocation.ready({
 		<div class="col-3 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html" class="tsd-kind-icon">Background<wbr>Geolocation</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.authorization.html" class="tsd-kind-icon">Authorization</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.battery.html" class="tsd-kind-icon">Battery</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.config.html" class="tsd-kind-icon">Config</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.connectivitychangeevent.html" class="tsd-kind-icon">Connectivity<wbr>Change<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.coords.html" class="tsd-kind-icon">Coords</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.devicesettingsrequest.html" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.geofence.html" class="tsd-kind-icon">Geofence</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.geofenceevent.html" class="tsd-kind-icon">Geofence<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.geofenceschangeevent.html" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.heartbeatevent.html" class="tsd-kind-icon">Heartbeat<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.httpevent.html" class="tsd-kind-icon">Http<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.location.html" class="tsd-kind-icon">Location</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.locationauthorizationalert.html" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.logger.html" class="tsd-kind-icon">Logger</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.motionchangeevent.html" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.notification.html" class="tsd-kind-icon">Notification</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.sqlquery.html" class="tsd-kind-icon">SQLQuery</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.sensors.html" class="tsd-kind-icon">Sensors</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
@@ -3881,48 +3872,6 @@ BackgroundGeolocation.ready({
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_react_native_background_geolocation_.watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#extras" class="tsd-kind-icon">Extras</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

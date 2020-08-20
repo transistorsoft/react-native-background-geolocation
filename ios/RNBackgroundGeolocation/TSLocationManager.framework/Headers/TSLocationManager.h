@@ -143,6 +143,7 @@ FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 - (NSDictionary*) getStationaryLocation;
 - (TSProviderChangeEvent*) getProviderState;
 - (void) requestPermission:(void(^)(NSNumber *status))success failure:(void(^)(NSNumber *status))failure;
+- (void) requestTemporaryFullAccuracy:(NSString*)purpose success:(void(^)(NSInteger))success failure:(void(^)(NSError*))failure;
 
 #pragma mark - HTTP & Persistence Methods
 

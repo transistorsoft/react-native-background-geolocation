@@ -196,6 +196,7 @@ TSConfig
 @property (nonatomic) TSTrackingMode trackingMode;
 @property (nonatomic) CLAuthorizationStatus lastLocationAuthorizationStatus;
 @property (nonatomic) BOOL iOSHasWarnedLocationServicesOff;
+@property (nonatomic) BOOL didRequestUpgradeLocationAuthorization;
 @property (nonatomic) BOOL didLaunchInBackground;
 
 /// @name Geolocation Properties

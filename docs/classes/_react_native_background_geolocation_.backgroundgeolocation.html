@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.8.1</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.9.0</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -281,6 +281,8 @@ BackgroundGeolocation.ready({desiredAccuracy: <span class="hljs-number">0</span>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#accuracy_authorization_full" class="tsd-kind-icon">ACCURACY_<wbr>AUTHORIZATION_<wbr>FULL</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#accuracy_authorization_reduced" class="tsd-kind-icon">ACCURACY_<wbr>AUTHORIZATION_<wbr>REDUCED</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#activity_type_automotive_navigation" class="tsd-kind-icon">ACTIVITY_<wbr>TYPE_<wbr>AUTOMOTIVE_<wbr>NAVIGATION</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#activity_type_fitness" class="tsd-kind-icon">ACTIVITY_<wbr>TYPE_<wbr>FITNESS</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#activity_type_other" class="tsd-kind-icon">ACTIVITY_<wbr>TYPE_<wbr>OTHER</a></li>
@@ -353,6 +355,7 @@ BackgroundGeolocation.ready({desiredAccuracy: <span class="hljs-number">0</span>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#removelisteners" class="tsd-kind-icon">remove<wbr>Listeners</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#requestpermission" class="tsd-kind-icon">request<wbr>Permission</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#requesttemporaryfullaccuracy" class="tsd-kind-icon">request<wbr>Temporary<wbr>Full<wbr>Accuracy</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#reset" class="tsd-kind-icon">reset</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#resetodometer" class="tsd-kind-icon">reset<wbr>Odometer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_react_native_background_geolocation_.backgroundgeolocation.html#setconfig" class="tsd-kind-icon">set<wbr>Config</a></li>
@@ -1155,6 +1158,20 @@ BackgroundGeolocation.onHeartbeat(<span class="hljs-function">(<span class="hljs
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="accuracy_authorization_full" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> ACCURACY_<wbr>AUTHORIZATION_<wbr>FULL</h3>
+					<div class="tsd-signature tsd-kind-icon">ACCURACY_<wbr>AUTHORIZATION_<wbr>FULL<span class="tsd-signature-symbol">:</span> <a href="../modules/_react_native_background_geolocation_.html#accuracyauthorization" class="tsd-signature-type">AccuracyAuthorization</a></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="accuracy_authorization_reduced" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> ACCURACY_<wbr>AUTHORIZATION_<wbr>REDUCED</h3>
+					<div class="tsd-signature tsd-kind-icon">ACCURACY_<wbr>AUTHORIZATION_<wbr>REDUCED<span class="tsd-signature-symbol">:</span> <a href="../modules/_react_native_background_geolocation_.html#accuracyauthorization" class="tsd-signature-type">AccuracyAuthorization</a></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="activity_type_automotive_navigation" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> ACTIVITY_<wbr>TYPE_<wbr>AUTOMOTIVE_<wbr>NAVIGATION</h3>
@@ -3302,9 +3319,15 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">&quot;location&qu
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Initiates a location permission dialog with the user.</p>
+									<p>Manually request location permission from the user with the configured <a href="../interfaces/_react_native_background_geolocation_.config.html#locationauthorizationrequest">Config.locationAuthorizationRequest</a>.</p>
 								</div>
-								<p>If the user has already provided authorization for location-services, your <code>success</code> callback will be executed immediately.</p>
+								<p>The method will resolve successful if <em>either</em> <strong><code>WhenInUse</code></strong> or <strong><code>Always</code></strong> is authorized, regardless of <a href="../interfaces/_react_native_background_geolocation_.config.html#locationauthorizationrequest">Config.locationAuthorizationRequest</a>.  Otherwise an error will be returned (eg: user denies location permission).</p>
+								<p>If the user has already provided authorization for location-services, the method will resolve successfully immediately.</p>
+								<p>If iOS has <em>already</em> presented the location authorization dialog and the user has not currently authorized your desired <a href="../interfaces/_react_native_background_geolocation_.config.html#locationauthorizationrequest">Config.locationAuthorizationRequest</a>, the SDK will present an error dialog offering to direct the user to your app&#39;s Settings screen.</p>
+								<ul>
+									<li>To disable this behaviour, see <a href="../interfaces/_react_native_background_geolocation_.config.html#disablelocationauthorizationalert">Config.disableLocationAuthorizationAlert</a>.</li>
+									<li>To customize the text on this dialog, see <a href="../interfaces/_react_native_background_geolocation_.config.html#locationauthorizationalert">Config.locationAuthorizationAlert</a>.</li>
+								</ul>
 								<a href="#⚠️-note" id="⚠️-note" style="color: inherit; text-decoration: none;">
 									<h3>⚠️ Note:</h3>
 								</a>
@@ -3313,11 +3336,34 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">&quot;location&qu
 								</ul>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript">BackgroundGeolocation.requestPermission().then(<span class="hljs-function">(<span class="hljs-params">status</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[requestPermission] SUCCESS&quot;</span>);
-}).catch(<span class="hljs-function">(<span class="hljs-params">status</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[requestPermission] REJECTED&quot;</span>, status);
-});</code></pre>
+									<dd><pre><code class="language-typescript"><span class="hljs-keyword">async</span> componentDidMount() {
+  <span class="hljs-comment">// Listen to onProviderChange to be notified when location authorization changes occur.</span>
+  BackgroundGeolocation.onProviderChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;[providerchange]&#x27;</span>, event);
+  });
+
+  <span class="hljs-comment">// First ready the plugin with your configuration.</span>
+  <span class="hljs-keyword">let</span> state = <span class="hljs-keyword">await</span> BackgroundGeolocation.ready({
+    locationAuthorizationRequest: <span class="hljs-string">&#x27;Always&#x27;</span>
+  });
+
+  <span class="hljs-comment">// Manually request permission with configured locationAuthorizationRequest.</span>
+  <span class="hljs-keyword">try</span> {
+    int status = <span class="hljs-keyword">await</span> BackgroundGeolocation.requestPermission();
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;[requestPermission] success: &#x27;</span>, status);
+  } <span class="hljs-keyword">catch</span>(status) {
+    <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">&#x27;[requestPermission] FAILURE: &#x27;</span>, status);
+  }
+}</code></pre>
+										<a href="#ℹ️-see-also" id="ℹ️-see-also" style="color: inherit; text-decoration: none;">
+											<h3>ℹ️ See also:</h3>
+										</a>
+										<ul>
+											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#locationauthorizationrequest">Config.locationAuthorizationRequest</a></li>
+											<li><a href="../interfaces/_react_native_background_geolocation_.config.html#disablelocationauthorizationalert">Config.disableLocationAuthorizationAlert</a></li>
+											<li>[[Config.LocationAuthorizationAlert]]</li>
+											<li><a href="_react_native_background_geolocation_.backgroundgeolocation.html#requesttemporaryfullaccuracy">requestTemporaryFullAccuracy</a> (<em>iOS 14+</em>)</li>
+										</ul>
 									</dd>
 								</dl>
 							</div>
@@ -3367,6 +3413,71 @@ BackgroundGeolocation.removeListener(<span class="hljs-string">&quot;location&qu
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_react_native_background_geolocation_.html#authorizationstatus" class="tsd-signature-type">AuthorizationStatus</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="requesttemporaryfullaccuracy" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> request<wbr>Temporary<wbr>Full<wbr>Accuracy</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">request<wbr>Temporary<wbr>Full<wbr>Accuracy<span class="tsd-signature-symbol">(</span>purpose<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_react_native_background_geolocation_.html#accuracyauthorization" class="tsd-signature-type">AccuracyAuthorization</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p><strong><code>[iOS 14+]</code></strong> iOS 14 has introduced a new <strong><code>[Precise: On]</code></strong> switch on the location authorization dialog allowing users to disable high-accuracy location.</p>
+								</div>
+								<p>The method <a href="https://developer.apple.com/documentation/corelocation/cllocationmanager/3600217-requesttemporaryfullaccuracyauth?language=objc"><code>requestTemporaryFullAccuracy</code> (Apple docs)</a> will allow you to present a dialog to the user requesting temporary <em>full accuracy</em> for the lifetime of this application run (until terminate).</p>
+								<p><img src="https://dl.dropbox.com/s/dj93xpg51vspqk0/ios-14-precise-on.png?dl=1" alt=""></p>
+								<a href="#configuration-mdash-infoplist" id="configuration-mdash-infoplist" style="color: inherit; text-decoration: none;">
+									<h2>Configuration &mdash; <code>Info.plist</code></h2>
+								</a>
+								<p>In order to use this method, you must configure your <strong><code>Info.plist</code></strong> with the <code>Dictionary</code> key:
+								<strong><code>Privacy - Location Temporary Usage Description Dictionary</code></strong></p>
+								<p><img src="https://dl.dropbox.com/s/52f5lnjc4d9g8w7/ios-14-Privacy-Location-Temporary-Usage-Description-Dictionary.png?dl=1" alt=""></p>
+								<p>The keys of this <code>Dictionary</code> (eg: <code>Delivery</code>) are supplied as the first argument to the method.  The <code>value</code> will be printed on the dialog shown to the user, explaing the purpose of your request for full accuracy.</p>
+								<p>If the dialog fails to be presented, an error will be thrown:</p>
+								<ul>
+									<li>The Info.plist file doesn’t have an entry for the given purposeKey value.</li>
+									<li>The app is already authorized for full accuracy.</li>
+									<li>The app is in the background.</li>
+								</ul>
+								<p><img src="https://dl.dropbox.com/s/8cc0sniv3pvpetl/ios-14-requestTemporaryFullAccuracy.png?dl=1" alt=""></p>
+								<p><strong>Note:</strong> Android and older versions of iOS <code>&lt; 14</code> will return <a href="_react_native_background_geolocation_.backgroundgeolocation.html#accuracy_authorization_full">BackgroundGeolocation.ACCURACY_AUTHORIZATION_FULL</a>.</p>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-javascript">BackgroundGeolocation.onProviderChange(<span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (event.accuracyAuthorization == BackgroundGeolocation.ACCURACY_AUTHORIZATION_REDUCED) {
+    <span class="hljs-comment">// Supply &quot;Purpose&quot; key from Info.plist as 1st argument.</span>
+    BackgroundGeolocation.requestTemporaryFullAccuracy(<span class="hljs-string">&quot;Delivery&quot;</span>).then(<span class="hljs-function">(<span class="hljs-params">accuracyAuthorization</span>) =&gt;</span> {
+      <span class="hljs-keyword">if</span> (accuracyAuthorization == BackgroundGeolocation.ACCURACY_AUTHORIZATION_FULL) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;[requestTemporaryFullAccuracy] GRANTED: &#x27;</span>, accuracyAuthorization);
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;[requestTemporaryFullAccuracy] DENIED: &#x27;</span>, accuracyAuthorization);
+      }
+    }).catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
+      <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">&quot;[requestTemporaryFullAccuracy] FAILED TO SHOW DIALOG: &quot;</span>, error);
+    });
+  }
+});</code></pre>
+										<p><strong>See also:</strong></p>
+										<ul>
+											<li><a href="../interfaces/_react_native_background_geolocation_.providerchangeevent.html#accuracyauthorization">ProviderChangeEvent.accuracyAuthorization</a>.</li>
+											<li><a href="https://levelup.gitconnected.com/whats-new-with-corelocation-in-ios-14-bd28421c95c4">What&#39;s new in iOS 14 <code>CoreLocation</code></a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>purpose: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_react_native_background_geolocation_.html#accuracyauthorization" class="tsd-signature-type">AccuracyAuthorization</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -4491,6 +4602,12 @@ onSuspend() {
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#onschedule" class="tsd-kind-icon">on<wbr>Schedule</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#accuracy_authorization_full" class="tsd-kind-icon">ACCURACY_<wbr>AUTHORIZATION_<wbr>FULL</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#accuracy_authorization_reduced" class="tsd-kind-icon">ACCURACY_<wbr>AUTHORIZATION_<wbr>REDUCED</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#activity_type_automotive_navigation" class="tsd-kind-icon">ACTIVITY_<wbr>TYPE_<wbr>AUTOMOTIVE_<wbr>NAVIGATION</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
@@ -4692,6 +4809,9 @@ onSuspend() {
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#requestpermission" class="tsd-kind-icon">request<wbr>Permission</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#requesttemporaryfullaccuracy" class="tsd-kind-icon">request<wbr>Temporary<wbr>Full<wbr>Accuracy</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_react_native_background_geolocation_.backgroundgeolocation.html#reset" class="tsd-kind-icon">reset</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -4743,123 +4863,6 @@ onSuspend() {
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.authorization.html" class="tsd-kind-icon">Authorization</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.battery.html" class="tsd-kind-icon">Battery</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.config.html" class="tsd-kind-icon">Config</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.connectivitychangeevent.html" class="tsd-kind-icon">Connectivity<wbr>Change<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.coords.html" class="tsd-kind-icon">Coords</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.devicesettingsrequest.html" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.geofence.html" class="tsd-kind-icon">Geofence</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.geofenceevent.html" class="tsd-kind-icon">Geofence<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.geofenceschangeevent.html" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.heartbeatevent.html" class="tsd-kind-icon">Heartbeat<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.httpevent.html" class="tsd-kind-icon">Http<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.location.html" class="tsd-kind-icon">Location</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.locationauthorizationalert.html" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.logger.html" class="tsd-kind-icon">Logger</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.motionchangeevent.html" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.notification.html" class="tsd-kind-icon">Notification</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.sqlquery.html" class="tsd-kind-icon">SQLQuery</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.sensors.html" class="tsd-kind-icon">Sensors</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.state.html" class="tsd-kind-icon">State</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_react_native_background_geolocation_.watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#extras" class="tsd-kind-icon">Extras</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_react_native_background_geolocation_.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

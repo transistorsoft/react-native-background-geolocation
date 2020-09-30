@@ -1,6 +1,31 @@
 # Change Log
 
-# 3.9.0 &mdash; 2020-08-20
+## 3.9.1 &mdash; 2020-09-30
+
+- [Fixed][Android] `isMainActivityActive` reported incorrect results for Android apps configured with "product flavors".  This would cause the SDK to fail to recognize app is in "headless" state and fail to transmit headless events.
+- [Added][Android] `Location.coords.altitude_accuracy` was not being returned.
+- [Added][Android] _Android 11_, `targetSdkVersion 30` support for new Android background location permission with new `Config.backgroundLocationRationale`.  Android 11 has [changed location authorization](https://developer.android.com/preview/privacy/location) and no longer offers the __`[Allow all the time]`__ button on the location authorization dialog.  Instead, Android now offers a hook to present a custom dialog to the user where you will explain exactly why you require _"Allow all the time"_ location permission.  This dialog can forward the user directly to your application's __Location Permissions__ screen, where the user must *explicity* authorize __`[Allow all the time]`__.  The Background Geolocation SDK will present this dialog, which can be customized with `Config.backgroundPermissionRationale`.
+
+```javascript
+BackgroundGeolocation.ready({
+  locationAuthorizationRequest: 'Always',
+  backgroundPermissionRationale: {
+    title: "Allow access to this device's location in the background?",
+    message: "In order to allow X, Y and Z in the background, please enable 'Allow all the time' permission",
+    positiveAction: "Change to Allow all the time",
+    negativeAction: "Cancel"
+  }
+});
+```
+![](https://dl.dropbox.com/s/343nbrzpaavfser/android11-location-authorization-rn.gif?dl=1)
+
+- [Fixed][iOS] Add intelligence to iOS preventSuspend logic to determine distance from stationaryLocation using configured stationaryRadius rather than calculated based upon accuracy of stationaryLocation.  If a stationaryLocation were recorded having a poor accuracy (eg: 1000), the device would have to walk at least 1000 meters before preventSuspend would engage tracking-state.
+- [Fixed][Android] Android LocationRequestService, used for getCurrentPosition and motionChange position, could remain running after entering stationary state if a LocationAvailability event was received before the service was shut down.
+- [Fixed][iOS] Ignore didChangeAuthorizationStatus events when disabled and no requestPermissionCallback exists.  The plugin could possibly respond to 3rd-party permission plugin events.
+- [Added] Huawei-specific implementation for method isPowerSaveMode.  Was always returning true.
+- [Changed] Remove unnecessary android.exported on several AndroidManifest elements.
+
+## 3.9.0 &mdash; 2020-08-20
 
 - [Added][iOS] iOS 14 introduces a new switch on the initial location authorization dialog, allowing the user to "disable precise location".  In support of this, a new method `BackgroundGeolocation.requestTemporaryFullAccuracy` has been added for requesting the user enable "temporary high accuracy" (until the next launch of your app), in addition to a new attribute `ProviderChangeEvent.accuracyAuthorization` for learning its state in the event `onProviderChange`:
 ![](https://dl.dropbox.com/s/dj93xpg51vspqk0/ios-14-precise-on.png?dl=1)

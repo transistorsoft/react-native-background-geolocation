@@ -3,12 +3,11 @@
   <groupId>com.transistorsoft</groupId>
   <artifactId>tslocationmanager-reverse</artifactId>
   <versioning>
-    <latest>3.1.12</latest>
-    <release>3.1.12</release>
+    <latest>3.1.16</latest>
+    <release>3.1.16</release>
     <versions>
-      <version>3.1.11</version>
-      <version>3.1.12</version>
+      <version>3.1.16</version>
     </versions>
-    <lastUpdated>20200814134647</lastUpdated>
+    <lastUpdated>20200930145225</lastUpdated>
   </versioning>
 </metadata>

@@ -1215,9 +1215,10 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         if (activity == null) {
             return;
         }
-
+        BackgroundGeolocation adapter = getAdapter();
+        adapter.setActivity(activity);
         // Handle play-services connect errors.
-        getAdapter().onPlayServicesConnectError((new TSPlayServicesConnectErrorCallback() {
+        adapter.onPlayServicesConnectError((new TSPlayServicesConnectErrorCallback() {
             @Override
             public void onPlayServicesConnectError(int errorCode) {
                 handlePlayServicesConnectError(errorCode);

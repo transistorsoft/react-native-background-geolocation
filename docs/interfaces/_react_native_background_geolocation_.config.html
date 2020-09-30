@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.9.0</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.9.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -537,6 +537,7 @@ BackgroundGeolocation.setConfig({
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.config.html#authorization" class="tsd-kind-icon">authorization</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.config.html#autosync" class="tsd-kind-icon">auto<wbr>Sync</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.config.html#autosyncthreshold" class="tsd-kind-icon">auto<wbr>Sync<wbr>Threshold</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.config.html#backgroundpermissionrationale" class="tsd-kind-icon">background<wbr>Permission<wbr>Rationale</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.config.html#batchsync" class="tsd-kind-icon">batch<wbr>Sync</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.config.html#debug" class="tsd-kind-icon">debug</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.config.html#defertime" class="tsd-kind-icon">defer<wbr>Time</a></li>
@@ -831,6 +832,70 @@ Locations: <span class="hljs-variable">__</span>|<span class="hljs-variable">__<
 									<li>If an <code>onMotionChange</code> event fires <strong>into the <em>stationary</em> state</strong>, the device may be <em>about to</em> lie dormant for a long period of time.  The plugin is <em>eager</em> to upload all queued locations to the server before going dormant.</li>
 								</ul>
 								<hr>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="backgroundpermissionrationale" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> background<wbr>Permission<wbr>Rationale</h3>
+					<div class="tsd-signature tsd-kind-icon">background<wbr>Permission<wbr>Rationale<span class="tsd-signature-symbol">:</span> <a href="_react_native_background_geolocation_.permissionrationale.html" class="tsd-signature-type">PermissionRationale</a></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>(<strong>Android 11+</strong>) Configure the dialog presented to the user when <em>Always</em> location permission is requested.</p>
+						</div>
+						<p>Just as in iOS 13/14, Android 11 has <a href="https://developer.android.com/preview/privacy/location">changed location authorization</a> and no longer offers the <strong><code>[Allow all the time]</code></strong> button on the location authorization dialog.  Instead, Android now offers a hook to present a custom dialog to the user where you will explain exactly why you require <em>&quot;Allow all the time&quot;</em> location permission.</p>
+						<p>This dialog can forward the user directly to your application&#39;s <strong>Location Permissions</strong> screen, where the user must <em>explicity</em> authorize <strong><code>[Allow all the time]</code></strong>.  The Background Geolocation SDK will present this dialog, which can be customized with <a href="_react_native_background_geolocation_.config.html#backgroundpermissionrationale">backgroundPermissionRationale</a>.</p>
+						<p><img src="https://dl.dropbox.com/s/343nbrzpaavfser/android11-location-authorization-rn.gif?dl=1" alt=""></p>
+						<ul>
+							<li>Android will offer the <a href="_react_native_background_geolocation_.config.html#backgroundpermissionrationale">backgroundPermissionRationale</a> dialog <strong>just once</strong>.  Once the user presses the <code>positiveAction</code> on the dialog, it will <strong>not</strong> be shown again (pressing <code>[Cancel]</code> button does not count).</li>
+							<li>If the user resets your application&#39;s <em>Location Permissions</em> to <strong><code>[Ask every time]</code></strong>, the <a href="_react_native_background_geolocation_.config.html#backgroundpermissionrationale">backgroundPermissionRationale</a> <em>can</em> be shown once again.</li>
+						</ul>
+						<p><img src="https://dl.dropbox.com/s/4fq4erz2lpqz00m/android11-location-permission-rationale-dialog.png?dl=1" alt="">
+						<img src="https://dl.dropbox.com/s/dy65k8b0sgj5cgy/android11-location-authorization-upgrade-settings.png?dl=1" alt=""></p>
+						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code class="language-javascript">BackgroundGeolocation.ready({
+ <span class="hljs-attr">locationAuthorizationRequest</span>: <span class="hljs-string">&#x27;Always&#x27;</span>,
+ <span class="hljs-attr">backgroundPermissionRationale</span>: {
+   <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Allow {applicationName} to access to this device&#x27;s location in the background?&quot;</span>,
+   <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;In order to track your activity in the background, please enable {backgroundPermissionOptionLabel} location permission&quot;</span>,
+   <span class="hljs-attr">positiveAction</span>: <span class="hljs-string">&quot;Change to {backgroundPermissionOptionLabel}&quot;</span>,
+   <span class="hljs-attr">negativeAction</span>: <span class="hljs-string">&quot;Cancel&quot;</span>
+ }
+});</code></pre>
+								<a href="#template-tags" id="template-tags" style="color: inherit; text-decoration: none;">
+									<h2>Template Tags</h2>
+								</a>
+								<p>A limited number of template-tags are supported in each of the attributes, by wrapping with <strong><code>{tagName}</code></strong>:</p>
+								<table>
+									<thead>
+										<tr>
+											<th>Template Tag</th>
+											<th>Default value</th>
+											<th>Description</th>
+										</tr>
+									</thead>
+									<tbody><tr>
+											<td><strong><code>{backgroundPermissionOptionLabel}</code></strong></td>
+											<td><em>Allow all the time</em></td>
+											<td>(<em>API Level 30</em>) Gets the localized label that corresponds to the option in settings for granting background access.</td>
+										</tr>
+										<tr>
+											<td><strong><code>{applicationName}</code></strong></td>
+											<td><em>Your App Name</em></td>
+											<td>Returns the localized name of your application from <code>AndroidManifest</code></td>
+										</tr>
+								</tbody></table>
+								<p>&nbsp;</p>
+								<p><strong>See also:</strong></p>
+								<ul>
+									<li><a href="_react_native_background_geolocation_.config.html#locationauthorizationrequest">locationAuthorizationRequest</a></li>
+									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#requestpermission">BackgroundGeolocation.requestPermission</a></li>
+									<li><a href="https://developer.android.com/about/versions/11/privacy/location">Location udpates in Android 11</a></li>
+								</ul>
 							</dd>
 						</dl>
 					</div>
@@ -2331,8 +2396,9 @@ BackgroundGeolocation.ready({
 							<dd><p><strong><code>locationAuthorizationRequest</code></strong> tells the plugin the mode it <em>expects</em> to have been authorized with <em>by the user</em>.  Defaults to <strong><code>Always</code></strong>.  If you <em>don&#39;t care</em> what the user authorizes, you may configure <strong><code>locationAuthorizationRequest: &quot;Any&quot;</code></strong>.</p>
 								<p>If you configure <strong><code>locationAuthorizationRequest: &#39;Always&#39;</code></strong> but the user authorizes only <strong><code>[When in Use]</code></strong> , the plugin will detect this and show the <a href="_react_native_background_geolocation_.config.html#locationauthorizationalert">locationAuthorizationAlert</a> dialog (see <a href="_react_native_background_geolocation_.config.html#disablelocationauthorizationalert">disableLocationAuthorizationAlert</a> to disable this behaviour).</p>
 								<a href="#ios" id="ios" style="color: inherit; text-decoration: none;">
-									<h2>iOS</h2>
+									<h1>iOS</h1>
 								</a>
+								<hr>
 								<p>iOS 13 introduced a significant modification to <em>location authorization</em> (See this <a href="https://medium.com/@transistorsoft/ios-13-and-android-q-support-beb7595d2c24">blog entry</a>).  No longer will the <strong><code>[Always allow]</code></strong> option appear on the initial authorization dialog.  Instead, iOS will prompt the user with a second &quot;authorization upgrade&quot; dialog, asking the user if they&#39;d like to grant <strong><code>[Keep Only While Using ]</code></strong> or <strong><code>[Change to Always Allow]</code></strong>.</p>
 								<a href="#1--locationauthorizationrequest-39always39" id="1--locationauthorizationrequest-39always39" style="color: inherit; text-decoration: none;">
 									<h3>1.  <strong><code>locationAuthorizationRequest: &#39;Always&#39;</code></strong>:</h3>
@@ -2384,20 +2450,57 @@ upgradeToAlwaysAllow() {
     <span class="hljs-attr">locationAuthorizationRequest</span>: <span class="hljs-string">&#x27;Always&#x27;</span>
   });
 }</code></pre>
+								<p>&nbsp;</p>
 								<a href="#android" id="android" style="color: inherit; text-decoration: none;">
-									<h2>Android</h2>
+									<h1>Android</h1>
 								</a>
+								<hr>
 								<a href="#android-10" id="android-10" style="color: inherit; text-decoration: none;">
-									<h3>Android 10</h3>
+									<h2>Android 10</h2>
 								</a>
 								<p>Like iOS 12, Android 10 now forces your app to offer <em>both</em> <strong><code>[Allow all the time]</code></strong> and <strong><code>[Allow only while using]</code></strong> options.</p>
 								<p><img src="https://dl.dropbox.com/s/jv3g2sgap69qhfx/android-10-location-authorization-dialog.png?dl=1" alt=""></p>
-								<a href="#android-11" id="android-11" style="color: inherit; text-decoration: none;">
-									<h3>Android 11+</h3>
+								<a href="#android-11-with-targetsdkversion-30" id="android-11-with-targetsdkversion-30" style="color: inherit; text-decoration: none;">
+									<h2>Android 11+ (with <code>targetSdkVersion 30+</code>)</h2>
 								</a>
-								<p>Just as in iOS 13, Android 11 has <a href="https://developer.android.com/preview/privacy/location">changed location authorization</a> and no longer offers the <strong><code>[Allow all the time]</code></strong> button on the location authorization dialog.  Instead, Android will now offer a link <strong>Allow in settings</strong>, where the user must <em>explicity</em> authorize <strong><code>[Allow all the time]</code></strong>.</p>
-								<p><img src="https://dl.dropbox.com/s/kbfwqf2pffwvcc2/android11-location-authorization-always.png?dl=1" alt="">
+								<p>Just as in iOS 13/14, Android 11 has <a href="https://developer.android.com/preview/privacy/location">changed location authorization</a> and no longer offers the <strong><code>[Allow all the time]</code></strong> button on the location authorization dialog.  Instead, Android now offers a hook to present a custom dialog to the user where you will explain exactly why you require <em>&quot;Allow all the time&quot;</em> location permission.</p>
+								<p>This dialog can forward the user directly to your application&#39;s <strong>Location Permissions</strong> screen, where the user must <em>explicity</em> authorize <strong><code>[Allow all the time]</code></strong>.  The Background Geolocation SDK will present this dialog, which can be customized with <a href="_react_native_background_geolocation_.config.html#backgroundpermissionrationale">Config.backgroundPermissionRationale</a>.</p>
+								<ul>
+									<li>Android will offer the <a href="_react_native_background_geolocation_.config.html#backgroundpermissionrationale">Config.backgroundPermissionRationale</a> dialog <strong>just once</strong>.  Once the user presses the <code>positiveAction</code> on the dialog, it will <strong>not</strong> be shown again (pressing <code>[Cancel]</code> button does not count).</li>
+									<li>If the user resets your application&#39;s <em>Location Permissions</em> to <strong><code>[Ask every time]</code></strong>, the <a href="_react_native_background_geolocation_.config.html#backgroundpermissionrationale">Config.backgroundPermissionRationale</a> <em>can</em> be shown once again.</li>
+								</ul>
+								<p><img src="https://dl.dropbox.com/s/4fq4erz2lpqz00m/android11-location-permission-rationale-dialog.png?dl=1" alt="">
 								<img src="https://dl.dropbox.com/s/dy65k8b0sgj5cgy/android11-location-authorization-upgrade-settings.png?dl=1" alt=""></p>
+								<pre><code class="language-typescript">BackgroundGeolocation.ready({
+ locationAuthorizationRequest: <span class="hljs-string">&#x27;Always&#x27;</span>,
+ backgroundPermissionRationale: {
+  title: <span class="hljs-string">&quot;Allow access to this device&#x27;s location in the background?&quot;</span>,
+  message: <span class="hljs-string">&quot;In order to allow X, Y and Z, please enable &#x27;Allow all the time permission&quot;</span>,
+  positiveAction: <span class="hljs-string">&quot;Change to Allow all the time&quot;</span>
+ }
+});</code></pre>
+								<a href="#1--locationauthorizationrequest-39always39" id="1--locationauthorizationrequest-39always39" style="color: inherit; text-decoration: none;">
+									<h3>1.  <strong><code>locationAuthorizationRequest: &#39;Always&#39;</code></strong>:</h3>
+								</a>
+								<p>If your app requests <strong><code>locationAuthorizationRequest: &#39;Always&#39;</code></strong>, the user must first authorize <strong><code>[While using the app]</code></strong>, followed <em>immediately</em> by the <a href="_react_native_background_geolocation_.config.html#backgroundpermissionrationale">Config.backgroundPermissionRationale</a> dialog prompting the user to upgrade location permission with <strong><code>[Allow all the time]</code></strong>:</p>
+								<p><img src="https://dl.dropbox.com/s/343nbrzpaavfser/android11-location-authorization-rn.gif?dl=1" alt=""></p>
+								<a href="#2--locationauthorizationrequest-39wheninuse39" id="2--locationauthorizationrequest-39wheninuse39" style="color: inherit; text-decoration: none;">
+									<h3>2.  <strong><code>locationAuthorizationRequest: &#39;WhenInUse&#39;</code></strong>:</h3>
+								</a>
+								<p>Only the initial dialog will be shown:</p>
+								<p><img src="https://dl.dropbox.com/s/ymybwme7fvda0ii/android11-location-when-in-use-system-dialog.png?dl=1" alt=""></p>
+								<p><em>However</em>, if your app <em>later</em> uses <strong><code>setConfig</code></strong> to change <strong><code>locationAuthorizationRequest: &#39;Always&#39;</code></strong>, the SDK will <em>immediately</em> show the <a href="_react_native_background_geolocation_.config.html#backgroundpermissionrationale">Config.backgroundPermissionRationale</a> dialog:</p>
+								<p><img src="https://dl.dropbox.com/s/4fq4erz2lpqz00m/android11-location-permission-rationale-dialog.png?dl=1" alt=""></p>
+								<a href="#3--locationauthorizationrequest-39any39" id="3--locationauthorizationrequest-39any39" style="color: inherit; text-decoration: none;">
+									<h3>3.  <strong><code>locationAuthorizationRequest: &#39;Any&#39;</code></strong>:</h3>
+								</a>
+								<p>Same as <strong><code>Always</code></strong></p>
+								<a href="#android-11-with-targetsdkversion-lt29" id="android-11-with-targetsdkversion-lt29" style="color: inherit; text-decoration: none;">
+									<h2>Android 11+ (with <code>targetSdkVersion &lt;=29</code>)</h2>
+								</a>
+								<p>Just to add a bit more confusion, for Android 11+ devices and your app built with <strong><code>targetSdkVersion 29</code></strong>, Android will present an extra dialog after the user clicks through on the <a href="_react_native_background_geolocation_.config.html#backgroundpermissionrationale">Config.backgroundPermissionRationale</a> dialog, where the user is prompted with a link <em>&quot;Allow in Settings&quot;*, rather than forwarding them directly to the _Location Permissions</em> screen, as with <strong><code>targetSdkVersion 30+</code></strong>:</p>
+								<p><img src="https://dl.dropbox.com/s/mp3zykohr95wafq/android11-location-authorization-upgrade.png?dl=1" alt=""></p>
+								<p><img src="https://dl.dropbox.com/s/a01e0c6750bqylr/android11-location-authorization-cordova-targetSdkVersion29.gif?dl=1" alt=""></p>
 							</dd>
 						</dl>
 					</div>
@@ -2590,9 +2693,37 @@ BackgroundGeolocation.ready({
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Disable automatic, speed-based <a href="_react_native_background_geolocation_.config.html#distancefilter">distanceFilter</a> scaling.</p>
+							<p>The default timeout in <em>seconds</em> when requesting a location before the SDK gives up and fires a <a href="../modules/_react_native_background_geolocation_.html#locationerror">LocationError</a>.</p>
 						</div>
-						<p>Defaults to <strong><code>false</code></strong>.  Set <strong><code>true</code></strong> to disable automatic, speed-based <a href="_react_native_background_geolocation_.config.html#distancefilter">distanceFilter</a> elasticity.</p>
+						<p>Defaults to <code>60</code> seconds.</p>
+						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code class="language-typescript"><span class="hljs-comment">// With onLocation event</span>
+BackgroundGeolocation.onLocation(<span class="hljs-function">(<span class="hljs-params">Location location</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;[onLocation] success:&#x27;</span>, location);
+}, (<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (error.code == <span class="hljs-number">408</span>) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[onLocation] error: LOCATION TIMEOUT&quot;</span>, error);
+  }
+});
+
+<span class="hljs-comment">// With getCurrentPosition:</span>
+<span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">let</span> location = <span class="hljs-keyword">await</span> BackgroundGeolocation.getCurrentPosition({samples: <span class="hljs-number">3</span>});
+} <span class="hljs-keyword">catch</span>(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (error.code == <span class="hljs-number">408</span>) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;[getCurrentPosition] error: LOCATION TIMEOUT&quot;</span>,  error);
+  }
+});</code></pre>
+								<a href="#see-also" id="see-also" style="color: inherit; text-decoration: none;">
+									<h2>See Also:</h2>
+								</a>
+								<ul>
+									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#getcurrentposition">BackgroundGeolocation.getCurrentPosition</a></li>
+									<li><a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#onlocation">BackgroundGeolocation.onLocation</a></li>
+								</ul>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -3901,6 +4032,9 @@ BackgroundGeolocation.ready({
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.config.html#autosyncthreshold" class="tsd-kind-icon">auto<wbr>Sync<wbr>Threshold</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_react_native_background_geolocation_.config.html#backgroundpermissionrationale" class="tsd-kind-icon">background<wbr>Permission<wbr>Rationale</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.config.html#batchsync" class="tsd-kind-icon">batch<wbr>Sync</a>

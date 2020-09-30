@@ -1,6 +1,7 @@
 /// <reference path="../types.d.ts" />
 /// <reference path="./LocationAuthorizationAlert.d.ts" />
-
+/// <reference path="./PermissionRationale.d.ts" />
+///
 ///
 declare module "react-native-background-geolocation" {
   /**
@@ -308,9 +309,35 @@ declare module "react-native-background-geolocation" {
     stationaryRadius?: number;
 
     /**
-    * Disable automatic, speed-based [[distanceFilter]] scaling.
+    * The default timeout in _seconds_ when requesting a location before the SDK gives up and fires a [[LocationError]].
     *
-    * Defaults to **`false`**.  Set **`true`** to disable automatic, speed-based [[distanceFilter]] elasticity.
+    * Defaults to `60` seconds.
+    *
+    * @example
+    * ```typescript
+    * // With onLocation event
+    * BackgroundGeolocation.onLocation((Location location) => {
+    *   console.log('[onLocation] success:', location);
+    * }, ((error) => {
+    *   if (error.code == 408) {
+    *     console.log("[onLocation] error: LOCATION TIMEOUT", error);
+    *   }
+    * });
+    *
+    * // With getCurrentPosition:
+    * try {
+    *   let location = await BackgroundGeolocation.getCurrentPosition({samples: 3});
+    * } catch((error) => {
+    *   if (error.code == 408) {
+    *     console.log("[getCurrentPosition] error: LOCATION TIMEOUT",  error);
+    *   }
+    * });
+    * ```
+    *
+    * ## See Also:
+    * - [[BackgroundGeolocation.getCurrentPosition]]
+    * - [[BackgroundGeolocation.onLocation]]
+    *
     */
     locationTimeout?: number;
 
@@ -1816,7 +1843,8 @@ declare module "react-native-background-geolocation" {
     *
     * If you configure __`locationAuthorizationRequest: 'Always'`__ but the user authorizes only __`[When in Use]`__ , the plugin will detect this and show the [[locationAuthorizationAlert]] dialog (see [[disableLocationAuthorizationAlert]] to disable this behaviour).
     *
-    * ## iOS
+    * # iOS
+    * ----------------------------------------------------------------
     *
     * iOS 13 introduced a significant modification to *location authorization* (See this [blog entry](https://medium.com/@transistorsoft/ios-13-and-android-q-support-beb7595d2c24)).  No longer will the __`[Always allow]`__ option appear on the initial authorization dialog.  Instead, iOS will prompt the user with a second "authorization upgrade" dialog, asking the user if they'd like to grant __`[Keep Only While Using ]`__ or __`[Change to Always Allow]`__.
     *
@@ -1882,21 +1910,67 @@ declare module "react-native-background-geolocation" {
     * }
     * ```
     *
-    * ## Android
+    * &nbsp;
+    * # Android
+    * ----------------------------------------------------------------
     *
-    * ### Android 10
+    * ## Android 10
     *
     * Like iOS 12, Android 10 now forces your app to offer *both* __`[Allow all the time]`__ and __`[Allow only while using]`__ options.
     *
     * ![](https://dl.dropbox.com/s/jv3g2sgap69qhfx/android-10-location-authorization-dialog.png?dl=1)
     *
     *
-    * ### Android 11+
+    * ## Android 11+ (with `targetSdkVersion 30+`)
     *
-    * Just as in iOS 13, Android 11 has [changed location authorization](https://developer.android.com/preview/privacy/location) and no longer offers the __`[Allow all the time]`__ button on the location authorization dialog.  Instead, Android will now offer a link **Allow in settings**, where the user must *explicity* authorize __`[Allow all the time]`__.
+    * Just as in iOS 13/14, Android 11 has [changed location authorization](https://developer.android.com/preview/privacy/location) and no longer offers the __`[Allow all the time]`__ button on the location authorization dialog.  Instead, Android now offers a hook to present a custom dialog to the user where you will explain exactly why you require _"Allow all the time"_ location permission.
     *
-    * ![](https://dl.dropbox.com/s/kbfwqf2pffwvcc2/android11-location-authorization-always.png?dl=1)
+    * This dialog can forward the user directly to your application's __Location Permissions__ screen, where the user must *explicity* authorize __`[Allow all the time]`__.  The Background Geolocation SDK will present this dialog, which can be customized with [[Config.backgroundPermissionRationale]].
+    * - Android will offer the [[Config.backgroundPermissionRationale]] dialog __just once__.  Once the user presses the `positiveAction` on the dialog, it will __not__ be shown again (pressing `[Cancel]` button does not count).
+    * - If the user resets your application's _Location Permissions_ to __`[Ask every time]`__, the [[Config.backgroundPermissionRationale]] _can_ be shown once again.
+
+    * ![](https://dl.dropbox.com/s/4fq4erz2lpqz00m/android11-location-permission-rationale-dialog.png?dl=1)
     * ![](https://dl.dropbox.com/s/dy65k8b0sgj5cgy/android11-location-authorization-upgrade-settings.png?dl=1)
+    *
+    * ```typescript
+    * BackgroundGeolocation.ready({
+    *  locationAuthorizationRequest: 'Always',
+    *  backgroundPermissionRationale: {
+    *   title: "Allow access to this device's location in the background?",
+    *   message: "In order to allow X, Y and Z, please enable 'Allow all the time permission",
+    *   positiveAction: "Change to Allow all the time"
+    *  }
+    * });
+    * ```
+    *
+    *
+    * ### 1.  __`locationAuthorizationRequest: 'Always'`__:
+    *
+    * If your app requests __`locationAuthorizationRequest: 'Always'`__, the user must first authorize __`[While using the app]`__, followed *immediately* by the [[Config.backgroundPermissionRationale]] dialog prompting the user to upgrade location permission with __`[Allow all the time]`__:
+    *
+    * ![](https://dl.dropbox.com/s/343nbrzpaavfser/android11-location-authorization-rn.gif?dl=1)
+    *
+    * ### 2.  __`locationAuthorizationRequest: 'WhenInUse'`__:
+    *
+    * Only the initial dialog will be shown:
+    *
+    * ![](https://dl.dropbox.com/s/ymybwme7fvda0ii/android11-location-when-in-use-system-dialog.png?dl=1)
+    *
+    * *However*, if your app *later* uses __`setConfig`__ to change __`locationAuthorizationRequest: 'Always'`__, the SDK will *immediately* show the [[Config.backgroundPermissionRationale]] dialog:
+    *
+    * ![](https://dl.dropbox.com/s/4fq4erz2lpqz00m/android11-location-permission-rationale-dialog.png?dl=1)
+    *
+    * ### 3.  __`locationAuthorizationRequest: 'Any'`__:
+    *
+    * Same as __`Always`__
+    *
+    * ## Android 11+ (with `targetSdkVersion <=29`)
+    *
+    * Just to add a bit more confusion, for Android 11+ devices and your app built with __`targetSdkVersion 29`__, Android will present an extra dialog after the user clicks through on the [[Config.backgroundPermissionRationale]] dialog, where the user is prompted with a link _"Allow in Settings"*, rather than forwarding them directly to the _Location Permissions_ screen, as with __`targetSdkVersion 30+`__:
+    *
+    * ![](https://dl.dropbox.com/s/mp3zykohr95wafq/android11-location-authorization-upgrade.png?dl=1)
+    *
+    * ![](https://dl.dropbox.com/s/a01e0c6750bqylr/android11-location-authorization-cordova-targetSdkVersion29.gif?dl=1)
     *
     */
     locationAuthorizationRequest?: LocationAuthorizationRequest;
@@ -2355,6 +2429,54 @@ declare module "react-native-background-geolocation" {
     * - When the background service re-launches your application, it will *briefly* appear in the foreground before *immediately* minimizing.  If the user has their phone on at the time, they will see a brief flash of your app appearing and minimizing.
     */
     forceReloadOnSchedule?: boolean;
+
+    /**
+    * (__Android 11+__) Configure the dialog presented to the user when *Always* location permission is requested.
+    *
+    * Just as in iOS 13/14, Android 11 has [changed location authorization](https://developer.android.com/preview/privacy/location) and no longer offers the __`[Allow all the time]`__ button on the location authorization dialog.  Instead, Android now offers a hook to present a custom dialog to the user where you will explain exactly why you require _"Allow all the time"_ location permission.
+    *
+    * This dialog can forward the user directly to your application's __Location Permissions__ screen, where the user must *explicity* authorize __`[Allow all the time]`__.  The Background Geolocation SDK will present this dialog, which can be customized with [[backgroundPermissionRationale]].
+    *
+    * ![](https://dl.dropbox.com/s/343nbrzpaavfser/android11-location-authorization-rn.gif?dl=1)
+    *
+    * - Android will offer the [[backgroundPermissionRationale]] dialog __just once__.  Once the user presses the `positiveAction` on the dialog, it will __not__ be shown again (pressing `[Cancel]` button does not count).
+    * - If the user resets your application's _Location Permissions_ to __`[Ask every time]`__, the [[backgroundPermissionRationale]] _can_ be shown once again.
+    *
+    * ![](https://dl.dropbox.com/s/4fq4erz2lpqz00m/android11-location-permission-rationale-dialog.png?dl=1)
+    * ![](https://dl.dropbox.com/s/dy65k8b0sgj5cgy/android11-location-authorization-upgrade-settings.png?dl=1)
+    *
+    * @example
+    * ```javascript
+    * BackgroundGeolocation.ready({
+    *  locationAuthorizationRequest: 'Always',
+    *  backgroundPermissionRationale: {
+    *    title: "Allow {applicationName} to access to this device's location in the background?",
+    *    message: "In order to track your activity in the background, please enable {backgroundPermissionOptionLabel} location permission",
+    *    positiveAction: "Change to {backgroundPermissionOptionLabel}",
+    *    negativeAction: "Cancel"
+    *  }
+    * });
+    * ```
+    *
+    * ## Template Tags
+    *
+    * A limited number of template-tags are supported in each of the attributes, by wrapping with __`{tagName}`__:
+    *
+    * | Template Tag                            | Default value         | Description                                                            |
+    * |-----------------------------------------|-----------------------|------------------------------------------------------------------------|
+    * | __`{backgroundPermissionOptionLabel}`__ | *Allow all the time*  | (*API Level 30*) Gets the localized label that corresponds to the option in settings for granting background access. |
+    * | __`{applicationName}`__                 | *Your App Name*       | Returns the localized name of your application from `AndroidManifest` |
+    *
+    * &nbsp;
+    *
+    * __See also:__
+    * - [[locationAuthorizationRequest]]
+    * - [[BackgroundGeolocation.requestPermission]]
+    * - [Location udpates in Android 11](https://developer.android.com/about/versions/11/privacy/location)
+    *
+    *
+    */
+    backgroundPermissionRationale?: PermissionRationale;
 
     /**
     * [__Android only]__ Configures the persistent foreground-service [[Notification]] required by Android.

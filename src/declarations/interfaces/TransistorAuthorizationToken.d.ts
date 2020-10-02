@@ -14,7 +14,7 @@ declare module "react-native-background-geolocation" {
   * // Url to demo server.
   * let url = "http://tracker.transistorsoft.com";
   * let orgname = "my-company-name";
-  * let usernmae = "my-username";
+  * let username = "my-username";
   *
   * // Fetch an authoriztion token from server.  The SDK will cache the received token.
   * let token = await

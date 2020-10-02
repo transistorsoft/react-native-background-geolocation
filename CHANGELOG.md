@@ -1,6 +1,6 @@
 # Change Log
 
-## 3.9.1 &mdash; 2020-09-30
+## 3.9.1 &mdash; 2020-10-02
 
 - [Fixed][Android] `isMainActivityActive` reported incorrect results for Android apps configured with "product flavors".  This would cause the SDK to fail to recognize app is in "headless" state and fail to transmit headless events.
 - [Added][Android] `Location.coords.altitude_accuracy` was not being returned.

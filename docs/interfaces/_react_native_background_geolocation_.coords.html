@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.9.0</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.9.1</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -123,6 +123,18 @@
 						<div class="lead">
 							<p>Altitude accuracy in meters.</p>
 						</div>
+						<p>If this location does not have <code>altitude_accuracy</code>, then <code>-1</code> is returned.</p>
+						<a href="#ios" id="ios" style="color: inherit; text-decoration: none;">
+							<h2>iOS</h2>
+						</a>
+						<p>When this property contains 0 or a positive number, the value in the altitude property is plus or minus the specified number of meters. When this property contains a negative number, the value in the altitude property is invalid.</p>
+						<p>Determining the [altitudeAccuracy] requires a device with GPS capabilities. Thus, on some devices, this property always contains a negative value.</p>
+						<a href="#android" id="android" style="color: inherit; text-decoration: none;">
+							<h2>Android</h2>
+						</a>
+						<p>Android defines vertical accuracy at 68% confidence. Specifically, as 1-side of the 2-sided range above and below the estimated altitude reported by [altitude], within which there is a 68% probability of finding the true altitude.</p>
+						<p>In the case where the underlying distribution is assumed Gaussian normal, this would be considered 1 standard deviation.</p>
+						<p>For example, if [altitude] returns <code>150</code>, and [verticalAccuracy] returns <code>20</code> then there is a 68% probability of the true altitude being between <code>130</code> and <code>170</code> meters.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">

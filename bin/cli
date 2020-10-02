@@ -1,0 +1,64 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const {CLIError} = require('./lib');
+
+const {actions} = require('./actions');
+const chalk = require('chalk');
+
+const COMMAND_HELP = 'help';
+
+var args = process.argv.slice(2);
+var cmd = args.shift();
+
+console.log(chalk.green("+-----------------------------------------"));
+console.log(chalk.green(`| [Transitorsoft Demo CLI] cmd: ${cmd}`));
+console.log(chalk.green("+-----------------------------------------"));
+
+// Launch Command interpretor
+const CLI = (function() {
+  return {
+    init: function() {
+      try {
+        if (cmd === undefined) {
+          cmd = COMMAND_HELP;
+        }
+        if (cmd === COMMAND_HELP) {
+          printMenu(actions);
+          return;
+        } else if (actions[cmd] === undefined) {
+          console.log(chalk.red("Unknown command:", cmd));
+          printMenu(actions);
+          return;
+        }
+
+        actions[cmd].handler(args);
+
+      } catch(error) {
+        if (error instanceof CLIError) {
+          console.log(chalk.red(`[error]: ${cmd}:`), error.message, '\n');
+        } else {
+          throw error;
+        }
+      }
+    }
+  }
+})().init();
+
+function printMenu(menu) {
+  console.log('Available commands:');
+  var table = [{
+    command: COMMAND_HELP,
+    description: 'Print this menu'
+  }];
+  for (var action in menu) {
+    //table[action] = ACTIONS[action].description;
+    table.push({
+      command: action,
+      description: menu[action].description
+    });
+  }
+  console.table(table, ['command', 'description']);
+}
+

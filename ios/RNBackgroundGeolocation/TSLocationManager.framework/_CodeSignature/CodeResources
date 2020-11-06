@@ -6,11 +6,11 @@
 	<dict>
 		<key>Headers/AtomicBoolean.h</key>
 		<data>
-		iulwe2cseAnuq4FMRuzguqSGmtA=
+		sNlgVCV7wy5OFWkfbgapr3LmXIA=
 		</data>
 		<key>Headers/ConfigModule.h</key>
 		<data>
-		t2poqjNBoI2NSY/6Z/Js4Xb7NTg=
+		3kh6u5aQJt+eH0tEDbN9Z5+6ImE=
 		</data>
 		<key>Headers/HttpRequest.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/LocationManager.h</key>
 		<data>
-		26z5bx4aKmOQHVA1ZOZc5stfhzQ=
+		zaJ8PLiA1u1cey9+dBfwmwbXK28=
 		</data>
 		<key>Headers/LogQuery.h</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Headers/TSConfig.h</key>
 		<data>
-		MrMeLJP2HECTyM1rKKEqXz0goLs=
+		+Senm49eGjFOZdyzTwzv3/d0yOw=
 		</data>
 		<key>Headers/TSConnectivityChangeEvent.h</key>
 		<data>
@@ -78,7 +78,7 @@
 		</data>
 		<key>Headers/TSGeofenceEvent.h</key>
 		<data>
-		kbrNiP/I4GOi/koYa9y5MVnyyvU=
+		41Buj+T497V7biRYF0aKFFU0SXk=
 		</data>
 		<key>Headers/TSGeofenceManager.h</key>
 		<data>
@@ -106,7 +106,7 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		tORXWQ9fea7+Z3NdNSzbuT7u0E0=
+		tidytpMtRVTsCkvyIsROEbsPqV8=
 		</data>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
 		<data>
@@ -118,7 +118,7 @@
 		</data>
 		<key>Headers/TSReachability.h</key>
 		<data>
-		PjdK2ziSMxq9p3WVr57RVU2D1iI=
+		TwLxhxvlu0fC8kZ17m7kgwE6h5c=
 		</data>
 		<key>Headers/TSSchedule.h</key>
 		<data>
@@ -138,7 +138,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		xj0ehMT0/k8X9WQSMNfvJ4wPj0w=
+		goOoQMw4Y7c0JE/p4PHplBAhO0U=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -151,22 +151,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			iulwe2cseAnuq4FMRuzguqSGmtA=
+			sNlgVCV7wy5OFWkfbgapr3LmXIA=
 			</data>
 			<key>hash2</key>
 			<data>
-			Co5kPSddgHKnm87htV7FC+FzdFq9CzuzEbm4oezKGt8=
+			/dfzQa2PJjdOI4iemkB21znepq/tVQLYgzK/oZPrd/Q=
 			</data>
 		</dict>
 		<key>Headers/ConfigModule.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			t2poqjNBoI2NSY/6Z/Js4Xb7NTg=
+			3kh6u5aQJt+eH0tEDbN9Z5+6ImE=
 			</data>
 			<key>hash2</key>
 			<data>
-			O8vBITezTQSTDxTmQ1rw01+K7zYuPsP8wM0Y4Wl4lw0=
+			hm/9BXw6hfKY2wH/CkxCkzEwHfYRniMZ3Ofju++RJ0E=
 			</data>
 		</dict>
 		<key>Headers/HttpRequest.h</key>
@@ -195,11 +195,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			26z5bx4aKmOQHVA1ZOZc5stfhzQ=
+			zaJ8PLiA1u1cey9+dBfwmwbXK28=
 			</data>
 			<key>hash2</key>
 			<data>
-			K+ugS2feQFtamIKRtv0U4zDRnpANQSSa0N9HR9UT34Q=
+			AwvVt+fzDYycfvDVc7oDFmUyQrxHRDy8afbT5uYu4+c=
 			</data>
 		</dict>
 		<key>Headers/LogQuery.h</key>
@@ -283,11 +283,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			MrMeLJP2HECTyM1rKKEqXz0goLs=
+			+Senm49eGjFOZdyzTwzv3/d0yOw=
 			</data>
 			<key>hash2</key>
 			<data>
-			gvcO1iqxLgcWIi+AgwgR2LnbRHRv76oaMhUpjvyBMlo=
+			TDpkAJRvT8W9NEZriPoaNxbhHKtYHougpe1BWeyaYCE=
 			</data>
 		</dict>
 		<key>Headers/TSConnectivityChangeEvent.h</key>
@@ -349,11 +349,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kbrNiP/I4GOi/koYa9y5MVnyyvU=
+			41Buj+T497V7biRYF0aKFFU0SXk=
 			</data>
 			<key>hash2</key>
 			<data>
-			uqAXMHhkpnkHHYwUJwWW/b1jNM0oGp6iT7dhiGZxVKA=
+			Mao7tiGmW+pCH3NCu+aAksOp0Zq8/3+muUVQAq230ko=
 			</data>
 		</dict>
 		<key>Headers/TSGeofenceManager.h</key>
@@ -426,11 +426,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tORXWQ9fea7+Z3NdNSzbuT7u0E0=
+			tidytpMtRVTsCkvyIsROEbsPqV8=
 			</data>
 			<key>hash2</key>
 			<data>
-			IG0O50tIyUkMMoRO1Kfg+7n7FnNxQaeykrKhUI1Qdgs=
+			rLABP5YIL2PKIEQ/gHDNDRhgsgeXLzZoptVk3smP6Iw=
 			</data>
 		</dict>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
@@ -459,11 +459,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			PjdK2ziSMxq9p3WVr57RVU2D1iI=
+			TwLxhxvlu0fC8kZ17m7kgwE6h5c=
 			</data>
 			<key>hash2</key>
 			<data>
-			DhGFY26DAzA+IwoHlDFl9mGZ3E6svYsxOF5ZmbWp5RE=
+			Q6FrZFZiirvJA0+T0NKN7yi8RGT68IoSFcHoUWBdER4=
 			</data>
 		</dict>
 		<key>Headers/TSSchedule.h</key>

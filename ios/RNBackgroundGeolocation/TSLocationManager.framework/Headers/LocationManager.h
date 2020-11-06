@@ -12,6 +12,7 @@
 #import "TSWatchPositionRequest.h"
 #import "TSCurrentPositionRequest.h"
 
+/// :nodoc:
 @interface LocationManager : NSObject <CLLocationManagerDelegate>
 
 // Error codes

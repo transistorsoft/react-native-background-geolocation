@@ -29,9 +29,11 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 
 //! Project version number for MacOSReachability.
+/// :nodoc:
 FOUNDATION_EXPORT double ReachabilityVersionNumber;
 
 //! Project version string for MacOSReachability.
+/// :nodoc:
 FOUNDATION_EXPORT const unsigned char ReachabilityVersionString[];
 
 /**
@@ -43,6 +45,7 @@ FOUNDATION_EXPORT const unsigned char ReachabilityVersionString[];
 #define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
 #endif
 
+/// :nodoc:
 extern NSString *const tsReachabilityChangedNotification;
 
 typedef NS_ENUM(NSInteger, NetworkStatus) {
@@ -52,6 +55,7 @@ typedef NS_ENUM(NSInteger, NetworkStatus) {
     ReachableViaWWAN = 1
 };
 
+/// :nodoc:
 @class TSReachability;
 
 typedef void (^NetworkReachable)(TSReachability * reachability);

@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.9.1</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.9.3</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -79,9 +79,11 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.coords.html#altitude_accuracy" class="tsd-kind-icon">altitude_<wbr>accuracy</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.coords.html#floor" class="tsd-kind-icon">floor</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.coords.html#heading" class="tsd-kind-icon">heading</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.coords.html#heading_accuracy" class="tsd-kind-icon">heading_<wbr>accuracy</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.coords.html#latitude" class="tsd-kind-icon">latitude</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.coords.html#longitude" class="tsd-kind-icon">longitude</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.coords.html#speed" class="tsd-kind-icon">speed</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.coords.html#speed_accuracy" class="tsd-kind-icon">speed_<wbr>accuracy</a></li>
 							</ul>
 						</section>
 					</div>
@@ -163,6 +165,19 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="heading_accuracy" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> heading_<wbr>accuracy</h3>
+					<div class="tsd-signature tsd-kind-icon">heading_<wbr>accuracy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Heading accuracy in degrees.
+							⚠️ Note:  Only present when location came from GPS.  <code>-1</code> otherwise.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="latitude" class="tsd-anchor"></a>
 					<h3>latitude</h3>
 					<div class="tsd-signature tsd-kind-icon">latitude<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -199,6 +214,19 @@
 						</div>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="speed_accuracy" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> speed_<wbr>accuracy</h3>
+					<div class="tsd-signature tsd-kind-icon">speed_<wbr>accuracy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Speed accuracy in meters / second.
+							⚠️ Note:  Only present when location came from GPS.  <code>-1</code> otherwise.</p>
+						</div>
+					</div>
+				</section>
 			</section>
 		</div>
 		<div class="col-3 col-menu menu-sticky-wrap menu-highlight">
@@ -225,6 +253,9 @@
 								<a href="_react_native_background_geolocation_.coords.html#heading" class="tsd-kind-icon">heading</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_react_native_background_geolocation_.coords.html#heading_accuracy" class="tsd-kind-icon">heading_<wbr>accuracy</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.coords.html#latitude" class="tsd-kind-icon">latitude</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -232,6 +263,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.coords.html#speed" class="tsd-kind-icon">speed</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_react_native_background_geolocation_.coords.html#speed_accuracy" class="tsd-kind-icon">speed_<wbr>accuracy</a>
 							</li>
 						</ul>
 					</li>

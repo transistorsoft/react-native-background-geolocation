@@ -8,6 +8,7 @@
 
 @import Foundation;
 
+/// :nodoc:
 @interface AtomicBoolean : NSObject
 - (instancetype)initWithValue:(BOOL)value;
 - (BOOL)getValue;

@@ -32,75 +32,123 @@ FOUNDATION_EXPORT double TSLocationManagerVersionNumber;
 FOUNDATION_EXPORT const unsigned char TSLocationManagerVersionString[];
 FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 
+/**
+ The main API interface.
+ */
 @interface TSLocationManager : NSObject <CLLocationManagerDelegate>
 
 #pragma mark - Properties
 
 // Flags
 @property (nonatomic, readonly) BOOL enabled;
+/// :nodoc:
 @property (nonatomic, readonly) BOOL isConfigured;
+/// :nodoc:
 @property (nonatomic, readonly) BOOL isDebuggingMotionDetection;
+/// :nodoc:
 @property (nonatomic, readonly) BOOL isUpdatingLocation;
+/// :nodoc:
 @property (nonatomic, readonly) BOOL isRequestingLocation;
+/// :nodoc:
 @property (nonatomic, readonly) BOOL isMonitoringSignificantLocationChanges;
+/// :nodoc:
 @property (nonatomic, readonly) NSDate *suspendedAt;
+/// `YES` when the the app was launched in the background.
 @property (nonatomic, readonly) BOOL isLaunchedInBackground;
 
 // LocationManagers
+
+/// The SDK's `CLLocationManager` instance.
 @property (nonatomic, strong, readonly) CLLocationManager *locationManager;
+/// :nodoc:
 @property (nonatomic, strong, readonly) LocationManager *currentPositionManager;
+/// :nodoc:
 @property (nonatomic, strong, readonly) LocationManager *watchPositionManager;
+/// :nodoc:
 @property (nonatomic, strong, readonly) LocationManager *stateManager;
 
 // Location Resources
+
+/// The location used to monitor the SDK's stationary geofence.
 @property (nonatomic, strong, readonly) CLLocation *stationaryLocation;
+/// The last known location.
 @property (nonatomic, strong, readonly) CLLocation *lastLocation;
+/// :nodoc:
 @property (nonatomic, strong, readonly) CLLocation *lastGoodLocation;
+/// :nodoc:
 @property (nonatomic, strong, readonly) CLLocation *lastOdometerLocation;
 
 // GeofeneManager
+
+/// :nodoc:
 @property (nonatomic, strong, readonly) TSGeofenceManager *geofenceManager;
 
+/// The application's `ViewController` instance.  Used for presenting dialogs.
 @property (nonatomic) UIViewController* viewController;
+/// :nodoc:
 @property (nonatomic) NSDate *stoppedAt;
+/// :nodoc:
 @property (nonatomic) UIBackgroundTaskIdentifier preventSuspendTask;
+/// :nodoc:
 @property (nonatomic, readonly) BOOL clientReady;
-
+/// :nodoc:
 @property (nonatomic, readonly) BOOL isAcquiringState;
+/// :nodoc:
 @property (nonatomic, readonly) BOOL wasAcquiringState;
+/// :nodoc:
 @property (nonatomic, readonly) BOOL isAcquiringBackgroundTime;
+/// :nodoc:
 @property (nonatomic, readonly) BOOL isAcquiringStationaryLocation;
+/// :nodoc:
 @property (nonatomic, readonly) BOOL isAcquiringSpeed;
+/// :nodoc:
 @property (nonatomic, readonly) BOOL isHeartbeatEnabled;
 
 // Events listeners
+/// :nodoc:
 @property (nonatomic, readonly) NSMutableSet *currentPositionRequests;
+/// :nodoc:
 @property (nonatomic, readonly) NSMutableArray *watchPositionRequests;
+/// :nodoc:
 @property (nonatomic, readonly) NSMutableSet *locationListeners;
+/// :nodoc:
 @property (nonatomic, readonly) NSMutableSet *motionChangeListeners;
+/// :nodoc:
 @property (nonatomic, readonly) NSMutableSet *activityChangeListeners;
+/// :nodoc:
 @property (nonatomic, readonly) NSMutableSet *providerChangeListeners;
+/// :nodoc:
 @property (nonatomic, readonly) NSMutableSet *httpListeners;
+/// :nodoc:
 @property (nonatomic, readonly) NSMutableSet *scheduleListeners;
+/// :nodoc:
 @property (nonatomic, readonly) NSMutableSet *heartbeatListeners;
+/// :nodoc:
 @property (nonatomic, readonly) NSMutableSet *powerSaveChangeListeners;
+/// :nodoc:
 @property (nonatomic, readonly) NSMutableSet *enabledChangeListeners;
 
-// [Optional] User-supplied block to render location-data for SQLite database / Firebase adapter INSERT.
+/// [Optional] User-supplied block to render location-data for SQLite database / Firebase adapter INSERT.
 @property (copy) NSDictionary* (^beforeInsertBlock) (TSLocation *location);
 
-// Callback for requestPermission.
+/// Callback for requestPermission.
+/// :nodoc:
 @property (nonatomic) TSCallback *requestPermissionCallback;
 
-// Event Queue
+/// Event Queue
+/// :nodoc:
 @property (nonatomic, readonly)  NSMutableSet *eventQueue;
-
+/// :nodoc:
 @property (nonatomic) SOMotionType currentMotionType;
 
+/// Returns the API's singleton instance.
 + (TSLocationManager *)sharedInstance;
 
 #pragma mark - Event Listener Methods
 
+/*
+ Adds a location event-listener.
+ */
 - (void) onLocation:(void(^)(TSLocation* location))success failure:(void(^)(NSError*))failure;
 - (void) onHttp:(void(^)(TSHttpEvent* event))success;
 - (void) onGeofence:(void(^)(TSGeofenceEvent* event))success;
@@ -124,6 +172,60 @@ FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 #pragma mark - Core API Methods
 
 - (void) configure:(NSDictionary*)params;
+
+/**
+ Signal to the plugin that your app is launched and ready, proving the default [Config].
+
+ The supplied [Config] will be applied **only at first install** of your app — for every launch thereafter,
+ the plugin will automatically load its last-known configuration from persistent storage.
+ The plugin always remembers the configuration you apply to it.
+
+
+ ```dart
+ BackgroundGeolocation.ready(Config(
+  desiredAccuracy: Config.DESIRED_ACCURACY_HIGH,
+  distanceFilter: 10,
+  stopOnTerminate: false,
+  startOnBoot: true,
+  url: 'http://your.server.com',
+  headers: {
+    'my-auth-token': 'secret-token'
+  }
+ )).then((State state) {
+  print('[ready] success: ${state}');
+ });
+ ```
+
+ **WARNING:** The **`#ready`** method only applies the supplied [Config] for the **first launch of the app** &mdash;
+ Forever after, the plugin is going to remember **every configuration change** you apply at runtime (eg: [setConfig]) and reload that *same config* every time your app boots.
+
+ ### The `-[TSConfig reset]` method.
+
+ If you wish, you can use the `-[TSConfig reset]` method to reset all `TSConfig` options to documented default-values (with optional overrides):
+
+ ```dart
+
+ BackgroundGeolocation.reset();
+ // Reset to documented default-values with overrides
+ BackgroundGeolocation.reset(Config(
+  distanceFilter:  10
+ ));
+ ```
+
+ ## [Config.reset]: true
+
+ Optionally, you can set [Config.reset] to `true`  This is helpful during development.  This will essentially *force* the supplied [Config] to be applied with *each launch* of your application.
+
+ ## Example
+
+ ```dart
+ BackgroundGeolocation.ready(Config(
+  distanceFilter: 50
+ )).then((State state) {
+  print('[ready] - ${state}')
+ });
+ ```
+ */
 - (void) ready;
 - (void) start;
 - (void) stop;
@@ -204,6 +306,7 @@ FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 - (void) onAppTerminate;
 
 # pragma mark - Private Methods
+/// :nodoc:
 - (void) fireMotionActivityChangeEvent:(TSActivityChangeEvent*)event;
 @end
 

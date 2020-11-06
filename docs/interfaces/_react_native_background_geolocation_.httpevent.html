@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.9.1</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.9.3</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -117,6 +117,41 @@ BackgroundGeolocation.ready({
 								<li>Use <a href="_react_native_background_geolocation_.config.html#maxbatchsize">maxBatchSize</a> to limit the number of records selected for each <a href="_react_native_background_geolocation_.config.html#batchsync">batchSync</a> request.  The HTTP service will execute <em>synchronous</em> HTTP <em>batch</em> requests until the database is empty.</li>
 							</ul>
 							<hr>
+							<a href="#capturing-the-data-at-your-server" id="capturing-the-data-at-your-server" style="color: inherit; text-decoration: none;">
+								<h2>Capturing the data at your server</h2>
+							</a>
+							<p>The SDK&#39;s HTTP Service will upload recorded locations as JSON to your <a href="_react_native_background_geolocation_.config.html#url">Config.url</a> (See <a href="_react_native_background_geolocation_.location.html">Location</a> for the JSON schema) with <code>Content-Type application/json</code>.  The data can be found by your server in the <a href="https://www.google.com/search?q=http+post+application%2Fjson+request+body+text">&quot;HTTP request body&quot;</a>.</p>
+							<a href="#php" id="php" style="color: inherit; text-decoration: none;">
+								<h3>PHP</h3>
+							</a>
+							<pre><code class="language-php"><span class="hljs-meta">&lt;?php</span>
+ $json = file_get_contents(<span class="hljs-string">&#x27;php://input&#x27;</span>);
+ $data = json_decode($json);
+ <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;POST /locations: &quot;</span> . $data;
+<span class="hljs-meta">?&gt;</span></code></pre>
+							<a href="#node-with-express" id="node-with-express" style="color: inherit; text-decoration: none;">
+								<h3>Node with <code>express</code></h3>
+							</a>
+							<pre><code class="language-javascript"><span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;express&#x27;</span>;
+<span class="hljs-keyword">import</span> bodyParser <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;body-parser&#x27;</span>;
+
+<span class="hljs-keyword">const</span> app = express();
+
+app.use(bodyParser.json());  <span class="hljs-comment">// &lt;-- use body-parser</span>
+
+app.post(<span class="hljs-string">&#x27;/locations&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;POST /locations: &#x27;</span>, req.body);
+});</code></pre>
+							<a href="#rails" id="rails" style="color: inherit; text-decoration: none;">
+								<h3>Rails</h3>
+							</a>
+							<pre><code class="language-ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LocationsController</span> &lt; ApplicationController</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">create</span></span>
+    data = params
+    puts <span class="hljs-string">&quot;POST /locations: <span class="hljs-subst">#{data}</span>&quot;</span>
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span></code></pre>
+							<hr>
 							<a href="#http-failures" id="http-failures" style="color: inherit; text-decoration: none;">
 								<h2>HTTP Failures</h2>
 							</a>
@@ -172,11 +207,6 @@ BackgroundGeolocation.ready({
   <span class="hljs-attr">autoSync</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">disableAutoSyncOnCellular</span>: <span class="hljs-literal">true</span>
 });</code></pre>
-							<hr>
-							<a href="#strong-encryption" id="strong-encryption" style="color: inherit; text-decoration: none;">
-								<h2>Strong Encryption</h2>
-							</a>
-							<p>The JSON payload in HTTP requests can be encrypted.  See <a href="_react_native_background_geolocation_.config.html#encrypt">Config.encrypt</a>.</p>
 							<hr>
 							<a href="#http-logging" id="http-logging" style="color: inherit; text-decoration: none;">
 								<h2>HTTP Logging</h2>

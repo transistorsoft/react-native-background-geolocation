@@ -64,6 +64,48 @@ declare module "react-native-background-geolocation" {
   *
   * ----------------------------------------------------------------------------------------------------------
   *
+  * ## Capturing the data at your server
+  *
+  * The SDK's HTTP Service will upload recorded locations as JSON to your [[Config.url]] (See [[Location]] for the JSON schema) with `Content-Type application/json`.  The data can be found by your server in the ["HTTP request body"](https://www.google.com/search?q=http+post+application%2Fjson+request+body+text).
+  *
+  * ### PHP
+  *
+  * ```php
+  * <?php
+  *  $json = file_get_contents('php://input');
+  *  $data = json_decode($json);
+  *  echo "POST /locations: " . $data;
+  * ?>
+  * ```
+  *
+  * ### Node with `express`
+  *
+  * ```javascript
+  * import express from 'express';
+  * import bodyParser from 'body-parser';
+  *
+  * const app = express();
+  *
+  * app.use(bodyParser.json());  // <-- use body-parser
+  *
+  * app.post('/locations', (req, res) => {
+  *   console.log('POST /locations: ', req.body);
+  * });
+  * ```
+  *
+  * ### Rails
+  *
+  * ```ruby
+  * class LocationsController < ApplicationController
+  *   def create
+  *     data = params
+  *     puts "POST /locations: #{data}"
+  *   end
+  * end
+  * ```
+  *
+  * ----------------------------------------------------------------------------------------------------------
+  *
   * ## HTTP Failures
   *
   * If your server does *not* return a `20x` response (eg: `200`, `201`, `204`), the SDK will __`UNLOCK`__ that record.  Another attempt to upload will be made in the future (until [[maxDaysToPersist]]) when:
@@ -120,12 +162,6 @@ declare module "react-native-background-geolocation" {
   *   disableAutoSyncOnCellular: true
   * });
   * ```
-  *
-  * ----------------------------------------------------------------------------------------------------------
-  *
-  * ## Strong Encryption
-  *
-  * The JSON payload in HTTP requests can be encrypted.  See [[Config.encrypt]].
   *
   * ----------------------------------------------------------------------------------------------------------
   *

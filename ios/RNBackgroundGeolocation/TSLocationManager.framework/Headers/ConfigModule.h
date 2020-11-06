@@ -7,6 +7,7 @@
 //
 #import <Foundation/Foundation.h>
 
+/// :nodoc:
 @interface ConfigModule:NSObject
 
 //-(NSDictionary*) toDictionary;

@@ -78,7 +78,7 @@ typedef enum TSPersistMode : NSInteger {
 @property (nonatomic) BOOL enableTimestampMeta;
 @property (nonatomic) BOOL showsBackgroundLocationIndicator;
 
-// ActivityRecognition
+/// ActivityRecognition
 @property (nonatomic) BOOL isMoving;
 @property (nonatomic) CLActivityType activityType;
 @property (nonatomic) NSTimeInterval stopDetectionDelay;
@@ -89,7 +89,7 @@ typedef enum TSPersistMode : NSInteger {
 @property (nonatomic) BOOL disableStopDetection;
 @property (nonatomic) BOOL stopOnStationary;
 
-// HTTP & Persistence
+/// HTTP & Persistence
 @property (nonatomic) NSString* url;
 @property (nonatomic) NSString* method;
 @property (nonatomic) NSString* httpRootProperty;
@@ -111,20 +111,24 @@ typedef enum TSPersistMode : NSInteger {
 @property (nonatomic) BOOL encrypt;
 @property (nonatomic) TSAuthorization* authorization;
 
-// Application
+/// Application
 @property (nonatomic) BOOL stopOnTerminate;
 @property (nonatomic) BOOL startOnBoot;
 @property (nonatomic) BOOL preventSuspend;
 @property (nonatomic) NSTimeInterval heartbeatInterval;
 @property (nonatomic) NSArray *schedule;
-// Logging & Debug
+/// Logging & Debug
 @property (nonatomic) BOOL debug;
 @property (nonatomic) TSLogLevel logLevel;
 @property (nonatomic) NSInteger logMaxDays;
 
+/// :nodoc:
 + (void)eachProperty:(Class)mClass callback:(void(^)(NSString*, TSSettingType))block;
+/// :nodoc:
 + (TSSettingType) getPropertyType:(objc_property_t)property;
+/// :nodoc:
 + (CLLocationAccuracy) decodeDesiredAccuracy:(NSNumber*)accuracy;
+
 - (NSDictionary*) toDictionary;
 
 @end
@@ -132,66 +136,98 @@ typedef enum TSPersistMode : NSInteger {
 # pragma mark TSConfig
 
 /**
-TSConfig
+The SDK's Configuration API.
  */
 @interface TSConfig : NSObject <NSCoding>
+
 #pragma mark - Singleton
+
+/// Returns the singleton instance.
 + (TSConfig *)sharedInstance;
+/// :nodoc:
 + (Class) classForPropertyName:(NSString*)name fromObject:(id)object;
-    
+
+/**
+ `YES` when the SDK is in the *location + geofence* tracking mode, where `-[TSLocationManager start]` was called.
+ `NO` when the SDK is in *geofences-only* tracking mode, where `-[TSLocationMangager startGeofences]` was called.
+ */
+-(BOOL)isLocationTrackingMode;
+/**
+ `YES` when this is the first launch after initial installation of you application.
+ */
+-(BOOL)isFirstBoot;
+/**
+ `YES` when the application was launched in the background.
+ */
+-(BOOL)didLaunchInBackground;
+
 # pragma mark Initializers
 
 /**
- * Update with Block doc
- * @param block This is the block
- * @see TSConfigBuilder
+ Update the SDK with new configuration options.
  */
-
 - (void)updateWithBlock:(void(^)(TSConfigBuilder*))block;
+/// :nodoc:
 - (void)updateWithDictionary:(NSDictionary*)config;
 
+/**
+ Resets the SDK's configuration to default values.
+ */
 - (void)reset;
+/// :nodoc:
 - (void)reset:(BOOL)silent;
 
 # pragma mark Geolocation methods
+/// :nodoc:
 - (BOOL) getPausesLocationUpdates;
 
 # pragma mark Events
+/// :nodoc:
 - (void)onChange:(NSString*)property callback:(void(^)(id))block;
+/// :nodoc:
 - (void) removeListeners;
 
 # pragma mark State methods
+/// :nodoc:
 -(void)incrementOdometer:(CLLocationDistance)distance;
--(BOOL)isLocationTrackingMode;
+/// :nodoc:
 -(BOOL)hasValidUrl;
+/// :nodoc:
 -(BOOL)hasSchedule;
+/// :nodoc:
 -(NSDictionary*)getLocationAuthorizationAlertStrings;
--(BOOL)isFirstBoot;
--(BOOL)didLaunchInBackground;
 
 # pragma mark Utility methods
+/**
+ Returns an `NSDictionary` representation of the configuration options.
+ */
 - (NSDictionary*) toDictionary;
+/// :nodoc:
 - (NSDictionary*) toDictionary:(BOOL)redact;
-
-// Logs a safe version of toDictionary with sensitive information redacted
+/// :nodoc:
 - (NSString*) toJson;
+/// :nodoc:
 - (void) registerPlugin:(NSString*)pluginName;
+/// :nodoc:
 - (BOOL) hasPluginForEvent:(NSString*)eventName;
 // Returns the configured BACKGROUND_GEOLOCATION_ENCRYPTION_PASSWORD from application's Info.plist
 - (NSString*) encryptionPassword;
+
 /// @name State Properties
+ 
 /**
- * enabled is tracking enabled?
+ enabled is tracking enabled?
  */
 @property (nonatomic) BOOL enabled;
 /**
- * State of plugin, moving or stationary.
+ State of plugin, moving or stationary.
  */
 @property (nonatomic) BOOL isMoving;
 /**
- * True when scheduler is enabled
+ True when scheduler is enabled
  */
 @property (nonatomic) BOOL schedulerEnabled;
+
 @property (nonatomic) CLLocationDistance odometer;
 @property (nonatomic) TSTrackingMode trackingMode;
 @property (nonatomic) CLAuthorizationStatus lastLocationAuthorizationStatus;
@@ -262,7 +298,7 @@ TSConfig
 @property (nonatomic, readonly) BOOL preventSuspend;
 @property (nonatomic, readonly) NSTimeInterval heartbeatInterval;
 @property (nonatomic, readonly) NSArray *schedule;
-// @name Logging & Debug Properties
+/// @name Logging & Debug Properties
 @property (nonatomic, readonly) BOOL debug;
 @property (nonatomic, readonly) TSLogLevel logLevel;
 @property (nonatomic, readonly) NSInteger logMaxDays;

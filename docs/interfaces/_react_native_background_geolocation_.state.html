@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.9.3</span>
+					<a href="../globals.html" class="title">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 3.10.0</span>
 				</div>
 				<div class="" id="tsd-widgets">
 					<a class="github" href="https://github.com/transistorsoft/react-native-background-geolocation">Github</a>
@@ -108,7 +108,6 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_react_native_background_geolocation_.state.html#enableheadless" class="tsd-kind-icon">enable<wbr>Headless</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_react_native_background_geolocation_.state.html#enabletimestampmeta" class="tsd-kind-icon">enable<wbr>Timestamp<wbr>Meta</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_react_native_background_geolocation_.state.html#enabled" class="tsd-kind-icon">enabled</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_react_native_background_geolocation_.state.html#encrypt" class="tsd-kind-icon">encrypt</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_react_native_background_geolocation_.state.html#extras" class="tsd-kind-icon">extras</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_react_native_background_geolocation_.state.html#fastestlocationupdateinterval" class="tsd-kind-icon">fastest<wbr>Location<wbr>Update<wbr>Interval</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_react_native_background_geolocation_.state.html#forcereloadonboot" class="tsd-kind-icon">force<wbr>Reload<wbr>OnBoot</a></li>
@@ -1095,144 +1094,6 @@ BackgroundGeolocation.ready({
 							<p><code>true</code> when the SDK has been enabled via methods <a href="_react_native_background_geolocation_.sqlquery.html#start">start</a> or <a href="../classes/_react_native_background_geolocation_.backgroundgeolocation.html#startgeofences">startGeofences</a>.  When <code>false</code>, the
 							SDK is completely <strong>OFF</strong>.  No tracking of any kind will occur.  The SDK will consume no energy.</p>
 						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="encrypt" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> encrypt</h3>
-					<div class="tsd-signature tsd-kind-icon">encrypt<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_react_native_background_geolocation_.config.html">Config</a>.<a href="_react_native_background_geolocation_.config.html#encrypt">encrypt</a></p>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Encrypt location data in the SDK&#39;s SQLite datbase and HTTP requests (<strong><code>AES-256-CBC</code></strong>).</p>
-						</div>
-						<p>Defaults to <code>false</code>.  When enabled, the SDK will encrypt location data in its SQLite database.  When executing HTTP requests, the SDK will encrypt the entire request payload and encode the result as <code>Base64</code>.</p>
-						<pre><code class="language-typescript">BackgroundGeolocation.ready({
-  encrypt: <span class="hljs-literal">true</span>
-});</code></pre>
-						<a href="#encryption-password" id="encryption-password" style="color: inherit; text-decoration: none;">
-							<h2>Encryption Password</h2>
-						</a>
-						<p>The SDK&#39;s encryption stack requires a configurable encryption <em>password</em>.</p>
-						<a href="#ios" id="ios" style="color: inherit; text-decoration: none;">
-							<h2>iOS</h2>
-						</a>
-						<ul>
-							<li>
-								<a href="#react-native" id="react-native" style="color: inherit; text-decoration: none;">
-									<h3>React Native</h3>
-								</a>
-							In your <strong><code>Info.plist</code></strong>, Add the <code>String</code> key <code>BACKGROUND_GEOLOCATION_ENCRYPTION_PASSWORD</code>.</li>
-						</ul>
-						<p><img src="https://www.dropbox.com/s/amea0siu9mxroh3/ios-encryption_password.png?dl=1" alt=""></p>
-						<ul>
-							<li>
-								<a href="#cordova" id="cordova" style="color: inherit; text-decoration: none;">
-									<h3>Cordova</h3>
-								</a>
-							</li>
-						</ul>
-						<p>📂 <strong><code>config.xml</code></strong></p>
-						<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">platform</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ios&quot;</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">config-file</span> <span class="hljs-attr">parent</span>=<span class="hljs-string">&quot;BACKGROUND_GEOLOCATION_ENCRYPTION_PASSWORD&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;*-Info.plist&quot;</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>&quot;your secret encryption password<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">config-file</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">platform</span>&gt;</span></code></pre>
-						<a href="#android" id="android" style="color: inherit; text-decoration: none;">
-							<h2>Android</h2>
-						</a>
-						<ul>
-							<li>
-								<a href="#react-native-1" id="react-native-1" style="color: inherit; text-decoration: none;">
-									<h3>React Native</h3>
-								</a>
-							</li>
-						</ul>
-						<p>In your <strong><code>AndroidManifest.xml</code></strong>, add the following <code>&lt;meta-data&gt;</code> element:</p>
-						<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">application</span>&gt;</span>
-    .
-    .
-    .
-    <span class="hljs-tag">&lt;<span class="hljs-name">meta-data</span>
-<span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;com.transistorsoft.locationmanager.ENCRYPTION_PASSWORD&quot;</span> <span class="hljs-attr">android:value</span>=<span class="hljs-string">&quot;your secret encryption password&quot;</span> /&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">application</span>&gt;</span></code></pre>
-						<ul>
-							<li>
-								<a href="#cordova-1" id="cordova-1" style="color: inherit; text-decoration: none;">
-									<h3>Cordova</h3>
-								</a>
-							</li>
-						</ul>
-						<p>📂 <strong><code>config.xml</code></strong></p>
-						<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">platform</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;android&quot;</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">config-file</span> <span class="hljs-attr">parent</span>=<span class="hljs-string">&quot;/manifest/application&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;app/src/main/AndroidManifest.xml&quot;</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">meta-data</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;com.transistorsoft.locationmanager.ENCRYPTION_PASSWORD&quot;</span> <span class="hljs-attr">android:value</span>=<span class="hljs-string">&quot;your secret encryption password&quot;</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">config-file</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">platform</span>&gt;</span></code></pre>
-						<a href="#rncryptor-encryption-stack" id="rncryptor-encryption-stack" style="color: inherit; text-decoration: none;">
-							<h2>RNCryptor Encryption Stack</h2>
-						</a>
-						<p>The SDK uses the <a href="https://github.com/RNCryptor/RNCryptor-Spec/blob/master/RNCryptor-Spec-v3.md">RNCryptor Encryption Stack</a>.  See <a href="https://github.com/RNCryptor">RNCypto</a> for a list of available language implementations.</p>
-						<p>After decoding the <code>Base64</code>-encoded data from the HTTP request body, you&#39;ll have a binary payload.  Extract bytes as follows:</p>
-						<p><img src="https://dl.dropbox.com/s/owp61pt3cqfij16/RNCrypto-DataFormat-Spec.png?dl=1" alt=""></p>
-						<table>
-							<thead>
-								<tr>
-									<th>Name</th>
-									<th>Description</th>
-								</tr>
-							</thead>
-							<tbody><tr>
-									<td><code>version</code></td>
-									<td>(1 byte): Data format version. (Currently <code>3</code>).</td>
-								</tr>
-								<tr>
-									<td><code>options</code></td>
-									<td>(1 byte): bit 0 - uses password (Always <code>1</code>).</td>
-								</tr>
-								<tr>
-									<td><code>encryptionSalt</code></td>
-									<td>(8 bytes)</td>
-								</tr>
-								<tr>
-									<td><code>HMACSalt</code></td>
-									<td>(8 bytes)</td>
-								</tr>
-								<tr>
-									<td><code>IV</code></td>
-									<td>(16 bytes)</td>
-								</tr>
-								<tr>
-									<td><code>ciphertext</code></td>
-									<td>(variable) -- Encrypted in CBC mode</td>
-								</tr>
-								<tr>
-									<td><code>HMAC</code></td>
-									<td>(32 bytes)</td>
-								</tr>
-						</tbody></table>
-						<p>See <a href="https://gist.github.com/christocracy/f814dd35cfd9eced5d4de3025c38333c">here</a> for a NodeJS-based decryption example.</p>
-						<a href="#password-based-decryption-abstract-language" id="password-based-decryption-abstract-language" style="color: inherit; text-decoration: none;">
-							<h3>Password-based decryption (abstract language)</h3>
-						</a>
-						<pre><code>def <span class="hljs-constructor">Decrypt(Password, Message)</span> =
-  (Version,Options,EncryptionSalt,HMACSalt,IV,Ciphertext,HMAC) = <span class="hljs-constructor">Split(Message)</span>
-    EncryptionKey = <span class="hljs-constructor">PKBDF2(EncryptionSalt, 32 <span class="hljs-params">length</span>, 10k <span class="hljs-params">iterations</span>, Password)</span>
-    HMACKey = <span class="hljs-constructor">PKBDF2(HMACSalt, 32 <span class="hljs-params">length</span>, 10k <span class="hljs-params">iterations</span>, <span class="hljs-params">password</span>)</span>
-    Header = <span class="hljs-number">3</span><span class="hljs-operator"> || </span><span class="hljs-number">1</span><span class="hljs-operator"> || </span>EncryptionSalt<span class="hljs-operator"> || </span>HMACSalt<span class="hljs-operator"> || </span>IV
-    Plaintext = <span class="hljs-constructor">AES256Decrypt(Ciphertext, ModeCBC, IV, EncryptionKey)</span>
-    ComputedHMAC = <span class="hljs-constructor">HMAC(Header <span class="hljs-operator">||</span> Ciphertext, HMACKey, SHA-256)</span>
-    <span class="hljs-keyword">if</span> <span class="hljs-constructor">ConsistentTimeEqual(ComputedHMAC, HMAC)</span> return Plaintext <span class="hljs-keyword">else</span> return Error</code></pre><ol>
-							<li>Pull apart the pieces as described in the data format.</li>
-							<li>Generate the encryption key using PBKDF2 (see your language docs for how to call this). Pass the password as a string, the random encryption salt, 10,000 iterations, and SHA-1 PRF. Request a length of 32 bytes.</li>
-							<li>Generate the HMAC key using PBKDF2 (see your language docs for how to call this). Pass the password as a string, the random HMAC salt, 10,000 iterations, and SHA-1 PRF. Request a length of 32 bytes.</li>
-							<li>Decrypt the data using the encryption key (above), the given IV, AES-256, and the CBC mode. This is the default mode for almost all AES encryption libraries.</li>
-							<li>Pass your header and ciphertext to an HMAC function, along with the HMAC key (above), and the PRF &quot;SHA-256&quot; (see your library&#39;s docs for what the names of the PRF functions are; this might also be called &quot;SHA-2, 256-bits&quot;).</li>
-							<li>Compare the computed HMAC with the expected HMAC using a constant time equality function (see below). If they are equal, return the plaintext. Otherwise, return an error</li>
-						</ol>
-						<p>Note: The RNCryptor format v3 uses SHA-1 for PBKDF2, but SHA-256 for HMAC.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
@@ -2719,7 +2580,7 @@ BackgroundGeolocation.ready({
 							<p>[<strong>Android only]</strong> Configures the persistent foreground-service <a href="_react_native_background_geolocation_.notification.html">Notification</a> required by Android.</p>
 						</div>
 						<p><img src="https://dl.dropbox.com/s/acuhy5cu4p7uofr/android-foreground-service-default.png?dl=1" alt=""></p>
-						<p>See [Notification] for detailed usage.</p>
+						<p>See <a href="_react_native_background_geolocation_.notification.html">Notification</a> for detailed usage.</p>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-example">example</dt>
 							<dd><pre><code class="language-typescript">BackgroundGeolocation.ready({
@@ -3810,9 +3671,6 @@ BackgroundGeolocation.ready({
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_react_native_background_geolocation_.state.html#enabled" class="tsd-kind-icon">enabled</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_react_native_background_geolocation_.state.html#encrypt" class="tsd-kind-icon">encrypt</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_react_native_background_geolocation_.state.html#extras" class="tsd-kind-icon">extras</a>

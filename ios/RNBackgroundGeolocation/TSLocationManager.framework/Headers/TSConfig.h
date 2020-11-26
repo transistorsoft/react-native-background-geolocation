@@ -108,7 +108,6 @@ typedef enum TSPersistMode : NSInteger {
 @property (nonatomic) NSInteger httpTimeout;
 @property (nonatomic) TSPersistMode persistMode;
 @property (nonatomic) BOOL disableAutoSyncOnCellular;
-@property (nonatomic) BOOL encrypt;
 @property (nonatomic) TSAuthorization* authorization;
 
 /// Application
@@ -210,8 +209,6 @@ The SDK's Configuration API.
 - (void) registerPlugin:(NSString*)pluginName;
 /// :nodoc:
 - (BOOL) hasPluginForEvent:(NSString*)eventName;
-// Returns the configured BACKGROUND_GEOLOCATION_ENCRYPTION_PASSWORD from application's Info.plist
-- (NSString*) encryptionPassword;
 
 /// @name State Properties
  
@@ -289,7 +286,6 @@ The SDK's Configuration API.
 @property (nonatomic, readonly) NSInteger httpTimeout;
 @property (nonatomic) TSPersistMode persistMode;
 @property (nonatomic) BOOL disableAutoSyncOnCellular;
-@property (nonatomic) BOOL encrypt;
 @property (nonatomic) TSAuthorization* authorization;
 
 /// @name Application Properties

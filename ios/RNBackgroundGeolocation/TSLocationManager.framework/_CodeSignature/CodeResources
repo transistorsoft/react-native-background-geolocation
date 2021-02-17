@@ -54,7 +54,7 @@
 		</data>
 		<key>Headers/TSConfig.h</key>
 		<data>
-		Fmk1DAdtCnsiYMg2XQTaOGiN9Ak=
+		vJg7OCv+NUi4jQJOnFrbW8hHhUE=
 		</data>
 		<key>Headers/TSConnectivityChangeEvent.h</key>
 		<data>
@@ -138,7 +138,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		CdDu1Ptz9+5KnDyM179OlbZXgrU=
+		HKSWkD7xbVjPNmA7Q75W4O94z8k=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -283,11 +283,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Fmk1DAdtCnsiYMg2XQTaOGiN9Ak=
+			vJg7OCv+NUi4jQJOnFrbW8hHhUE=
 			</data>
 			<key>hash2</key>
 			<data>
-			SqGwpYWERABF53kkcdCmgWTbBo/7vEdumEh72NtL/lU=
+			SYlaPG2r9Uq7YpdUGx5+Q3qSfcrCJIUvA4gOxGr5NfY=
 			</data>
 		</dict>
 		<key>Headers/TSConnectivityChangeEvent.h</key>

@@ -196,6 +196,8 @@ The SDK's Configuration API.
 /// :nodoc:
 -(NSDictionary*)getLocationAuthorizationAlertStrings;
 
+- (BOOL)didDeviceReboot;
+    
 # pragma mark Utility methods
 /**
  Returns an `NSDictionary` representation of the configuration options.

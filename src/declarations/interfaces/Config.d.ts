@@ -1203,113 +1203,6 @@ declare module "react-native-background-geolocation" {
     disableAutoSyncOnCellular?: boolean;
 
     /**
-    * Encrypt location data in the SDK's SQLite datbase and HTTP requests (__`AES-256-CBC`__).
-    *
-    * Defaults to `false`.  When enabled, the SDK will encrypt location data in its SQLite database.  When executing HTTP requests, the SDK will encrypt the entire request payload and encode the result as `Base64`.
-    *
-    *
-    * ```typescript
-    * BackgroundGeolocation.ready({
-    *   encrypt: true
-    * });
-    * ```
-    *
-    * ## Encryption Password
-    *
-    * The SDK's encryption stack requires a configurable encryption *password*.
-    *
-    * ## iOS
-    *
-    * - ### React Native
-    * In your __`Info.plist`__, Add the `String` key `BACKGROUND_GEOLOCATION_ENCRYPTION_PASSWORD`.
-    *
-    * ![](https://www.dropbox.com/s/amea0siu9mxroh3/ios-encryption_password.png?dl=1)
-    *
-    * - ### Cordova
-    *
-    * 📂 __`config.xml`__
-    *
-    * ```xml
-    * <platform name="ios">
-    *     <config-file parent="BACKGROUND_GEOLOCATION_ENCRYPTION_PASSWORD" target="*-Info.plist">
-    *         <string>"your secret encryption password</string>
-    *     </config-file>
-    * </platform>
-    * ```
-    *
-    * ## Android
-    *
-    * - ### React Native
-    *
-    * In your __`AndroidManifest.xml`__, add the following `<meta-data>` element:
-    *
-    * ```xml
-    * <application>
-    *     .
-    *     .
-    *     .
-    *     <meta-data
-    android:name="com.transistorsoft.locationmanager.ENCRYPTION_PASSWORD" android:value="your secret encryption password" />
-    * </application>
-    * ```
-    *
-    * - ### Cordova
-    *
-    * 📂 __`config.xml`__
-    *
-    * ```xml
-    * <platform name="android">
-    *     <config-file parent="/manifest/application" target="app/src/main/AndroidManifest.xml">
-    *         <meta-data android:name="com.transistorsoft.locationmanager.ENCRYPTION_PASSWORD" android:value="your secret encryption password" />
-    *     </config-file>
-    * </platform>
-    * ```
-    *
-    * ## RNCryptor Encryption Stack
-    *
-    * The SDK uses the [RNCryptor Encryption Stack](https://github.com/RNCryptor/RNCryptor-Spec/blob/master/RNCryptor-Spec-v3.md).  See [RNCypto](https://github.com/RNCryptor) for a list of available language implementations.
-    *
-    * After decoding the `Base64`-encoded data from the HTTP request body, you'll have a binary payload.  Extract bytes as follows:
-    *
-    * ![](https://dl.dropbox.com/s/owp61pt3cqfij16/RNCrypto-DataFormat-Spec.png?dl=1)
-    *
-    * | Name             | Description                                       |
-    * |------------------|---------------------------------------------------|
-    * | `version`        | (1 byte): Data format version. (Currently `3`).   |
-    * | `options`        | (1 byte): bit 0 - uses password (Always `1`).     |
-    * | `encryptionSalt` | (8 bytes)                                         |
-    * | `HMACSalt`       | (8 bytes)                                         |
-    * | `IV`             | (16 bytes)                                        |
-    * | `ciphertext`     | (variable) -- Encrypted in CBC mode               |
-    * | `HMAC`           | (32 bytes)
-    *
-    * See [here](https://gist.github.com/christocracy/f814dd35cfd9eced5d4de3025c38333c) for a NodeJS-based decryption example.
-    *
-    * ### Password-based decryption (abstract language)
-    *
-    * ```
-    * def Decrypt(Password, Message) =
-    *   (Version,Options,EncryptionSalt,HMACSalt,IV,Ciphertext,HMAC) = Split(Message)
-    *     EncryptionKey = PKBDF2(EncryptionSalt, 32 length, 10k iterations, Password)
-    *     HMACKey = PKBDF2(HMACSalt, 32 length, 10k iterations, password)
-    *     Header = 3 || 1 || EncryptionSalt || HMACSalt || IV
-    *     Plaintext = AES256Decrypt(Ciphertext, ModeCBC, IV, EncryptionKey)
-    *     ComputedHMAC = HMAC(Header || Ciphertext, HMACKey, SHA-256)
-    *     if ConsistentTimeEqual(ComputedHMAC, HMAC) return Plaintext else return Error
-    * ```
-    *
-    * 1. Pull apart the pieces as described in the data format.
-    * 1. Generate the encryption key using PBKDF2 (see your language docs for how to call this). Pass the password as a string, the random encryption salt, 10,000 iterations, and SHA-1 PRF. Request a length of 32 bytes.
-    * 1. Generate the HMAC key using PBKDF2 (see your language docs for how to call this). Pass the password as a string, the random HMAC salt, 10,000 iterations, and SHA-1 PRF. Request a length of 32 bytes.
-    * 1. Decrypt the data using the encryption key (above), the given IV, AES-256, and the CBC mode. This is the default mode for almost all AES encryption libraries.
-    * 1. Pass your header and ciphertext to an HMAC function, along with the HMAC key (above), and the PRF "SHA-256" (see your library's docs for what the names of the PRF functions are; this might also be called "SHA-2, 256-bits").
-    * 1. Compare the computed HMAC with the expected HMAC using a constant time equality function (see below). If they are equal, return the plaintext. Otherwise, return an error
-    *
-    * Note: The RNCryptor format v3 uses SHA-1 for PBKDF2, but SHA-256 for HMAC.
-    */
-    encrypt?: boolean;
-
-    /**
     * Configures the SDK for [[Authorization]] with your server (eg: [JSON Web Token](https://jwt.io/)).
     *
     * ### ⚠️ Only [JWT](https://jwt.io/) is currently supported.
@@ -2483,7 +2376,7 @@ declare module "react-native-background-geolocation" {
     *
     * ![](https://dl.dropbox.com/s/acuhy5cu4p7uofr/android-foreground-service-default.png?dl=1)
     *
-    * See [Notification] for detailed usage.
+    * See [[Notification]] for detailed usage.
     *
     * @example
     * ```typescript

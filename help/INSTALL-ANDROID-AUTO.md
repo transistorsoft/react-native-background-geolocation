@@ -6,15 +6,31 @@
 
 ```shell
 yarn add react-native-background-geolocation
+```
 
-yarn add react-native-background-fetch
+- __For `background-geolocation >= 3.6.0`:__
+```
+yarn add react-native-background-fetch@3.1.0
+```
+
+- For __`background-geolocation <= 3.5.0`__
+```
+yarn add react-native-background-fetch@2.7.1
 ```
 
 ### With `npm`
 ```shell
 npm install react-native-background-geolocation --save
+```
 
-npm install react-native-background-fetch --save
+- For __`background-geolocation >= 3.6.0`:__
+```
+npm install react-native-background-fetch@3.1.0 --save
+```
+
+- For __`background-geolocation < 3.6.0`:__
+```
+npm install react-native-background-fetch@2.7.1 --save
 ```
 
 ## Configure `react-native-background-fetch`

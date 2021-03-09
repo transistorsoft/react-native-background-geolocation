@@ -1,5 +1,27 @@
 # Change Log
 
+## 4.0.0 &mdash; 2021-03-09
+
+* [Changed][iOS] Migrate `TSLocationManager.framework` to new `.xcframework` for *MacCatalyst* support with new Apple silcon.
+
+### :warning: Breaking Change:  Requires `cocoapods >= 1.10+`.
+
+*iOS'* new `.xcframework` requires *cocoapods >= 1.10+*:
+
+```console
+$ pod --version
+// if < 1.10.0
+$ sudo gem install cocoapods
+```
+
+### :warning: Requires `react-native-background-fetch@4.0.1`.
+
+- See [Breaking Changes with `react-native-background-fetch@4.0.0`](https://github.com/transistorsoft/react-native-background-fetch/blob/master/CHANGELOG.md#401--2021-02-18)
+
+```console
+$ yarn add react-native-background-fetch@4.0.1
+```
+
 ## 3.10.0 &mdash; 2021-03-09
 - [Fixed][iOS] `startOnBoot: false` was not being respected.
 - [Fixed][Android] If multiple simultaneous calls to `getCurrentPosition` are executed, the location permission handler could hang and not return, causing neither `getCurrentPosition` request to execute.

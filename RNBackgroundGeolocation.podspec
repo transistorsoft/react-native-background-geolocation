@@ -22,5 +22,5 @@ Pod::Spec.new do |s|
   s.dependency 'CocoaLumberjack', '~> 3.6.1'
   s.source_files        = 'ios/RNBackgroundGeolocation/*.{h,m}'
   s.libraries           = 'sqlite3', 'z'
-  s.vendored_frameworks = 'ios/RNBackgroundGeolocation/TSLocationManager.framework'
+  s.vendored_frameworks = 'ios/RNBackgroundGeolocation/TSLocationManager.xcframework'
 end

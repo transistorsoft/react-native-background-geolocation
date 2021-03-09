@@ -1,6 +1,0 @@
-framework module TSLocationManager {
-  umbrella header "TSLocationManager.h"
-
-  export *
-  module * { export * }
-}

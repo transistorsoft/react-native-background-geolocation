@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.0.01 &mdash; 2021-03-16
+
+* [Changed][iOS] Simply apply a cocoapods version constraint of `1.10.0` in podspec.
+
 ## 4.0.0 &mdash; 2021-03-09
 
 * [Changed][iOS] Migrate `TSLocationManager.framework` to new `.xcframework` for *MacCatalyst* support with new Apple silcon.

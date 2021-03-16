@@ -3,6 +3,7 @@ require 'json'
 package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
 
 Pod::Spec.new do |s|
+  s.cocoapods_version   = '>= 1.10.0'
   s.name                = 'RNBackgroundGeolocation'
   s.version             = package['version']
   s.summary             = package['description']

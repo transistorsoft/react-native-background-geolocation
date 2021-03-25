@@ -5,5 +5,4 @@ bin
 README.md
 ISSUE_TEMPLATE.md
 node_modules
-
-
+*.tgz

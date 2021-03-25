@@ -1,5 +1,10 @@
 # Change Log
 
+## 4.0.2 &mdash; 2021-03-25
+
+* [Changed] Re-generate docs with latest typedoc.  The docs search feature now actually works.
+* [Changed][iOS] Update `pod CocoaLumberjack` to latest `~> 3.7.0`.
+
 ## 4.0.01 &mdash; 2021-03-16
 
 * [Changed][iOS] Simply apply a cocoapods version constraint of `1.10.0` in podspec.

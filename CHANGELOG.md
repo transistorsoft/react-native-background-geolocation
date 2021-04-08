@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.0.3 &mdash; 2021-04-08
+* [Fixed][iOS] `"OBJC_IVAR$_DDLogMessage._tag"`.  CocoaLumberjack pushed a breaking change to 3.7.1 on 04/08.  Pins CocoaLumberjack@3.7.0
+
 ## 4.0.2 &mdash; 2021-03-25
 
 * [Changed] Re-generate docs with latest typedoc.  The docs search feature now actually works.

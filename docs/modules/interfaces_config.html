@@ -1,0 +1,661 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>interfaces/Config | React Native Background Geolocation</title>
+	<meta name="description" content="Documentation for React Native Background Geolocation">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<link rel="shortcut icon" class="favicon" href="../assets/images/favicon.ico">
+	<script src="../assets/js/search.js"></script>
+	<!--
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+
+    <script>
+        $.getJSON("../assets/js/search.json").then(function(response) {
+            window.searchData = response;
+        });
+    </script>
+    -->
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell left">
+					<div class="brand">
+						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
+						<span class="title">
+							<a href="../globals.html">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.0.3</span>
+						</span>
+					</div>
+				</div>
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading"></li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../index.html">React Native Background Geolocation</a>
+				</li>
+				<li>
+					<a href="interfaces_config.html">interfaces/Config</a>
+				</li>
+			</ul>
+			<h1>Module interfaces/Config</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-9 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>References</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#accuracyauthorization" class="tsd-kind-icon">Accuracy<wbr>Authorization</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#authorization" class="tsd-kind-icon">Authorization</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#authorizationevent" class="tsd-kind-icon">Authorization<wbr>Event</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#backgroundgeolocation" class="tsd-kind-icon">Background<wbr>Geolocation</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#battery" class="tsd-kind-icon">Battery</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#connectivitychangeevent" class="tsd-kind-icon">Connectivity<wbr>Change<wbr>Event</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#coords" class="tsd-kind-icon">Coords</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#currentpositionrequest" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#deviceinfo" class="tsd-kind-icon">Device<wbr>Info</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#devicesettings" class="tsd-kind-icon">Device<wbr>Settings</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#devicesettingsrequest" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#extras" class="tsd-kind-icon">Extras</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#geofence" class="tsd-kind-icon">Geofence</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#geofenceevent" class="tsd-kind-icon">Geofence<wbr>Event</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#geofenceschangeevent" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#heartbeatevent" class="tsd-kind-icon">Heartbeat<wbr>Event</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#httpevent" class="tsd-kind-icon">Http<wbr>Event</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#location" class="tsd-kind-icon">Location</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#locationauthorizationalert" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#logger" class="tsd-kind-icon">Logger</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#motionactivityevent" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#motionchangeevent" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#notification" class="tsd-kind-icon">Notification</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#permissionrationale" class="tsd-kind-icon">Permission<wbr>Rationale</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#providerchangeevent" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#sqlquery" class="tsd-kind-icon">SQLQuery</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#sensors" class="tsd-kind-icon">Sensors</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#state" class="tsd-kind-icon">State</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#transistorauthorizationtoken" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#watchpositionrequest" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="interfaces_config.html#default" class="tsd-kind-icon">default</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/interfaces_config.config.html" class="tsd-kind-icon">Config</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>References</h2>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="accuracyauthorization" class="tsd-anchor"></a>
+					<h3>Accuracy<wbr>Authorization</h3>
+					Re-exports <a href="types.html#accuracyauthorization">AccuracyAuthorization</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="activitytype" class="tsd-anchor"></a>
+					<h3>Activity<wbr>Type</h3>
+					Re-exports <a href="types.html#activitytype">ActivityType</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="authorization" class="tsd-anchor"></a>
+					<h3>Authorization</h3>
+					Re-exports <a href="../interfaces/interfaces_authorization.authorization.html">Authorization</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="authorizationevent" class="tsd-anchor"></a>
+					<h3>Authorization<wbr>Event</h3>
+					Re-exports <a href="../interfaces/interfaces_authorizationevent.authorizationevent.html">AuthorizationEvent</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="authorizationstatus" class="tsd-anchor"></a>
+					<h3>Authorization<wbr>Status</h3>
+					Re-exports <a href="types.html#authorizationstatus">AuthorizationStatus</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="backgroundgeolocation" class="tsd-anchor"></a>
+					<h3>Background<wbr>Geolocation</h3>
+					Re-exports <a href="../classes/backgroundgeolocation.backgroundgeolocation-1.html">BackgroundGeolocation</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="battery" class="tsd-anchor"></a>
+					<h3>Battery</h3>
+					Re-exports <a href="../interfaces/interfaces_location.battery.html">Battery</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="connectivitychangeevent" class="tsd-anchor"></a>
+					<h3>Connectivity<wbr>Change<wbr>Event</h3>
+					Re-exports <a href="../interfaces/interfaces_connectivitychangeevent.connectivitychangeevent.html">ConnectivityChangeEvent</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="coords" class="tsd-anchor"></a>
+					<h3>Coords</h3>
+					Re-exports <a href="../interfaces/interfaces_location.coords.html">Coords</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="currentpositionrequest" class="tsd-anchor"></a>
+					<h3>Current<wbr>Position<wbr>Request</h3>
+					Re-exports <a href="../interfaces/interfaces_currentpositionrequest.currentpositionrequest.html">CurrentPositionRequest</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="deviceinfo" class="tsd-anchor"></a>
+					<h3>Device<wbr>Info</h3>
+					Re-exports <a href="../interfaces/interfaces_deviceinfo.deviceinfo.html">DeviceInfo</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="devicesettings" class="tsd-anchor"></a>
+					<h3>Device<wbr>Settings</h3>
+					Re-exports <a href="../interfaces/interfaces_devicesettings.devicesettings.html">DeviceSettings</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="devicesettingsrequest" class="tsd-anchor"></a>
+					<h3>Device<wbr>Settings<wbr>Request</h3>
+					Re-exports <a href="../interfaces/interfaces_devicesettings.devicesettingsrequest.html">DeviceSettingsRequest</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="extras" class="tsd-anchor"></a>
+					<h3>Extras</h3>
+					Re-exports <a href="types.html#extras">Extras</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="geofence" class="tsd-anchor"></a>
+					<h3>Geofence</h3>
+					Re-exports <a href="../interfaces/interfaces_geofence.geofence.html">Geofence</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="geofenceevent" class="tsd-anchor"></a>
+					<h3>Geofence<wbr>Event</h3>
+					Re-exports <a href="../interfaces/interfaces_geofenceevent.geofenceevent.html">GeofenceEvent</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="geofenceschangeevent" class="tsd-anchor"></a>
+					<h3>Geofences<wbr>Change<wbr>Event</h3>
+					Re-exports <a href="../interfaces/interfaces_geofenceschangeevent.geofenceschangeevent.html">GeofencesChangeEvent</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="heartbeatevent" class="tsd-anchor"></a>
+					<h3>Heartbeat<wbr>Event</h3>
+					Re-exports <a href="../interfaces/interfaces_heartbeatevent.heartbeatevent.html">HeartbeatEvent</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="httpevent" class="tsd-anchor"></a>
+					<h3>Http<wbr>Event</h3>
+					Re-exports <a href="../interfaces/interfaces_httpevent.httpevent.html">HttpEvent</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="httpmethod" class="tsd-anchor"></a>
+					<h3>Http<wbr>Method</h3>
+					Re-exports <a href="types.html#httpmethod">HttpMethod</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="location" class="tsd-anchor"></a>
+					<h3>Location</h3>
+					Re-exports <a href="../interfaces/interfaces_location.location.html">Location</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="locationaccuracy" class="tsd-anchor"></a>
+					<h3>Location<wbr>Accuracy</h3>
+					Re-exports <a href="types.html#locationaccuracy">LocationAccuracy</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="locationauthorizationalert" class="tsd-anchor"></a>
+					<h3>Location<wbr>Authorization<wbr>Alert</h3>
+					Re-exports <a href="../interfaces/interfaces_locationauthorizationalert.locationauthorizationalert.html">LocationAuthorizationAlert</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="locationauthorizationrequest" class="tsd-anchor"></a>
+					<h3>Location<wbr>Authorization<wbr>Request</h3>
+					Re-exports <a href="types.html#locationauthorizationrequest">LocationAuthorizationRequest</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="locationerror" class="tsd-anchor"></a>
+					<h3>Location<wbr>Error</h3>
+					Re-exports <a href="types.html#locationerror">LocationError</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="loglevel" class="tsd-anchor"></a>
+					<h3>Log<wbr>Level</h3>
+					Re-exports <a href="types.html#loglevel">LogLevel</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="logger" class="tsd-anchor"></a>
+					<h3>Logger</h3>
+					Re-exports <a href="../interfaces/interfaces_logger.logger.html">Logger</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="motionactivityevent" class="tsd-anchor"></a>
+					<h3>Motion<wbr>Activity<wbr>Event</h3>
+					Re-exports <a href="../interfaces/interfaces_motionactivityevent.motionactivityevent.html">MotionActivityEvent</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="motionchangeevent" class="tsd-anchor"></a>
+					<h3>Motion<wbr>Change<wbr>Event</h3>
+					Re-exports <a href="../interfaces/interfaces_motionchangeevent.motionchangeevent.html">MotionChangeEvent</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="notification" class="tsd-anchor"></a>
+					<h3>Notification</h3>
+					Re-exports <a href="../interfaces/interfaces_notification.notification.html">Notification</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="notificationpriority" class="tsd-anchor"></a>
+					<h3>Notification<wbr>Priority</h3>
+					Re-exports <a href="types.html#notificationpriority">NotificationPriority</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="permissionrationale" class="tsd-anchor"></a>
+					<h3>Permission<wbr>Rationale</h3>
+					Re-exports <a href="../interfaces/interfaces_permissionrationale.permissionrationale.html">PermissionRationale</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="persistmode" class="tsd-anchor"></a>
+					<h3>Persist<wbr>Mode</h3>
+					Re-exports <a href="types.html#persistmode">PersistMode</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="providerchangeevent" class="tsd-anchor"></a>
+					<h3>Provider<wbr>Change<wbr>Event</h3>
+					Re-exports <a href="../interfaces/interfaces_providerchangeevent.providerchangeevent.html">ProviderChangeEvent</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="sqlquery" class="tsd-anchor"></a>
+					<h3>SQLQuery</h3>
+					Re-exports <a href="../interfaces/interfaces_sqlquery.sqlquery.html">SQLQuery</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="sqlqueryorder" class="tsd-anchor"></a>
+					<h3>SQLQuery<wbr>Order</h3>
+					Re-exports <a href="types.html#sqlqueryorder">SQLQueryOrder</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="sensors" class="tsd-anchor"></a>
+					<h3>Sensors</h3>
+					Re-exports <a href="../interfaces/interfaces_sensors.sensors.html">Sensors</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="state" class="tsd-anchor"></a>
+					<h3>State</h3>
+					Re-exports <a href="../interfaces/interfaces_state.state.html">State</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="trackingmode" class="tsd-anchor"></a>
+					<h3>Tracking<wbr>Mode</h3>
+					Re-exports <a href="types.html#trackingmode">TrackingMode</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="transistorauthorizationtoken" class="tsd-anchor"></a>
+					<h3>Transistor<wbr>Authorization<wbr>Token</h3>
+					Re-exports <a href="../interfaces/interfaces_transistorauthorizationtoken.transistorauthorizationtoken.html">TransistorAuthorizationToken</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="watchpositionrequest" class="tsd-anchor"></a>
+					<h3>Watch<wbr>Position<wbr>Request</h3>
+					Re-exports <a href="../interfaces/interfaces_watchpositionrequest.watchpositionrequest.html">WatchPositionRequest</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="default" class="tsd-anchor"></a>
+					<h3>default</h3>
+					Renames and exports <a href="../classes/backgroundgeolocation.backgroundgeolocation-1.html">BackgroundGeolocation</a>
+				</section>
+			</section>
+		</div>
+		<div class="col-3 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#accuracyauthorization" class="tsd-kind-icon">Accuracy<wbr>Authorization</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#authorization" class="tsd-kind-icon">Authorization</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#authorizationevent" class="tsd-kind-icon">Authorization<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#backgroundgeolocation" class="tsd-kind-icon">Background<wbr>Geolocation</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#battery" class="tsd-kind-icon">Battery</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#connectivitychangeevent" class="tsd-kind-icon">Connectivity<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#coords" class="tsd-kind-icon">Coords</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#currentpositionrequest" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#deviceinfo" class="tsd-kind-icon">Device<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#devicesettings" class="tsd-kind-icon">Device<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#devicesettingsrequest" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#extras" class="tsd-kind-icon">Extras</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#geofence" class="tsd-kind-icon">Geofence</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#geofenceevent" class="tsd-kind-icon">Geofence<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#geofenceschangeevent" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#heartbeatevent" class="tsd-kind-icon">Heartbeat<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#httpevent" class="tsd-kind-icon">Http<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#location" class="tsd-kind-icon">Location</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#locationauthorizationalert" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#logger" class="tsd-kind-icon">Logger</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#motionactivityevent" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#motionchangeevent" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#notification" class="tsd-kind-icon">Notification</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#permissionrationale" class="tsd-kind-icon">Permission<wbr>Rationale</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#providerchangeevent" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#sqlquery" class="tsd-kind-icon">SQLQuery</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#sensors" class="tsd-kind-icon">Sensors</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#state" class="tsd-kind-icon">State</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#transistorauthorizationtoken" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#watchpositionrequest" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#default" class="tsd-kind-icon">default</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/interfaces_config.config.html" class="tsd-kind-icon">Config</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#accuracyauthorization" class="tsd-kind-icon">Accuracy<wbr>Authorization</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#authorization" class="tsd-kind-icon">Authorization</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#authorizationevent" class="tsd-kind-icon">Authorization<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#backgroundgeolocation" class="tsd-kind-icon">Background<wbr>Geolocation</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#battery" class="tsd-kind-icon">Battery</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#connectivitychangeevent" class="tsd-kind-icon">Connectivity<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#coords" class="tsd-kind-icon">Coords</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#currentpositionrequest" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#deviceinfo" class="tsd-kind-icon">Device<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#devicesettings" class="tsd-kind-icon">Device<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#devicesettingsrequest" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#extras" class="tsd-kind-icon">Extras</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#geofence" class="tsd-kind-icon">Geofence</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#geofenceevent" class="tsd-kind-icon">Geofence<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#geofenceschangeevent" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#heartbeatevent" class="tsd-kind-icon">Heartbeat<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#httpevent" class="tsd-kind-icon">Http<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#location" class="tsd-kind-icon">Location</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#locationauthorizationalert" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#logger" class="tsd-kind-icon">Logger</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#motionactivityevent" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#motionchangeevent" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#notification" class="tsd-kind-icon">Notification</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#permissionrationale" class="tsd-kind-icon">Permission<wbr>Rationale</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#providerchangeevent" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#sqlquery" class="tsd-kind-icon">SQLQuery</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#sensors" class="tsd-kind-icon">Sensors</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#state" class="tsd-kind-icon">State</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#transistorauthorizationtoken" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#watchpositionrequest" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="interfaces_config.html#default" class="tsd-kind-icon">default</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/interfaces_config.config.html" class="tsd-kind-icon">Config</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-102968-14', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>

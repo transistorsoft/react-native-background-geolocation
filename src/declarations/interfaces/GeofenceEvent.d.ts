@@ -19,7 +19,7 @@ declare module "react-native-background-geolocation" {
     */
     action: string;
     /**
-    * The [[Location]] where the geofence transition occurred.
+    * The [[interfaces/Location.Location | Location]] where the geofence transition occurred.
     */
     location: Location;
     /**

@@ -105,7 +105,7 @@ declare module "react-native-background-geolocation" {
   * });
   * ```
   * ### ⚠️ Note:
-  * - When **all** geofences have been removed, the [[GeofencesChangeEvent]] will provide empty lists for both [[GeofencesChangeEvent.on]] & [[GeofencesChangeEvent.off]].
+  * - When **all** geofences have been removed, the [[interfaces/GeofencesChangeEvent.GeofencesChangeEvent | GeofencesChangeEvent]] will provide empty lists for both [[GeofencesChangeEvent.on]] & [[GeofencesChangeEvent.off]].
   *
   * ---------------------------------------------------------------------------------------------------
   *
@@ -133,7 +133,7 @@ declare module "react-native-background-geolocation" {
   *
   * ## Querying Geofences
   *
-  * Use the method [[getGeofences]] to retrieve the entire Array of [[Geofence]] stored in the SDK's database.
+  * Use the method [[getGeofences]] to retrieve the entire Array of [[interfaces/Geofence.Geofence | Geofence]] stored in the SDK's database.
   *
   * @example
   * ```typescript

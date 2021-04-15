@@ -11,7 +11,7 @@ declare module "react-native-background-geolocation" {
 	* | [[LOG_LEVEL_DEBUG]]   |
 	* | [[LOG_LEVEL_VERBOSE]] |
 	*/
-	type LogLevel = 0 | 1 | 2 | 3 | 4 | 5;
+	export type LogLevel = 0 | 1 | 2 | 3 | 4 | 5;
 
 	/**
 	 * Used for [[Config.desiredAccuracy]].
@@ -100,7 +100,7 @@ declare module "react-native-background-geolocation" {
 	type LocationAuthorizationRequest = "Always" | "WhenInUse" | "Any";
 
 	/**
-	* Desired HTTP method to use when uploading data to your configured [[url]].
+	* Desired HTTP method to use when uploading data to your configured [[Config.url]].
 	*/
 	type HttpMethod = "POST" | "PUT" | "OPTIONS";
 

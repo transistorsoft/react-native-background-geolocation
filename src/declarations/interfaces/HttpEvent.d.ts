@@ -12,7 +12,7 @@ declare module "react-native-background-geolocation" {
   * # HTTP Guide
   * ---------------------------------------------------------------------------------------
   *
-  * The [[BackgroundGeolocation]] SDK hosts its own flexible and robust native HTTP & SQLite persistence services.  To enable the HTTP service, simply configure the SDK with an [[url]]:
+  * The [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] SDK hosts its own flexible and robust native HTTP & SQLite persistence services.  To enable the HTTP service, simply configure the SDK with an [[Config.url]]:
   *
   * @example
   * ```typescript
@@ -56,7 +56,7 @@ declare module "react-native-background-geolocation" {
   * ## The HTTP Service
   *
   * The SDK's HTTP service operates by selecting records from the database, locking them to prevent duplicate requests then uploading to your server.
-  * - By default, the HTTP Service will select a single record (oldest first; see [[locationsOrderDirection]]) and execute an HTTP request to your [[url]].
+  * - By default, the HTTP Service will select a single record (oldest first; see [[locationsOrderDirection]]) and execute an HTTP request to your [[Config.url]].
   * - Each HTTP request is *synchronous* &mdash; the HTTP service will await the response from your server before selecting and uploading another record.
   * - If your server returns an error or doesn't respond, the HTTP Service will immediately **halt**.
   * - Configuring [[batchSync]] __`true`__ instructs the HTTP Service to select *all* records in the database and upload them to your server in a single HTTP request.
@@ -66,7 +66,7 @@ declare module "react-native-background-geolocation" {
   *
   * ## Capturing the data at your server
   *
-  * The SDK's HTTP Service will upload recorded locations as JSON to your [[Config.url]] (See [[Location]] for the JSON schema) with `Content-Type application/json`.  The data can be found by your server in the ["HTTP request body"](https://www.google.com/search?q=http+post+application%2Fjson+request+body+text).
+  * The SDK's HTTP Service will upload recorded locations as JSON to your [[Config.url]] (See [[interfaces/Location.Location | Location]] for the JSON schema) with `Content-Type application/json`.  The data can be found by your server in the ["HTTP request body"](https://www.google.com/search?q=http+post+application%2Fjson+request+body+text).
   *
   * ### PHP
   *
@@ -126,7 +126,7 @@ declare module "react-native-background-geolocation" {
   *
   * ## `autoSync: true`
   *
-  * By default, the SDK is configured for [[autoSync]]:true and will attempt to immediately upload each recorded location to your configured [[url]].
+  * By default, the SDK is configured for [[autoSync]]:true and will attempt to immediately upload each recorded location to your configured [[Config.url]].
   * - Use [[autoSyncThreshold]] to throttle HTTP requests.  This will instruct the SDK to accumulate that number of records in the database before calling upon the HTTP Service.  This is a good way to **conserve battery**, since HTTP requests consume more energy/second than the GPS.
   *
   * ----------------------------------------------------------------------------------------------------------
@@ -137,9 +137,9 @@ declare module "react-native-background-geolocation" {
   *
   * ----------------------------------------------------------------------------------------------------------
   *
-  * ## [[params]], [[headers]] and [[extras]]
+  * ## [[Config.params]], [[headers]] and [[extras]]
   *
-  * - The SDK's HTTP Service appends configured [[params]] to root of the `JSON` data of each HTTP request.
+  * - The SDK's HTTP Service appends configured [[Config.params]] to root of the `JSON` data of each HTTP request.
   * - [[headers]] are appended to each HTTP Request.
   * - [[extras]] are appended to each recorded location and persisted to the database record.
   *
@@ -147,7 +147,7 @@ declare module "react-native-background-geolocation" {
   *
   * ## Custom `JSON` Schema:  [[locationTemplate]] and [[geofenceTemplate]]
   *
-  * The default HTTP `JSON` schema for both [[Location]] and [[Geofence]] can be overridden by the configuration options [[locationTemplate]] and [[geofenceTemplate]], allowing you to create any schema you wish.
+  * The default HTTP `JSON` schema for both [[interfaces/Location.Location | Location]] and [[interfaces/Geofence.Geofence | Geofence]] can be overridden by the configuration options [[locationTemplate]] and [[geofenceTemplate]], allowing you to create any schema you wish.
   *
   * ----------------------------------------------------------------------------------------------------------
   *

@@ -44,7 +44,7 @@ declare module "react-native-background-geolocation" {
 	*
   * ## Receiving the Response from [[refreshUrl]].
   *
-  * Whenever a response is received from [[refreshUrl]], the SDK will fire the [[BackgroundGeolocation.onAuthorization]] event.  Your callback will be provided an [[AuthorizationEvent]].  Check [[AuthorizationEvent.success]]:
+  * Whenever a response is received from [[refreshUrl]], the SDK will fire the [[BackgroundGeolocation.onAuthorization]] event.  Your callback will be provided an [[interfaces/AuthorizationEvent.AuthorizationEvent | AuthorizationEvent]].  Check [[AuthorizationEvent.success]]:
   * - When successful, [[AuthorizationEvent.response]] will contain the decoded JSON from [[refreshUrl]].
   * - When a failure occurs, [[AuthorizationEvent.error]] will contain an error message.
   *
@@ -109,7 +109,7 @@ declare module "react-native-background-geolocation" {
     * }
     * ```
     *
-    * When the response from the server is received, the event [[BackgroundGeolocation.onAuthorization]] will be fired, provided with the [[AuthorizationEvent]].
+    * When the response from the server is received, the event [[BackgroundGeolocation.onAuthorization]] will be fired, provided with the [[interfaces/AuthorizationEvent.AuthorizationEvent | AuthorizationEvent]].
     */
     refreshUrl?:string;
     /**

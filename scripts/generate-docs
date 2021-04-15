@@ -5,19 +5,20 @@ echo "Analytics ID: $GA_ID"
 #typedoc --out docs --includeDeclarations --excludeExternals --listInvalidSymbolLinks --name "React Native Background Geolocation" --theme ./node_modules/typedoc-theme-transistor/src/default --mode file --gaID $GA_ID --gaSite "auto" ./src/declarations/
 
 typedoc --out docs \
-	--includeDeclarations \
+        --tsconfig ./scripts/tsconfig.json \
 	--excludeExternals \
 	--listInvalidSymbolLinks \
+        --readme none \
 	--name "React Native Background Geolocation" \
 	--theme node_modules/\@transistorsoft/typedoc-theme/bin/default \
-	--mode file \
+        --highlightTheme monokai \
 	--gaID $GA_ID \
 	--gaSite "auto" \
 	--plugin ./node_modules/\@transistorsoft/typedoc-theme/node_modules/\@transistorsoft/typedoc-plugin-mediaplayer \
 	--plugin ./node_modules/\@transistorsoft/typedoc-theme/node_modules/\@transistorsoft/typedoc-plugin-gitlink \
 	./src/declarations/
 
-#cp ./node_modules/typedoc-theme-transistor/bin/default/assets/css/main.css ./docs/assets/css/main.css
-cp docs/globals.html docs/index.html
+cp ./scripts/docs-index.html ./docs/index.html
+cp ./docs/index.html ./docs/globals.html
 touch ./docs/.nojekyll
 

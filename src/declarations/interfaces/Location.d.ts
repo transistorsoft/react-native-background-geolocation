@@ -209,7 +209,7 @@ declare module "react-native-background-geolocation" {
     */
     activity: MotionActivityEvent;
     /**
-    * If this location was recorded due to [[ProviderChangeEvent]], this is a reference to the location-provider state.
+    * If this location was recorded due to [[interfaces/ProviderChangeEvent.ProviderChangeEvent | ProviderChangeEvent]], this is a reference to the location-provider state.
     */
     provider?: ProviderChangeEvent;
   }

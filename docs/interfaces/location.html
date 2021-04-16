@@ -1,0 +1,491 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Location | React Native Background Geolocation</title>
+	<meta name="description" content="Documentation for React Native Background Geolocation">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<link rel="shortcut icon" class="favicon" href="../assets/images/favicon.ico">
+	<script src="../assets/js/search.js"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell left">
+					<div class="brand">
+						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
+						<span class="title">
+							<a href="../../../../../../../../..">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.0.3</span>
+						</span>
+					</div>
+				</div>
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading"></li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../index.html">React Native Background Geolocation</a>
+				</li>
+				<li>
+					<a href="location.html">Location</a>
+				</li>
+			</ul>
+			<h1>Interface Location</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-9 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<a href="#javascript-callback-schema" id="javascript-callback-schema" style="color: inherit; text-decoration: none;">
+							<h2>Javascript Callback Schema</h2>
+						</a>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code><span style="color: #F8F8F2">{</span>
+<span style="color: #F8F8F2">   </span><span style="color: #E6DB74">&quot;timestamp&quot;</span><span style="color: #F8F8F2">:     [</span><span style="color: #66D9EF">Date</span><span style="color: #F8F8F2">],     </span><span style="color: #88846F">// &lt;-- Javascript Date instance</span>
+<span style="color: #F8F8F2">   </span><span style="color: #E6DB74">&quot;event&quot;</span><span style="color: #F8F8F2">:         [</span><span style="color: #66D9EF">String</span><span style="color: #F8F8F2">],    </span><span style="color: #88846F">// &lt;-- motionchange|geofence|heartbeat</span>
+<span style="color: #F8F8F2">   </span><span style="color: #E6DB74">&quot;is_moving&quot;</span><span style="color: #F8F8F2">:     [</span><span style="color: #66D9EF">Boolean</span><span style="color: #F8F8F2">],  </span><span style="color: #88846F">// &lt;-- The motion-state when location was recorded.</span>
+<span style="color: #F8F8F2">   </span><span style="color: #E6DB74">&quot;uuid&quot;</span><span style="color: #F8F8F2">:          [</span><span style="color: #66D9EF">String</span><span style="color: #F8F8F2">],   </span><span style="color: #88846F">// &lt;-- Universally unique identifier</span>
+<span style="color: #F8F8F2">   </span><span style="color: #E6DB74">&quot;coords&quot;</span><span style="color: #F8F8F2">: {</span>
+<span style="color: #F8F8F2">       </span><span style="color: #E6DB74">&quot;latitude&quot;</span><span style="color: #F8F8F2">:  [Double],</span>
+<span style="color: #F8F8F2">       </span><span style="color: #E6DB74">&quot;longitude&quot;</span><span style="color: #F8F8F2">: [Double],</span>
+<span style="color: #F8F8F2">       </span><span style="color: #E6DB74">&quot;accuracy&quot;</span><span style="color: #F8F8F2">:  [Double],</span>
+<span style="color: #F8F8F2">       </span><span style="color: #E6DB74">&quot;speed&quot;</span><span style="color: #F8F8F2">:     [Double],</span>
+<span style="color: #F8F8F2">       </span><span style="color: #E6DB74">&quot;heading&quot;</span><span style="color: #F8F8F2">:   [Double],</span>
+<span style="color: #F8F8F2">       </span><span style="color: #E6DB74">&quot;altitude&quot;</span><span style="color: #F8F8F2">:  [Double]</span>
+<span style="color: #F8F8F2">   },</span>
+<span style="color: #F8F8F2">   </span><span style="color: #E6DB74">&quot;activity&quot;</span><span style="color: #F8F8F2">: {</span>
+<span style="color: #F8F8F2">       </span><span style="color: #E6DB74">&quot;type&quot;</span><span style="color: #F8F8F2">: [still</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">on_foot</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">walking</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">running</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">in_vehicle</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">on_bicycle],</span>
+<span style="color: #F8F8F2">       </span><span style="color: #E6DB74">&quot;confidence&quot;</span><span style="color: #F8F8F2">: [</span><span style="color: #AE81FF">0</span><span style="color: #F92672">-</span><span style="color: #AE81FF">100</span><span style="color: #F92672">%</span><span style="color: #F8F8F2">]</span>
+<span style="color: #F8F8F2">   },</span>
+<span style="color: #F8F8F2">   </span><span style="color: #E6DB74">&quot;battery&quot;</span><span style="color: #F8F8F2">: {</span>
+<span style="color: #F8F8F2">       </span><span style="color: #E6DB74">&quot;level&quot;</span><span style="color: #F8F8F2">: [Double],</span>
+<span style="color: #F8F8F2">       </span><span style="color: #E6DB74">&quot;is_charging&quot;</span><span style="color: #F8F8F2">: [</span><span style="color: #66D9EF">Boolean</span><span style="color: #F8F8F2">]</span>
+<span style="color: #F8F8F2">   },</span>
+<span style="color: #F8F8F2">   </span><span style="color: #E6DB74">&quot;odometer&quot;</span><span style="color: #F8F8F2">: [Double</span><span style="color: #F92672">/</span><span style="color: #F8F8F2">meters]</span>
+<span style="color: #F8F8F2">}</span>
+</code></pre>
+							<a href="#http-post-schema" id="http-post-schema" style="color: inherit; text-decoration: none;">
+								<h2>HTTP POST Schema</h2>
+							</a>
+							<p>The location-data schema POSTed to your server takes the following form:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code><span style="color: #F8F8F2">{</span>
+<span style="color: #F8F8F2">    </span><span style="color: #E6DB74">&quot;location&quot;</span><span style="color: #F8F8F2">: {</span>
+<span style="color: #F8F8F2">        </span><span style="color: #E6DB74">&quot;coords&quot;</span><span style="color: #F8F8F2">: {</span>
+<span style="color: #F8F8F2">            </span><span style="color: #E6DB74">&quot;latitude&quot;</span><span style="color: #F8F8F2">:   [Double],</span>
+<span style="color: #F8F8F2">            </span><span style="color: #E6DB74">&quot;longitude&quot;</span><span style="color: #F8F8F2">:  [Double],</span>
+<span style="color: #F8F8F2">            </span><span style="color: #E6DB74">&quot;accuracy&quot;</span><span style="color: #F8F8F2">:   [Double],</span>
+<span style="color: #F8F8F2">            </span><span style="color: #E6DB74">&quot;speed&quot;</span><span style="color: #F8F8F2">:      [Double],</span>
+<span style="color: #F8F8F2">            </span><span style="color: #E6DB74">&quot;heading&quot;</span><span style="color: #F8F8F2">:    [Double],</span>
+<span style="color: #F8F8F2">            </span><span style="color: #E6DB74">&quot;altitude&quot;</span><span style="color: #F8F8F2">:   [Double]</span>
+<span style="color: #F8F8F2">        },</span>
+<span style="color: #F8F8F2">        </span><span style="color: #E6DB74">&quot;extras&quot;</span><span style="color: #F8F8F2">: {   </span><span style="color: #88846F">// &lt;-- optional meta-data</span>
+<span style="color: #F8F8F2">            </span><span style="color: #E6DB74">&quot;foo&quot;</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">&quot;bar&quot;</span>
+<span style="color: #F8F8F2">        },</span>
+<span style="color: #F8F8F2">        </span><span style="color: #E6DB74">&quot;activity&quot;</span><span style="color: #F8F8F2">: {</span>
+<span style="color: #F8F8F2">            </span><span style="color: #E6DB74">&quot;type&quot;</span><span style="color: #F8F8F2">: [still</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">on_foot</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">walking</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">running</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">in_vehicle</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">on_bicycle</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">unknown],</span>
+<span style="color: #F8F8F2">            </span><span style="color: #E6DB74">&quot;confidence&quot;</span><span style="color: #F8F8F2">: [</span><span style="color: #AE81FF">0</span><span style="color: #F92672">-</span><span style="color: #AE81FF">100</span><span style="color: #F92672">%</span><span style="color: #F8F8F2">]</span>
+<span style="color: #F8F8F2">        },</span>
+<span style="color: #F8F8F2">        </span><span style="color: #E6DB74">&quot;geofence&quot;</span><span style="color: #F8F8F2">: {  </span><span style="color: #88846F">// &lt;-- Present only if a geofence was triggered at this location</span>
+<span style="color: #F8F8F2">            </span><span style="color: #E6DB74">&quot;identifier&quot;</span><span style="color: #F8F8F2">: [</span><span style="color: #66D9EF">String</span><span style="color: #F8F8F2">],</span>
+<span style="color: #F8F8F2">            </span><span style="color: #E6DB74">&quot;action&quot;</span><span style="color: #F8F8F2">: [</span><span style="color: #66D9EF">String</span><span style="color: #F8F8F2"> ENTER</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">EXIT]</span>
+<span style="color: #F8F8F2">        },</span>
+<span style="color: #F8F8F2">        </span><span style="color: #E6DB74">&quot;battery&quot;</span><span style="color: #F8F8F2">: {</span>
+<span style="color: #F8F8F2">            </span><span style="color: #E6DB74">&quot;level&quot;</span><span style="color: #F8F8F2">: [Double],</span>
+<span style="color: #F8F8F2">            </span><span style="color: #E6DB74">&quot;is_charging&quot;</span><span style="color: #F8F8F2">: [</span><span style="color: #66D9EF">Boolean</span><span style="color: #F8F8F2">]</span>
+<span style="color: #F8F8F2">        },</span>
+<span style="color: #F8F8F2">        </span><span style="color: #E6DB74">&quot;timestamp&quot;</span><span style="color: #F8F8F2">: [ISO</span><span style="color: #F92672">-</span><span style="color: #AE81FF">8601</span><span style="color: #F8F8F2"> UTC], </span><span style="color: #88846F">// eg:  &quot;2015-05-05T04:31:54.123Z&quot;</span>
+<span style="color: #F8F8F2">        </span><span style="color: #E6DB74">&quot;uuid&quot;</span><span style="color: #F8F8F2">:      [</span><span style="color: #66D9EF">String</span><span style="color: #F8F8F2">],       </span><span style="color: #88846F">// &lt;-- Universally unique identifier</span>
+<span style="color: #F8F8F2">        </span><span style="color: #E6DB74">&quot;event&quot;</span><span style="color: #F8F8F2">      [String],       </span><span style="color: #88846F">// &lt;-- motionchange|geofence|heartbeat</span>
+<span style="color: #F8F8F2">        </span><span style="color: #E6DB74">&quot;is_moving&quot;</span><span style="color: #F8F8F2">: [</span><span style="color: #66D9EF">Boolean</span><span style="color: #F8F8F2">],      </span><span style="color: #88846F">// &lt;-- The motion-state when recorded.</span>
+<span style="color: #F8F8F2">        </span><span style="color: #E6DB74">&quot;odometer&quot;</span><span style="color: #F8F8F2">: [Double</span><span style="color: #F92672">/</span><span style="color: #F8F8F2">meters]</span>
+<span style="color: #F8F8F2">    }</span>
+<span style="color: #F8F8F2"> }</span>
+</code></pre>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">Location</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="location.html#activity" class="tsd-kind-icon">activity</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="location.html#battery" class="tsd-kind-icon">battery</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="location.html#coords" class="tsd-kind-icon">coords</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="location.html#event" class="tsd-kind-icon">event</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="location.html#extras" class="tsd-kind-icon">extras</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="location.html#geofence" class="tsd-kind-icon">geofence</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="location.html#is_moving" class="tsd-kind-icon">is_<wbr>moving</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="location.html#mock" class="tsd-kind-icon">mock</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="location.html#odometer" class="tsd-kind-icon">odometer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="location.html#provider" class="tsd-kind-icon">provider</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="location.html#sample" class="tsd-kind-icon">sample</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="location.html#timestamp" class="tsd-kind-icon">timestamp</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="location.html#uuid" class="tsd-kind-icon">uuid</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="activity" class="tsd-anchor"></a>
+					<h3>activity</h3>
+					<div class="tsd-signature tsd-kind-icon">activity<span class="tsd-signature-symbol">:</span> <a href="motionactivityevent.html" class="tsd-signature-type" data-tsd-kind="Interface">MotionActivityEvent</a></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Device motion-activity when this location was recorded (eg: <code>still</code>, <code>on_foot</code>, <code>in_vehicle</code>).</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="battery" class="tsd-anchor"></a>
+					<h3>battery</h3>
+					<div class="tsd-signature tsd-kind-icon">battery<span class="tsd-signature-symbol">:</span> <a href="battery.html" class="tsd-signature-type" data-tsd-kind="Interface">Battery</a></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Device battery level when the location was recorded.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="coords" class="tsd-anchor"></a>
+					<h3>coords</h3>
+					<div class="tsd-signature tsd-kind-icon">coords<span class="tsd-signature-symbol">:</span> <a href="coords.html" class="tsd-signature-type" data-tsd-kind="Interface">Coords</a></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><code>latitude</code>, <code>longitude</code>, <code>speed</code>, <code>heading</code>, etc.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="event" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> event</h3>
+					<div class="tsd-signature tsd-kind-icon">event<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Event responsible for generating this location (<code>motionchange</code>, <code>providerchange</code>, <code>geofence</code>, <code>heartbeat</code>).</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="extras" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> extras</h3>
+					<div class="tsd-signature tsd-kind-icon">extras<span class="tsd-signature-symbol">:</span> <a href="../index.html#extras" class="tsd-signature-type" data-tsd-kind="Type alias">Extras</a></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Optional arbitrary meta-data attached to this location.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="geofence" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> geofence</h3>
+					<div class="tsd-signature tsd-kind-icon">geofence<span class="tsd-signature-symbol">:</span> <a href="geofenceevent.html" class="tsd-signature-type" data-tsd-kind="Interface">GeofenceEvent</a></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If this location was recorded due to a geofence transition, the corresponding geofence-event.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="is_moving" class="tsd-anchor"></a>
+					<h3>is_<wbr>moving</h3>
+					<div class="tsd-signature tsd-kind-icon">is_<wbr>moving<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><code>true</code> if location was recorded while plugin is in the <em>moving</em> state.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="mock" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> mock</h3>
+					<div class="tsd-signature tsd-kind-icon">mock<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><strong>[Android only]</strong>.  Present (and <code>true</code>) if the location was generated by a &quot;Fake Location&quot; application.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="odometer" class="tsd-anchor"></a>
+					<h3>odometer</h3>
+					<div class="tsd-signature tsd-kind-icon">odometer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Distance-traveled in meters.
+							ℹ️</p>
+							<ul>
+								<li><a href="../classes/backgroundgeolocation.html#resetodometer">BackgroundGeolocation.resetOdometer</a></li>
+								<li><a href="../classes/backgroundgeolocation.html#getodometer">BackgroundGeolocation.getOdometer</a></li>
+							</ul>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="provider" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> provider</h3>
+					<div class="tsd-signature tsd-kind-icon">provider<span class="tsd-signature-symbol">:</span> <a href="providerchangeevent.html" class="tsd-signature-type" data-tsd-kind="Interface">ProviderChangeEvent</a></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If this location was recorded due to <a href="providerchangeevent.html">ProviderChangeEvent</a>, this is a reference to the location-provider state.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="sample" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> sample</h3>
+					<div class="tsd-signature tsd-kind-icon">sample<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><code>true</code> if the plugin is currently waiting for the best possible location to arrive.  Samples are recorded when the plugin is transitioning between motion-states (<em>moving</em> vs <em>stationary</em>) or <a href="../classes/backgroundgeolocation.html#getcurrentposition">BackgroundGeolocation.getCurrentPosition</a>.
+							If you&#39;re manually posting location to your server, you should not persist these &quot;samples&quot;.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="timestamp" class="tsd-anchor"></a>
+					<h3>timestamp</h3>
+					<div class="tsd-signature tsd-kind-icon">timestamp<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><code>ISO-8601 UTC</code> timestamp provided by the native location API.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="uuid" class="tsd-anchor"></a>
+					<h3>uuid</h3>
+					<div class="tsd-signature tsd-kind-icon">uuid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Universally Unique Identifier.  You can use this to match locations recorded at your server with those in the logs.
+							It can also be used to ensure if the plugin has ever posted the same location <em>twice</em>.</p>
+						</div>
+					</div>
+				</section>
+			</section>
+		</div>
+		<div class="col-3 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
+						<a href="location.html" class="tsd-kind-icon">Location</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#activity" class="tsd-kind-icon">activity</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#battery" class="tsd-kind-icon">battery</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#coords" class="tsd-kind-icon">coords</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#event" class="tsd-kind-icon">event</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#extras" class="tsd-kind-icon">extras</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#geofence" class="tsd-kind-icon">geofence</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#is_moving" class="tsd-kind-icon">is_<wbr>moving</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#mock" class="tsd-kind-icon">mock</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#odometer" class="tsd-kind-icon">odometer</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#provider" class="tsd-kind-icon">provider</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#sample" class="tsd-kind-icon">sample</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#timestamp" class="tsd-kind-icon">timestamp</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#uuid" class="tsd-kind-icon">uuid</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
+						<a href="location.html" class="tsd-kind-icon">Location</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#activity" class="tsd-kind-icon">activity</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#battery" class="tsd-kind-icon">battery</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#coords" class="tsd-kind-icon">coords</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#event" class="tsd-kind-icon">event</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#extras" class="tsd-kind-icon">extras</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#geofence" class="tsd-kind-icon">geofence</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#is_moving" class="tsd-kind-icon">is_<wbr>moving</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#mock" class="tsd-kind-icon">mock</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#odometer" class="tsd-kind-icon">odometer</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#provider" class="tsd-kind-icon">provider</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#sample" class="tsd-kind-icon">sample</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#timestamp" class="tsd-kind-icon">timestamp</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="location.html#uuid" class="tsd-kind-icon">uuid</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-102968-14', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>

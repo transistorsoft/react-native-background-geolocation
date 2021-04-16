@@ -16,6 +16,7 @@ typedoc --out docs \
 	--gaSite "auto" \
 	--plugin ./node_modules/\@transistorsoft/typedoc-theme/node_modules/\@transistorsoft/typedoc-plugin-mediaplayer \
 	--plugin ./node_modules/\@transistorsoft/typedoc-theme/node_modules/\@transistorsoft/typedoc-plugin-gitlink \
+        --plugin ./node_modules/\@transistorsoft/typedoc-theme/node_modules/typedoc-plugin-merge-modules \
 	./src/declarations/
 
 cp ./scripts/docs-index.html ./docs/index.html

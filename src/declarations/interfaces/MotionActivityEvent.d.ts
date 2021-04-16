@@ -1,6 +1,6 @@
 declare module "react-native-background-geolocation" {
   /**
-  * The event-object provided to [[BackgroundGeolocation.onActivityChange]].  Also attached to each recorded [[interfaces/Location.Location | Location]].
+  * The event-object provided to [[BackgroundGeolocation.onActivityChange]].  Also attached to each recorded [[Location]].
   *
   * @example
   * ```typescript

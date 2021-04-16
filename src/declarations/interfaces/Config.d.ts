@@ -42,7 +42,7 @@ declare module "react-native-background-geolocation" {
 
   | Option      | Type      | Note                              |
   |-------------|-----------|-----------------------------------|
-  | [[desiredAccuracy]] | [[types.LocationAccuracy | LocationAccuracy]] | __Default: [[BackgroundGeolocation.DESIRED_ACCURACY_HIGH]]__. Specify the desired-accuracy of the geolocation system.  |
+  | [[desiredAccuracy]] | [[LocationAccuracy]] | __Default: [[BackgroundGeolocation.DESIRED_ACCURACY_HIGH]]__. Specify the desired-accuracy of the geolocation system.  |
   | [[distanceFilter]] | `Integer` | __Default: `10`__.  The minimum distance (measured in meters) a device must move horizontally before an update event is generated. |
   | [[disableElasticity]] | `Boolean` | __Default: `false`__.  Set true to disable automatic speed-based [[distanceFilter]] elasticity. eg: When device is moving at highway speeds, locations are returned at ~ 1 / km. |
   | [[elasticityMultiplier]] | `Float` | __Default: `1`__.  Controls the scale of automatic speed-based `distanceFilter` elasticity.  Increasing `elasticityMultiplier` will result in few location samples as speed increases. |
@@ -51,7 +51,7 @@ declare module "react-native-background-geolocation" {
   | [[desiredOdometerAccuracy]] | `Integer`  | __Default: `100`__.  Location accuracy threshold in **meters** for odometer calculations. |
   | [[useSignificantChangesOnly]] | `Boolean` | __Default: `false`__.  Defaults to `false`.  Set `true` in order to disable constant background-tracking.  A location will be recorded only several times / hour. |
   | [[disableLocationAuthorizationAlert]] | `Boolean` | __Default: `false`__.  Disables automatic authorization alert when plugin detects the user has disabled location authorization.  You will be responsible for handling disabled location authorization by listening to the `providerchange` event.|
-  | [[locationAuthorizationRequest]] | [[types.LocationAuthorizationRequest | LocationAuthorizationRequest]] | __Default: `Always`__.  The desired location-authorization request, either `Always`, `WhenInUse` or `Any`. |
+  | [[locationAuthorizationRequest]] | [[LocationAuthorizationRequest]] | __Default: `Always`__.  The desired location-authorization request, either `Always`, `WhenInUse` or `Any`. |
 
   ### [Geolocation] iOS Options
 
@@ -87,12 +87,12 @@ declare module "react-native-background-geolocation" {
 
   | Option      | Type      | Note                              |
   |-------------|-----------|-----------------------------------|
-  | [[activityType]] | [[types.ActivityType | ActivityType]] |  __Default: [[BackgroundGeolocation.ACTIVITY_TYPE_OTHER]]__.  Presumably, this affects ios GPS algorithm.  See [Apple docs](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/CLLocationManager/CLLocationManager.html#//apple_ref/occ/instp/CLLocationManager/activityType) for more information |
+  | [[activityType]] | [[ActivityType]] |  __Default: [[BackgroundGeolocation.ACTIVITY_TYPE_OTHER]]__.  Presumably, this affects ios GPS algorithm.  See [Apple docs](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/CLLocationManager/CLLocationManager.html#//apple_ref/occ/instp/CLLocationManager/activityType) for more information |
 
 
   ## HTTP & Persistence Options
 
-  - 📘 [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+  - 📘 [[HttpEvent | HTTP Guide]]
 
   | Option      | Type      | Note                              |
   |-------------|-----------|-----------------------------------|
@@ -137,12 +137,12 @@ declare module "react-native-background-geolocation" {
   |-------------|-----------|------------------------------------|
   | [[foregroundService]] | `Boolean` | __Default: `false`__.  Set `true` to make the plugin *mostly* immune to OS termination due to memory pressure from other apps. |
   | [[enableHeadless]] | `Boolean` | __Default: `false`__.  Set to `true` to enable "Headless" mode when the user terminates the application.  In this mode, you can respond to all the plugin's events in the native Android environment.  For more information, see the wiki for [Android Headless Mode](github:wiki/Android-Headless-Mode) |
-  | [[notification]]  | [[interfaces/Notification.Notification | Notification]] | Configures the required persistent [[interfaces/Notification.Notification | Notification]] of the foreground service. |
+  | [[notification]]  | [[Notification]] | Configures the required persistent [[Notification]] of the foreground service. |
 
 
   ## Geofencing Options
 
-  - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]].
+  - 📘 [[Geofence | Geofencing Guide]].
 
   | Option      | Type      | Note                              |
   |-------------|-----------|-----------------------------------|
@@ -153,7 +153,7 @@ declare module "react-native-background-geolocation" {
 
   | Option      | Type      | Note                              |
   |-------------|-----------|-----------------------------------|
-  | [[geofenceModeHighAccuracy]] | `Boolean`  | __Default: `false`__.  Runs [[startGeofences]] with a *foreground service* (along with its corresponding persitent [[interfaces/Notification.Notification | Notification]]).  This will make geofence triggering **far more consistent** at the expense of higher power usage. |
+  | [[geofenceModeHighAccuracy]] | `Boolean`  | __Default: `false`__.  Runs [[startGeofences]] with a *foreground service* (along with its corresponding persitent [[Notification]]).  This will make geofence triggering **far more consistent** at the expense of higher power usage. |
 
   ## Logging & Debug Options
 
@@ -170,7 +170,7 @@ declare module "react-native-background-geolocation" {
     /**
     * *Convenience* option to automatically configures the SDK to upload locations to the Transistor Software demo server at http://tracker.transistorsoft.com (or your own local instance of [background-geolocation-console](https://github.com/transistorsoft/background-geolocation-console))
     *
-    * See [[interfaces/TransistorAuthorizationToken.TransistorAuthorizationToken | TransistorAuthorizationToken]].  This option will **automatically configures** the [[url]] to point at the Demo server as well as well as the required [[interfaces/Authorization.Authorization | Authorization]] configuration.
+    * See [[TransistorAuthorizationToken]].  This option will **automatically configures** the [[url]] to point at the Demo server as well as well as the required [[Authorization]] configuration.
     *
     * @example
     * ```typescript
@@ -182,7 +182,7 @@ declare module "react-native-background-geolocation" {
     * });
     * ```
     *
-    * This *convenience* option merely performs the following [[interfaces/Authorization.Authorization | Authorization]] configuration *automatically* for you:
+    * This *convenience* option merely performs the following [[Authorization]] configuration *automatically* for you:
     *
     * @example
     * ```typescript
@@ -214,7 +214,7 @@ declare module "react-native-background-geolocation" {
     /**
     * Specify the desired-accuracy of the geolocation system.
     *
-    * The following constants are defined upon the [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] class:
+    * The following constants are defined upon the [[BackgroundGeolocation]] class:
     *
     * | Name                                                  | Location Providers                   | Description                     |
     * |-------------------------------------------------------|--------------------------------------|---------------------------------|
@@ -309,7 +309,7 @@ declare module "react-native-background-geolocation" {
     stationaryRadius?: number;
 
     /**
-    * The default timeout in _seconds_ when requesting a location before the SDK gives up and fires a [[types.LocationError | LocationError]].
+    * The default timeout in _seconds_ when requesting a location before the SDK gives up and fires a [[LocationError]].
     *
     * Defaults to `60` seconds.
     *
@@ -392,7 +392,7 @@ declare module "react-native-background-geolocation" {
     * @break
     *
     * ### ℹ️ See also:
-    * - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]].
+    * - 📘 [[Geofence | Geofencing Guide]].
     * - [View animation of this behavior](https://www.transistorsoft.com/shop/products/assets/images/background-geolocation-infinite-geofencing.gif)
     *
     * ![](https://dl.dropboxusercontent.com/s/7sggka4vcbrokwt/geofenceProximityRadius_iphone6_spacegrey_portrait.png?dl=1)
@@ -406,7 +406,7 @@ declare module "react-native-background-geolocation" {
     * @break
     *
     * ### ℹ️ See also:
-    * - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]].
+    * - 📘 [[Geofence | Geofencing Guide]].
     */
     geofenceInitialTriggerEntry?: boolean;
 
@@ -415,7 +415,7 @@ declare module "react-native-background-geolocation" {
     *
     * ### ⚠️ Warning: Will consume more power.
 
-    * Defaults to `false`.  Runs Android's [[BackgroundGeolocation.startGeofences]] with a *foreground service* (along with its corresponding persistent [[interfaces/Notification.Notification | Notification]].
+    * Defaults to `false`.  Runs Android's [[BackgroundGeolocation.startGeofences]] with a *foreground service* (along with its corresponding persistent [[Notification]].
     *
     * Configuring `geofenceModeHighAccuracy: true` will make Android geofence triggering **far more responsive**.  In this mode, the usual config options to control location-services will be applied:
     *
@@ -623,7 +623,7 @@ declare module "react-native-background-geolocation" {
     *
     * ### ℹ️ See also:
     *
-    * - 📘 [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    * - 📘 [[HttpEvent | HTTP Guide]]
     * - 📘 [Philosophy of Operation](github:wiki/Philosophy-of-Operation)
     *
     */
@@ -643,7 +643,7 @@ declare module "react-native-background-geolocation" {
     * ```
     *
     * ### ℹ️ See also:
-    * - 📘 See [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    * - 📘 See [[HttpEvent | HTTP Guide]]
     *
     */
     method?: HttpMethod;
@@ -686,7 +686,7 @@ declare module "react-native-background-geolocation" {
     * ### ℹ️ See also:
     * - [[locationTemplate]]
     * - [[geofenceTemplate]]
-    * - 📘 [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    * - 📘 [[HttpEvent | HTTP Guide]]
     *
     */
     httpRootProperty?: string;
@@ -727,7 +727,7 @@ declare module "react-native-background-geolocation" {
     * ### ℹ️ See also:
     * - [[headers]]
     * - [[extras]]
-    * - 📘 [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    * - 📘 [[HttpEvent | HTTP Guide]]
     */
     params?: Object;
 
@@ -769,7 +769,7 @@ declare module "react-native-background-geolocation" {
     /**
     * Optional arbitrary key/values `{}` applied to each recorded location.
     *
-    * 📘 See [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    * 📘 See [[HttpEvent | HTTP Guide]]
     *
     * @example
     * ```typescript
@@ -930,7 +930,7 @@ declare module "react-native-background-geolocation" {
     * - [[maxBatchSize]]
     * - [[autoSync]]
     * - [[autoSyncThreshold]]
-    * 📘 See [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    * 📘 See [[HttpEvent | HTTP Guide]]
     */
     batchSync?: boolean;
 
@@ -947,12 +947,12 @@ declare module "react-native-background-geolocation" {
     *
     * ### ℹ️ See also:
     * - [[batchSync]]
-    * 📘 See [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    * 📘 See [[HttpEvent | HTTP Guide]]
     */
     maxBatchSize?: number;
 
     /**
-    * Optional custom template for rendering [[interfaces/Location.Location | Location]] JSON request data in HTTP requests.
+    * Optional custom template for rendering [[Location]] JSON request data in HTTP requests.
     * @break
     *
     * The [[locationTemplate]] will be evaluated for variables using Ruby `erb`-style tags:
@@ -1058,14 +1058,14 @@ declare module "react-native-background-geolocation" {
     * | `timestampMeta`       | `Object` | Renders timestamp meta-data.  See [[Config.enableTimestampMeta]].|
     *
     * ### ℹ️ See also:
-    * - 📘 [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    * - 📘 [[HttpEvent | HTTP Guide]]
     * - [[geofenceTemplate]]
     * - [[httpRootProperty]]
     */
     locationTemplate?: string;
 
     /**
-    * Optional custom template for rendering [[interfaces/GeofenceEvent.GeofenceEvent | GeofenceEvent]] JSON request data in HTTP requests.
+    * Optional custom template for rendering [[GeofenceEvent]] JSON request data in HTTP requests.
     * @break
     *
     * The `geofenceTemplate` is similar to [[locationTemplate]] with the addition of two extra `geofence.*` tags.
@@ -1078,7 +1078,7 @@ declare module "react-native-background-geolocation" {
     * ### ℹ️ See also:
     * - [[locationTemplate]]
     * - [[httpRootProperty]]
-    * - 📘 [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    * - 📘 [[HttpEvent | HTTP Guide]]
     *
     * @example
   	* ```typescript
@@ -1171,7 +1171,7 @@ declare module "react-native-background-geolocation" {
     * Default `-1` means **no limit**.
     *
     * ### ℹ️ See also:
-    * - 📘 See [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    * - 📘 See [[HttpEvent | HTTP Guide]]
     */
     maxRecordsToPersist?: number;
 
@@ -1205,7 +1205,7 @@ declare module "react-native-background-geolocation" {
     disableAutoSyncOnCellular?: boolean;
 
     /**
-    * Configures the SDK for [[interfaces/Authorization.Authorization | Authorization]] with your server (eg: [JSON Web Token](https://jwt.io/)).
+    * Configures the SDK for [[Authorization]] with your server (eg: [JSON Web Token](https://jwt.io/)).
     *
     * ### ⚠️ Only [JWT](https://jwt.io/) is currently supported.
     *
@@ -1216,7 +1216,7 @@ declare module "react-native-background-geolocation" {
     * If provided with [[Authorization.refreshUrl]] and [[Authorization.expires]], the SDK can automatically re-register for a new token after expiration.
     *
     * ### ℹ️ See also:
-    * - [[interfaces/Authorization.Authorization | Authorization]].
+    * - [[Authorization]].
     * - [[BackgroundGeolocation.onAuthorization]].
     *
     * @example
@@ -1252,7 +1252,7 @@ declare module "react-native-background-geolocation" {
     * Defaults to ascending (`ASC`), where oldest locations are synced first.  Descending (`DESC`) uploads latest locations first.
     *
     * ### ℹ️ See also:
-    * - 📘 See [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    * - 📘 See [[HttpEvent | HTTP Guide]]
     */
     locationsOrderDirection?: string;
 
@@ -1277,7 +1277,7 @@ declare module "react-native-background-geolocation" {
     * ```
     *
     * ### ℹ️ See also:
-    * - 📘 See [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    * - 📘 See [[HttpEvent | HTTP Guide]]
     */
     httpTimeout?: number;
 
@@ -1515,7 +1515,7 @@ declare module "react-native-background-geolocation" {
     * Configure the plugin to emit sound effects and local-notifications during development.
     * @break
     *
-    * Defaults to **`false`**.  When set to **`true`**, the plugin will emit debugging sounds and notifications for life-cycle events of [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]].
+    * Defaults to **`false`**.  When set to **`true`**, the plugin will emit debugging sounds and notifications for life-cycle events of [[BackgroundGeolocation | BackgroundGeolocation]].
     *
     * ## iOS
     *
@@ -1558,10 +1558,10 @@ declare module "react-native-background-geolocation" {
     /**
     * Controls the volume of recorded events in the plugin's logging database.
     *
-    * [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] contains powerful logging features.  By default, the plugin boots with a value of [[BackgroundGeolocation.LOG_LEVEL_OFF]],
+    * [[BackgroundGeolocation | BackgroundGeolocation]] contains powerful logging features.  By default, the plugin boots with a value of [[BackgroundGeolocation.LOG_LEVEL_OFF]],
     * storing [[logMaxDays]] (default `3`) days worth of logs in its SQLite database.
     *
-    * The following log-levels are defined as **constants** on this [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] class:
+    * The following log-levels are defined as **constants** on this [[BackgroundGeolocation | BackgroundGeolocation]] class:
     *
     * | Label                                       |
     * |---------------------------------------------|
@@ -1695,7 +1695,7 @@ declare module "react-native-background-geolocation" {
     *
     * ### Android
     *
-    * A location will be recorded several times per hour while the device is in the *moving* state.  No foreground-service will be run (nor its corresponding persistent [[interfaces/Notification.Notification | Notification]]).
+    * A location will be recorded several times per hour while the device is in the *moving* state.  No foreground-service will be run (nor its corresponding persistent [[Notification]]).
     *
     * @example **`useSignificantChangesOnly: true`**
     * ![](https://dl.dropboxusercontent.com/s/wdl9e156myv5b34/useSignificantChangesOnly.png?dl=1)
@@ -1892,7 +1892,7 @@ declare module "react-native-background-geolocation" {
     * ```
     *
     * ### ⚠️ Warning:
-    * - If you choose to configure `locationAuthorizationAlert`, you must provide **ALL** the keys of [[interfaces/LocationAuthorizationAlert.LocationAuthorizationAlert | LocationAuthorizationAlert]] keys &mdash; not just *some*.
+    * - If you choose to configure `locationAuthorizationAlert`, you must provide **ALL** the keys of [[LocationAuthorizationAlert]] keys &mdash; not just *some*.
     */
     locationAuthorizationAlert?: LocationAuthorizationAlert;
 
@@ -1941,7 +1941,7 @@ declare module "react-native-background-geolocation" {
     /**
     * __`[iOS only]`__ Presumably, this affects iOS stop-detect algorithm.  Apple is vague about what exactly this option does.
     *
-    * Available values are defined as constants upon the [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] class.
+    * Available values are defined as constants upon the [[BackgroundGeolocation]] class.
     *
     * | Name                                                           |
     * |----------------------------------------------------------------|
@@ -2219,7 +2219,7 @@ declare module "react-native-background-geolocation" {
     *
     * ### ℹ️ Note:
     * - Requires [[stopOnTerminate]] __`false`__.
-    * - If you've configured [[stopOnTerminate]] __`false`__, [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] will continue to record locations (and post them to your configured [[url]]) *regardless of* __`enabledHeadless: true`__.  You should enable this option *only if* you wish to perform some custom work during the headless state (for example, posting a local notification).
+    * - If you've configured [[stopOnTerminate]] __`false`__, [[BackgroundGeolocation]] will continue to record locations (and post them to your configured [[url]]) *regardless of* __`enabledHeadless: true`__.  You should enable this option *only if* you wish to perform some custom work during the headless state (for example, posting a local notification).
     * - For more information, see the Wiki [Android Headless Mode](github:wiki/Android-Headless-Mode).
     *
     */
@@ -2233,16 +2233,16 @@ declare module "react-native-background-geolocation" {
     *
     * Defaults to `true` and cannot be set to `false`.  Due to strict new [Background Execution Limits](https://www.youtube.com/watch?v=Pumf_4yjTMc) in Android 8, the plugin *enforces* **`foregroundService: true`**.
     *
-    * A persistent [[interfaces/Notification.Notification | Notification]] is required by the operating-system with a foreground-service.  It **cannot** be hidden.
+    * A persistent [[Notification]] is required by the operating-system with a foreground-service.  It **cannot** be hidden.
     *
     * ### Android < 8.0
     *
     * Defaults to **`false`**.  When the Android OS is under memory pressure from other applications (eg: a phone call), the OS can and will free up memory by terminating other processes and scheduling them for re-launch when memory becomes available.  If you find your tracking being **terminated unexpectedly**, *this* is why.
     *
-    * If you set this option to **`true`**, the plugin will run its Android service in the foreground, **supplying the ongoing [[interfaces/Notification.Notification | Notification]]  to be shown to the user while in this state**.  Running as a foreground-service makes the tracking-service **much** more immune to OS killing it due to memory/battery pressure.  By default services are background, meaning that if the system needs to kill them to reclaim more memory (such as to display a large page in a web browser).
+    * If you set this option to **`true`**, the plugin will run its Android service in the foreground, **supplying the ongoing [[Notification]]  to be shown to the user while in this state**.  Running as a foreground-service makes the tracking-service **much** more immune to OS killing it due to memory/battery pressure.  By default services are background, meaning that if the system needs to kill them to reclaim more memory (such as to display a large page in a web browser).
     *
     * ### ℹ️ See also:
-    * - [[interfaces/Notification.Notification | Notification]]
+    * - [[Notification]]
     * - 📘 For more information, see the [Android Service](https://developer.android.com/reference/android/app/Service.html#startForeground(int,%20android.app.Notification)) docs.
     */
     foregroundService?: boolean;
@@ -2253,7 +2253,7 @@ declare module "react-native-background-geolocation" {
     * Force launch your terminated App after a [[BackgroundGeolocation.onLocation]] event.
     * @break
     *
-    * When the user terminates your Android app with [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] configured with [[stopOnTerminate]] __`false`__, the foreground `MainActivity` (where your Javascript app lives) *will* terminate &mdash; only the plugin's pure native background-service is running, **"headless"**, in this case.  The background service will continue tracking the location.  However, the background service *can* optionally **re-launch** your foreground application.
+    * When the user terminates your Android app with [[BackgroundGeolocation]] configured with [[stopOnTerminate]] __`false`__, the foreground `MainActivity` (where your Javascript app lives) *will* terminate &mdash; only the plugin's pure native background-service is running, **"headless"**, in this case.  The background service will continue tracking the location.  However, the background service *can* optionally **re-launch** your foreground application.
     *
     * ### ⚠️ Warning:
     * - When the background service re-launches your application, it will *briefly* appear in the foreground before *immediately* minimizing.  If the user has their phone on at the time, they will see a brief flash of your app appearing and minimizing.
@@ -2266,7 +2266,7 @@ declare module "react-native-background-geolocation" {
     * Force launch your terminated App after a [[BackgroundGeolocation.onMotionChange]] event.
     * @break
     *
-    * When the user terminates your Android app with [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] configured with [[stopOnTerminate]] __`false`__, the foreground `MainActivity` (where your Javascript app lives) *will* terminate &mdash; only the plugin's pure native background-service is running, **"headless"**, in this case.  The background service will continue tracking the location.  However, the background service *can* optionally **re-launch** your foreground application.
+    * When the user terminates your Android app with [[BackgroundGeolocation]] configured with [[stopOnTerminate]] __`false`__, the foreground `MainActivity` (where your Javascript app lives) *will* terminate &mdash; only the plugin's pure native background-service is running, **"headless"**, in this case.  The background service will continue tracking the location.  However, the background service *can* optionally **re-launch** your foreground application.
     *
     * ### ⚠️ Warning:
     * - When the background service re-launches your application, it will *briefly* appear in the foreground before *immediately* minimizing.  If the user has their phone on at the time, they will see a brief flash of your app appearing and minimizing.
@@ -2279,7 +2279,7 @@ declare module "react-native-background-geolocation" {
     * Force launch your terminated App after a [[BackgroundGeolocation.onGeofence]] event.
     * @break
     *
-    * When the user terminates your Android app with [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] configured with [[stopOnTerminate]] __`false`__, the foreground `MainActivity` (where your Javascript app lives) *will* terminate &mdash; only the plugin's pure native background-service is running, **"headless"**, in this case.  The background service will continue tracking the location.  However, the background service *can* optionally **re-launch** your foreground application.
+    * When the user terminates your Android app with [[BackgroundGeolocation]] configured with [[stopOnTerminate]] __`false`__, the foreground `MainActivity` (where your Javascript app lives) *will* terminate &mdash; only the plugin's pure native background-service is running, **"headless"**, in this case.  The background service will continue tracking the location.  However, the background service *can* optionally **re-launch** your foreground application.
     *
     * ### ⚠️ Warning:
     * - When the background service re-launches your application, it will *briefly* appear in the foreground before *immediately* minimizing.  If the user has their phone on at the time, they will see a brief flash of your app appearing and minimizing.
@@ -2292,7 +2292,7 @@ declare module "react-native-background-geolocation" {
     * Force launch your terminated App after a device reboot or application update.
     * @break
     *
-    * When the user reboots their device with [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] configured with [[startOnBoot]] __`true`__, only the plugin's pure native background-service begins running, **"headless"**, in this case.  The background service will continue tracking the location.  However, the background service *can* optionally **re-launch** your foreground application.
+    * When the user reboots their device with [[BackgroundGeolocation]] configured with [[startOnBoot]] __`true`__, only the plugin's pure native background-service begins running, **"headless"**, in this case.  The background service will continue tracking the location.  However, the background service *can* optionally **re-launch** your foreground application.
     *
     * ### ⚠️ Warning:
     * - When the background service re-launches your application, it will *briefly* appear in the foreground before *immediately* minimizing.  If the user has their phone on at the time, they will see a brief flash of your app appearing and minimizing.
@@ -2305,7 +2305,7 @@ declare module "react-native-background-geolocation" {
     * Force launch your terminated App after a [[BackgroundGeolocation.onHeartbeat]] event.
     * @break
     *
-    * When the user terminates your Android app with [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] configured with [[stopOnTerminate]] __`false`__, the foreground `MainActivity` (where your application code lives) *will* terminate &mdash; only the plugin's pure native background-service is running, **"headless"**, in this case.  The background service will continue tracking the location.  However, the background service *can* optionally **re-launch** your foreground application.
+    * When the user terminates your Android app with [[BackgroundGeolocation]] configured with [[stopOnTerminate]] __`false`__, the foreground `MainActivity` (where your application code lives) *will* terminate &mdash; only the plugin's pure native background-service is running, **"headless"**, in this case.  The background service will continue tracking the location.  However, the background service *can* optionally **re-launch** your foreground application.
     *
     * ### ⚠️ Warning:
     * - When the background service re-launches your application, it will *briefly* appear in the foreground before *immediately* minimizing.  If the user has their phone on at the time, they will see a brief flash of your app appearing and minimizing.
@@ -2318,7 +2318,7 @@ declare module "react-native-background-geolocation" {
     * Force launch your terminated App after a [[BackgroundGeolocation.onSchedule]] event.
     * @break
     *
-    * When the user terminates your Android app with [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] configured with [[stopOnTerminate]] __`false`__, the foreground `MainActivity` (where your Javascript app lives) *will* terminate &mdash; only the plugin's pure native background-service is running, **"headless"**, in this case.  The background service will continue tracking the location.  However, the background service *can* optionally **re-launch** your foreground application.
+    * When the user terminates your Android app with [[BackgroundGeolocation]] configured with [[stopOnTerminate]] __`false`__, the foreground `MainActivity` (where your Javascript app lives) *will* terminate &mdash; only the plugin's pure native background-service is running, **"headless"**, in this case.  The background service will continue tracking the location.  However, the background service *can* optionally **re-launch** your foreground application.
     *
     * ### ⚠️ Warning:
     * - When the background service re-launches your application, it will *briefly* appear in the foreground before *immediately* minimizing.  If the user has their phone on at the time, they will see a brief flash of your app appearing and minimizing.
@@ -2374,11 +2374,11 @@ declare module "react-native-background-geolocation" {
     backgroundPermissionRationale?: PermissionRationale;
 
     /**
-    * [__Android only]__ Configures the persistent foreground-service [[interfaces/Notification.Notification | Notification]] required by Android.
+    * [__Android only]__ Configures the persistent foreground-service [[Notification]] required by Android.
     *
     * ![](https://dl.dropbox.com/s/acuhy5cu4p7uofr/android-foreground-service-default.png?dl=1)
     *
-    * See [[interfaces/Notification.Notification | Notification]] for detailed usage.
+    * See [[Notification]] for detailed usage.
     *
     * @example
     * ```typescript

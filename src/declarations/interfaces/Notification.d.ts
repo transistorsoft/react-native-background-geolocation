@@ -36,7 +36,7 @@ declare module "react-native-background-geolocation" {
     /**
     * When running the service with [[foregroundService]]: true, Android requires a persistent notification in the Notification Bar.  This will control the **priority** of that notification as well as the position of the notificaiton-bar icon.
     *
-    * The following `notificationPriority` values defined as static constants upon the [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] object:
+    * The following `notificationPriority` values defined as static constants upon the [[BackgroundGeolocation]] object:
     *
     * | Value                                                   | Description                                                                                             |
     * |---------------------------------------------------------|---------------------------------------------------------------------------------------------------------|

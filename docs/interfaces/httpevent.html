@@ -1,0 +1,584 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>HttpEvent | React Native Background Geolocation</title>
+	<meta name="description" content="Documentation for React Native Background Geolocation">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<link rel="shortcut icon" class="favicon" href="../assets/images/favicon.ico">
+	<script src="../assets/js/search.js"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell left">
+					<div class="brand">
+						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
+						<span class="title">
+							<a href="../../../../../../../../..">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.0.3</span>
+						</span>
+					</div>
+				</div>
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading"></li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../index.html">React Native Background Geolocation</a>
+				</li>
+				<li>
+					<a href="httpevent.html">HttpEvent</a>
+				</li>
+			</ul>
+			<h1>Interface HttpEvent</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-9 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The event-object provided to <a href="../classes/backgroundgeolocation.html#onhttp">BackgroundGeolocation.onHttp</a> when an HTTP response arrives from your configured <a href="config.html#url">Config.url</a>.</p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onHttp</span><span style="color: #F8F8F2">(</span><span style="color: #FD971F">httpEvent</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[http] &quot;</span><span style="color: #F8F8F2">, httpEvent.success, httpEvent.status);</span>
+<span style="color: #F8F8F2">});</span>
+</code></pre>
+							<a href="#http-guide" id="http-guide" style="color: inherit; text-decoration: none;">
+								<h1>HTTP Guide</h1>
+							</a>
+							<hr>
+							<p>The <a href="../classes/backgroundgeolocation.html">BackgroundGeolocation</a> SDK hosts its own flexible and robust native HTTP &amp; SQLite persistence services.  To enable the HTTP service, simply configure the SDK with an <a href="config.html#url">Config.url</a>:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-typescript"><span style="color: #88846F">// Listen for HTTP responses.</span>
+<span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onHttp</span><span style="color: #F8F8F2">(</span><span style="color: #FD971F">response</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[http] response: &quot;</span><span style="color: #F8F8F2">, response.success, response.status, response.responseText);</span>
+<span style="color: #F8F8F2">});</span>
+
+<span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">ready</span><span style="color: #F8F8F2">({</span>
+<span style="color: #F8F8F2">  url: </span><span style="color: #E6DB74">&quot;https://my-server.com/locations&quot;</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">  autoSync: </span><span style="color: #AE81FF">true</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">  autoSyncThreshold: </span><span style="color: #AE81FF">5</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">  batchSync: </span><span style="color: #AE81FF">true</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">  maxBatchSize: </span><span style="color: #AE81FF">50</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">  headers: {</span>
+<span style="color: #F8F8F2">    AUTHENTICATION_TOKEN: </span><span style="color: #E6DB74">&quot;23kasdlfkjlksjflkasdZIds&quot;</span>
+<span style="color: #F8F8F2">  },</span>
+<span style="color: #F8F8F2">  params: {</span>
+<span style="color: #F8F8F2">    user_id: </span><span style="color: #AE81FF">1234</span>
+<span style="color: #F8F8F2">  },</span>
+<span style="color: #F8F8F2">  extras: {</span>
+<span style="color: #F8F8F2">    route_id: </span><span style="color: #AE81FF">8675309</span>
+<span style="color: #F8F8F2">  },</span>
+<span style="color: #F8F8F2">  locationsOrderDirection: </span><span style="color: #E6DB74">&quot;DESC&quot;</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">  maxDaysToPersist: </span><span style="color: #AE81FF">14</span>
+<span style="color: #F8F8F2">}, </span><span style="color: #FD971F">state</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[ready] success: &quot;</span><span style="color: #F8F8F2">, state);</span>
+<span style="color: #F8F8F2">});</span>
+</code></pre>
+							<a href="#the-sqlite-database" id="the-sqlite-database" style="color: inherit; text-decoration: none;">
+								<h2>The SQLite Database</h2>
+							</a>
+							<p>The SDK immediately inserts each recorded location into its SQLite database.  This database is designed to act as a temporary buffer for the HTTP service and the SDK <strong>strongly</strong> desires an <em>empty</em> database.  The only way that locations are destroyed from the database are:</p>
+							<ul>
+								<li>Successful HTTP response from your server (<code>200</code>, <code>201</code>, <code>204</code>).</li>
+								<li>Executing <a href="../classes/backgroundgeolocation.html#destroylocations">BackgroundGeolocation.destroyLocations</a>.</li>
+								<li><a href="config.html#maxdaystopersist">maxDaysToPersist</a> elapses and the location is destroyed.</li>
+								<li><a href="config.html#maxrecordstopersist">maxRecordsToPersist</a> destroys oldest record in favor of latest.</li>
+							</ul>
+							<hr>
+							<a href="#the-http-service" id="the-http-service" style="color: inherit; text-decoration: none;">
+								<h2>The HTTP Service</h2>
+							</a>
+							<p>The SDK&#39;s HTTP service operates by selecting records from the database, locking them to prevent duplicate requests then uploading to your server.</p>
+							<ul>
+								<li>By default, the HTTP Service will select a single record (oldest first; see <a href="config.html#locationsorderdirection">locationsOrderDirection</a>) and execute an HTTP request to your <a href="config.html#url">Config.url</a>.</li>
+								<li>Each HTTP request is <em>synchronous</em> &mdash; the HTTP service will await the response from your server before selecting and uploading another record.</li>
+								<li>If your server returns an error or doesn&#39;t respond, the HTTP Service will immediately <strong>halt</strong>.</li>
+								<li>Configuring <a href="config.html#batchsync">batchSync</a> <strong><code>true</code></strong> instructs the HTTP Service to select <em>all</em> records in the database and upload them to your server in a single HTTP request.</li>
+								<li>Use <a href="config.html#maxbatchsize">maxBatchSize</a> to limit the number of records selected for each <a href="config.html#batchsync">batchSync</a> request.  The HTTP service will execute <em>synchronous</em> HTTP <em>batch</em> requests until the database is empty.</li>
+							</ul>
+							<hr>
+							<a href="#capturing-the-data-at-your-server" id="capturing-the-data-at-your-server" style="color: inherit; text-decoration: none;">
+								<h2>Capturing the data at your server</h2>
+							</a>
+							<p>The SDK&#39;s HTTP Service will upload recorded locations as JSON to your <a href="config.html#url">Config.url</a> (See <a href="location.html">Location</a> for the JSON schema) with <code>Content-Type application/json</code>.  The data can be found by your server in the <a href="https://www.google.com/search?q=http+post+application%2Fjson+request+body+text">&quot;HTTP request body&quot;</a>.</p>
+							<a href="#php" id="php" style="color: inherit; text-decoration: none;">
+								<h3>PHP</h3>
+							</a>
+							<pre><code class="language-php"><span style="color: #F92672">&lt;?</span><span style="color: #AE81FF">php</span>
+<span style="color: #F8F8F2"> $json </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">file_get_contents</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&#039;php://input&#039;</span><span style="color: #F8F8F2">);</span>
+<span style="color: #F8F8F2"> $data </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">json_decode</span><span style="color: #F8F8F2">($json);</span>
+<span style="color: #F8F8F2"> </span><span style="color: #66D9EF">echo</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">&quot;POST /locations: &quot;</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">.</span><span style="color: #F8F8F2"> $data;</span>
+<span style="color: #F92672">?&gt;</span>
+</code></pre>
+							<a href="#node-with-express" id="node-with-express" style="color: inherit; text-decoration: none;">
+								<h3>Node with <code>express</code></h3>
+							</a>
+							<pre><code class="language-javascript"><span style="color: #F92672">import</span><span style="color: #F8F8F2"> express </span><span style="color: #F92672">from</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">&#039;express&#039;</span><span style="color: #F8F8F2">;</span>
+<span style="color: #F92672">import</span><span style="color: #F8F8F2"> bodyParser </span><span style="color: #F92672">from</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">&#039;body-parser&#039;</span><span style="color: #F8F8F2">;</span>
+
+<span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> app </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">express</span><span style="color: #F8F8F2">();</span>
+
+<span style="color: #F8F8F2">app.</span><span style="color: #A6E22E">use</span><span style="color: #F8F8F2">(bodyParser.</span><span style="color: #A6E22E">json</span><span style="color: #F8F8F2">());  </span><span style="color: #88846F">// &lt;-- use body-parser</span>
+
+<span style="color: #F8F8F2">app.</span><span style="color: #A6E22E">post</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&#039;/locations&#039;</span><span style="color: #F8F8F2">, (</span><span style="color: #FD971F">req</span><span style="color: #F8F8F2">, </span><span style="color: #FD971F">res</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&#039;POST /locations: &#039;</span><span style="color: #F8F8F2">, req.body);</span>
+<span style="color: #F8F8F2">});</span>
+</code></pre>
+							<a href="#rails" id="rails" style="color: inherit; text-decoration: none;">
+								<h3>Rails</h3>
+							</a>
+							<pre><code class="language-ruby"><span style="color: #F92672">class</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">LocationsController</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">&lt;</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">ApplicationController</span>
+<span style="color: #F8F8F2">  </span><span style="color: #F92672">def</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">create</span>
+<span style="color: #F8F8F2">    data </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> params</span>
+<span style="color: #F8F8F2">    </span><span style="color: #66D9EF">puts</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">&quot;POST /locations: </span><span style="color: #F92672">#{</span><span style="color: #F8F8F2">data</span><span style="color: #F92672">}</span><span style="color: #E6DB74">&quot;</span>
+<span style="color: #F8F8F2">  </span><span style="color: #F92672">end</span>
+<span style="color: #F92672">end</span>
+</code></pre>
+							<hr>
+							<a href="#http-failures" id="http-failures" style="color: inherit; text-decoration: none;">
+								<h2>HTTP Failures</h2>
+							</a>
+							<p>If your server does <em>not</em> return a <code>20x</code> response (eg: <code>200</code>, <code>201</code>, <code>204</code>), the SDK will <strong><code>UNLOCK</code></strong> that record.  Another attempt to upload will be made in the future (until <a href="config.html#maxdaystopersist">maxDaysToPersist</a>) when:</p>
+							<ul>
+								<li>When another location is recorded.</li>
+								<li>Application <code>pause</code> / <code>resume</code> events.</li>
+								<li>Application boot.</li>
+								<li><a href="../classes/backgroundgeolocation.html#onheartbeat">onHeartbeat</a> events.</li>
+								<li><a href="../classes/backgroundgeolocation.html#onconnectivitychange">onConnectivityChange</a> events.</li>
+								<li><strong>[iOS]</strong> Background <code>fetch</code> events.</li>
+							</ul>
+							<hr>
+							<a href="#receiving-the-http-response" id="receiving-the-http-response" style="color: inherit; text-decoration: none;">
+								<h2>Receiving the HTTP Response.</h2>
+							</a>
+							<p>You can capture the HTTP response from your server by listening to the <a href="../classes/backgroundgeolocation.html#onhttp">onHttp</a> event.</p>
+							<hr>
+							<a href="#autosync-true" id="autosync-true" style="color: inherit; text-decoration: none;">
+								<h2><code>autoSync: true</code></h2>
+							</a>
+							<p>By default, the SDK is configured for <a href="config.html#autosync">autoSync</a>:true and will attempt to immediately upload each recorded location to your configured <a href="config.html#url">Config.url</a>.</p>
+							<ul>
+								<li>Use <a href="config.html#autosyncthreshold">autoSyncThreshold</a> to throttle HTTP requests.  This will instruct the SDK to accumulate that number of records in the database before calling upon the HTTP Service.  This is a good way to <strong>conserve battery</strong>, since HTTP requests consume more energy/second than the GPS.</li>
+							</ul>
+							<hr>
+							<a href="#manual-invoking-upload" id="manual-invoking-upload" style="color: inherit; text-decoration: none;">
+								<h2>Manual Invoking Upload</h2>
+							</a>
+							<p>The SDK&#39;s HTTP Service can be summoned into action at <strong>any time</strong> via the method <a href="../classes/backgroundgeolocation.html#sync">BackgroundGeolocation.sync</a>.</p>
+							<hr>
+							<a href="#configparams-headers-and-extras" id="configparams-headers-and-extras" style="color: inherit; text-decoration: none;">
+								<h2><a href="config.html#params">Config.params</a>, <a href="config.html#headers">headers</a> and <a href="config.html#extras">extras</a></h2>
+							</a>
+							<ul>
+								<li>The SDK&#39;s HTTP Service appends configured <a href="config.html#params">Config.params</a> to root of the <code>JSON</code> data of each HTTP request.</li>
+								<li><a href="config.html#headers">headers</a> are appended to each HTTP Request.</li>
+								<li><a href="config.html#extras">extras</a> are appended to each recorded location and persisted to the database record.</li>
+							</ul>
+							<hr>
+							<a href="#custom-json-schema--locationtemplate-and-geofencetemplate" id="custom-json-schema--locationtemplate-and-geofencetemplate" style="color: inherit; text-decoration: none;">
+								<h2>Custom <code>JSON</code> Schema:  <a href="config.html#locationtemplate">locationTemplate</a> and <a href="config.html#geofencetemplate">geofenceTemplate</a></h2>
+							</a>
+							<p>The default HTTP <code>JSON</code> schema for both <a href="location.html">Location</a> and <a href="geofence.html">Geofence</a> can be overridden by the configuration options <a href="config.html#locationtemplate">locationTemplate</a> and <a href="config.html#geofencetemplate">geofenceTemplate</a>, allowing you to create any schema you wish.</p>
+							<hr>
+							<a href="#disabling-http-requests-on-cellular-connections" id="disabling-http-requests-on-cellular-connections" style="color: inherit; text-decoration: none;">
+								<h2>Disabling HTTP requests on Cellular connections</h2>
+							</a>
+							<p>If you&#39;re concerned with Cellular data-usage, you can configure the plugin&#39;s HTTP Service to upload only when connected to Wifi:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-javascript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">ready</span><span style="color: #F8F8F2">({</span>
+<span style="color: #F8F8F2">  autoSync: </span><span style="color: #AE81FF">true</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">  disableAutoSyncOnCellular: </span><span style="color: #AE81FF">true</span>
+<span style="color: #F8F8F2">});</span>
+</code></pre>
+							<hr>
+							<a href="#http-logging" id="http-logging" style="color: inherit; text-decoration: none;">
+								<h2>HTTP Logging</h2>
+							</a>
+							<p>You can observe the plugin performing HTTP requests in the logs for both iOS and Android (<em>See Wiki <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Debugging">Debugging</a></em>):</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code><span style="color: #F8F8F2">╔═════════════════════════════════════════════</span>
+<span style="color: #F8F8F2">║ LocationService: location</span>
+<span style="color: #F8F8F2">╠═════════════════════════════════════════════</span>
+<span style="color: #F8F8F2">╟─ 📍 Location[</span><span style="color: #AE81FF">45.519199</span><span style="color: #F8F8F2">,</span><span style="color: #F92672">-</span><span style="color: #AE81FF">73.617054</span><span style="color: #F8F8F2">]</span>
+<span style="color: #F8F8F2">✅ INSERT: 70727f8b</span><span style="color: #F92672">-</span><span style="color: #F8F8F2">df7d</span><span style="color: #F92672">-</span><span style="color: #F8F8F2">48d0</span><span style="color: #F92672">-</span><span style="color: #F8F8F2">acbd</span><span style="color: #F92672">-</span><span style="color: #F8F8F2">15f10cacdf33</span>
+<span style="color: #F8F8F2">╔═════════════════════════════════════════════</span>
+<span style="color: #F8F8F2">║ HTTP Service</span>
+<span style="color: #F8F8F2">╠═════════════════════════════════════════════</span>
+<span style="color: #F8F8F2">✅ Locked </span><span style="color: #AE81FF">1</span><span style="color: #F8F8F2"> records</span>
+<span style="color: #F8F8F2">🔵 HTTP POST: 70727f8b</span><span style="color: #F92672">-</span><span style="color: #F8F8F2">df7d</span><span style="color: #F92672">-</span><span style="color: #F8F8F2">48d0</span><span style="color: #F92672">-</span><span style="color: #F8F8F2">acbd</span><span style="color: #F92672">-</span><span style="color: #F8F8F2">15f10cacdf33</span>
+<span style="color: #F8F8F2">🔵 Response: </span><span style="color: #AE81FF">200</span>
+<span style="color: #F8F8F2">✅ DESTROY: 70727f8b</span><span style="color: #F92672">-</span><span style="color: #F8F8F2">df7d</span><span style="color: #F92672">-</span><span style="color: #F8F8F2">48d0</span><span style="color: #F92672">-</span><span style="color: #F8F8F2">acbd</span><span style="color: #F92672">-</span><span style="color: #F8F8F2">15f10cacdf33</span>
+</code></pre>
+							<table>
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Log entry</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody><tr>
+										<td>1</td>
+										<td><code>📍Location</code></td>
+										<td>Location received from native Location API.</td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td><code>✅INSERT</code></td>
+										<td>Location record inserted into SDK&#39;s SQLite database.</td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td><code>✅Locked</code></td>
+										<td>SDK&#39;s HTTP service locks a record (to prevent duplicate HTTP uploads).</td>
+									</tr>
+									<tr>
+										<td>4</td>
+										<td><code>🔵HTTP POST</code></td>
+										<td>SDK&#39;s HTTP service attempts an HTTP request to your configured <code>url</code>.</td>
+									</tr>
+									<tr>
+										<td>5</td>
+										<td><code>🔵Response</code></td>
+										<td>Response from your server.</td>
+									</tr>
+									<tr>
+										<td>6</td>
+										<td><code>✅DESTROY|UNLOCK</code></td>
+										<td>After your server returns a <strong><code>20x</code></strong> response, the SDK deletes that record from the database.  Otherwise, the SDK will <strong><code>UNLOCK</code></strong> that record and try again in the future.</td>
+									</tr>
+							</tbody></table>
+							<p>&nbsp;</p>
+							<hr>
+							<a href="#controlling-the-sdk-with-http-responses-rpc" id="controlling-the-sdk-with-http-responses-rpc" style="color: inherit; text-decoration: none;">
+								<h2>Controlling the SDK with HTTP Responses (<em>RPC</em>)</h2>
+							</a>
+							<p>The SDK has a <em>&quot;Remote Procedure Call&quot; (RPC)</em> mechanism, allowing you to invoke commands upon the SDK&#39;s API by returing a JSON response from the server containing the key <code>&quot;background_geolocation&quot;: [...]</code>.</p>
+							<p>Within the returned <code>[...]</code>, you may return one or more commands to invoke upon the SDK.  Each command takes the form of an <code>[]</code>, with a required first element <code>String command</code>, along with an optional
+							second element <code>Argument:string|boolean|number|Object</code> depending upon the context of the <code>command</code>.</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-javascript"><span style="color: #F8F8F2">{</span>
+<span style="color: #F8F8F2">  </span><span style="color: #E6DB74">&quot;background_geolocation&quot;</span><span style="color: #F8F8F2">: [</span>
+<span style="color: #F8F8F2">    [</span><span style="color: #E6DB74">&quot;command1&quot;</span><span style="color: #F8F8F2">, argument:string</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">boolean</span><span style="color: #F92672">|</span><span style="color: #F8F8F2">number</span><span style="color: #F92672">|</span><span style="color: #66D9EF">Object</span><span style="color: #F8F8F2">],</span>
+<span style="color: #F8F8F2">    [</span><span style="color: #E6DB74">&quot;command2&quot;</span><span style="color: #F8F8F2">]</span>
+<span style="color: #F8F8F2">    .</span>
+<span style="color: #F8F8F2">    .</span>
+<span style="color: #F8F8F2">    .</span>
+<span style="color: #F8F8F2">  ]</span>
+<span style="color: #F8F8F2">}</span>
+</code></pre>
+							<p>The SDK will run each of these commands synchronously upon itself.</p>
+							<a href="#supported-rpc-commands" id="supported-rpc-commands" style="color: inherit; text-decoration: none;">
+								<h3>Supported RPC Commands</h3>
+							</a>
+							<table>
+								<thead>
+									<tr>
+										<th>Command</th>
+										<th>Arguments</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody><tr>
+										<td><code>start</code></td>
+										<td>None.</td>
+										<td><code>BackgroundGeolocation.start()</code></td>
+									</tr>
+									<tr>
+										<td><code>stop</code></td>
+										<td>None.</td>
+										<td><code>BackgroundGeolocation.stop()</code></td>
+									</tr>
+									<tr>
+										<td><code>startGeofences</code></td>
+										<td>None.</td>
+										<td><code>BackgroundGeolocation.startGeofences()</code></td>
+									</tr>
+									<tr>
+										<td><code>changePace</code></td>
+										<td><code>Boolean</code></td>
+										<td><code>BackgroundGeolocation.changePace(argument)</code></td>
+									</tr>
+									<tr>
+										<td><code>setConfig</code></td>
+										<td><code>{Config}</code></td>
+										<td><code>BackgroundGeolocation.setConfig(argument)</code></td>
+									</tr>
+									<tr>
+										<td><code>addGeofence</code></td>
+										<td><code>{Geofence}</code></td>
+										<td><code>BackgroundGeolocation.addGeofence(argument)</code></td>
+									</tr>
+									<tr>
+										<td><code>addGeofences</code></td>
+										<td><code>[{Geofence}, ...]</code></td>
+										<td><code>BackgroundGeolocation.addGeofences(argument)</code></td>
+									</tr>
+									<tr>
+										<td><code>removeGeofence</code></td>
+										<td><code>identifier:String</code></td>
+										<td><code>BackgroundGeolocation.removeGeofence(argument)</code></td>
+									</tr>
+									<tr>
+										<td><code>removeGeofences</code></td>
+										<td>None or <code>[identifier:String,...]</code></td>
+										<td><code>BackgroundGeolocation.removeGeofences(argument)</code> If provided no argument, remove all; otherwise remove provided list of identifiers</td>
+									</tr>
+									<tr>
+										<td><code>uploadLog</code></td>
+										<td><code>url:String</code></td>
+										<td>The url to upload log to.</td>
+									</tr>
+									<tr>
+										<td><code>destroyLog</code></td>
+										<td>None</td>
+										<td><code>BackgroundGeolocation.destroyLog</code></td>
+									</tr>
+							</tbody></table>
+							<a href="#simple-example-stop" id="simple-example-stop" style="color: inherit; text-decoration: none;">
+								<h3>Simple Example: <code>#stop</code></h3>
+							</a>
+							<p>Your server could return a response telling the SDK to <a href="../classes/backgroundgeolocation.html#stop">BackgroundGeolocation.stop</a>:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-json"><span style="color: #F8F8F2">{</span>
+<span style="color: #F8F8F2">  </span><span style="color: #66D9EF">&quot;background_geolocation&quot;</span><span style="color: #F8F8F2">: [</span>
+<span style="color: #F8F8F2">    [</span><span style="color: #CFCFC2">&quot;stop&quot;</span><span style="color: #F8F8F2">]</span>
+<span style="color: #F8F8F2">  ]</span>
+<span style="color: #F8F8F2">}</span>
+</code></pre>
+							<p>When returning just a single command, you can optionally omit the root <code>[ ]</code>:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-json"><span style="color: #F8F8F2">{</span>
+<span style="color: #F8F8F2">  </span><span style="color: #66D9EF">&quot;background_geolocation&quot;</span><span style="color: #F8F8F2">: [</span><span style="color: #CFCFC2">&quot;stop&quot;</span><span style="color: #F8F8F2">]</span>
+<span style="color: #F8F8F2">}</span>
+</code></pre>
+							<a href="#arguments" id="arguments" style="color: inherit; text-decoration: none;">
+								<h3>Arguments</h3>
+							</a>
+							<p>The 2nd param to each action is optional but depends upon the context of the command.  For example, <code>#changePace</code> requires a <code>boolean</code> argument:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-json"><span style="color: #F8F8F2">{</span>
+<span style="color: #F8F8F2">  </span><span style="color: #66D9EF">&quot;background_geolocation&quot;</span><span style="color: #F8F8F2">: [</span>
+<span style="color: #F8F8F2">    [</span><span style="color: #CFCFC2">&quot;changePace&quot;</span><span style="color: #F8F8F2">, </span><span style="color: #AE81FF">true</span><span style="color: #F8F8F2">]</span>
+<span style="color: #F8F8F2">  ]</span>
+<span style="color: #F8F8F2">}</span>
+</code></pre>
+							<a href="#object-arguments" id="object-arguments" style="color: inherit; text-decoration: none;">
+								<h3>Object Arguments</h3>
+							</a>
+							<p>Some commands receive an <code>{ }</code> argument, like <code>#setConfig</code>:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-json"><span style="color: #F8F8F2">{</span>
+<span style="color: #F8F8F2">  </span><span style="color: #66D9EF">&quot;background_geolocation&quot;</span><span style="color: #F8F8F2">: [</span><span style="color: #CFCFC2">&quot;setConfig&quot;</span><span style="color: #F8F8F2">, {</span><span style="color: #66D9EF">&quot;distanceFilter&quot;</span><span style="color: #F8F8F2">: </span><span style="color: #AE81FF">0</span><span style="color: #F8F8F2">, </span><span style="color: #66D9EF">&quot;locationUpdateInterval&quot;</span><span style="color: #F8F8F2">: </span><span style="color: #AE81FF">1000</span><span style="color: #F8F8F2">}]</span>
+<span style="color: #F8F8F2">}</span>
+</code></pre>
+							<a href="#multiple-actions" id="multiple-actions" style="color: inherit; text-decoration: none;">
+								<h3>Multiple Actions</h3>
+							</a>
+							<p>You could tell the plugin to both <code>#start</code> and <code>#changePace</code>:</p>
+						</dd>
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-json"><span style="color: #F8F8F2">{</span>
+<span style="color: #F8F8F2">  </span><span style="color: #66D9EF">&quot;background_geolocation&quot;</span><span style="color: #F8F8F2">: [</span>
+<span style="color: #F8F8F2">    [</span><span style="color: #CFCFC2">&quot;start&quot;</span><span style="color: #F8F8F2">],</span>
+<span style="color: #F8F8F2">    [</span><span style="color: #CFCFC2">&quot;changePace&quot;</span><span style="color: #F8F8F2">, </span><span style="color: #AE81FF">true</span><span style="color: #F8F8F2">]</span>
+<span style="color: #F8F8F2">  ]</span>
+<span style="color: #F8F8F2">}</span>
+</code></pre>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">HttpEvent</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="httpevent.html#responsetext" class="tsd-kind-icon">response<wbr>Text</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="httpevent.html#status" class="tsd-kind-icon">status</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="httpevent.html#success" class="tsd-kind-icon">success</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="responsetext" class="tsd-anchor"></a>
+					<h3>response<wbr>Text</h3>
+					<div class="tsd-signature tsd-kind-icon">response<wbr>Text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>HTTP response text provided by the server.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="status" class="tsd-anchor"></a>
+					<h3>status</h3>
+					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>HTTP status code (eg: <code>200</code>, <code>500</code>, <code>404</code>).</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="success" class="tsd-anchor"></a>
+					<h3>success</h3>
+					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>True if the HTTP request was successful (eg: <code>200</code>, <code>201</code>, <code>204</code>).</p>
+						</div>
+					</div>
+				</section>
+			</section>
+		</div>
+		<div class="col-3 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
+						<a href="httpevent.html" class="tsd-kind-icon">Http<wbr>Event</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="httpevent.html#responsetext" class="tsd-kind-icon">response<wbr>Text</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="httpevent.html#status" class="tsd-kind-icon">status</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="httpevent.html#success" class="tsd-kind-icon">success</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
+						<a href="httpevent.html" class="tsd-kind-icon">Http<wbr>Event</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="httpevent.html#responsetext" class="tsd-kind-icon">response<wbr>Text</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="httpevent.html#status" class="tsd-kind-icon">status</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="httpevent.html#success" class="tsd-kind-icon">success</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-102968-14', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>

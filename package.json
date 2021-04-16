@@ -46,7 +46,7 @@
     "react-native-background-fetch": "~4.0.1"
   },
   "devDependencies": {
-    "@transistorsoft/typedoc-theme": "^2.0.5",
+    "@transistorsoft/typedoc-theme": "^2.0.6",
     "chalk": "^4.1.0",
     "fs-extra": "^9.1.0",
     "rimraf": "^3.0.2"

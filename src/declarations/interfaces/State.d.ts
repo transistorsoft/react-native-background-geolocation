@@ -2,7 +2,7 @@
 
 declare module "react-native-background-geolocation" {
 	/**
-	* This `State` object contains all the provided [[interfaces/Config.Config | Config]] options in addition to:
+	* This `State` object contains all the provided [[Config]] options in addition to:
 	* - [[enabled]].
 	* - [[schedulerEnabled]].
 	* - [[trackingMode]].

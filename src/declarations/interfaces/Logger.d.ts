@@ -95,11 +95,11 @@ declare module "react-native-background-geolocation" {
   */
   interface Logger {
     /**
-    * `1`.  Used to order results of [[interfaces/SQLQuery.SQLQuery | SQLQuery]] descending.
+    * `1`.  Used to order results of [[SQLQuery]] descending.
     */
     ORDER_DESC: SQLQueryOrder;
     /**
-    * `-1`.  Used to order results of [[interfaces/SQLQuery.SQLQuery | SQLQuery]] ascending.
+    * `-1`.  Used to order results of [[SQLQuery]] ascending.
     */
     ORDER_ASC: SQLQueryOrder;
     /**
@@ -174,7 +174,7 @@ declare module "react-native-background-geolocation" {
     notice(message:string):void;
 
     /**
-    * Returns the records from log database as a `String`.  Provide an optional [[interfaces/SQLQuery.SQLQuery | SQLQuery]] to contrain results between dates.
+    * Returns the records from log database as a `String`.  Provide an optional [[SQLQuery]] to contrain results between dates.
     * @break
     *
     * Depending on the configured [[Config.logLevel]], the plugin can store an *immense* amount of helpful logging information for debugging location-tracking
@@ -283,7 +283,7 @@ declare module "react-native-background-geolocation" {
     emailLog(email:string, query?:SQLQuery): Promise<boolean>;
 
     /**
-    * Upload the result of [[getLog]] to provided url.  Provide an optional [[interfaces/SQLQuery.SQLQuery | SQLQuery]] to contrain results between dates.  The file-upload
+    * Upload the result of [[getLog]] to provided url.  Provide an optional [[SQLQuery]] to contrain results between dates.  The file-upload
     * request will attach your configured [[Config.headers]] for authentication.
     *
     * ## Example

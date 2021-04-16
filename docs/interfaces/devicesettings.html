@@ -1,0 +1,453 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>DeviceSettings | React Native Background Geolocation</title>
+	<meta name="description" content="Documentation for React Native Background Geolocation">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<link rel="shortcut icon" class="favicon" href="../assets/images/favicon.ico">
+	<script src="../assets/js/search.js"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell left">
+					<div class="brand">
+						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
+						<span class="title">
+							<a href="../../../../../../../../..">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.0.3</span>
+						</span>
+					</div>
+				</div>
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading"></li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../index.html">React Native Background Geolocation</a>
+				</li>
+				<li>
+					<a href="devicesettings.html">DeviceSettings</a>
+				</li>
+			</ul>
+			<h1>Interface DeviceSettings</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-9 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Device Settings API.</p>
+					</div>
+					<p>Provides an API to show Android &amp; vendor-specific Battery / Power Management settings screens that can affect performance of the Background Geolocation SDK on various devices.</p>
+					<p>The site <a href="https://dontkillmyapp.com/">Don&#39;t Kill My App</a> provides a comprehensive list of poor Android vendors which throttle background-services that this plugin relies upon.</p>
+					<p>This <code>DeviceSettings</code> API is an attempt to provide resources to direct the user to the appropriate vendor-specific settings screen to resolve issues with background operation.</p>
+					<p><img src="https://dl.dropboxusercontent.com/s/u7ljngfecxvibyh/huawei-settings-battery-launch.jpg?dl=1" alt="">
+					<img src="https://dl.dropboxusercontent.com/s/hd6yxw58hgc7ef4/android-settings-battery-optimization.jpg?dl=1" alt=""></p>
+					<dl class="tsd-comment-tags">
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-typescript"><span style="color: #88846F">// Is Android device ignoring battery optimizations?</span>
+<span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> isIgnoring </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">await</span><span style="color: #F8F8F2"> BackgroundGeolocation.deviceSettings.</span><span style="color: #A6E22E">isIgnoringBatteryOptimizations</span><span style="color: #F8F8F2">();</span>
+<span style="color: #F92672">if</span><span style="color: #F8F8F2"> (</span><span style="color: #F92672">!</span><span style="color: #F8F8F2">isIgnoring) {</span>
+<span style="color: #F8F8F2">  BackgroundGeolocation.deviceSettings.</span><span style="color: #A6E22E">showIgnoreBatteryOptimizations</span><span style="color: #F8F8F2">().</span><span style="color: #A6E22E">then</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">request</span><span style="color: #F92672">:</span><span style="color: #A6E22E">DeviceSettingsRequest</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">    console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">`- Screen seen? </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.seen</span><span style="color: #F92672">}</span><span style="color: #E6DB74"> </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.lastSeenAt</span><span style="color: #F92672">}</span><span style="color: #E6DB74">`</span><span style="color: #F8F8F2">);</span>
+<span style="color: #F8F8F2">    console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">`- Device: </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.manufacturer</span><span style="color: #F92672">}</span><span style="color: #E6DB74"> </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.model</span><span style="color: #F92672">}</span><span style="color: #E6DB74"> </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.version</span><span style="color: #F92672">}</span><span style="color: #E6DB74">`</span><span style="color: #F8F8F2">);</span>
+
+<span style="color: #F8F8F2">    </span><span style="color: #88846F">// If we&#039;ve already shown this screen to the user, we don&#039;t want to annoy them.</span>
+<span style="color: #F8F8F2">    </span><span style="color: #F92672">if</span><span style="color: #F8F8F2"> (request.seen) {</span>
+<span style="color: #F8F8F2">      </span><span style="color: #F92672">return</span><span style="color: #F8F8F2">;</span>
+<span style="color: #F8F8F2">    }</span>
+
+<span style="color: #F8F8F2">    </span><span style="color: #88846F">// It&#039;s your responsibility to instruct the user what exactly</span>
+<span style="color: #F8F8F2">    </span><span style="color: #88846F">// to do here, perhaps with a Confirm Dialog:</span>
+<span style="color: #F8F8F2">    </span><span style="color: #A6E22E">showMyConfirmDialog</span><span style="color: #F8F8F2">({</span>
+<span style="color: #F8F8F2">      title: </span><span style="color: #E6DB74">&quot;Settings request&quot;</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">      text: </span><span style="color: #E6DB74">&quot;Please disable battery optimizations for your device&quot;</span>
+<span style="color: #F8F8F2">    }).</span><span style="color: #A6E22E">then</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">confirmed</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">      </span><span style="color: #F92672">if</span><span style="color: #F8F8F2"> (confirmed) {</span>
+<span style="color: #F8F8F2">        </span><span style="color: #88846F">// User clicked [Confirm] button.  Execute the redirect to settings screen:</span>
+<span style="color: #F8F8F2">        BackgroundGeolocation.deviceSettings.</span><span style="color: #A6E22E">show</span><span style="color: #F8F8F2">(request);</span>
+<span style="color: #F8F8F2">      }</span>
+<span style="color: #F8F8F2">    });</span>
+<span style="color: #F8F8F2">  }).</span><span style="color: #A6E22E">catch</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">error</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">    </span><span style="color: #88846F">// Depending on Manufacturer/Model/OS Version, a Device may not implement</span>
+<span style="color: #F8F8F2">    </span><span style="color: #88846F">// a particular Settings screen.</span>
+<span style="color: #F8F8F2">    console.</span><span style="color: #A6E22E">warn</span><span style="color: #F8F8F2">(error);</span>
+<span style="color: #F8F8F2">  });</span>
+<span style="color: #F8F8F2">}</span>
+
+</code></pre>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">DeviceSettings</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="devicesettings.html#isignoringbatteryoptimizations" class="tsd-kind-icon">is<wbr>Ignoring<wbr>Battery<wbr>Optimizations</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="devicesettings.html#show" class="tsd-kind-icon">show</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="devicesettings.html#showignorebatteryoptimizations" class="tsd-kind-icon">show<wbr>Ignore<wbr>Battery<wbr>Optimizations</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="devicesettings.html#showpowermanager" class="tsd-kind-icon">show<wbr>Power<wbr>Manager</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="isignoringbatteryoptimizations" class="tsd-anchor"></a>
+					<h3>is<wbr>Ignoring<wbr>Battery<wbr>Optimizations</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Ignoring<wbr>Battery<wbr>Optimizations<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns <code>true</code> if device is ignoring battery optimizations for your app.</p>
+								</div>
+								<p>In most cases, the Background Geolocation SDK <strong>will perform normally</strong> with battery optimizations.</p>
+								<p><img src="https://dl.dropboxusercontent.com/s/hd6yxw58hgc7ef4/android-settings-battery-optimization.jpg?dl=1" alt=""></p>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> isIgnoring </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">await</span><span style="color: #F8F8F2"> BackgroundGeolocation.deviceSettings.</span><span style="color: #A6E22E">isIgnoringBatteryOptimizations</span><span style="color: #F8F8F2">();</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="show" class="tsd-anchor"></a>
+					<h3>show</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">show<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="devicesettingsrequest.html" class="tsd-signature-type" data-tsd-kind="Interface">DeviceSettingsRequest</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This method is designed to be executed from a <a href="devicesettings.html#showpowermanager">showPowerManager</a> or <a href="devicesettings.html#showignorebatteryoptimizations">showIgnoreBatteryOptimizations</a> callback.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>request: <a href="devicesettingsrequest.html" class="tsd-signature-type" data-tsd-kind="Interface">DeviceSettingsRequest</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="showignorebatteryoptimizations" class="tsd-anchor"></a>
+					<h3>show<wbr>Ignore<wbr>Battery<wbr>Optimizations</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">show<wbr>Ignore<wbr>Battery<wbr>Optimizations<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="devicesettingsrequest.html" class="tsd-signature-type" data-tsd-kind="Interface">DeviceSettingsRequest</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Shows the Android <em>Ignore Battery Optimizations</em> settings screen.</p>
+								</div>
+								<p><strong>Note:</strong>  In most cases, the plugin <strong>will perform normally</strong> with battery optimizations.  You should only instruct the user to <em>Ignore Battery Optimizations</em> for your app as a last resort to resolve issues with background operation.</p>
+								<p><img src="https://dl.dropboxusercontent.com/s/hd6yxw58hgc7ef4/android-settings-battery-optimization.jpg?dl=1" alt=""></p>
+								<p><strong>WARNING:</strong>  Ignoring battery optimizations <em>will</em> cause your app to consume <strong>much</strong> more power.</p>
+								<p><code>showIgnoreBatteryOptimizations</code> does <strong>not</strong> immediately redirect to the desired Device settings screen.  Instead, it first returns a <a href="devicesettingsrequest.html">DeviceSettingsRequest</a>, containing
+								meta-data about the device (<code>manufacturer</code>, <code>model</code>, <code>version</code>), in addition to a flags <code>seen</code> and <code>lastSeenAt</code>, letting you know if and when you&#39;ve already shown this screen to the user.</p>
+								<p>In your success-callback, it&#39;s completely <strong>up to you</strong> to instruct the user what exactly to do on that screen.</p>
+								<p>Based upon the manufacturer/model/os, a Device may not have this particular Settings screen implemented.  In this case, <code>catch</code> will fire.</p>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #88846F">// Is Android device ignoring battery optimizations?</span>
+<span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> isIgnoring </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">await</span><span style="color: #F8F8F2"> BackgroundGeolocation.deviceSettings.</span><span style="color: #A6E22E">isIgnoringBatteryOptimizations</span><span style="color: #F8F8F2">();</span>
+<span style="color: #F92672">if</span><span style="color: #F8F8F2"> (</span><span style="color: #F92672">!</span><span style="color: #F8F8F2">isIgnoring) {</span>
+<span style="color: #F8F8F2">  BackgroundGeolocation.deviceSettings.</span><span style="color: #A6E22E">showIgnoreBatteryOptimizations</span><span style="color: #F8F8F2">().</span><span style="color: #A6E22E">then</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">request</span><span style="color: #F92672">:</span><span style="color: #A6E22E">DeviceSettingsRequest</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">    console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">`- Screen seen? </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.seen</span><span style="color: #F92672">}</span><span style="color: #E6DB74"> </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.lastSeenAt</span><span style="color: #F92672">}</span><span style="color: #E6DB74">`</span><span style="color: #F8F8F2">);</span>
+<span style="color: #F8F8F2">    console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">`- Device: </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.manufacturer</span><span style="color: #F92672">}</span><span style="color: #E6DB74"> </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.model</span><span style="color: #F92672">}</span><span style="color: #E6DB74"> </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.version</span><span style="color: #F92672">}</span><span style="color: #E6DB74">`</span><span style="color: #F8F8F2">);</span>
+
+<span style="color: #F8F8F2">    </span><span style="color: #88846F">// If we&#039;ve already shown this screen to the user, we don&#039;t want to annoy them.</span>
+<span style="color: #F8F8F2">    </span><span style="color: #F92672">if</span><span style="color: #F8F8F2"> (request.seen) {</span>
+<span style="color: #F8F8F2">      </span><span style="color: #F92672">return</span><span style="color: #F8F8F2">;</span>
+<span style="color: #F8F8F2">    }</span>
+
+<span style="color: #F8F8F2">    </span><span style="color: #88846F">// It&#039;s your responsibility to instruct the user what exactly</span>
+<span style="color: #F8F8F2">    </span><span style="color: #88846F">// to do here, perhaps with a Confirm Dialog:</span>
+<span style="color: #F8F8F2">    </span><span style="color: #A6E22E">showMyConfirmDialog</span><span style="color: #F8F8F2">({</span>
+<span style="color: #F8F8F2">      title: </span><span style="color: #E6DB74">&quot;Settings request&quot;</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">      text: </span><span style="color: #E6DB74">&quot;Please disable battery optimizations for your device&quot;</span>
+<span style="color: #F8F8F2">    }).</span><span style="color: #A6E22E">then</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">confirmed</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">      </span><span style="color: #F92672">if</span><span style="color: #F8F8F2"> (confirmed) {</span>
+<span style="color: #F8F8F2">        </span><span style="color: #88846F">// User clicked [Confirm] button.  Execute the redirect to settings screen:</span>
+<span style="color: #F8F8F2">        BackgroundGeolocation.deviceSettings.</span><span style="color: #A6E22E">show</span><span style="color: #F8F8F2">(request);</span>
+<span style="color: #F8F8F2">      }</span>
+<span style="color: #F8F8F2">    });</span>
+<span style="color: #F8F8F2">  }).</span><span style="color: #A6E22E">catch</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">error</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">    </span><span style="color: #88846F">// Depending on Manufacturer/Model/OS Version, a Device may not implement</span>
+<span style="color: #F8F8F2">    </span><span style="color: #88846F">// a particular Settings screen.</span>
+<span style="color: #F8F8F2">    console.</span><span style="color: #A6E22E">warn</span><span style="color: #F8F8F2">(error);</span>
+<span style="color: #F8F8F2">  });</span>
+<span style="color: #F8F8F2">}</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="devicesettingsrequest.html" class="tsd-signature-type" data-tsd-kind="Interface">DeviceSettingsRequest</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="showpowermanager" class="tsd-anchor"></a>
+					<h3>show<wbr>Power<wbr>Manager</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">show<wbr>Power<wbr>Manager<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="devicesettingsrequest.html" class="tsd-signature-type" data-tsd-kind="Interface">DeviceSettingsRequest</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Shows a vendor-specific &quot;Power Management&quot; screen.</p>
+								</div>
+								<p>For example, a <em>Huawei</em> device will show the <em>Battery-&gt;Launch</em> screen:</p>
+								<p><img src="https://dl.dropboxusercontent.com/s/u7ljngfecxvibyh/huawei-settings-battery-launch.jpg?dl=1" alt="">
+								<img src="https://dl.dropboxusercontent.com/s/cce6jxuvxmecv2z/huawei-settings-battery-launch-apply.jpg?dl=1" alt=""></p>
+								<p>The site <a href="https://dontkillmyapp.com/">Don&#39;t Kill My App</a> provides a comprehensive list of poor Android vendors which throttle background-services that this plugin relies upon.</p>
+								<p><code>showPowerManager</code> does <strong>not</strong> immediately redirect to the desired Device settings screen.  Instead, it first returns a <a href="devicesettingsrequest.html">DeviceSettingsRequest</a>, containing
+								meta-data about the device (<code>manufacturer</code>, <code>model</code>, <code>version</code>), in addition to a flags <code>seen</code> and <code>lastSeenAt</code>, letting you know if and when you&#39;ve already shown this screen to the user.</p>
+								<p>Unfortunately, there&#39;s no possible way to determine if the user <em>actually</em> performs the desired action to &quot;white list&quot; your app on the shown settings-screen.
+								For this reason, you&#39;ll have to evaluate the provided properties <a href="devicesettingsrequest.html#seen">DeviceSettingsRequest.seen</a> &amp; <a href="devicesettingsrequest.html#lastseenat">DeviceSettingsRequest.lastSeenAt</a> and determine for yourself whether to <a href="devicesettings.html#show">DeviceSettings.show</a> this screen.</p>
+								<p>In your success-callback, it&#39;s completely <strong>up to you</strong> to instruct the user what exactly to do on that screen, based upon the provided <a href="devicesettingsrequest.html">DeviceSettingsRequest</a> properties <code>manufacturer</code>, <code>model</code> and <code>version</code>.</p>
+								<p><strong>Note:</strong>  Based upon the <code>manufacturer</code> / <code>model</code> / OS <code>version</code>, a Device <strong>may not have</strong> a particular Settings screen implemented (eg: Google Pixel).  In this case, the <code>Promise</code> will fire an exception.</p>
+								<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+									<h2>Example</h2>
+								</a>
+								<pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.deviceSettings.</span><span style="color: #A6E22E">showPowerManager</span><span style="color: #F8F8F2">().</span><span style="color: #A6E22E">then</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">request</span><span style="color: #F92672">:</span><span style="color: #A6E22E">DeviceSettingsRequest</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">`- Screen seen? </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.seen</span><span style="color: #F92672">}</span><span style="color: #E6DB74"> </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.lastSeenAt</span><span style="color: #F92672">}</span><span style="color: #E6DB74">`</span><span style="color: #F8F8F2">);</span>
+<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">`- Device: </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.manufacturer</span><span style="color: #F92672">}</span><span style="color: #E6DB74"> </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.model</span><span style="color: #F92672">}</span><span style="color: #E6DB74"> </span><span style="color: #F92672">${</span><span style="color: #F8F8F2">request.version</span><span style="color: #F92672">}</span><span style="color: #E6DB74">`</span><span style="color: #F8F8F2">);</span>
+
+<span style="color: #F8F8F2">  </span><span style="color: #88846F">// If we&#039;ve already shown this screen to the user, we don&#039;t want to annoy them.</span>
+<span style="color: #F8F8F2">  </span><span style="color: #F92672">if</span><span style="color: #F8F8F2"> (request.seen) {</span>
+<span style="color: #F8F8F2">    </span><span style="color: #F92672">return</span><span style="color: #F8F8F2">;</span>
+<span style="color: #F8F8F2">  }</span>
+<span style="color: #F8F8F2">  </span><span style="color: #88846F">// It&#039;s your responsibility to instruct the user what exactly</span>
+<span style="color: #F8F8F2">  </span><span style="color: #88846F">// to do here, perhaps with a Confirm Dialog:</span>
+<span style="color: #F8F8F2">  </span><span style="color: #A6E22E">showMyConfirmDialog</span><span style="color: #F8F8F2">({</span>
+<span style="color: #F8F8F2">    title: </span><span style="color: #E6DB74">&quot;Device Power Management&quot;</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">    text: </span><span style="color: #E6DB74">&quot;Please white-list the app in your Device&#039;s Power Management settings by clicking this then selecting that.&quot;</span>
+<span style="color: #F8F8F2">  }).</span><span style="color: #A6E22E">then</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">confirmed</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">    </span><span style="color: #F92672">if</span><span style="color: #F8F8F2"> (confirmed) {</span>
+<span style="color: #F8F8F2">      </span><span style="color: #88846F">// User clicked [Confirm] button.  Execute the redirect to settings screen:</span>
+<span style="color: #F8F8F2">      BackgroundGeolocation.deviceSettings.</span><span style="color: #A6E22E">show</span><span style="color: #F8F8F2">(request);</span>
+<span style="color: #F8F8F2">    }</span>
+<span style="color: #F8F8F2">  });</span>
+<span style="color: #F8F8F2">}).</span><span style="color: #A6E22E">catch</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">error</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">  </span><span style="color: #88846F">// Depending on Manufacturer/Model/OS Version, a Device may not implement</span>
+<span style="color: #F8F8F2">  </span><span style="color: #88846F">// a particular Settings screen.</span>
+<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(error);</span>
+<span style="color: #F8F8F2">});</span>
+</code></pre>
+								<a href="#vendor-settings-screens" id="vendor-settings-screens" style="color: inherit; text-decoration: none;">
+									<h2>Vendor Settings Screens</h2>
+								</a>
+								<p>The following Android Settings screen will be shown depending on Vendor / OS version:</p>
+								<table>
+									<thead>
+										<tr>
+											<th>Vendor</th>
+											<th>Settings Activity Name</th>
+										</tr>
+									</thead>
+									<tbody><tr>
+											<td>LeEco</td>
+											<td><code>AutobootManageActivity</code></td>
+										</tr>
+										<tr>
+											<td>Huawei</td>
+											<td><code>StartupAppControlActivity</code>,<code>StartupAppControlActivity</code> (depends on OS version)</td>
+										</tr>
+										<tr>
+											<td>Color OS</td>
+											<td><code>StartupAppListActivity</code></td>
+										</tr>
+										<tr>
+											<td>OPPO</td>
+											<td><code>StartupAppListActivity</code></td>
+										</tr>
+										<tr>
+											<td>Vivo</td>
+											<td><code>BgStartUpManagerActivity</code>,<code>AddWhiteListActivity</code>,<code>BgStartUpManager</code> (depends on OS version)</td>
+										</tr>
+										<tr>
+											<td>Samsung</td>
+											<td><code>BatteryActivity</code></td>
+										</tr>
+										<tr>
+											<td>HTC</td>
+											<td><code>LandingPageActivity</code></td>
+										</tr>
+										<tr>
+											<td>Asus</td>
+											<td><code>AutobootManageActivity</code></td>
+										</tr>
+										<tr>
+											<td>LeEco</td>
+											<td><code>mobilemanager.MainActivity</code></td>
+										</tr>
+								</tbody></table>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="devicesettingsrequest.html" class="tsd-signature-type" data-tsd-kind="Interface">DeviceSettingsRequest</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-3 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
+						<a href="devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
+						<ul>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="devicesettings.html#isignoringbatteryoptimizations" class="tsd-kind-icon">is<wbr>Ignoring<wbr>Battery<wbr>Optimizations</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="devicesettings.html#show" class="tsd-kind-icon">show</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="devicesettings.html#showignorebatteryoptimizations" class="tsd-kind-icon">show<wbr>Ignore<wbr>Battery<wbr>Optimizations</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="devicesettings.html#showpowermanager" class="tsd-kind-icon">show<wbr>Power<wbr>Manager</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
+						<a href="devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
+						<ul>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="devicesettings.html#isignoringbatteryoptimizations" class="tsd-kind-icon">is<wbr>Ignoring<wbr>Battery<wbr>Optimizations</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="devicesettings.html#show" class="tsd-kind-icon">show</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="devicesettings.html#showignorebatteryoptimizations" class="tsd-kind-icon">show<wbr>Ignore<wbr>Battery<wbr>Optimizations</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="devicesettings.html#showpowermanager" class="tsd-kind-icon">show<wbr>Power<wbr>Manager</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-102968-14', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>

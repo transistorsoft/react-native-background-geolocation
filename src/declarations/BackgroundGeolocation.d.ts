@@ -31,8 +31,8 @@ declare module "react-native-background-geolocation" {
   *
   * ## 📚 Help
   * - 📘 [Philosophy of Operation](github:wiki/Philosophy-of-Operation)
-  * - 📘 [[interfaces/HttpEvent.HttpEvent | HTTP Guide]].
-  * - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]].
+  * - 📘 [[HttpEvent | HTTP Guide]].
+  * - 📘 [[Geofence | Geofencing Guide]].
   * - 📘 [Android Headless Mode](github:wiki/Android-Headless-Mode).
   * - 📘 [Debugging Guide](github:wiki/Debugging).
   *
@@ -42,13 +42,13 @@ declare module "react-native-background-geolocation" {
   *
   * | Method                 | Description                             |
   * |------------------------|-----------------------------------------|
-  * | [[onLocation]]           | Fired with each recorded [[interfaces/Location.Location | Location]]     |
+  * | [[onLocation]]           | Fired with each recorded [[Location]]     |
   * | [[onMotionChange]]       | Fired when the plugin changes state between *moving* / *stationary* |
   * | [[onHttp]]               | Fired with each HTTP response from your server.  (see [[Config.url]]). |
   * | [[onActivityChange]]     | Fired with each change in device motion-activity.                    |
   * | [[onProviderChange]]     | Fired after changes to device location-services configuration.       |
   * | [[onHeartbeat]]          | Periodic timed events.  See [[heartbeatInterval]].  iOS requires [[preventSuspend]]. |
-  * | [[onGeofence]]           | Fired with each [[interfaces/Geofence.Geofence | Geofence]] transition event (`ENTER, EXIT, DWELL`).  |
+  * | [[onGeofence]]           | Fired with each [[Geofence]] transition event (`ENTER, EXIT, DWELL`).  |
   * | [[onGeofencesChange]]    | Fired when the list of actively-monitored geofences changed.  See [[geofenceProximityRadius]]. |
   * | [[onSchedule]]           | Fired for [[schedule]] events.                                  |
   * | [[onConnectivityChange]] | Fired when network-connectivity changes (connected / disconnected).  |
@@ -57,9 +57,9 @@ declare module "react-native-background-geolocation" {
   * | [[onAuthorization]]      | Fired when a response from [[Authorization.refreshUrl]] is received. |
   * | [[onNotificationAction]] | __Android only__: Fired when a button is clicked on a custom [[Notification.layout]] of a foreground-service notification. |
   *
-  * ## 🔧 [[interfaces/Config.Config | Config]] API
+  * ## 🔧 [[Config]] API
   *
-  * [[BackgroundGeolocation]] is highly configurable.  See the [[interfaces/Config.Config | Config]] API for more information.
+  * [[BackgroundGeolocation]] is highly configurable.  See the [[Config]] API for more information.
   *
   * There are three main steps to using `BackgroundGeolocation`
   * 1. Wire up event-listeners.
@@ -208,13 +208,13 @@ declare module "react-native-background-geolocation" {
     static ACCURACY_AUTHORIZATION_REDUCED: AccuracyAuthorization;
 
     /**
-    * [[interfaces/DeviceSettings.DeviceSettings | DeviceSettings]] API
+    * [[DeviceSettings]] API
     *
     * Provides an API to show Android & vendor-specific Battery / Power Management settings screens that can affect performance of the Background Geolocation SDK on various devices.
     *
     * The site [Don't Kill My App](https://dontkillmyapp.com/) provides a comprehensive list of poor Android vendors which throttle background-services that this plugin relies upon.
     *
-    * This [[interfaces/DeviceSettings.DeviceSettings | DeviceSettings]] API is an attempt to provide resources to direct the user to the appropriate vendor-specific settings screen to resolve issues with background operation.
+    * This [[DeviceSettings]] API is an attempt to provide resources to direct the user to the appropriate vendor-specific settings screen to resolve issues with background operation.
     *
     * ![](https://dl.dropboxusercontent.com/s/u7ljngfecxvibyh/huawei-settings-battery-launch.jpg?dl=1)
     * ![](https://dl.dropboxusercontent.com/s/hd6yxw58hgc7ef4/android-settings-battery-optimization.jpg?dl=1)
@@ -223,7 +223,7 @@ declare module "react-native-background-geolocation" {
     static deviceSettings: DeviceSettings;
 
     /**
-    * [[interfaces/Logger.Logger | Logger]] API
+    * [[Logger]] API
     */
     static logger: Logger;
 
@@ -306,7 +306,7 @@ declare module "react-native-background-geolocation" {
     *
     * ### Error Codes
     *
-    * If the native location API fails to return a location, the `failure` callback will be provided a [[types.LocationError | LocationError]].
+    * If the native location API fails to return a location, the `failure` callback will be provided a [[LocationError]].
     *
     * ### ⚠️ Note [[Location.sample]]:
     *
@@ -331,7 +331,7 @@ declare module "react-native-background-geolocation" {
     * ```
     *
     * ### ℹ️ See also:
-    * - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]]
+    * - 📘 [[Geofence | Geofencing Guide]]
     *
     * @event geofence
     */
@@ -383,7 +383,7 @@ declare module "react-native-background-geolocation" {
     * });
     * ```
     * ### ℹ️ See also:
-    *  - [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    *  - [[HttpEvent | HTTP Guide]]
     *
     * @event http
     */
@@ -469,7 +469,7 @@ declare module "react-native-background-geolocation" {
     * ```
     *
     * ### ⚠️ Note:
-    * -  The [[interfaces/Location.Location | Location]] provided by the [[interfaces/HeartbeatEvent.HeartbeatEvent | HeartbeatEvent]] is only the last-known location.  The *heartbeat* event does not actively engage location-services.  If you wish to get the current location in your `callback`, use [[getCurrentPosition]].
+    * -  The [[Location]] provided by the [[HeartbeatEvent]] is only the last-known location.  The *heartbeat* event does not actively engage location-services.  If you wish to get the current location in your `callback`, use [[getCurrentPosition]].
     * @event heartbeat
     */
     static onHeartbeat(callback: (event: HeartbeatEvent) => void): void;
@@ -508,7 +508,7 @@ declare module "react-native-background-geolocation" {
     * ```
     *
     * ### ℹ️ See also:
-    * - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]]
+    * - 📘 [[Geofence | Geofencing Guide]]
     * @event geofenceschange
     */
     static onGeofencesChange(callback: (event: GeofencesChangeEvent) => void): void;
@@ -516,7 +516,7 @@ declare module "react-native-background-geolocation" {
     /**
     * Subscribe to [[schedule]] events.
     *
-    * Your `callback` will be executed each time a [[schedule]] event fires.  Your `callback` will be provided with the current [[interfaces/State.State | State]]:  **`state.enabled`**
+    * Your `callback` will be executed each time a [[schedule]] event fires.  Your `callback` will be provided with the current [[State]]:  **`state.enabled`**
     * will reflect the state according to your [[schedule]].
     *
     * @example
@@ -539,7 +539,7 @@ declare module "react-native-background-geolocation" {
     * Fired when the state of the device's network-connectivity changes (enabled -> disabled and vice-versa).  By default, the plugin will automatically fire
     * a `connectivitychange` event with the current state network-connectivity whenever the [[start]] method is executed.
     *
-    * ℹ️ The SDK subscribes internally to `connectivitychange` events &mdash; if you've configured the SDK's HTTP Service (See [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]) and your app has queued locations,
+    * ℹ️ The SDK subscribes internally to `connectivitychange` events &mdash; if you've configured the SDK's HTTP Service (See [[HttpEvent | HTTP Guide]]) and your app has queued locations,
     * the SDK will automatically initiate uploading to your configured [[Config.url]] when network connectivity is detected.
     *
     * @example
@@ -606,7 +606,7 @@ declare module "react-native-background-geolocation" {
     static onNotificationAction(callback: (buttonId:string) => void): void;
 
     /**
-    * Subscribe to [[interfaces/Authorization.Authorization | Authorization]] events.
+    * Subscribe to [[Authorization]] events.
     *
     * Fired when [[Authorization.refreshUrl]] responds, either successfully or not.  If successful, [[AuthorizationEvent.success]] will be `true` and [[AuthorizationEvent.response]] will
     * contain the decoded JSON response returned from the server.
@@ -666,9 +666,9 @@ declare module "react-native-background-geolocation" {
 
     /**
     *
-    * Signal to the plugin that your app is launched and ready, proving the default [[interfaces/Config.Config | Config]].
+    * Signal to the plugin that your app is launched and ready, proving the default [[Config]].
     *
-    * The supplied [[interfaces/Config.Config | Config]] will be applied **only at first install** of your app — for every launch thereafter,
+    * The supplied [[Config]] will be applied **only at first install** of your app — for every launch thereafter,
     * the plugin will automatically load its last-known configuration from persistent storage.
     * The plugin always remembers the configuration you apply to it.
     *
@@ -694,7 +694,7 @@ declare module "react-native-background-geolocation" {
     *
     * ### The [[reset]] method.
     *
-    * If you wish, you can use the [[reset]] method to reset all [[interfaces/Config.Config | Config]] options to documented default-values (with optional overrides):
+    * If you wish, you can use the [[reset]] method to reset all [[Config]] options to documented default-values (with optional overrides):
     *
     * @example
     * ```typescript
@@ -715,10 +715,10 @@ declare module "react-native-background-geolocation" {
 
     /**
     *
-    * Re-configure the SDK's [[interfaces/Config.Config | Config]] parameters.  This is the method to use when you wish to *change*
-    * the plugin [[interfaces/Config.Config | Config]] *after* [[ready]] has been executed.
+    * Re-configure the SDK's [[Config]] parameters.  This is the method to use when you wish to *change*
+    * the plugin [[Config]] *after* [[ready]] has been executed.
     *
-    * The supplied [[interfaces/Config.Config | Config]] will be appended to the current configuration and applied in realtime.
+    * The supplied [[Config]] will be appended to the current configuration and applied in realtime.
     *
     * @example
     * ```typescript
@@ -737,7 +737,7 @@ declare module "react-native-background-geolocation" {
     /**
     * Resets the plugin configuration to documented default-values.
     *
-    * If an optional [[interfaces/Config.Config | Config]] is provided, it will be applied *after* the configuration reset.
+    * If an optional [[Config]] is provided, it will be applied *after* the configuration reset.
     *
     */
     static reset(config?:Config, success?:(state:State) => void, failure?:Function): Promise<State>;
@@ -805,7 +805,7 @@ declare module "react-native-background-geolocation" {
     /**
     * Engages the geofences-only [[State.trackingMode]].
     *
-    * In this mode, no active location-tracking will occur &mdash; only geofences will be monitored.  To stop monitoring "geofences" [[types.TrackingMode | TrackingMode]],
+    * In this mode, no active location-tracking will occur &mdash; only geofences will be monitored.  To stop monitoring "geofences" [[TrackingMode]],
     * simply use the usual [[stop]] method.
     *
     * @example
@@ -836,12 +836,12 @@ declare module "react-native-background-geolocation" {
     *
     * ### ℹ️ See also:
     * - [[stop]]
-    * - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]]
+    * - 📘 [[Geofence | Geofencing Guide]]
     */
     static startGeofences(success?:(state:State) => void, failure?:(error:string) => void): Promise<State>;
 
     /**
-    * Return the current [[interfaces/State.State | State]] of the plugin, including all [[interfaces/Config.Config | Config]] parameters.
+    * Return the current [[State]] of the plugin, including all [[Config]] parameters.
     *
     * @example
     * ```typescript
@@ -942,7 +942,7 @@ declare module "react-native-background-geolocation" {
     * ```
     * ### Android
     *
-    * The Android implementation launches a foreground-service, along with the accompanying persistent foreground [[interfaces/Notification.Notification | Notification]].
+    * The Android implementation launches a foreground-service, along with the accompanying persistent foreground [[Notification]].
     *
     * ⚠️ The Android plugin hardcodes a limit of **30s** for your background-task before it automatically `FORCE KILL`s it.
     *
@@ -985,20 +985,20 @@ declare module "react-native-background-geolocation" {
     static finish(taskId: number, success?: Function, failure?: Function): Promise<number>;
 
     /**
-    * Retrieves the current [[interfaces/Location.Location | Location]].
+    * Retrieves the current [[Location]].
     *
     * This method instructs the native code to fetch exactly one location using maximum power & accuracy.  The native code will persist the fetched location to
     * its SQLite database just as any other location in addition to POSTing to your configured [[Config.url]].
-    * If an error occurs while fetching the location, `catch` will be provided with an [[types.LocationError]].
+    * If an error occurs while fetching the location, `catch` will be provided with an [[LocationError]].
     * @break
     *
     * ### Options
     *
-    * See [[interfaces/CurrentPositionRequest.CurrentPositionRequest | CurrentPositionRequest]].
+    * See [[CurrentPositionRequest]].
     *
     * ### Error Codes
     *
-    * See [[types.LocationError | LocationError]].
+    * See [[LocationError]].
     *
     * @example
     * ```typescript
@@ -1013,7 +1013,7 @@ declare module "react-native-background-geolocation" {
     * });
     * ```
     * ### ⚠️ Note:
-    * - While [[getCurrentPosition]] will receive only **one** [[interfaces/Location.Location | Location]], the plugin *does* request **multiple** location samples which will all be provided
+    * - While [[getCurrentPosition]] will receive only **one** [[Location]], the plugin *does* request **multiple** location samples which will all be provided
     * to the [[onLocation]] event-listener.  You can detect these samples via [[Location.sample]] `== true`.
     */
     static getCurrentPosition(options: CurrentPositionRequest, success?:(location:Location) => void, failure?:(errorCode:LocationError) => void): Promise<Location>;
@@ -1077,7 +1077,7 @@ declare module "react-native-background-geolocation" {
     static stopWatchPosition(success?: Function, failure?: Function): Promise<void>;
 
     /**
-    * Retrieve a List of [[interfaces/Location.Location | Location]] currently stored in the SDK's SQLite database.
+    * Retrieve a List of [[Location]] currently stored in the SDK's SQLite database.
     *
     * @example
     * ```typescript
@@ -1126,7 +1126,7 @@ declare module "react-native-background-geolocation" {
     * in the database will be DELETED.
     *
     * If you configured [[batchSync]] `true`, all the locations will be sent to your server in a single HTTP POST request, otherwise the plugin will
-    * execute an HTTP post for **each** [[interfaces/Location.Location | Location]] in the database (REST-style).  Your callback will be executed and provided with a `List` of all the
+    * execute an HTTP post for **each** [[Location]] in the database (REST-style).  Your callback will be executed and provided with a `List` of all the
     * locations from the SQLite database.  If you configured the plugin for HTTP (by configuring a [[Config.url]], your callback will be executed after all
     * the HTTP request(s) have completed.  If the plugin failed to sync to your server (possibly because of no network connection), the failure callback will
     * be called with an error message.  If you are **not** using the HTTP features, [[sync]] will delete all records from its SQLite database.
@@ -1140,7 +1140,7 @@ declare module "react-native-background-geolocation" {
     * });
     *
     * ```
-    *  ℹ️ For more information, see the [[interfaces/HttpEvent.HttpEvent | HTTP Guide]]
+    *  ℹ️ For more information, see the [[HttpEvent | HTTP Guide]]
     */
     static sync(success?:(locations:Array<Object>) => void, failure?:Function): Promise<Array<Object>>;
 
@@ -1198,7 +1198,7 @@ declare module "react-native-background-geolocation" {
     static resetOdometer(success?:Function, failure?:Function): Promise<Location>;
 
     /**
-    * Adds a [[interfaces/Geofence.Geofence | Geofence]] to be monitored by the native Geofencing API.
+    * Adds a [[Geofence]] to be monitored by the native Geofencing API.
     *
     * @example
     * ```typescript
@@ -1224,12 +1224,12 @@ declare module "react-native-background-geolocation" {
     * ### ℹ️ Note:
     * - If a geofence(s) *already* exists with the configured [[Geofence.identifier]], the previous one(s) will be **deleted** before the new one is inserted.
     * - When adding *multiple*, it's about **10 times faster** to use [[addGeofences]] instead.
-    * - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]]
+    * - 📘 [[Geofence | Geofencing Guide]]
     */
 
     static addGeofence(config:Geofence, success?:Function, failure?:(error:string) => void): Promise<void>;
     /**
-    * Adds a list of [[interfaces/Geofence.Geofence | Geofence]] to be monitored by the native Geofencing API.
+    * Adds a list of [[Geofence]] to be monitored by the native Geofencing API.
     *
     * @example
     * ```typescript
@@ -1252,14 +1252,14 @@ declare module "react-native-background-geolocation" {
     *
     * ### ℹ️ Note:
     * - If a geofence(s) *already* exists with the configured [[Geofence.identifier]], the previous one(s) will be **deleted** before the new one is inserted.
-    * - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]]
+    * - 📘 [[Geofence | Geofencing Guide]]
     * - [[addGeofence]]
     *
     */
     static addGeofences(geofences: Array<Geofence>, success?: Function, failure?: Function): Promise<void>;
 
     /**
-    * Removes a [[interfaces/Geofence.Geofence | Geofence]] having the given [[Geofence.identifier]].
+    * Removes a [[Geofence]] having the given [[Geofence.identifier]].
     *
     * @example
     * ```typescript
@@ -1271,12 +1271,12 @@ declare module "react-native-background-geolocation" {
     * ```
     *
     * ### ℹ️ See also:
-    * - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]]
+    * - 📘 [[Geofence | Geofencing Guide]]
     */
     static removeGeofence(identifier: string, success?: Function, failure?: Function): Promise<void>;
 
     /**
-    * Destroy all [[interfaces/Geofence.Geofence | Geofence]]
+    * Destroy all [[Geofence]]
     *
     * @example
     * ```typescript
@@ -1284,12 +1284,12 @@ declare module "react-native-background-geolocation" {
     * ```
     *
     * ### ℹ️ See also:
-    * - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]]
+    * - 📘 [[Geofence | Geofencing Guide]]
     */
     static removeGeofences(success?: Function, failure?: Function): Promise<void>;
 
     /**
-    * Fetch a list of all [[interfaces/Geofence.Geofence | Geofence]] in the SDK's database.  If there are no geofences being monitored, you'll receive an empty `Array`.
+    * Fetch a list of all [[Geofence]] in the SDK's database.  If there are no geofences being monitored, you'll receive an empty `Array`.
     *
     * @example
     * ```typescript
@@ -1297,12 +1297,12 @@ declare module "react-native-background-geolocation" {
     * console.log("[getGeofences: ", geofences);
     * ```
     * ### ℹ️ See also:
-    * - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]]
+    * - 📘 [[Geofence | Geofencing Guide]]
     */
     static getGeofences(success?:(geofences:Array<Geofence>) => void, failure?: (error:string) => void): Promise<Array<Geofence>>;
 
     /**
-    * Fetch a single [[interfaces/Geofence.Geofence | Geofence]] by identifier from the SDK's database.
+    * Fetch a single [[Geofence]] by identifier from the SDK's database.
     *
     * @example
     * ```typescript
@@ -1311,7 +1311,7 @@ declare module "react-native-background-geolocation" {
     * ```
     *
     * ### ℹ️ See also:
-    * - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]]
+    * - 📘 [[Geofence | Geofencing Guide]]
     */
     static getGeofence(identifier:string, success?:(geofence:Geofence) => void, failure?: (error:string) => void): Promise<Geofence>;
 
@@ -1324,7 +1324,7 @@ declare module "react-native-background-geolocation" {
     * console.log("[geofenceExists] ", exists);
     * ```
     * ### ℹ️ See also:
-    * - 📘 [[interfaces/Geofence.Geofence | Geofencing Guide]]
+    * - 📘 [[Geofence | Geofencing Guide]]
     */
     static geofenceExists(identifier:string, callback?:(exists:boolean) => void): Promise<boolean>;
 
@@ -1380,7 +1380,7 @@ declare module "react-native-background-geolocation" {
     * Returns the presence of device sensors *accelerometer*, *gyroscope*, *magnetometer*
     * @break
     *
-    * These core [[interfaces/Sensors.Sensors | Sensors]] are used by the motion activity-recognition system -- when any of these sensors are missing from a device (particularly on cheap
+    * These core [[Sensors]] are used by the motion activity-recognition system -- when any of these sensors are missing from a device (particularly on cheap
     * Android devices), the performance of the motion activity-recognition system will be **severely** degraded and highly inaccurate.
     *
     * For devices which *are* missing any of these sensors, you can increase the motion-detection sensitivity by decreasing
@@ -1518,9 +1518,9 @@ declare module "react-native-background-geolocation" {
     static transistorTrackerParams(device:Object):Object;
 
     /**
-    * Returns a *JSON Web Token* ([JWT](https://jwt.io/)) suitable for [[interfaces/Authorization.Authorization | Authorization]] with the Transistor Software demo server at http://tracker.transistorsoft.com.
+    * Returns a *JSON Web Token* ([JWT](https://jwt.io/)) suitable for [[Authorization]] with the Transistor Software demo server at http://tracker.transistorsoft.com.
     *
-    * To learn how to upload locations to the *Transistor Demo Server*, see [[interfaces/TransistorAuthorizationToken.TransistorAuthorizationToken | TransistorAuthorizationToken]].
+    * To learn how to upload locations to the *Transistor Demo Server*, see [[TransistorAuthorizationToken]].
     * ![](https://dl.dropboxusercontent.com/s/3abuyyhioyypk8c/screenshot-tracker-transistorsoft.png?dl=1)
     *
     * This token is typically provided to [[Config.transistorAuthorizationToken]] when first configuring the SDK with [[ready]].
@@ -1546,7 +1546,7 @@ declare module "react-native-background-geolocation" {
     * --------------------------------------------------
     *
     *
-    * When the SDK receives the [[interfaces/TransistorAuthorizationToken.TransistorAuthorizationToken | TransistorAuthorizationToken]] from `url`, it will be cached in persistant-storage within the native code.  If the SDK doesn"t find a cached token on the client, it will automatically register for one from `url`, using the provided `orgname` and `username`.  Otherwise, the cached token will be immediately returned.
+    * When the SDK receives the [[TransistorAuthorizationToken]] from `url`, it will be cached in persistant-storage within the native code.  If the SDK doesn"t find a cached token on the client, it will automatically register for one from `url`, using the provided `orgname` and `username`.  Otherwise, the cached token will be immediately returned.
     *
     *
     * @example

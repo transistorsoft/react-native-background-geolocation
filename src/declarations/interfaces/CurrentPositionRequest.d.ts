@@ -26,7 +26,7 @@ declare module "react-native-background-geolocation" {
     */
     desiredAccuracy?: number;
     /**
-    * Location-timeout in `seconds`.  Default: `30`.  If the timeout expires before a [[interfaces/Location.Location | Location]] is retrieved, a [[types.LocationError | LocationError]] will fire.
+    * Location-timeout in `seconds`.  Default: `30`.  If the timeout expires before a [[Location]] is retrieved, a [[LocationError]] will fire.
     */
     timeout?: number;
     /**

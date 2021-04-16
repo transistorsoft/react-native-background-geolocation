@@ -12,7 +12,7 @@ declare module "react-native-background-geolocation" {
   * # HTTP Guide
   * ---------------------------------------------------------------------------------------
   *
-  * The [[BackgroundGeolocation.BackgroundGeolocation | BackgroundGeolocation]] SDK hosts its own flexible and robust native HTTP & SQLite persistence services.  To enable the HTTP service, simply configure the SDK with an [[Config.url]]:
+  * The [[BackgroundGeolocation]] SDK hosts its own flexible and robust native HTTP & SQLite persistence services.  To enable the HTTP service, simply configure the SDK with an [[Config.url]]:
   *
   * @example
   * ```typescript
@@ -66,7 +66,7 @@ declare module "react-native-background-geolocation" {
   *
   * ## Capturing the data at your server
   *
-  * The SDK's HTTP Service will upload recorded locations as JSON to your [[Config.url]] (See [[interfaces/Location.Location | Location]] for the JSON schema) with `Content-Type application/json`.  The data can be found by your server in the ["HTTP request body"](https://www.google.com/search?q=http+post+application%2Fjson+request+body+text).
+  * The SDK's HTTP Service will upload recorded locations as JSON to your [[Config.url]] (See [[Location]] for the JSON schema) with `Content-Type application/json`.  The data can be found by your server in the ["HTTP request body"](https://www.google.com/search?q=http+post+application%2Fjson+request+body+text).
   *
   * ### PHP
   *
@@ -147,7 +147,7 @@ declare module "react-native-background-geolocation" {
   *
   * ## Custom `JSON` Schema:  [[locationTemplate]] and [[geofenceTemplate]]
   *
-  * The default HTTP `JSON` schema for both [[interfaces/Location.Location | Location]] and [[interfaces/Geofence.Geofence | Geofence]] can be overridden by the configuration options [[locationTemplate]] and [[geofenceTemplate]], allowing you to create any schema you wish.
+  * The default HTTP `JSON` schema for both [[Location]] and [[Geofence]] can be overridden by the configuration options [[locationTemplate]] and [[geofenceTemplate]], allowing you to create any schema you wish.
   *
   * ----------------------------------------------------------------------------------------------------------
   *

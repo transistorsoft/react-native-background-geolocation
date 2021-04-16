@@ -19,7 +19,5 @@ typedoc --out docs \
         --plugin ./node_modules/\@transistorsoft/typedoc-theme/node_modules/typedoc-plugin-merge-modules \
 	./src/declarations/
 
-cp ./scripts/docs-index.html ./docs/index.html
-cp ./docs/index.html ./docs/globals.html
 touch ./docs/.nojekyll
 

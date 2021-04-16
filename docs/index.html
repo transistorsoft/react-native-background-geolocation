@@ -1,4 +1,799 @@
-<html>
-  <meta http-equiv="refresh" content="0; URL=classes/backgroundgeolocation.backgroundgeolocation-1.html" />
-  <body></body>
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>React Native Background Geolocation</title>
+	<meta name="description" content="Documentation for React Native Background Geolocation">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="shortcut icon" class="favicon" href="assets/images/favicon.ico">
+	<script src="assets/js/search.js"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell left">
+					<div class="brand">
+						<a class="logo" href="https://www.transistorsoft.com"><img src="assets/images/transistor-logo-bw.svg" /></a>
+						<span class="title">
+							<a href="../../../../../../../..">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.0.3</span>
+						</span>
+					</div>
+				</div>
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading"></li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>React Native Background Geolocation</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-9 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class"><a href="classes/backgroundgeolocation.html" class="tsd-kind-icon">Background<wbr>Geolocation</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface"><a href="interfaces/authorization.html" class="tsd-kind-icon">Authorization</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/battery.html" class="tsd-kind-icon">Battery</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/config.html" class="tsd-kind-icon">Config</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/connectivitychangeevent.html" class="tsd-kind-icon">Connectivity<wbr>Change<wbr>Event</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/coords.html" class="tsd-kind-icon">Coords</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/devicesettingsrequest.html" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/geofence.html" class="tsd-kind-icon">Geofence</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/geofenceevent.html" class="tsd-kind-icon">Geofence<wbr>Event</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/geofenceschangeevent.html" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/heartbeatevent.html" class="tsd-kind-icon">Heartbeat<wbr>Event</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/httpevent.html" class="tsd-kind-icon">Http<wbr>Event</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/location.html" class="tsd-kind-icon">Location</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/locationauthorizationalert.html" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/logger.html" class="tsd-kind-icon">Logger</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/motionchangeevent.html" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/notification.html" class="tsd-kind-icon">Notification</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/permissionrationale.html" class="tsd-kind-icon">Permission<wbr>Rationale</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/sqlquery.html" class="tsd-kind-icon">SQLQuery</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/sensors.html" class="tsd-kind-icon">Sensors</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/state.html" class="tsd-kind-icon">State</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias"><a href="index.html#accuracyauthorization" class="tsd-kind-icon">Accuracy<wbr>Authorization</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#extras" class="tsd-kind-icon">Extras</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="accuracyauthorization" class="tsd-anchor"></a>
+					<h3>Accuracy<wbr>Authorization</h3>
+					<div class="tsd-signature tsd-kind-icon">Accuracy<wbr>Authorization<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">1</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<table>
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Value</th>
+									</tr>
+								</thead>
+								<tbody><tr>
+										<td><a href="classes/backgroundgeolocation.html#accuracy_authorization_full">ACCURACY_AUTHORIZATION_FULL</a></td>
+										<td>0</td>
+									</tr>
+									<tr>
+										<td><a href="classes/backgroundgeolocation.html#accuracy_authorization_reduced">ACCURACY_AUTHORIZATION_REDUCED</a></td>
+										<td>1</td>
+									</tr>
+							</tbody></table>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="activitytype" class="tsd-anchor"></a>
+					<h3>Activity<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">Activity<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">2</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">3</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">4</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Used for <a href="interfaces/config.html#activitytype">Config.activityType</a>.</p>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>Name</th>
+								</tr>
+							</thead>
+							<tbody><tr>
+									<td><a href="classes/backgroundgeolocation.html#activity_type_other">ACTIVITY_TYPE_OTHER</a></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#activity_type_automotive_navigation">ACTIVITY_TYPE_AUTOMOTIVE_NAVIGATION</a></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#activity_type_fitness">ACTIVITY_TYPE_FITNESS</a></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#activity_type_other_navigation">ACTIVITY_TYPE_OTHER_NAVIGATION</a></td>
+								</tr>
+						</tbody></table>
+						<p>ℹ️  For more information, see <a href="https://developer.apple.com/reference/corelocation/cllocationmanager/1620567-activitytype?language=objc">Apple docs</a>.</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="authorizationstatus" class="tsd-anchor"></a>
+					<h3>Authorization<wbr>Status</h3>
+					<div class="tsd-signature tsd-kind-icon">Authorization<wbr>Status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">2</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">3</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">4</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<table>
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Platform</th>
+									</tr>
+								</thead>
+								<tbody><tr>
+										<td><a href="classes/backgroundgeolocation.html#authorization_status_not_determined">AUTHORIZATION_STATUS_NOT_DETERMINED</a></td>
+										<td>iOS only</td>
+									</tr>
+									<tr>
+										<td><a href="classes/backgroundgeolocation.html#authorization_status_restricted">AUTHORIZATION_STATUS_RESTRICTED</a></td>
+										<td>iOS only</td>
+									</tr>
+									<tr>
+										<td><a href="classes/backgroundgeolocation.html#authorization_status_denied">AUTHORIZATION_STATUS_DENIED</a></td>
+										<td>iOS &amp; Android</td>
+									</tr>
+									<tr>
+										<td><a href="classes/backgroundgeolocation.html#authorization_status_always">AUTHORIZATION_STATUS_ALWAYS</a></td>
+										<td>iOS &amp; Android</td>
+									</tr>
+									<tr>
+										<td><a href="classes/backgroundgeolocation.html#authorization_status_when_in_use">AUTHORIZATION_STATUS_WHEN_IN_USE</a></td>
+										<td>iOS only</td>
+									</tr>
+							</tbody></table>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="extras" class="tsd-anchor"></a>
+					<h3>Extras</h3>
+					<div class="tsd-signature tsd-kind-icon">Extras<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="index.html#extras" class="tsd-signature-type" data-tsd-kind="Type alias">Extras</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><a href="index.html#extras" class="tsd-signature-type" data-tsd-kind="Type alias">Extras</a><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="httpmethod" class="tsd-anchor"></a>
+					<h3>Http<wbr>Method</h3>
+					<div class="tsd-signature tsd-kind-icon">Http<wbr>Method<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;POST&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;PUT&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;OPTIONS&quot;</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Desired HTTP method to use when uploading data to your configured <a href="interfaces/config.html#url">Config.url</a>.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="locationaccuracy" class="tsd-anchor"></a>
+					<h3>Location<wbr>Accuracy</h3>
+					<div class="tsd-signature tsd-kind-icon">Location<wbr>Accuracy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">-2</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">-1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">0</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">10</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">100</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">1000</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">3000</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Used for <a href="interfaces/config.html#desiredaccuracy">Config.desiredAccuracy</a>.</p>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Location Providers</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody><tr>
+									<td><a href="classes/backgroundgeolocation.html#desired_accuracy_navigation">DESIRED_ACCURACY_NAVIGATION</a></td>
+									<td>(<strong>iOS only</strong>) GPS + Wifi + Cellular</td>
+									<td>Highest power; highest accuracy.</td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#desired_accuracy_high">DESIRED_ACCURACY_HIGH</a></td>
+									<td>GPS + Wifi + Cellular</td>
+									<td>Highest power; highest accuracy.</td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#desired_accuracy_medium">DESIRED_ACCURACY_MEDIUM</a></td>
+									<td>Wifi + Cellular</td>
+									<td>Medium power; Medium accuracy;</td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#desired_accuracy_low">DESIRED_ACCURACY_LOW</a></td>
+									<td>Wifi (low power) + Cellular</td>
+									<td>Lower power; No GPS.</td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#desired_accuracy_very_low">DESIRED_ACCURACY_VERY_LOW</a></td>
+									<td>Cellular only</td>
+									<td>Lowest power; lowest accuracy.</td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#desired_accuracy_lowest">DESIRED_ACCURACY_LOWEST</a></td>
+									<td>(<strong>iOS only</strong>)</td>
+									<td>Lowest power; lowest accuracy.</td>
+								</tr>
+						</tbody></table>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="locationauthorizationrequest" class="tsd-anchor"></a>
+					<h3>Location<wbr>Authorization<wbr>Request</h3>
+					<div class="tsd-signature tsd-kind-icon">Location<wbr>Authorization<wbr>Request<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;Always&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;WhenInUse&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;Any&quot;</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>iOS Location authorization request.
+							This is used to express the location authorization you <em>expect</em> the user have enabled.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="locationerror" class="tsd-anchor"></a>
+					<h3>Location<wbr>Error</h3>
+					<div class="tsd-signature tsd-kind-icon">Location<wbr>Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">2</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">408</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">499</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>When native location API fails to fetch a location, one of the following error-codes will be returned.</p>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>Code</th>
+									<th>Error</th>
+								</tr>
+							</thead>
+							<tbody><tr>
+									<td>0</td>
+									<td>Location unknown</td>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>Location permission denied</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Network error</td>
+								</tr>
+								<tr>
+									<td>408</td>
+									<td>Location timeout</td>
+								</tr>
+								<tr>
+									<td>499</td>
+									<td>Location request cancelled</td>
+								</tr>
+						</tbody></table>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="loglevel" class="tsd-anchor"></a>
+					<h3>Log<wbr>Level</h3>
+					<div class="tsd-signature tsd-kind-icon">Log<wbr>Level<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">2</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">3</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">4</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">5</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Controls the volume of <a href="interfaces/config.html#loglevel">Config.logLevel</a> log-entries recorded to database.</p>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>Label</th>
+								</tr>
+							</thead>
+							<tbody><tr>
+									<td><a href="classes/backgroundgeolocation.html#log_level_off">LOG_LEVEL_OFF</a></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#log_level_error">LOG_LEVEL_ERROR</a></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#log_level_warning">LOG_LEVEL_WARNING</a></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#log_level_info">LOG_LEVEL_INFO</a></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#log_level_debug">LOG_LEVEL_DEBUG</a></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#log_level_verbose">LOG_LEVEL_VERBOSE</a></td>
+								</tr>
+						</tbody></table>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="notificationpriority" class="tsd-anchor"></a>
+					<h3>Notification<wbr>Priority</h3>
+					<div class="tsd-signature tsd-kind-icon">Notification<wbr>Priority<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">-1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">2</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">-2</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Used for <a href="interfaces/notification.html#priority">Notification.priority</a>.</p>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>Value</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody><tr>
+									<td><a href="classes/backgroundgeolocation.html#notification_priority_default">NOTIFICATION_PRIORITY_DEFAULT</a></td>
+									<td>Notification weighted to top of list; notification-bar icon weighted left.</td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#notification_priority_high">NOTIFICATION_PRIORITY_HIGH</a></td>
+									<td>Notification <strong>strongly</strong> weighted to top of list; notification-bar icon <strong>strongly</strong> weighted to left.</td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#notification_priority_low">NOTIFICATION_PRIORITY_LOW</a></td>
+									<td>Notification weighted to bottom of list; notification-bar icon weighted right.</td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#notification_priority_max">NOTIFICATION_PRIORITY_MAX</a></td>
+									<td>Same as <code>NOTIFICATION_PRIORITY_HIGH</code>.</td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#notification_priority_min">NOTIFICATION_PRIORITY_MIN</a></td>
+									<td>Notification <strong>strongly</strong> weighted to bottom of list; notification-bar icon <strong>hidden</strong>.</td>
+								</tr>
+						</tbody></table>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="persistmode" class="tsd-anchor"></a>
+					<h3>Persist<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Persist<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">-1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">0</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">2</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="sqlqueryorder" class="tsd-anchor"></a>
+					<h3>SQLQuery<wbr>Order</h3>
+					<div class="tsd-signature tsd-kind-icon">SQLQuery<wbr>Order<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">-1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">1</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Controls ordering of <a href="interfaces/sqlquery.html#order">SQLQuery.order</a></p>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Value</th>
+								</tr>
+							</thead>
+							<tbody><tr>
+									<td><a href="interfaces/logger.html#order_asc">Logger.ORDER_ASC</a></td>
+									<td><code>1</code></td>
+								</tr>
+								<tr>
+									<td><a href="interfaces/logger.html#order_desc">Logger.ORDER_DESC</a></td>
+									<td><code>-1</code></td>
+								</tr>
+						</tbody></table>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="trackingmode" class="tsd-anchor"></a>
+					<h3>Tracking<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Tracking<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">1</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<table>
+								<thead>
+									<tr>
+										<th>Value</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody><tr>
+										<td><code>0</code></td>
+										<td>Geofences-only monitoring (<a href="classes/backgroundgeolocation.html#startgeofences">BackgroundGeolocation.startGeofences</a>).</td>
+									</tr>
+									<tr>
+										<td><code>1</code></td>
+										<td>Both location &amp; Geofence monitoring.</td>
+									</tr>
+							</tbody></table>
+						</div>
+					</div>
+				</section>
+			</section>
+		</div>
+		<div class="col-3 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/backgroundgeolocation.html" class="tsd-kind-icon">Background<wbr>Geolocation</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/authorization.html" class="tsd-kind-icon">Authorization</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/battery.html" class="tsd-kind-icon">Battery</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/config.html" class="tsd-kind-icon">Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/connectivitychangeevent.html" class="tsd-kind-icon">Connectivity<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/coords.html" class="tsd-kind-icon">Coords</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/devicesettingsrequest.html" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/geofence.html" class="tsd-kind-icon">Geofence</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/geofenceevent.html" class="tsd-kind-icon">Geofence<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/geofenceschangeevent.html" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/heartbeatevent.html" class="tsd-kind-icon">Heartbeat<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/httpevent.html" class="tsd-kind-icon">Http<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/location.html" class="tsd-kind-icon">Location</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/locationauthorizationalert.html" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/logger.html" class="tsd-kind-icon">Logger</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/motionchangeevent.html" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/notification.html" class="tsd-kind-icon">Notification</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/permissionrationale.html" class="tsd-kind-icon">Permission<wbr>Rationale</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sqlquery.html" class="tsd-kind-icon">SQLQuery</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sensors.html" class="tsd-kind-icon">Sensors</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/state.html" class="tsd-kind-icon">State</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#accuracyauthorization" class="tsd-kind-icon">Accuracy<wbr>Authorization</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#extras" class="tsd-kind-icon">Extras</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/backgroundgeolocation.html" class="tsd-kind-icon">Background<wbr>Geolocation</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/authorization.html" class="tsd-kind-icon">Authorization</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/authorizationevent.html" class="tsd-kind-icon">Authorization<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/battery.html" class="tsd-kind-icon">Battery</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/config.html" class="tsd-kind-icon">Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/connectivitychangeevent.html" class="tsd-kind-icon">Connectivity<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/coords.html" class="tsd-kind-icon">Coords</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/currentpositionrequest.html" class="tsd-kind-icon">Current<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/deviceinfo.html" class="tsd-kind-icon">Device<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/devicesettings.html" class="tsd-kind-icon">Device<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/devicesettingsrequest.html" class="tsd-kind-icon">Device<wbr>Settings<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/geofence.html" class="tsd-kind-icon">Geofence</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/geofenceevent.html" class="tsd-kind-icon">Geofence<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/geofenceschangeevent.html" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/heartbeatevent.html" class="tsd-kind-icon">Heartbeat<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/httpevent.html" class="tsd-kind-icon">Http<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/location.html" class="tsd-kind-icon">Location</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/locationauthorizationalert.html" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/logger.html" class="tsd-kind-icon">Logger</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/motionchangeevent.html" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/notification.html" class="tsd-kind-icon">Notification</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/permissionrationale.html" class="tsd-kind-icon">Permission<wbr>Rationale</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/providerchangeevent.html" class="tsd-kind-icon">Provider<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sqlquery.html" class="tsd-kind-icon">SQLQuery</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sensors.html" class="tsd-kind-icon">Sensors</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/state.html" class="tsd-kind-icon">State</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/transistorauthorizationtoken.html" class="tsd-kind-icon">Transistor<wbr>Authorization<wbr>Token</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/watchpositionrequest.html" class="tsd-kind-icon">Watch<wbr>Position<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#accuracyauthorization" class="tsd-kind-icon">Accuracy<wbr>Authorization</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#extras" class="tsd-kind-icon">Extras</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#trackingmode" class="tsd-kind-icon">Tracking<wbr>Mode</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-102968-14', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
 </html>

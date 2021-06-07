@@ -168,6 +168,23 @@ declare module "react-native-background-geolocation" {
   * ```
   */
   export class BackgroundGeolocation {
+    static EVENT_BOOT: Event;
+    static EVENT_TERMINATE: Event;
+    static EVENT_LOCATION: Event;
+    static EVENT_MOTIONCHANGE: Event;
+    static EVENT_HTTP: Event;
+    static EVENT_HEARTBEAT: Event;
+    static EVENT_PROVIDERCHANGE: Event;
+    static EVENT_ACTIVITYCHANGE: Event;
+    static EVENT_GEOFENCE: Event;
+    static EVENT_GEOFENCESCHANGE: Event;
+    static EVENT_ENABLEDCHANGE: Event;
+    static EVENT_CONNECTIVITYCHANGE: Event;
+    static EVENT_SCHEDULE: Event;
+    static EVENT_POWERSAVECHANGE: Event;
+    static EVENT_NOTIFICATIONACTION: Event;
+    static EVENT_AUTHORIZATION: Event;
+
     static LOG_LEVEL_OFF: LogLevel;
     static LOG_LEVEL_ERROR: LogLevel;
     static LOG_LEVEL_WARNING: LogLevel;

@@ -1,5 +1,10 @@
 # Change Log
 
+## 4.1.0 &mdash; 2021-06-07
+* [Changed] `Config.authorization` will perform regexp on the received response, searching for keys such as `accessToken`, `access_token`, `refreshToken`, `refresh_token`.
+* [Fixed] Typescript definition for interface `HeadlessEvent` was missing `timeout: boolean` attribute.  Thanks @mikehardy.
+* [Added] Add typescript constants for plugin events, eg: `BackgroundGeolocation.EVENT_MOTIONCHANGE`.
+
 ## 4.0.3 &mdash; 2021-04-08
 * [Fixed][iOS] `"OBJC_IVAR$_DDLogMessage._tag"`.  CocoaLumberjack pushed a breaking change to 3.7.1 on 04/08.  Pins CocoaLumberjack@3.7.0
 

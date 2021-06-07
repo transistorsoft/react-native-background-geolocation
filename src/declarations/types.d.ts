@@ -1,5 +1,54 @@
 declare module "react-native-background-geolocation" {
 	/**
+	* Recognized event names available as constants upon the [[BackgroundGeolocation]] class.
+	*
+	* ```javascript
+	* // eg
+	* BackgroundGeolocation.EVENT_LOCATION)
+	* > "location"
+	*
+	* BackgoundGeolocation.EVENT_MOTIONCHANGE;
+	* > "motionchange"
+	*
+	* ```
+	*
+	* | Name                                | Value     |
+	* |-------------------------------------|-----------|
+	* | [[EVENT_BOOT]] 						| `boot` |
+	* | [[EVENT_TERMINATE]] 				| `terminate` |
+	* | [[EVENT_LOCATION]] 					| `location` |
+	* | [[EVENT_MOTIONCHANGE]] 				| `motionchange` |
+	* | [[EVENT_HTTP]] 						| `http` |
+	* | [[EVENT_HEARTBEAT]] 				| `heartbeat` |
+	* | [[EVENT_PROVIDERCHANGE]] 			| `providerchange` |
+	* | [[EVENT_ACTIVITYCHANGE]] 			| `activitychange` |
+	* | [[EVENT_GEOFENCE]] 					| `geofence` |
+	* | [[EVENT_GEOFENCESCHANGE]] 			| `geofenceschange` |
+	* | [[EVENT_ENABLEDCHANGE]] 			| `enabledchange` |
+	* | [[EVENT_CONNECTIVITYCHANGE]] 		| `connectivitychange` |
+	* | [[EVENT_SCHEDULE]] 					| `schedule` |
+	* | [[EVENT_POWERSAVECHANGE]] 			| `powersavechange` |
+	* | [[EVENT_NOTIFICATIONACTION]] 		| `notificationaction` |
+	* | [[EVENT_AUTHORIZATION]] 			| `authorization` |
+	*/
+	export type Event = "boot"
+		| "terminate"
+		| "location"
+		| "motionchange"
+		| "http"
+		| "heartbeat"
+		| "providerchange"
+		| "activitychange"
+		| "geofence"
+		| "geofenceschange"
+		| "enabledchange"
+		| "connectvitychange"
+		| "schedule"
+		| "powersavechange"
+		| "notificationaction"
+		| "authorization";
+
+	/**
 	* Controls the volume of [[Config.logLevel]] log-entries recorded to database.
 	*
 	* | Label                      |

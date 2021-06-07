@@ -19,7 +19,7 @@
 					<div class="brand">
 						<a class="logo" href="https://www.transistorsoft.com"><img src="assets/images/transistor-logo-bw.svg" /></a>
 						<span class="title">
-							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.0.3</span>
+							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.1.0</span>
 						</span>
 					</div>
 				</div>
@@ -112,6 +112,7 @@
 								<li class="tsd-kind-type-alias"><a href="index.html#accuracyauthorization" class="tsd-kind-icon">Accuracy<wbr>Authorization</a></li>
 								<li class="tsd-kind-type-alias"><a href="index.html#activitytype" class="tsd-kind-icon">Activity<wbr>Type</a></li>
 								<li class="tsd-kind-type-alias"><a href="index.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#event" class="tsd-kind-icon">Event</a></li>
 								<li class="tsd-kind-type-alias"><a href="index.html#extras" class="tsd-kind-icon">Extras</a></li>
 								<li class="tsd-kind-type-alias"><a href="index.html#httpmethod" class="tsd-kind-icon">Http<wbr>Method</a></li>
 								<li class="tsd-kind-type-alias"><a href="index.html#locationaccuracy" class="tsd-kind-icon">Location<wbr>Accuracy</a></li>
@@ -225,6 +226,98 @@
 									</tr>
 							</tbody></table>
 						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="event" class="tsd-anchor"></a>
+					<h3>Event</h3>
+					<div class="tsd-signature tsd-kind-icon">Event<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;boot&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;terminate&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;location&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;motionchange&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;http&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;heartbeat&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;providerchange&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;activitychange&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;geofence&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;geofenceschange&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;enabledchange&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;connectvitychange&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;schedule&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;powersavechange&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;notificationaction&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;authorization&quot;</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Recognized event names available as constants upon the <a href="classes/backgroundgeolocation.html">BackgroundGeolocation</a> class.</p>
+						</div>
+						<pre><code class="language-javascript"><span style="color: #88846F">// eg</span>
+<span style="color: #F8F8F2">BackgroundGeolocation.EVENT_LOCATION)</span>
+<span style="color: #F92672">&gt;</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">&quot;location&quot;</span>
+
+<span style="color: #F8F8F2">BackgoundGeolocation.EVENT_MOTIONCHANGE;</span>
+<span style="color: #F92672">&gt;</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">&quot;motionchange&quot;</span>
+
+</code></pre>
+						<table>
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Value</th>
+								</tr>
+							</thead>
+							<tbody><tr>
+									<td><a href="classes/backgroundgeolocation.html#event_boot">EVENT_BOOT</a></td>
+									<td><code>boot</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_terminate">EVENT_TERMINATE</a></td>
+									<td><code>terminate</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_location">EVENT_LOCATION</a></td>
+									<td><code>location</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_motionchange">EVENT_MOTIONCHANGE</a></td>
+									<td><code>motionchange</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_http">EVENT_HTTP</a></td>
+									<td><code>http</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_heartbeat">EVENT_HEARTBEAT</a></td>
+									<td><code>heartbeat</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_providerchange">EVENT_PROVIDERCHANGE</a></td>
+									<td><code>providerchange</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_activitychange">EVENT_ACTIVITYCHANGE</a></td>
+									<td><code>activitychange</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_geofence">EVENT_GEOFENCE</a></td>
+									<td><code>geofence</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_geofenceschange">EVENT_GEOFENCESCHANGE</a></td>
+									<td><code>geofenceschange</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_enabledchange">EVENT_ENABLEDCHANGE</a></td>
+									<td><code>enabledchange</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_connectivitychange">EVENT_CONNECTIVITYCHANGE</a></td>
+									<td><code>connectivitychange</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_schedule">EVENT_SCHEDULE</a></td>
+									<td><code>schedule</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_powersavechange">EVENT_POWERSAVECHANGE</a></td>
+									<td><code>powersavechange</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_notificationaction">EVENT_NOTIFICATIONACTION</a></td>
+									<td><code>notificationaction</code></td>
+								</tr>
+								<tr>
+									<td><a href="classes/backgroundgeolocation.html#event_authorization">EVENT_AUTHORIZATION</a></td>
+									<td><code>authorization</code></td>
+								</tr>
+						</tbody></table>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
@@ -599,6 +692,9 @@
 						<a href="index.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
+						<a href="index.html#event" class="tsd-kind-icon">Event</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
 						<a href="index.html#extras" class="tsd-kind-icon">Extras</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
@@ -727,6 +823,9 @@
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="index.html#authorizationstatus" class="tsd-kind-icon">Authorization<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#event" class="tsd-kind-icon">Event</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="index.html#extras" class="tsd-kind-icon">Extras</a>

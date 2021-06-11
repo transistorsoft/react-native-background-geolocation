@@ -1,5 +1,10 @@
 # Change Log
 
+## 4.1.1 &mdash; 2021-06-11
+* [Fixed][iOS] Reports 2 reports of iOS crash `NSInvalidArgumentException (TSLocation.m line 178)` with iOS 14
+.x.  Wrap JSON serialization in @try/@catch block.  iOS JSON serialization docs state the supplied NSError err
+or ref should report problems but it seems this is only "sometimes" now.
+
 ## 4.1.0 &mdash; 2021-06-07
 * [Changed] `Config.authorization` will perform regexp on the received response, searching for keys such as `accessToken`, `access_token`, `refreshToken`, `refresh_token`.
 * [Fixed] Typescript definition for interface `HeadlessEvent` was missing `timeout: boolean` attribute.  Thanks @mikehardy.

@@ -22,7 +22,7 @@ declare module "react-native-background-geolocation" {
     * | `on_bicycle`   |
     * | `in_vehicle`   |
     */
-    activity: string;
+    type: string;
     /**
     * Confidence of the reported device motion activity in %.
     */

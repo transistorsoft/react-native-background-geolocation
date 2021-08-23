@@ -1,5 +1,16 @@
 # Change Log
 
+## [4.2.2] &mdash; 2021-08-23
+* [Fixed][iOS] add config change listeners for `heartbeatInterval` and `preventSuspend` to dynamically update interval when changed with `setConfig`.
+* [Fixed][Android] Add `accuracyAuthorization` param to event data provided to `onProviderChange` event.
+* [Changed][Android] Update Android default `okhttp` version to `3.12.13`.
+* [Changed][Android] Update Android `eventbus` version to `3.2.0`.
+* [Changed][Android] Update Android `android-permissions` to import from *MavenCentral* instead of deprecated `jCenter`.
+* [Fixed][Android] Fix an edge-case requesting motion permission.  If `getCurrentPosition()` is executed before `.start()`, the Android SDK fails to request motion permission.
+
+## 4.1.2 &mdash; 2021-07-05
+* [Changed] Build iOS TSLocationManager.xcframework with XCode 12.4 instead of 12.5
+
 ## 4.1.1 &mdash; 2021-06-11
 * [Fixed][iOS] Reports 2 reports of iOS crash `NSInvalidArgumentException (TSLocation.m line 178)` with iOS 14
 .x.  Wrap JSON serialization in @try/@catch block.  iOS JSON serialization docs state the supplied NSError err

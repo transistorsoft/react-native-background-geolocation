@@ -184,6 +184,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             params.putBoolean("network", event.isNetworkEnabled());
             params.putBoolean("gps", event.isGPSEnabled());
             params.putBoolean("enabled", event.isEnabled());
+            params.putInt("accuracyAuthorization", event.getAccuracyAuthorization());
             params.putInt("status", event.getStatus());
             sendEvent(BackgroundGeolocation.EVENT_PROVIDERCHANGE, params);
         }

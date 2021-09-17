@@ -973,16 +973,21 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                 success.invoke(status);
             }
             @Override public void onFailure(int status) {
-                error.invoke(status);
+                success.invoke(status);
             }
         });
     }
 
     @ReactMethod
-    public void requestTemporaryFullAccuracy(String purpose, Callback success, Callback failure) {
-        // Note:  No Android implementation -- this is an iOS-only mechanism currently.
-        // return iOS CLAccuracyAuthorizationFull (0)
-        success.invoke(LocationProviderChangeEvent.ACCURACY_AUTHORIZATION_FULL);
+    public void requestTemporaryFullAccuracy(String purpose, final Callback success, final Callback failure) {
+        getAdapter().requestTemporaryFullAccuracy(purpose, new TSRequestPermissionCallback() {
+            @Override public void onSuccess(int accuracyAuthorization) {
+                success.invoke(accuracyAuthorization);
+            }
+            @Override public void onFailure(int accuracyAuthorization) {
+                success.invoke(accuracyAuthorization);
+            }
+        });
     }
 
     @ReactMethod

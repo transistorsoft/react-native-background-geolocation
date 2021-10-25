@@ -51,8 +51,50 @@ const LOGGER = {
   }
 }
 
+/// Internal Subscription instance
+/// @deprecated.
+class Subscription {
+  constructor(event, subscription, callback) {
+    this.event = event;
+    this.subscription = subscription;
+    this.callback = callback;
+  }
+}
+
 // Plugin event listener subscriptions
+// @deprecated.
 let EVENT_SUBSCRIPTIONS = [];
+
+const findEventSubscriptionByEvent = (event, callback) => {
+  let found = null;
+  for (let n=0,len=EVENT_SUBSCRIPTIONS.length;n<len;n++) {
+    let sub = EVENT_SUBSCRIPTIONS[n];
+    if ((sub.event === event) && (sub.callback === callback)) {
+        found = sub;
+        break;
+    }
+  }
+  return found;
+}
+
+const findEventSubscription = (subscription) => {
+  let found = null;
+  for (let n=0,len=EVENT_SUBSCRIPTIONS.length;n<len;n++) {
+    let sub = EVENT_SUBSCRIPTIONS[n];
+    if (sub.subscription === subscription) {
+        found = sub;
+        break;
+    }
+  }
+  return found;
+}
+
+const removeEventSubscription = (subscription) => {
+  const found = findEventSubscription(subscription);
+  if (found !== null) {
+    EVENT_SUBSCRIPTIONS.splice(EVENT_SUBSCRIPTIONS.indexOf(found), 1);
+  }
+}
 
 // Validate provided config for #ready, #setConfig
 const validateConfig = (config) => {
@@ -82,13 +124,6 @@ const validateConfig = (config) => {
 
   return config;
 };
-
-class Subscription {
-  constructor(subscription, callback) {
-    this.subscription = subscription;
-    this.callback = callback;
-  }
-}
 
 // Cached copy of DeviceInfo.
 let deviceInfo = null;
@@ -161,7 +196,7 @@ export default class NativeModule {
     if (!Events[event.toUpperCase()]) {
       throw (TAG + "#addListener - Unknown event '" + event + "'");
     }
-    let handler = (response) => {
+    const handler = (response) => {
       if (response.hasOwnProperty("error") && (response.error != null)) {
         if (typeof(failure) === 'function') {
           failure(response.error);
@@ -172,38 +207,49 @@ export default class NativeModule {
         success(response);
       }
     }
-    let subscription = new Subscription(EventEmitter.addListener(event, handler), success);
-    EVENT_SUBSCRIPTIONS.push(subscription);
-    RNBackgroundGeolocation.addEventListener(event);
-  }
+    const subscription = EventEmitter.addListener(event, handler);
 
-  static removeListener(event, callback, success, failure) {
-    let found = null;
-    for (let n=0,len=EVENT_SUBSCRIPTIONS.length;n<len;n++) {
-      let sub = EVENT_SUBSCRIPTIONS[n];
-      if ((sub.subscription.eventType === event) && (sub.callback === callback)) {
-          found = sub;
-          break;
+    if (typeof(subscription.remove) === 'function') {
+      // React Native 0.65+ altered EventEmitter
+      //
+      // Wrap .remove() to remove from our own local EVENT_SUBSCRIPTIONS cache.
+      // Eventually we can remove this local cache entirely once people are trained
+      // to not use removeListener.
+      const originalRemove = subscription.remove;
+      subscription.remove = () => {
+        originalRemove.call(subscription);
+        removeEventSubscription(subscription);
+      }
+    } else {
+      // Old RN API?  Create a .remove() method.
+      subscription.remove = () => {
+        EventEmitter.removeListener(event, handler);
+        removeEventSubscription(subscription);
       }
     }
+    EVENT_SUBSCRIPTIONS.push(new Subscription(event, subscription, success));
+    return subscription;
+  }
+
+  // @deprecated in favor of subscription.remove().
+  static removeListener(event, callback, success, failure) {
+    console.warn('BackgroundGeolocation.removeListener is deprecated.  Event-listener methods (eg: onLocation) now return a subscription instance.  Call subscription.remove() on the returned subscription instead.  Eg:\nconst subscription = BackgroundGeolocation.onLocation(myLocationHandler)\n...\nsubscription.remove()');
+    const found = findEventSubscriptionByEvent(event, callback);
     if (found !== null) {
-      EVENT_SUBSCRIPTIONS.splice(EVENT_SUBSCRIPTIONS.indexOf(found), 1);
-      RNBackgroundGeolocation.removeListener(event);
-      EventEmitter.removeListener(event, found.subscription.listener);
+      found.subscription.remove();
+      return true;
+    } else {
+      return false;
     }
   }
 
   static removeListeners() {
     return new Promise((resolve, reject) => {
-      let success = async () => {
-        for (const event in Events) {
-          EventEmitter.removeAllListeners(Events[event.toUpperCase()]);
-        }
-        EVENT_SUBSCRIPTIONS = [];
-        resolve();
-      }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.removeAllListeners(success, failure);
+      EVENT_SUBSCRIPTIONS.forEach((sub) => {
+        sub.subscription.remove();
+      });
+      EVENT_SUBSCRIPTIONS = [];
+      resolve();
     });
   }
 

@@ -30,22 +30,7 @@ static NSString *const EVENT_NOTIFICATIONACTION = @"notificationaction";
 static NSString *const EVENT_AUTHORIZATION      = @"authorization";
 
 @implementation RNBackgroundGeolocation {
-    NSMutableDictionary *listeners;
     BOOL ready;
-    void(^onLocation)(TSLocation*);
-    void(^onLocationError)(NSError*);
-    void(^onMotionChange)(TSLocation*);
-    void(^onActivityChange)(TSActivityChangeEvent*);
-    void(^onHeartbeat)(TSHeartbeatEvent*);
-    void(^onGeofence)(TSGeofenceEvent*);
-    void(^onGeofencesChange)(TSGeofencesChangeEvent*);
-    void(^onHttp)(TSHttpEvent*);
-    void(^onProviderChange)(TSProviderChangeEvent*);
-    void(^onSchedule)(TSScheduleEvent*);
-    void(^onPowerSaveChange)(TSPowerSaveChangeEvent*);
-    void(^onConnectivityChange)(TSConnectivityChangeEvent*);
-    void(^onEnabledChange)(TSEnabledChangeEvent*);
-    void(^onAuthorization)(TSAuthorizationEvent*);
 }
 
 @synthesize locationManager;
@@ -66,60 +51,7 @@ RCT_EXPORT_MODULE();
     if (self) {
         ready = NO;
 
-        __typeof(self) __weak me = self;
-
         // Build event-listener blocks
-        onLocation = ^void(TSLocation *location) {
-            [me sendEvent:EVENT_LOCATION body:[location toDictionary]];
-        };
-        onLocationError = ^void(NSError *error) {
-            [me sendEvent:EVENT_LOCATION body: @{@"error":@(error.code)}];
-        };
-        onMotionChange = ^void(TSLocation *location) {
-            [me sendEvent:EVENT_MOTIONCHANGE body:@{@"isMoving":@(location.isMoving), @"location":[location toDictionary]}];
-        };
-        onActivityChange = ^void(TSActivityChangeEvent *event) {
-            NSDictionary *params = @{@"activity": event.activity, @"confidence": @(event.confidence)};
-            [me sendEvent:EVENT_ACTIVITYCHANGE body:params];
-        };
-        onHeartbeat = ^void(TSHeartbeatEvent *event) {
-            [me sendEvent:EVENT_HEARTBEAT body:@{@"location":[event.location toDictionary]}];
-        };
-        onGeofence = ^void(TSGeofenceEvent *event) {
-            NSMutableDictionary *params = [[event toDictionary] mutableCopy];
-            [params setObject:[event.location toDictionary] forKey:@"location"];
-            [me sendEvent:EVENT_GEOFENCE body:params];
-        };
-        onGeofencesChange = ^void(TSGeofencesChangeEvent *event) {
-            [me sendEvent:EVENT_GEOFENCESCHANGE body:[event toDictionary]];
-        };
-        onHttp = ^void(TSHttpEvent *response) {
-            NSDictionary *params = @{@"success": @(response.isSuccess), @"status": @(response.statusCode), @"responseText":response.responseText};
-            [me sendEvent:EVENT_HTTP body:params];
-        };
-        onProviderChange = ^void(TSProviderChangeEvent *event) {
-            [me sendEvent:EVENT_PROVIDERCHANGE body:[event toDictionary]];
-        };
-        onSchedule = ^void(TSScheduleEvent *event) {
-            [me sendEvent:EVENT_SCHEDULE body:event.state];
-        };
-        onPowerSaveChange = ^void(TSPowerSaveChangeEvent *event) {
-            [me sendEvent:EVENT_POWERSAVECHANGE body:@(event.isPowerSaveMode)];
-        };
-        onConnectivityChange = ^void(TSConnectivityChangeEvent *event) {
-            NSDictionary *params = @{@"connected":@(event.hasConnection)};
-            [me sendEvent:EVENT_CONNECTIVITYCHANGE body:params];
-        };
-        onEnabledChange = ^void(TSEnabledChangeEvent *event) {
-            [me sendEvent:EVENT_ENABLEDCHANGE body:@(event.enabled)];
-        };
-        onAuthorization = ^void(TSAuthorizationEvent *event) {
-            [me sendEvent:EVENT_AUTHORIZATION body:[event toDictionary]];
-        };
-
-        // EventEmitter listener-counts
-        listeners = [NSMutableDictionary new];
-
         // TSLocationManager instance
         locationManager = [TSLocationManager sharedInstance];
 
@@ -127,8 +59,57 @@ RCT_EXPORT_MODULE();
         UIViewController *root = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
         locationManager.viewController = root;
     }
-
     return self;
+}
+
+-(void) registerEventListeners {
+    __typeof(self) __weak me = self;
+    [locationManager onLocation:^(TSLocation *location) {
+        [me sendEvent:EVENT_LOCATION body:[location toDictionary]];
+    } failure:^(NSError *error) {
+        [me sendEvent:EVENT_LOCATION body: @{@"error":@(error.code)}];
+    }];
+    [locationManager onMotionChange:^(TSLocation *location) {
+        [me sendEvent:EVENT_MOTIONCHANGE body:@{@"isMoving":@(location.isMoving), @"location":[location toDictionary]}];
+    }];
+    [locationManager onActivityChange:^(TSActivityChangeEvent *event) {
+        NSDictionary *params = @{@"activity": event.activity, @"confidence": @(event.confidence)};
+        [me sendEvent:EVENT_ACTIVITYCHANGE body:params];
+    }];
+    [locationManager onHeartbeat:^(TSHeartbeatEvent *event) {
+        [me sendEvent:EVENT_HEARTBEAT body:@{@"location":[event.location toDictionary]}];
+    }];
+    [locationManager onGeofence:^(TSGeofenceEvent *event) {
+        NSMutableDictionary *params = [[event toDictionary] mutableCopy];
+        [params setObject:[event.location toDictionary] forKey:@"location"];
+        [me sendEvent:EVENT_GEOFENCE body:params];
+    }];
+    [locationManager onGeofencesChange:^(TSGeofencesChangeEvent *event) {
+        [me sendEvent:EVENT_GEOFENCESCHANGE body:[event toDictionary]];
+    }];
+    [locationManager onHttp:^(TSHttpEvent *response) {
+        NSDictionary *params = @{@"success": @(response.isSuccess), @"status": @(response.statusCode), @"responseText":response.responseText};
+        [me sendEvent:EVENT_HTTP body:params];
+    }];
+    [locationManager onProviderChange:^(TSProviderChangeEvent *event) {
+        [me sendEvent:EVENT_PROVIDERCHANGE body:[event toDictionary]];
+    }];
+    [locationManager onSchedule:^(TSScheduleEvent *event) {
+        [me sendEvent:EVENT_SCHEDULE body:event.state];
+    }];
+    [locationManager onPowerSaveChange:^(TSPowerSaveChangeEvent *event) {
+        [me sendEvent:EVENT_POWERSAVECHANGE body:@(event.isPowerSaveMode)];
+    }];
+    [locationManager onConnectivityChange:^(TSConnectivityChangeEvent *event) {
+        NSDictionary *params = @{@"connected":@(event.hasConnection)};
+        [me sendEvent:EVENT_CONNECTIVITYCHANGE body:params];
+    }];
+    [locationManager onEnabledChange:^(TSEnabledChangeEvent *event) {
+        [me sendEvent:EVENT_ENABLEDCHANGE body:@(event.enabled)];
+    }];
+    [locationManager onAuthorization:^(TSAuthorizationEvent *event) {
+        [me sendEvent:EVENT_AUTHORIZATION body:[event toDictionary]];
+    }];
 }
 
 - (NSArray<NSString *> *)supportedEvents {
@@ -174,20 +155,26 @@ RCT_EXPORT_METHOD(reset:(NSDictionary*)params success:(RCTResponseSenderBlock)su
  */
 RCT_EXPORT_METHOD(ready:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
+    BOOL reset = (params[@"reset"]) ? [params[@"reset"] boolValue] : YES;
     if (ready) {
-        [locationManager log:@"warn" message:@"#ready already called.  Redirecting to #setConfig"];
         TSConfig *config = [TSConfig sharedInstance];
-        [config updateWithDictionary:params];
+        if (reset) {
+            [locationManager log:@"warn" message:@"#ready already called.  Redirecting to #setConfig"];
+            [config updateWithDictionary:params];
+        } else {
+            [locationManager log:@"warn" message:@"#ready already called.  Ignored Config since reset: false"];
+        }
         success(@[[config toDictionary]]);
         return;
     }
     ready = YES;
+    [self registerEventListeners];
+
     dispatch_async(dispatch_get_main_queue(), ^{
         TSConfig *config = [TSConfig sharedInstance];
         if (config.isFirstBoot) {
             [config updateWithDictionary:params];
         } else {
-            BOOL reset = (params[@"reset"]) ? [params[@"reset"] boolValue] : YES;
             if (reset) {
                 [config reset:YES];
                 [config updateWithDictionary:params];
@@ -215,72 +202,10 @@ RCT_EXPORT_METHOD(configure:(NSDictionary*)params success:(RCTResponseSenderBloc
     });
 }
 
-RCT_EXPORT_METHOD(addEventListener:(NSString*)event)
-{
-    @synchronized(listeners) {
-        if ([listeners objectForKey:event]) {
-            // Increment listener-count for this event
-            NSInteger count = [[listeners objectForKey:event] integerValue];
-            count++;
-            [listeners setObject:@(count) forKey:event];
-        } else {
-            // First listener for this event
-            [listeners setObject:@(1) forKey:event];
 
-            if ([event isEqualToString:EVENT_LOCATION]) {
-                [locationManager onLocation:onLocation failure:onLocationError];
-            } else if ([event isEqualToString:EVENT_MOTIONCHANGE]) {
-                [locationManager onMotionChange:onMotionChange];
-            } else if ([event isEqualToString:EVENT_ACTIVITYCHANGE]) {
-                [locationManager onActivityChange:onActivityChange];
-            } else if ([event isEqualToString:EVENT_HEARTBEAT]) {
-                [locationManager onHeartbeat:onHeartbeat];
-            } else if ([event isEqualToString:EVENT_GEOFENCE]) {
-                [locationManager onGeofence:onGeofence];
-            } else if ([event isEqualToString:EVENT_GEOFENCESCHANGE]) {
-                [locationManager onGeofencesChange:onGeofencesChange];
-            } else if ([event isEqualToString:EVENT_HTTP]) {
-                [locationManager onHttp:onHttp];
-            } else if ([event isEqualToString:EVENT_PROVIDERCHANGE]) {
-                [locationManager onProviderChange:onProviderChange];
-            } else if ([event isEqualToString:EVENT_SCHEDULE]) {
-                [locationManager onSchedule:onSchedule];
-            } else if ([event isEqualToString:EVENT_POWERSAVECHANGE]) {
-                [locationManager onPowerSaveChange:onPowerSaveChange];
-            } else if ([event isEqualToString:EVENT_CONNECTIVITYCHANGE]) {
-                [locationManager onConnectivityChange:onConnectivityChange];
-            } else if ([event isEqualToString:EVENT_ENABLEDCHANGE]) {
-                [locationManager onEnabledChange:onEnabledChange];
-            } else if ([event isEqualToString:EVENT_AUTHORIZATION]) {
-                [[TSHttpService sharedInstance] onAuthorization:onAuthorization];
-            } else if ([event isEqualToString:EVENT_NOTIFICATIONACTION]) {
-                // No iOS implementation.
-            }
-        }
-    }
-}
-
-RCT_EXPORT_METHOD(removeListener:(NSString*)event)
-{
-    @synchronized(listeners) {
-        if ([listeners objectForKey:event]) {
-            // Decrement listener-count for this event.
-            NSInteger count = [[listeners objectForKey:event] integerValue];
-            count--;
-            if (count > 0) {
-                [listeners setObject:@(count) forKey:event];
-            } else {
-                // No more listeners: tell TSLocationManager to removeListeners for this event.
-                [locationManager removeListeners];
-                [listeners removeObjectForKey:event];
-            }
-        }
-    }
-}
 
 RCT_EXPORT_METHOD(removeAllListeners:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
 {
-    @synchronized(listeners) { [listeners removeAllObjects]; }
     [locationManager removeListeners];
     success(@[]);
 }
@@ -736,7 +661,7 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 
 - (void)invalidate
 {
-    @synchronized(listeners) { [listeners removeAllObjects]; }
+    [super invalidate];
     [locationManager removeListeners];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.locationManager stopWatchPosition];
@@ -745,7 +670,6 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 
 - (void)dealloc
 {
-    @synchronized(listeners) { [listeners removeAllObjects]; }
     [locationManager removeListeners];
     locationManager = nil;
 }

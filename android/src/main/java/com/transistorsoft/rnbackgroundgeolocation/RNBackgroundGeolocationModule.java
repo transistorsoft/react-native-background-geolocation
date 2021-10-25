@@ -115,6 +115,22 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         mEvents.add(TSAuthorization.NAME);
 
         reactContext.addLifecycleEventListener(this);
+
+        BackgroundGeolocation adapter = getAdapter();
+        adapter.onLocation(new LocationCallback());
+        adapter.onMotionChange(new MotionChangeCallback());
+        adapter.onActivityChange(new ActivityChangeCallback());
+        adapter.onLocationProviderChange(new LocationProviderChangeCallback());
+        adapter.onGeofencesChange(new GeofencesChangeCallback());
+        adapter.onGeofence(new GeofenceCallback());
+        adapter.onHeartbeat(new HeartbeatCallback());
+        adapter.onHttp(new HttpResponseCallback());
+        adapter.onSchedule(new ScheduleCallback());
+        adapter.onPowerSaveChange(new PowerSaveChangeCallack());
+        adapter.onConnectivityChange(new ConnectivityChangeCallback());
+        adapter.onEnabledChange(new EnabledChangeCallback());
+        adapter.onNotificationAction(new NotificationActionCallback());
+        HttpService.getInstance(getReactApplicationContext()).onAuthorization(new AuthorizationCallback());
     }
 
     @Override
@@ -306,6 +322,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             }
         }
     }
+
     @Override
     public void onHostResume() {
         if (!mInitialized) {
@@ -346,19 +363,24 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     public void ready(ReadableMap params, final Callback success, final Callback failure) {
         TSConfig config = TSConfig.getInstance(getReactApplicationContext());
 
+        boolean reset = true;
+        if (params.hasKey("reset")) {
+            reset = params.getBoolean("reset");
+        }
+
         if (mReady) {
-            TSLog.logger.warn(TSLog.warn("#ready already called.  Redirecting to #setConfig"));
-            setConfig(params, success, failure);
+            if (reset) {
+                TSLog.logger.warn(TSLog.warn("#ready already called.  Redirecting to #setConfig"));
+                setConfig(params, success, failure);
+            } else {
+                TSLog.logger.warn(TSLog.warn("#ready already called.  Ignored config since reset: false"));
+            }
             return;
         }
         mReady = true;
         if (config.isFirstBoot()) {
             config.updateWithJSONObject(mapToJson(setHeadlessJobService(params)));
         } else {
-            boolean reset = true;
-            if (params.hasKey("reset")) {
-                reset = params.getBoolean("reset");
-            }
             if (reset) {
                 config.reset();
                 config.updateWithJSONObject(mapToJson(setHeadlessJobService(params)));
@@ -991,79 +1013,13 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     @ReactMethod
-    public void addEventListener(String event) {
-
-        if (!mEvents.contains(event)) {
-            TSLog.logger.warn(TSLog.warn("[RNBackgroundGeolocation addListener] Unknown event: " + event));
-            return;
-        }
-        BackgroundGeolocation adapter = getAdapter();
-        Integer count;
-
-        synchronized(mListeners) {
-            if (mListeners.containsKey(event)) {
-                count = mListeners.get(event);
-                count++;
-                mListeners.put(event, count);
-            } else {
-                count = 1;
-                mListeners.put(event, count);
-            }
-        }
-        if (count == 1) {
-            if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_LOCATION)) {
-                adapter.onLocation(new LocationCallback());
-            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_MOTIONCHANGE)) {
-                adapter.onMotionChange(new MotionChangeCallback());
-            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_ACTIVITYCHANGE)) {
-                adapter.onActivityChange(new ActivityChangeCallback());
-            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_PROVIDERCHANGE)) {
-                adapter.onLocationProviderChange(new LocationProviderChangeCallback());
-            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_GEOFENCESCHANGE)) {
-                adapter.onGeofencesChange(new GeofencesChangeCallback());
-            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_GEOFENCE)) {
-                adapter.onGeofence(new GeofenceCallback());
-            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_HEARTBEAT)) {
-                adapter.onHeartbeat(new HeartbeatCallback());
-            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_HTTP)) {
-                adapter.onHttp(new HttpResponseCallback());
-            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_SCHEDULE)) {
-                adapter.onSchedule(new ScheduleCallback());
-            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_POWERSAVECHANGE)) {
-                adapter.onPowerSaveChange(new PowerSaveChangeCallack());
-            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_CONNECTIVITYCHANGE)) {
-                adapter.onConnectivityChange(new ConnectivityChangeCallback());
-            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_ENABLEDCHANGE)) {
-                adapter.onEnabledChange(new EnabledChangeCallback());
-            } else if (event.equalsIgnoreCase(BackgroundGeolocation.EVENT_NOTIFICATIONACTION)) {
-                adapter.onNotificationAction(new NotificationActionCallback());
-            } else if (event.equalsIgnoreCase(TSAuthorization.NAME)) {
-                HttpService.getInstance(getReactApplicationContext()).onAuthorization(new AuthorizationCallback());
-            }
-        }
+    public void addListener(String event) {
+        // Keep:  Required for RN built-in NativeEventEmitter calls.
     }
 
     @ReactMethod
-    public void removeListener(String event) {
-        Integer count;
-
-        synchronized (mListeners) {
-            if (mListeners.containsKey(event)) {
-                count = mListeners.get(event);
-                count--;
-                if (count > 0) {
-                    mListeners.put(event, count);
-                } else {
-                    getAdapter().removeListeners(event);
-                }
-            }
-        }
-    }
-
-    @ReactMethod
-    public void removeAllListeners(Callback success, Callback failure) {
-        removeAllListeners();
-        success.invoke();
+    public void removeListeners(Integer count) {
+        // Keep:  Required for RN built-in NativeEventEmitter calls.
     }
 
     private void removeAllListeners() {

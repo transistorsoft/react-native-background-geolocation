@@ -197,67 +197,67 @@ export default class BackgroundGeolocation {
     if (typeof(event) != 'string')      { throw "BackgroundGeolocation#on must be provided a {String} event as 1st argument." }
     if (Events[event])      { throw "BackgroundGeolocation#on - Unknown event '" + event + "'" }
     if (typeof(success) != 'function')  { throw "BackgroundGeolocation#on must be provided a callback as 2nd argument.  If you're attempting to use the Promise API to listen to an event, it won't work, since a Promise can only evaluate once, while the callback function must be executed for each event." }
-    NativeModule.addListener.apply(NativeModule, arguments);
+    return NativeModule.addListener.apply(NativeModule, arguments);
   }
   // @alias #removeListener
   static on(event, success, failure) {
-    this.addListener.apply(this, arguments);
+    return this.addListener.apply(this, arguments);
   }
 
   static onLocation(success, failure) {
-    this.addListener(Events.LOCATION, success, failure);
+    return this.addListener(Events.LOCATION, success, failure);
   }
 
   static onMotionChange(callback) {
-    this.addListener(Events.MOTIONCHANGE, callback);
+    return this.addListener(Events.MOTIONCHANGE, callback);
   }
 
   static onHttp(callback) {
-    this.addListener(Events.HTTP, callback);
+    return this.addListener(Events.HTTP, callback);
   }
 
   static onHeartbeat(callback) {
-    this.addListener(Events.HEARTBEAT, callback);
+    return this.addListener(Events.HEARTBEAT, callback);
   }
 
   static onProviderChange(callback) {
-    this.addListener(Events.PROVIDERCHANGE, callback);
+    return this.addListener(Events.PROVIDERCHANGE, callback);
   }
 
   static onActivityChange(callback) {
-    this.addListener(Events.ACTIVITYCHANGE, callback);
+    return this.addListener(Events.ACTIVITYCHANGE, callback);
   }
 
   static onGeofence(callback) {
-    this.addListener(Events.GEOFENCE, callback);
+    return this.addListener(Events.GEOFENCE, callback);
   }
 
   static onGeofencesChange(callback) {
-    this.addListener(Events.GEOFENCESCHANGE, callback);
+    return this.addListener(Events.GEOFENCESCHANGE, callback);
   }
 
   static onSchedule(callback) {
-    this.addListener(Events.SCHEDULE, callback);
+    return this.addListener(Events.SCHEDULE, callback);
   }
 
   static onEnabledChange(callback) {
-    this.addListener(Events.ENABLEDCHANGE, callback);
+    return this.addListener(Events.ENABLEDCHANGE, callback);
   }
 
   static onConnectivityChange(callback) {
-    this.addListener(Events.CONNECTIVITYCHANGE, callback);
+    return this.addListener(Events.CONNECTIVITYCHANGE, callback);
   }
 
   static onPowerSaveChange(callback) {
-    this.addListener(Events.POWERSAVECHANGE, callback);
+    return this.addListener(Events.POWERSAVECHANGE, callback);
   }
 
   static onNotificationAction(callback) {
-    this.addListener(Events.NOTIFICATIONACTION, callback);
+    return this.addListener(Events.NOTIFICATIONACTION, callback);
   }
 
   static onAuthorization(callback) {
-    this.addListener(Events.AUTHORIZATION, callback);
+    return this.addListener(Events.AUTHORIZATION, callback);
   }
 
   /**

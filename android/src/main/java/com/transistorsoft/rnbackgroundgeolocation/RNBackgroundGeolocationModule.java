@@ -90,13 +90,14 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
 
     public RNBackgroundGeolocationModule(ReactApplicationContext reactContext) {
         super(reactContext);
+        reactContext.addLifecycleEventListener(this);
 
         TSConfig config = TSConfig.getInstance(getReactApplicationContext());
         config.useCLLocationAccuracy(true);
 
         config.updateWithBuilder()
-            .setHeadlessJobService(getClass().getPackage().getName() + "." + JOB_SERVICE_CLASS)
-            .commit();
+                .setHeadlessJobService(getClass().getPackage().getName() + "." + JOB_SERVICE_CLASS)
+                .commit();
 
         // These are the only events which can be subscribed to.
         mEvents.add(BackgroundGeolocation.EVENT_LOCATION);
@@ -113,9 +114,18 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         mEvents.add(BackgroundGeolocation.EVENT_ENABLEDCHANGE);
         mEvents.add(BackgroundGeolocation.EVENT_NOTIFICATIONACTION);
         mEvents.add(TSAuthorization.NAME);
+    }
 
-        reactContext.addLifecycleEventListener(this);
+    @Override
+    public void initialize() {
+        // do nothing
+    }
+    @Override
+    public String getName() {
+        return "RNBackgroundGeolocation";
+    }
 
+    private void registerEvents() {
         BackgroundGeolocation adapter = getAdapter();
         adapter.onLocation(new LocationCallback());
         adapter.onMotionChange(new MotionChangeCallback());
@@ -132,16 +142,6 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         adapter.onNotificationAction(new NotificationActionCallback());
         HttpService.getInstance(getReactApplicationContext()).onAuthorization(new AuthorizationCallback());
     }
-
-    @Override
-    public void initialize() {
-        // do nothing
-    }
-    @Override
-    public String getName() {
-        return "RNBackgroundGeolocation";
-    }
-
 
     /**
      * location event callback
@@ -340,6 +340,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     @Override
     public void onHostDestroy() {
         mInitialized = false;
+        mReady = false;
         removeAllListeners();
         getAdapter().onActivityDestroy();
     }
@@ -374,10 +375,13 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                 setConfig(params, success, failure);
             } else {
                 TSLog.logger.warn(TSLog.warn("#ready already called.  Ignored config since reset: false"));
+                success.invoke(getState());
             }
             return;
         }
         mReady = true;
+        registerEvents();
+
         if (config.isFirstBoot()) {
             config.updateWithJSONObject(mapToJson(setHeadlessJobService(params)));
         } else {

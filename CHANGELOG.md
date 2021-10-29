@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.4.2 &mdash; 2021-10-29
+* [Fixed][Android] Android 12 behaviour changes mean that foreground-services remain running.  When an Android app is terminated, the app process does not terminate (since the foreground-service is active) and `RNBackgroundGeolocationModule` remains in memory.  Given that, the plugin cannot rely on registering its event-listeners in the `RNBackgroundGeolocationModule` constructor, but must perform that task when `.ready()` is called.  This also requires resetting `mReady = false` when the `MainActivity` is destroyed, so that the next time `.ready()` is called, the event-listeners are re-registered.
+* [Fixed][Android] When `.ready()` is called __`reset: false`__, the `success` callback was not invoked with the current `State`.  This bug was introduced in previous `v4.4.1`.
+
 ## 4.4.1 &mdash; 2021-10-29
 * [Added] Added a `Subscription` interface to Typescript API.  Added helpful docs to Subscription for new event-handler subscriptions.
 

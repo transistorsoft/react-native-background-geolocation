@@ -34,3 +34,5 @@ android/.idea
 package-lock.json
 
 *.tgz
+
+yarn.lock

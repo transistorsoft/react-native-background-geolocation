@@ -19,7 +19,7 @@
 					<div class="brand">
 						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
 						<span class="title">
-							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.4.0</span>
+							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.4.1</span>
 						</span>
 					</div>
 				</div>
@@ -444,7 +444,7 @@
 					<a name="onactivitychange" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Activity<wbr>Change</h3>
 					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Activity<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/motionactivityevent.html" class="tsd-signature-type" data-tsd-kind="Interface">MotionActivityEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Activity<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/motionactivityevent.html" class="tsd-signature-type" data-tsd-kind="Interface">MotionActivityEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -461,7 +461,7 @@
 								<p>Android <a href="../interfaces/motionactivityevent.html#confidence">MotionActivityEvent.confidence</a> always reports <code>100</code>%.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onActivityChange</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onActivityChange</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[onActivityChange] &quot;</span><span style="color: #F8F8F2">, event);</span>
 <span style="color: #F8F8F2">});</span>
 </code></pre>
@@ -492,7 +492,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -500,7 +500,7 @@
 					<a name="onconnectivitychange" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Connectivity<wbr>Change</h3>
 					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Connectivity<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/connectivitychangeevent.html" class="tsd-signature-type" data-tsd-kind="Interface">ConnectivityChangeEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Connectivity<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/connectivitychangeevent.html" class="tsd-signature-type" data-tsd-kind="Interface">ConnectivityChangeEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -516,7 +516,7 @@
 								the SDK will automatically initiate uploading to your configured <a href="../interfaces/config.html#url">Config.url</a> when network connectivity is detected.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onConnectivityChange</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onConnectivityChange</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[onConnectivityChange] &quot;</span><span style="color: #F8F8F2">, event);</span>
 <span style="color: #F8F8F2">});</span>
 </code></pre>
@@ -547,7 +547,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -555,7 +555,7 @@
 					<a name="onenabledchange" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Enabled<wbr>Change</h3>
 					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Enabled<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>enabled<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Enabled<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>enabled<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -570,7 +570,7 @@
 								<a href="backgroundgeolocation.html#stop">stop</a> method.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onEnabledChange</span><span style="color: #F8F8F2">(</span><span style="color: #FD971F">isEnabled</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onEnabledChange</span><span style="color: #F8F8F2">(</span><span style="color: #FD971F">isEnabled</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[onEnabledChanged] isEnabled? &quot;</span><span style="color: #F8F8F2">, isEnabled);</span>
 <span style="color: #F8F8F2">});</span>
 </code></pre>
@@ -601,7 +601,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -609,7 +609,7 @@
 					<a name="ongeofence" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Geofence</h3>
 					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Geofence<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/geofenceevent.html" class="tsd-signature-type" data-tsd-kind="Interface">GeofenceEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Geofence<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/geofenceevent.html" class="tsd-signature-type" data-tsd-kind="Interface">GeofenceEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -622,7 +622,7 @@
 								<p>Your supplied <code>callback</code> will be called when any monitored geofence crossing occurs.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onGeofence</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onGeofence</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[onGeofence] &quot;</span><span style="color: #F8F8F2">, event);</span>
 <span style="color: #F8F8F2">});</span>
 </code></pre>
@@ -659,7 +659,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -667,7 +667,7 @@
 					<a name="ongeofenceschange" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Geofences<wbr>Change</h3>
 					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Geofences<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/geofenceschangeevent.html" class="tsd-signature-type" data-tsd-kind="Interface">GeofencesChangeEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Geofences<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/geofenceschangeevent.html" class="tsd-signature-type" data-tsd-kind="Interface">GeofencesChangeEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -687,7 +687,7 @@
 								<p>It&#39;s when this list of monitored geofences <em>changes</em>, that the plugin will fire the <code>onGeofencesChange</code> event.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onGeofencesChange</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onGeofencesChange</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  </span><span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> on </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> event.on;     </span><span style="color: #88846F">//&lt;-- new geofences activated.</span>
 <span style="color: #F8F8F2">  </span><span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> off </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> event.off; </span><span style="color: #88846F">//&lt;-- geofences that were just de-activated.</span>
 
@@ -735,7 +735,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -743,7 +743,7 @@
 					<a name="onheartbeat" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Heartbeat</h3>
 					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Heartbeat<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/heartbeatevent.html" class="tsd-signature-type" data-tsd-kind="Interface">HeartbeatEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Heartbeat<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/heartbeatevent.html" class="tsd-signature-type" data-tsd-kind="Interface">HeartbeatEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -757,10 +757,11 @@
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
 									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">ready</span><span style="color: #F8F8F2">({</span>
-<span style="color: #F8F8F2">  heartbeatInterval: </span><span style="color: #AE81FF">60</span>
+<span style="color: #F8F8F2">  heartbeatInterval: </span><span style="color: #AE81FF">60</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">  preventSuspend: </span><span style="color: #AE81FF">true</span><span style="color: #F8F8F2"> </span><span style="color: #88846F">// &lt;-- Required for iOS</span>
 <span style="color: #F8F8F2">});</span>
 
-<span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onHeartbeat</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onHeartbeat</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[onHeartbeat] &quot;</span><span style="color: #F8F8F2">, event);</span>
 
 <span style="color: #F8F8F2">  </span><span style="color: #88846F">// You could request a new location if you wish.</span>
@@ -805,7 +806,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -813,7 +814,7 @@
 					<a name="onhttp" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Http</h3>
 					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Http<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="../interfaces/httpevent.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Http<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="../interfaces/httpevent.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -825,7 +826,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onHttp</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">response</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onHttp</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">response</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  </span><span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> status </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> response.status;</span>
 <span style="color: #F8F8F2">  </span><span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> success </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> response.success;</span>
 <span style="color: #F8F8F2">  </span><span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> responseText </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> response.responseText;</span>
@@ -865,7 +866,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -873,7 +874,7 @@
 					<a name="onlocation" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Location</h3>
 					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Location<span class="tsd-signature-symbol">(</span>success<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>location<span class="tsd-signature-symbol">: </span><a href="../interfaces/location.html" class="tsd-signature-type" data-tsd-kind="Interface">Location</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span>, failure<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>errorCode<span class="tsd-signature-symbol">: </span><a href="../index.html#locationerror" class="tsd-signature-type" data-tsd-kind="Type alias">LocationError</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Location<span class="tsd-signature-symbol">(</span>success<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>location<span class="tsd-signature-symbol">: </span><a href="../interfaces/location.html" class="tsd-signature-type" data-tsd-kind="Interface">Location</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span>, failure<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>errorCode<span class="tsd-signature-symbol">: </span><a href="../index.html#locationerror" class="tsd-signature-type" data-tsd-kind="Type alias">LocationError</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -886,7 +887,7 @@
 								<p>Every location recorded by the SDK is provided to your <code>callback</code>, including those from <a href="backgroundgeolocation.html#onmotionchange">onMotionChange</a>, <a href="backgroundgeolocation.html#getcurrentposition">getCurrentPosition</a> and <a href="backgroundgeolocation.html#watchposition">watchPosition</a>.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onLocation</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">location</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onLocation</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">location</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[onLocation] success: &quot;</span><span style="color: #F8F8F2">, location);</span>
 <span style="color: #F8F8F2">}, (</span><span style="color: #FD971F">error</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[onLocation] ERROR: &quot;</span><span style="color: #F8F8F2">, error);</span>
@@ -949,7 +950,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -957,7 +958,7 @@
 					<a name="onmotionchange" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Motion<wbr>Change</h3>
 					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Motion<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/motionchangeevent.html" class="tsd-signature-type" data-tsd-kind="Interface">MotionChangeEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Motion<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/motionchangeevent.html" class="tsd-signature-type" data-tsd-kind="Interface">MotionChangeEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -970,7 +971,7 @@
 								<p>Your <code>callback</code> will be executed each time the device has changed-state between <strong>MOVING</strong> or <strong>STATIONARY</strong>.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onMotionChange</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onMotionChange</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  </span><span style="color: #F92672">if</span><span style="color: #F8F8F2"> (event.isMoving) {</span>
 <span style="color: #F8F8F2">     console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[onMotionChange] Device has just started MOVING &quot;</span><span style="color: #F8F8F2">, event.location);</span>
 <span style="color: #F8F8F2">  } </span><span style="color: #F92672">else</span><span style="color: #F8F8F2"> {</span>
@@ -1022,7 +1023,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -1030,7 +1031,7 @@
 					<a name="onpowersavechange" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Power<wbr>Save<wbr>Change</h3>
 					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Power<wbr>Save<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>enabled<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Power<wbr>Save<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>enabled<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1057,7 +1058,7 @@
 										<p><img src="https://dl.dropboxusercontent.com/s/raz8lagrqayowia/Screenshot%202017-09-19%2010.33.49.png?dl=1" alt=""></p>
 									</dd>
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onPowerSaveChange</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">isPowerSaveMode</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onPowerSaveChange</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">isPowerSaveMode</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[onPowerSaveChange: &quot;</span><span style="color: #F8F8F2">, isPowerSaveMode);</span>
 <span style="color: #F8F8F2">});</span>
 </code></pre>
@@ -1088,7 +1089,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -1096,7 +1097,7 @@
 					<a name="onproviderchange" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Provider<wbr>Change</h3>
 					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Provider<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/providerchangeevent.html" class="tsd-signature-type" data-tsd-kind="Interface">ProviderChangeEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Provider<wbr>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/providerchangeevent.html" class="tsd-signature-type" data-tsd-kind="Interface">ProviderChangeEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1109,7 +1110,7 @@
 								<p>Your <code>callback</code> fill be executed whenever a change in the state of the device&#39;s <strong>Location Services</strong> has been detected.  eg: &quot;GPS ON&quot;, &quot;WiFi only&quot;.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onProviderChange</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onProviderChange</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[onProviderChange: &quot;</span><span style="color: #F8F8F2">, event);</span>
 
 <span style="color: #F8F8F2">  </span><span style="color: #F92672">switch</span><span style="color: #F8F8F2">(event.status) {</span>
@@ -1167,7 +1168,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -1175,7 +1176,7 @@
 					<a name="onschedule" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Schedule</h3>
 					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Schedule<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><a href="../interfaces/state.html" class="tsd-signature-type" data-tsd-kind="Interface">State</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Schedule<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><a href="../interfaces/state.html" class="tsd-signature-type" data-tsd-kind="Interface">State</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1189,7 +1190,7 @@
 								will reflect the state according to your <a href="../interfaces/config.html#schedule">schedule</a>.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onSchedule</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">state</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onSchedule</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">state</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  </span><span style="color: #F92672">if</span><span style="color: #F8F8F2"> (state.enabled) {</span>
 <span style="color: #F8F8F2">    console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[onSchedule] scheduled start tracking&quot;</span><span style="color: #F8F8F2">);</span>
 <span style="color: #F8F8F2">  } </span><span style="color: #F92672">else</span><span style="color: #F8F8F2"> {</span>
@@ -1224,7 +1225,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -2965,7 +2966,7 @@
 					<a name="onauthorization" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Authorization</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Authorization<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/authorizationevent.html" class="tsd-signature-type" data-tsd-kind="Interface">AuthorizationEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Authorization<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/authorizationevent.html" class="tsd-signature-type" data-tsd-kind="Interface">AuthorizationEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -2980,7 +2981,7 @@
 								<p>If authorization failed, <a href="../interfaces/authorizationevent.html#error">AuthorizationEvent.error</a> will contain the error message.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onAuthorization</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onAuthorization</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  </span><span style="color: #F92672">if</span><span style="color: #F8F8F2"> (event.success) {</span>
 <span style="color: #F8F8F2">    console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[authorization] ERROR: &quot;</span><span style="color: #F8F8F2">, event.error);</span>
 <span style="color: #F8F8F2">  } </span><span style="color: #F92672">else</span><span style="color: #F8F8F2"> {</span>
@@ -3015,7 +3016,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -3023,7 +3024,7 @@
 					<a name="onnotificationaction" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> on<wbr>Notification<wbr>Action</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Notification<wbr>Action<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>buttonId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Notification<wbr>Action<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>buttonId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -3058,7 +3059,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -3223,7 +3224,7 @@
 								</ul>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">BackgroundGeolocationHeadlessTask</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">async</span><span style="color: #F8F8F2"> (</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">BackgroundGeolocationHeadlessTask</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">async</span><span style="color: #F8F8F2"> (</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  </span><span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> params </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> event.params;</span>
 <span style="color: #F8F8F2">   console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[BackgroundGeolocation HeadlessTask] -&quot;</span><span style="color: #F8F8F2">, event.name, params);</span>
 
@@ -3404,56 +3405,72 @@
 							<aside class="tsd-sources">
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Removes an event listener.  You must supply the <em>type</em> of event to remove in addition to a reference to the <em>exact</em> function you
-									used to subscribe to the event.</p>
-								</div>
-								<table>
-									<thead>
-										<tr>
-											<th>Event</th>
-										</tr>
-									</thead>
-									<tbody><tr>
-											<td><code>location</code></td>
-										</tr>
-										<tr>
-											<td><code>motionchange</code></td>
-										</tr>
-										<tr>
-											<td><code>activitychange</code></td>
-										</tr>
-										<tr>
-											<td><code>providerchange</code></td>
-										</tr>
-										<tr>
-											<td><code>geofence</code></td>
-										</tr>
-										<tr>
-											<td><code>geofenceschange</code></td>
-										</tr>
-										<tr>
-											<td><code>heartbeat</code></td>
-										</tr>
-										<tr>
-											<td><code>http</code></td>
-										</tr>
-										<tr>
-											<td><code>powersavechange</code></td>
-										</tr>
-										<tr>
-											<td><code>schedule</code></td>
-										</tr>
-										<tr>
-											<td><code>connectivitychange</code></td>
-										</tr>
-										<tr>
-											<td><code>enabledchange</code></td>
-										</tr>
-								</tbody></table>
 								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-deprecated.">deprecated.</dt>
+									<dd><p>Use <a href="../interfaces/subscription.html">Subscription</a> returned from <strong><code>BackgroundGeolocation.onXXX</code></strong> to remove listeners.</p>
+									</dd>
 									<dt class="tsd-comment-tag-example">example</dt>
-									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">locationHandler</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> (</span><span style="color: #FD971F">location</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> subscription </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">onLocation</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">location</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&#039;[onLocation]&#039;</span><span style="color: #F8F8F2">, location);</span>
+<span style="color: #F8F8F2">});</span>
+<span style="color: #F8F8F2">.</span>
+<span style="color: #F8F8F2">.</span>
+<span style="color: #F8F8F2">.</span>
+<span style="color: #88846F">// Remove listener</span>
+<span style="color: #F8F8F2">subscription.</span><span style="color: #A6E22E">remove</span><span style="color: #F8F8F2">();</span>
+</code></pre>
+										<hr>
+										<a href="#⚠️-deprecated" id="⚠️-deprecated" style="color: inherit; text-decoration: none;">
+											<h3>⚠️ [Deprecated]</h3>
+										</a>
+										<p>Removes an event listener.  You must supply the <em>type</em> of event to remove in addition to a reference to the <em>exact</em> function you
+										used to subscribe to the event.</p>
+										<table>
+											<thead>
+												<tr>
+													<th>Event</th>
+												</tr>
+											</thead>
+											<tbody><tr>
+													<td><code>location</code></td>
+												</tr>
+												<tr>
+													<td><code>motionchange</code></td>
+												</tr>
+												<tr>
+													<td><code>activitychange</code></td>
+												</tr>
+												<tr>
+													<td><code>providerchange</code></td>
+												</tr>
+												<tr>
+													<td><code>geofence</code></td>
+												</tr>
+												<tr>
+													<td><code>geofenceschange</code></td>
+												</tr>
+												<tr>
+													<td><code>heartbeat</code></td>
+												</tr>
+												<tr>
+													<td><code>http</code></td>
+												</tr>
+												<tr>
+													<td><code>powersavechange</code></td>
+												</tr>
+												<tr>
+													<td><code>schedule</code></td>
+												</tr>
+												<tr>
+													<td><code>connectivitychange</code></td>
+												</tr>
+												<tr>
+													<td><code>enabledchange</code></td>
+												</tr>
+										</tbody></table>
+									</dd>
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">locationHandler</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> (</span><span style="color: #FD971F">location</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[location] - &quot;</span><span style="color: #F8F8F2">, location)</span>
 <span style="color: #F8F8F2">}</span>
 <span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onLocation</span><span style="color: #F8F8F2">(locationHandler)</span>
@@ -3496,8 +3513,9 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Removes all event-listeners</p>
+									<p>Removes all event-listeners.</p>
 								</div>
+								<p>Calls <a href="../interfaces/subscription.html#remove">Subscription.remove</a> on all subscriptions.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
 									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">removeListeners</span><span style="color: #F8F8F2">();</span>

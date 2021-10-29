@@ -2692,6 +2692,7 @@ img {
 }
 .tsd-page-toolbar .table-cell.left .brand {
   position: relative;
+  min-height: 33px;
 }
 .tsd-page-toolbar #tsd-search {
   padding-top: 5px;

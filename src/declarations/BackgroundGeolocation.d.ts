@@ -23,7 +23,7 @@
 /// <reference path="interfaces/Authorization.d.ts" />
 /// <reference path="interfaces/AuthorizationEvent.d.ts" />
 /// <reference path="interfaces/TransistorAuthorizationToken.d.ts" />
-///
+/// <reference path="interfaces/Subscription.d.ts" />
 declare module "react-native-background-geolocation" {
   /**
   * Primary API of the SDK.
@@ -253,6 +253,23 @@ declare module "react-native-background-geolocation" {
     */
     static on(event: string, success:Function, failure?:Function):void;
     /**
+    * @deprecated.  Use [[Subscription]] returned from __`BackgroundGeolocation.onXXX`__ to remove listeners.
+    *
+    * @example
+    * ```typescript
+    * const subscription = BackgroundGeolocation.onLocation((location) => {
+    *   console.log('[onLocation]', location);
+    * });
+    * .
+    * .
+    * .
+    * // Remove listener
+    * subscription.remove();
+    * ```
+    *
+    * ---------------------------------------------------------------------
+    * ### ⚠️ [Deprecated]
+    *
     * Removes an event listener.  You must supply the *type* of event to remove in addition to a reference to the *exact* function you
     * used to subscribe to the event.
     *
@@ -274,7 +291,7 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```typescript
-    * let locationHandler = (location) => {
+    * const locationHandler = (location) => {
     *   console.log("[location] - ", location)
     * }
     * BackgroundGeolocation.onLocation(locationHandler)
@@ -293,7 +310,9 @@ declare module "react-native-background-geolocation" {
     static un(event: string, handler: Function, success?:Function, failure?:Function): void;
 
     /**
-    * Removes all event-listeners
+    * Removes all event-listeners.
+    *
+    * Calls [[Subscription.remove]] on all subscriptions.
     *
     * @example
     * ```typescript
@@ -314,7 +333,7 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```typescript
-    * BackgroundGeolocation.onLocation((location) => {
+    * const subscription = BackgroundGeolocation.onLocation((location) => {
     *   console.log("[onLocation] success: ", location);
     * }, (error) => {
     *   console.log("[onLocation] ERROR: ", error);
@@ -333,7 +352,7 @@ declare module "react-native-background-geolocation" {
     *
     * @event location
     */
-    static onLocation(success: (location:Location)=>void, failure?:(errorCode: LocationError) => void):void;
+    static onLocation(success: (location:Location)=>void, failure?:(errorCode: LocationError) => void):Subscription;
 
     /**
     * Subscribe to Geofence transition events.
@@ -342,7 +361,7 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```typescript
-    * BackgroundGeolocation.onGeofence((event) => {
+    * const subscription = BackgroundGeolocation.onGeofence((event) => {
     *   console.log("[onGeofence] ", event);
     * });
     * ```
@@ -352,7 +371,7 @@ declare module "react-native-background-geolocation" {
     *
     * @event geofence
     */
-    static onGeofence(callback: (event: GeofenceEvent) => void):void;
+    static onGeofence(callback: (event: GeofenceEvent) => void):Subscription;
 
     /**
     * Subscribe to __`motionchange`__ events.
@@ -362,7 +381,7 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```typescript
-    * BackgroundGeolocation.onMotionChange((event) => {
+    * const subscription = BackgroundGeolocation.onMotionChange((event) => {
     *   if (event.isMoving) {
     *      console.log("[onMotionChange] Device has just started MOVING ", event.location);
     *   } else {
@@ -385,14 +404,14 @@ declare module "react-native-background-geolocation" {
     *
     * @event motionchange
     */
-    static onMotionChange(callback: (event:MotionChangeEvent) => void): void;
+    static onMotionChange(callback: (event:MotionChangeEvent) => void): Subscription;
 
     /**
     * Subscribe to HTTP responses from your server [[Config.url]].
     *
     * @example
     * ```typescript
-    * BackgroundGeolocation.onHttp((response) => {
+    * const subscription = BackgroundGeolocation.onHttp((response) => {
     *   let status = response.status;
     *   let success = response.success;
     *   let responseText = response.responseText;
@@ -404,7 +423,7 @@ declare module "react-native-background-geolocation" {
     *
     * @event http
     */
-    static onHttp(callback: (response:HttpEvent) => void): void;
+    static onHttp(callback: (response:HttpEvent) => void): Subscription;
 
     /**
     * Subscribe to changes in motion activity.
@@ -416,13 +435,13 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```typescript
-    * BackgroundGeolocation.onActivityChange((event) => {
+    * const subscription = BackgroundGeolocation.onActivityChange((event) => {
     *   console.log("[onActivityChange] ", event);
     * });
     * ```
     * @event activitychange
     */
-    static onActivityChange(callback: (event: MotionActivityEvent) => void): void;
+    static onActivityChange(callback: (event: MotionActivityEvent) => void): Subscription;
 
     /**
     * Subscribe to changes in device's location-services configuration / authorization.
@@ -431,7 +450,7 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```typescript
-    * BackgroundGeolocation.onProviderChange((event) => {
+    * const subscription = BackgroundGeolocation.onProviderChange((event) => {
     *   console.log("[onProviderChange: ", event);
     *
     *   switch(event.status) {
@@ -459,7 +478,7 @@ declare module "react-native-background-geolocation" {
     *
     * @event providerchange
     */
-    static onProviderChange(callback: (event:ProviderChangeEvent) => void): void;
+    static onProviderChange(callback: (event:ProviderChangeEvent) => void): Subscription;
 
     /**
     * Subscribe to periodic heartbeat events.
@@ -469,10 +488,11 @@ declare module "react-native-background-geolocation" {
     * @example
     * ```typescript
     * BackgroundGeolocation.ready({
-    *   heartbeatInterval: 60
+    *   heartbeatInterval: 60,
+    *   preventSuspend: true // <-- Required for iOS
     * });
     *
-    * BackgroundGeolocation.onHeartbeat((event) => {
+    * const subscription = BackgroundGeolocation.onHeartbeat((event) => {
     *   console.log("[onHeartbeat] ", event);
     *
     *   // You could request a new location if you wish.
@@ -489,7 +509,7 @@ declare module "react-native-background-geolocation" {
     * -  The [[Location]] provided by the [[HeartbeatEvent]] is only the last-known location.  The *heartbeat* event does not actively engage location-services.  If you wish to get the current location in your `callback`, use [[getCurrentPosition]].
     * @event heartbeat
     */
-    static onHeartbeat(callback: (event: HeartbeatEvent) => void): void;
+    static onHeartbeat(callback: (event: HeartbeatEvent) => void): Subscription;
 
     /**
     * Subscribe to changes in actively monitored geofences.
@@ -508,7 +528,7 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```typescript
-    * BackgroundGeolocation.onGeofencesChange((event) => {
+    * const subscription = BackgroundGeolocation.onGeofencesChange((event) => {
     *   let on = event.on;     //<-- new geofences activated.
     *   let off = event.off; //<-- geofences that were just de-activated.
     *
@@ -528,7 +548,7 @@ declare module "react-native-background-geolocation" {
     * - 📘 [[Geofence | Geofencing Guide]]
     * @event geofenceschange
     */
-    static onGeofencesChange(callback: (event: GeofencesChangeEvent) => void): void;
+    static onGeofencesChange(callback: (event: GeofencesChangeEvent) => void): Subscription;
 
     /**
     * Subscribe to [[schedule]] events.
@@ -538,7 +558,7 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```typescript
-    * BackgroundGeolocation.onSchedule((state) => {
+    * const subscription = BackgroundGeolocation.onSchedule((state) => {
     *   if (state.enabled) {
     *     console.log("[onSchedule] scheduled start tracking");
     *   } else {
@@ -548,7 +568,7 @@ declare module "react-native-background-geolocation" {
     * ```
     * @event schedule
     */
-    static onSchedule(callback: (state:State) => void): void;
+    static onSchedule(callback: (state:State) => void): Subscription;
 
     /**
     * Subscribe to changes in network connectivity.
@@ -561,13 +581,13 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```typescript
-    * BackgroundGeolocation.onConnectivityChange((event) => {
+    * const subscription = BackgroundGeolocation.onConnectivityChange((event) => {
     *   console.log("[onConnectivityChange] ", event);
     * });
     * ```
     * @event connectivitychange
     */
-    static onConnectivityChange(callback: (event:ConnectivityChangeEvent) => void): void;
+    static onConnectivityChange(callback: (event:ConnectivityChangeEvent) => void): Subscription;
 
     /**
     * Subscribe to state changes in OS power-saving system.
@@ -592,13 +612,13 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```typescript
-    * BackgroundGeolocation.onPowerSaveChange((isPowerSaveMode) => {
+    * const subscription = BackgroundGeolocation.onPowerSaveChange((isPowerSaveMode) => {
     *   console.log("[onPowerSaveChange: ", isPowerSaveMode);
     * });
     * ```
     * @event powersavechange
     */
-    static onPowerSaveChange(callback: (enabled:boolean) => void): void;
+    static onPowerSaveChange(callback: (enabled:boolean) => void): Subscription;
 
     /**
     * Subscribe to changes in plugin [[State.enabled]].
@@ -609,18 +629,18 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```typescript
-    * BackgroundGeolocation.onEnabledChange(isEnabled => {
+    * const subscription = BackgroundGeolocation.onEnabledChange(isEnabled => {
     *   console.log("[onEnabledChanged] isEnabled? ", isEnabled);
     * });
     * ```
     * @event enabledchange
     */
-    static onEnabledChange(callback: (enabled:boolean) => void): void;
+    static onEnabledChange(callback: (enabled:boolean) => void): Subscription;
 
     /**
     * [__Android-only__] Subscribe to button-clicks of a custom [[Notification.layout]] on the Android foreground-service notification.
     */
-    static onNotificationAction(callback: (buttonId:string) => void): void;
+    static onNotificationAction(callback: (buttonId:string) => void): Subscription;
 
     /**
     * Subscribe to [[Authorization]] events.
@@ -632,7 +652,7 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```typescript
-    * BackgroundGeolocation.onAuthorization((event) => {
+    * const subscription = BackgroundGeolocation.onAuthorization((event) => {
     *   if (event.success) {
     *     console.log("[authorization] ERROR: ", event.error);
     *   } else {
@@ -642,7 +662,7 @@ declare module "react-native-background-geolocation" {
     * ```
     *
     */
-    static onAuthorization(callback: (event:AuthorizationEvent) => void): void;
+    static onAuthorization(callback: (event:AuthorizationEvent) => void): Subscription;
 
     /**
     * Registers a Javascript callback to execute in the Android "Headless" state, where the app has been terminated configured with
@@ -656,7 +676,7 @@ declare module "react-native-background-geolocation" {
     *
     * @example
     * ```typescript
-    * let BackgroundGeolocationHeadlessTask = async (event) => {
+    * const BackgroundGeolocationHeadlessTask = async (event) => {
     *   let params = event.params;
     *    console.log("[BackgroundGeolocation HeadlessTask] -", event.name, params);
     *

@@ -1,5 +1,18 @@
 # Change Log
 
+## 4.4.1 &mdash; 2021-10-29
+* [Added] Added a `Subscription` interface to Typescript API.  Added helpful docs to Subscription for new event-handler subscriptions.
+
+```typescript
+import BackgroundGeolocation, {
+  Subscription
+} from "...";
+.
+.
+.
+const subscription:Subscription = BacckgroundGeolocation.onLocation(myHandler);
+```
+
 ## 4.4.0 &mdash; 2021-10-25
 * [Added] New `Authorization.strategy "SAS"` (alternative to default `JWT`).
 * [Fixed] Fixed __`RCTEventEmitter`__ warning "addListener", "removeListeners".  A corresponding fix has also been released for [react-native-background-fetch](https://github.com/transistorsoft/react-native-background-fetch/blob/master/CHANGELOG.md#404--2021-10-22) so be sure to update to `background-fetch >= 4.0.4`.

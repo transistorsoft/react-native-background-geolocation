@@ -29,6 +29,7 @@ The **[Android module](http://www.transistorsoft.com/shop/products/react-native-
 ![Settings](https://dl.dropboxusercontent.com/s/8oad228siog49kt/settings-framed-350.png?dl=1)
 
 # Contents
+- ### 😫 [Help!](../../wiki/Help)
 - ### :books: [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation)
 - ### [Installing the Plugin](#large_blue_diamond-installing-the-plugin)
 - ### [Setup Guides](#large_blue_diamond-setup-guides)
@@ -136,40 +137,77 @@ For more information, see [this blog post](https://medium.com/@transistorsoft/ne
 
 There are three main steps to using `BackgroundGeolocation`
 1. Wire up event-listeners.
-2. `#ready` the plugin.
-3. `#start` the plugin.
+2. `.ready(config)` the plugin.
+3. `.start()` the plugin.
+
+:warning: Do not execute *any* API method which will require accessing location-services until the **`.ready(config)`** method resolves (eg: `#getCurrentPosition`, `#watchPosition`, `#start`).
 
 ```javascript
-// Import BackgroundGeolocation + any optional interfaces
-import BackgroundGeolocation from "react-native-background-geolocation";
+// NO!  .ready() has not resolved.
+BackgroundGeolocation.getCurrentPosition(options);
+BackgroundGeolocation.start();
 
-export default class App extends Component {
-  componentWillMount() {
-    ////
-    // 1.  Wire up event-listeners
-    //
+BackgroundGeolocation.ready(config).then((state) => {
+  // YES -- .ready() has now resolved.
+  BackgroundGeolocation.getCurrentPosition(options);
+  BackgroundGeolocation.start();  
+});
 
-    // This handler fires whenever bgGeo receives a location update.
-    BackgroundGeolocation.onLocation(this.onLocation, this.onError);
+// NO!  .ready() has not resolved.
+BackgroundGeolocation.getCurrentPosition(options);
+BackgroundGeolocation.start();
+```
 
-    // This handler fires when movement states changes (stationary->moving; moving->stationary)
-    BackgroundGeolocation.onMotionChange(this.onMotionChange);
 
-    // This event fires when a change in motion activity is detected
-    BackgroundGeolocation.onActivityChange(this.onActivityChange);
+### Example 1. &mdash; React *Functional Component*
 
-    // This event fires when the user toggles location-services authorization
-    BackgroundGeolocation.onProviderChange(this.onProviderChange);
+<details>
+  <summary>Show Source</summary>
 
-    ////
-    // 2.  Execute #ready method (required)
-    //
+```javascript
+
+import React from 'react';
+import {
+  Switch,
+  Text,
+  View,
+} from 'react-native';
+
+import BackgroundGeolocation, {
+  Location,
+  Subscription
+} from "react-native-background-geolocation";
+
+const HelloWorld = () => {
+  const [enabled, setEnabled] = React.useState(false);
+  const [location, setLocation] = React.useState('');
+
+  React.useEffect(() => {
+    /// 1.  Subscribe to events.
+    const onLocation:Subscription = BackgroundGeolocation.onLocation((location) => {
+      console.log('[onLocation]', location);
+      setLocation(JSON.stringify(location, null, 2));
+    })
+
+    const onMotionChange:Subscription = BackgroundGeolocation.onMotionChange((event) => {
+      console.log('[onMotionChange]', event);
+    });
+
+    const onActivityChange:Subscription = BackgroundGeolocation.onActivityChange((event) => {
+      console.log('[onMotionChange]', event);
+    })
+
+    const onProviderChange:Subscription = BackgroundGeolocation.onProviderChange((event) => {
+      console.log('[onProviderChange]', event);
+    })
+
+    /// 2. ready the plugin.
     BackgroundGeolocation.ready({
       // Geolocation Config
       desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
       distanceFilter: 10,
       // Activity Recognition
-      stopTimeout: 1,
+      stopTimeout: 5,
       // Application config
       debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
       logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
@@ -185,68 +223,178 @@ export default class App extends Component {
       params: {               // <-- Optional HTTP params
         "auth_token": "maybe_your_server_authenticates_via_token_YES?"
       }
-    }, (state) => {
+    }).then((state) => {
+      setEnabled(state.enabled)
       console.log("- BackgroundGeolocation is configured and ready: ", state.enabled);
-
-      if (!state.enabled) {
-        ////
-        // 3. Start tracking!
-        //
-        BackgroundGeolocation.start(function() {
-          console.log("- Start success");
-        });
-      }
     });
-  }
 
-  // You must remove listeners when your component unmounts
-  componentWillUnmount() {
-    BackgroundGeolocation.removeListeners();
-  }
-  onLocation(location) {
-    console.log('[location] -', location);
-  }
-  onError(error) {
-    console.warn('[location] ERROR -', error);
-  }
-  onActivityChange(event) {
-    console.log('[activitychange] -', event);  // eg: 'on_foot', 'still', 'in_vehicle'
-  }
-  onProviderChange(provider) {
-    console.log('[providerchange] -', provider.enabled, provider.status);
-  }
-  onMotionChange(event) {
-    console.log('[motionchange] -', event.isMoving, event.location);
-  }
+    return () => {
+      // Remove BackgroundGeolocation event-subscribers when the View is removed or refreshed
+      // during development live-reload.  Without this, event-listeners will accumulate with
+      // each refresh during live-reload.
+      onLocation.remove();
+      onMotionChange.remove();
+      onActivityChange.remove();
+      onProviderChange.remove();
+    }
+  }, []);
+
+  /// 3. start / stop BackgroundGeolocation
+  React.useEffect(() => {
+    if (enabled) {
+      BackgroundGeolocation.start();
+    } else {
+      BackgroundGeolocation.stop();
+      setLocation('');
+    }
+  }, [enabled]);
+
+  return (
+    <View style={{alignItems:'center'}}>
+      <Text>Click to enable BackgroundGeolocation</Text>
+      <Switch value={enabled} onValueChange={setEnabled} />
+      <Text style={{fontFamily:'monospace', fontSize:12}}>{location}</Text>
+    </View>
+  )
 }
 
+export default HelloWorld;
 ```
+
+</details>
+
+### Example 2. &mdash; React *Class Component*
+
+<details>
+  <summary>Show Source</summary>
 
 ```javascript
-BackgroundGeolocation.ready({
-  reset: true,  // <-- true to always apply the supplied config
-  distanceFilter: 10
-}, (state) => {
-  console.log('- BackgroundGeolocation is ready: ', state);
-});
-```
+import React from 'react';
+import {
+  Switch,
+  Text,
+  View,
+} from 'react-native';
 
-:warning: Do not execute *any* API method which will require accessing location-services until the callback to **`#ready`** executes (eg: `#getCurrentPosition`, `#watchPosition`, `#start`).
+import BackgroundGeolocation, {
+  Location,
+  Subscription
+} from "react-native-background-geolocation";
+
+export default class HelloWorld extends React.Component {
+  subscriptions:Subscription[] = [];
+  state:any = {};
+  constructor(props:any) {
+    super(props);
+    this.state = {
+      enabled: false,
+      location: ''
+    }
+  }
+
+  componentDidMount() {
+    /// 1.  Subscribe to BackgroundGeolocation events.
+    this.subscriptions.push(BackgroundGeolocation.onLocation((location) => {
+      console.log('[onLocation]', location);
+      this.setState({location: JSON.stringify(location, null, 2)})
+    }, (error) => {
+      console.log('[onLocation] ERROR:', error);
+    }))
+
+    this.subscriptions.push(BackgroundGeolocation.onMotionChange((event) => {
+      console.log('[onMotionChange]', event);
+    }))
+
+    this.subscriptions.push(BackgroundGeolocation.onActivityChange((event) => {
+      console.log('[onActivityChange]', event);
+    }))
+
+    this.subscriptions.push(BackgroundGeolocation.onProviderChange((event) => {
+      console.log('[onProviderChange]', event);
+    }))
+
+    /// 2. ready the plugin.
+    BackgroundGeolocation.ready({
+      // Geolocation Config
+      desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
+      distanceFilter: 10,
+      // Activity Recognition
+      stopTimeout: 5,
+      // Application config
+      debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
+      logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
+      stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
+      startOnBoot: true,        // <-- Auto start tracking when device is powered-up.
+      // HTTP / SQLite config
+      url: 'http://yourserver.com/locations',
+      batchSync: false,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
+      autoSync: true,         // <-- [Default: true] Set true to sync each location to server as it arrives.
+      headers: {              // <-- Optional HTTP headers
+        "X-FOO": "bar"
+      },
+      params: {               // <-- Optional HTTP params
+        "auth_token": "maybe_your_server_authenticates_via_token_YES?"
+      }
+    }).then((state) => {
+      this.setState({enabled: state.enabled});
+      console.log("- BackgroundGeolocation is configured and ready: ", state.enabled);
+    })
+  }
+
+  /// When view is destroyed (or refreshed during development live-reload),
+  /// remove BackgroundGeolocation event subscriptions.
+  componentWillUnmount() {
+    this.subscriptions.forEach((subscription) => subscription.remove());
+  }
+
+  onToggleEnabled(value:boolean) {
+    console.log('[onToggleEnabled]', value);
+    this.setState({enabled: value})
+    if (value) {
+      BackgroundGeolocation.start();
+    } else {
+      this.setState({location: ''});
+      BackgroundGeolocation.stop();
+    }
+  }
+
+  render() {
+    return (
+      <View style={{alignItems:'center'}}>
+        <Text>Click to enable BackgroundGeolocation</Text>
+        <Switch value={this.state.enabled} onValueChange={this.onToggleEnabled.bind(this)} />
+        <Text style={{fontFamily:'monospace', fontSize:12}}>{this.state.location}</Text>
+      </View>
+    )
+  }
+}
+```
+</details>
 
 ### Promise API
 
-The `BackgroundGeolocation` Javascript API supports [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for *nearly* every method (the exceptions are **`#watchPosition`** and adding event-listeners via **`#on`** method.  For more information, see the [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation)
+The `BackgroundGeolocation` Javascript API supports [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for *nearly* every method (the exceptions are **`#watchPosition`** and adding event-listeners via **`#onXXX`** method (eg: `onLocation`).  For more information, see the [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation-android)
 
 ```javascript
-// Traditional API still works:
 BackgroundGeolocation.ready({
-  desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
+  desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH, 
   distanceFilter: 50
 }).then(state => {
   console.log('- BackgroundGeolocation is ready: ', state);
 }).catch(error => {
-  console.log('- BackgroundGeolocation error: ', error);
+  console.warn('- BackgroundGeolocation error: ', error);
 });
+
+// Or use await in an async function
+try {
+  const state = await BackgroundGeolocation.ready({
+    desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH, 
+    distanceFilter: 50
+  })
+  console.log('- BackgroundGeolocation is ready: ', state);
+} catch (error) {
+  console.warn('- BackgroundGeolocation error: ', error);
+}
 ```
 
 ## :large_blue_diamond: [Demo Application](https://github.com/transistorsoft/rn-background-geolocation-demo)

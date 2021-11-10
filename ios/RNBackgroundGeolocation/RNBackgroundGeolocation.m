@@ -661,7 +661,12 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 
 - (void)invalidate
 {
-    [super invalidate];
+    // [super invalidate] if exists.
+    // https://github.com/transistorsoft/react-native-background-geolocation/issues/1407
+    if([super respondsToSelector:@selector(invalidate)]){
+        [super performSelector:@selector(invalidate)];
+    }
+    
     [locationManager removeListeners];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.locationManager stopWatchPosition];

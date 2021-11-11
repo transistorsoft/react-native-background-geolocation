@@ -659,18 +659,13 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
     [self sendEventWithName:event body:body];
 }
 
-- (void)invalidate
-{
-    // [super invalidate] if exists.
-    // https://github.com/transistorsoft/react-native-background-geolocation/issues/1407
-    if([super respondsToSelector:@selector(invalidate)]){
-        [super performSelector:@selector(invalidate)];
-    }
-    
-    [locationManager removeListeners];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.locationManager stopWatchPosition];
-    });
+- (void) startObserving {
+    // TODO Could possibly execute [self registerEventListeners] here.
+    [locationManager log:@"info" message:@"[RNBackgroundGeolocation startObserving]"];
+}
+- (void) stopObserving {
+    // TODO Could possibly execute [locationManager removeListeners] here.
+    [locationManager log:@"info" message:@"[RNBackgroundGeolocation stopObserving]"];
 }
 
 - (void)dealloc

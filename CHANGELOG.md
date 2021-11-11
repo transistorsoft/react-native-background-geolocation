@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.4.4 &mdash; 2021-11-11
+* [Fixed][iOS] More issues with iOS plugin 'invalidate' method.  Get rid of this method.  Implement startObserving, stopObserving.
+
 ## 4.4.3 &mdash; 2021-11-10
 * [Fixed][iOS] Backwards compatibility issue:  react-native@0.66 does have this method.  `No visible @interface for 'RCTEventEmitter' declares the selector 'invalidate' in RNBackgroundGeolocation.m`.  
 

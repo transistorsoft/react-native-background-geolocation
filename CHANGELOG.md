@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.4.6 &mdash; 2022-03-29
+* [Android] While testing adding 20k geofences, the Logger can cause an `OutOfMemory` error.  Define a dedicated thread executor `Executors.newFixedThreadPool(2)` for posting log messages in background.
+* [iOS] remote event-listeners in onAppTerminate to prevent onEnabledChange event being fired in a dying app configured for `stopOnTerminate: true`
+
+## 4.4.5 &mdash; 2022-01-20
+* [Fixed][iOS] Regression bug in iOS SAS authorization strategy
+* [Fixed][Android] Android logger defaulting to LOG_LEVEL_VERBOSE when initially launched configured for LOG_LEVEL_OFF
+* [Changed][iOS] Rebuild with latest XCode `13.2.1`
+
 ## 4.4.4 &mdash; 2021-11-11
 * [Fixed][iOS] More issues with iOS plugin 'invalidate' method.  Get rid of this method.  Implement startObserving, stopObserving.
 

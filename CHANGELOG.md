@@ -1,5 +1,20 @@
 # Change Log
 
+## 4.6.0 &mdash; 2022-04-29
+* [Android] Add a few extra manufacturer-specific `Intent` for `DeviceSettings.showPowerManager()`.
+* [Android] Minimum `compileSdkVersion 31` is now required.
+* [Android] Now that a minimum `targetSdkVersion 29` is required to release an Android app to *Play Store*, the SDK's `AndroidManifest` now automatically applies `android:foregroundServiceType="location"` to all required `Service` declarations.  You no longer need to manually provide overrides in your own `AndroidManifest`, ie:
+```diff
+<manifest>
+    <application>
+-       <service android:name="com.transistorsoft.locationmanager.service.TrackingService" android:foregroundServiceType="location" />
+-       <service android:name="com.transistorsoft.locationmanager.service.LocationRequestService" android:foregroundServiceType="location" />
+    </application>
+</manifest>
+```
+* [Android] Upgrade `android-permissions` dependency from 0.1.8 -> 2.1.6.
+* [iOS] Rebuild `TSLocationManager.xcframework` with XCode 13.3
+
 ## 4.4.6 &mdash; 2022-03-29
 * [Android] While testing adding 20k geofences, the Logger can cause an `OutOfMemory` error.  Define a dedicated thread executor `Executors.newFixedThreadPool(2)` for posting log messages in background.
 * [iOS] remote event-listeners in onAppTerminate to prevent onEnabledChange event being fired in a dying app configured for `stopOnTerminate: true`

@@ -1,5 +1,20 @@
 # Change Log
 
+## 4.7.1 &mdash; 2022-05-12
+* [Android] If on device reboot location-services fails to provide a location (eg: timeout, airplane mode), the plugin would rely on motion API events to try again.  This is a problem if the motion api is disabled.  Instead, the SDK will keep trying to retrieve a location.
+* [Android] Android 12 support for `ForegroundServiceStartNotAllowedException`:  immediately launch the SDK's `TrackingService` as soon as `.start()` executes.  If a location-timeout occurs while fetching the onMotionChange position after device reboot with `startOnBoot: true`, the `ForegroundServiceStartNotAllowedException` could be raised.
+* [Android] Add two new attributes `android:enabled` and `android:permission` to the SDK's built-in `BootReceiver`:
+```xml
+<receiver android:name="com.transistorsoft.locationmanager.BootReceiver" android:enabled="true" android:exported="false" android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+```
+* [Android] Android 12 support for executing `.start()` and `.getCurrentPosition()` while the plugin is disabled and in the background.  This is a bypass of new Android 12 restrictions for starting foreground-services in the background by taking advantage of AlarmManager.
+```
+Fatal Exception: android.app.ForegroundServiceStartNotAllowedException: startForegroundService() not allowed due to mAllowStartForeground false: service
+```
+* [Android] Added two new `androidx.lifecycle` dependencies to plugin's `build.gradle`, in addition to corresponding `ext` vars `ext.lifeCycleRunTimeVersion` and `ext.lifeCycleRuntimeVersion`
+- `"androidx.lifecycle:lifecycle-runtime"`
+- `"androidx.lifecycle:lifecycle-extensions"`
+
 ## 4.6.0 &mdash; 2022-04-29
 * [Android] Add a few extra manufacturer-specific `Intent` for `DeviceSettings.showPowerManager()`.
 * [Android] Minimum `compileSdkVersion 31` is now required.

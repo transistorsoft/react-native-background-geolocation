@@ -1,5 +1,10 @@
 # Change Log
 
+## 4.7.2 &mdash; 2022-05-27
+* [Android] Fix bug in Android 12 support for executing `.start()` in background while terminated.  Used `JobScheduler` ONESHOT instead of `AlarmManager`.
+* [Android] Plugin could be placed into an infinite loop requesting motionchange position in some cases.
+* [Android] Address `ConcurrentModificationException` in `onPermissionGranted`.
+
 ## 4.7.1 &mdash; 2022-05-12
 * [Android] If on device reboot location-services fails to provide a location (eg: timeout, airplane mode), the plugin would rely on motion API events to try again.  This is a problem if the motion api is disabled.  Instead, the SDK will keep trying to retrieve a location.
 * [Android] Android 12 support for `ForegroundServiceStartNotAllowedException`:  immediately launch the SDK's `TrackingService` as soon as `.start()` executes.  If a location-timeout occurs while fetching the onMotionChange position after device reboot with `startOnBoot: true`, the `ForegroundServiceStartNotAllowedException` could be raised.

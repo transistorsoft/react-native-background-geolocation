@@ -1,6 +1,9 @@
 # Change Log
 
-## 4.7.2 &mdash; 2022-05-27
+## 4.7.2 &mdash; Unreleased
+* [Android] Re-factor onProviderChange.  Add broadcast-receiver for `AIRPLANE_MODE` detection.
+* [Android] Add guard against Android 12 issue where location-services fail to turn off after terminate and plugin enters stationary state.
+* [Android] Prevent recording motionchange position from running after onProviderChange.
 * [Android] Fix bug in Android 12 support for executing `.start()` in background while terminated.  Used `JobScheduler` ONESHOT instead of `AlarmManager`.
 * [Android] Plugin could be placed into an infinite loop requesting motionchange position in some cases.
 * [Android] Address `ConcurrentModificationException` in `onPermissionGranted`.

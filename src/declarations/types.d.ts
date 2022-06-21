@@ -137,6 +137,7 @@ declare module "react-native-background-geolocation" {
     * | 0     | Location unknown            |
     * | 1     | Location permission denied  |
     * | 2     | Network error               |
+    * | 3     | Attempt to initiate location-services in background with WhenInUse authorization |
     * | 408   | Location timeout            |
     * | 499   | Location request cancelled  |
 	*/

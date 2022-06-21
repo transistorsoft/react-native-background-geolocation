@@ -72,6 +72,8 @@ typedef enum tsLocationType : NSInteger {
  * to the plugin's database, nor are they posted to your configured #url
  */
 @property (nonatomic, readonly) BOOL isSample;
+
+@property (nonatomic, readonly) BOOL mock;
 /**
  * YES when this location was provided to a heartbeat event
  */

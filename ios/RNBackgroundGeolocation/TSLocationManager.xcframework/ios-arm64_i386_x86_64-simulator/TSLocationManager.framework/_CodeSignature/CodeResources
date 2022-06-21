@@ -102,7 +102,7 @@
 		</data>
 		<key>Headers/TSLocation.h</key>
 		<data>
-		ZOhXybXZGss84kW1u83mEd3w49o=
+		1mg7Br/BpsMYtl9RvmFgPHnnysI=
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
@@ -138,7 +138,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		2fwUhP/XxcH3Zc7lGewfTh2dvI4=
+		YDZTb0oJE3fq+OMxysmlktNu66E=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -415,11 +415,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ZOhXybXZGss84kW1u83mEd3w49o=
+			1mg7Br/BpsMYtl9RvmFgPHnnysI=
 			</data>
 			<key>hash2</key>
 			<data>
-			TSvnvdnSzHeA3LKw8qJMQJR/HBmlgLQ+446VE9u1atk=
+			FTWiNKgNFY9FMbZbJc/dKCyrfir0MadGghuUTPFStXU=
 			</data>
 		</dict>
 		<key>Headers/TSLocationManager.h</key>

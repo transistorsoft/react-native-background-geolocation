@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.8.1 &mdash; 2022-06-28
+* Fix issue for react-native 0.69:  They made a breaking change with the old, unused react-native.config.js, causing builds to fail.  Simply delete the file `react-native.config.js`.
+
 ## 4.8.0 &mdash; 2022-06-21
 * [Android] Fix bug in `onProviderChange` event:  not properly detecting when location-services disabled.
 * [Android] __Android 12__:  Guard `Context.startForegroundService` with `try / catch`: the plugin will now catch exception `ForegroundServiceStartNotAllowedException` and automatically retry with an `AlarmManager` *oneShot* event.

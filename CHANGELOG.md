@@ -472,10 +472,10 @@ Replace `@available` macro with `SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO`.
 - [Added] iOS 13 support.
 - [Added] Auto-linking support.  Do not use `react-native link` anymore.  See the Setup docs for Android and iOS.  Before installing `3.2.0`, first `react-native unlink` both `background-geolocation` and `background-fetch`.
 
-:warning: If you have a previous version of **`react-native-background-geolocation-android < 3.2.0`** installed into **`react-native >= 0.60`**, you should first `unlink` your previous version as `react-native link` is no longer required.
+:warning: If you have a previous version of **`react-native-background-geolocation < 3.2.0`** installed into **`react-native >= 0.60`**, you should first `unlink` your previous version as `react-native link` is no longer required.
 
 ```bash
-$ react-native unlink react-native-background-geolocation-android
+$ react-native unlink react-native-background-geolocation
 ```
 
 - [Fixed] Android Geofence `DWELL` transition (`notifyOnDwell: true`) not firing.
@@ -647,7 +647,7 @@ Logging for Android background-tasks looks like this (when you see an hourglass,
 - [Added] New custom Android debug sound FX.  See the [Config.debug](https://transistorsoft.github.io/cordova-background-geolocation/interfaces/_cordova_background_geolocation_.config.html#debug) for a new decription of iOS / Android sound FX **including a media player to play each.**
 ![](https://dl.dropbox.com/s/zomejlm9egm1ujl/Screenshot%202019-03-26%2023.10.50.png?dl=1)
 
-:warning: These debug sound FX consume about **1.4MB** in the plugin's `tslocationmanager.aar`.  These assets can easily be stripped in your `release` builds by adding the following gradle task to your `app/build.gradle` (I'm working on an automated solution within the context of the plugin's `build.gradle`; so far, no luck).  [Big thanks](https://github.com/transistorsoft/react-native-background-geolocation-android/issues/667#issuecomment-475928108) to @mikehardy.
+:warning: These debug sound FX consume about **1.4MB** in the plugin's `tslocationmanager.aar`.  These assets can easily be stripped in your `release` builds by adding the following gradle task to your `app/build.gradle` (I'm working on an automated solution within the context of the plugin's `build.gradle`; so far, no luck).  [Big thanks](https://github.com/transistorsoft/react-native-background-geolocation/issues/667#issuecomment-475928108) to @mikehardy.
 ```gradle
 /**
  * Purge Background Geolocation debug sounds from release build.

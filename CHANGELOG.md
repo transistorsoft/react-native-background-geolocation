@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.8.2 &mdash; 2022-08-08
+* [Android] Fix `java.lang.IllegalArgumentException `TSProviderManager.handleProviderChangeEvent`.
+* [Android] `startOnBoot: false` with `stopOnTerminate: false` could start-on-boot.
+* [Android] `State.enabled` returned by calling `.stop()` returns `true` due to implementation running in a background-thread but `callback` executed immediately on the main-thread.  However, requesting `.getState()` immediately after calling `.stop` *would* return the correct value of `State.enabled`
+* [Android] Fix `notification.sticky` not being respected.
+
 ## 4.8.1 &mdash; 2022-06-28
 * Fix issue for react-native 0.69:  They made a breaking change with the old, unused react-native.config.js, causing builds to fail.  Simply delete the file `react-native.config.js`.
 

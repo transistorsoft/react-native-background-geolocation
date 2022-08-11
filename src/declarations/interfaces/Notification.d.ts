@@ -480,5 +480,36 @@ declare module "react-native-background-geolocation" {
     */
     channelName?: string;
 
+    /**
+    * Configure the importance of the plugin's notification-channel used to display the [[Config.foregroundService]] notification.
+    * @break
+    * 
+    * On Android O+, the plugin's foreground-service needs to create a "Notification Channel". This will control the **importance** of the notification channel.
+    *
+    * The following `notificationPriority` values defined as static constants upon the [[BackgroundGeolocation]] object:
+    *
+    * | Value                                                   | Description                                                                                                       |
+    * |---------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+    * | [[BackgroundGeolocation.NOTIFICATION_PRIORITY_DEFAULT]] | Default notification importance: shows everywhere, makes noise, but does not visually intrude.                    |
+    * | [[BackgroundGeolocation.NOTIFICATION_PRIORITY_HIGH]]    | Higher notification importance: shows everywhere, makes noise and peeks. May use full screen intents.             |
+    * | [[BackgroundGeolocation.NOTIFICATION_PRIORITY_LOW]]     | Low notification importance: Shows in the shade, and potentially in the status bar, but is not audibly intrusive. |
+    * | [[BackgroundGeolocation.NOTIFICATION_PRIORITY_MIN]]     | Min notification importance: Only shows in the shade, below the fold.                                             |
+    *
+    * @example
+    * ```javascript
+    * BackgroundGeolocation.ready({
+    *   notification: {
+    *     channelImportance: BackgroundGeolocation.NOTIFICATION_PRIORITY_LOW
+    * });
+    *
+    * // or with #setConfig
+    * BackgroundGeolocation.setConfig({
+    *   notification: {
+    *     channelImportance: BackgroundGeolocation.NOTIFICATION_PRIORITY_LOW
+    *   }
+    * });
+    * ```
+    */
+    channelImportance?: NotificationPriority
   }
 }

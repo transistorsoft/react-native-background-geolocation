@@ -137,7 +137,7 @@ If you've **not** [purchased a license](https://www.transistorsoft.com/shop/prod
 
 ## Android 10 and *When in Use* Location Authorization
 
-Android 10 introduces *When in Use* location authorization.  If you're building with `compileSdkVersion 29`, add the following elements to your **`AndroidManifest.xml`**.  This allows your app to continue location-tracking when location-services are initiated while your app is in the foreground.  For example:
+Android 10 introduces *When in Use* location authorization.  If you're building with `compileSdkVersion 29` (or above), add the following elements to your **`AndroidManifest.xml`**.  This allows your app to continue location-tracking when location-services are initiated while your app is in the foreground.  For example:
 
 ```javascript
 onClickStartTracking() {

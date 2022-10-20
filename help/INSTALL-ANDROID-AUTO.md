@@ -65,7 +65,7 @@ buildscript {
         targetSdkVersion = 31           // Or higher.
 +       compileSdkVersion = 31          // Or higher.
 +       appCompatVersion = "1.1.0"      // Or higher.  Required for new AndroidX compatibility.
-+       googlePlayServicesLocationVersion = "19.0.1"  // Or higher.
++       googlePlayServicesLocationVersion = "19.0.1"  // Or higher, but avoid "21.0.0" as it is known to crash.
     }
     ...
 }

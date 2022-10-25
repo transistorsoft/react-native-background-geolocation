@@ -1,7 +1,10 @@
 # Change Log
 
-## Unreleased
-* [iOS] Build `TSLocationManager.xcframework` with *XCode 14*.
+## 4.9.2 &mdash; 2022-10-25
+* [Android] `play-services:location` has [introduced a breaking change](https://developers.google.com/android/guides/releases#october_13_2022) in `v21`, breaking the plugin.  `googlePlayServicesLocationVersion` will be capped with a maximum of `v20`.  The next major release (`4.10.0`) will set a minimum required version of `v21`.
+* [Expo] The plugin now implements an Expo plugin for automated Setup.
+* [iOS] Fix bug in iOS scheduler firing on days where it should not.
+* [iOS] Rebuild `TSLocationManager.xcframework` with *XCode 13* (instead of *XCode 14*).
 * [Android] Add new Config `Notification.channelId` for custom customizing the `NotificationChannel` id.  Some use
 rs have an existing foreground-service and `NotificationChannel` so wish to have the plugin's foreground-service
 s share the same notification and channel.  This option should generally not be used.
@@ -32,8 +35,6 @@ n whenever the state of location-services is changed (eg: Location-services disa
 * [Android] Better handling for `WhenInUse` behaviour:  The plugin will not allow `.changePace(true)` to be executed when the app is in the background (since Android forbids location-services to initiated in the background with `WhenInUse`).
 * [Android] Refactor `useSignificantChangesOnly` behaviour.  Will use a default `motionTriggerDelay` with minimum 60000ms, minimum `distanceFilter: 250` and enforced `stopTimeout: 20`.
 * [iOS] iOS 15 has finally implemented *Mock Location Detection*.  `location.mock` will now be present for iOS when the location is mocked, just like Android.
-
-## 4.7.2 &mdash; Unreleased
 * [Android] Re-factor onProviderChange.  Add broadcast-receiver for `AIRPLANE_MODE` detection.
 * [Android] Add guard against Android 12 issue where location-services fail to turn off after terminate and plugin enters stationary state.
 * [Android] Prevent recording motionchange position from running after onProviderChange.

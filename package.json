@@ -32,18 +32,17 @@
     "url": "https://github.com/transistorsoft/react-native-background-geolocation/issues"
   },
   "homepage": "https://www.transistorsoft.com/shop/products/react-native-background-geolocation",
-  "peerDependencies": {
-    "react-native": ">=0.36.0"
-  },
   "dependencies": {
-    "react-native-background-fetch": "~4.1.1"
+    "react-native-background-fetch": "~4.1.5"
   },
   "devDependencies": {
+    "@expo/config-plugins": "^4.1.0",
     "@transistorsoft/typedoc-theme": "^2.0.8",
+    "@types/node": "^18.11.5",
     "chalk": "^4.1.0",
     "fs-extra": "^9.1.0",
+    "path": "^0.12.7",
     "rimraf": "^3.0.2",
-    "@expo/config-plugins": "^4.1.0",
     "typescript": "^4.6.2"
   }
 }

@@ -1203,6 +1203,26 @@ declare module "react-native-background-geolocation" {
     *
     */
     disableAutoSyncOnCellular?: boolean;
+    /**
+     * __`[Android-only]`__ Disables the automatic insert of a location record into the SDK's SQLite database and subsequent HTTP upload if configured with [[Config.url]].
+     * When a [[onProviderChange]] event fires, the Android SDK has traditionally recorded a location to show exactly *when* and *where* the state of location-services was changed (eg: Location-services disabled).
+     *
+     * Android has done this *automatically* due to the difficulty with some platforms' implementation of *Headless Tasks* ([[enableHeadless]]), where *Cordova* and *Capacitor* require implementations using *Java* code, which is often difficult for most developers.
+     *
+     * Some developers' servers have strict HTTP JSON payloads and possibly using [[locationTemplate]], where it's impossible to template the automatically appended `provider` key in the payload.
+     *
+     * ![](https://www.dropbox.com/s/ljacoquuuv5sd5r/disableProviderChangeRecord.png?dl=1)
+     *
+     *  Set `true` to disable this default behaviour.
+     *
+     * @example
+     * ```
+     * BackgroundGeolocation.ready({
+     *   disableProviderChangeRecord: true
+     * })
+     * ```
+     */
+     disableProviderChangeRecord?: boolean;
 
     /**
     * Configures the SDK for [[Authorization]] with your server (eg: [JSON Web Token](https://jwt.io/)).

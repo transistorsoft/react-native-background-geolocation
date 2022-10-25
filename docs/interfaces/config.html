@@ -19,7 +19,7 @@
 					<div class="brand">
 						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
 						<span class="title">
-							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.8.0</span>
+							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.9.2</span>
 						</span>
 					</div>
 				</div>
@@ -567,6 +567,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="config.html#disableelasticity" class="tsd-kind-icon">disable<wbr>Elasticity</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="config.html#disablelocationauthorizationalert" class="tsd-kind-icon">disable<wbr>Location<wbr>Authorization<wbr>Alert</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="config.html#disablemotionactivityupdates" class="tsd-kind-icon">disable<wbr>Motion<wbr>Activity<wbr>Updates</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="config.html#disableproviderchangerecord" class="tsd-kind-icon">disable<wbr>Provider<wbr>Change<wbr>Record</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="config.html#disablestopdetection" class="tsd-kind-icon">disable<wbr>Stop<wbr>Detection</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="config.html#distancefilter" class="tsd-kind-icon">distance<wbr>Filter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="config.html#elasticitymultiplier" class="tsd-kind-icon">elasticity<wbr>Multiplier</a></li>
@@ -1359,6 +1360,31 @@
 							<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">ready</span><span style="color: #F8F8F2">({</span>
 <span style="color: #F8F8F2">  disableMotionActivityUpdates: </span><span style="color: #AE81FF">true</span>
 <span style="color: #F8F8F2">});</span>
+</code></pre>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="disableproviderchangerecord" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> disable<wbr>Provider<wbr>Change<wbr>Record</h3>
+					<div class="tsd-signature tsd-kind-icon">disable<wbr>Provider<wbr>Change<wbr>Record<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><strong><code>[Android-only]</code></strong> Disables the automatic insert of a location record into the SDK&#39;s SQLite database and subsequent HTTP upload if configured with <a href="config.html#url">Config.url</a>.
+							When a <a href="../classes/backgroundgeolocation.html#onproviderchange">onProviderChange</a> event fires, the Android SDK has traditionally recorded a location to show exactly <em>when</em> and <em>where</em> the state of location-services was changed (eg: Location-services disabled).</p>
+						</div>
+						<p>Android has done this <em>automatically</em> due to the difficulty with some platforms&#39; implementation of <em>Headless Tasks</em> (<a href="config.html#enableheadless">enableHeadless</a>), where <em>Cordova</em> and <em>Capacitor</em> require implementations using <em>Java</em> code, which is often difficult for most developers.</p>
+						<p>Some developers&#39; servers have strict HTTP JSON payloads and possibly using <a href="config.html#locationtemplate">locationTemplate</a>, where it&#39;s impossible to template the automatically appended <code>provider</code> key in the payload.</p>
+						<p><img src="https://www.dropbox.com/s/ljacoquuuv5sd5r/disableProviderChangeRecord.png?dl=1" alt=""></p>
+						<p> Set <code>true</code> to disable this default behaviour.</p>
+						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">ready</span><span style="color: #F8F8F2">({</span>
+<span style="color: #F8F8F2">  disableProviderChangeRecord: </span><span style="color: #AE81FF">true</span>
+<span style="color: #F8F8F2">})</span>
 </code></pre>
 							</dd>
 						</dl>
@@ -4039,6 +4065,9 @@
 								<a href="config.html#disablemotionactivityupdates" class="tsd-kind-icon">disable<wbr>Motion<wbr>Activity<wbr>Updates</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="config.html#disableproviderchangerecord" class="tsd-kind-icon">disable<wbr>Provider<wbr>Change<wbr>Record</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="config.html#disablestopdetection" class="tsd-kind-icon">disable<wbr>Stop<wbr>Detection</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -4293,6 +4322,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="config.html#disablemotionactivityupdates" class="tsd-kind-icon">disable<wbr>Motion<wbr>Activity<wbr>Updates</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="config.html#disableproviderchangerecord" class="tsd-kind-icon">disable<wbr>Provider<wbr>Change<wbr>Record</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="config.html#disablestopdetection" class="tsd-kind-icon">disable<wbr>Stop<wbr>Detection</a>

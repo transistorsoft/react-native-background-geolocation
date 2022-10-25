@@ -1,11 +1,16 @@
 {
   "name": "react-native-background-geolocation",
-  "version": "4.8.2",
+  "version": "4.9.2",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "main": "src/index.js",
+  "scripts": {
+    "build": "yarn run build:expo",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:expo": "rimraf expo/plugin/build && tsc --build ./expo/plugin"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/transistorsoft/react-native-background-geolocation.git"
@@ -27,16 +32,17 @@
     "url": "https://github.com/transistorsoft/react-native-background-geolocation/issues"
   },
   "homepage": "https://www.transistorsoft.com/shop/products/react-native-background-geolocation",
-  "peerDependencies": {
-    "react-native": ">=0.36.0"
-  },
   "dependencies": {
-    "react-native-background-fetch": "~4.1.1"
+    "react-native-background-fetch": "~4.1.5"
   },
   "devDependencies": {
+    "@expo/config-plugins": "^4.1.0",
     "@transistorsoft/typedoc-theme": "^2.0.8",
+    "@types/node": "^18.11.5",
     "chalk": "^4.1.0",
     "fs-extra": "^9.1.0",
-    "rimraf": "^3.0.2"
+    "path": "^0.12.7",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.2"
   }
 }

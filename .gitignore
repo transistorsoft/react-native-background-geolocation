@@ -36,3 +36,8 @@ package-lock.json
 *.tgz
 
 yarn.lock
+
+# Expo build
+expo/plugin/build/**
+
+*.log

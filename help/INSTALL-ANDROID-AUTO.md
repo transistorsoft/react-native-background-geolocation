@@ -64,8 +64,8 @@ buildscript {
         minSdkVersion = 16
         targetSdkVersion = 31           // Or higher.
 +       compileSdkVersion = 31          // Or higher.
-+       appCompatVersion = "1.1.0"      // Or higher.  Required for new AndroidX compatibility.
-+       googlePlayServicesLocationVersion = "19.0.1"  // Or higher.
++       appCompatVersion = "1.4.2"      // Or higher.  Required for new AndroidX compatibility.
++       googlePlayServicesLocationVersion = "20.0.0"  // Or higher.
     }
     ...
 }
@@ -135,30 +135,7 @@ If you've **not** [purchased a license](https://www.transistorsoft.com/shop/prod
 
 ```
 
-## Android 10 and *When in Use* Location Authorization
-
-Android 10 introduces *When in Use* location authorization.  If you're building with `compileSdkVersion 29`, add the following elements to your **`AndroidManifest.xml`**.  This allows your app to continue location-tracking when location-services are initiated while your app is in the foreground.  For example:
-
-```javascript
-onClickStartTracking() {
-    // Initiate tracking while app is in foreground.
-    BackgroundGeolocation.changePace(true);
-}
-```
-
-```diff
-<manifest>
-    <application>
-+       <service android:name="com.transistorsoft.locationmanager.service.TrackingService" android:foregroundServiceType="location" />
-+       <service android:name="com.transistorsoft.locationmanager.service.LocationRequestService" android:foregroundServiceType="location" />
-    </application>
-</manifest>
-
-```
-
-
 ## Proguard Config
-
 
 If you've enabled **`def enableProguardInReleaseBuilds = true`** in your `app/build.gradle`, be sure to add the BackgroundGeolocation SDK's `proguard-rules.pro` to your **`proguardFiles`**:
 

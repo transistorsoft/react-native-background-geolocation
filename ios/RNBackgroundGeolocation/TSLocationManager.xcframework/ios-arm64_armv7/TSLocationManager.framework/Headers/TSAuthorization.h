@@ -23,6 +23,7 @@ extern NSString * const TS_REFRESH_URL;
 @property(nonatomic) NSString* accessToken;
 @property(nonatomic) NSString* refreshToken;
 @property(nonatomic) NSDictionary* refreshPayload;
+@property(nonatomic) NSDictionary* refreshHeaders;
 @property(nonatomic) NSString* refreshUrl;
 @property(nonatomic) NSTimeInterval expires;
 

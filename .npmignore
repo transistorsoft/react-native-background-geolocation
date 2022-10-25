@@ -4,5 +4,10 @@ help
 bin
 README.md
 ISSUE_TEMPLATE.md
+*.md
 node_modules
 *.tgz
+
+# Expo
+expo/plugin/src
+expo/plugin/tsconfig.json

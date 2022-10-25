@@ -19,7 +19,7 @@
 					<div class="brand">
 						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
 						<span class="title">
-							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.8.0</span>
+							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.9.1</span>
 						</span>
 					</div>
 				</div>
@@ -96,6 +96,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="coords.html#accuracy" class="tsd-kind-icon">accuracy</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="coords.html#altitude" class="tsd-kind-icon">altitude</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="coords.html#altitude_accuracy" class="tsd-kind-icon">altitude_<wbr>accuracy</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="coords.html#ellipsoidal_altitude" class="tsd-kind-icon">ellipsoidal_<wbr>altitude</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="coords.html#floor" class="tsd-kind-icon">floor</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="coords.html#heading" class="tsd-kind-icon">heading</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="coords.html#heading_accuracy" class="tsd-kind-icon">heading_<wbr>accuracy</a></li>
@@ -130,7 +131,11 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Altitude above sea-level in meters.</p>
+							<p>[iOS] Altitude above sea-level in meters.
+							[Android] The altitude of this location in meters above the WGS84 reference ellipsoid.</p>
+							<ul>
+								<li>See <a href="coords.html#ellipsoidal_altitude">ellipsoidal_altitude</a></li>
+							</ul>
 						</div>
 					</div>
 				</section>
@@ -156,6 +161,18 @@
 						<p>Android defines vertical accuracy at 68% confidence. Specifically, as 1-side of the 2-sided range above and below the estimated altitude reported by [altitude], within which there is a 68% probability of finding the true altitude.</p>
 						<p>In the case where the underlying distribution is assumed Gaussian normal, this would be considered 1 standard deviation.</p>
 						<p>For example, if [altitude] returns <code>150</code>, and [verticalAccuracy] returns <code>20</code> then there is a 68% probability of the true altitude being between <code>130</code> and <code>170</code> meters.</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="ellipsoidal_altitude" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ellipsoidal_<wbr>altitude</h3>
+					<div class="tsd-signature tsd-kind-icon">ellipsoidal_<wbr>altitude<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The altitude of this location in meters above the WGS84 reference ellipsoid.</p>
+						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -266,6 +283,9 @@
 								<a href="coords.html#altitude_accuracy" class="tsd-kind-icon">altitude_<wbr>accuracy</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="coords.html#ellipsoidal_altitude" class="tsd-kind-icon">ellipsoidal_<wbr>altitude</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="coords.html#floor" class="tsd-kind-icon">floor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -307,6 +327,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="coords.html#altitude_accuracy" class="tsd-kind-icon">altitude_<wbr>accuracy</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="coords.html#ellipsoidal_altitude" class="tsd-kind-icon">ellipsoidal_<wbr>altitude</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="coords.html#floor" class="tsd-kind-icon">floor</a>

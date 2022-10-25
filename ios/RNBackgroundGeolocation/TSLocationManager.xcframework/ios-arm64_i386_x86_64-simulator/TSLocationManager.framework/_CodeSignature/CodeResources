@@ -42,7 +42,7 @@
 		</data>
 		<key>Headers/TSAuthorization.h</key>
 		<data>
-		ejGHmB3cWE9NhMtsgdktieAc+Ag=
+		Kb3Cx6ApdAI2YnWvWNmq5pHoXHc=
 		</data>
 		<key>Headers/TSAuthorizationEvent.h</key>
 		<data>
@@ -138,7 +138,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		YDZTb0oJE3fq+OMxysmlktNu66E=
+		s5vsrtTl12zwWaO61fpcxIwNozw=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -250,11 +250,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ejGHmB3cWE9NhMtsgdktieAc+Ag=
+			Kb3Cx6ApdAI2YnWvWNmq5pHoXHc=
 			</data>
 			<key>hash2</key>
 			<data>
-			moNjVyqpDlKPFVD5U18V2PJ+BK2pmEsuktmApT1YE68=
+			wanynAdYmouyOQdVfHkKnlnodPzGZae7hqyXahQaUV8=
 			</data>
 		</dict>
 		<key>Headers/TSAuthorizationEvent.h</key>

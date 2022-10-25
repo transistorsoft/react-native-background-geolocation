@@ -480,5 +480,12 @@ declare module "react-native-background-geolocation" {
     */
     channelName?: string;
 
+    /**
+     * Customize the notification channel ID.
+     * Defaults to `your.package.name.TSLocationManager`
+     *
+     * __NOTE__:  It is not typically required to change this.  Typical use-cases are for users who use an existing Android foreground-service who wish the SDK to share an existing notification and channel.
+     */
+     channelId?: string;
   }
 }

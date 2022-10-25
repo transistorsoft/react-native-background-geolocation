@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "rootDir": "src",
+    "declaration": true,
+    "target": "esnext",
+    "module": "commonjs",
+    "lib": ["esnext", "ES6", "DOM"],
+    "allowJs": false,
+    "jsx": "react-native",
+    "sourceMap": true,
+    "listEmittedFiles": true,
+    "removeComments": false,
+    "isolatedModules": false,
+    "strict": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["./src"]
+}

@@ -25,7 +25,8 @@ npx expo install expo-gradle-ext-vars
 +         "googlePlayServicesLocationVersion": "20.0.0",
 +         "appCompatVersion": "1.4.2"
 +       }
-+     ]
++     ],
++     "react-native-background-fetch",
     ]
   }
 }
@@ -36,7 +37,6 @@ npx expo install expo-gradle-ext-vars
 - Add the following *Usage Descriptions* to the __`ios.infoPlist`__ section:
 - These strings are used by the OS when requesting permission from the user.  It's up to you to re-write these strings as-desired.
 
-
 ```diff
 {
   "expo": {
@@ -46,10 +46,11 @@ npx expo install expo-gradle-ext-vars
     .
     "ios": {
 +     "infoPlist": {
-+        "NSLocationAlwaysAndWhenInUseUsageDescription": "[CHANGEME] This app requires location in the background",
-+        "NSLocationWhenInUseUsageDescription": "[CHANGEME] This app requires location while in use",
-+        "NSMotionUsageDescription": "[CHANGEME] This app uses motion-detection to determine the motion-activity of the device (walking, vehicle, bicycle, etc)",
-+    }
++       "NSLocationAlwaysAndWhenInUseUsageDescription": "[CHANGEME] This app requires location in the background",
++       "NSLocationWhenInUseUsageDescription": "[CHANGEME] This app requires location while in use",
++       "NSMotionUsageDescription": "[CHANGEME] This app uses motion-detection to determine the motion-activity of the device (walking, vehicle, bicycle, etc)",
++     }
+    }
   }
 }
 ```
@@ -75,8 +76,15 @@ npx expo install expo-gradle-ext-vars
         "NSLocationWhenInUseUsageDescription": "[CHANGEME] This app requires location while in use",
         "NSMotionUsageDescription": "[CHANGEME] This app uses motion-detection to determine the motion-activity of the device (walking, vehicle, bicycle, etc)",
 +       "UIBackgroundModes": [
-+         "location"
++         "location",
++         "fetch",
++         "processing"
++       ],
++       "BGTaskSchedulerPermittedIdentifiers": [
++         "com.transistorsoft.fetch",
++         "com.transistorsoft.customtask",
 +       ]
+      }
     }
   }
 }
@@ -98,15 +106,11 @@ npx expo install expo-gradle-ext-vars
         "NSMotionUsageDescription": "[CHANGEME] This app uses motion-detection to determine the motion-activity of the device (walking, vehicle, bicycle, etc)",
         "UIBackgroundModes": [
           "location",
+          "fetch",
+          "processing",
 +         "audio"
         ]
     }
   }
 }
 ```
-
-### Setup `react-native-background-fetch`
-
-- __:warning:__ You **must** perform the [*Expo Setup*](https://github.com/transistorsoft/react-native-background-fetch/blob/master/docs/INSTALL-EXPO.md) for `react-native-background-fetch`
-
-

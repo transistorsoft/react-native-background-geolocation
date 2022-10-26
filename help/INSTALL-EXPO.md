@@ -48,7 +48,7 @@ npx expo install expo-gradle-ext-vars
 +     "infoPlist": {
 +       "NSLocationAlwaysAndWhenInUseUsageDescription": "[CHANGEME] This app requires location in the background",
 +       "NSLocationWhenInUseUsageDescription": "[CHANGEME] This app requires location while in use",
-+       "NSMotionUsageDescription": "[CHANGEME] This app uses motion-detection to determine the motion-activity of the device (walking, vehicle, bicycle, etc)",
++       "NSMotionUsageDescription": "[CHANGEME] This app uses motion-detection to determine the motion-activity of the device (walking, vehicle, bicycle, etc)"
 +     }
     }
   }
@@ -82,7 +82,7 @@ npx expo install expo-gradle-ext-vars
 +       ],
 +       "BGTaskSchedulerPermittedIdentifiers": [
 +         "com.transistorsoft.fetch",
-+         "com.transistorsoft.customtask",
++         "com.transistorsoft.customtask"
 +       ]
       }
     }

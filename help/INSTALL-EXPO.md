@@ -110,6 +110,7 @@ npx expo install expo-gradle-ext-vars
           "processing",
 +         "audio"
         ]
+      }
     }
   }
 }

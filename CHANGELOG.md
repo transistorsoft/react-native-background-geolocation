@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.9.3 &mdash; 2022-10-26
+* [Android] Fix logic error with `getCurrentPosition` not respecting `timeout`.
+
 ## 4.9.2 &mdash; 2022-10-25
 * [Android] `play-services:location` has [introduced a breaking change](https://developers.google.com/android/guides/releases#october_13_2022) in `v21`, breaking the plugin.  `googlePlayServicesLocationVersion` will be capped with a maximum of `v20`.  The next major release (`4.10.0`) will set a minimum required version of `v21`.
 * [Expo] The plugin now implements an Expo plugin for automated Setup.

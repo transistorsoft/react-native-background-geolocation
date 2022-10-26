@@ -26,7 +26,7 @@ npx expo install expo-gradle-ext-vars
 +         "appCompatVersion": "1.4.2"
 +       }
 +     ],
-+     "react-native-background-fetch",
++     "react-native-background-fetch"
     ]
   }
 }

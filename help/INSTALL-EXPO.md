@@ -119,7 +119,7 @@ npx expo install expo-gradle-ext-vars
 ### Re-build
 
 You must rebuild your Android app for the added plugins to be evaluated.
-- If you developing locally:
+- If you're developing locally:
 
 ```bash
 npx expo prebuild

@@ -1,4 +1,4 @@
-# Expo Installation
+# Expo Setup
 
 ```bash
 npx expo install react-native-background-geolocation
@@ -114,4 +114,18 @@ npx expo install expo-gradle-ext-vars
     }
   }
 }
+```
+
+### Re-build
+
+You must rebuild your Android app for the added plugins to be evaluated.
+- If you developing locally:
+
+```bash
+npx expo prebuild
+```
+
+- If you're using *Expo EAS*:
+```bash
+ eas build --profile development --platform android
 ```

@@ -127,5 +127,5 @@ npx expo prebuild
 
 - If you're using *Expo EAS*:
 ```bash
- eas build --profile development --platform android
+eas build --profile development --platform android
 ```

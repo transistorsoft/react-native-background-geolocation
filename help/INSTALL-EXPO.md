@@ -125,7 +125,10 @@ You must rebuild your Android app for the added plugins to be evaluated.
 npx expo prebuild
 ```
 
-- If you're using *Expo EAS*:
+- If you're using *Expo EAS*, you must first run `eas build`.
+- Adjust `--profile` as desired.
+- You must build __ALL__ platforms, both *iOS* and *Android*:
+
 ```bash
- eas build --profile development --platform android
+ eas build --profile development
 ```

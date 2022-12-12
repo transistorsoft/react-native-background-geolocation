@@ -1,5 +1,10 @@
 # Change Log
 
+## 4.9.4 &mdash; 2022-12-12
+* [Fixed] __Android__: Catch `Fatal Exception: java.lang.IllegalArgumentException: NetworkCallback was already unregistered`
+* [Fixed] __Android__ It has been discovered that the Android logger `logback-android` has not been automatically clearing all expired records (`Config.logMaxDays`) from the log database.  The `logback-android` database consists of three tables and only *one* was being cleared (see https://github.com/tony19/logback-android/pull/214), resulting in a constantly growing database (where `logLevel > LOG_LEVEL_OFF`).  This version of the plugin will alter the `logback-android` database tables with `ON DELETE CASCADE` to ensure all log-data is properly removed.
+* [Added] Added two new *HTTP RPC* commands `stopSchedule` and `startSchedule` (See API docs *HTTP Guide* for more information).
+
 ## 4.9.3 &mdash; 2022-10-26
 * [Android] Fix logic error with `getCurrentPosition` not respecting `timeout`.
 

@@ -109,7 +109,7 @@ declare module "react-native-background-geolocation" {
 	* | [[AUTHORIZATION_STATUS_RESTRICTED]]     | iOS only      |
 	* | [[AUTHORIZATION_STATUS_DENIED]]         | iOS & Android |
 	* | [[AUTHORIZATION_STATUS_ALWAYS]]         | iOS & Android |
-	* | [[AUTHORIZATION_STATUS_WHEN_IN_USE]]    | iOS only      |
+	* | [[AUTHORIZATION_STATUS_WHEN_IN_USE]]    | iOS & Android 10+ |
 	*/
 	type AuthorizationStatus = 0 | 1 | 2 | 3 | 4;
 

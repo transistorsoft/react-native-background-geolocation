@@ -1,16 +1,5 @@
 declare module "react-native-background-geolocation" {
   /**
-   * Type of activity.
-   */
-  type MotionActivityType =
-    | "still"
-    | "walking"
-    | "on_foot"
-    | "running"
-    | "on_bicycle"
-    | "in_vehicle";
-
-  /**
    * The event-object provided to [[BackgroundGeolocation.onActivityChange]].  Also attached to each recorded [[Location]].
    *
    * @example
@@ -33,7 +22,7 @@ declare module "react-native-background-geolocation" {
      * | `on_bicycle`   |
      * | `in_vehicle`   |
      */
-    type: MotionActivityType;
+    activity: string;
     /**
      * Confidence of the reported device motion activity in %.
      */

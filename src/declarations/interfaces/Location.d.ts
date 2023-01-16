@@ -1,5 +1,5 @@
 /// <reference path="./GeofenceEvent.d.ts" />
-/// <reference path="./MotionActivityEvent.d.ts" />
+/// <reference path="./LocationMotionActivityEvent.d.ts" />
 /// <reference path="./ProviderChangeEvent.d.ts" />
 /// <reference path="../types.d.ts" />
 ///
@@ -216,7 +216,7 @@ declare module "react-native-background-geolocation" {
     /**
     * Device motion-activity when this location was recorded (eg: `still`, `on_foot`, `in_vehicle`).
     */
-    activity: MotionActivityEvent;
+    activity: LocationMotionActivityEvent;
     /**
     * If this location was recorded due to [[ProviderChangeEvent]], this is a reference to the location-provider state.
     */

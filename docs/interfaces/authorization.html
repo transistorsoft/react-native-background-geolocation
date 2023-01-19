@@ -19,7 +19,7 @@
 					<div class="brand">
 						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
 						<span class="title">
-							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.9.4</span>
+							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.9.5</span>
 						</span>
 					</div>
 				</div>
@@ -102,7 +102,7 @@
 <span style="color: #F8F8F2">  authorization: {</span>
 <span style="color: #F8F8F2">    strategy: </span><span style="color: #E6DB74">&quot;JWT&quot;</span><span style="color: #F8F8F2">,</span>
 <span style="color: #F8F8F2">    accessToken: myToken.accessToken,</span>
-<span style="color: #F8F8F2">    refreshToken: myToken.refreshToken</span>
+<span style="color: #F8F8F2">    refreshToken: myToken.refreshToken,</span>
 <span style="color: #F8F8F2">    refreshUrl: </span><span style="color: #E6DB74">&quot;https://auth.your.server.com/tokens&quot;</span><span style="color: #F8F8F2">,</span>
 <span style="color: #F8F8F2">    refreshPayload: {</span>
 <span style="color: #F8F8F2">      the_refresh_token_field_name: </span><span style="color: #E6DB74">&quot;{refreshToken}&quot;</span>
@@ -205,20 +205,19 @@
 						<a href="#example" id="example" style="color: inherit; text-decoration: none;">
 							<h2>Example</h2>
 						</a>
-						<p>BackgroundGeolocation.ready({
-							authorization: {
-							accessToken: &quot;XXX.YYY.ZZZ&quot;,
-							refreshUrl: &quot;<a href="https://auth.domain.com/tokens&quot;">https://auth.domain.com/tokens&quot;</a>,
-							refreshToken: &quot;smTsfaspfgaadsfgqZerUt0wueflasdfkaxjdfeKIacb&quot;,
-							refreshPayload: {
-							&quot;my_refresh_token&quot;: &quot;{refreshToken}&quot;, // &lt;-- replaced with configured refreshToken above.
-							&quot;grant_type&quot;: &quot;refresh_token&quot;,        // &lt;-- arbitrary fields required by your auth server
-							&quot;foo&quot;: &quot;another arbitrary field&quot;
-							},
-							refreshHeaders: {}  // &lt;-- Empty {} to provide no refreshHeaders.
-							)
-						));</p>
-						<pre><code>
+						<pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">ready</span><span style="color: #F8F8F2">({</span>
+<span style="color: #F8F8F2">  authorization: {</span>
+<span style="color: #F8F8F2">    accessToken: </span><span style="color: #E6DB74">&quot;XXX.YYY.ZZZ&quot;</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">    refreshUrl: </span><span style="color: #E6DB74">&quot;https://auth.domain.com/tokens&quot;</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">    refreshToken: </span><span style="color: #E6DB74">&quot;smTsfaspfgaadsfgqZerUt0wueflasdfkaxjdfeKIacb&quot;</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">    refreshPayload: {</span>
+<span style="color: #F8F8F2">      </span><span style="color: #E6DB74">&quot;my_refresh_token&quot;</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">&quot;{refreshToken}&quot;</span><span style="color: #F8F8F2">, </span><span style="color: #88846F">// &lt;-- replaced with configured refreshToken above.</span>
+<span style="color: #F8F8F2">      </span><span style="color: #E6DB74">&quot;grant_type&quot;</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">&quot;refresh_token&quot;</span><span style="color: #F8F8F2">,        </span><span style="color: #88846F">// &lt;-- arbitrary fields required by your auth server</span>
+<span style="color: #F8F8F2">      </span><span style="color: #E6DB74">&quot;foo&quot;</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">&quot;another arbitrary field&quot;</span>
+<span style="color: #F8F8F2">    },</span>
+<span style="color: #F8F8F2">    refreshHeaders: {}  </span><span style="color: #88846F">// &lt;-- Empty {} to provide no refreshHeaders.</span>
+<span style="color: #F8F8F2">  )</span>
+<span style="color: #F8F8F2">));</span>
 </code></pre>
 					</div>
 				</section>

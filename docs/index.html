@@ -19,7 +19,7 @@
 					<div class="brand">
 						<a class="logo" href="https://www.transistorsoft.com"><img src="assets/images/transistor-logo-bw.svg" /></a>
 						<span class="title">
-							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.9.4</span>
+							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.9.5</span>
 						</span>
 					</div>
 				</div>
@@ -94,6 +94,7 @@
 								<li class="tsd-kind-interface"><a href="interfaces/location.html" class="tsd-kind-icon">Location</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/locationauthorizationalert.html" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Alert</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/logger.html" class="tsd-kind-icon">Logger</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/motionactivity.html" class="tsd-kind-icon">Motion<wbr>Activity</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/motionchangeevent.html" class="tsd-kind-icon">Motion<wbr>Change<wbr>Event</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/notification.html" class="tsd-kind-icon">Notification</a></li>
@@ -120,6 +121,7 @@
 								<li class="tsd-kind-type-alias"><a href="index.html#locationauthorizationrequest" class="tsd-kind-icon">Location<wbr>Authorization<wbr>Request</a></li>
 								<li class="tsd-kind-type-alias"><a href="index.html#locationerror" class="tsd-kind-icon">Location<wbr>Error</a></li>
 								<li class="tsd-kind-type-alias"><a href="index.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#motionactivitytype" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Type</a></li>
 								<li class="tsd-kind-type-alias"><a href="index.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a></li>
 								<li class="tsd-kind-type-alias"><a href="index.html#persistmode" class="tsd-kind-icon">Persist<wbr>Mode</a></li>
 								<li class="tsd-kind-type-alias"><a href="index.html#sqlqueryorder" class="tsd-kind-icon">SQLQuery<wbr>Order</a></li>
@@ -494,6 +496,49 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="motionactivitytype" class="tsd-anchor"></a>
+					<h3>Motion<wbr>Activity<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">Motion<wbr>Activity<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;unknown&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;still&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;walking&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;on_foot&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;running&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;on_bicycle&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;in_vehicle&quot;</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>List of valid Motion-activity types</p>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>Activity Name</th>
+								</tr>
+							</thead>
+							<tbody><tr>
+									<td><code>still</code></td>
+								</tr>
+								<tr>
+									<td><code>walking</code></td>
+								</tr>
+								<tr>
+									<td><code>on_foot</code></td>
+								</tr>
+								<tr>
+									<td><code>running</code></td>
+								</tr>
+								<tr>
+									<td><code>on_bicycle</code></td>
+								</tr>
+								<tr>
+									<td><code>in_vehicle</code></td>
+								</tr>
+								<tr>
+									<td><code>unknown</code></td>
+								</tr>
+						</tbody></table>
+						<ul>
+							<li>See <a href="classes/backgroundgeolocation.html#onactivitychange">onActivityChange</a> and <a href="interfaces/location.html#activity">Location.activity</a>.</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="notificationpriority" class="tsd-anchor"></a>
 					<h3>Notification<wbr>Priority</h3>
 					<div class="tsd-signature tsd-kind-icon">Notification<wbr>Priority<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">-1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">2</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">-2</span></div>
@@ -658,6 +703,9 @@
 						<a href="interfaces/logger.html" class="tsd-kind-icon">Logger</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/motionactivity.html" class="tsd-kind-icon">Motion<wbr>Activity</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -719,6 +767,9 @@
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="index.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#motionactivitytype" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="index.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>
@@ -794,6 +845,9 @@
 						<a href="interfaces/logger.html" class="tsd-kind-icon">Logger</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/motionactivity.html" class="tsd-kind-icon">Motion<wbr>Activity</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -855,6 +909,9 @@
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="index.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#motionactivitytype" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="index.html#notificationpriority" class="tsd-kind-icon">Notification<wbr>Priority</a>

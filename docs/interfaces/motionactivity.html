@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>GeofencesChangeEvent | React Native Background Geolocation</title>
+	<title>MotionActivity | React Native Background Geolocation</title>
 	<meta name="description" content="Documentation for React Native Background Geolocation">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -61,10 +61,10 @@
 					<a href="../index.html">React Native Background Geolocation</a>
 				</li>
 				<li>
-					<a href="geofenceschangeevent.html">GeofencesChangeEvent</a>
+					<a href="motionactivity.html">MotionActivity</a>
 				</li>
 			</ul>
-			<h1>Interface GeofencesChangeEvent</h1>
+			<h1>Interface MotionActivity</h1>
 		</div>
 	</div>
 </header>
@@ -74,30 +74,15 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The event-object provided to <a href="../classes/backgroundgeolocation.html#ongeofenceschange">BackgroundGeolocation.onGeofencesChange</a>.</p>
+						<p>The last known motion-activity when this location was recorded.</p>
 					</div>
-					<p>The <a href="geofenceschangeevent.html">GeofencesChangeEvent</a> provides only the <em>changed</em> geofences, those which just activated or de-activated.</p>
-					<dl class="tsd-comment-tags">
-						<dt class="tsd-comment-tag-example">example</dt>
-						<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onGeofencesChange</span><span style="color: #F8F8F2">(</span><span style="color: #FD971F">geofencesChangeEvent</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
-<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[geofenceschange] &quot;</span><span style="color: #F8F8F2">, geofencesChangeEvent.on, geofencesChangeEvent.off);</span>
-<span style="color: #F8F8F2">});</span>
-</code></pre>
-							<a href="#⚠️-note" id="⚠️-note" style="color: inherit; text-decoration: none;">
-								<h3>⚠️ Note:</h3>
-							</a>
-							<ul>
-								<li>When <strong>all</strong> geofences have been removed, empty lists will be provided for both <a href="geofenceschangeevent.html#on">on</a> &amp; <a href="geofenceschangeevent.html#off">off</a>.</li>
-							</ul>
-						</dd>
-					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">GeofencesChangeEvent</span>
+						<span class="target">MotionActivity</span>
 					</li>
 				</ul>
 			</section>
@@ -108,8 +93,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="geofenceschangeevent.html#off" class="tsd-kind-icon">off</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="geofenceschangeevent.html#on" class="tsd-kind-icon">on</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="motionactivity.html#confidence" class="tsd-kind-icon">confidence</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="motionactivity.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 					</div>
@@ -118,18 +103,56 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="off" class="tsd-anchor"></a>
-					<h3>off</h3>
-					<div class="tsd-signature tsd-kind-icon">off<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<a name="confidence" class="tsd-anchor"></a>
+					<h3>confidence</h3>
+					<div class="tsd-signature tsd-kind-icon">confidence<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Confidence of the reported device motion activity in %.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="on" class="tsd-anchor"></a>
-					<h3>on</h3>
-					<div class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">:</span> <a href="geofence.html" class="tsd-signature-type" data-tsd-kind="Interface">Geofence</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="type" class="tsd-anchor"></a>
+					<h3>type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../index.html#motionactivitytype" class="tsd-signature-type" data-tsd-kind="Type alias">MotionActivityType</a></div>
 					<aside class="tsd-sources">
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The reported device motion activity.</p>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>Activity Name</th>
+								</tr>
+							</thead>
+							<tbody><tr>
+									<td><code>still</code></td>
+								</tr>
+								<tr>
+									<td><code>walking</code></td>
+								</tr>
+								<tr>
+									<td><code>on_foot</code></td>
+								</tr>
+								<tr>
+									<td><code>running</code></td>
+								</tr>
+								<tr>
+									<td><code>on_bicycle</code></td>
+								</tr>
+								<tr>
+									<td><code>in_vehicle</code></td>
+								</tr>
+								<tr>
+									<td><code>unknown</code></td>
+								</tr>
+						</tbody></table>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -139,13 +162,13 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="geofenceschangeevent.html" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a>
+						<a href="motionactivity.html" class="tsd-kind-icon">Motion<wbr>Activity</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="geofenceschangeevent.html#off" class="tsd-kind-icon">off</a>
+								<a href="motionactivity.html#confidence" class="tsd-kind-icon">confidence</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="geofenceschangeevent.html#on" class="tsd-kind-icon">on</a>
+								<a href="motionactivity.html#type" class="tsd-kind-icon">type</a>
 							</li>
 						</ul>
 					</li>
@@ -158,13 +181,13 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="geofenceschangeevent.html" class="tsd-kind-icon">Geofences<wbr>Change<wbr>Event</a>
+						<a href="motionactivity.html" class="tsd-kind-icon">Motion<wbr>Activity</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="geofenceschangeevent.html#off" class="tsd-kind-icon">off</a>
+								<a href="motionactivity.html#confidence" class="tsd-kind-icon">confidence</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="geofenceschangeevent.html#on" class="tsd-kind-icon">on</a>
+								<a href="motionactivity.html#type" class="tsd-kind-icon">type</a>
 							</li>
 						</ul>
 					</li>

@@ -69,8 +69,8 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:$playServicesLocationVersion"
     implementation "org.greenrobot:eventbus:$eventBusVersion"
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
-    implementation 'org.slf4j:slf4j-api:1.7.25'
-    implementation 'com.github.tony19:logback-android:2.0.0'
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+    implementation 'com.github.tony19:logback-android:2.0.1'
     implementation "io.github.nishkarsh:android-permissions:$androidPermissionsVersion"
     // LifeCycleObserver
     implementation "androidx.lifecycle:lifecycle-runtime:$lifeCycleRuntimeVersion"

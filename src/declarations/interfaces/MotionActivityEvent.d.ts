@@ -1,6 +1,8 @@
+/// <reference path="../types.d.ts" />
+
 declare module "react-native-background-geolocation" {
   /**
-  * The event-object provided to [[BackgroundGeolocation.onActivityChange]].  Also attached to each recorded [[Location]].
+  * The event-object provided to [[BackgroundGeolocation.onActivityChange]].
   *
   * @example
   * ```typescript
@@ -21,8 +23,9 @@ declare module "react-native-background-geolocation" {
     * | `running`      |
     * | `on_bicycle`   |
     * | `in_vehicle`   |
+    * | `unknown`      |
     */
-    activity: string;
+    activity: MotionActivityType;
     /**
     * Confidence of the reported device motion activity in %.
     */

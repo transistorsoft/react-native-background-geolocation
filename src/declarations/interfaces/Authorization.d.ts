@@ -32,7 +32,7 @@ declare module "react-native-background-geolocation" {
   *   authorization: {
   *     strategy: "JWT",
   *     accessToken: myToken.accessToken,
-  *     refreshToken: myToken.refreshToken
+  *     refreshToken: myToken.refreshToken,
   *     refreshUrl: "https://auth.your.server.com/tokens",
   *     refreshPayload: {
   *       the_refresh_token_field_name: "{refreshToken}"
@@ -157,6 +157,7 @@ declare module "react-native-background-geolocation" {
      *
      * ## Example
      *
+     * ```typescript
      * BackgroundGeolocation.ready({
      *   authorization: {
      *     accessToken: "XXX.YYY.ZZZ",

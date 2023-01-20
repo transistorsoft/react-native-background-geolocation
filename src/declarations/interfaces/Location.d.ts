@@ -93,6 +93,30 @@ declare module "react-native-background-geolocation" {
   }
 
   /**
+   * The last known motion-activity when this location was recorded.
+   */
+  interface MotionActivity {
+    /**
+    * The reported device motion activity.
+    *
+    * | Activity Name  |
+    * |----------------|
+    * | `still`        |
+    * | `walking`      |
+    * | `on_foot`      |
+    * | `running`      |
+    * | `on_bicycle`   |
+    * | `in_vehicle`   |
+    * | `unknown`      |
+    */
+    type: MotionActivityType;
+    /**
+     * Confidence of the reported device motion activity in %.
+     */
+    confidence: number;
+  }
+
+  /**
    * ## Javascript Callback Schema
    * @example
    * ```
@@ -216,7 +240,7 @@ declare module "react-native-background-geolocation" {
     /**
     * Device motion-activity when this location was recorded (eg: `still`, `on_foot`, `in_vehicle`).
     */
-    activity: MotionActivityEvent;
+    activity: MotionActivity;
     /**
     * If this location was recorded due to [[ProviderChangeEvent]], this is a reference to the location-provider state.
     */

@@ -168,4 +168,20 @@ declare module "react-native-background-geolocation" {
 	*/
 	type SQLQueryOrder = -1 | 1;
 
+	/**
+	 * List of valid Motion-activity types
+     *
+     * | Activity Name  |
+     * |----------------|
+     * | `still`        |
+     * | `walking`      |
+     * | `on_foot`      |
+     * | `running`      |
+     * | `on_bicycle`   |
+     * | `in_vehicle`   |
+     * | `unknown` 		|
+     *
+	 * - See [[onActivityChange]] and [[Location.activity]].
+	 */
+	type MotionActivityType = "unknown" | "still" | "walking" | "on_foot" | "running" | "on_bicycle" | "in_vehicle";
 }

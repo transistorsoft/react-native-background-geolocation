@@ -1,6 +1,6 @@
 # Change Log
 
-## 4.9.6 &mdash; 2023-01-19
+## 4.9.5 &mdash; 2023-01-19
 * [Fixed] Fixed inconsistency in API docs with `location.activity` (`location.activity.type`) and `MotionChangeEvent` provided to `onActivityChange` (`motionActivityEvent.activity`).
 * [Changed] __Android__ Update `logback-android` version.
 

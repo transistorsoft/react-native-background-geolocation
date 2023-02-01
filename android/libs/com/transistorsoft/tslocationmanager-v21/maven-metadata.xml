@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
   <groupId>com.transistorsoft</groupId>
-  <artifactId>tslocationmanager</artifactId>
+  <artifactId>tslocationmanager-v21</artifactId>
   <versioning>
     <latest>3.3.1</latest>
     <release>3.3.1</release>

@@ -41,14 +41,8 @@ dependencies {
     // Prefer appCompatVersion vs supportLibVersion.
     def appCompatVersion = safeExtGet('appCompatVersion', DEFAULT_APP_COMPAT_VERSION)
     def playServicesLocationVersion = safeExtGet('googlePlayServicesLocationVersion', DEFAULT_GOOGLE_PLAY_SERVICES_LOCATION_VERSION)
+
     def locationMajorVersion = playServicesLocationVersion.split('\\.')[0] as int
-    if (locationMajorVersion > 20) {
-        println("*****************************************************")
-        println("* [WARNING] background-geolocation requires a maximum googlePlayServicesLocationVersion of 20.0.0 due to breaking changes in v21")
-        println("* googlePlayServicesLocationVersion has been overridden to $DEFAULT_GOOGLE_PLAY_SERVICES_LOCATION_VERSION")
-        println("*****************************************************")
-        playServicesLocationVersion = DEFAULT_GOOGLE_PLAY_SERVICES_LOCATION_VERSION
-    }
     def okHttpVersion = safeExtGet('okHttpVersion', DEFAULT_OK_HTTP_VERSION)
     def androidPermissionsVersion = safeExtGet('androidPermissionsVersion', DEFAULT_ANDROID_PERMISSIONS_VERSION)
     def eventBusVersion = safeExtGet('eventBusVersion', DEFAULT_EVENTBUS_VERSION)
@@ -57,12 +51,11 @@ dependencies {
     def lifeCycleExtensionsVersion = safeExtGet('lifeCycleExtensionsVersion', DEFAULT_LIFE_CYCLE_EXTENSIONS_VERSION)
 
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
-    // tslocationmanager.aar
-    if (useAndroidX) {
-        api(group: 'com.transistorsoft', name:'tslocationmanager', version: '+')
-        implementation "androidx.localbroadcastmanager:localbroadcastmanager:$localBroadcastManagerVersion"
+
+    if (locationMajorVersion >= 21) {
+        api(group: 'com.transistorsoft', name:'tslocationmanager-v21', version: '+')
     } else {
-        api(group: 'com.transistorsoft', name:'tslocationmanager-reverse', version: '+')
+        api(group: 'com.transistorsoft', name:'tslocationmanager', version: '+')
     }
     
     implementation "androidx.appcompat:appcompat:$appCompatVersion"

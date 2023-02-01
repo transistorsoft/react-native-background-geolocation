@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.10.0 &mdash; 2023-02-01
+* [Fixed][Android] Implement support for `play-services-location v21` (`ext.playServicesLocationVersion` in your `android/build.gradle`).  The plugin can now work with either `<= v20` or `>= v21`.
+
 ## 4.9.5 &mdash; 2023-01-19
 * [Fixed] Fixed inconsistency in API docs with `location.activity` (`location.activity.type`) and `MotionChangeEvent` provided to `onActivityChange` (`motionActivityEvent.activity`).
 * [Changed] __Android__ Update `logback-android` version.

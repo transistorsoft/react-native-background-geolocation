@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.11.0 &mdash; 2023-02-18
+* [Android] Introduce __Huawei HMS Support__.  Requires a separate license key [purchased here](https://shop.transistorsoft.com/collections/frontpage/products/huawei-background-geolocation).
+
 ## 4.10.0 &mdash; 2023-02-01
 * [Fixed][Android] Implement support for `play-services-location v21` (`ext.playServicesLocationVersion` in your `android/build.gradle`).  The plugin can now work with either `<= v20` or `>= v21`.
 

@@ -257,6 +257,7 @@ FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 - (void) destroyLocation:(NSString*)uuid;
 - (void) destroyLocation:(NSString*)uuid success:(void(^)(void))success failure:(void(^)(NSString* error))failure;
 - (void) insertLocation:(NSDictionary*)params success:(void(^)(NSString* uuid))success failure:(void(^)(NSString* error))failure;
+- (void) persistLocation:(TSLocation*)location;
 - (int) getCount;
 
 #pragma mark - Application Methods

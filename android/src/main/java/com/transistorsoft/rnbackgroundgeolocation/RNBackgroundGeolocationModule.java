@@ -27,7 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.gms.common.GoogleApiAvailability;
+import com.transistorsoft.xms.g.common.ExtensionApiAvailability;
 
 import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
 import com.transistorsoft.locationmanager.adapter.TSConfig;
@@ -1044,7 +1044,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         if (activity == null) {
             return;
         }
-        GoogleApiAvailability.getInstance().getErrorDialog(getCurrentActivity(), errorCode, 1001).show();
+        ExtensionApiAvailability.getInstance().getErrorDialog(getCurrentActivity(), errorCode, 1001).show();
     }
 
     private void sendEvent(String eventName, WritableMap params) {

@@ -146,6 +146,10 @@ The SDK's Configuration API.
 /// :nodoc:
 + (Class) classForPropertyName:(NSString*)name fromObject:(id)object;
 
++ (void) setSuiteName:(NSString*)suiteName;
+
++ (NSUserDefaults*) userDefaults;
+
 /**
  `YES` when the SDK is in the *location + geofence* tracking mode, where `-[TSLocationManager start]` was called.
  `NO` when the SDK is in *geofences-only* tracking mode, where `-[TSLocationMangager startGeofences]` was called.

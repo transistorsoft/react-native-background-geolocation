@@ -56,6 +56,8 @@ Add the following `ext` variables to control the version of Google dependency ve
 
 In addition, custom `maven url` for both `background-geolocation` and `background-fetch` are required.
 
+:information_source: __Note:__ Some recent versions of the React Native Android template may not include the __`allprojects`__ section. You should add this manually as a separate section along with the nested repositories section in the same __`android/build.gradle file`__.
+
 ### :open_file_folder: **`android/build.gradle`**
 
 ```diff
@@ -67,20 +69,17 @@ buildscript {
 +       appCompatVersion = "1.4.2"      // Or higher.  Required for new AndroidX compatibility.
 +       googlePlayServicesLocationVersion = "20.0.0"  // Or higher.
     }
+    repositories {
+        ...
+    }
     ...
 }
 
-allprojects {
+allprojects {   // <-- NOTE:  allprojects container -- If you don't see this, create it.
     repositories {
-        mavenLocal()
-        maven {
-            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
-            url("$rootDir/../node_modules/react-native/android")
-        }
-        maven {
-            // Android JSC is installed from npm
-            url("$rootDir/../node_modules/jsc-android/dist")
-        }
+        .
+        .
+        .
 +       maven {
 +           // Required for react-native-background-geolocation
 +           url("${project(':react-native-background-geolocation').projectDir}/libs")

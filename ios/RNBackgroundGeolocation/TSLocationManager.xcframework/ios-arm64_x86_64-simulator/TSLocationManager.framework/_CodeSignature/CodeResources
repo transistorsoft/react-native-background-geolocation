@@ -54,7 +54,7 @@
 		</data>
 		<key>Headers/TSConfig.h</key>
 		<data>
-		GomtcroDb75pVWD1xFapAcs7CqI=
+		agNRiPT94oz4sYVDI9SdXthdR5U=
 		</data>
 		<key>Headers/TSConnectivityChangeEvent.h</key>
 		<data>
@@ -106,7 +106,7 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		VVEJLEx4D9BFSTn85lnPRIJ6e4E=
+		cPHmrOfvqB/M36VfwCHaSVCWF4o=
 		</data>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
 		<data>
@@ -138,7 +138,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		ECr+gVWm/2Y1vXN/lhIzpmGT84Q=
+		lrqNM5jnvzUt0S7GvEKu3NHqZAE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -283,11 +283,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			GomtcroDb75pVWD1xFapAcs7CqI=
+			agNRiPT94oz4sYVDI9SdXthdR5U=
 			</data>
 			<key>hash2</key>
 			<data>
-			H2F71XRuHSW8mVP3mNb17X2KZzxDTKouijukPZm3JJM=
+			6cPjWVOswKhdHwXpTptRGGG6sKy9pvyFhVg5J05fleo=
 			</data>
 		</dict>
 		<key>Headers/TSConnectivityChangeEvent.h</key>
@@ -426,11 +426,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			VVEJLEx4D9BFSTn85lnPRIJ6e4E=
+			cPHmrOfvqB/M36VfwCHaSVCWF4o=
 			</data>
 			<key>hash2</key>
 			<data>
-			hMV1ocZI8WgHIUKfa/Wf+5usgh86AD/41OEMCRJ3Sw4=
+			STmO4xW4Jg5fkyfyWuzarxmztax42bgQ/8MFqHz0ZNc=
 			</data>
 		</dict>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>

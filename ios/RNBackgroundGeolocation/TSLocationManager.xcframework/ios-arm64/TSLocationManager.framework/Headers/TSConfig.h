@@ -146,8 +146,6 @@ The SDK's Configuration API.
 /// :nodoc:
 + (Class) classForPropertyName:(NSString*)name fromObject:(id)object;
 
-+ (void) setSuiteName:(NSString*)suiteName;
-
 + (NSUserDefaults*) userDefaults;
 
 /**

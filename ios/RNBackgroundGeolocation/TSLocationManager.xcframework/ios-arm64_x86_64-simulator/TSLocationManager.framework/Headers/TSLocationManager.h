@@ -60,6 +60,9 @@ FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 
 /// The SDK's `CLLocationManager` instance.
 @property (nonatomic, strong, readonly) CLLocationManager *locationManager;
+
+@property (nonatomic) CLLocationDistance distanceFilter;
+
 /// :nodoc:
 @property (nonatomic, strong, readonly) LocationManager *currentPositionManager;
 /// :nodoc:

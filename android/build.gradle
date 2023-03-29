@@ -1,3 +1,11 @@
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://developer.huawei.com/repo/' }
+    }
+}
+
 apply plugin: 'com.android.library'
 
 // Android dependencies
@@ -7,6 +15,7 @@ def DEFAULT_APP_COMPAT_VERSION                      = "1.4.1"
 
 // Plugin dependencies
 def DEFAULT_GOOGLE_PLAY_SERVICES_LOCATION_VERSION   = "20.0.0"
+def DEFAULT_HMS_LOCATION_VERSION                    = "6.0.0.302"
 def DEFAULT_OK_HTTP_VERSION                         = "3.12.13"
 def DEFAULT_ANDROID_PERMISSIONS_VERSION             = "2.1.6"
 def DEFAULT_EVENTBUS_VERSION                        = "3.3.1"
@@ -41,8 +50,7 @@ dependencies {
     // Prefer appCompatVersion vs supportLibVersion.
     def appCompatVersion = safeExtGet('appCompatVersion', DEFAULT_APP_COMPAT_VERSION)
     def playServicesLocationVersion = safeExtGet('googlePlayServicesLocationVersion', DEFAULT_GOOGLE_PLAY_SERVICES_LOCATION_VERSION)
-
-    def locationMajorVersion = playServicesLocationVersion.split('\\.')[0] as int
+    def hmsLocationVersion = safeExtGet('hmsLocationVersion', DEFAULT_HMS_LOCATION_VERSION);
     def okHttpVersion = safeExtGet('okHttpVersion', DEFAULT_OK_HTTP_VERSION)
     def androidPermissionsVersion = safeExtGet('androidPermissionsVersion', DEFAULT_ANDROID_PERMISSIONS_VERSION)
     def eventBusVersion = safeExtGet('eventBusVersion', DEFAULT_EVENTBUS_VERSION)
@@ -52,6 +60,7 @@ dependencies {
 
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
 
+    def locationMajorVersion = playServicesLocationVersion.split('\\.')[0] as int
     if (locationMajorVersion >= 21) {
         api(group: 'com.transistorsoft', name:'tslocationmanager-v21', version: '+')
     } else {
@@ -60,6 +69,11 @@ dependencies {
     
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "com.google.android.gms:play-services-location:$playServicesLocationVersion"
+    // HMS location
+    implementation("com.huawei.hms:location:$hmsLocationVersion") {
+      exclude(group: "com.huawei.hms", module: 'hianalytics')
+    }
+
     implementation "org.greenrobot:eventbus:$eventBusVersion"
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation 'org.slf4j:slf4j-api:1.7.36'

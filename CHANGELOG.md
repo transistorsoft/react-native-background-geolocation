@@ -1,5 +1,30 @@
 # Change Log
 
+## 4.11.0 &mdash; 2023-03-29
+* [Android] Introduce __Huawei HMS Support__.  Requires a separate license key [purchased here](https://shop.transistorsoft.com/collections/frontpage/products/huawei-background-geolocation).
+* [iOS] Fix for iOS 16.4.  iOS 16.4 introduces changes to CoreLocation behaviour when using Config.showsBackgroundLocationIndi
+cator: false.
+* [Android] Added extra logic in a location error-handler to mitigate against a possible edge-case where a location-error fetching the onMotionChange position could possibly result in an infinite loop, causing a stackoverflow exception:
+```
+at com.transistorsoft.locationmanager.service.TrackingService.changePace(TrackingService.java:264)
+at com.transistorsoft.locationmanager.service.TrackingService$c.onError(TrackingService.java:69)
+at com.transistorsoft.locationmanager.location.SingleLocationRequest.onError(SingleLocationRequest.java:18)
+at com.transistorsoft.locationmanager.location.SingleLocationRequest.start(SingleLocationRequest.java:71)
+at com.transistorsoft.locationmanager.location.TSLocationManager.getCurrentPosition(TSLocationManager.java:3)
+at com.transistorsoft.locationmanager.service.TrackingService.changePace(TrackingService.java:321)
+at com.transistorsoft.locationmanager.service.TrackingService$c.onError(TrackingService.java:69)
+at com.transistorsoft.locationmanager.location.SingleLocationRequest.onError(SingleLocationRequest.java:18)
+at com.transistorsoft.locationmanager.location.SingleLocationRequest.start(SingleLocationRequest.java:71)
+at com.transistorsoft.locationmanager.location.TSLocationManager.getCurrentPosition(TSLocationManager.java:3)
+at com.transistorsoft.locationmanager.service.TrackingService.changePace(TrackingService.java:321)
+at com.transistorsoft.locationmanager.service.TrackingService$c.onError(TrackingService.java:69)
+at com.transistorsoft.locationmanager.location.SingleLocationRequest.onError(SingleLocationRequest.java:18)
+at com.transistorsoft.locationmanager.location.SingleLocationRequest.start(SingleLocationRequest.java:71)
+.
+.
+.
+```
+
 ## 4.10.1 &mdash; 2023-03-13
 * [Android] Fix expo plugin failing on Expo SDK >= 48.  Regular expressions failed because Expo changed lines in the build.gradle files that the Expo plugin was using for anchors for where to inject new src.  Changed to use more fundamental anchor elements for regular expressions that must exist.
 

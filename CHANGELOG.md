@@ -25,6 +25,9 @@ at com.transistorsoft.locationmanager.location.SingleLocationRequest.start(Singl
 .
 ```
 
+## 4.10.1 &mdash; 2023-03-13
+* [Android] Fix expo plugin failing on Expo SDK >= 48.  Regular expressions failed because Expo changed lines in the build.gradle files that the Expo plugin was using for anchors for where to inject new src.  Changed to use more fundamental anchor elements for regular expressions that must exist.
+
 ## 4.10.0 &mdash; 2023-02-01
 * [Fixed][Android] Implement support for `play-services-location v21` (`ext.playServicesLocationVersion` in your `android/build.gradle`).  The plugin can now work with either `<= v20` or `>= v21`.
 

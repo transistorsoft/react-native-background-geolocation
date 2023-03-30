@@ -50,7 +50,11 @@ public class HeadlessTask {
         if (name.equals(BackgroundGeolocation.EVENT_TERMINATE)) {
             params = event.getTerminateEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_LOCATION)) {
-            params = event.getLocationEvent().toJson();
+            try {
+                params = event.getLocationEvent().toJson();
+            } catch (JSONException e) {
+                TSLog.logger.error(e.getMessage(), e);
+            }
         } else if (name.equals(BackgroundGeolocation.EVENT_MOTIONCHANGE)) {
             params = event.getMotionChangeEvent().toJson();
         } else if (name.equals(BackgroundGeolocation.EVENT_HTTP)) {

@@ -2,7 +2,7 @@
 
 import { NativeModules } from "react-native"
 
-const DEFAULT_URL  = 'http://tracker.transistorsoft.com';
+const DEFAULT_URL  = 'https://tracker.transistorsoft.com';
 
 const DUMMY_TOKEN 	= 'DUMMY_TOKEN';
 

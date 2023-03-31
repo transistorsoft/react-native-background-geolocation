@@ -2,6 +2,7 @@
 
 ## 4.11.1 &mdash; 2023-03-30
 * [Android] Bump default `hmsLocationVersion = 6.9.0.300`.  There are reports of Google rejecting apps due to older huawei HMS dependencies.
+* [Android] Fix `ClassCastException` related to Motion API error
 
 ## 4.11.0 &mdash; 2023-03-29
 * [Android] Introduce __Huawei HMS Support__.  Requires a separate license key [purchased here](https://shop.transistorsoft.com/collections/frontpage/products/huawei-background-geolocation).

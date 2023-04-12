@@ -1,5 +1,10 @@
 # Change Log
 
+## 4.11.2 &mdash; 2023-04-12
+* [Android] Fix String concatenation issue on Turkish devices where method-name composed for use with reflection is in
+correctly capitalized (ie: `isMoving -> `setIsMoving` is incorrectly capitalized with Turkish capital as `setİsMoving`
+.  Simply enforce `Locale.ENGLISH` when performing `String.toUpperCase(Locale.ENGLISH)`.
+
 ## 4.11.1 &mdash; 2023-03-30
 * [Android] Bump default `hmsLocationVersion = 6.9.0.300`.  There are reports of Google rejecting apps due to older huawei HMS dependencies.
 * [Android] Fix `ClassCastException` related to Motion API error

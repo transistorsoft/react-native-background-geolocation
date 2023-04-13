@@ -2,7 +2,7 @@
 
 ## 4.11.2 &mdash; 2023-04-12
 * [Android] Fix String concatenation issue on Turkish devices where method-name composed for use with reflection is in
-correctly capitalized (ie: `isMoving -> `setIsMoving` is incorrectly capitalized with Turkish capital as `setİsMoving`
+correctly capitalized (ie: `isMoving -> setIsMoving` is incorrectly capitalized with Turkish capital as `setİsMoving`
 .  Simply enforce `Locale.ENGLISH` when performing `String.toUpperCase(Locale.ENGLISH)`.
 
 * [iOS] Fix bug in TSScheduler.  When schedule was cleared via .setConfig, only the State.schedulerEnabled property was set to false, but the TSScheduler singleton contained an internal 'enabled' property which was not reset to false.  Solution was to simply call stop() method upon TSScheduler singleton.

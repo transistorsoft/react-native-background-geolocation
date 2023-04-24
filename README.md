@@ -195,7 +195,7 @@ const HelloWorld = () => {
     });
 
     const onActivityChange:Subscription = BackgroundGeolocation.onActivityChange((event) => {
-      console.log('[onMotionChange]', event);
+      console.log('[onActivityChange]', event);
     })
 
     const onProviderChange:Subscription = BackgroundGeolocation.onProviderChange((event) => {

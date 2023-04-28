@@ -32,6 +32,28 @@ npx expo install expo-gradle-ext-vars
 }
 ```
 
+### Huawei Mobile Services (HMS) Support
+
+If you've [purchased an *HMS Background Geolocation* License](https://shop.transistorsoft.com/collections/frontpage/products/huawei-background-geolocation) for installing the plugin on _Huawei_ devices without *Google Play Services* installed, add your *HMS Background Geolocation* license key:
+
+```diff
+{
+  "expo": {
+    "name": "your-app-name",
+    "plugins": [
+      [
+        "react-native-background-geolocation", {
+          "license": "YOUR_LICENSE_KEY_HERE",
++         "hmsLicense": "YOUR_HMS_LICENSE_HERE"
+        }
+      ]
+    ]
+  }
+}
+```
+
+:warning: Huawei HMS support requires `react-native-background-geolocation >= 3.11.0`.
+
 ### `Info.plist`:  *Usage Descriptions*
 
 - Add the following *Usage Descriptions* to the __`ios.infoPlist`__ section:

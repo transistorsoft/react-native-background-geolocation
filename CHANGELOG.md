@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.11.4 &mdash; 2023-04-28
+* Add [Huawei HMS License](https://shop.transistorsoft.com/collections/frontpage/products/huawei-background-geolocation) support for the Expo plugin.
+
 ## 4.11.3 &mdash; 2023-04-19
 * [Android] Upgrade `logback-android` dependency to `3.0.0` (`org.slf4j-api` to `2.0.7).
 

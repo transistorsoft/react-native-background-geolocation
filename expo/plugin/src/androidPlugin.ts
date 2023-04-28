@@ -15,8 +15,8 @@ import {
 
 
 type Props = {
-  //ext?:Map<string,string|boolean>
-  license?: string
+  license?: string,
+  hmsLicense?: string
 }
 
 import path from 'path';
@@ -27,6 +27,7 @@ const PRIVATE_MODULE = PUBLIC_MODULE + '-android';
 const NODE_MODULES = path.join('.', 'node_modules');
 
 const META_LICENSE_KEY = "com.transistorsoft.locationmanager.license";
+const META_HMS_LICENSE_KEY = "com.transistorsoft.locationmanager.hms.license";
 
 const MODULE_NAME = fs.existsSync(path.join(NODE_MODULES, PUBLIC_MODULE)) ? PUBLIC_MODULE : PRIVATE_MODULE;
 
@@ -69,6 +70,11 @@ const androidPlugin: ConfigPlugin<Props> = (config, props={}) => {
       mainApplication,
       META_LICENSE_KEY,
       props.license || "UNDEFINED"
+    );
+    addMetaDataItemToMainApplication(
+      mainApplication,
+      META_HMS_LICENSE_KEY,
+      props.hmsLicense || "UNDEFINED"
     );
     return config;
 

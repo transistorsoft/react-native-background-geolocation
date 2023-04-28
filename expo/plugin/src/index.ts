@@ -7,16 +7,21 @@ const withBackgroundGeolocation: ConfigPlugin<
   {
     //ext?:Map<string,string|boolean>
     /**
-     * Default ""
+     * Android license Default ""
      */
-    license?: string
+    license?: string,
+    /**
+     * Huawei HMS license Default ""
+     */
+    hmsLicense?: string
   } | void
 > = (config, _props) => {
   const props = _props || {};
 
   return withPlugins(config, [
     [androidPlugin, {
-      license: props.license
+      license: props.license,
+      hmsLicense: props.hmsLicense
     }],
     [iOSPlugin, {
       // no props for ios currently.

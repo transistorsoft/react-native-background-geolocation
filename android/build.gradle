@@ -32,6 +32,9 @@ def safeExtGet(prop, fallback) {
 }
 
 android {
+    if (project.android.hasProperty("namespace")) {
+        namespace("com.transistorsoft.rnbackgroundgeolocation")
+    }
     compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
 
     defaultConfig {

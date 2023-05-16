@@ -24,12 +24,25 @@ import fs from 'fs';
 
 const PUBLIC_MODULE = 'react-native-background-geolocation';
 const PRIVATE_MODULE = PUBLIC_MODULE + '-android';
-const NODE_MODULES = path.join('.', 'node_modules');
 
 const META_LICENSE_KEY = "com.transistorsoft.locationmanager.license";
 const META_HMS_LICENSE_KEY = "com.transistorsoft.locationmanager.hms.license";
 
-const MODULE_NAME = fs.existsSync(path.join(NODE_MODULES, PUBLIC_MODULE)) ? PUBLIC_MODULE : PRIVATE_MODULE;
+const findModuleRecursively = (dir: string): string | null => {
+  const nodeModules = path.resolve(dir, 'node_modules');
+  if (fs.existsSync(path.join(nodeModules, PUBLIC_MODULE))) {
+    return PUBLIC_MODULE;
+  }
+
+  const parent = path.resolve(dir, '..');
+  if (parent === dir) {
+    // we have reached the root of the file system -> not found
+    return null;
+  }
+
+  return findModuleRecursively(parent);
+};
+const MODULE_NAME = findModuleRecursively(path.resolve('.')) || PRIVATE_MODULE;
 
 const { addMetaDataItemToMainApplication, getMainApplicationOrThrow } = AndroidConfig.Manifest;
 

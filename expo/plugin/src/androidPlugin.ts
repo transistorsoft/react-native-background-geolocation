@@ -33,6 +33,9 @@ const findModuleRecursively = (dir: string): string | null => {
   if (fs.existsSync(path.join(nodeModules, PUBLIC_MODULE))) {
     return PUBLIC_MODULE;
   }
+  if (fs.existsSync(path.join(nodeModules, PRIVATE_MODULE))) {
+    return PRIVATE_MODULE;
+  }
 
   const parent = path.resolve(dir, '..');
   if (parent === dir) {
@@ -42,7 +45,11 @@ const findModuleRecursively = (dir: string): string | null => {
 
   return findModuleRecursively(parent);
 };
-const MODULE_NAME = findModuleRecursively(path.resolve('.')) || PRIVATE_MODULE;
+const MODULE_NAME = findModuleRecursively(path.resolve('.'));
+if (!MODULE_NAME) {
+  console.error(`Could not find neither '${PUBLIC_MODULE}' or '${PRIVATE_MODULE}' in node_modules`);
+  process.exit(1);
+}
 
 const { addMetaDataItemToMainApplication, getMainApplicationOrThrow } = AndroidConfig.Manifest;
 

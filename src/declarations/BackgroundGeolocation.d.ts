@@ -673,6 +673,7 @@ declare module "react-native-background-geolocation" {
     *
     * ### ⚠️ Warning:
     * - You __must__ `registerHeadlessTask` in your application root file (eg: `index.js`).
+    * - The `callback` __needs__ to return a Promise, otherwise it might crash the application.
     *
     * @example
     * ```typescript
@@ -699,7 +700,7 @@ declare module "react-native-background-geolocation" {
     * - 📘 [Android Headless Mode](github:wiki/Android-Headless-Mode).
     *
     */
-    static registerHeadlessTask(callback:(event:Object)=>any): void;
+    static registerHeadlessTask(callback: (event:Object) => Promise<any>): void;
 
     /**
     *

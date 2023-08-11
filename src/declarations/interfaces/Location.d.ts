@@ -193,6 +193,10 @@ declare module "react-native-background-geolocation" {
     */
     timestamp: string;
     /**
+     * The age of the location in milliseconds, relative to the system time on the device when the location was received.
+    */
+    age: number;
+    /**
     * Distance-traveled in meters.
     * ℹ️
     * - [[BackgroundGeolocation.resetOdometer]]

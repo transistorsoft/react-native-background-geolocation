@@ -32,6 +32,9 @@
 @property (nonatomic, readonly) TSGeofence* geofence;
 /// The region instance.
 @property (nonatomic, readonly) CLCircularRegion* region;
+
+@property (nonatomic) NSDate *timestamp;
+
 /// The geofence transition (eg: "ENTER", "EXIT", "DWELL"
 @property (nonatomic, readonly) NSString* action;
 /// :nodoc:

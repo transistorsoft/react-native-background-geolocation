@@ -11,6 +11,11 @@ declare module "react-native-background-geolocation" {
   */
   interface GeofenceEvent {
     /**
+     * The device system time when the Geofence event was received by the OS.
+     * __Note__: this can differ from the timestamp of the triggering location responsible for the geofence (the triggering location can be from the past).
+     */
+    timestamp: string;
+    /**
     * The identifier of the geofence which fired.
     */
     identifier: string;

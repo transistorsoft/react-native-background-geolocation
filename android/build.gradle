@@ -24,6 +24,8 @@ def DEFAULT_LIFE_CYCLE_RUNTIME_VERSION              = "2.4.1"
 def DEFAULT_LIFE_CYCLE_EXTENSIONS_VERSION           = "2.2.0"
 def DEFAULT_LOGBACK_VERSION                         = "3.0.0"
 def DEFAULT_SLF4J_VERSION                           = "2.0.7"
+def DEFAULT_WORK_VERSION                            = "2.8.1"
+def DEFAULT_CONCURRENT_FUTURES_VERSION              = "1.1.0"
 
 def useAndroidX = (project.hasProperty("android.useAndroidX")) ? project.property("android.useAndroidX") : false
 
@@ -91,5 +93,10 @@ dependencies {
     // LifeCycleObserver
     implementation "androidx.lifecycle:lifecycle-runtime:$lifeCycleRuntimeVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycleExtensionsVersion"
-
+    
+    // WorkManager
+    def workVersion = safeExtGet('workVersion', DEFAULT_WORK_VERSION)
+    def concurrentFuturesVersion = safeExtGet('concurrentFuturesVersion', DEFAULT_CONCURRENT_FUTURES_VERSION)
+    implementation "androidx.work:work-runtime:$workVersion"
+    implementation "androidx.concurrent:concurrent-futures:$concurrentFuturesVersion"    
 }

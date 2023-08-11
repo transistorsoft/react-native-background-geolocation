@@ -63,10 +63,10 @@ In addition, custom `maven url` for both `background-geolocation` and `backgroun
 ```diff
 buildscript {
     ext {
-        minSdkVersion = 16
-        targetSdkVersion = 31           // Or higher.
-+       compileSdkVersion = 31          // Or higher.
-+       appCompatVersion = "1.4.2"      // Or higher.  Required for new AndroidX compatibility.
++       minSdkVersion 		= 19	      // Required minimum
++       targetSdkVersion 	= 31          // Or higher.
++       compileSdkVersion 	= 31          // Or higher.
++       appCompatVersion 	= "1.4.2"      // Or higher.  Required for new AndroidX compatibility.
 +       googlePlayServicesLocationVersion = "20.0.0"  // Or higher.
     }
     repositories {
@@ -80,15 +80,11 @@ allprojects {   // <-- NOTE:  allprojects container -- If you don't see this, cr
         .
         .
         .
-+       maven {
-+           // Required for react-native-background-geolocation
-+           url("${project(':react-native-background-geolocation').projectDir}/libs")
-+       }
-+       maven {
-+           // Required for react-native-background-fetch
-+           url("${project(':react-native-background-fetch').projectDir}/libs")
-+       }
-+    }
++       // Required for react-native-background-geolocation
++       maven { url("${project(':react-native-background-geolocation').projectDir}/libs") }
++       maven { url 'https://developer.huawei.com/repo/' }
++       // Required for react-native-background-fetch
++       maven { url("${project(':react-native-background-fetch').projectDir}/libs") }
 }
 ```
 

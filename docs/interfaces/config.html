@@ -1534,25 +1534,35 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p><strong><code>[Android-only]</code></strong> Enable extra timestamp meta data to be appended to each recorded location, including system-time.</p>
+							<p>Enable extra timestamp meta data to be appended to each recorded location, including system-time.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>Some developers have reported GPS <a href="location.html#timestamp">Location.timestamp</a> issues with some Android devices.  This option will append extra meta-data related to the device&#39;s system time.</p>
-								<a href="#java-implementation" id="java-implementation" style="color: inherit; text-decoration: none;">
-									<h3>Java implementation</h3>
+								<a href="#android-implementation" id="android-implementation" style="color: inherit; text-decoration: none;">
+									<h2>Android implementation</h2>
 								</a>
-								<pre><code class="language-Java"><span style="color: #F92672">if</span><span style="color: #F8F8F2"> (enableTimestampMeta) {</span>
-<span style="color: #F8F8F2">    </span><span style="color: #66D9EF">JSONObject</span><span style="color: #F8F8F2"> timestampMeta </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">new</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">JSONObject</span><span style="color: #F8F8F2">();</span>
-<span style="color: #F8F8F2">    timestampMeta.</span><span style="color: #A6E22E">put</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;time&quot;</span><span style="color: #F8F8F2">, mLocation.</span><span style="color: #A6E22E">getTime</span><span style="color: #F8F8F2">());</span>
-<span style="color: #F8F8F2">    </span><span style="color: #F92672">if</span><span style="color: #F8F8F2"> (Build.VERSION.SDK_INT </span><span style="color: #F92672">&gt;=</span><span style="color: #F8F8F2"> Build.VERSION_CODES.JELLY_BEAN_MR1) {</span>
-<span style="color: #F8F8F2">        timestampMeta.</span><span style="color: #A6E22E">put</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;systemClockElaspsedRealtime&quot;</span><span style="color: #F8F8F2">, SystemClock.</span><span style="color: #A6E22E">elapsedRealtimeNanos</span><span style="color: #F8F8F2">()</span><span style="color: #F92672">/</span><span style="color: #AE81FF">1000000</span><span style="color: #F8F8F2">);</span>
-<span style="color: #F8F8F2">        timestampMeta.</span><span style="color: #A6E22E">put</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;elapsedRealtime&quot;</span><span style="color: #F8F8F2">, mLocation.</span><span style="color: #A6E22E">getElapsedRealtimeNanos</span><span style="color: #F8F8F2">()</span><span style="color: #F92672">/</span><span style="color: #AE81FF">1000000</span><span style="color: #F8F8F2">);</span>
-<span style="color: #F8F8F2">    } </span><span style="color: #F92672">else</span><span style="color: #F8F8F2"> {</span>
-<span style="color: #F8F8F2">        timestampMeta.</span><span style="color: #A6E22E">put</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;systemTime&quot;</span><span style="color: #F8F8F2">, System.</span><span style="color: #A6E22E">currentTimeMillis</span><span style="color: #F8F8F2">());</span>
-<span style="color: #F8F8F2">    }</span>
-<span style="color: #F8F8F2">    data.</span><span style="color: #A6E22E">put</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;timestampMeta&quot;</span><span style="color: #F8F8F2">, timestampMeta);</span>
+								<pre><code class="language-Java"><span style="color: #66D9EF">JSONObject</span><span style="color: #F8F8F2"> timestampMeta </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">new</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">JSONObject</span><span style="color: #F8F8F2">();</span>
+<span style="color: #F8F8F2">timestampMeta.</span><span style="color: #A6E22E">put</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;time&quot;</span><span style="color: #F8F8F2">, mLocation.</span><span style="color: #A6E22E">getTime</span><span style="color: #F8F8F2">());</span>
+<span style="color: #F92672">if</span><span style="color: #F8F8F2"> (Build.VERSION.SDK_INT </span><span style="color: #F92672">&gt;=</span><span style="color: #F8F8F2"> Build.VERSION_CODES.JELLY_BEAN_MR1) {</span>
+<span style="color: #F8F8F2">    timestampMeta.</span><span style="color: #A6E22E">put</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;systemClockElaspsedRealtime&quot;</span><span style="color: #F8F8F2">, SystemClock.</span><span style="color: #A6E22E">elapsedRealtimeNanos</span><span style="color: #F8F8F2">()</span><span style="color: #F92672">/</span><span style="color: #AE81FF">1000000</span><span style="color: #F8F8F2">);</span>
+<span style="color: #F8F8F2">    timestampMeta.</span><span style="color: #A6E22E">put</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;elapsedRealtime&quot;</span><span style="color: #F8F8F2">, mLocation.</span><span style="color: #A6E22E">getElapsedRealtimeNanos</span><span style="color: #F8F8F2">()</span><span style="color: #F92672">/</span><span style="color: #AE81FF">1000000</span><span style="color: #F8F8F2">);</span>
+<span style="color: #F8F8F2">} </span><span style="color: #F92672">else</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">    timestampMeta.</span><span style="color: #A6E22E">put</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;systemTime&quot;</span><span style="color: #F8F8F2">, System.</span><span style="color: #A6E22E">currentTimeMillis</span><span style="color: #F8F8F2">());</span>
 <span style="color: #F8F8F2">}</span>
+</code></pre>
+								<a href="#ios-implementation" id="ios-implementation" style="color: inherit; text-decoration: none;">
+									<h2>iOS Implementation</h2>
+								</a>
+								<pre><code class="language-Java"><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">long</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">long</span><span style="color: #F8F8F2"> systemTime </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> (</span><span style="color: #66D9EF">long</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">long</span><span style="color: #F8F8F2">)([[</span><span style="color: #66D9EF">NSDate</span><span style="color: #F8F8F2"> date] timeIntervalSince1970] </span><span style="color: #F92672">*</span><span style="color: #F8F8F2"> </span><span style="color: #AE81FF">1000.0</span><span style="color: #F8F8F2">);</span>
+<span style="color: #F8F8F2"> </span><span style="color: #66D9EF">long</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">long</span><span style="color: #F8F8F2"> locationTime </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> (</span><span style="color: #66D9EF">long</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">long</span><span style="color: #F8F8F2">)([_location.timestamp timeIntervalSince1970] </span><span style="color: #F92672">*</span><span style="color: #F8F8F2"> </span><span style="color: #AE81FF">1000.0</span><span style="color: #F8F8F2">);</span>
+<span style="color: #F8F8F2"> </span><span style="color: #66D9EF">long</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">long</span><span style="color: #F8F8F2"> uptime </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> (</span><span style="color: #66D9EF">long</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">long</span><span style="color: #F8F8F2">) [self.class uptime] </span><span style="color: #F92672">*</span><span style="color: #F8F8F2"> </span><span style="color: #AE81FF">1000</span><span style="color: #F8F8F2">;</span>
+
+<span style="color: #F8F8F2"> </span><span style="color: #F92672">return</span><span style="color: #F8F8F2"> @{</span>
+<span style="color: #F8F8F2">     @</span><span style="color: #E6DB74">&quot;time&quot;</span><span style="color: #F92672">:</span><span style="color: #F8F8F2"> @(locationTime),</span>
+<span style="color: #F8F8F2">     @</span><span style="color: #E6DB74">&quot;systemTime&quot;</span><span style="color: #F92672">:</span><span style="color: #F8F8F2"> @(systemTime),</span>
+<span style="color: #F8F8F2">     @</span><span style="color: #E6DB74">&quot;systemClockElapsedRealtime&quot;</span><span style="color: #F92672">:</span><span style="color: #F8F8F2"> @(uptime)</span>
+<span style="color: #F8F8F2"> };</span>
 </code></pre>
 							</dd>
 						</dl>

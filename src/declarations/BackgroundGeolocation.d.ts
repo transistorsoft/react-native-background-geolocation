@@ -668,8 +668,8 @@ declare module "react-native-background-geolocation" {
     * Registers a Javascript callback to execute in the Android "Headless" state, where the app has been terminated configured with
     * [[stopOnTerminate]]`:false`.  * The received `event` object contains a `name` (the event name) and `params` (the event data-object).
     *
-    * ### ⚠️ Note Cordova
-    * - Javascript headless callbacks are not supported by Cordova.
+    * ### ⚠️ Note Cordova &amp; Capacitor
+    * - Javascript headless callbacks are not supported by Cordova or Capacitor.  See [Android Headless Mode](github:wiki/Android-Headless-Mode) 
     *
     * ### ⚠️ Warning:
     * - You __must__ `registerHeadlessTask` in your application root file (eg: `index.js`).

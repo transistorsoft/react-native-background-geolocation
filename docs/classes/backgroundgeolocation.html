@@ -19,7 +19,7 @@
 					<div class="brand">
 						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
 						<span class="title">
-							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.13.0</span>
+							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.13.1</span>
 						</span>
 					</div>
 				</div>
@@ -3199,7 +3199,7 @@
 					<a name="registerheadlesstask" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> register<wbr>Headless<wbr>Task</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">register<wbr>Headless<wbr>Task<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">register<wbr>Headless<wbr>Task<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -3210,11 +3210,11 @@
 									<p>Registers a Javascript callback to execute in the Android &quot;Headless&quot; state, where the app has been terminated configured with
 									<a href="../interfaces/config.html#stoponterminate">stopOnTerminate</a><code>:false</code>.  * The received <code>event</code> object contains a <code>name</code> (the event name) and <code>params</code> (the event data-object).</p>
 								</div>
-								<a href="#⚠️-note-cordova" id="⚠️-note-cordova" style="color: inherit; text-decoration: none;">
-									<h3>⚠️ Note Cordova</h3>
+								<a href="#⚠️-note-cordova-amp-capacitor" id="⚠️-note-cordova-amp-capacitor" style="color: inherit; text-decoration: none;">
+									<h3>⚠️ Note Cordova &amp; Capacitor</h3>
 								</a>
 								<ul>
-									<li>Javascript headless callbacks are not supported by Cordova.</li>
+									<li>Javascript headless callbacks are not supported by Cordova or Capacitor.  See <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Android-Headless-Mode">Android Headless Mode</a></li>
 								</ul>
 								<a href="#⚠️-warning" id="⚠️-warning" style="color: inherit; text-decoration: none;">
 									<h3>⚠️ Warning:</h3>
@@ -3254,11 +3254,11 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></h5>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
 											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
@@ -3268,7 +3268,7 @@
 															<h5>event: <span class="tsd-signature-type">Object</span></h5>
 														</li>
 													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 												</li>
 											</ul>
 										</li>
@@ -4085,7 +4085,7 @@
 								<div class="lead">
 									<p>Sends a signal to OS that you wish to perform a long-running task.</p>
 								</div>
-								<p>The will will keep your running in the background and not suspend it until you signal completion with the <a href="backgroundgeolocation.html#stopbackgroundtask">stopBackgroundTask</a> method.  Your callback will be provided with a single parameter <code>taskId</code>
+								<p>The OS will keep your running in the background and not suspend it until you signal completion with the <a href="backgroundgeolocation.html#stopbackgroundtask">stopBackgroundTask</a> method.  Your callback will be provided with a single parameter <code>taskId</code>
 								which you will send to the <a href="backgroundgeolocation.html#stopbackgroundtask">stopBackgroundTask</a> method.</p>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
@@ -4124,8 +4124,8 @@
 										<a href="#android" id="android" style="color: inherit; text-decoration: none;">
 											<h3>Android</h3>
 										</a>
-										<p>The Android implementation launches a foreground-service, along with the accompanying persistent foreground <a href="../interfaces/notification.html">Notification</a>.</p>
-										<p>⚠️ The Android plugin hardcodes a limit of <strong>30s</strong> for your background-task before it automatically <code>FORCE KILL</code>s it.</p>
+										<p>The Android implementation launches a <a href="https://developer.android.com/topic/libraries/architecture/workmanager"><code>WorkManager</code></a> task.</p>
+										<p>⚠️ The Android plugin imposes a limit of <strong>3 minutes</strong> for your background-task before it automatically <code>FORCE KILL</code>s it.</p>
 										<p>Logging for Android background-tasks looks like this (when you see an hourglass ⏳ icon, a foreground-service is active)</p>
 										<pre><code><span style="color: #F8F8F2"> I TSLocationManager: [c.t.l.u.BackgroundTaskManager onStartJob] ⏳ startBackgroundTask: </span><span style="color: #AE81FF">6</span>
 <span style="color: #F8F8F2"> .</span>

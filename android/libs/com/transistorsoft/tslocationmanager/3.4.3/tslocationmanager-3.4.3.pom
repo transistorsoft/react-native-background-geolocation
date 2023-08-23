@@ -4,6 +4,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.transistorsoft</groupId>
   <artifactId>tslocationmanager</artifactId>
-  <version>3.4.2</version>
+  <version>3.4.3</version>
   <packaging>aar</packaging>
 </project>

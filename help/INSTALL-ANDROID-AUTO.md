@@ -7,14 +7,14 @@
 ```shell
 yarn add react-native-background-geolocation
 
-yarn add react-native-background-fetch@^4.2.0
+yarn add react-native-background-fetch@^4.2.1
 ```
 
 ### With `npm`
 ```shell
 npm install react-native-background-geolocation --save
 
-npm install react-native-background-fetch@^4.2.0
+npm install react-native-background-fetch@^4.2.1
 ```
 
 ## Configure `react-native-background-fetch`
@@ -66,14 +66,11 @@ allprojects {   // <-- NOTE:  allprojects container -- If you don't see this, cr
 Background Geolocation requires a gradle extension for your `app/build.gradle`.
 
 ```diff
-project.ext.react = [
-    entryFile: "index.js",
-    enableHermes: false,  // clean and rebuild if changing
-]
+apply plugin: "com.android.application"
+apply plugin: "com.facebook.react"
 
-apply from: "../../node_modules/react-native/react.gradle"
-
-+Project background_geolocation = project(':react-native-background-geolocation')
++// background-geolocation
++Project background_geolocation = project(':react-native-background-geolocation-android')
 +apply from: "${background_geolocation.projectDir}/app.gradle"
 ```
 

@@ -668,8 +668,8 @@ declare module "react-native-background-geolocation" {
     * Registers a Javascript callback to execute in the Android "Headless" state, where the app has been terminated configured with
     * [[stopOnTerminate]]`:false`.  * The received `event` object contains a `name` (the event name) and `params` (the event data-object).
     *
-    * ### ⚠️ Note Cordova
-    * - Javascript headless callbacks are not supported by Cordova.
+    * ### ⚠️ Note Cordova &amp; Capacitor
+    * - Javascript headless callbacks are not supported by Cordova or Capacitor.  See [Android Headless Mode](github:wiki/Android-Headless-Mode) 
     *
     * ### ⚠️ Warning:
     * - You __must__ `registerHeadlessTask` in your application root file (eg: `index.js`).
@@ -699,7 +699,7 @@ declare module "react-native-background-geolocation" {
     * - 📘 [Android Headless Mode](github:wiki/Android-Headless-Mode).
     *
     */
-    static registerHeadlessTask(callback:(event:Object)=>any): void;
+    static registerHeadlessTask(callback:(event:Object)=> Promise<void>): void;
 
     /**
     *
@@ -938,7 +938,7 @@ declare module "react-native-background-geolocation" {
     /**
     * Sends a signal to OS that you wish to perform a long-running task.
     *
-    * The will will keep your running in the background and not suspend it until you signal completion with the [[stopBackgroundTask]] method.  Your callback will be provided with a single parameter `taskId`
+    * The OS will keep your running in the background and not suspend it until you signal completion with the [[stopBackgroundTask]] method.  Your callback will be provided with a single parameter `taskId`
     * which you will send to the [[stopBackgroundTask]] method.
     *
     * @example
@@ -979,9 +979,9 @@ declare module "react-native-background-geolocation" {
     * ```
     * ### Android
     *
-    * The Android implementation launches a foreground-service, along with the accompanying persistent foreground [[Notification]].
+    * The Android implementation launches a [`WorkManager`](https://developer.android.com/topic/libraries/architecture/workmanager) task.
     *
-    * ⚠️ The Android plugin hardcodes a limit of **30s** for your background-task before it automatically `FORCE KILL`s it.
+    * ⚠️ The Android plugin imposes a limit of **3 minutes** for your background-task before it automatically `FORCE KILL`s it.
     *
     *
     * Logging for Android background-tasks looks like this (when you see an hourglass ⏳ icon, a foreground-service is active)

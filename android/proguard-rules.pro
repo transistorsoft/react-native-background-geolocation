@@ -4,10 +4,12 @@
 -keep class com.transistorsoft** { *; }
 -dontwarn com.transistorsoft.**
 
-# Huawei Adapter
+# Huawei HMS Adapter
+-dontwarn com.transistorsoft.xms.**
+-dontwarn com.huawei.**
+
 -keep class com.google.android.gms.** {*;}
 -keep interface com.google.android.gms.** {*;}
--dontwarn com.huawei.**
 
 # BackgroundGeolocation (EventBus)
 -keepattributes *Annotation*
@@ -36,4 +38,3 @@
 
 # LifecycleObserver
 -keep class androidx.lifecycle.FullLifecycleObserver
-

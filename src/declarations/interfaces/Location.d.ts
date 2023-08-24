@@ -122,9 +122,10 @@ declare module "react-native-background-geolocation" {
    * ```
    * {
    *    "timestamp":     [Date],     // <-- Javascript Date instance
-   *    "event":         [String],    // <-- motionchange|geofence|heartbeat
+   *    "event":         [String],   // <-- motionchange|geofence|heartbeat
    *    "is_moving":     [Boolean],  // <-- The motion-state when location was recorded.
    *    "uuid":          [String],   // <-- Universally unique identifier
+   *    "age":           [Integer],  // <-- Age of the location in milliseconds
    *    "coords": {
    *        "latitude":  [Double],
    *        "longitude": [Double],
@@ -178,6 +179,7 @@ declare module "react-native-background-geolocation" {
    *             "is_charging": [Boolean]
    *         },
    *         "timestamp": [ISO-8601 UTC], // eg:  "2015-05-05T04:31:54.123Z"
+   *         "age":       [Integer],      // <-- Age of the location in milliseconds
    *         "uuid":      [String],       // <-- Universally unique identifier
    *         "event"      [String],       // <-- motionchange|geofence|heartbeat
    *         "is_moving": [Boolean],      // <-- The motion-state when recorded.
@@ -192,6 +194,12 @@ declare module "react-native-background-geolocation" {
     * `ISO-8601 UTC` timestamp provided by the native location API.
     */
     timestamp: string;
+    /**
+     * The age of the location in milliseconds, relative to the Device system-time when the location was received.
+     * For example, if the reported `age` is `10000`, that location was recorded 10s ago, relative to the system-time.
+     * `location.timestamp` + `location.age` = Device system-time when location was recorded.
+    */
+    age: number;
     /**
     * Distance-traveled in meters.
     * ℹ️

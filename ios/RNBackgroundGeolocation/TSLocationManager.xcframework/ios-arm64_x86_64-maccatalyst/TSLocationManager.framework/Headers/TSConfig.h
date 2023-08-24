@@ -5,7 +5,7 @@
 //  Created by Christopher Scott on 2018-02-05.
 //  Copyright © 2018 Transistor Software. All rights reserved.
 //
-@import CoreLocation;
+#import <CoreLocation/CoreLocation.h>
 #import <objc/runtime.h>
 #import "TSAuthorization.h"
 

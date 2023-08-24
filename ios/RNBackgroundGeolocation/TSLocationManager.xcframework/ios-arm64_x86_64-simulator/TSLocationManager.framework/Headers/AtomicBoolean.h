@@ -6,7 +6,7 @@
 //  Copyright © 2018 Transistor Software. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 /// :nodoc:
 @interface AtomicBoolean : NSObject

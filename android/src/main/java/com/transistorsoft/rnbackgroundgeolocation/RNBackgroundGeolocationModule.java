@@ -811,6 +811,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             @Override public void onStart(int taskId) {
                 success.invoke(taskId);
             }
+            @Override public void onCancel(int taskId) { } // NO IMPLEMENTATION
         });
     }
 

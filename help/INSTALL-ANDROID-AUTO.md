@@ -6,42 +6,15 @@
 
 ```shell
 yarn add react-native-background-geolocation
-```
 
-- __For `background-geolocation >= 4.0.0`:__
+yarn add react-native-background-fetch@^4.2.1
 ```
-yarn add react-native-background-fetch@^4.1.0
-```
-
-- __For `background-geolocation >= 3.6.0 < 4.0.0`:__
-```
-yarn add react-native-background-fetch@3.1.0
-```
-
-- For __`background-geolocation <= 3.5.0`__
-```
-yarn add react-native-background-fetch@2.7.1
-```
-
 
 ### With `npm`
 ```shell
 npm install react-native-background-geolocation --save
-```
 
-- __For `background-geolocation >= 4.0.0`:__
-```
-npm install react-native-background-fetch@^4.1.0
-```
-
-- For __`background-geolocation >= 3.6.0 < 4.0.0`:__
-```
-npm install react-native-background-fetch@3.1.0 --save
-```
-
-- For __`background-geolocation <= 3.5.0`:__
-```
-npm install react-native-background-fetch@2.7.1 --save
+npm install react-native-background-fetch@^4.2.1
 ```
 
 ## Configure `react-native-background-fetch`
@@ -63,10 +36,10 @@ In addition, custom `maven url` for both `background-geolocation` and `backgroun
 ```diff
 buildscript {
     ext {
-        minSdkVersion = 16
-        targetSdkVersion = 31           // Or higher.
-+       compileSdkVersion = 31          // Or higher.
-+       appCompatVersion = "1.4.2"      // Or higher.  Required for new AndroidX compatibility.
++       minSdkVersion 		= 19	      // Required minimum
++       targetSdkVersion 	= 31          // Or higher.
++       compileSdkVersion 	= 31          // Or higher.
++       appCompatVersion 	= "1.4.2"      // Or higher.  Required for new AndroidX compatibility.
 +       googlePlayServicesLocationVersion = "20.0.0"  // Or higher.
     }
     repositories {
@@ -80,15 +53,11 @@ allprojects {   // <-- NOTE:  allprojects container -- If you don't see this, cr
         .
         .
         .
-+       maven {
-+           // Required for react-native-background-geolocation
-+           url("${project(':react-native-background-geolocation').projectDir}/libs")
-+       }
-+       maven {
-+           // Required for react-native-background-fetch
-+           url("${project(':react-native-background-fetch').projectDir}/libs")
-+       }
-+    }
++       // Required for react-native-background-geolocation
++       maven { url("${project(':react-native-background-geolocation').projectDir}/libs") }
++       maven { url 'https://developer.huawei.com/repo/' }
++       // Required for react-native-background-fetch
++       maven { url("${project(':react-native-background-fetch').projectDir}/libs") }
 }
 ```
 
@@ -97,14 +66,11 @@ allprojects {   // <-- NOTE:  allprojects container -- If you don't see this, cr
 Background Geolocation requires a gradle extension for your `app/build.gradle`.
 
 ```diff
-project.ext.react = [
-    entryFile: "index.js",
-    enableHermes: false,  // clean and rebuild if changing
-]
+apply plugin: "com.android.application"
+apply plugin: "com.facebook.react"
 
-apply from: "../../node_modules/react-native/react.gradle"
-
-+Project background_geolocation = project(':react-native-background-geolocation')
++// background-geolocation
++Project background_geolocation = project(':react-native-background-geolocation-android')
 +apply from: "${background_geolocation.projectDir}/app.gradle"
 ```
 
@@ -153,6 +119,22 @@ If you've [purchased an *HMS Background Geolocation* License](https://shop.trans
 </manifest>
 ```
 :warning: Huawei HMS support requires `react-native-background-geolocation >= 3.11.0`.
+
+## `AlarmManager` "Exact Alarms" (optional)
+
+The plugin uses __`AlarmManager`__ "exact alarms" for precise scheduling of events (eg: __`Config.stopTimeout`__, __`Config.motionTriggerDelay`__, __`Config.schedule`__).  *Android 14 (SDK 34)*, has restricted usage of ["`AlarmManager` exact alarms"](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms).  To continue using precise timing of events with *Android 14*, you can manually add this permission to your __`AndroidManifest`__.  Otherwise, the plugin will gracefully fall-back to "*in-exact* `AlarmManager` scheduling".  For more information about Android's __`AlarmManager`__, see the [Android API Docs](https://developer.android.com/training/scheduling/alarms).
+
+:open_file_folder: In your __`AndroidManifest`__, add the following permission (**exactly as-shown**):
+
+```xml
+  <manifest>
+      <uses-permission android:minSdkVersion="34" android:name="android.permission.USE_EXACT_ALARM" />
+      .
+      .
+      .
+  </manifest>
+```
+:warning: It has been announced that *Google Play Store* [has plans to impose greater scrutiny](https://support.google.com/googleplay/android-developer/answer/13161072?sjid=3640341614632608469-NA) over usage of this permission (which is why the plugin does not automatically add it).
 
 ## Proguard Config
 

@@ -165,7 +165,7 @@ const applyMavenUrl = (buildGradle: string):string => {
   return mergeContents({
     tag: `[${MODULE_NAME}-maven`,
     src: buildGradle,
-    newSrc: `\tmaven { url "\${project(":${MODULE_NAME}").projectDir}/libs" }`,
+    newSrc: `\tmaven { url "\${project(":${MODULE_NAME}").projectDir}/libs" }\n\tmaven { url 'https://developer.huawei.com/repo/' }`,
     anchor: /maven\s\{/,
     offset: 1,
     comment: "//",

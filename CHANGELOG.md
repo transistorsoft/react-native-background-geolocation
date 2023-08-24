@@ -1,5 +1,51 @@
 # Change Log
 
+## 4.13.1 &mdash; 2023-08-24
+* [iOS] Fix build failure "Use of '@import' when C++ modules are disabled"
+* [Android] Modify Foreground-service management to use `stopSelfResult(startId)` instead of `stopSelf()`.  This could improve reports of Android ANR
+`Context.startForeground`.
+* [Android] Re-factor getCurrentPosition to prefer more recent location vs more accuracy (within limits)
+* [Android] Android 14 (API 34) support:  Android 14 is more strict with scheduling `AlarmManager` "exact alarms" (which the plugin does take advantage of).  If you wish the plugin to use `AlarmManager` "exact alarms" in your app, you must now explicitly define that permission in your own `AndroidManifest`:
+```xml
+<manifest>
+    <uses-permission android:minSdkVersion="34" android:name="android.permission.USE_EXACT_ALARM" />
+</manifest>
+```
+
+* [Android] Android 14 (API 34) support:  Re-factor BackgroundTaskService to use `WorkManager` instead of a foreground-service.
+* [Android] Android 14 (API 34) support: Due to new runtime permission requirements on `AlarmManager` exact alarms (`android.permission.SCHEDULE_EXACT_ALARM`), the plugin can no longer rely upon launching a foreground-service using an exact alarm.  Instead, the plugin will create a geofence around the current position (configured with `initialTriggerEntry`) to hopefully immediately launch a foreground-service to handle the fake geofence event, since Android allows foreground-service launches due to Geofencing events.
+* [Android] Android 14 (API 34) support:  All foreground-services now require an `android:foregroundServiceType` in the plugin's `AndroidManifest` (handled automatically by the plugin).
+* [Android] Android 14 (API 34) support: Fix error "*One of RECEIVER_EXPORTED or RECEIVER_NOT_EXPORTED should be specified*" in `DeviceSettings.startMonitoringPowerSaveChanges`.
+* [Android] Add sanity-check for invalid `Geofence` arguments (eg: invalid latitude/longitude).
+* [Android] Add safety-checks in ForegroundService stop-handling.  There was a report of a *reproducible* crash while aggressively calling `.getCurrentPosition` in a `Timer` (eg: every second).
+* [Android] Demote `HeartbeatService` from a Foreground Service to `AlarmManager` ONESHOT.  :warning: In your `onHeartbeat` event, if you intend to perform any kind of asynchronous function, you should wrap it inside `BackgroundGeolocation.startBackgroundTask` in order to prevents the OS from suspending your app before your task is complete:
+
+```javascript
+BacckgroundGeolocation.onHeartbeat(async (event) => {
+  console.log("[onHeartbeat] $event");
+  // First register a background-task.
+  const taskId = await BackgroundGeolocation.startBackgroundTask();
+  try {
+    // Now you're free to perform long-running tasks, such as getCurrentPosition()
+    const location = await BackgroundGeolocation.getCurrentPosition({
+      samples: 3,
+      timeout: 30,
+      extras: {
+        "event": "heartbeat"
+      }
+    });
+    console.log("[onHeartbeat] location:", $location);
+  } catch(error) {
+    console.log("[getCurrentPosition] ERROR:", error);
+  }
+  // Be sure to singal completion of your background-task:
+  BackgroundGeolocation.stopBackgroundTask(taskId);
+});
+```
+
+* [Android] Fix NPE iterating a `List` in `AbstractService`.
+* [Android] If a `SingleLocationRequest` error occurs and at least one sample exits, prefer to resolve the request successfully rather than firing the error (eg: `getCurrentPosition`, `motionchange`, `providerchange` requests).
+
 ## 4.12.1 &mdash; 2023-05-19
 * [Android][Expo] Adjust Expo plugin with Support for monorepos where the module may not exist in the expected node_modules path.
 * [Android] Introduce gradle config ext vars for `logbackAndroidVersion` and `slf4jVersion`.

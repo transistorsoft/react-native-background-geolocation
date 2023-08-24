@@ -2126,25 +2126,36 @@ declare module "react-native-background-geolocation" {
     allowIdenticalLocations?: boolean;
 
     /**
-    * __`[Android-only]`__ Enable extra timestamp meta data to be appended to each recorded location, including system-time.
+    * Enable extra timestamp meta data to be appended to each recorded location, including system-time.
     * @break
     *
     * Some developers have reported GPS [[Location.timestamp]] issues with some Android devices.  This option will append extra meta-data related to the device's system time.
     *
-    * ### Java implementation
+    * ## Android implementation
     *
     * ```Java
-    * if (enableTimestampMeta) {
-    *     JSONObject timestampMeta = new JSONObject();
-    *     timestampMeta.put("time", mLocation.getTime());
-    *     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-    *         timestampMeta.put("systemClockElaspsedRealtime", SystemClock.elapsedRealtimeNanos()/1000000);
-    *         timestampMeta.put("elapsedRealtime", mLocation.getElapsedRealtimeNanos()/1000000);
-    *     } else {
-    *         timestampMeta.put("systemTime", System.currentTimeMillis());
-    *     }
-    *     data.put("timestampMeta", timestampMeta);
+    * JSONObject timestampMeta = new JSONObject();
+    * timestampMeta.put("time", mLocation.getTime());
+    * if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+    *     timestampMeta.put("systemClockElaspsedRealtime", SystemClock.elapsedRealtimeNanos()/1000000);
+    *     timestampMeta.put("elapsedRealtime", mLocation.getElapsedRealtimeNanos()/1000000);
+    * } else {
+    *     timestampMeta.put("systemTime", System.currentTimeMillis());
     * }
+    * ```
+    *
+    * ## iOS Implementation
+    *
+    * ```Java
+    *  long long systemTime = (long long)([[NSDate date] timeIntervalSince1970] * 1000.0);
+    *  long long locationTime = (long long)([_location.timestamp timeIntervalSince1970] * 1000.0);
+    *  long long uptime = (long long) [self.class uptime] * 1000;
+    *
+    *  return @{
+    *      @"time": @(locationTime),
+    *      @"systemTime": @(systemTime),
+    *      @"systemClockElapsedRealtime": @(uptime)
+    *  };
     * ```
     */
     enableTimestampMeta?: boolean;

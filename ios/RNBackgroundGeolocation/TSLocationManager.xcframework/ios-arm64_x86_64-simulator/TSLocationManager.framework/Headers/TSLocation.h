@@ -31,6 +31,8 @@ typedef enum tsLocationType : NSInteger {
  * The rendered timestamp in ISO-8851 UTC format (YYYY-MM-dd HH:mm:sssZ)
  */
 @property (nonatomic, readonly) NSString *timestamp;
+
+@property (nonatomic, readonly) NSNumber *age;
 /**
  * The type of location: MOTIONCHANGE|TRACKING|CURRENT|SAMPLE|WATCH|GEOFENCE|HEARTBEAT
  */

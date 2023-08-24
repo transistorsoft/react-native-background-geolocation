@@ -1,6 +1,6 @@
 # Change Log
 
-## 4.13.1 &mdash; UNRELEASED
+## 4.13.1 &mdash; 2023-08-24
 * [iOS] Fix build failure "Use of '@import' when C++ modules are disabled"
 * [Android] Modify Foreground-service management to use `stopSelfResult(startId)` instead of `stopSelf()`.  This could improve reports of Android ANR
 `Context.startForeground`.

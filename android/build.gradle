@@ -15,7 +15,7 @@ def DEFAULT_APP_COMPAT_VERSION                      = "1.4.1"
 
 // Plugin dependencies
 def DEFAULT_PLAY_SERVICES_LOCATION_VERSION   	    = "20.0.0"
-def DEFAULT_HMS_LOCATION_VERSION                    = "6.11.0.301"
+def DEFAULT_HMS_LOCATION_VERSION                    = "6.9.0.300"
 def DEFAULT_OK_HTTP_VERSION                         = "3.12.13"
 def DEFAULT_ANDROID_PERMISSIONS_VERSION             = "2.1.6"
 def DEFAULT_EVENTBUS_VERSION                        = "3.3.1"

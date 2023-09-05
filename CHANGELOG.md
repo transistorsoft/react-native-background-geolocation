@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.13.3 &mdash; 2023-09-05
+* [Android] Performance enhancements and error-checking.
+* [Typescript] Add missing `LocationError` value `3`;
+
 ## 4.13.2 &mdash; 2023-08-24
 
 * [Android] Fix memory-leak in `.startBackgroundTask`:  If a `Task` timed-out and is "FORCE KILLED", it was never removed from a `List<Task>`.

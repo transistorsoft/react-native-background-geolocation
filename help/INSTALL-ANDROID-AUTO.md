@@ -70,7 +70,7 @@ apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 
 +// background-geolocation
-+Project background_geolocation = project(':react-native-background-geolocation-android')
++Project background_geolocation = project(':react-native-background-geolocation')
 +apply from: "${background_geolocation.projectDir}/app.gradle"
 ```
 

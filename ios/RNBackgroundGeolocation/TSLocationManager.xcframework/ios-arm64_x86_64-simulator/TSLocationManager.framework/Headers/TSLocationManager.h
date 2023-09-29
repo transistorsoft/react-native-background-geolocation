@@ -40,28 +40,28 @@ FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 #pragma mark - Properties
 
 // Flags
-@property (nonatomic, readonly) BOOL enabled;
+@property (atomic, readonly) BOOL enabled;
 /// :nodoc:
-@property (nonatomic, readonly) BOOL isConfigured;
+@property (atomic, readonly) BOOL isConfigured;
 /// :nodoc:
-@property (nonatomic, readonly) BOOL isDebuggingMotionDetection;
+@property (atomic, readonly) BOOL isDebuggingMotionDetection;
 /// :nodoc:
-@property (nonatomic, readonly) BOOL isUpdatingLocation;
+@property (atomic, readonly) BOOL isUpdatingLocation;
 /// :nodoc:
-@property (nonatomic, readonly) BOOL isRequestingLocation;
+@property (atomic, readonly) BOOL isRequestingLocation;
 /// :nodoc:
-@property (nonatomic, readonly) BOOL isMonitoringSignificantLocationChanges;
+@property (atomic, readonly) BOOL isMonitoringSignificantLocationChanges;
 /// :nodoc:
-@property (nonatomic, readonly) NSDate *suspendedAt;
+@property (atomic, readonly) NSDate *suspendedAt;
 /// `YES` when the the app was launched in the background.
-@property (nonatomic, readonly) BOOL isLaunchedInBackground;
+@property (atomic, readonly) BOOL isLaunchedInBackground;
 
 // LocationManagers
 
 /// The SDK's `CLLocationManager` instance.
 @property (nonatomic, strong, readonly) CLLocationManager *locationManager;
 
-@property (nonatomic) CLLocationDistance distanceFilter;
+@property (atomic) CLLocationDistance distanceFilter;
 
 /// :nodoc:
 @property (nonatomic, strong, readonly) LocationManager *currentPositionManager;
@@ -73,13 +73,13 @@ FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 // Location Resources
 
 /// The location used to monitor the SDK's stationary geofence.
-@property (nonatomic, strong, readonly) CLLocation *stationaryLocation;
+@property (atomic, strong, readonly) CLLocation *stationaryLocation;
 /// The last known location.
-@property (nonatomic, strong, readonly) CLLocation *lastLocation;
+@property (atomic, strong, readonly) CLLocation *lastLocation;
 /// :nodoc:
-@property (nonatomic, strong, readonly) CLLocation *lastGoodLocation;
+@property (atomic, strong, readonly) CLLocation *lastGoodLocation;
 /// :nodoc:
-@property (nonatomic, strong, readonly) CLLocation *lastOdometerLocation;
+@property (atomic, strong, readonly) CLLocation *lastOdometerLocation;
 
 // GeofeneManager
 
@@ -89,60 +89,60 @@ FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 /// The application's `ViewController` instance.  Used for presenting dialogs.
 @property (nonatomic) UIViewController* viewController;
 /// :nodoc:
-@property (nonatomic) NSDate *stoppedAt;
+@property (atomic) NSDate *stoppedAt;
 /// :nodoc:
-@property (nonatomic) UIBackgroundTaskIdentifier preventSuspendTask;
+@property (atomic) UIBackgroundTaskIdentifier preventSuspendTask;
 /// :nodoc:
-@property (nonatomic, readonly) BOOL clientReady;
+@property (atomic, readonly) BOOL clientReady;
 /// :nodoc:
-@property (nonatomic, readonly) BOOL isAcquiringState;
+@property (atomic, readonly) BOOL isAcquiringState;
 /// :nodoc:
-@property (nonatomic, readonly) BOOL wasAcquiringState;
+@property (atomic, readonly) BOOL wasAcquiringState;
 /// :nodoc:
-@property (nonatomic, readonly) BOOL isAcquiringBackgroundTime;
+@property (atomic, readonly) BOOL isAcquiringBackgroundTime;
 /// :nodoc:
-@property (nonatomic, readonly) BOOL isAcquiringStationaryLocation;
+@property (atomic, readonly) BOOL isAcquiringStationaryLocation;
 /// :nodoc:
-@property (nonatomic, readonly) BOOL isAcquiringSpeed;
+@property (atomic, readonly) BOOL isAcquiringSpeed;
 /// :nodoc:
-@property (nonatomic, readonly) BOOL isHeartbeatEnabled;
+@property (atomic, readonly) BOOL isHeartbeatEnabled;
 
 // Events listeners
 /// :nodoc:
-@property (nonatomic, readonly) NSMutableSet *currentPositionRequests;
+@property (atomic, readonly) NSMutableSet *currentPositionRequests;
 /// :nodoc:
-@property (nonatomic, readonly) NSMutableArray *watchPositionRequests;
+@property (atomic, readonly) NSMutableArray *watchPositionRequests;
 /// :nodoc:
-@property (nonatomic, readonly) NSMutableSet *locationListeners;
+@property (atomic, readonly) NSMutableSet *locationListeners;
 /// :nodoc:
-@property (nonatomic, readonly) NSMutableSet *motionChangeListeners;
+@property (atomic, readonly) NSMutableSet *motionChangeListeners;
 /// :nodoc:
-@property (nonatomic, readonly) NSMutableSet *activityChangeListeners;
+@property (atomic, readonly) NSMutableSet *activityChangeListeners;
 /// :nodoc:
-@property (nonatomic, readonly) NSMutableSet *providerChangeListeners;
+@property (atomic, readonly) NSMutableSet *providerChangeListeners;
 /// :nodoc:
-@property (nonatomic, readonly) NSMutableSet *httpListeners;
+@property (atomic, readonly) NSMutableSet *httpListeners;
 /// :nodoc:
-@property (nonatomic, readonly) NSMutableSet *scheduleListeners;
+@property (atomic, readonly) NSMutableSet *scheduleListeners;
 /// :nodoc:
-@property (nonatomic, readonly) NSMutableSet *heartbeatListeners;
+@property (atomic, readonly) NSMutableSet *heartbeatListeners;
 /// :nodoc:
-@property (nonatomic, readonly) NSMutableSet *powerSaveChangeListeners;
+@property (atomic, readonly) NSMutableSet *powerSaveChangeListeners;
 /// :nodoc:
-@property (nonatomic, readonly) NSMutableSet *enabledChangeListeners;
+@property (atomic, readonly) NSMutableSet *enabledChangeListeners;
 
 /// [Optional] User-supplied block to render location-data for SQLite database / Firebase adapter INSERT.
 @property (copy) NSDictionary* (^beforeInsertBlock) (TSLocation *location);
 
 /// Callback for requestPermission.
 /// :nodoc:
-@property (nonatomic) TSCallback *requestPermissionCallback;
+@property (atomic) TSCallback *requestPermissionCallback;
 
 /// Event Queue
 /// :nodoc:
-@property (nonatomic, readonly)  NSMutableSet *eventQueue;
+@property (atomic, readonly)  NSMutableSet *eventQueue;
 /// :nodoc:
-@property (nonatomic) SOMotionType currentMotionType;
+@property (atomic) SOMotionType currentMotionType;
 
 /// Returns the API's singleton instance.
 + (TSLocationManager *)sharedInstance;

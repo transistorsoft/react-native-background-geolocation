@@ -439,9 +439,11 @@ RCT_EXPORT_METHOD(addGeofences:(NSArray*) data success:(RCTResponseSenderBlock)s
 }
 
 -(TSGeofence*) buildGeofence:(NSDictionary*)params {
-    if (!params[@"identifier"] || !params[@"radius"] || !params[@"latitude"] || !params[@"longitude"]) {
+
+    if (!params[@"identifier"] || (!params[@"vertices"] && (!params[@"radius"] || !params[@"latitude"] || !params[@"longitude"]))) {
         return nil;
     }
+
     return [[TSGeofence alloc] initWithIdentifier: params[@"identifier"]
                                            radius: [params[@"radius"] doubleValue]
                                          latitude: [params[@"latitude"] doubleValue]
@@ -450,7 +452,8 @@ RCT_EXPORT_METHOD(addGeofences:(NSArray*) data success:(RCTResponseSenderBlock)s
                                      notifyOnExit: (params[@"notifyOnExit"])  ? [params[@"notifyOnExit"] boolValue] : NO
                                     notifyOnDwell: (params[@"notifyOnDwell"]) ? [params[@"notifyOnDwell"] boolValue] : NO
                                    loiteringDelay: (params[@"loiteringDelay"]) ? [params[@"loiteringDelay"] doubleValue] : 0
-                                           extras: params[@"extras"]];
+                                           extras: params[@"extras"]
+                                         vertices: params[@"vertices"]];
 }
 
 RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)

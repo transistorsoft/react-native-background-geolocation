@@ -22,6 +22,6 @@ Pod::Spec.new do |s|
   s.preserve_paths      = 'docs', 'CHANGELOG.md', 'LICENSE', 'package.json', 'RNBackgroundGeolocation.ios.js'
   s.dependency 'CocoaLumberjack', '~> 3.7.2'
   s.source_files        = 'ios/RNBackgroundGeolocation/*.{h,m}'
-  s.libraries           = 'sqlite3', 'z'
+  s.libraries           = 'sqlite3', 'z', 'stdc++'
   s.vendored_frameworks = 'ios/RNBackgroundGeolocation/TSLocationManager.xcframework'
 end

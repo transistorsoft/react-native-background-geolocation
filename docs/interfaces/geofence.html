@@ -19,7 +19,7 @@
 					<div class="brand">
 						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
 						<span class="title">
-							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.13.3</span>
+							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.14.0</span>
 						</span>
 					</div>
 				</div>
@@ -78,9 +78,9 @@
 					</div>
 					<p><strong>ℹ️ Note:</strong></p>
 					<ul>
-						<li>Native iOS &amp; Android API support only <em>circular</em> geofences.</li>
+						<li>Native iOS &amp; Android API support only <em>circular</em> geofences, however the plugin does implement a custom mechanism for handling <em>Polygon Geofences</em>; see <a href="geofence.html#vertices">vertices</a>.</li>
 						<li>The minimum reliable <a href="geofence.html#radius">radius</a> is <code>200</code> meters.</li>
-						<li>Geofence monitoring <em>requires</em> the user authorize <a href="config.html#locationauthorizationrequest">locationAuthorizationRequest</a> <strong><code>Always</code></strong> &mdash; <strong><code>When in Use</code></strong> will <strong>not</strong> work.</li>
+						<li>The native geofencing API for both iOS and Android <em>require</em> the user authorize <a href="config.html#locationauthorizationrequest">locationAuthorizationRequest</a> <strong><code>Always</code></strong> &mdash; <strong><code>When in Use</code></strong> will <strong>not</strong> work.</li>
 					</ul>
 					<a href="#adding-geofences" id="adding-geofences" style="color: inherit; text-decoration: none;">
 						<h2>Adding Geofences</h2>
@@ -107,7 +107,7 @@
 							<p>Adding multiple geofences with <a href="../classes/backgroundgeolocation.html#addgeofences">addGeofences</a>.</p>
 						</dd>
 						<dt class="tsd-comment-tag-example">example</dt>
-						<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">addGeofences</span><span style="color: #F8F8F2">([{</span>
+						<dd><pre><code class="language-typescript"><span style="color: #F92672">await</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">addGeofences</span><span style="color: #F8F8F2">([{</span>
 <span style="color: #F8F8F2">  identifier: </span><span style="color: #E6DB74">&quot;Home&quot;</span><span style="color: #F8F8F2">,</span>
 <span style="color: #F8F8F2">  radius: </span><span style="color: #AE81FF">200</span><span style="color: #F8F8F2">,</span>
 <span style="color: #F8F8F2">  latitude: </span><span style="color: #AE81FF">45.51921926</span><span style="color: #F8F8F2">,</span>
@@ -119,11 +119,9 @@
 <span style="color: #F8F8F2">  latitude: </span><span style="color: #AE81FF">45.61921927</span><span style="color: #F8F8F2">,</span>
 <span style="color: #F8F8F2">  longitude: </span><span style="color: #F92672">-</span><span style="color: #AE81FF">73.71678582</span><span style="color: #F8F8F2">,</span>
 <span style="color: #F8F8F2">  notifyOnEntry: </span><span style="color: #AE81FF">true</span>
-<span style="color: #F8F8F2">}]).</span><span style="color: #A6E22E">then</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">success</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
-<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[addGeofences] success&quot;</span><span style="color: #F8F8F2">);</span>
-<span style="color: #F8F8F2">}).</span><span style="color: #A6E22E">catch</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">error</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
-<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[addGeofences] FAILURE: &quot;</span><span style="color: #F8F8F2">, error);</span>
-<span style="color: #F8F8F2">});</span>
+<span style="color: #F8F8F2">}]);</span>
+<span style="color: #F8F8F2">console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[addGeofences] success&quot;</span><span style="color: #F8F8F2">);</span>
+
 </code></pre>
 							<p><strong>ℹ️ Note:</strong> Adding a geofence having an <a href="geofence.html#identifier">identifier</a> which already exists within the SDK geofence database will cause the previous record to be destroyed and the new one inserted.</p>
 							<hr>
@@ -138,6 +136,16 @@
 <span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[geofence] &quot;</span><span style="color: #F8F8F2">, geofence.identifier, geofence.action);</span>
 <span style="color: #F8F8F2">});</span>
 </code></pre>
+							<hr>
+							<a href="#polygon-geofencing" id="polygon-geofencing" style="color: inherit; text-decoration: none;">
+								<h2>Polygon Geofencing</h2>
+							</a>
+							<p>The Background Geolocation SDK supports <em>Polygon Geofences</em> (Geofences of any shape).  See API docs <a href="geofence.html#vertices">vertices</a>.</p>
+							<ul>
+								<li>ℹ️ <strong><em>Polygon Geofencing</em></strong> is <a href="https://shop.transistorsoft.com/products/polygon-geofencing">sold as a separate add-on</a> (fully functional in <em>DEBUG</em> builds).</li>
+							</ul>
+							<p><img src="https://dl.dropbox.com/scl/fi/sboshfvar0h41azmb4tyv/polygon-geofencing-parc-outremont-400.png?rlkey=d2s0n3zbzu72e7s2gch9kxd4a&dl=1" alt="">
+							<img src="https://dl.dropbox.com/scl/fi/xz48myvjnpp8ko0l2tufg/polygon-geofencing-parc-lafontaine-400.png?rlkey=sf20ns959uj0a0fq0atmj55bz&dl=1" alt=""></p>
 							<hr>
 							<a href="#infinite-geofencing" id="infinite-geofencing" style="color: inherit; text-decoration: none;">
 								<h2>Infinite Geofencing</h2>
@@ -169,7 +177,7 @@
 <span style="color: #F8F8F2">  </span><span style="color: #88846F">// Remove map circles</span>
 <span style="color: #F8F8F2">  off.</span><span style="color: #A6E22E">forEach</span><span style="color: #F8F8F2">((</span><span style="color: #FD971F">identifier</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
 <span style="color: #F8F8F2">    </span><span style="color: #A6E22E">removeGeofenceMarker</span><span style="color: #F8F8F2">(identifier);</span>
-<span style="color: #F8F8F2">  }</span>
+<span style="color: #F8F8F2">  });</span>
 <span style="color: #F8F8F2">});</span>
 </code></pre>
 							<a href="#⚠️-note" id="⚠️-note" style="color: inherit; text-decoration: none;">
@@ -182,8 +190,8 @@
 							<a href="#removing-geofences" id="removing-geofences" style="color: inherit; text-decoration: none;">
 								<h2>Removing Geofences</h2>
 							</a>
-							<p>Once a geofence has been inserted into the SDK&#39;s database using <a href="../classes/backgroundgeolocation.html#addgeofence">addGeofence</a> or <a href="../classes/backgroundgeolocation.html#addgeofences">addGeofences</a>, they will be monitored <em>forever</em>.  If you&#39;ve configured <a href="config.html#stoponterminate">stopOnTerminate</a> <strong><code>false</code></strong> and <a href="config.html#startonboot">startOnBoot</a> <strong><code>true</code></strong>, geofences will continue to be monitored even if the application is terminated or device rebooted.
-							To cease monitoring a geofence or <em>geofences</em>, you must <em>remove</em> them from the SDK&#39;s database.</p>
+							<p>Once a geofence has been inserted into the SDK&#39;s database using <a href="../classes/backgroundgeolocation.html#addgeofence">addGeofence</a> or <a href="../classes/backgroundgeolocation.html#addgeofences">addGeofences</a>, they will be monitored <em>forever</em> (as long as the plugin remains <code>State.enabled == true</code>).  If you&#39;ve configured <a href="config.html#stoponterminate">stopOnTerminate</a> <strong><code>false</code></strong> and <a href="config.html#startonboot">startOnBoot</a> <strong><code>true</code></strong>, geofences will continue to be monitored even if the application is terminated or device rebooted.
+							To cease monitoring a geofence or <em>geofences</em>, you must <em>remove</em> them from the SDK&#39;s database (or call <a href="../classes/backgroundgeolocation.html#stop">BackgroundGeolocation.stop</a>).</p>
 							<ul>
 								<li>Removing a single geofence by <a href="geofence.html#identifier">identifier</a> with <a href="../classes/backgroundgeolocation.html#removegeofence">removeGeofence</a>:</li>
 							</ul>
@@ -302,6 +310,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="geofence.html#notifyonentry" class="tsd-kind-icon">notify<wbr>OnEntry</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="geofence.html#notifyonexit" class="tsd-kind-icon">notify<wbr>OnExit</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="geofence.html#radius" class="tsd-kind-icon">radius</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="geofence.html#vertices" class="tsd-kind-icon">vertices</a></li>
 							</ul>
 						</section>
 					</div>
@@ -335,7 +344,7 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="latitude" class="tsd-anchor"></a>
-					<h3>latitude</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> latitude</h3>
 					<div class="tsd-signature tsd-kind-icon">latitude<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 					</aside>
@@ -359,7 +368,7 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="longitude" class="tsd-anchor"></a>
-					<h3>longitude</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> longitude</h3>
 					<div class="tsd-signature tsd-kind-icon">longitude<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 					</aside>
@@ -411,7 +420,7 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="radius" class="tsd-anchor"></a>
-					<h3>radius</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> radius</h3>
 					<div class="tsd-signature tsd-kind-icon">radius<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 					</aside>
@@ -423,6 +432,76 @@
 						<blockquote>
 							<p><em>&quot;The specific threshold distances are determined by the hardware and the location technologies that are currently available. For example, if WiFi is disabled, region monitoring is significantly less accurate. However, for testing purposes, <strong>you can assume that the minimum distance is approximately 200 meters</strong></em>&quot;.</p>
 						</blockquote>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="vertices" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> vertices</h3>
+					<div class="tsd-signature tsd-kind-icon">vertices<span class="tsd-signature-symbol">:</span> <a href="../index.html#vertices" class="tsd-signature-type" data-tsd-kind="Type alias">Vertices</a></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Optional: a list of vertices (<code>[ [lat, lng],...]</code>) defining a Polygon geofence.  By default, geofences are circular.</p>
+						</div>
+						<p>ℹ️ <strong><em>Polygon Geofencing</em></strong> is <a href="https://shop.transistorsoft.com/products/polygon-geofencing">sold as a separate add-on</a> (fully functional in <em>DEBUG</em> builds).</p>
+						<p>When defining a polygon geofence, you do <strong>not</strong> provide <a href="geofence.html#latitude">latitude</a>, <a href="geofence.html#longitude">longitude</a> or <a href="geofence.html#radius">radius</a> &mdash; those will be automatically calculated based upon the geometry of the polygon.</p>
+						<p>The following image shows polygon geofences on a map:</p>
+						<p><img src="https://dl.dropbox.com/scl/fi/xzf6yau5wcg1az8fy0lbm/geofencing-polygons-on-map.PNG?rlkey=e82h494msbgt8ngu4s2pjwemb&dl=1" alt=""></p>
+						<p>The <em>blue polygons</em> represent the <em>actual</em> polygon geofences and the containing <em>green circles</em> are traditional circular geofences provided by the native <em>iOS/Android</em> Geofencing APIs.  The background-geolocation SDK automatically calculates the containing, native cirular geofence by solving the <a href="https://en.wikipedia.org/wiki/Smallest-circle_problem"><em>minimum enclosing circle</em></a> for the given <a href="geofence.html#vertices">vertices</a>.
+						This is why you do not provide <a href="geofence.html#latitude">latitude</a>, <a href="geofence.html#longitude">longitude</a> and <a href="geofence.html#radius">radius</a>.</p>
+						<ul>
+							<li>When the device <em>enters</em> the containing circular geofence, the SDK uses that as a signal that the device is approaching a polygon.  At this moment, the SDK begins aggressively monitoring the location to perform &quot;hit-testing&quot; upon the polygon using a fast algorithm implemented with C++ code.</li>
+							<li>When the device <em>exits</em> the containing circular geofence, that&#39;s the SDK&#39;s signal for it to <em>cease</em> monitoring that polygon.</li>
+						</ul>
+						<dl class="tsd-comment-tags">
+							<dt class="tsd-comment-tag-example">example</dt>
+							<dd><pre><code class="language-javascript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">addGeofence</span><span style="color: #F8F8F2">({</span>
+<span style="color: #F8F8F2">  identifier: </span><span style="color: #E6DB74">&#039;Home&#039;</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">  notifyOnEntry: </span><span style="color: #AE81FF">true</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">  notifyOnExit: </span><span style="color: #AE81FF">true</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">  vertices: [</span>
+<span style="color: #F8F8F2">    [</span><span style="color: #AE81FF">45.518947279987714</span><span style="color: #F8F8F2">, </span><span style="color: #F92672">-</span><span style="color: #AE81FF">73.6049889209514</span><span style="color: #F8F8F2">],  </span><span style="color: #88846F">// &lt;-- [lat, lng]</span>
+<span style="color: #F8F8F2">    [</span><span style="color: #AE81FF">45.5182711292279</span><span style="color: #F8F8F2">, </span><span style="color: #F92672">-</span><span style="color: #AE81FF">73.60338649600598</span><span style="color: #F8F8F2">],</span>
+<span style="color: #F8F8F2">    [</span><span style="color: #AE81FF">45.517082240237634</span><span style="color: #F8F8F2">, </span><span style="color: #F92672">-</span><span style="color: #AE81FF">73.60432670908212</span><span style="color: #F8F8F2">],</span>
+<span style="color: #F8F8F2">    [</span><span style="color: #AE81FF">45.51774871402813</span><span style="color: #F8F8F2">, </span><span style="color: #F92672">-</span><span style="color: #AE81FF">73.60604928622278</span><span style="color: #F8F8F2">]</span>
+<span style="color: #F8F8F2">  ]</span>
+<span style="color: #F8F8F2">});</span>
+</code></pre>
+								<ul>
+									<li>
+										<a href="#entering--exiting-a-cross-shaped-polygon-geofence" id="entering--exiting-a-cross-shaped-polygon-geofence" style="color: inherit; text-decoration: none;">
+											<h4>Entering / exiting a <em>cross-shaped</em> polygon geofence:</h4>
+										</a>
+									</li>
+								</ul>
+								<p><img src="https://dl.dropbox.com/scl/fi/iorrnrm0zno91jtg0ctse/polygon-geofencing-cross.PNG?rlkey=p4kufqhxgw9jrmuz4vkqisprw&dl=1" alt=""></p>
+								<ul>
+									<li>
+										<a href="#entering--exiting-a-park" id="entering--exiting-a-park" style="color: inherit; text-decoration: none;">
+											<h4>Entering / exiting a park:</h4>
+										</a>
+									</li>
+								</ul>
+								<p><img src="https://dl.dropbox.com/scl/fi/qvg9n3s5iacje5szgcqfv/polygon-geofencing-parc-outremont.PNG?rlkey=c6iax7a19db2v6xdxf18k2a7k&dl=1" alt=""></p>
+								<ul>
+									<li>
+										<a href="#entering--exiting-a-diamond-shaped-polygon" id="entering--exiting-a-diamond-shaped-polygon" style="color: inherit; text-decoration: none;">
+											<h4>Entering / exiting a diamond-shaped polygon:</h4>
+										</a>
+									</li>
+								</ul>
+								<p><img src="https://dl.dropbox.com/scl/fi/29m3xwb7tm0532mthgjfy/polygon-geofencing-diamond.PNG?rlkey=9ucc5hs7460ig7226iutas4cw&dl=1" alt=""></p>
+								<ul>
+									<li>
+										<a href="#designing-a-polygon-geofence-around-a-park-using-the-demo-app" id="designing-a-polygon-geofence-around-a-park-using-the-demo-app" style="color: inherit; text-decoration: none;">
+											<h4>Designing a polygon geofence around a park using the demo app:</h4>
+										</a>
+									</li>
+								</ul>
+								<p><img src="https://dl.dropbox.com/scl/fi/806mxnz9cdfd4ely8uwfe/polygon-geofencing-parc-lafontaine.PNG?rlkey=yrlbfisx8o5itfz6h0d0inel1&dl=1" alt=""></p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 			</section>
@@ -461,6 +540,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="geofence.html#radius" class="tsd-kind-icon">radius</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="geofence.html#vertices" class="tsd-kind-icon">vertices</a>
 							</li>
 						</ul>
 					</li>
@@ -501,6 +583,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="geofence.html#radius" class="tsd-kind-icon">radius</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="geofence.html#vertices" class="tsd-kind-icon">vertices</a>
 							</li>
 						</ul>
 					</li>

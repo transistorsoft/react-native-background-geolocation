@@ -58,6 +58,7 @@ import com.transistorsoft.locationmanager.logger.TSLog;
 import com.transistorsoft.locationmanager.device.DeviceSettingsRequest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -706,7 +707,22 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         if (config.hasKey("notifyOnDwell"))    { builder.setNotifyOnDwell(config.getBoolean("notifyOnDwell")); }
         if (config.hasKey("loiteringDelay"))   { builder.setLoiteringDelay(config.getInt("loiteringDelay")); }
         if (config.hasKey("extras"))           { builder.setExtras(mapToJson(config.getMap("extras"))); }
-
+        if (config.hasKey("vertices"))         {
+            // Polygon Geofence
+            List<List<Double>> vertices = new ArrayList<>();
+            ReadableArray rows = config.getArray("vertices");
+            if (rows != null) {
+                for (int i = 0; i < rows.size(); i++) {
+                    // Each row is a vertex of the Polygon.
+                    ReadableArray record = rows.getArray(i);
+                    List<Double> vertex = new ArrayList<>();
+                    vertex.add(record.getDouble(0)); // latitude
+                    vertex.add(record.getDouble(1)); // longitude
+                    vertices.add(vertex);
+                }
+                builder.setVertices(vertices);
+            }
+        }
         return builder.build();
     }
 

@@ -20,16 +20,16 @@ extern NSString *const STATIONARY_REGION_IDENTIFIER;
 
 @property (copy) void (^onGeofence) (TSGeofenceEvent* event);
 
-@property (nonatomic) BOOL isMoving;
-@property (nonatomic) BOOL enabled;
-@property (nonatomic) BOOL evaluated;
-@property (nonatomic) BOOL isRequestingLocation;
-@property (nonatomic) BOOL isMonitoringSignificantChanges;
-@property (nonatomic) BOOL willEvaluateProximity;
-@property (nonatomic) CLLocation *lastLocation;
+@property (atomic) BOOL isMoving;
+@property (atomic) BOOL enabled;
+@property (atomic) BOOL evaluated;
+@property (atomic) BOOL isRequestingLocation;
+@property (atomic) BOOL isMonitoringSignificantChanges;
+@property (atomic) BOOL willEvaluateProximity;
+@property (atomic) CLLocation *lastLocation;
 
-@property (nonatomic, readonly) NSMutableArray *geofencesChangeListeners;
-@property (nonatomic, readonly) NSMutableArray *geofenceListeners;
+@property (atomic, readonly) NSMutableArray *geofencesChangeListeners;
+@property (atomic, readonly) NSMutableArray *geofenceListeners;
 
 
 // Event listeners

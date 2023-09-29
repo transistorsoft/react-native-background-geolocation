@@ -74,7 +74,7 @@
 		</data>
 		<key>Headers/TSGeofence.h</key>
 		<data>
-		c2OfnwwpLLYt+ehbrddV1bUTQeU=
+		g9BTaWyQizmOylAWApRCoOvizt4=
 		</data>
 		<key>Headers/TSGeofenceEvent.h</key>
 		<data>
@@ -82,7 +82,7 @@
 		</data>
 		<key>Headers/TSGeofenceManager.h</key>
 		<data>
-		4Qvy/tgridoR+/ugedbBRf0DRbw=
+		L0Sw7IQVlaKNK+gs0njVL6hN02s=
 		</data>
 		<key>Headers/TSGeofencesChangeEvent.h</key>
 		<data>
@@ -106,7 +106,7 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		cPHmrOfvqB/M36VfwCHaSVCWF4o=
+		X2+HcvWlzuI9RHOY/vflS6WjcVg=
 		</data>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
 		<data>
@@ -138,7 +138,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		sw/gk7WGqXHgIb/YwIunFEb1Ibo=
+		kkcXy4iuym+vM6Im3Ze1uwJVBBM=
+		</data>
+		<key>Miniball/Miniball.hpp</key>
+		<data>
+		TR41GDyxS/iof60Pri6rj846vkU=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -338,11 +342,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			c2OfnwwpLLYt+ehbrddV1bUTQeU=
+			g9BTaWyQizmOylAWApRCoOvizt4=
 			</data>
 			<key>hash2</key>
 			<data>
-			WGlbGY86mPGw/I6cYYgdh1zpLCrHINfwQj+Z4COFuXw=
+			sCKypPAP5rEoTvON82aLGHAKIIMX8yZPW/ey3JAhaz0=
 			</data>
 		</dict>
 		<key>Headers/TSGeofenceEvent.h</key>
@@ -360,11 +364,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			4Qvy/tgridoR+/ugedbBRf0DRbw=
+			L0Sw7IQVlaKNK+gs0njVL6hN02s=
 			</data>
 			<key>hash2</key>
 			<data>
-			FLREH95bTwvsPByCMwXpYpAL/g59PSi1Qds4PrDvspI=
+			EJZnCC5PZkw2GaxqPVLZV2eLpW/G2GgEJM7nFYby1II=
 			</data>
 		</dict>
 		<key>Headers/TSGeofencesChangeEvent.h</key>
@@ -426,11 +430,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			cPHmrOfvqB/M36VfwCHaSVCWF4o=
+			X2+HcvWlzuI9RHOY/vflS6WjcVg=
 			</data>
 			<key>hash2</key>
 			<data>
-			STmO4xW4Jg5fkyfyWuzarxmztax42bgQ/8MFqHz0ZNc=
+			TrpWKCiP4P2pNAUvdax23S6/7NBBVDzbhT2IkAhBd7U=
 			</data>
 		</dict>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
@@ -508,6 +512,17 @@
 			<key>hash2</key>
 			<data>
 			UhY362SyloF998ML4MZxDcYLlsTYdyVCxIXu5XdvILo=
+			</data>
+		</dict>
+		<key>Miniball/Miniball.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			TR41GDyxS/iof60Pri6rj846vkU=
+			</data>
+			<key>hash2</key>
+			<data>
+			RckEagFQ5wiSUIJvNw+CRzJdlX2S/XbRVQxFqSzIZVM=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

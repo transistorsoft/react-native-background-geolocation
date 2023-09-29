@@ -1,11 +1,13 @@
 declare module "react-native-background-geolocation" {
+  type Vertices = number[][];
+
   /**
   * The Background Geolocation SDK implements the native iOS and Android Geofencing APIs.
   *
   * __ℹ️ Note:__
-  * - Native iOS & Android API support only *circular* geofences.
+  * - Native iOS & Android API support only *circular* geofences, however the plugin does implement a custom mechanism for handling *Polygon Geofences*; see [[vertices]].
   * - The minimum reliable [[radius]] is `200` meters.
-  * - Geofence monitoring *requires* the user authorize [[locationAuthorizationRequest]] **`Always`** &mdash; **`When in Use`** will **not** work.
+  * - The native geofencing API for both iOS and Android *require* the user authorize [[locationAuthorizationRequest]] **`Always`** &mdash; **`When in Use`** will **not** work.
   *
   * ## Adding Geofences
   *
@@ -32,7 +34,7 @@ declare module "react-native-background-geolocation" {
   * Adding multiple geofences with [[addGeofences]].
   * @example
   * ```typescript
-  * BackgroundGeolocation.addGeofences([{
+  * await BackgroundGeolocation.addGeofences([{
   *   identifier: "Home",
   *   radius: 200,
   *   latitude: 45.51921926,
@@ -44,11 +46,9 @@ declare module "react-native-background-geolocation" {
   *   latitude: 45.61921927,
   *   longitude: -73.71678582,
   *   notifyOnEntry: true
-  * }]).then((success) => {
-  *   console.log("[addGeofences] success");
-  * }).catch((error) => {
-  *   console.log("[addGeofences] FAILURE: ", error);
-  * });
+  * }]);
+  * console.log("[addGeofences] success");
+  * 
   * ```
   *
   * __ℹ️ Note:__ Adding a geofence having an [[identifier]] which already exists within the SDK geofence database will cause the previous record to be destroyed and the new one inserted.
@@ -67,6 +67,18 @@ declare module "react-native-background-geolocation" {
   * });
   * ```
   *
+  * ---------------------------------------------------------------------------------------------------
+  * 
+  * ## Polygon Geofencing
+  *
+  * The Background Geolocation SDK supports *Polygon Geofences* (Geofences of any shape).  See API docs [[vertices]].
+  * * ℹ️ __*Polygon Geofencing*__ is [sold as a separate add-on](https://shop.transistorsoft.com/products/polygon-geofencing) (fully functional in *DEBUG* builds).
+  *  
+  *
+  * ![](https://dl.dropbox.com/scl/fi/sboshfvar0h41azmb4tyv/polygon-geofencing-parc-outremont-400.png?rlkey=d2s0n3zbzu72e7s2gch9kxd4a&dl=1)
+  * ![](https://dl.dropbox.com/scl/fi/xz48myvjnpp8ko0l2tufg/polygon-geofencing-parc-lafontaine-400.png?rlkey=sf20ns959uj0a0fq0atmj55bz&dl=1)
+  *  
+  * 
   * ---------------------------------------------------------------------------------------------------
   *
   * ## Infinite Geofencing
@@ -101,7 +113,7 @@ declare module "react-native-background-geolocation" {
   *   // Remove map circles
   *   off.forEach((identifier) => {
   *     removeGeofenceMarker(identifier);
-  *   }
+  *   });
   * });
   * ```
   * ### ⚠️ Note:
@@ -111,8 +123,8 @@ declare module "react-native-background-geolocation" {
   *
   * ## Removing Geofences
   *
-  * Once a geofence has been inserted into the SDK's database using [[addGeofence]] or [[addGeofences]], they will be monitored *forever*.  If you've configured [[stopOnTerminate]] __`false`__ and [[startOnBoot]] __`true`__, geofences will continue to be monitored even if the application is terminated or device rebooted.
-  * To cease monitoring a geofence or *geofences*, you must *remove* them from the SDK's database.
+  * Once a geofence has been inserted into the SDK's database using [[addGeofence]] or [[addGeofences]], they will be monitored *forever* (as long as the plugin remains `State.enabled == true`).  If you've configured [[stopOnTerminate]] __`false`__ and [[startOnBoot]] __`true`__, geofences will continue to be monitored even if the application is terminated or device rebooted.
+  * To cease monitoring a geofence or *geofences*, you must *remove* them from the SDK's database (or call [[BackgroundGeolocation.stop]]).
   *
   * - Removing a single geofence by [[identifier]] with [[removeGeofence]]:
   * @example
@@ -219,15 +231,15 @@ declare module "react-native-background-geolocation" {
     * ⚠️ The minimum reliable `radius` is __`200`__ meters.  Anything less will likely not cause a geofence to trigger.  This is documented by Apple [here](https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/LocationAwarenessPG/RegionMonitoring/RegionMonitoring.html):
     * > *"The specific threshold distances are determined by the hardware and the location technologies that are currently available. For example, if WiFi is disabled, region monitoring is significantly less accurate. However, for testing purposes, __you can assume that the minimum distance is approximately 200 meters__*".
     */
-    radius: number;
+    radius?: number;
     /**
     * Latitude of geofence center
     */
-    latitude: number;
+    latitude?: number;
     /**
     * Longitude of geofence center.
     */
-    longitude: number;
+    longitude?: number;
     /**
     * Set `true` to fire event when device *enters* this geofence.
     *
@@ -251,5 +263,57 @@ declare module "react-native-background-geolocation" {
     * Arbitrary key-values appended to the geofence event and posted to your configured [[Config.url]].
     */
     extras?: Extras;
+    /**
+     * Optional: a list of vertices (`[ [lat, lng],...]`) defining a Polygon geofence.  By default, geofences are circular.
+     * 
+     * ℹ️ __*Polygon Geofencing*__ is [sold as a separate add-on](https://shop.transistorsoft.com/products/polygon-geofencing) (fully functional in *DEBUG* builds).
+     *     
+     *
+     * When defining a polygon geofence, you do **not** provide [[latitude]], [[longitude]] or [[radius]] &mdash; those will be automatically calculated based upon the geometry of the polygon.
+     *
+     * The following image shows polygon geofences on a map:
+     *
+     * ![](https://dl.dropbox.com/scl/fi/xzf6yau5wcg1az8fy0lbm/geofencing-polygons-on-map.PNG?rlkey=e82h494msbgt8ngu4s2pjwemb&dl=1)
+     *
+     * The *blue polygons* represent the *actual* polygon geofences and the containing *green circles* are traditional circular geofences provided by the native *iOS/Android* Geofencing APIs.  The background-geolocation SDK automatically calculates the containing, native cirular geofence by solving the [*minimum enclosing circle*](https://en.wikipedia.org/wiki/Smallest-circle_problem) for the given [[vertices]].
+     * This is why you do not provide [[latitude]], [[longitude]] and [[radius]].
+     *
+     * - When the device *enters* the containing circular geofence, the SDK uses that as a signal that the device is approaching a polygon.  At this moment, the SDK begins aggressively monitoring the location to perform "hit-testing" upon the polygon using a fast algorithm implemented with C++ code.
+     * - When the device *exits* the containing circular geofence, that's the SDK's signal for it to *cease* monitoring that polygon.
+     *
+     * @example
+     * ```javascript
+     * BackgroundGeolocation.addGeofence({
+     *   identifier: 'Home',
+     *   notifyOnEntry: true,
+     *   notifyOnExit: true,
+     *   vertices: [
+     *     [45.518947279987714, -73.6049889209514],  // <-- [lat, lng]
+     *     [45.5182711292279, -73.60338649600598],
+     *     [45.517082240237634, -73.60432670908212],
+     *     [45.51774871402813, -73.60604928622278]
+     *   ]
+     * });
+     * ```     
+     *
+     * - #### Entering / exiting a *cross-shaped* polygon geofence:
+     * 
+     * ![](https://dl.dropbox.com/scl/fi/iorrnrm0zno91jtg0ctse/polygon-geofencing-cross.PNG?rlkey=p4kufqhxgw9jrmuz4vkqisprw&dl=1)
+     * 
+     * - #### Entering / exiting a park:
+     * 
+     * ![](https://dl.dropbox.com/scl/fi/qvg9n3s5iacje5szgcqfv/polygon-geofencing-parc-outremont.PNG?rlkey=c6iax7a19db2v6xdxf18k2a7k&dl=1)
+     * 
+     * - #### Entering / exiting a diamond-shaped polygon:
+     * 
+     * ![](https://dl.dropbox.com/scl/fi/29m3xwb7tm0532mthgjfy/polygon-geofencing-diamond.PNG?rlkey=9ucc5hs7460ig7226iutas4cw&dl=1)
+     * 
+     * - #### Designing a polygon geofence around a park using the demo app:
+     * 
+     * ![](https://dl.dropbox.com/scl/fi/806mxnz9cdfd4ely8uwfe/polygon-geofencing-parc-lafontaine.PNG?rlkey=yrlbfisx8o5itfz6h0d0inel1&dl=1)
+     * 
+     *     
+     */
+    vertices?: Vertices
   }
 }

@@ -20,10 +20,11 @@
 @property (nonatomic) BOOL notifyOnExit;
 @property (nonatomic) BOOL notifyOnDwell;
 @property (nonatomic) double loiteringDelay;
+@property (nonatomic) NSDictionary* extras;
+@property (nonatomic) NSArray* vertices;
 /**
  * Arbitrary extra data attached to the geofence
  */
-@property (nonatomic) NSDictionary *extras;
 
 -(instancetype) initWithIdentifier:(NSString*)identifier
                             radius:(CLLocationDistance)radius
@@ -42,9 +43,12 @@
                       notifyOnExit:(BOOL)notifyOnExit
                      notifyOnDwell:(BOOL)notifyOnDwell
                     loiteringDelay:(double)loiteringDelay
-                            extras:(NSDictionary*)extras;
+                            extras:(NSDictionary*)extras
+                          vertices:(NSArray*)vertices;
 
 - (NSDictionary*) toDictionary;
+- (BOOL) isPolygon;
+
     
 @end
 

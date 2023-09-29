@@ -99,6 +99,26 @@ If you've **not** [purchased a license](https://www.transistorsoft.com/shop/prod
 </manifest>
 ```
 
+### Polygon Geofencing Add-on
+
+If you've purchased a license for the [Polygon Geofencing add-on](https://shop.transistorsoft.com/products/polygon-geofencing), add the following license key to your __`AndroidManifest`__ (Polygon Geofencing is fully functional in DEBUG builds so you can try before you buy):
+
+```diff
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.your.package.id">
+
+  <application>
+    <!-- flutter_background_geolocation licence -->
+    <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="YOUR_LICENCE_KEY_HERE" />
+    <!-- Background Geolocation Polygon Geofencing Licence -->
++   <meta-data android:name="com.transistorsoft.locationmanager.polygon.license" android:value="YOUR_POLYGON_LICENCE_KEY_HERE" />
+    .
+    .
+    .
+  </application>
+</manifest>
+```
+
 ### Huawei Mobile Services (HMS) Support
 
 If you've [purchased an *HMS Background Geolocation* License](https://shop.transistorsoft.com/collections/frontpage/products/huawei-background-geolocation) for installing the plugin on _Huawei_ devices without *Google Play Services* installed, add your *HMS Background Geolocation* license key:

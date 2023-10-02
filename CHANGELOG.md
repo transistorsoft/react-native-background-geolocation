@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.14.1 &mdash; 2012-10-02
+* [iOS] Fix "*Duplicate symbol error DummyPods_TSLocationManager*".
+* [Android] Fix timeout issue in `.watchPosition`.
+
 ## 4.14.0 &mdash; 2023-09-29
 * **Polygon Geofencing**:  The Background Geolocation SDK now supports *Polygon Geofences* (Geofences of any shape).  For more information, see API docs [`Geofence.vertices`](https://transistorsoft.github.io/react-native-background-geolocation/interfaces/geofence.html#vertices).  ℹ️ __*Polygon Geofencing*__ is [sold as a separate add-on](https://shop.transistorsoft.com/products/polygon-geofencing) (fully functional in *DEBUG* builds).
 

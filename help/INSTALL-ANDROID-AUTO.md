@@ -37,10 +37,10 @@ In addition, custom `maven url` for both `background-geolocation` and `backgroun
 buildscript {
     ext {
 +       minSdkVersion 		= 19	      // Required minimum
-+       targetSdkVersion 	= 31          // Or higher.
-+       compileSdkVersion 	= 31          // Or higher.
++       targetSdkVersion 	= 33          // Or higher.
++       compileSdkVersion 	= 33          // Or higher.
 +       appCompatVersion 	= "1.4.2"      // Or higher.  Required for new AndroidX compatibility.
-+       googlePlayServicesLocationVersion = "20.0.0"  // Or higher.
++       googlePlayServicesLocationVersion = "21.0.1"  // Or higher.
     }
     repositories {
         ...

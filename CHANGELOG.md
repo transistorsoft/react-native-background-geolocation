@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.14.3 &mdash; 2023-10-12
+* [Android] Fix `IllegalStateException` calling addGeofences when number of geofences exceeds platform maximum (100).
+
 ## 4.14.2 &mdash; 2023-10-05
 * [Android] `getGeofence` / `getGeofences` not returning new `Geofence.vertices` property.
 

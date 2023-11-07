@@ -1,5 +1,10 @@
 # Change Log
 
+## 4.14.4 &mdash; 2023-11-06
+* [Android] HMS geolocation event does not provide a timestamp for the triggering location!!  Use System current time.
+* [Android] Guard against Geofence SQLite query returning null in `GeofencingService`.
+* [Android] Fix `ConcurrentModificationException` in `SingleLocationRequest.getBestLocation`
+
 ## 4.14.3 &mdash; 2023-10-12
 * [Android] Fix `IllegalStateException` calling addGeofences when number of geofences exceeds platform maximum (100).
 

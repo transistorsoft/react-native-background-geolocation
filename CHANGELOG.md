@@ -1,6 +1,9 @@
 # Change Log
 
-# 4.14.5 &mdash; 2012-11-16
+# 4.14.6 &mdash; 2024-01-29
+* [Expo][Android] Fix bug for Expo v50 "Invalid regular expression".
+
+# 4.14.5 &mdash; 2023-11-16
 * [Android] Fix problem with polygon-geofencing license-validation not working in DEBUG builds when configured with pro
 duct flavors.
 

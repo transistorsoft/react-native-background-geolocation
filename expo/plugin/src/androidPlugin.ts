@@ -111,7 +111,7 @@ const applyAppGradle = (buildGradle:string) => {
   newSrc.push(`apply from: "\${background_geolocation.projectDir}/app.gradle"`)
 
   buildGradle = mergeContents({
-    tag: `[${MODULE_NAME}]-project`,
+    tag: `${MODULE_NAME}-project`,
     src: buildGradle,
     newSrc: newSrc.join("\n"),
     anchor: /android\s\{/,
@@ -120,7 +120,7 @@ const applyAppGradle = (buildGradle:string) => {
   }).contents;
 
   buildGradle = mergeContents({
-    tag: `[${MODULE_NAME}]-proguard`,
+    tag: `${MODULE_NAME}-proguard`,
     src: buildGradle,
     newSrc: `\t    proguardFiles "\${background_geolocation.projectDir}/proguard-rules.pro"`,
     anchor: /\"proguard-rules.pro\"/,
@@ -151,7 +151,7 @@ const applyExtVars = (buildGradle: string, props:Props) => {
   }
 
   return mergeContents({
-    tag: `[${MODULE_NAME}-ext`,
+    tag: `${MODULE_NAME}-ext`,
     src: buildGradle,
     newSrc: newSrc.join("\n"),
     anchor: /ext(?:\s+)?\{/,
@@ -163,7 +163,7 @@ const applyExtVars = (buildGradle: string, props:Props) => {
 
 const applyMavenUrl = (buildGradle: string):string => {
   return mergeContents({
-    tag: `[${MODULE_NAME}-maven`,
+    tag: `${MODULE_NAME}-maven`,
     src: buildGradle,
     newSrc: `\tmaven { url "\${project(":${MODULE_NAME}").projectDir}/libs" }\n\tmaven { url 'https://developer.huawei.com/repo/' }`,
     anchor: /maven\s\{/,

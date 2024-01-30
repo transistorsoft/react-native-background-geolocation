@@ -22,7 +22,7 @@ npx expo install expo-gradle-ext-vars
 +     ],
 +     [
 +       "expo-gradle-ext-vars", {
-+         "googlePlayServicesLocationVersion": "20.0.0",
++         "googlePlayServicesLocationVersion": "21.0.1",
 +         "appCompatVersion": "1.4.2"
 +       }
 +     ],

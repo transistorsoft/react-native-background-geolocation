@@ -1,5 +1,10 @@
 # Change Log
 
+# 4.15.0 &mdash; 2024-02-27
+* [iOS] Modify behaviour of stop-detection system to NOT turn off location-services but merely adjust desiredAccuracy as high as possible.  There were problems reported using `locationAuthorizationRequest: 'WhenInUse'` with recent versions
+of iOS where the stop-detection system could put the app to sleep during tracking if the motion API reported the device
+became momentarily stationary.
+
 # 4.14.6 &mdash; 2024-01-29
 * [Expo][Android] Fix bug for Expo v50 "Invalid regular expression".
 

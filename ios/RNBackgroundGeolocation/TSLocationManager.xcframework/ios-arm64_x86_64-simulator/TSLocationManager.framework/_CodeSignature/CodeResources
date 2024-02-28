@@ -138,7 +138,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		ImU0RMM3vc8urQtexXFkMcsyp+U=
+		9Ah+6zsh37uyMxc3a3M82claxog=
 		</data>
 		<key>Miniball/Miniball.hpp</key>
 		<data>
@@ -147,10 +147,6 @@
 		<key>Modules/module.modulemap</key>
 		<data>
 		ucUpjMCXhdSrrHC6f1a3/h7dQec=
-		</data>
-		<key>PrivacyInfo.xcprivacy</key>
-		<data>
-		v0RrE8HvBAEuFVDMyCrAtW+cCPo=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -538,17 +534,6 @@
 			<key>hash2</key>
 			<data>
 			tYgWR9aNISh3EH0+KpcgrXdy/E0HZzDIQmvYu4csu9Y=
-			</data>
-		</dict>
-		<key>PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			v0RrE8HvBAEuFVDMyCrAtW+cCPo=
-			</data>
-			<key>hash2</key>
-			<data>
-			KcHmm1474/VjpXKXkw5vtfpjSDam9SGz74Wfy/+otOA=
 			</data>
 		</dict>
 	</dict>

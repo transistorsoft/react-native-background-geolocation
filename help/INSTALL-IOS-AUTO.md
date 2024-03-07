@@ -43,8 +43,7 @@ Edit **`Info.plist`**.  Add the following items (Set **Value** as desired):
 | *Privacy - Location When in Use Usage Description* | `String` | *CHANGEME: Location required when app is in use* |
 | *Privacy - Motion Usage Description* | `String` | *CHANGEME: Motion permission helps detect when device in in-motion* |
 
-![](https://dl.dropboxusercontent.com/s/j7udsab7brlj4yk/Screenshot%202016-09-22%2008.33.53.png?dl=1)
-
+![](https://dl.dropboxusercontent.com/scl/fi/dh0sen3wxsgp1hox41le0/iOS-permissions-plist.png?rlkey=i3fipjdcpu7p1eez4mapukkpl&dl=1)
 
 ## [Configure `react-native-background-fetch`](https://github.com/transistorsoft/react-native-background-fetch/blob/master/docs/INSTALL-AUTO-IOS.md#ios-auto-linking-setup)
 

@@ -1,6 +1,12 @@
 # Change Log
 
-## 4.15.2 &mdash; 2024-03-19
+## 4.16.0 &mdash; 2024-03-28
+* [iOS] codesign `TSLocationManage.xcframework`
+* [iOS] Update `CocoaLumberjack` version -> `3.8.5` (version which includes its own `PrivacyInfo`)
+* [iOS] Implement new [iOS Privacy Manifest](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files?language=objc)
+* Add property `AuthorizationEvent.status`, provding the HTTP status code from the `refreshUrl`.
+
+## 4.15.2 &mdash; 2024-03-18
 * [iOS] Fix bug in iOS scheduler, triggering ON incorrectly.  For example, given a `schedule: ['1 00:00-23:59'], the plu
 gin was trigging on for `DAY 2`.
 

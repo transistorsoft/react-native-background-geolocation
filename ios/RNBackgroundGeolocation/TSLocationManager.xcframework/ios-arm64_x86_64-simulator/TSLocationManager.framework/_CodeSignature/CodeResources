@@ -46,7 +46,7 @@
 		</data>
 		<key>Headers/TSAuthorizationEvent.h</key>
 		<data>
-		Wn2hOqYVOsqarkCWuGd+3MDO/rU=
+		ShGAskjpRwHpN6rzYDc1Rkg4N2w=
 		</data>
 		<key>Headers/TSCallback.h</key>
 		<data>
@@ -138,7 +138,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		9Ah+6zsh37uyMxc3a3M82claxog=
+		nUtA4kXT1L8G3cbyS8SfciSSpik=
 		</data>
 		<key>Miniball/Miniball.hpp</key>
 		<data>
@@ -147,6 +147,10 @@
 		<key>Modules/module.modulemap</key>
 		<data>
 		ucUpjMCXhdSrrHC6f1a3/h7dQec=
+		</data>
+		<key>PrivacyInfo.xcprivacy</key>
+		<data>
+		eIiWJYOAAQYc3q8Z8126HoAj0sY=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -265,11 +269,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Wn2hOqYVOsqarkCWuGd+3MDO/rU=
+			ShGAskjpRwHpN6rzYDc1Rkg4N2w=
 			</data>
 			<key>hash2</key>
 			<data>
-			39Dl3JzmUFOB1jZ1UIcODGYk3u2bYiRCQBzFxE8K7j4=
+			yUaplVw0pzlGq5AFHHIXcJnT4+heZYnQ9PzTzLSwNEk=
 			</data>
 		</dict>
 		<key>Headers/TSCallback.h</key>
@@ -534,6 +538,17 @@
 			<key>hash2</key>
 			<data>
 			tYgWR9aNISh3EH0+KpcgrXdy/E0HZzDIQmvYu4csu9Y=
+			</data>
+		</dict>
+		<key>PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			eIiWJYOAAQYc3q8Z8126HoAj0sY=
+			</data>
+			<key>hash2</key>
+			<data>
+			Mqmebi7LJeFXux1wzarbNggySwBA8KVz+iSXJ/17rss=
 			</data>
 		</dict>
 	</dict>

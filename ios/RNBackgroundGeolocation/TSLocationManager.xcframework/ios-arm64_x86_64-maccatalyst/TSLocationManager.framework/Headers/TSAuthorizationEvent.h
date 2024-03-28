@@ -8,10 +8,11 @@
 
 @interface TSAuthorizationEvent : NSObject
 
+@property (nonatomic, readonly) NSInteger status;
 @property (nonatomic, readonly) NSError* error;
 @property (nonatomic, readonly) NSDictionary *response;
 
--(instancetype) initWithResponse:(NSDictionary*)response;
--(instancetype) initWithError:(NSError*)error;
+-(instancetype) initWithResponse:(NSDictionary*)response status:(NSInteger)status;
+-(instancetype) initWithError:(NSError*)error status:(NSInteger)status;
 -(NSDictionary*) toDictionary;
 @end

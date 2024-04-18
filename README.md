@@ -141,7 +141,10 @@ There are three main steps to using `BackgroundGeolocation`
 2. `.ready(config)` the plugin.
 3. `.start()` the plugin.
 
-:warning: Do not execute *any* API method which will require accessing location-services until the **`.ready(config)`** method resolves (eg: `#getCurrentPosition`, `#watchPosition`, `#start`).
+:warning: Do not execute *any* API method which will require accessing location-services until the **[`.ready(config)`](https://transistorsoft.github.io/react-native-background-geolocation/classes/backgroundgeolocation.html#ready)** method resolves ([Read its API docs](https://transistorsoft.github.io/react-native-background-geolocation/classes/backgroundgeolocation.html#ready)), For example: 
+- `.getCurrentPosition` 
+- `.watchPosition`
+- `.start`
 
 ```javascript
 // NO!  .ready() has not resolved.

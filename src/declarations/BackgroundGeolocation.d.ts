@@ -725,13 +725,23 @@ declare module "react-native-background-geolocation" {
     * });
     * ```
     *
-    * ### ⚠️ Warning: You must call `#ready` **once** and **only** once, each time your app is launched.
+    * ### ⚠️ Warning: You must call __`.ready(confg)`__ **once** and **only** once, each time your app is launched.
     * - Do not hide the call to `#ready` within a view which is loaded only by clicking a UI action.  This is particularly important
     * for iOS in the case where the OS relaunches your app in the background when the device is detected to be moving.  If you don't ensure that `#ready` is called in this case, tracking will not resume.
     *
     * ### The [[reset]] method.
     *
     * If you wish, you can use the [[reset]] method to reset all [[Config]] options to documented default-values (with optional overrides):
+    *
+    * ### [[Config.reset]]: false
+    *
+    * Configuring the plugin with __`reset: false`__ should generally be avoided unless you know *exactly* what it does.  People often find this from the *Demo* app.  If you do configure `reset: false`, you'll find that your `Config` provided to `.ready` is consumed **only at first launch after install**.  Thereafter, the plugin will ignore any changes you've provided there.  The only way to change the config then is to use [[setConfig]].
+    * 
+    * You will especially not want to use `reset: false` during development, while you're fine-tuning your `Config` options.
+    * 
+    * The reason the *Demo* app uses `reset: false` is because it hosts an advanced "*Settings*" screen to tune the `Config` at runtime and we don't want those runtime changes to be overwritten by `.ready(config)` each time the app launches.
+    * 
+    * ⚠️ If you *don't* undestand what __`reset: false`__ does, **NO NOT USE IT**.  If you blindly copy/pasted it from the *Demo* app, **REMOVE IT** from your `Config`.
     *
     * @example
     * ```typescript

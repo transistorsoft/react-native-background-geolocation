@@ -14,9 +14,13 @@ declare module "react-native-background-geolocation" {
 	* ```
 	*/
 	interface AuthorizationEvent {
-		/**
-		* `true` when an authorization request to [[Authorization.refreshUrl]] was successful.
-		*/
+    /**
+     * HTTP Status returned from your [[Authorization.refreshUrl]] (or `0` if the HTTP request failed).
+     */
+    status:number;
+    /**
+    * `true` when an authorization request to [[Authorization.refreshUrl]] was successful.
+    */
 	  success: boolean;
 	  /**
 	  * When [[success]] is `false`, this is the error message from [[Authorization.refreshUrl]].  Otherwise, `null`.

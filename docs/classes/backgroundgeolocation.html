@@ -19,7 +19,7 @@
 					<div class="brand">
 						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
 						<span class="title">
-							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.15.2</span>
+							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.16.0</span>
 						</span>
 					</div>
 				</div>
@@ -3121,8 +3121,8 @@
 <span style="color: #F8F8F2"> console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[ready] success&quot;</span><span style="color: #F8F8F2">, state);</span>
 <span style="color: #F8F8F2">});</span>
 </code></pre>
-										<a href="#⚠️-warning-you-must-call-ready-once-and-only-once-each-time-your-app-is-launched" id="⚠️-warning-you-must-call-ready-once-and-only-once-each-time-your-app-is-launched" style="color: inherit; text-decoration: none;">
-											<h3>⚠️ Warning: You must call <code>#ready</code> <strong>once</strong> and <strong>only</strong> once, each time your app is launched.</h3>
+										<a href="#⚠️-warning-you-must-call-readyconfg-once-and-only-once-each-time-your-app-is-launched" id="⚠️-warning-you-must-call-readyconfg-once-and-only-once-each-time-your-app-is-launched" style="color: inherit; text-decoration: none;">
+											<h3>⚠️ Warning: You must call <strong><code>.ready(confg)</code></strong> <strong>once</strong> and <strong>only</strong> once, each time your app is launched.</h3>
 										</a>
 										<ul>
 											<li>Do not hide the call to <code>#ready</code> within a view which is loaded only by clicking a UI action.  This is particularly important
@@ -3132,6 +3132,13 @@
 											<h3>The <a href="backgroundgeolocation.html#reset">reset</a> method.</h3>
 										</a>
 										<p>If you wish, you can use the <a href="backgroundgeolocation.html#reset">reset</a> method to reset all <a href="../interfaces/config.html">Config</a> options to documented default-values (with optional overrides):</p>
+										<a href="#configreset-false" id="configreset-false" style="color: inherit; text-decoration: none;">
+											<h3><a href="../interfaces/config.html#reset">Config.reset</a>: false</h3>
+										</a>
+										<p>Configuring the plugin with <strong><code>reset: false</code></strong> should generally be avoided unless you know <em>exactly</em> what it does.  People often find this from the <em>Demo</em> app.  If you do configure <code>reset: false</code>, you&#39;ll find that your <code>Config</code> provided to <code>.ready</code> is consumed <strong>only at first launch after install</strong>.  Thereafter, the plugin will ignore any changes you&#39;ve provided there.  The only way to change the config then is to use <a href="backgroundgeolocation.html#setconfig">setConfig</a>.</p>
+										<p>You will especially not want to use <code>reset: false</code> during development, while you&#39;re fine-tuning your <code>Config</code> options.</p>
+										<p>The reason the <em>Demo</em> app uses <code>reset: false</code> is because it hosts an advanced &quot;<em>Settings</em>&quot; screen to tune the <code>Config</code> at runtime and we don&#39;t want those runtime changes to be overwritten by <code>.ready(config)</code> each time the app launches.</p>
+										<p>⚠️ If you <em>don&#39;t</em> undestand what <strong><code>reset: false</code></strong> does, <strong>NO NOT USE IT</strong>.  If you blindly copy/pasted it from the <em>Demo</em> app, <strong>REMOVE IT</strong> from your <code>Config</code>.</p>
 									</dd>
 									<dt class="tsd-comment-tag-example">example</dt>
 									<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">reset</span><span style="color: #F8F8F2">();</span>

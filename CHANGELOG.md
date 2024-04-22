@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.16.1 &mdash; 2024-04-22
+* [iOS] Code-sign `TSLocationManager.xcframework` with new Apple Organization (*9224-2932 Quebec Inc*) certificate.
+
 ## 4.16.0 &mdash; 2024-03-28
 * [iOS] codesign `TSLocationManage.xcframework`
 * [iOS] Update `CocoaLumberjack` version -> `3.8.5` (version which includes its own `PrivacyInfo`)

@@ -6,9 +6,9 @@
 	<array>
 		<dict>
 			<key>BinaryPath</key>
-			<string>TSLocationManager.framework/Versions/A/TSLocationManager</string>
+			<string>TSLocationManager.framework/TSLocationManager</string>
 			<key>LibraryIdentifier</key>
-			<string>ios-arm64_x86_64-maccatalyst</string>
+			<string>ios-arm64_x86_64-simulator</string>
 			<key>LibraryPath</key>
 			<string>TSLocationManager.framework</string>
 			<key>SupportedArchitectures</key>
@@ -19,7 +19,7 @@
 			<key>SupportedPlatform</key>
 			<string>ios</string>
 			<key>SupportedPlatformVariant</key>
-			<string>maccatalyst</string>
+			<string>simulator</string>
 		</dict>
 		<dict>
 			<key>BinaryPath</key>
@@ -37,9 +37,9 @@
 		</dict>
 		<dict>
 			<key>BinaryPath</key>
-			<string>TSLocationManager.framework/TSLocationManager</string>
+			<string>TSLocationManager.framework/Versions/A/TSLocationManager</string>
 			<key>LibraryIdentifier</key>
-			<string>ios-arm64_x86_64-simulator</string>
+			<string>ios-arm64_x86_64-maccatalyst</string>
 			<key>LibraryPath</key>
 			<string>TSLocationManager.framework</string>
 			<key>SupportedArchitectures</key>
@@ -50,7 +50,7 @@
 			<key>SupportedPlatform</key>
 			<string>ios</string>
 			<key>SupportedPlatformVariant</key>
-			<string>simulator</string>
+			<string>maccatalyst</string>
 		</dict>
 	</array>
 	<key>CFBundlePackageType</key>

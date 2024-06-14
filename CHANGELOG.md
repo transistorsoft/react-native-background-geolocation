@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.16.3 &mdash; 2024-06-12
+* [Android] Remove permission `FOREGROUND_SERVICE_HEALTH`.  It turns out that this permission is no longer required whe
+n the `ActivityRecognitionServivce` is defined with a `foregroundServiceType="shortservice"`, instead of `"health"`, which allows a background
+-launched foreground-service to stay active for up to 3 minutes, which is sufficient for the `ActivityRecognitionServic
+e`, which typically stays activated only for a few milliseconds.
+* [Android] Fix "Multiple geofence events triggered for a single geofence registration when registered individually".
+
 ## 4.16.2 &mdash; 2024-05-14
 * [Android] Fix bug in .getCurrentPosition not returning or throwing an error in a condition where Network OFF and GPS ON.
 

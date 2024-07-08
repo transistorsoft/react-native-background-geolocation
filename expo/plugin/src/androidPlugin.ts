@@ -16,7 +16,8 @@ import {
 
 type Props = {
   license?: string,
-  hmsLicense?: string
+  hmsLicense?: string,
+  polygonLicense?: string
 }
 
 import path from 'path';
@@ -27,6 +28,7 @@ const PRIVATE_MODULE = PUBLIC_MODULE + '-android';
 
 const META_LICENSE_KEY = "com.transistorsoft.locationmanager.license";
 const META_HMS_LICENSE_KEY = "com.transistorsoft.locationmanager.hms.license";
+const META_POLYGON_LICENSE_KEY = "com.transistorsoft.locationmanager.polygon.license";
 
 const findModuleRecursively = (dir: string): string | null => {
   const nodeModules = path.resolve(dir, 'node_modules');
@@ -95,6 +97,11 @@ const androidPlugin: ConfigPlugin<Props> = (config, props={}) => {
       mainApplication,
       META_HMS_LICENSE_KEY,
       props.hmsLicense || "UNDEFINED"
+    );
+    addMetaDataItemToMainApplication(
+      mainApplication,
+      META_POLYGON_LICENSE_KEY,
+      props.polygonLicense || "UNDEFINED"
     );
     return config;
 

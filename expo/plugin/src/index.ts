@@ -13,7 +13,11 @@ const withBackgroundGeolocation: ConfigPlugin<
     /**
      * Huawei HMS license Default ""
      */
-    hmsLicense?: string
+    hmsLicense?: string,
+    /**
+     * Polygon Geofencing License Default ""
+     */
+    polygonLicense?: string
   } | void
 > = (config, _props) => {
   const props = _props || {};
@@ -21,7 +25,8 @@ const withBackgroundGeolocation: ConfigPlugin<
   return withPlugins(config, [
     [androidPlugin, {
       license: props.license,
-      hmsLicense: props.hmsLicense
+      hmsLicense: props.hmsLicense,
+      polygonLicense: props.polygonLicense
     }],
     [iOSPlugin, {
       // no props for ios currently.

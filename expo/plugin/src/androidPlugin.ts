@@ -98,11 +98,13 @@ const androidPlugin: ConfigPlugin<Props> = (config, props={}) => {
       META_HMS_LICENSE_KEY,
       props.hmsLicense || "UNDEFINED"
     );
-    addMetaDataItemToMainApplication(
-      mainApplication,
-      META_POLYGON_LICENSE_KEY,
-      props.polygonLicense || "UNDEFINED"
-    );
+    if (props.polygonLicense) {
+      addMetaDataItemToMainApplication(
+        mainApplication,
+        META_POLYGON_LICENSE_KEY,
+        props.polygonLicense
+      );
+    }
     return config;
 
   });

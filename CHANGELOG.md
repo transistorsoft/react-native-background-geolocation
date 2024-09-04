@@ -4,6 +4,12 @@
 * [iOS] Fix bug in iOS *Polygon Geofencing* when running in geofences-only mode (`.startGeofences`).  iOS would mistakenly turn off location updates exactly 3 samples into the containing circular geofence of a polygon.
 * Implement `notifyOnDwell` for polygon-geofences.
 
+## 4.16.5 &mdash; 2024-07-12 
+* [Android][Expo] Conditionally add polygonLicense only if provided in Config.  Do not write to AndroidManifest unless provided.
+
+## 4.16.4 &mdash; 2024-07-08
+* [Android][Expo] Implement polygonLicense Config option
+
 ## 4.16.3 &mdash; 2024-06-12
 * [Android] Remove permission `FOREGROUND_SERVICE_HEALTH`.  It turns out that this permission is no longer required whe
 n the `ActivityRecognitionServivce` is defined with a `foregroundServiceType="shortservice"`, instead of `"health"`, which allows a background

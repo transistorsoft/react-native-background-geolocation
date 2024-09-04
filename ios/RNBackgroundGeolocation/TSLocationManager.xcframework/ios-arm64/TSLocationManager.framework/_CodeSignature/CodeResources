@@ -78,11 +78,11 @@
 		</data>
 		<key>Headers/TSGeofenceEvent.h</key>
 		<data>
-		fziY6G+qUYbPfZdP2JTEfg3Oqpw=
+		Co/WjujQjN6rVCIALtUQa75lTf8=
 		</data>
 		<key>Headers/TSGeofenceManager.h</key>
 		<data>
-		L0Sw7IQVlaKNK+gs0njVL6hN02s=
+		q6REjlZdHI/Z1NxhQBGNl5S2uGY=
 		</data>
 		<key>Headers/TSGeofencesChangeEvent.h</key>
 		<data>
@@ -106,7 +106,7 @@
 		</data>
 		<key>Headers/TSLocationManager.h</key>
 		<data>
-		X2+HcvWlzuI9RHOY/vflS6WjcVg=
+		TM+al+7FW3FuFyB6ZipTUYL2y2Q=
 		</data>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>
 		<data>
@@ -357,22 +357,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			fziY6G+qUYbPfZdP2JTEfg3Oqpw=
+			Co/WjujQjN6rVCIALtUQa75lTf8=
 			</data>
 			<key>hash2</key>
 			<data>
-			z32/ulcyyxS9cqtMmmr6QTiq1eY8TCIG5cy+91gnF48=
+			4WOSq5FaA0hPaz2oe9gVB2A2f0YAeko6v6LN+/aE1TA=
 			</data>
 		</dict>
 		<key>Headers/TSGeofenceManager.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			L0Sw7IQVlaKNK+gs0njVL6hN02s=
+			q6REjlZdHI/Z1NxhQBGNl5S2uGY=
 			</data>
 			<key>hash2</key>
 			<data>
-			EJZnCC5PZkw2GaxqPVLZV2eLpW/G2GgEJM7nFYby1II=
+			oYEDI+xEbSu/W59P2yhuNEKzJmsp1vHYuQ1/zFpM9O4=
 			</data>
 		</dict>
 		<key>Headers/TSGeofencesChangeEvent.h</key>
@@ -434,11 +434,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			X2+HcvWlzuI9RHOY/vflS6WjcVg=
+			TM+al+7FW3FuFyB6ZipTUYL2y2Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			TrpWKCiP4P2pNAUvdax23S6/7NBBVDzbhT2IkAhBd7U=
+			kWPMz9EbqBiYBJ+4slUiHrygD+Fd8tibhhTJY2cq/OE=
 			</data>
 		</dict>
 		<key>Headers/TSPowerSaveChangeEvent.h</key>

@@ -23,6 +23,8 @@ extern NSString *const STATIONARY_REGION_IDENTIFIER;
 @property (atomic) BOOL isMoving;
 @property (atomic) BOOL enabled;
 @property (atomic) BOOL evaluated;
+@property (atomic) BOOL isUpdatingLocation;
+@property (atomic) BOOL isEvaluatingEvents;
 @property (atomic) BOOL isRequestingLocation;
 @property (atomic) BOOL isMonitoringSignificantChanges;
 @property (atomic) BOOL willEvaluateProximity;
@@ -47,4 +49,6 @@ extern NSString *const STATIONARY_REGION_IDENTIFIER;
 -(NSString*) identifierFor:(CLCircularRegion*)region;
 -(void) create:(NSArray*)geofences success:(void (^)(void))success failure:(void (^)(NSString*))failure;
 -(void) destroy:(NSArray*)identifiers success:(void (^)(void))success failure:(void (^)(NSString*))failure;
+-(BOOL) isInfiniteMonitoring;
+
 @end

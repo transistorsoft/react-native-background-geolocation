@@ -289,7 +289,6 @@ FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 - (void) removeGeofence:(NSString*)identifier success:(void (^)(void))success failure:(void (^)(NSString* error))failure;
 - (void) removeGeofences:(NSArray*)identifiers success:(void (^)(void))success failure:(void (^)(NSString* error))failure;;
 - (void) removeGeofences;
-
 - (NSArray*) getGeofences;
 - (void) getGeofences:(void (^)(NSArray*))success failure:(void (^)(NSString*))failure;
 - (void) getGeofence:(NSString*)identifier success:(void (^)(TSGeofence*))success failure:(void (^)(NSString*))failure;

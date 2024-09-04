@@ -45,6 +45,7 @@
 
 /// :nodoc:
 -(instancetype)initWithGeofence:(TSGeofence*)geofence region:(CLCircularRegion*)circularRegion action:(NSString*)actionName;
+-(instancetype)initWithGeofence:(TSGeofence*)geofence action:(NSString*)actionName;
 
 /// :nodoc:
 -(void) startLoiteringAt:(CLLocation*)location callback:(void (^)(void))callback;

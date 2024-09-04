@@ -63,7 +63,8 @@ allprojects {   // <-- NOTE:  allprojects container -- If you don't see this, cr
 
 ### :open_file_folder: **`android/app/build.gradle`**
 
-Background Geolocation requires a gradle extension for your `app/build.gradle`.
+- :exclamation: __DO NOT OMIT ANY OF THE FOLLOWING INSTRUCTIONS__ :exclamation:
+- If you ignore any of the following lines, your license key will __fail to validate__.
 
 ```diff
 apply plugin: "com.android.application"
@@ -72,6 +73,24 @@ apply plugin: "com.facebook.react"
 +// background-geolocation
 +Project background_geolocation = project(':react-native-background-geolocation')
 +apply from: "${background_geolocation.projectDir}/app.gradle"
+
+android {
+    .
+    .
+    .
+    buildTypes {
+        release {
+            .
+            .
+            .
+            minifyEnabled enableProguardInReleaseBuilds
++           shrinkResources false
++           // background_geolocation requires custom Proguard Rules
++           proguardFiles "${background_geolocation.projectDir}/proguard-rules.pro"
+        }
+    }
+}
+
 ```
 
 
@@ -156,38 +175,6 @@ The plugin uses __`AlarmManager`__ "exact alarms" for precise scheduling of even
 ```
 :warning: It has been announced that *Google Play Store* [has plans to impose greater scrutiny](https://support.google.com/googleplay/android-developer/answer/13161072?sjid=3640341614632608469-NA) over usage of this permission (which is why the plugin does not automatically add it).
 
-## Proguard Config
-
-- You **must** add the following required __`proguard-rules`__ for the plugin to work.  
-- If you ignore this, your license key will __fail to validate__.
-
-### :open_file_folder: `android/app/build.gradle`)
-
-```diff
-/**
- * Run Proguard to shrink the Java bytecode in release builds.
- */
-def enableProguardInReleaseBuilds = true
-.
-.
-.
-android {
-    .
-    .
-    .
-    buildTypes {
-        release {
-            minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            // Add following proguardFiles (leave existing one above untouched)
-+           proguardFiles "${background_geolocation.projectDir}/proguard-rules.pro"
-            signingConfig signingConfigs.release
-        }
-    }
-}
-```
-
-:warning: If you get error `"ERROR: Could not get unknown property 'background_geolocation' for project ':app'"`, see [above](#open_file_folder-androidappbuildgradle) and make sure to define the `Project background_geolocation`.
 
 
 

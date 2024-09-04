@@ -158,7 +158,8 @@ The plugin uses __`AlarmManager`__ "exact alarms" for precise scheduling of even
 
 ## Proguard Config
 
-If you've enabled **`def enableProguardInReleaseBuilds = true`** in your `app/build.gradle`, be sure to add the BackgroundGeolocation SDK's `proguard-rules.pro` to your **`proguardFiles`**:
+- You **must** add the following required __`proguard-rules`__ for the plugin to work.  
+- If you ignore this, your license key will __fail to validate__.
 
 ### :open_file_folder: `android/app/build.gradle`)
 

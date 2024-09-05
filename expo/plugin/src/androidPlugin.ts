@@ -53,7 +53,11 @@ if (!MODULE_NAME) {
   process.exit(1);
 }
 
-const { addMetaDataItemToMainApplication, getMainApplicationOrThrow } = AndroidConfig.Manifest;
+const { 
+  addMetaDataItemToMainApplication, 
+  removeMetaDataItemFromMainApplication,
+  getMainApplicationOrThrow 
+} = AndroidConfig.Manifest;
 
 const androidPlugin: ConfigPlugin<Props> = (config, props={}) => {
   config = withProjectBuildGradle(config, ({ modResults, ...subConfig }) => {
@@ -86,6 +90,8 @@ const androidPlugin: ConfigPlugin<Props> = (config, props={}) => {
 
   config = withAndroidManifest(config, async (config) => {
 
+    console.log("[react-native-background-geolocation] Adding license-keys to AndroidManifest:", props);
+
     const mainApplication = getMainApplicationOrThrow(config.modResults);
 
     addMetaDataItemToMainApplication(
@@ -93,16 +99,28 @@ const androidPlugin: ConfigPlugin<Props> = (config, props={}) => {
       META_LICENSE_KEY,
       props.license || "UNDEFINED"
     );
-    addMetaDataItemToMainApplication(
-      mainApplication,
-      META_HMS_LICENSE_KEY,
-      props.hmsLicense || "UNDEFINED"
-    );
+    if (props.hmsLicense) {
+      addMetaDataItemToMainApplication(
+        mainApplication,
+        META_HMS_LICENSE_KEY,
+        props.hmsLicense
+      );
+    } else {
+      removeMetaDataItemFromMainApplication(
+        mainApplication,
+        META_HMS_LICENSE_KEY
+      );
+    }
     if (props.polygonLicense) {
       addMetaDataItemToMainApplication(
         mainApplication,
         META_POLYGON_LICENSE_KEY,
         props.polygonLicense
+      );
+    } else {
+      removeMetaDataItemFromMainApplication(
+        mainApplication,
+        META_POLYGON_LICENSE_KEY
       );
     }
     return config;

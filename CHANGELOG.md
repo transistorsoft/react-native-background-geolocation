@@ -7,6 +7,9 @@
 * [iOS] Fix bug in iOS *Polygon Geofencing* when running in geofences-only mode (`.startGeofences`).  iOS would mistakenly turn off location updates exactly 3 samples into the containing circular geofence of a polygon.
 * Implement `notifyOnDwell` for polygon-geofences.
 
+## 4.16.6 &mdash; 2024-09-05
+* [Expo] Backport Expo license-key fix from `4.17.1`.
+
 ## 4.16.5 &mdash; 2024-07-12 
 * [Android][Expo] Conditionally add polygonLicense only if provided in Config.  Do not write to AndroidManifest unless provided.
 

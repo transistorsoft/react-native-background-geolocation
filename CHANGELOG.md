@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.17.1 &mdash; 2024-09-05
+* [Expo] Fix bug in Expo plugin adding unused license keys for "polygon geofencing" with a value of `UNDEFINED`, causing license-validation error.  Add logic to automatically remove license keys from `AndroidManifest` when corresponding keys are not found in your `app.json` (eg: `polygonLicense`).
+
 ## 4.17.0 &mdash; 2024-09-04
 * [iOS] Fix bug in iOS *Polygon Geofencing* when running in geofences-only mode (`.startGeofences`).  iOS would mistakenly turn off location updates exactly 3 samples into the containing circular geofence of a polygon.
 * Implement `notifyOnDwell` for polygon-geofences.

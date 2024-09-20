@@ -120,7 +120,8 @@ If you've **not** [purchased a license](https://www.transistorsoft.com/shop/prod
 
 ### Polygon Geofencing Add-on
 
-If you've purchased a license for the [Polygon Geofencing add-on](https://shop.transistorsoft.com/products/polygon-geofencing), add the following license key to your __`AndroidManifest`__ (Polygon Geofencing is fully functional in DEBUG builds so you can try before you buy):
+> [!NOTE]
+> If you've purchased a license for the [Polygon Geofencing add-on](https://shop.transistorsoft.com/products/polygon-geofencing), add the following license key to your __`AndroidManifest`__ (Polygon Geofencing is fully functional in DEBUG builds so you can try before you buy):
 
 ```diff
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"

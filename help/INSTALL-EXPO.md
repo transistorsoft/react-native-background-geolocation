@@ -52,7 +52,8 @@ If you've purchased the [*Polygon Geofencing* add-on](https://shop.transistorsof
 }
 ```
 
-:warning: Polygon Geofencing support for *Expo* requires `react-native-background-geolocation >= 4.16.4`.
+> [!WARNING]
+> Polygon Geofencing support for *Expo* requires `react-native-background-geolocation >= 4.16.4`.
 
 ### Huawei Mobile Services (HMS) Support
 
@@ -74,7 +75,8 @@ If you've [purchased an *HMS Background Geolocation* License](https://shop.trans
 }
 ```
 
-:warning: Huawei HMS support requires `react-native-background-geolocation >= 3.11.0`.
+> [!WARNING]
+> Huawei HMS support requires `react-native-background-geolocation >= 3.11.0`.
 
 ### `Info.plist`:  *Usage Descriptions*
 
@@ -169,6 +171,14 @@ You must rebuild your Android app for the added plugins to be evaluated.
 npx expo prebuild
 ```
 
+> [!NOTE]
+> When using `prebuild`, you must run your app as follows:
+
+```console
+$ npx expo run:android
+$ npx expo run:ios
+```
+
 - If you're using *Expo EAS*, you must first run `eas build`.
 - Adjust `--profile` as desired.
 - You must build __ALL__ platforms, both *iOS* and *Android*:
@@ -176,3 +186,25 @@ npx expo prebuild
 ```bash
  eas build --profile development
 ```
+
+## [`react-native-background-fetch`](https://github.com/transistorsoft/react-native-background-fetch)
+
+> [!TIP]
+> [`react-native-background-fetch`](https://github.com/transistorsoft/react-native-background-fetch) is helpful for executing a periodic task (eg: every 15 minutes).  You could use `background-fetch` to periodically request the current location:
+
+```dart
+// Execute a task about every 15 minutes:
+BackgroundFetch.configure({
+  minimumFetchInterval: 15
+}, async (taskId) => { // <-- This is your periodic-task callback  
+  const location = await BackgroundGeolocation.getCurrentPosition({
+    samples: 3,
+    extras: {   // <-- your own arbitrary meta-data
+      "event": "getCurrentPosition"
+    }
+  });
+  console.log('[getCurrentPosition]', location);
+  BackgroundFetch.finish(taskId);   // <-- signal that your task is complete
+})
+```
+

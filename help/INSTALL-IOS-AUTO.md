@@ -127,3 +127,23 @@ It's best to edit this file's XML manually.
 ## [Configure `react-native-background-fetch`](https://github.com/transistorsoft/react-native-background-fetch/blob/master/docs/INSTALL-AUTO-IOS.md#ios-auto-linking-setup)
 
 The BackgroundGeolocation SDK makes use internally on __`react-native-background-fetch`__.  Regardless of whether you intend to implement the BackgroundFetch Javascript API in your app, you **must** perform the [Background Fetch iOS Setup](https://github.com/transistorsoft/react-native-background-fetch/blob/master/docs/INSTALL-AUTO-IOS.md#configure-background-capabilities) at __`react-native-background-fetch`__.
+
+> [!TIP]
+> `background-fetch` is helpful for executing a periodic task (eg: every 15 minutes).  You could use `background-fetch` to periodically request the current location:
+
+```dart
+// Execute a task about every 15 minutes:
+BackgroundFetch.configure({
+  minimumFetchInterval: 15
+}, async (taskId) => { // <-- This is your periodic-task callback  
+  const location = await BackgroundGeolocation.getCurrentPosition({
+    samples: 3,
+    extras: {   // <-- your own arbitrary meta-data
+      "event": "getCurrentPosition"
+    }
+  });
+  console.log('[getCurrentPosition]', location);
+  BackgroundFetch.finish(taskId);   // <-- signal that your task is complete
+})
+```
+

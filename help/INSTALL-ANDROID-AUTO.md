@@ -63,8 +63,8 @@ allprojects {   // <-- NOTE:  allprojects container -- If you don't see this, cr
 
 ### :open_file_folder: **`android/app/build.gradle`**
 
-- :exclamation: __DO NOT OMIT ANY OF THE FOLLOWING INSTRUCTIONS__ :exclamation:
-- If you ignore any of the following lines, your license key will __fail to validate__.
+>[!CAUTION]
+> __DO NOT OMIT ANY OF THE FOLLOWING INSTRUCTIONS__.  If you ignore any of the following lines, your license key will __fail to validate__.
 
 ```diff
 apply plugin: "com.android.application"
@@ -96,7 +96,8 @@ android {
 
 ## AndroidManifest.xml (License Configuration)
 
-If you've **not** [purchased a license](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans), **ignore this step** &mdash; the plugin is fully functional in *DEBUG* builds so you can try before you [buy](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans).
+> [!NOTE]
+> If you've **not** [purchased a license](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans), **ignore this step** &mdash; the plugin is fully functional in *DEBUG* builds so you can try before you [buy](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans).
 
 ```diff
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -120,7 +121,8 @@ If you've **not** [purchased a license](https://www.transistorsoft.com/shop/prod
 
 ### Polygon Geofencing Add-on
 
-If you've purchased a license for the [Polygon Geofencing add-on](https://shop.transistorsoft.com/products/polygon-geofencing), add the following license key to your __`AndroidManifest`__ (Polygon Geofencing is fully functional in DEBUG builds so you can try before you buy):
+> [!NOTE]
+> If you've purchased a license for the [Polygon Geofencing add-on](https://shop.transistorsoft.com/products/polygon-geofencing), add the following license key to your __`AndroidManifest`__ (Polygon Geofencing is fully functional in DEBUG builds so you can try before you buy):
 
 ```diff
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -140,7 +142,8 @@ If you've purchased a license for the [Polygon Geofencing add-on](https://shop.t
 
 ### Huawei Mobile Services (HMS) Support
 
-If you've [purchased an *HMS Background Geolocation* License](https://shop.transistorsoft.com/collections/frontpage/products/huawei-background-geolocation) for installing the plugin on _Huawei_ devices without *Google Play Services* installed, add your *HMS Background Geolocation* license key:
+> [!NOTE]
+> If you've [purchased an *HMS Background Geolocation* License](https://shop.transistorsoft.com/collections/frontpage/products/huawei-background-geolocation) for installing the plugin on _Huawei_ devices without *Google Play Services* installed, add your *HMS Background Geolocation* license key:
 
 ```diff
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -157,7 +160,8 @@ If you've [purchased an *HMS Background Geolocation* License](https://shop.trans
   </application>
 </manifest>
 ```
-:warning: Huawei HMS support requires `react-native-background-geolocation >= 3.11.0`.
+> [!WARNING]
+> Huawei HMS support requires `react-native-background-geolocation >= 3.11.0`.
 
 ## `AlarmManager` "Exact Alarms" (optional)
 
@@ -173,8 +177,30 @@ The plugin uses __`AlarmManager`__ "exact alarms" for precise scheduling of even
       .
   </manifest>
 ```
-:warning: It has been announced that *Google Play Store* [has plans to impose greater scrutiny](https://support.google.com/googleplay/android-developer/answer/13161072?sjid=3640341614632608469-NA) over usage of this permission (which is why the plugin does not automatically add it).
+> [!WARNING]
+> It has been announced that *Google Play Store* [has plans to impose greater scrutiny](https://support.google.com/googleplay/android-developer/answer/13161072?sjid=3640341614632608469-NA) over usage of this permission (which is why the plugin does not automatically add it).
 
+## [Configure `react-native-background-fetch`](https://github.com/transistorsoft/react-native-background-fetch/blob/master/docs/INSTALL-AUTO-IOS.md#configure-background-capabilities)
 
+The BackgroundGeolocation SDK makes use internally on __`react-native-background-fetch`__.  Regardless of whether you instend to implement the BackgroundFetch Javascript API in your app, you **must** perform the [Background Fetch iOS Setup](https://github.com/transistorsoft/react-native-background-fetch/blob/master/docs/INSTALL-AUTO-IOS.md#configure-background-capabilities) at __`react-native-background-fetch`__.
+
+> [!TIP]
+> `background-fetch` is helpful for executing a periodic task (eg: every 15 minutes).  You could use `background-fetch` to periodically request the current location:
+
+```dart
+// Execute a task about every 15 minutes:
+BackgroundFetch.configure({
+  minimumFetchInterval: 15
+}, async (taskId) => { // <-- This is your periodic-task callback  
+  const location = await BackgroundGeolocation.getCurrentPosition({
+    samples: 3,
+    extras: {   // <-- your own arbitrary meta-data
+      "event": "getCurrentPosition"
+    }
+  });
+  console.log('[getCurrentPosition]', location);
+  BackgroundFetch.finish(taskId);   // <-- signal that your task is complete
+})
+```
 
 

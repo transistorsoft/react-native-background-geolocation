@@ -18,11 +18,8 @@ The plugin's [Philosophy of Operation](../../wiki/Philosophy-of-Operation) is to
 
 Also available for [Flutter](https://github.com/transistorsoft/flutter_background_geolocation), [Cordova](https://github.com/transistorsoft/cordova-background-geolocation-lt), [NativeScript](https://github.com/transistorsoft/nativescript-background-geolocation-lt) and pure native apps.
 
-----------------------------------------------------------------------------
-
-The **[Android module](http://www.transistorsoft.com/shop/products/react-native-background-geolocation)** requires [purchasing a license](http://www.transistorsoft.com/shop/products/react-native-background-geolocation).  However, it *will* work for **DEBUG** builds.  It will **not** work with **RELEASE** builds [without purchasing a license](http://www.transistorsoft.com/shop/products/react-native-background-geolocation).
-
-(2018) This plugin is supported **full-time** and field-tested **daily** since 2013.
+> [!NOTE]
+> The **[Android module](http://www.transistorsoft.com/shop/products/react-native-background-geolocation)** requires [purchasing a license](http://www.transistorsoft.com/shop/products/react-native-background-geolocation).  However, it *will* work for **DEBUG** builds.  It will **not** work with **RELEASE** builds [without purchasing a license](http://www.transistorsoft.com/shop/products/react-native-background-geolocation).  This plugin is supported **full-time** and field-tested **daily** since 2013.
 
 ----------------------------------------------------------------------------
 
@@ -141,10 +138,11 @@ There are three main steps to using `BackgroundGeolocation`
 2. `.ready(config)` the plugin.
 3. `.start()` the plugin.
 
-:warning: Do not execute *any* API method which will require accessing location-services until the **[`.ready(config)`](https://transistorsoft.github.io/react-native-background-geolocation/classes/backgroundgeolocation.html#ready)** method resolves ([Read its API docs](https://transistorsoft.github.io/react-native-background-geolocation/classes/backgroundgeolocation.html#ready)), For example: 
-- `.getCurrentPosition` 
-- `.watchPosition`
-- `.start`
+> [!WARNING]
+> Do not execute *any* API method which will require accessing location-services until the **[`.ready(config)`](https://transistorsoft.github.io/react-native-background-geolocation/classes/backgroundgeolocation.html#ready)** method resolves ([Read its API docs](https://transistorsoft.github.io/react-native-background-geolocation/classes/backgroundgeolocation.html#ready)), For example: 
+>- `.getCurrentPosition` 
+>- `.watchPosition`
+>- `.start`
 
 ```javascript
 // NO!  .ready() has not resolved.

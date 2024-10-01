@@ -329,7 +329,13 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         if (!mInitialized) {
             initializeLocationManager();
         }
+        Activity activity = getCurrentActivity();
+        if (activity == null) {
+            return;
+        }        
+        getAdapter().setActivity(activity);
     }
+
     @Override
     public void onHostPause() {
         Context context = getReactApplicationContext();

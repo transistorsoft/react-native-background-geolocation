@@ -58,6 +58,7 @@ allprojects {   // <-- NOTE:  allprojects container -- If you don't see this, cr
 +       maven { url 'https://developer.huawei.com/repo/' }
 +       // Required for react-native-background-fetch
 +       maven { url("${project(':react-native-background-fetch').projectDir}/libs") }
+    }
 }
 ```
 

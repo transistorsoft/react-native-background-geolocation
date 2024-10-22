@@ -116,6 +116,7 @@ typedef enum TSPersistMode : NSInteger {
 @property (nonatomic) BOOL preventSuspend;
 @property (nonatomic) NSTimeInterval heartbeatInterval;
 @property (nonatomic) NSArray *schedule;
+@property (nonatomic) NSString *triggerActivities;
 /// Logging & Debug
 @property (nonatomic) BOOL debug;
 @property (nonatomic) TSLogLevel logLevel;
@@ -137,7 +138,7 @@ typedef enum TSPersistMode : NSInteger {
 /**
 The SDK's Configuration API.
  */
-@interface TSConfig : NSObject <NSCoding>
+@interface TSConfig : NSObject <NSCoding, NSSecureCoding>
 
 #pragma mark - Singleton
 
@@ -298,6 +299,7 @@ The SDK's Configuration API.
 @property (nonatomic, readonly) BOOL preventSuspend;
 @property (nonatomic, readonly) NSTimeInterval heartbeatInterval;
 @property (nonatomic, readonly) NSArray *schedule;
+@property (nonatomic, readonly) NSString *triggerActivities;
 /// @name Logging & Debug Properties
 @property (nonatomic, readonly) BOOL debug;
 @property (nonatomic, readonly) TSLogLevel logLevel;

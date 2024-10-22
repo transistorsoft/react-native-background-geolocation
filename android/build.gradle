@@ -11,7 +11,7 @@ apply plugin: 'com.android.library'
 // Android dependencies
 def DEFAULT_COMPILE_SDK_VERSION                     = 31
 def DEFAULT_TARGET_SDK_VERSION                      = 30
-def DEFAULT_APP_COMPAT_VERSION                      = "1.4.1"
+def DEFAULT_APP_COMPAT_VERSION                      = "1.6.1"
 
 // Plugin dependencies
 def DEFAULT_PLAY_SERVICES_LOCATION_VERSION   	    = "20.0.0"

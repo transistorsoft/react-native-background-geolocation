@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.17.3 &mdash; 2024-10-21
+* [Android] Implement `Service.onTimeout` to handle `foregroundServiceType="shortService"` timeouts.
+* [iOS] Add new `Config.activityType` `ACTIVITY_TYPE_AIRBORNE`.
+* [iOS] Implement `Config.triggerActivities` for iOS.
+* [Android] Guard against `NullPointerException` receiving a null location in `PolygonGeofenceService` event.
+* Fix crash in RPC action for `addGeofence` when adding polygon geofence.
+* Add two new RPC actions `setOdometer`, `resetOdometer`.
+* [iOS] Fix broken linking to Settings screen in `locationAuthorizationAlert` on iOS 18.
+
 ## 4.17.2 &mdash; 2024-10-01
 * [Android] Address possible leak of `Activity` reference when terminating the app.  Ensure internal reference to `Activity` is nullified when app is terminated.
 * [Android] Add improvements to Android geofencing-only mode with `goefenceModeHighAccuracy: true` where motion-activity updates disabled.

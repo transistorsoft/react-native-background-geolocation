@@ -98,6 +98,7 @@ declare module "react-native-background-geolocation" {
 	 * | [[ACTIVITY_TYPE_AUTOMOTIVE_NAVIGATION]]  |
 	 * | [[ACTIVITY_TYPE_FITNESS]]                |
 	 * | [[ACTIVITY_TYPE_OTHER_NAVIGATION]]       |
+	 * | [[ACTIVITY_TYPE_AIRBORNE]]
 	 *
 	 * ℹ️  For more information, see [Apple docs](https://developer.apple.com/reference/corelocation/cllocationmanager/1620567-activitytype?language=objc).
 	 */

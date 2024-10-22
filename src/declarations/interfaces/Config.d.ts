@@ -1969,6 +1969,7 @@ declare module "react-native-background-geolocation" {
     * | [[BackgroundGeolocation.ACTIVITY_TYPE_AUTOMOTIVE_NAVIGATION]]  |
     * | [[BackgroundGeolocation.ACTIVITY_TYPE_FITNESS]]                |
     * | [[BackgroundGeolocation.ACTIVITY_TYPE_OTHER_NAVIGATION]]       |
+    * | [[BackgroundGeolocation.ACTIVITY_TYPE_AIRBORNE]]               |
     *
     * @example
   	* ```typescript
@@ -2171,7 +2172,10 @@ declare module "react-native-background-geolocation" {
 
     /**
 
-    * __`[Android-only]`__ Configures a comma-separated list of motion-activities which are allow to trigger location-tracking.
+    * Configures a comma-separated list of motion-activities which are allow to trigger location-tracking.
+
+    * __⚠️ Warning:__ Requires that the user grant your app the "*Motion/Health*" permission.
+    * 
     * @break
     *
     * These are the comma-delimited list of [activity-names](https://developers.google.com/android/reference/com/google/android/gms/location/DetectedActivity) returned by the `ActivityRecognition` API which will trigger a state-change from **stationary** to **moving**.  By default, the plugin will trigger on **any** of the **moving-states**:
@@ -2260,6 +2264,8 @@ declare module "react-native-background-geolocation" {
     * __`[Android only]`__ Configure the plugin service to run as a more robust "Foreground Service".
     * @break
     *
+    * @deprecated 
+    * 
     * ### ⚠️ Android 8.0+
     *
     * Defaults to `true` and cannot be set to `false`.  Due to strict new [Background Execution Limits](https://www.youtube.com/watch?v=Pumf_4yjTMc) in Android 8, the plugin *enforces* **`foregroundService: true`**.

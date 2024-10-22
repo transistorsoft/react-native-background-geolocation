@@ -19,7 +19,7 @@
 					<div class="brand">
 						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
 						<span class="title">
-							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.17.2</span>
+							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.17.3</span>
 						</span>
 					</div>
 				</div>
@@ -245,6 +245,9 @@
 								</tr>
 								<tr>
 									<td><a href="../classes/backgroundgeolocation.html#activity_type_other_navigation">BackgroundGeolocation.ACTIVITY_TYPE_OTHER_NAVIGATION</a></td>
+								</tr>
+								<tr>
+									<td><a href="../classes/backgroundgeolocation.html#activity_type_airborne">BackgroundGeolocation.ACTIVITY_TYPE_AIRBORNE</a></td>
 								</tr>
 						</tbody></table>
 						<dl class="tsd-comment-tags">
@@ -1430,6 +1433,8 @@
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
+							<dd></dd>
+							<dt class="tsd-comment-tag-deprecated">deprecated</dt>
 							<dd>
 								<a href="#⚠️-android-80" id="⚠️-android-80" style="color: inherit; text-decoration: none;">
 									<h3>⚠️ Android 8.0+</h3>
@@ -3574,8 +3579,9 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p><strong><code>[Android-only]</code></strong> Configures a comma-separated list of motion-activities which are allow to trigger location-tracking.</p>
+							<p>Configures a comma-separated list of motion-activities which are allow to trigger location-tracking.</p>
 						</div>
+						<p><strong>⚠️ Warning:</strong> Requires that the user grant your app the &quot;<em>Motion/Health</em>&quot; permission.</p>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
 							<dd><p>These are the comma-delimited list of <a href="https://developers.google.com/android/reference/com/google/android/gms/location/DetectedActivity">activity-names</a> returned by the <code>ActivityRecognition</code> API which will trigger a state-change from <strong>stationary</strong> to <strong>moving</strong>.  By default, the plugin will trigger on <strong>any</strong> of the <strong>moving-states</strong>:</p>

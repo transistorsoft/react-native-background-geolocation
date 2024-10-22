@@ -46,6 +46,7 @@ const ACTIVITY_TYPE_OTHER                 = 1;
 const ACTIVITY_TYPE_AUTOMOTIVE_NAVIGATION = 2;
 const ACTIVITY_TYPE_FITNESS               = 3;
 const ACTIVITY_TYPE_OTHER_NAVIGATION      = 4;
+const ACTIVITY_TYPE_AIRBORNE              = 5;
 
 const LOCATION_AUTHORIZATION_ALWAYS       = "Always";
 const LOCATION_AUTHORIZATION_WHEN_IN_USE  = "WhenInUse";
@@ -90,6 +91,7 @@ export default class BackgroundGeolocation {
   static get ACTIVITY_TYPE_AUTOMOTIVE_NAVIGATION()  { return ACTIVITY_TYPE_AUTOMOTIVE_NAVIGATION;}
   static get ACTIVITY_TYPE_FITNESS()                { return ACTIVITY_TYPE_FITNESS;}
   static get ACTIVITY_TYPE_OTHER_NAVIGATION()       { return ACTIVITY_TYPE_OTHER_NAVIGATION;}
+  static get ACTIVITY_TYPE_AIRBORNE()               { return ACTIVITY_TYPE_AIRBORNE; }
 
   static get DESIRED_ACCURACY_NAVIGATION()  { return DESIRED_ACCURACY_NAVIGATION; }
   static get DESIRED_ACCURACY_HIGH()        { return DESIRED_ACCURACY_HIGH; }

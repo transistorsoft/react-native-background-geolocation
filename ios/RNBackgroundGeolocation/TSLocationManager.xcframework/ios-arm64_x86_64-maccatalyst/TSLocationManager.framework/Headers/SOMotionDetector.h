@@ -86,6 +86,7 @@ typedef enum
 - (void)startShakeDetection:(NSTimeInterval)sampleRate;
 - (void)calculate;
 - (BOOL)isUsingM7;
+- (BOOL) isMoving:(NSString*)triggerActivities;
 
 #pragma mark - Customization Methods
 

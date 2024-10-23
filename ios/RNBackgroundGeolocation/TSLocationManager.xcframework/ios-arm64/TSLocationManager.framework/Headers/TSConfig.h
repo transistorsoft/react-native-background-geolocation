@@ -215,6 +215,8 @@ The SDK's Configuration API.
 /// :nodoc:
 - (BOOL) hasPluginForEvent:(NSString*)eventName;
 
+-(BOOL) hasTriggerActivities;
+
 /// @name State Properties
  
 /**

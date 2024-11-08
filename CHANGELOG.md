@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.17.5 &mdash; 2024-11-08
+* [Android] Fix reported "screen flickering" issue on some devices when SDK requests permissions.
+* [Android] Address Android synchronization issue with `TSLocation.toMap`.
+* [iOS] Address crash in `TSConfig` due to "uncaught exception NSInvalidArgumentException"
+* [Android] Change `foregroundServiceType` on `LocationRequestService` from `shortService` -> `location`.
+* [iOS] Address inconsistent location-tracking performance on iOS.
+
 ## 4.17.4 &mdash; 2024-10-23
 * [iOS] Fix bug with `triggerActivites` preventing motion-triggering in iOS simulator with simulated location.
 

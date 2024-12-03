@@ -23,10 +23,13 @@ import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.modules.core.RCTNativeAppEventEmitter;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.transistorsoft.locationmanager.event.FinishHeadlessTaskEvent;
+import com.transistorsoft.locationmanager.event.HeadlessEvent;
 import com.transistorsoft.xms.g.common.ExtensionApiAvailability;
 
 import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
@@ -820,6 +823,22 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     public void finish(int taskId, Callback success, Callback failure) {
         getAdapter().stopBackgroundTask(taskId);
         success.invoke(taskId);
+    }
+
+    @ReactMethod
+    public void finishHeadlessTask(int taskId, Callback success, Callback failure) {
+        EventBus eventBus = EventBus.getDefault();
+        if (!eventBus.hasSubscriberForEvent(HeadlessEvent.class)) {
+            // This shouldn't happen.  In order for this method to even be called, it MUST have been executed from within the consumer's
+            // registered HeadlessTask.  In order for that headless-task to have even be called, HeadlessEvent MUST have been registered with EventBus.
+            String message = "finishHeadlessTask failed to find an EventBus subscriber for HeadlessEvent";
+            TSLog.error(TSLog.warn(message));
+            failure.invoke(message);
+            return;
+        }
+        FinishHeadlessTaskEvent event = new FinishHeadlessTaskEvent(getReactApplicationContext(), taskId);
+        eventBus.post(event);
+        success.invoke();
     }
 
     @ReactMethod

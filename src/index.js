@@ -381,6 +381,16 @@ export default class BackgroundGeolocation {
     this.stopBackgroundTask.apply(this, arguments);
   }
   /**
+   * Signal completion of a react-native headless-task.  This helps RN free-up resources allocated to the headless-task execution.
+   */
+  static finishHeadlessTask(taskId, success, failure) {
+    if (arguments.length == 1) {
+      return NativeModule.finishHeadlessTask(taskId);
+    } else {
+      NativeModule.finishHeadlessTask(taskId).then(success).catch(failure);
+    }
+  }
+  /**
   * Toggle motion-state between stationary <-> moving
   */
   static changePace(isMoving, success, failure) {

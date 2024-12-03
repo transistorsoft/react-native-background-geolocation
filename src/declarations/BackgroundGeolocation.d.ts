@@ -674,30 +674,74 @@ declare module "react-native-background-geolocation" {
     *
     * ### ⚠️ Warning:
     * - You __must__ `registerHeadlessTask` in your application root file (eg: `index.js`).
+    * 
+    * ### ⚠️ Warning:
+    * - Your `function` __must__ be declared as `async`.
     *
     * @example
     * ```typescript
     * const BackgroundGeolocationHeadlessTask = async (event) => {
-    *   let params = event.params;
-    *    console.log("[BackgroundGeolocation HeadlessTask] -", event.name, params);
+    *   const params = event.params;
+    *   console.log("[BackgroundGeolocation HeadlessTask] -", event.name, params);
     *
-    *    switch (event.name) {
-    *      case "heartbeat":
-    *        // Use await for async tasks
-    *        let location = await BackgroundGeolocation.getCurrentPosition({
-    *          samples: 1,
-    *          persist: false
-    *        });
-    *        console.log("[BackgroundGeolocation HeadlessTask] - getCurrentPosition:", location);
-    *        break;
-    *    }
+    *   switch (event.name) {
+    *     case "heartbeat":
+    *       // Use await for async tasks
+    *       const location = await BackgroundGeolocation.getCurrentPosition({
+    *         samples: 1,
+    *         persist: false
+    *       });
+    *       console.log("[BackgroundGeolocation HeadlessTask] - getCurrentPosition:", location);
+    *       break;
+    *   }
+    *   // Signal completion of our RN HeadlessTask.
+    *   BackgroundGeolocation.finishHeadlessTask(taskId);
     * }
     *
     * BackgroundGeolocation.registerHeadlessTask(BackgroundGeolocationHeadlessTask);
     * ```
     *
+    * ### Debugging
+    * 
+    * While implementing your headless-task It's crucial to observe your Android logs in a terminal via 
+    * 
+    * ```bash
+    * $ adb logcat *:S TSLocationManager:V ReactNativeJS:V
+    * 
+    * TSLocationManager: [c.t.r.HeadlessTask onHeadlessEvent] 💀  event: connectivitychange
+    * TSLocationManager: [c.t.r.HeadlessTask createReactContextAndScheduleTask] initialize ReactContext
+    * TSLocationManager: [c.t.r.HeadlessTask onHeadlessEvent] 💀  event: providerchange
+    * TSLocationManager: [c.t.r.HeadlessTask onHeadlessEvent] 💀  event: terminate
+    * ReactNativeJS: '[BGGeoHeadlessTask] ', 'connectivitychange', taskId: 1
+    * TSLocationManager: [c.t.r.HeadlessTask invokeStartTask] taskId: 1
+    * TSLocationManager: [c.t.r.HeadlessTask invokeStartTask] taskId: 2
+    * TSLocationManager: [c.t.r.HeadlessTask invokeStartTask] taskId: 3
+    * ReactNativeJS: '[BGGeoHeadlessTask] ', 'providerchange', taskId: 2
+    * ReactNativeJS: '[BGGeoHeadlessTask] ', 'terminate', taskId: 3
+    * TSLocationManager: [c.t.l.u.BackgroundTaskManager$Task start] ⏳ startBackgroundTask: 1
+    * TSLocationManager: [c.t.l.u.BackgroundTaskManager$Task start] ⏳ startBackgroundTask: 2
+    * ReactNativeJS: *** [doWork] START
+    * ReactNativeJS: *** [doWork] START
+    * TSLocationManager: [c.t.l.u.BackgroundTaskManager$Task start] ⏳ startBackgroundTask: 3
+    * ReactNativeJS: *** [doWork] START
+    * .
+    * .
+    * .
+    * ReactNativeJS: *** [doWork] FINISH
+    * ReactNativeJS: *** [doWork] FINISH
+    * ReactNativeJS: *** [doWork] FINISH
+    * TSLocationManager: [c.t.l.u.BackgroundTaskManager$Task stop] ⏳ stopBackgroundTask: 1
+    * TSLocationManager: [c.t.l.u.BackgroundTaskManager$Task stop] ⏳ stopBackgroundTask: 2
+    * TSLocationManager: [c.t.l.u.BackgroundTaskManager$Task stop] ⏳ stopBackgroundTask: 3
+    * TSLocationManager: [c.t.r.HeadlessTask$1 onHeadlessJsTaskFinish] taskId: 1
+    * TSLocationManager: [c.t.r.HeadlessTask$1 onHeadlessJsTaskFinish] taskId: 2
+    * TSLocationManager: [c.t.r.HeadlessTask$1 onHeadlessJsTaskFinish] taskId: 3
+    * ```
+    * 
     * ### ℹ️ See also:
     * - 📘 [Android Headless Mode](github:wiki/Android-Headless-Mode).
+    * - [[BackgroundGeolocation.finishHeadlessTask]]
+    * - [[Config.enableHeadless]]
     *
     */
     static registerHeadlessTask(callback:(event:Object)=> Promise<void>): void;
@@ -1031,6 +1075,55 @@ declare module "react-native-background-geolocation" {
     * @deprecated
     */
     static finish(taskId: number, success?: Function, failure?: Function): Promise<number>;
+
+    /**
+     * __[Android-only]__ Signals completion of an Android headless-task (see [[Config.enableHeadless]])
+     * 
+     * @example
+     * ```typescript
+     * const bgGeoHeadlessTask = async (event) => {
+     *   // the name of this event (eg: "location", "motionchange", "http")
+     *   const eventName  = event.name; 
+     *   // our event-data from the BG Geo SDK.
+     *   const params     = event.params;
+     *   // IMPORTANT:  This task's ID
+     *   const taskId     = event.taskId;
+     *   
+     *   console.log('[BGGeoHeadlessTask] ', eventName, taskId, params);
+     *   
+     *   // Fake a long-running task (eg: HTTP request).
+     *   await doWork();
+     *   
+     *   // Signal completion of our RN HeadlessTask.
+     *   BackgroundGeolocation.finishHeadlessTask(taskId);
+     * }
+     *
+     * // Example "work" function where you might perform a long-running task (such as an HTTP request).
+     * // Uses a simple JS setTimeout timer to simulate work.
+     * const doWork = async () => {
+     *   return new Promise(async (resolve, reject) => {
+     *     // Start a BGGeo backgroundTask for performing long-running task (such as HTTP request)     
+     *     const bgTaskId = await BackgroundGeolocation.startBackgroundTask(); 
+     *     console.log('*** [doWork] START');
+     *     setTimeout(() => {
+     *       console.log('*** [doWork] FINISH');
+     *       // Signal completion of our bg-task.
+     *       BackgroundGeolocation.stopBackgroundTask(bgTaskId);
+     *       resolve();
+     *     }, 5000);
+     *   });
+     * }
+     * 
+     * // Register the HeadlessTask with RN.
+     * BackgroundGeolocation.registerHeadlessTask(bgGeoHeadlessTask);
+     * 
+     * ```
+     * ### ℹ️ See also:
+     * - 📘 [Android Headless Mode](github:wiki/Android-Headless-Mode).
+     * - [[BackgroundGeolocation.registerHeadlessTask]]
+     * - [[Config.enableHeadless]]
+     */
+    static finishHeadlessTask(taskId: number, success?: Function, failure?: Function): Promise<number>; 
 
     /**
     * Retrieves the current [[Location]].

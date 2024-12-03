@@ -2250,13 +2250,16 @@ declare module "react-native-background-geolocation" {
     * __`[Android only]`__ Enables "Headless" operation allowing you to respond to events after you app has been terminated with [[stopOnTerminate]] __`false`__.
     * @break
     *
-    * Defaults to __`false`__.  In this Android terminated state, where only the plugin's foreground-service remains running, you can respond to all the plugin's events with your own callback.
+    * Defaults to __`false`__.  In this Android terminated state, where only the plugin's foreground-service remains running, you can respond to all the plugin's events with your own callback.  For more information, see [[BackgroundGeolocation.registerHeadlessTask]].
     *
     * ### ℹ️ Note:
     * - Requires [[stopOnTerminate]] __`false`__.
     * - If you've configured [[stopOnTerminate]] __`false`__, [[BackgroundGeolocation]] will continue to record locations (and post them to your configured [[url]]) *regardless of* __`enabledHeadless: true`__.  You should enable this option *only if* you wish to perform some custom work during the headless state (for example, posting a local notification).
-    * - For more information, see the Wiki [Android Headless Mode](github:wiki/Android-Headless-Mode).
     *
+    * ### ℹ️ See also:
+    * - 📘 [Android Headless Mode](github:wiki/Android-Headless-Mode).
+    * - [[BackgroundGeolocation.registerHeadlessTask]]
+    * - [[BackgroundGeolocation.finishHeadlessTask]]
     */
     enableHeadless?: boolean;
 

@@ -7,14 +7,14 @@
 ```shell
 yarn add react-native-background-geolocation
 
-yarn add react-native-background-fetch@^4.2.1
+yarn add react-native-background-fetch@^4.2.6
 ```
 
 ### With `npm`
 ```shell
 npm install react-native-background-geolocation --save
 
-npm install react-native-background-fetch@^4.2.1
+npm install react-native-background-fetch@^4.2.6
 ```
 
 ## Configure `react-native-background-fetch`
@@ -36,9 +36,9 @@ In addition, custom `maven url` for both `background-geolocation` and `backgroun
 ```diff
 buildscript {
     ext {
-+       minSdkVersion 		= 19	      // Required minimum
-+       targetSdkVersion 	= 33          // Or higher.
-+       compileSdkVersion 	= 33          // Or higher.
++       minSdkVersion 		= 24	      // Required minimum
++       targetSdkVersion 	= 35          // Or as-desired.
++       compileSdkVersion 	= 34          // Or as-desired
 +       appCompatVersion 	= "1.4.2"      // Or higher.  Required for new AndroidX compatibility.
 +       googlePlayServicesLocationVersion = "21.0.1"  // Or higher.
     }
@@ -86,8 +86,6 @@ android {
             .
             minifyEnabled enableProguardInReleaseBuilds
 +           shrinkResources false
-+           // background_geolocation requires custom Proguard Rules
-+           proguardFiles "${background_geolocation.projectDir}/proguard-rules.pro"
         }
     }
 }

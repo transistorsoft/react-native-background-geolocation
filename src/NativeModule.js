@@ -309,7 +309,6 @@ export default class NativeModule {
     });
   }
 
-  // TODO Rename native methods #finish -> #stopBackgroundTask
   static stopBackgroundTask(taskId) {
     return new Promise((resolve, reject) => {
       if (!taskId) {
@@ -322,6 +321,18 @@ export default class NativeModule {
     });
   }
 
+  static finishHeadlessTask(taskId) {
+    return new Promise((resolve, reject) => {
+      if (!taskId) {
+        reject('INVALID_TASK_ID: ' + taskId);
+        return;
+      }
+      let success = (taskId) => { resolve(taskId) }
+      let failure = (error) =>  { reject(error) }
+      RNBackgroundGeolocation.finishHeadlessTask(taskId, success, failure);
+    });
+  }
+  
   /**
   * Geolocation Methods
   */

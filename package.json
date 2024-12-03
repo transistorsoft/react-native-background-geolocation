@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-geolocation",
-  "version": "4.17.6",
+  "version": "4.18.0",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",
   "scripts": {
     "build": "yarn run build:expo",
@@ -30,7 +30,7 @@
   },
   "homepage": "https://www.transistorsoft.com/shop/products/react-native-background-geolocation",
   "dependencies": {
-    "react-native-background-fetch": "~4.2.5"
+    "react-native-background-fetch": "~4.2.6"
   },
   "devDependencies": {
     "@expo/config-plugins": "^4.1.0",

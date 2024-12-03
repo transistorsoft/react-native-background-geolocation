@@ -19,7 +19,7 @@
 					<div class="brand">
 						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
 						<span class="title">
-							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.17.5</span>
+							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.18.0</span>
 						</span>
 					</div>
 				</div>
@@ -1516,14 +1516,21 @@
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt class="tsd-comment-tag-break">break</dt>
-							<dd><p>Defaults to <strong><code>false</code></strong>.  In this Android terminated state, where only the plugin&#39;s foreground-service remains running, you can respond to all the plugin&#39;s events with your own callback.</p>
+							<dd><p>Defaults to <strong><code>false</code></strong>.  In this Android terminated state, where only the plugin&#39;s foreground-service remains running, you can respond to all the plugin&#39;s events with your own callback.  For more information, see <a href="../classes/backgroundgeolocation.html#registerheadlesstask">BackgroundGeolocation.registerHeadlessTask</a>.</p>
 								<a href="#ℹ️-note" id="ℹ️-note" style="color: inherit; text-decoration: none;">
 									<h3>ℹ️ Note:</h3>
 								</a>
 								<ul>
 									<li>Requires <a href="config.html#stoponterminate">stopOnTerminate</a> <strong><code>false</code></strong>.</li>
 									<li>If you&#39;ve configured <a href="config.html#stoponterminate">stopOnTerminate</a> <strong><code>false</code></strong>, <a href="../classes/backgroundgeolocation.html">BackgroundGeolocation</a> will continue to record locations (and post them to your configured <a href="config.html#url">url</a>) <em>regardless of</em> <strong><code>enabledHeadless: true</code></strong>.  You should enable this option <em>only if</em> you wish to perform some custom work during the headless state (for example, posting a local notification).</li>
-									<li>For more information, see the Wiki <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Android-Headless-Mode">Android Headless Mode</a>.</li>
+								</ul>
+								<a href="#ℹ️-see-also" id="ℹ️-see-also" style="color: inherit; text-decoration: none;">
+									<h3>ℹ️ See also:</h3>
+								</a>
+								<ul>
+									<li>📘 <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Android-Headless-Mode">Android Headless Mode</a>.</li>
+									<li><a href="../classes/backgroundgeolocation.html#registerheadlesstask">BackgroundGeolocation.registerHeadlessTask</a></li>
+									<li><a href="../classes/backgroundgeolocation.html#finishheadlesstask">BackgroundGeolocation.finishHeadlessTask</a></li>
 								</ul>
 							</dd>
 						</dl>

@@ -25,7 +25,7 @@ const doWork = async () => {
     console.log('*** [doWork] START');
     setTimeout(() => {
       console.log('*** [doWork] FINISH');
-      // [NEW] Signal completion of our bg-task.
+      // Signal completion of our bg-task.
       BackgroundGeolocation.stopBackgroundTask(bgTaskId);
       resolve();
     }, 5000);

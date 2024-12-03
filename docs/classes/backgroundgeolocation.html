@@ -19,7 +19,7 @@
 					<div class="brand">
 						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
 						<span class="title">
-							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.17.5</span>
+							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.18.0</span>
 						</span>
 					</div>
 				</div>
@@ -375,6 +375,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="backgroundgeolocation.html#emaillog" class="tsd-kind-icon">email<wbr>Log</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="backgroundgeolocation.html#findorcreatetransistorauthorizationtoken" class="tsd-kind-icon">find<wbr>OrCreate<wbr>Transistor<wbr>Authorization<wbr>Token</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="backgroundgeolocation.html#finish" class="tsd-kind-icon">finish</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="backgroundgeolocation.html#finishheadlesstask" class="tsd-kind-icon">finish<wbr>Headless<wbr>Task</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="backgroundgeolocation.html#geofenceexists" class="tsd-kind-icon">geofence<wbr>Exists</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="backgroundgeolocation.html#getcount" class="tsd-kind-icon">get<wbr>Count</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="backgroundgeolocation.html#getcurrentposition" class="tsd-kind-icon">get<wbr>Current<wbr>Position</a></li>
@@ -2102,6 +2103,86 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="finishheadlesstask" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> finish<wbr>Headless<wbr>Task</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">finish<wbr>Headless<wbr>Task<span class="tsd-signature-symbol">(</span>taskId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, success<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span>, failure<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p><strong>[Android-only]</strong> Signals completion of an Android headless-task (see <a href="../interfaces/config.html#enableheadless">Config.enableHeadless</a>)</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt class="tsd-comment-tag-example">example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">bgGeoHeadlessTask</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">async</span><span style="color: #F8F8F2"> (</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">  </span><span style="color: #88846F">// the name of this event (eg: &quot;location&quot;, &quot;motionchange&quot;, &quot;http&quot;)</span>
+<span style="color: #F8F8F2">  </span><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> eventName  </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> event.name; </span>
+<span style="color: #F8F8F2">  </span><span style="color: #88846F">// our event-data from the BG Geo SDK.</span>
+<span style="color: #F8F8F2">  </span><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> params     </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> event.params;</span>
+<span style="color: #F8F8F2">  </span><span style="color: #88846F">// IMPORTANT:  This task&#039;s ID</span>
+<span style="color: #F8F8F2">  </span><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> taskId     </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> event.taskId;</span>
+<span style="color: #F8F8F2">  </span>
+<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&#039;[BGGeoHeadlessTask] &#039;</span><span style="color: #F8F8F2">, eventName, taskId, params);</span>
+<span style="color: #F8F8F2">  </span>
+<span style="color: #F8F8F2">  </span><span style="color: #88846F">// Fake a long-running task (eg: HTTP request).</span>
+<span style="color: #F8F8F2">  </span><span style="color: #F92672">await</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">doWork</span><span style="color: #F8F8F2">();</span>
+<span style="color: #F8F8F2">  </span>
+<span style="color: #F8F8F2">  </span><span style="color: #88846F">// Signal completion of our RN HeadlessTask.</span>
+<span style="color: #F8F8F2">  BackgroundGeolocation.</span><span style="color: #A6E22E">finishHeadlessTask</span><span style="color: #F8F8F2">(taskId);</span>
+<span style="color: #F8F8F2">}</span>
+
+<span style="color: #88846F">// Example &quot;work&quot; function where you might perform a long-running task (such as an HTTP request).</span>
+<span style="color: #88846F">// Uses a simple JS setTimeout timer to simulate work.</span>
+<span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">doWork</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">async</span><span style="color: #F8F8F2"> () </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">  </span><span style="color: #F92672">return</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">new</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">Promise</span><span style="color: #F8F8F2">(</span><span style="color: #F92672">async</span><span style="color: #F8F8F2"> (</span><span style="color: #FD971F">resolve</span><span style="color: #F8F8F2">, </span><span style="color: #FD971F">reject</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">    </span><span style="color: #88846F">// Start a BGGeo backgroundTask for performing long-running task (such as HTTP request)     </span>
+<span style="color: #F8F8F2">    </span><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> bgTaskId </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">await</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">startBackgroundTask</span><span style="color: #F8F8F2">(); </span>
+<span style="color: #F8F8F2">    console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&#039;*** [doWork] START&#039;</span><span style="color: #F8F8F2">);</span>
+<span style="color: #F8F8F2">    </span><span style="color: #66D9EF">setTimeout</span><span style="color: #F8F8F2">(() </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">      console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&#039;*** [doWork] FINISH&#039;</span><span style="color: #F8F8F2">);</span>
+<span style="color: #F8F8F2">      </span><span style="color: #88846F">// Signal completion of our bg-task.</span>
+<span style="color: #F8F8F2">      BackgroundGeolocation.</span><span style="color: #A6E22E">stopBackgroundTask</span><span style="color: #F8F8F2">(bgTaskId);</span>
+<span style="color: #F8F8F2">      </span><span style="color: #A6E22E">resolve</span><span style="color: #F8F8F2">();</span>
+<span style="color: #F8F8F2">    }, </span><span style="color: #AE81FF">5000</span><span style="color: #F8F8F2">);</span>
+<span style="color: #F8F8F2">  });</span>
+<span style="color: #F8F8F2">}</span>
+
+<span style="color: #88846F">// Register the HeadlessTask with RN.</span>
+<span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">registerHeadlessTask</span><span style="color: #F8F8F2">(bgGeoHeadlessTask);</span>
+
+</code></pre>
+										<a href="#ℹ️-see-also" id="ℹ️-see-also" style="color: inherit; text-decoration: none;">
+											<h3>ℹ️ See also:</h3>
+										</a>
+										<ul>
+											<li>📘 <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Android-Headless-Mode">Android Headless Mode</a>.</li>
+											<li><a href="backgroundgeolocation.html#registerheadlesstask">BackgroundGeolocation.registerHeadlessTask</a></li>
+											<li><a href="../interfaces/config.html#enableheadless">Config.enableHeadless</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>taskId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> success: <span class="tsd-signature-type">Function</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> failure: <span class="tsd-signature-type">Function</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a name="geofenceexists" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> geofence<wbr>Exists</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -3237,31 +3318,76 @@
 								<ul>
 									<li>You <strong>must</strong> <code>registerHeadlessTask</code> in your application root file (eg: <code>index.js</code>).</li>
 								</ul>
+								<a href="#⚠️-warning-1" id="⚠️-warning-1" style="color: inherit; text-decoration: none;">
+									<h3>⚠️ Warning:</h3>
+								</a>
+								<ul>
+									<li>Your <code>function</code> <strong>must</strong> be declared as <code>async</code>.</li>
+								</ul>
 								<dl class="tsd-comment-tags">
 									<dt class="tsd-comment-tag-example">example</dt>
 									<dd><pre><code class="language-typescript"><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">BackgroundGeolocationHeadlessTask</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">async</span><span style="color: #F8F8F2"> (</span><span style="color: #FD971F">event</span><span style="color: #F8F8F2">) </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
-<span style="color: #F8F8F2">  </span><span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> params </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> event.params;</span>
-<span style="color: #F8F8F2">   console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[BackgroundGeolocation HeadlessTask] -&quot;</span><span style="color: #F8F8F2">, event.name, params);</span>
+<span style="color: #F8F8F2">  </span><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> params </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> event.params;</span>
+<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[BackgroundGeolocation HeadlessTask] -&quot;</span><span style="color: #F8F8F2">, event.name, params);</span>
 
-<span style="color: #F8F8F2">   </span><span style="color: #F92672">switch</span><span style="color: #F8F8F2"> (event.name) {</span>
-<span style="color: #F8F8F2">     </span><span style="color: #F92672">case</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">&quot;heartbeat&quot;</span><span style="color: #F8F8F2">:</span>
-<span style="color: #F8F8F2">       </span><span style="color: #88846F">// Use await for async tasks</span>
-<span style="color: #F8F8F2">       </span><span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> location </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">await</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">getCurrentPosition</span><span style="color: #F8F8F2">({</span>
-<span style="color: #F8F8F2">         samples: </span><span style="color: #AE81FF">1</span><span style="color: #F8F8F2">,</span>
-<span style="color: #F8F8F2">         persist: </span><span style="color: #AE81FF">false</span>
-<span style="color: #F8F8F2">       });</span>
-<span style="color: #F8F8F2">       console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[BackgroundGeolocation HeadlessTask] - getCurrentPosition:&quot;</span><span style="color: #F8F8F2">, location);</span>
-<span style="color: #F8F8F2">       </span><span style="color: #F92672">break</span><span style="color: #F8F8F2">;</span>
-<span style="color: #F8F8F2">   }</span>
+<span style="color: #F8F8F2">  </span><span style="color: #F92672">switch</span><span style="color: #F8F8F2"> (event.name) {</span>
+<span style="color: #F8F8F2">    </span><span style="color: #F92672">case</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">&quot;heartbeat&quot;</span><span style="color: #F8F8F2">:</span>
+<span style="color: #F8F8F2">      </span><span style="color: #88846F">// Use await for async tasks</span>
+<span style="color: #F8F8F2">      </span><span style="color: #66D9EF">const</span><span style="color: #F8F8F2"> location </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #F92672">await</span><span style="color: #F8F8F2"> BackgroundGeolocation.</span><span style="color: #A6E22E">getCurrentPosition</span><span style="color: #F8F8F2">({</span>
+<span style="color: #F8F8F2">        samples: </span><span style="color: #AE81FF">1</span><span style="color: #F8F8F2">,</span>
+<span style="color: #F8F8F2">        persist: </span><span style="color: #AE81FF">false</span>
+<span style="color: #F8F8F2">      });</span>
+<span style="color: #F8F8F2">      console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[BackgroundGeolocation HeadlessTask] - getCurrentPosition:&quot;</span><span style="color: #F8F8F2">, location);</span>
+<span style="color: #F8F8F2">      </span><span style="color: #F92672">break</span><span style="color: #F8F8F2">;</span>
+<span style="color: #F8F8F2">  }</span>
+<span style="color: #F8F8F2">  </span><span style="color: #88846F">// Signal completion of our RN HeadlessTask.</span>
+<span style="color: #F8F8F2">  BackgroundGeolocation.</span><span style="color: #A6E22E">finishHeadlessTask</span><span style="color: #F8F8F2">(taskId);</span>
 <span style="color: #F8F8F2">}</span>
 
 <span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">registerHeadlessTask</span><span style="color: #F8F8F2">(BackgroundGeolocationHeadlessTask);</span>
+</code></pre>
+										<a href="#debugging" id="debugging" style="color: inherit; text-decoration: none;">
+											<h3>Debugging</h3>
+										</a>
+										<p>While implementing your headless-task It&#39;s crucial to observe your Android logs in a terminal via</p>
+										<pre><code class="language-bash"><span style="color: #F8F8F2">$ adb logcat </span><span style="color: #F92672">*</span><span style="color: #F8F8F2">:S TSLocationManager:V ReactNativeJS:V</span>
+
+<span style="color: #F8F8F2">TSLocationManager: [c.t.r.HeadlessTask onHeadlessEvent] 💀  event: connectivitychange</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.r.HeadlessTask createReactContextAndScheduleTask] initialize ReactContext</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.r.HeadlessTask onHeadlessEvent] 💀  event: providerchange</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.r.HeadlessTask onHeadlessEvent] 💀  event: terminate</span>
+<span style="color: #F8F8F2">ReactNativeJS: </span><span style="color: #E6DB74">&#039;[BGGeoHeadlessTask] &#039;</span><span style="color: #F8F8F2">, </span><span style="color: #E6DB74">&#039;connectivitychange&#039;</span><span style="color: #F8F8F2">, taskId: 1</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.r.HeadlessTask invokeStartTask] taskId: 1</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.r.HeadlessTask invokeStartTask] taskId: 2</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.r.HeadlessTask invokeStartTask] taskId: 3</span>
+<span style="color: #F8F8F2">ReactNativeJS: </span><span style="color: #E6DB74">&#039;[BGGeoHeadlessTask] &#039;</span><span style="color: #F8F8F2">, </span><span style="color: #E6DB74">&#039;providerchange&#039;</span><span style="color: #F8F8F2">, taskId: 2</span>
+<span style="color: #F8F8F2">ReactNativeJS: </span><span style="color: #E6DB74">&#039;[BGGeoHeadlessTask] &#039;</span><span style="color: #F8F8F2">, </span><span style="color: #E6DB74">&#039;terminate&#039;</span><span style="color: #F8F8F2">, taskId: 3</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.l.u.BackgroundTaskManager$Task start] ⏳ startBackgroundTask: 1</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.l.u.BackgroundTaskManager$Task start] ⏳ startBackgroundTask: 2</span>
+<span style="color: #F8F8F2">ReactNativeJS: </span><span style="color: #F92672">***</span><span style="color: #F8F8F2"> [doWork] START</span>
+<span style="color: #F8F8F2">ReactNativeJS: </span><span style="color: #F92672">***</span><span style="color: #F8F8F2"> [doWork] START</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.l.u.BackgroundTaskManager$Task start] ⏳ startBackgroundTask: 3</span>
+<span style="color: #F8F8F2">ReactNativeJS: </span><span style="color: #F92672">***</span><span style="color: #F8F8F2"> [doWork] START</span>
+<span style="color: #66D9EF">.</span>
+<span style="color: #66D9EF">.</span>
+<span style="color: #66D9EF">.</span>
+<span style="color: #F8F8F2">ReactNativeJS: </span><span style="color: #F92672">***</span><span style="color: #F8F8F2"> [doWork] FINISH</span>
+<span style="color: #F8F8F2">ReactNativeJS: </span><span style="color: #F92672">***</span><span style="color: #F8F8F2"> [doWork] FINISH</span>
+<span style="color: #F8F8F2">ReactNativeJS: </span><span style="color: #F92672">***</span><span style="color: #F8F8F2"> [doWork] FINISH</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.l.u.BackgroundTaskManager$Task stop] ⏳ stopBackgroundTask: 1</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.l.u.BackgroundTaskManager$Task stop] ⏳ stopBackgroundTask: 2</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.l.u.BackgroundTaskManager$Task stop] ⏳ stopBackgroundTask: 3</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.r.HeadlessTask$1 onHeadlessJsTaskFinish] taskId: 1</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.r.HeadlessTask$1 onHeadlessJsTaskFinish] taskId: 2</span>
+<span style="color: #F8F8F2">TSLocationManager: [c.t.r.HeadlessTask$1 onHeadlessJsTaskFinish] taskId: 3</span>
 </code></pre>
 										<a href="#ℹ️-see-also" id="ℹ️-see-also" style="color: inherit; text-decoration: none;">
 											<h3>ℹ️ See also:</h3>
 										</a>
 										<ul>
 											<li>📘 <a href="https://github.com/transistorsoft/react-native-background-geolocation/wiki/Android-Headless-Mode">Android Headless Mode</a>.</li>
+											<li><a href="backgroundgeolocation.html#finishheadlesstask">BackgroundGeolocation.finishHeadlessTask</a></li>
+											<li><a href="../interfaces/config.html#enableheadless">Config.enableHeadless</a></li>
 										</ul>
 									</dd>
 								</dl>
@@ -5053,6 +5179,9 @@
 								<a href="backgroundgeolocation.html#finish" class="tsd-kind-icon">finish</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="backgroundgeolocation.html#finishheadlesstask" class="tsd-kind-icon">finish<wbr>Headless<wbr>Task</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="backgroundgeolocation.html#geofenceexists" class="tsd-kind-icon">geofence<wbr>Exists</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -5412,6 +5541,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="backgroundgeolocation.html#finish" class="tsd-kind-icon">finish</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="backgroundgeolocation.html#finishheadlesstask" class="tsd-kind-icon">finish<wbr>Headless<wbr>Task</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="backgroundgeolocation.html#geofenceexists" class="tsd-kind-icon">geofence<wbr>Exists</a>

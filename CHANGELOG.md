@@ -1,5 +1,8 @@
 # Change Log
 
+## Unreleased
+* [Android] Re-factor HeadlessTask.java.  Introduce HeadlessTaskManager class.
+
 ## 4.18.0 &mdash; 2024-12-02
 * [Android] implement support for new "Bridgeless Architecture"
 * [Android] Introduce new android-only method for signalling completion of your headless-tasks registered with `BackgroundGeolocation.registerHeadlessTask(bgGeoHeadlessTask)`.  This allows RN to quickly free-up resources when your task is complete, signalling good background behaviour with the OS.

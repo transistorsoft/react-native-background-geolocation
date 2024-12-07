@@ -132,13 +132,6 @@ export default class BackgroundGeolocation {
   }
 
   /**
-  * Register HeadlessTask
-  */
-  static registerHeadlessTask(task) {
-    AppRegistry.registerHeadlessTask(TAG, () => task);
-  }
-
-  /**
   * Core Plugin Control Methods
   */
   static ready(config, success, failure) {
@@ -380,7 +373,33 @@ export default class BackgroundGeolocation {
   static finish(taskId, success, failure) {
     this.stopBackgroundTask.apply(this, arguments);
   }
+
   /**
+  * Register HeadlessTask
+  * Have to wrap execution to finish our own headless-task because there's an unknown issue with TurboModules in new arch
+  * where RN's HeadlessJsTaskSupport is null.  That module can automatically finish RN headless-tasks.
+  */
+  static registerHeadlessTask(taskProvider) {
+    AppRegistry.registerHeadlessTask(TAG, () => {
+      // return to RN's AppRegistry a Function that returns a Promise.
+      return (event) => {
+        return new Promise((resolve, reject) => {          
+          const taskId = event._transistorHeadlessTaskId;
+          delete(event._transistorHeadlessTaskId);
+          taskProvider(event).then(() => {
+            BackgroundGeolocation.finishHeadlessTask(taskId);
+            resolve();
+          }).catch(reason => {
+            BackgroundGeolocation.finishHeadlessTask(taskId);
+            reject(reason);
+          });  
+        });
+      }
+    });
+  }
+
+  /**
+   * @private 
    * Signal completion of a react-native headless-task.  This helps RN free-up resources allocated to the headless-task execution.
    */
   static finishHeadlessTask(taskId, success, failure) {

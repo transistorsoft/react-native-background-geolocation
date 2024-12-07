@@ -1,42 +1,11 @@
 # Change Log
 
-## Unreleased
+## 4.18.1 &mdash; 2024-12-07
 * [Android] Re-factor HeadlessTask.java.  Introduce HeadlessTaskManager class.
+* [Android] remove previous requirement in `4.18.1` to call `BackgroundGeolocation.finishHeadlessTask(taskId)`.
 
 ## 4.18.0 &mdash; 2024-12-02
 * [Android] implement support for new "Bridgeless Architecture"
-* [Android] Introduce new android-only method for signalling completion of your headless-tasks registered with `BackgroundGeolocation.registerHeadlessTask(bgGeoHeadlessTask)`.  This allows RN to quickly free-up resources when your task is complete, signalling good background behaviour with the OS.
-
-```typescript
-const bgGeoHeadlessTask = async (event) => {
-  const params     = event.params; // <-- our event-data from the BG Geo SDK.
-  const eventName  = event.name;
-  const taskId     = event.taskId; // <-- [NEW] very important!
-  
-  console.log('[BGGeoHeadlessTask] ', eventName, taskId, params);
-  await doWork();
-  
-  // [NEW] Signal completion of our RN HeadlessTask !!!
-  BackgroundGeolocation.finishHeadlessTask(event.taskId);
-}
-// Example "work" function where you might perform a long-running task (such as an HTTP request).
-// Uses a simple JS setTimeout timer to simulate work.
-const doWork = async () => {
-  return new Promise(async (resolve, reject) => {
-    // Start a BGGeo backgroundTask for performing long-running task (such as HTTP request)     
-    const bgTaskId = await BackgroundGeolocation.startBackgroundTask(); 
-    console.log('*** [doWork] START');
-    setTimeout(() => {
-      console.log('*** [doWork] FINISH');
-      // Signal completion of our bg-task.
-      BackgroundGeolocation.stopBackgroundTask(bgTaskId);
-      resolve();
-    }, 5000);
-  });
-}
-
-BackgroundGeolocation.registerHeadlessTask(bgGeoHeadlessTask);
-```
 
 ## 4.17.6 &mdash; 2024-11=12
 * [Android] Remove enforcement of minimum Geofence radius `150`

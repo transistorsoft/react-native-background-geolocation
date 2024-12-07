@@ -2259,7 +2259,6 @@ declare module "react-native-background-geolocation" {
     * ### ℹ️ See also:
     * - 📘 [Android Headless Mode](github:wiki/Android-Headless-Mode).
     * - [[BackgroundGeolocation.registerHeadlessTask]]
-    * - [[BackgroundGeolocation.finishHeadlessTask]]
     */
     enableHeadless?: boolean;
 

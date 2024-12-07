@@ -109,7 +109,8 @@ public class HeadlessTask {
                     .build()
             );
         } catch (Exception e) {
-            TSLog.logger.warn(TSLog.warn("Failed invoke HeadlessTask " + name + ".  Task ignored." + e.getMessage()));
+            TSLog.logger.warn(TSLog.warn("Failed invoke HeadlessTask " + name + ".  Task ignored:  " + e.getMessage()));
+            e.printStackTrace();
         }
     }
 

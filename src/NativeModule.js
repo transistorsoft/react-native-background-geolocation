@@ -327,7 +327,7 @@ export default class NativeModule {
         reject('INVALID_TASK_ID: ' + taskId);
         return;
       }
-      let success = (taskId) => { resolve(taskId) }
+      let success = () => { resolve() }
       let failure = (error) =>  { reject(error) }
       RNBackgroundGeolocation.finishHeadlessTask(taskId, success, failure);
     });

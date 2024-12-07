@@ -3,7 +3,6 @@ package com.transistorsoft.rnbackgroundgeolocation;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +18,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.jstasks.HeadlessJsTaskConfig;
 import com.facebook.react.jstasks.HeadlessJsTaskContext;
 import com.facebook.react.jstasks.HeadlessJsTaskEventListener;
+import com.transistorsoft.locationmanager.logger.TSLog;
 
 import java.lang.reflect.Method;
 
@@ -119,7 +119,10 @@ public class HeadlessTaskManager implements HeadlessJsTaskEventListener {
         if (reactContext != null) {
             Task task = findTask(taskId);
             if (task != null) {
-                HeadlessJsTaskContext.getInstance(reactContext).finishTask(task.getReactTaskId());
+                HeadlessJsTaskContext headlessJsTaskContext = HeadlessJsTaskContext.getInstance(reactContext);
+                if (headlessJsTaskContext.isTaskRunning(task.getReactTaskId())) {
+                    headlessJsTaskContext.finishTask(task.getReactTaskId());
+                }
             } else {
                 throw new TaskNotFoundError(taskId);
             }
@@ -157,7 +160,7 @@ public class HeadlessTaskManager implements HeadlessJsTaskEventListener {
         removeTask(task);
         task.onFinish();
 
-        Log.d(TAG, "[onHeadlessJsTaskFinish] taskId: " + taskId);
+        TSLog.logger.debug("[onHeadlessJsTaskFinish] taskId: " + taskId);
     }
 
     private ReactNativeHost getReactNativeHost(Context context) {
@@ -185,7 +188,7 @@ public class HeadlessTaskManager implements HeadlessJsTaskEventListener {
                 Method getCurrentReactContext = reactHost.getClass().getMethod("getCurrentReactContext");
                 return (ReactContext) getCurrentReactContext.invoke(reactHost);
             } catch (Exception e) {
-                Log.e(TAG, "Reflection error getCurrentReactContext: " + e.getMessage());
+                TSLog.logger.error(TSLog.error( "Reflection error getCurrentReactContext: " + e.getMessage()), e);
             }
         }
         final ReactInstanceManager reactInstanceManager = getReactNativeHost(context).getReactInstanceManager();
@@ -202,7 +205,7 @@ public class HeadlessTaskManager implements HeadlessJsTaskEventListener {
             return;
         }
         if (mIsInitializingReactContext.compareAndSet(false, true)) {
-            Log.d(TAG, "[createReactContextAndScheduleTask] initialize ReactContext");
+            TSLog.logger.debug( "[createReactContextAndScheduleTask] initialize ReactContext");
             final Object reactHost = getReactHost(context);
             if (isBridglessArchitectureEnabled()) { // NEW arch
                 ReactInstanceEventListener callback = new ReactInstanceEventListener() {
@@ -214,7 +217,7 @@ public class HeadlessTaskManager implements HeadlessJsTaskEventListener {
                             Method removeReactInstanceEventListener = reactHost.getClass().getMethod("removeReactInstanceEventListener", ReactInstanceEventListener.class);
                             removeReactInstanceEventListener.invoke(reactHost, this);
                         } catch (Exception e) {
-                            Log.e(TAG, "HeadlessTask reflection error removeReactInstanceEventListener: " + e);
+                            TSLog.logger.error(TSLog.error("HeadlessTask reflection error removeReactInstanceEventListener: ") + e);
                         }
                     }
                 };
@@ -224,7 +227,7 @@ public class HeadlessTaskManager implements HeadlessJsTaskEventListener {
                     Method startReactHost = reactHost.getClass().getMethod("start");
                     startReactHost.invoke(reactHost);
                 } catch (Exception e) {
-                    Log.e(TAG, "HeadlessTask reflection error ReactHost start: " + e.getMessage());
+                    TSLog.logger.error(TSLog.error("HeadlessTask reflection error ReactHost start: " + e.getMessage()), e);
                 }
             } else { // OLD arch
                 final ReactInstanceManager reactInstanceManager = getReactNativeHost(context).getReactInstanceManager();
@@ -349,8 +352,10 @@ public class HeadlessTaskManager implements HeadlessJsTaskEventListener {
             mOnErrorCallback = builder.onErrorCallback;
             mTimeout = builder.timeout;
             mParams = builder.params;
-            mParams.putInt("taskId", mId);
+            // append our custom headless taskId.
+            mParams.putInt("_transistorHeadlessTaskId", mId);
         }
+
 
         boolean invoke(ReactContext reactContext) throws IllegalStateException {
             HeadlessJsTaskContext headlessJsTaskContext = HeadlessJsTaskContext.getInstance(reactContext);

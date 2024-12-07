@@ -157,6 +157,8 @@ declare module "react-native-background-geolocation" {
 
 	type PersistMode = -1 | 0 | 1 | 2;
 
+	type Map = {[key: string]: string|null|number|boolean|Map|string[]|number[]|number[][]|boolean[]|Map[]};
+	
 	type Extras = {[key: string]: string|null|number|boolean|Extras|string[]|number[]|number[][]|boolean[]|Extras[]};
 
 	/**
@@ -185,4 +187,5 @@ declare module "react-native-background-geolocation" {
 	 * - See [[onActivityChange]] and [[Location.activity]].
 	 */
 	type MotionActivityType = "unknown" | "still" | "walking" | "on_foot" | "running" | "on_bicycle" | "in_vehicle";
+
 }

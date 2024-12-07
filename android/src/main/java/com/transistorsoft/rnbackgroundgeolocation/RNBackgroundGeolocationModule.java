@@ -825,6 +825,12 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         success.invoke(taskId);
     }
 
+    /**
+     * Called by user's registered HeadlessTask when they call BackgroundGeolocation.finishHeadlessTask(event.taskId)
+     * @param taskId
+     * @param success
+     * @param failure
+     */
     @ReactMethod
     public void finishHeadlessTask(int taskId, Callback success, Callback failure) {
         EventBus eventBus = EventBus.getDefault();

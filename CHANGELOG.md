@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.18.2 &mdash; 2024-12-07
+* [Android] Oops, accidentally removed deprecated `package` attribute from plugin's `AndroidManifest` -- this is required by RN's auto-linking!
+
 ## 4.18.1 &mdash; 2024-12-07
 * [Android] Re-factor HeadlessTask.java.  Introduce HeadlessTaskManager class.
 * [Android] remove previous requirement in `4.18.1` to call `BackgroundGeolocation.finishHeadlessTask(taskId)`.

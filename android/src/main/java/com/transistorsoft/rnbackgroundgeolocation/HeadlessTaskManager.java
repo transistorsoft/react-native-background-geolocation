@@ -85,6 +85,7 @@ public class HeadlessTaskManager implements HeadlessJsTaskEventListener {
 
     private final Set<Task> mTaskQueue = new CopyOnWriteArraySet<>();
     private final AtomicBoolean mIsReactContextInitialized = new AtomicBoolean(false);
+    private final AtomicBoolean mWillDrainTaskQueue = new AtomicBoolean(false);
     private final AtomicBoolean mIsInitializingReactContext = new AtomicBoolean(false);
     private final AtomicBoolean mIsHeadlessJsTaskListenerRegistered = new AtomicBoolean(false);
 
@@ -265,14 +266,18 @@ public class HeadlessTaskManager implements HeadlessJsTaskEventListener {
      * @param reactContext
      */
     private void drainTaskQueue(final ReactContext reactContext) {
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            mTaskQueue.forEach((Task task) -> {
-                boolean success = invokeStartTask(reactContext, task);
-                if (!success) {
-                    removeTask(task);
+        if (mWillDrainTaskQueue.compareAndSet(false, true)) {
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                synchronized(mTaskQueue) {
+                    mTaskQueue.forEach((Task task) -> {
+                        boolean success = invokeStartTask(reactContext, task);
+                        if (!success) {
+                            removeTask(task);
+                        }
+                    });
                 }
-            });
-        }, 250);
+            }, 250);
+        }
     }
 
     // Find a task in the queue.
@@ -356,8 +361,11 @@ public class HeadlessTaskManager implements HeadlessJsTaskEventListener {
             mParams.putInt("_transistorHeadlessTaskId", mId);
         }
 
-
         boolean invoke(ReactContext reactContext) throws IllegalStateException {
+            if (mReactTaskId > 0) {
+                TSLog.logger.warn(TSLog.warn("Task already invoked <IGNORED>: " + this));
+                return true;
+            }
             HeadlessJsTaskContext headlessJsTaskContext = HeadlessJsTaskContext.getInstance(reactContext);
             // Provide the RN taskId to our private TaskConfig instance, mapping the RN taskId to our TaskConfig's internal taskId.
 
@@ -393,7 +401,7 @@ public class HeadlessTaskManager implements HeadlessJsTaskEventListener {
         }
 
         public String toString() {
-            return "[HeadlessTaskManager.Task name: " + mTaskName + " " + mParams + "]";
+            return "[HeadlessTaskManager.Task name: " + mTaskName + " id: " + mId + "]";
         }
 
         public static class Builder {

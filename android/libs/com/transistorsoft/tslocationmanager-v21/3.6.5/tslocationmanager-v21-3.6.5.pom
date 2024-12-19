@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.transistorsoft</groupId>
-  <artifactId>tslocationmanager</artifactId>
-  <version>3.6.4</version>
+  <artifactId>tslocationmanager-v21</artifactId>
+  <version>3.6.5</version>
   <packaging>aar</packaging>
 </project>

@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.18.3 &mdash; 2024-12-19
+* [Android] Fix `ObjectAlreadyConsumedException`.
+* [Android] Address phenomenon of UI freezing.
+
 ## 4.18.2 &mdash; 2024-12-07
 * [Android] Oops, accidentally removed deprecated `package` attribute from plugin's `AndroidManifest` -- this is required by RN's auto-linking!
 

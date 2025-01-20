@@ -1,0 +1,58 @@
+name: Help Wanted
+description: I need assistance
+title: "[Help Wanted]: "
+labels: ["triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this support request.
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Required Reading
+      description: I have read the following Wikis [Philosophy of Operation](../wiki//Philosophy-of-Operation) and [Debugging](../wiki/Debugging).  I am aware of the [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation/)
+      options:
+        - label: Confirmed
+          required: true
+  - type: input
+    id: version
+    attributes:
+      label: Plugin Version
+      description: What version of our software are you running?
+      placeholder: Consult your package.json
+    validations:
+      required: true
+  - type: checkboxes
+    id: os
+    attributes:
+      label: Mobile operating-system(s)
+      description: Which mobile operating-system(s) is this about?
+      options:
+        - label: iOS
+        - label: Android
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What do you require assistance about?
+    validations:
+      required: true  
+  - type: textarea
+    id: config
+    attributes:
+      label: "[Optional] Plugin Code and/or Config"
+      description: Provide the Config you're using with the `BackgroundGeolocation.ready(config)` method along with any other relevant code.
+      placeholder: "Paste your Config or code here, eg: BackgroundGeolocation.ready(config).\n\nYour code will be automatically syntax-highlighted"
+      render: typescript
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: "[Optional] Relevant log output"
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      placeholder: "include iOS / Android logs\n- $ adb logcat -s TSLocationManager:V\n- ios XCode logs\n- Logs from BackgroundGeolocation.emailLog(address)"
+      render: shell
+    validations:
+        required: false
+

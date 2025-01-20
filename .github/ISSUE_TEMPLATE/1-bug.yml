@@ -58,8 +58,7 @@ body:
     attributes:
       label: What happened?
       description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
-      value: "Something unexpected happened!"
+      placeholder: Tell us what happened and what did you expect to happen.
     validations:
       required: true  
   - type: textarea

@@ -11,7 +11,7 @@ body:
     id: terms
     attributes:
       label: Required Reading
-      description: I have read the following Wikis [Philosophy of Operation](../wiki//Philosophy-of-Operation) and [Debugging](../wiki/Debugging).  I am aware of the [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation/)
+      description: "- I have read the Wikis [Philosophy of Operation](../wiki/Philosophy-of-Operation) and [Debugging](../wiki/Debugging)\n- I am aware of the [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation/)\n- I am aware of the [CHANGELOG](../blob/master/CHANGELOG.md)"
       options:
         - label: Confirmed
           required: true

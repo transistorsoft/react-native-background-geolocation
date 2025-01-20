@@ -21,6 +21,7 @@ body:
       label: Plugin Version
       description: What version of our software are you running?
       placeholder: Consult your package.json
+      render: shell
     validations:
       required: true
   - type: checkboxes

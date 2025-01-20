@@ -21,6 +21,7 @@ body:
       label: Plugin Version
       description: What version of our software are you running?
       placeholder: Consult your package.json
+      render: shell
     validations:
       required: true
   - type: checkboxes
@@ -39,6 +40,7 @@ body:
       label: Device Manufacturer(s) and Model(s)
       description: What is the device model(s) and manufacturer(s)
       placeholder: eg Google Pixel 6, iPhone 13 Pro
+      render: shell
     validations:
       required: true
   - type: input
@@ -47,6 +49,7 @@ body:
       label: Device operating-systems(s)
       description: Affected device operating system
       placeholder: eg iOS 18.1, Android 13
+      render: shell
     validations: 
       required: true
   - type: input
@@ -55,6 +58,7 @@ body:
       label: React Native / Expo version
       description: What version React Native / Expo are you using
       placeholder: "eg: 0.76.6, Expo 52 (consult your package.json)"
+      render: shell
   - type: textarea
     id: what-happened
     attributes:

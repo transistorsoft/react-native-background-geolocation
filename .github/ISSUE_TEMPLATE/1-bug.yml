@@ -31,6 +31,8 @@ body:
       options:
         - label: iOS
         - label: Android
+    validations:
+      required: true
   - type: input
     id: device-info
     attributes:

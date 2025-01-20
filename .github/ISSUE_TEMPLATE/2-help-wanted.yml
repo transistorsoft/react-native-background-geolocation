@@ -20,7 +20,7 @@ body:
     attributes:
       label: Plugin Version
       description: What version of our software are you running?
-      placeholder: Consult your package.json
+      placeholder: "Consult your package.json (do not enter 'latest')"
     validations:
       required: true
   - type: checkboxes

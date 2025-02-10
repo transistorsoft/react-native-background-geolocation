@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.18.4 &mdash; 2025-02-10
+* [Android] Catch database exceptions hydrating records from SQLite.
+
 ## 4.18.3 &mdash; 2024-12-19
 * [Android] Fix `ObjectAlreadyConsumedException`.
 * [Android] Address phenomenon of UI freezing.

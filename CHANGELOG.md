@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.18.5 &mdash; 2025-02-13
+* [Android] Re-compile library with jdk 17 instead of 22
+* [Android] Fix `ConcurrentModificationException` in `StopTimeoutEvaluator`.
+
 ## 4.18.4 &mdash; 2025-02-10
 * [Android] Catch database exceptions hydrating records from SQLite.
 

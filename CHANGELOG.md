@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.18.6 &mdash; 2025-02-20
+* [iOS] Fix `ProviderChangeEvent.enabled` not showing the result of global *Privacy -> Location Services -> Enabled* switch
+
 ## 4.18.5 &mdash; 2025-02-13
 * [Android] Re-compile library with jdk 17 instead of 22
 * [Android] Fix `ConcurrentModificationException` in `StopTimeoutEvaluator`.

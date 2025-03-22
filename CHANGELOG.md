@@ -118,7 +118,7 @@ duct flavors.
 ## 4.14.2 &mdash; 2023-10-05
 * [Android] `getGeofence` / `getGeofences` not returning new `Geofence.vertices` property.
 
-## 4.14.1 &mdash; 2012-10-02
+## 4.14.1 &mdash; 2023-10-03
 * [iOS] Fix "*Duplicate symbol error DummyPods_TSLocationManager*".
 * [Android] Fix timeout issue in `.watchPosition`.
 

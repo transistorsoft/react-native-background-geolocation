@@ -87,7 +87,7 @@ $ npm install react-native-background-geolocation --save
 
   <application
     android:name=".MainApplication"
-    android:allowBackup="true"
+    android:allowBackup="false"
     android:label="@string/app_name"
     android:icon="@mipmap/ic_launcher"
     android:theme="@style/AppTheme">

@@ -33,6 +33,28 @@ body:
         - label: Android
     validations:
       required: true
+  - type: input
+    id: device-info
+    attributes:
+      label: Device Manufacturer(s) and Model(s)
+      description: What is the device model(s) and manufacturer(s)
+      placeholder: eg Google Pixel 6, iPhone 13 Pro
+    validations:
+      required: true
+  - type: input
+    id: device-os
+    attributes:
+      label: Device operating-systems(s)
+      description: Affected device operating system
+      placeholder: eg iOS 18.1, Android 13
+    validations:
+      required: true
+  - type: input
+    id: framework-version
+    attributes:
+      label: React Native / Expo version
+      description: What version React Native / Expo are you using
+      placeholder: "eg: 0.76.6, Expo 52 (consult your package.json)"
   - type: textarea
     id: what-happened
     attributes:

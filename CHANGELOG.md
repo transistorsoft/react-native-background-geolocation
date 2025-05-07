@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.18.7 &mdash; 2025-05-07
+* For `Config.authorization`, add `id_token` as an accepted synonym for "`access_token`" received from authorization server (Google Cloud format).
+
 ## 4.18.6 &mdash; 2025-02-20
 * [iOS] Fix `ProviderChangeEvent.enabled` not showing the result of global *Privacy -> Location Services -> Enabled* switch
 

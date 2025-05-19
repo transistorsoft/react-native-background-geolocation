@@ -1,6 +1,7 @@
 # Change Log
 
-## 4.18.7 &mdash; 2025-05-07
+## 4.18.7 &mdash; 2025-05-19
+* [Android] Fix `java.util.ConcurrentModificationException at com.transistorsoft.locationmanager.location.SingleLocationRequest.getBestLocation`.
 * For `Config.authorization`, add `id_token` as an accepted synonym for "`access_token`" received from authorization server (Google Cloud format).
 
 ## 4.18.6 &mdash; 2025-02-20

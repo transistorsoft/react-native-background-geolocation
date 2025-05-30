@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.18.7 &mdash; 2025-05-30
+* [Android][Expo] Expo plugin renders the `app.gradle` line in `android/app/build.gradle` rendered in wrong position (within `android { } block -- should be *outside and before* `android {}` block).
+* [Android] Support 16KB page sizes
+* [Android] Fix `java.util.ConcurrentModificationException at com.transistorsoft.locationmanager.location.SingleLocationRequest.getBestLocation`.
+* For `Config.authorization`, add `id_token` as an accepted synonym for "`access_token`" received from authorization server (Google Cloud format).
+
 ## 4.18.6 &mdash; 2025-02-20
 * [iOS] Fix `ProviderChangeEvent.enabled` not showing the result of global *Privacy -> Location Services -> Enabled* switch
 

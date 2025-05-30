@@ -143,7 +143,7 @@ const applyAppGradle = (buildGradle:string) => {
     src: buildGradle,
     newSrc: newSrc.join("\n"),
     anchor: /android\s\{/,
-    offset: 1,
+    offset: -1,
     comment: "//",
   }).contents;
 

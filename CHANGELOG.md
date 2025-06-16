@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.18.8 &mdash; 2025-06-16
+* [Android] Fix issue with polygon geofencing where `identifier` consists of long strings, such as `aaaa-bbbb-cccccccc-dddd-eeeee
+eeeeeee`.
+* [Android] Fix edge-case where polygons can fail to fire after the containing geofence is exited.  This could happen if the containing geofence was exited without trigger an onMotionChange event.
+* [iOS] Fix edge-case where polygon could fail to fire EXIT event after launching from terminated state when the containing geofence is exit causes background app restart.
+
 ## 4.18.7 &mdash; 2025-05-30
 * [Android][Expo] Expo plugin renders the `app.gradle` line in `android/app/build.gradle` rendered in wrong position (within `android { } block -- should be *outside and before* `android {}` block).
 * [Android] Support 16KB page sizes

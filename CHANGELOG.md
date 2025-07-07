@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.18.9 &mdash; 2025-07-07
+* [Android] Implement behaviour for `locationAuthorizationRequest: "Any"` to not continue showing `backgroundPermissionRationale` after user clicks `[CANCEL]` button.
+* [Android] Rebuild `tslocationmanager` with AGP >= 8.5.1 (16KB page size support)
+
 ## 4.18.8 &mdash; 2025-06-16
 * [Android] Fix issue with polygon geofencing where `identifier` consists of long strings, such as `aaaa-bbbb-cccccccc-dddd-eeeee
 eeeeeee`.

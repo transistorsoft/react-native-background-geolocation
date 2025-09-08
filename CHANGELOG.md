@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.19.0 &mdash; 2025-09-08
+* [Android] Drop Huawei HMS support for failure to provide *Android 16KB Page support* in their SDKs.
+
 ## 4.18.9 &mdash; 2025-07-07
 * [Android] Implement behaviour for `locationAuthorizationRequest: "Any"` to not continue showing `backgroundPermissionRationale` after user clicks `[CANCEL]` button.
 * [Android] Rebuild `tslocationmanager` with AGP >= 8.5.1 (16KB page size support)

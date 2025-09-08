@@ -55,7 +55,6 @@ allprojects {   // <-- NOTE:  allprojects container -- If you don't see this, cr
         .
 +       // Required for react-native-background-geolocation
 +       maven { url("${project(':react-native-background-geolocation').projectDir}/libs") }
-+       maven { url 'https://developer.huawei.com/repo/' }
 +       // Required for react-native-background-fetch
 +       maven { url("${project(':react-native-background-fetch').projectDir}/libs") }
     }
@@ -141,8 +140,12 @@ android {
 
 ### Huawei Mobile Services (HMS) Support
 
+:warning: Huawei HMS support ended in `v4.19.0` since they failed to release their SDKs with *Android 16KB page size* support.
+
+<!--
 > [!NOTE]
 > If you've [purchased an *HMS Background Geolocation* License](https://shop.transistorsoft.com/collections/frontpage/products/huawei-background-geolocation) for installing the plugin on _Huawei_ devices without *Google Play Services* installed, add your *HMS Background Geolocation* license key:
+-->
 
 ```diff
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -159,25 +162,6 @@ android {
   </application>
 </manifest>
 ```
-> [!WARNING]
-> Huawei HMS support requires `react-native-background-geolocation >= 3.11.0`.
-
-## `AlarmManager` "Exact Alarms" (optional)
-
-The plugin uses __`AlarmManager`__ "exact alarms" for precise scheduling of events (eg: __`Config.stopTimeout`__, __`Config.motionTriggerDelay`__, __`Config.schedule`__).  *Android 14 (SDK 34)*, has restricted usage of ["`AlarmManager` exact alarms"](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms).  To continue using precise timing of events with *Android 14*, you can manually add this permission to your __`AndroidManifest`__.  Otherwise, the plugin will gracefully fall-back to "*in-exact* `AlarmManager` scheduling".  For more information about Android's __`AlarmManager`__, see the [Android API Docs](https://developer.android.com/training/scheduling/alarms).
-
-:open_file_folder: In your __`AndroidManifest`__, add the following permission (**exactly as-shown**):
-
-```xml
-  <manifest>
-      <uses-permission android:minSdkVersion="34" android:name="android.permission.USE_EXACT_ALARM" />
-      .
-      .
-      .
-  </manifest>
-```
-> [!WARNING]
-> It has been announced that *Google Play Store* [has plans to impose greater scrutiny](https://support.google.com/googleplay/android-developer/answer/13161072?sjid=3640341614632608469-NA) over usage of this permission (which is why the plugin does not automatically add it).
 
 ## [Configure `react-native-background-fetch`](https://github.com/transistorsoft/react-native-background-fetch/blob/master/docs/INSTALL-AUTO-IOS.md#configure-background-capabilities)
 

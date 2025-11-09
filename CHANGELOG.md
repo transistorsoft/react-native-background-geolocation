@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.19.1 &mdash; 2025-11-08
+* [Android] pin `tslocationmanager` at `3.+` in preparation for next release..
+
 ## 4.19.0 &mdash; 2025-09-08
 * [Android] Drop Huawei HMS support for failure to provide *Android 16KB Page support* in their SDKs.
 

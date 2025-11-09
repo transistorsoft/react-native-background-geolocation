@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.19.2 &mdash; 2025-11-09
+* [Android] re-build Expo plugin
+
 ## 4.19.1 &mdash; 2025-11-08
 * [Android] pin `tslocationmanager` at `3.+` in preparation for next release..
 

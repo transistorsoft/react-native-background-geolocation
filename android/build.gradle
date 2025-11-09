@@ -75,9 +75,9 @@ dependencies {
 
     def locationMajorVersion = playServicesLocationVersion.split('\\.')[0] as int
     if (locationMajorVersion >= 21) {
-        api(group: 'com.transistorsoft', name:'tslocationmanager-v21', version: '+')
+        api(group: 'com.transistorsoft', name:'tslocationmanager-v21', version: '3.+')
     } else {
-        api(group: 'com.transistorsoft', name:'tslocationmanager', version: '+')
+        api(group: 'com.transistorsoft', name:'tslocationmanager', version: '3.+')
     }
     
     implementation "androidx.appcompat:appcompat:$appCompatVersion"

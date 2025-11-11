@@ -6,6 +6,7 @@ import com.facebook.react.bridge.WritableNativeMap;
 import org.greenrobot.eventbus.Subscribe;
 
 import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
+import com.transistorsoft.locationmanager.event.EventName;
 import com.transistorsoft.locationmanager.event.FinishHeadlessTaskEvent;
 import com.transistorsoft.locationmanager.event.HeadlessEvent;
 import com.transistorsoft.locationmanager.logger.TSLog;
@@ -40,41 +41,41 @@ public class HeadlessTask {
         JSONObject params = null;
         clientEvent.putString("name", name);
 
-        if (name.equals(BackgroundGeolocation.EVENT_TERMINATE)) {
+        if (name.equals(EventName.TERMINATE)) {
             params = event.getTerminateEvent();
-        } else if (name.equals(BackgroundGeolocation.EVENT_LOCATION)) {
+        } else if (name.equals(EventName.LOCATION)) {
             try {
                 params = event.getLocationEvent().toJson();
             } catch (JSONException e) {
                 TSLog.logger.error(e.getMessage(), e);
             }
-        } else if (name.equals(BackgroundGeolocation.EVENT_MOTIONCHANGE)) {
+        } else if (name.equals(EventName.MOTIONCHANGE)) {
             params = event.getMotionChangeEvent().toJson();
-        } else if (name.equals(BackgroundGeolocation.EVENT_HTTP)) {
+        } else if (name.equals(EventName.HTTP)) {
             params = event.getHttpEvent().toJson();
-        } else if (name.equals(BackgroundGeolocation.EVENT_PROVIDERCHANGE)) {
+        } else if (name.equals(EventName.PROVIDERCHANGE)) {
             params = event.getProviderChangeEvent().toJson();
-        } else if (name.equals(BackgroundGeolocation.EVENT_ACTIVITYCHANGE)) {
+        } else if (name.equals(EventName.ACTIVITYCHANGE)) {
             params = event.getActivityChangeEvent().toJson();
-        } else if (name.equals(BackgroundGeolocation.EVENT_SCHEDULE)) {
+        } else if (name.equals(EventName.SCHEDULE)) {
             params = event.getScheduleEvent();
-        } else if (name.equals(BackgroundGeolocation.EVENT_BOOT)) {
+        } else if (name.equals(EventName.BOOT)) {
             params = event.getBootEvent();
-        } else if (name.equals(BackgroundGeolocation.EVENT_GEOFENCE)) {
+        } else if (name.equals(EventName.GEOFENCE)) {
             params = event.getGeofenceEvent().toJson();
-        } else if (name.equals(BackgroundGeolocation.EVENT_GEOFENCESCHANGE)) {
+        } else if (name.equals(EventName.GEOFENCESCHANGE)) {
             params = event.getGeofencesChangeEvent().toJson();
-        } else if (name.equals(BackgroundGeolocation.EVENT_HEARTBEAT)) {
+        } else if (name.equals(EventName.HEARTBEAT)) {
             params = event.getHeartbeatEvent().toJson();
-        } else if (name.equals(BackgroundGeolocation.EVENT_POWERSAVECHANGE)) {
+        } else if (name.equals(EventName.POWERSAVECHANGE)) {
             clientEvent.putBoolean("params", event.getPowerSaveChangeEvent().isPowerSaveMode());
-        } else if (name.equals(BackgroundGeolocation.EVENT_CONNECTIVITYCHANGE)) {
+        } else if (name.equals(EventName.CONNECTIVITYCHANGE)) {
             params = event.getConnectivityChangeEvent().toJson();
-        } else if (name.equals(BackgroundGeolocation.EVENT_ENABLEDCHANGE)) {
+        } else if (name.equals(EventName.ENABLEDCHANGE)) {
             clientEvent.putBoolean("params", event.getEnabledChangeEvent());
-        } else if (name.equals(BackgroundGeolocation.EVENT_NOTIFICATIONACTION)) {
+        } else if (name.equals(EventName.NOTIFICATIONACTION)) {
             clientEvent.putString("params", event.getNotificationEvent());
-        } else if (name.equals(BackgroundGeolocation.EVENT_AUTHORIZATION)) {
+        } else if (name.equals(EventName.AUTHORIZATION)) {
             params = event.getAuthorizationEvent().toJson();
         } else {
             TSLog.logger.warn(TSLog.warn("Unknown Headless Event: " + name));

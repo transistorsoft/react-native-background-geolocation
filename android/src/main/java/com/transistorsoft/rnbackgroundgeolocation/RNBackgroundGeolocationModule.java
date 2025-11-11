@@ -4,8 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.os.Build;
+import android.util.Log;
 
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.Callback;
@@ -28,16 +28,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.transistorsoft.locationmanager.config.TSConfig;
+import com.transistorsoft.locationmanager.config.edit.Editor;
+import com.transistorsoft.locationmanager.event.EventName;
 import com.transistorsoft.locationmanager.event.FinishHeadlessTaskEvent;
 import com.transistorsoft.locationmanager.event.HeadlessEvent;
 import com.google.android.gms.common.GoogleApiAvailability;
 
 import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
-import com.transistorsoft.locationmanager.adapter.TSConfig;
+
 import com.transistorsoft.locationmanager.adapter.callback.*;
-import com.transistorsoft.locationmanager.config.TransistorAuthorizationToken;
-import com.transistorsoft.locationmanager.config.TSAuthorization;
+
 import com.transistorsoft.locationmanager.data.LocationModel;
+
 import com.transistorsoft.locationmanager.data.SQLQuery;
 import com.transistorsoft.locationmanager.device.DeviceInfo;
 import com.transistorsoft.locationmanager.event.ActivityChangeEvent;
@@ -46,10 +49,13 @@ import com.transistorsoft.locationmanager.event.ConnectivityChangeEvent;
 import com.transistorsoft.locationmanager.event.GeofenceEvent;
 import com.transistorsoft.locationmanager.event.GeofencesChangeEvent;
 import com.transistorsoft.locationmanager.event.HeartbeatEvent;
+import com.transistorsoft.locationmanager.event.LocationEvent;
 import com.transistorsoft.locationmanager.event.LocationProviderChangeEvent;
 import com.transistorsoft.locationmanager.geofence.TSGeofence;
 import com.transistorsoft.locationmanager.http.HttpResponse;
 import com.transistorsoft.locationmanager.http.HttpService;
+import com.transistorsoft.locationmanager.http.TSAuthorization;
+import com.transistorsoft.locationmanager.http.TransistorAuthorizationToken;
 import com.transistorsoft.locationmanager.location.TSCurrentPositionRequest;
 import com.transistorsoft.locationmanager.location.TSLocation;
 import com.transistorsoft.locationmanager.location.TSWatchPositionRequest;
@@ -97,26 +103,26 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         reactContext.addLifecycleEventListener(this);
 
         TSConfig config = TSConfig.getInstance(getReactApplicationContext());
-        config.useCLLocationAccuracy(true);
-
-        config.updateWithBuilder()
-                .setHeadlessJobService(getClass().getPackage().getName() + "." + JOB_SERVICE_CLASS)
-                .commit();
+        config.setUseCLLocationAccuracy(true);
+        Editor ed = config.edit();
+        //ed.geo().setUseCLLocationAccuracy(true);
+        ed.app().setHeadlessJobService(getClass().getPackage().getName() + "." + JOB_SERVICE_CLASS);
+        ed.commit();
 
         // These are the only events which can be subscribed to.
-        mEvents.add(BackgroundGeolocation.EVENT_LOCATION);
-        mEvents.add(BackgroundGeolocation.EVENT_MOTIONCHANGE);
-        mEvents.add(BackgroundGeolocation.EVENT_ACTIVITYCHANGE);
-        mEvents.add(BackgroundGeolocation.EVENT_PROVIDERCHANGE);
-        mEvents.add(BackgroundGeolocation.EVENT_GEOFENCESCHANGE);
-        mEvents.add(BackgroundGeolocation.EVENT_GEOFENCE);
-        mEvents.add(BackgroundGeolocation.EVENT_HEARTBEAT);
-        mEvents.add(BackgroundGeolocation.EVENT_HTTP);
-        mEvents.add(BackgroundGeolocation.EVENT_SCHEDULE);
-        mEvents.add(BackgroundGeolocation.EVENT_POWERSAVECHANGE);
-        mEvents.add(BackgroundGeolocation.EVENT_CONNECTIVITYCHANGE);
-        mEvents.add(BackgroundGeolocation.EVENT_ENABLEDCHANGE);
-        mEvents.add(BackgroundGeolocation.EVENT_NOTIFICATIONACTION);
+        mEvents.add(EventName.LOCATION);
+        mEvents.add(EventName.MOTIONCHANGE);
+        mEvents.add(EventName.ACTIVITYCHANGE);
+        mEvents.add(EventName.PROVIDERCHANGE);
+        mEvents.add(EventName.GEOFENCESCHANGE);
+        mEvents.add(EventName.GEOFENCE);
+        mEvents.add(EventName.HEARTBEAT);
+        mEvents.add(EventName.HTTP);
+        mEvents.add(EventName.SCHEDULE);
+        mEvents.add(EventName.POWERSAVECHANGE);
+        mEvents.add(EventName.CONNECTIVITYCHANGE);
+        mEvents.add(EventName.ENABLEDCHANGE);
+        mEvents.add(EventName.NOTIFICATIONACTION);
         mEvents.add(TSAuthorization.NAME);
     }
 
@@ -151,13 +157,15 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
      * location event callback
      */
     private class LocationCallback implements TSLocationCallback {
-        @Override public void onLocation(TSLocation location) {
+        @Override
+        public void onLocation(LocationEvent locationEvent) {
             try {
-                sendEvent(BackgroundGeolocation.EVENT_LOCATION, jsonToMap(location.toJson()));
+                sendEvent(EventName.LOCATION, jsonToMap(locationEvent.toJson()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+
         @Override public void onError(Integer error) {
             onLocationError(error);
         }
@@ -167,16 +175,18 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
      * motionchange event callback
      */
     private class MotionChangeCallback implements TSLocationCallback {
-        @Override public void onLocation(TSLocation location) {
+        @Override
+        public void onLocation(LocationEvent locationEvent) {
             WritableMap params = new WritableNativeMap();
-            params.putBoolean("isMoving", location.getIsMoving());
+            params.putBoolean("isMoving", locationEvent.isMoving());
             try {
-                params.putMap("location", jsonToMap(location.toJson()));
-                sendEvent(BackgroundGeolocation.EVENT_MOTIONCHANGE, params);
+                params.putMap("location", jsonToMap(locationEvent.toJson()));
+                sendEvent(EventName.MOTIONCHANGE, params);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+
         @Override public void onError(Integer error) {
             onLocationError(error);
         }
@@ -188,7 +198,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     private class ActivityChangeCallback implements TSActivityChangeCallback {
         @Override public void onActivityChange(ActivityChangeEvent event) {
             try {
-                sendEvent(BackgroundGeolocation.EVENT_ACTIVITYCHANGE, jsonToMap(event.toJson()));
+                sendEvent(EventName.ACTIVITYCHANGE, jsonToMap(event.toJson()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -206,7 +216,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             params.putBoolean("enabled", event.isEnabled());
             params.putInt("accuracyAuthorization", event.getAccuracyAuthorization());
             params.putInt("status", event.getStatus());
-            sendEvent(BackgroundGeolocation.EVENT_PROVIDERCHANGE, params);
+            sendEvent(EventName.PROVIDERCHANGE, params);
         }
     }
 
@@ -217,7 +227,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         @Override public void onConnectivityChange(ConnectivityChangeEvent event) {
             WritableMap params = new WritableNativeMap();
             params.putBoolean("connected", event.hasConnection());
-            sendEvent(BackgroundGeolocation.EVENT_CONNECTIVITYCHANGE, params);
+            sendEvent(EventName.CONNECTIVITYCHANGE, params);
         }
     }
     /**
@@ -225,7 +235,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
      */
     private class EnabledChangeCallback implements TSEnabledChangeCallback {
         @Override public void onEnabledChange(boolean enabled) {
-            sendEvent(BackgroundGeolocation.EVENT_ENABLEDCHANGE, enabled);
+            sendEvent(EventName.ENABLEDCHANGE, enabled);
         }
     }
     /**
@@ -233,7 +243,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
      */
     private class NotificationActionCallback implements TSNotificationActionCallback {
         @Override public void onClick(String buttonId) {
-            sendEvent(BackgroundGeolocation.EVENT_NOTIFICATIONACTION, buttonId);
+            sendEvent(EventName.NOTIFICATIONACTION, buttonId);
         }
     }
     /**
@@ -246,7 +256,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                 WritableMap params = new WritableNativeMap();
                 WritableArray on = new WritableNativeArray();
                 WritableArray off = new WritableNativeArray();
-                sendEvent(BackgroundGeolocation.EVENT_GEOFENCESCHANGE, jsonToMap(event.toJson()));
+                sendEvent(EventName.GEOFENCESCHANGE, jsonToMap(event.toJson()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -259,7 +269,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     private class GeofenceCallback implements TSGeofenceCallback {
         @Override public void onGeofence(GeofenceEvent event) {
             try {
-                sendEvent(BackgroundGeolocation.EVENT_GEOFENCE, jsonToMap(event.toJson()));
+                sendEvent(EventName.GEOFENCE, jsonToMap(event.toJson()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -272,7 +282,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     private class HeartbeatCallback implements TSHeartbeatCallback {
         @Override public void onHeartbeat(HeartbeatEvent event) {
             try {
-                sendEvent(BackgroundGeolocation.EVENT_HEARTBEAT, jsonToMap(event.toJson()));
+                sendEvent(EventName.HEARTBEAT, jsonToMap(event.toJson()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -288,7 +298,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             params.putBoolean("success", response.isSuccess());
             params.putInt("status", response.status);
             params.putString("responseText", response.responseText);
-            sendEvent(BackgroundGeolocation.EVENT_HTTP, params);
+            sendEvent(EventName.HTTP, params);
         }
     }
 
@@ -298,7 +308,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     private class ScheduleCallback implements TSScheduleCallback {
         @Override public void onSchedule(ScheduleEvent event) {
             try {
-                sendEvent(BackgroundGeolocation.EVENT_SCHEDULE, jsonToMap(event.getState()));
+                sendEvent(EventName.SCHEDULE, jsonToMap(event.getState()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -310,7 +320,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     */
     private class PowerSaveChangeCallack implements TSPowerSaveChangeCallback {
         @Override public void onPowerSaveChange(Boolean isPowerSaveMode) {
-            sendEvent(BackgroundGeolocation.EVENT_POWERSAVECHANGE, isPowerSaveMode);
+            sendEvent(EventName.POWERSAVECHANGE, isPowerSaveMode);
         }
     }
 
@@ -379,12 +389,14 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             reset = params.getBoolean("reset");
         }
 
+        //Log.i(BackgroundGeolocation.TAG, "*********** CONFIG");
+
         if (mReady) {
             if (reset) {
-                TSLog.logger.warn(TSLog.warn("#ready already called.  Redirecting to #setConfig"));
+                TSLog.w(TSLog.warn("#ready already called.  Redirecting to #setConfig"));
                 setConfig(params, success, failure);
             } else {
-                TSLog.logger.warn(TSLog.warn("#ready already called.  Ignored config since reset: false"));
+                TSLog.w(TSLog.warn("#ready already called.  Ignored config since reset: false"));
                 success.invoke(getState());
             }
             return;
@@ -405,9 +417,9 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                     // Have to be careful with expires:  ReadadbleMap#toHashMap converts it to Double.
                     options.put(TSAuthorization.FIELD_EXPIRES, readableMap.getInt(TSAuthorization.FIELD_EXPIRES));
 
-                    config.updateWithBuilder()
-                            .setAuthorization(new TSAuthorization(options))
-                            .commit();
+                    Editor ed = config.edit();
+                    ed.auth().setAuthorization(options);
+                    ed.commit();
                 }
             }
         }
@@ -595,9 +607,9 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         TSCurrentPositionRequest.Builder builder = new TSCurrentPositionRequest.Builder(getReactApplicationContext());
 
         builder.setCallback(new TSLocationCallback() {
-            @Override public void onLocation(TSLocation tsLocation) {
+            @Override public void onLocation(LocationEvent event) {
                 try {
-                    success.invoke(jsonToMap(tsLocation.toJson()));
+                    success.invoke(jsonToMap(event.toJson()));
                 } catch (JSONException e) {
                     failure.invoke(e.getMessage());
                 }
@@ -621,9 +633,9 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         TSWatchPositionRequest.Builder builder = new TSWatchPositionRequest.Builder(getReactApplicationContext());
 
         builder.setCallback(new TSLocationCallback() {
-            @Override public void onLocation(TSLocation tsLocation) {
+            @Override public void onLocation(LocationEvent event) {
                 try {
-                    sendEvent(EVENT_WATCHPOSITION, jsonToMap(tsLocation.toJson()));
+                    sendEvent(EVENT_WATCHPOSITION, jsonToMap(event.toJson()));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -657,11 +669,11 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         success.invoke(getAdapter().getOdometer());
     }
     @ReactMethod
-    public void setOdometer(Float value, final Callback success, final Callback failure) {
+    public void setOdometer(Double value, final Callback success, final Callback failure) {
         getAdapter().setOdometer(value, new TSLocationCallback() {
-            @Override public void onLocation(TSLocation location) {
+            @Override public void onLocation(LocationEvent event) {
                 try {
-                    success.invoke(jsonToMap(location.toJson()));
+                    success.invoke(jsonToMap(event.toJson()));
                 } catch (JSONException e) {
                     failure.invoke(e.getMessage());
                 }
@@ -838,7 +850,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             // This shouldn't happen.  In order for this method to even be called, it MUST have been executed from within the consumer's
             // registered HeadlessTask.  In order for that headless-task to have even be called, HeadlessEvent MUST have been registered with EventBus.
             String message = "finishHeadlessTask failed to find an EventBus subscriber for HeadlessEvent";
-            TSLog.error(TSLog.warn(message));
+            TSLog.e(TSLog.warn(message));
             failure.invoke(message);
             return;
         }
@@ -1062,7 +1074,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     private void onLocationError(Integer code) {
         WritableMap params = new WritableNativeMap();
         params.putInt("error", code);
-        sendEvent(BackgroundGeolocation.EVENT_LOCATION, params);
+        sendEvent(EventName.LOCATION, params);
     }
 
     private void handlePlayServicesConnectError(Integer errorCode) {
@@ -1228,7 +1240,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
 
     private WritableMap getState() {
         try {
-            return jsonToMap(TSConfig.getInstance(getReactApplicationContext()).toJson());
+            return jsonToMap(TSConfig.getInstance(getReactApplicationContext()).toJson(false));
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

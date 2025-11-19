@@ -64,6 +64,9 @@ rm -rf "docs/$TARGET_DIR"
 mkdir -p "docs/$TARGET_DIR"
 cp -R "$TMP_DIR/"* "docs/$TARGET_DIR/"
 
+# Disable Jekyll on GitHub Pages
+touch docs/.nojekyll
+
 # Ensure root redirect exists (only create if missing)
 if [[ ! -f docs/index.html ]]; then
   echo "➡️  Creating docs/index.html redirect to /latest/..."

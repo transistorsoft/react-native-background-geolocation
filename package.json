@@ -6,7 +6,8 @@
     "build": "yarn run build:expo",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:expo": "rimraf expo/plugin/build && tsc --build ./expo/plugin",
-    "docs": "node ./scripts/generate-docs.mjs"
+    "docs": "node ./scripts/generate-docs.mjs",
+    "docs:publish": "./scripts/publish-docs.sh"
   },
   "main": "src/index.js",
   "repository": {

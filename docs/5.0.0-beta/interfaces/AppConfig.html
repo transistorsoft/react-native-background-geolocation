@@ -1,0 +1,312 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>AppConfig | react-native-background-geolocation@4.19.0</title><link rel="icon" href="../assets/favicon.ico"/><meta name="description" content="Documentation for react-native-background-geolocation@4.19.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="../index.html" class="title">react-native-background-geolocation@4.19.0</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb" aria-label="Breadcrumb"><li><a href="" aria-current="page">AppConfig</a></li></ul><h1>Interface AppConfig</h1></div><section class="tsd-panel tsd-comment"><div class="tsd-comment tsd-typography"><p>Application &amp; lifecycle configuration.</p>
+<p><code>AppConfig</code> groups options that control how the SDK integrates with your app’s
+lifecycle: start/stop behavior on terminate and reboot, headless/background
+behavior, periodic heartbeats, scheduler windows, foreground notifications, and
+the Android background-permission rationale dialog.</p>
+<p>Use this class via <a href="Config.html#app" class="tsd-kind-property">Config.app</a>.</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">stopOnTerminate:</span><span class="hl-1"> </span><span class="hl-4">false</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">startOnBoot:</span><span class="hl-1"> </span><span class="hl-4">true</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>What belongs in <code>AppConfig</code>?</strong></p>
+<ul>
+<li>Whether tracking <strong>stops on app terminate</strong>: see <a href="#stoponterminate" class="tsd-kind-property">AppConfig.stopOnTerminate</a>.</li>
+<li>Whether tracking <strong>starts after device reboot</strong>: see <a href="#startonboot" class="tsd-kind-property">AppConfig.startOnBoot</a>.</li>
+<li>Android <strong>headless</strong> mode: see <a href="#enableheadless" class="tsd-kind-property">AppConfig.enableHeadless</a>.</li>
+<li>Periodic <strong>heartbeat</strong> callback: see <a href="#heartbeatinterval" class="tsd-kind-property">AppConfig.heartbeatInterval</a>.</li>
+<li><strong>Scheduler</strong> windows for automated start/stop: see <a href="#schedule" class="tsd-kind-property">AppConfig.schedule</a> and <a href="#scheduleusealarmmanager" class="tsd-kind-property">AppConfig.scheduleUseAlarmManager</a>.</li>
+<li>Foreground-service <strong>notification</strong> options (Android): see <a href="#notification" class="tsd-kind-property">AppConfig.notification</a>.</li>
+<li>Background-permission <strong>rationale</strong> for Android 10+: see <a href="#backgroundpermissionrationale" class="tsd-kind-property">AppConfig.backgroundPermissionRationale</a>.</li>
+<li>iOS background <strong>preventSuspend</strong> flag for heartbeat support: see <a href="#preventsuspend" class="tsd-kind-property">AppConfig.preventSuspend</a>.</li>
+</ul>
+<p><strong>Platform notes</strong></p>
+<p><strong>iOS</strong></p>
+<ul>
+<li>With <a href="#stoponterminate" class="tsd-kind-property">AppConfig.stopOnTerminate</a> set to <code>false</code>, the SDK creates a <em>stationary geofence</em> and iOS will relaunch
+your app in the background when the device exits that region.</li>
+<li><a href="#preventsuspend" class="tsd-kind-property">AppConfig.preventSuspend</a> is required for heartbeat events and consumes additional battery — use with caution.</li>
+</ul>
+<p><strong>Android</strong></p>
+<ul>
+<li>With <a href="#enableheadless" class="tsd-kind-property">AppConfig.enableHeadless</a> set to <code>true</code>, the native background-service continues working even after the
+JS/UI process is killed. Pair this with <a href="HttpConfig.html#url" class="tsd-kind-property">HttpConfig.url</a> to ensure continuous uploads.</li>
+<li>The <strong>scheduler</strong> uses Android’s <code>AlarmManager</code> by default; control this with <a href="#scheduleusealarmmanager" class="tsd-kind-property">AppConfig.scheduleUseAlarmManager</a>.</li>
+</ul>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example">Example<a href="#example" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>Configure once at startup:</p>
+<pre><code class="ts"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">, {</span><br/><span class="hl-1">  </span><span class="hl-0">type</span><span class="hl-1"> </span><span class="hl-2">Config</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-0">type</span><span class="hl-1"> </span><span class="hl-2">AppConfig</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">PermissionRationale</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">Notification</span><br/><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;react-native-background-geolocation&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">config</span><span class="hl-1">: </span><span class="hl-6">Config</span><span class="hl-1"> = {</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">stopOnTerminate:</span><span class="hl-1"> </span><span class="hl-4">false</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">startOnBoot:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">enableHeadless:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">heartbeatInterval:</span><span class="hl-1"> </span><span class="hl-7">60</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">backgroundPermissionRationale:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">title:</span><span class="hl-1"> </span><span class="hl-3">&quot;Allow MyApp to access this device&#39;s location even when closed.&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">message:</span><span class="hl-1"> </span><span class="hl-3">&quot;This app collects location data to record your trips and mileage.&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">positiveAction:</span><span class="hl-1"> </span><span class="hl-3">&#39;Change to &quot;{backgroundPermissionOptionLabel}&quot;&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">negativeAction:</span><span class="hl-1"> </span><span class="hl-3">&#39;Cancel&#39;</span><br/><span class="hl-1">    },</span><br/><span class="hl-1">    </span><span class="hl-2">notification:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">title:</span><span class="hl-1"> </span><span class="hl-3">&#39;Background Geolocation&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">text:</span><span class="hl-1"> </span><span class="hl-3">&#39;Tracking location&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">smallIcon:</span><span class="hl-1"> </span><span class="hl-3">&#39;mipmap/ic_launcher&#39;</span><br/><span class="hl-1">    },</span><br/><span class="hl-1">    </span><span class="hl-2">schedule:</span><span class="hl-1"> [</span><span class="hl-3">&#39;1-5 09:00-17:00&#39;</span><span class="hl-1">], </span><span class="hl-9">// Weekdays 9–5</span><br/><span class="hl-1">    </span><span class="hl-2">scheduleUseAlarmManager:</span><span class="hl-1"> </span><span class="hl-4">true</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">};</span><br/><br/><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">(</span><span class="hl-2">config</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Update later at runtime:</p>
+<pre><code class="ts"><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">setConfig</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">heartbeatInterval:</span><span class="hl-1"> </span><span class="hl-7">120</span><span class="hl-1"> </span><span class="hl-9">// slow down heartbeats</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Migration from legacy <code>Config</code> properties</strong></p>
+<p>The following legacy properties are <strong>deprecated</strong> on <a href="Config.html" class="tsd-kind-interface">Config</a> and should now
+be supplied via <code>Config.app</code>:</p>
+<ul>
+<li><code>Config.stopOnTerminate</code></li>
+<li><code>Config.startOnBoot</code></li>
+<li><code>Config.enableHeadless</code></li>
+<li><code>Config.heartbeatInterval</code></li>
+<li><code>Config.schedule</code></li>
+<li><code>Config.scheduleUseAlarmManager</code></li>
+<li><code>Config.notification</code></li>
+<li><code>Config.backgroundPermissionRationale</code></li>
+<li><code>Config.preventSuspend</code></li>
+</ul>
+</div></div></section><div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">AppConfig</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#stoponterminate">stopOnTerminate</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#startonboot">startOnBoot</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#enableheadless">enableHeadless</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#heartbeatinterval">heartbeatInterval</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#schedule">schedule</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#scheduleusealarmmanager">scheduleUseAlarmManager</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#notification">notification</a><span class="tsd-signature-symbol">?:</span> <a href="NotificationConfig.html" class="tsd-signature-type tsd-kind-interface">NotificationConfig</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#backgroundpermissionrationale">backgroundPermissionRationale</a><span class="tsd-signature-symbol">?:</span> <a href="PermissionRationale.html" class="tsd-signature-type tsd-kind-interface">PermissionRationale</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#preventsuspend">preventSuspend</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><section class="tsd-panel-group tsd-index-group"><section class="tsd-panel tsd-index-panel"><details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h5 class="tsd-index-heading uppercase">Index</h5></summary><div class="tsd-accordion-details"><section class="tsd-index-section"><h3 class="tsd-index-heading">Properties</h3><div class="tsd-index-list"><a href="#stoponterminate" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stop<wbr/>On<wbr/>Terminate?</span></a>
+<a href="#startonboot" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>start<wbr/>On<wbr/>Boot?</span></a>
+<a href="#enableheadless" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>enable<wbr/>Headless?</span></a>
+<a href="#heartbeatinterval" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>heartbeat<wbr/>Interval?</span></a>
+<a href="#schedule" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>schedule?</span></a>
+<a href="#scheduleusealarmmanager" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>schedule<wbr/>Use<wbr/>Alarm<wbr/>Manager?</span></a>
+<a href="#notification" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>notification?</span></a>
+<a href="#backgroundpermissionrationale" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>background<wbr/>Permission<wbr/>Rationale?</span></a>
+<a href="#preventsuspend" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>prevent<wbr/>Suspend?</span></a>
+</div></section></div></details></section></section><details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h2>Properties</h2></summary><section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="stoponterminate"><code class="tsd-tag">Optional</code><span>stop<wbr/>On<wbr/>Terminate</span><a href="#stoponterminate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">stopOnTerminate</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Controls whether to continue location-tracking after the application is <strong>terminated</strong>.</p>
+<p>Defaults to <strong><code>true</code></strong>.<br>
+When the user terminates the app, the plugin will call <a href="BackgroundGeolocation.html#stop" class="tsd-kind-method">stop()</a>,
+ending tracking.<br>
+Set <a href="#stoponterminate" class="tsd-kind-property">AppConfig.stopOnTerminate</a> to <strong><code>false</code></strong> to continue tracking after the app is terminated.</p>
+<p>If you <em>do</em> configure <strong><code>stopOnTerminate: false</code></strong>, your application <strong>will</strong> terminate immediately when the user swipes it away.<br>
+However, Android and iOS behave very differently <em>after</em> termination:</p>
+<p><strong>iOS</strong></p>
+<p>Before an iOS app terminates, the SDK creates a <strong>stationary geofence</strong> of
+<a href="GeoConfig.html#stationaryradius" class="tsd-kind-property">GeoConfig.stationaryRadius</a> meters around the last known position.<br>
+When the user moves beyond this stationary geofence (typically ~200 meters), iOS will<br>
+<strong>fully relaunch your application in the background</strong>, and tracking will automatically resume.</p>
+<p>This works even after device reboot because geofences are monitored entirely by iOS at the OS level.</p>
+<p>In the illustration below, imagine the user terminated the application at the <strong>red circle</strong> on the right.<br>
+As soon as the device moves <strong>~200 meters</strong>, exiting the stationary geofence, iOS re-launches the app
+and the SDK resumes tracking.</p>
+<p>ℹ️ <em>Demo video:</em><br>
+<a href="https://www.youtube.com/watch?v=aR6r8qV1TI8&amp;t=214s">https://www.youtube.com/watch?v=aR6r8qV1TI8&amp;t=214s</a></p>
+<p><img src="https://dl.dropboxusercontent.com/s/1uip231l3gds68z/screenshot-stopOnTerminate-ios.png?dl=0" alt=""></p>
+<p><strong>Android</strong></p>
+<p>Unlike iOS, Android does <strong>not</strong> pause tracking when the user terminates the app.<br>
+The native background service continues running <strong>headlessly</strong>, even without the JS/UI process.</p>
+<p>If relying on headless mode, you must configure <a href="HttpConfig.html#url" class="tsd-kind-property">HttpConfig.url</a> so that the background service
+can continue posting locations to your server.</p>
+<p><strong>See also</strong></p>
+<ul>
+<li><a href="#enableheadless" class="tsd-kind-property">AppConfig.enableHeadless</a></li>
+<li><a href="github:wiki/Android-Headless-Mode">Android Headless Mode</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="startonboot"><code class="tsd-tag">Optional</code><span>start<wbr/>On<wbr/>Boot</span><a href="#startonboot" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">startOnBoot</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Controls whether to resume location-tracking after the device is <strong>rebooted</strong>.</p>
+<p>Defaults to <strong><code>false</code></strong>.</p>
+<p>Set <a href="#startonboot" class="tsd-kind-property">AppConfig.startOnBoot</a> to <strong><code>true</code></strong> to automatically re-engage background tracking
+after a device restart.</p>
+<p><strong>iOS</strong></p>
+<p>iOS cannot <strong>immediately</strong> begin tracking after a device reboot.  Similar to <a href="#stoponterminate" class="tsd-kind-property">AppConfig.stopOnTerminate</a>: <code>false</code>, iOS will not relaunch your app until:</p>
+<ul>
+<li>The device moves beyond the <strong>stationary geofence</strong> created around the last known location, or</li>
+<li>A system <strong>Background Fetch</strong> event fires (typically every ~15 minutes), which can also restart your app.</li>
+</ul>
+<p><strong>Android</strong></p>
+<p>When <a href="#startonboot" class="tsd-kind-property">AppConfig.startOnBoot</a> is <code>true</code>, Android will automatically relaunch the SDK’s
+background service after reboot (and initial device unlock).</p>
+<p>If <a href="#enableheadless" class="tsd-kind-property">AppConfig.enableHeadless</a> is also <code>true</code>, tracking will resume even if the JS/UI layer
+has not yet started.</p>
+<p><strong>See also</strong></p>
+<ul>
+<li><a href="#enableheadless" class="tsd-kind-property">AppConfig.enableHeadless</a></li>
+<li><a href="#stoponterminate" class="tsd-kind-property">AppConfig.stopOnTerminate</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="enableheadless"><code class="tsd-tag">Optional</code><span>enable<wbr/>Headless</span><a href="#enableheadless" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">enableHeadless</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p><strong><code>[Android only]</code></strong> Enables &quot;Headless&quot; operation allowing you to respond to events after you app has been terminated with [[stopOnTerminate]] <strong><code>false</code></strong>.</p>
+<p>Defaults to <strong><code>false</code></strong>.  In this Android terminated state, where only the plugin's foreground-service remains running, you can respond to all the plugin's events with your own callback.  For more information, see [[BackgroundGeolocation.registerHeadlessTask]].</p>
+<p><strong>ℹ️ Note:</strong></p>
+<ul>
+<li>Requires <a href="#stoponterminate" class="tsd-kind-property">AppConfig.stopOnTerminate</a> <strong><code>false</code></strong>.</li>
+<li>If you've configured <a href="#stoponterminate" class="tsd-kind-property">AppConfig.stopOnTerminate</a> <strong><code>false</code></strong>, <a href="BackgroundGeolocation.html" class="tsd-kind-interface">BackgroundGeolocation</a> will continue to record locations (and post them to your configured <a href="HttpConfig.html#url" class="tsd-kind-property">HttpConfig.url</a>) <em>regardless of</em> <strong><code>enabledHeadless: true</code></strong>.  You should enable this option <em>only if</em> you wish to perform some custom work during the headless state (for example, posting a local notification).</li>
+</ul>
+<p>+<strong>ℹ️ See also:</strong></p>
+<ul>
+<li>📘 <a href="github:wiki/Android-Headless-Mode">Android Headless Mode</a>.</li>
+<li><a href="BackgroundGeolocation.html#registerheadlesstask" class="tsd-kind-method">BackgroundGeolocation.registerHeadlessTask</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="heartbeatinterval"><code class="tsd-tag">Optional</code><span>heartbeat<wbr/>Interval</span><a href="#heartbeatinterval" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">heartbeatInterval</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Controls the rate (in seconds) at which <a href="BackgroundGeolocation.html#onheartbeat" class="tsd-kind-method">BackgroundGeolocation.onHeartbeat</a></p>
+<p>events will fire.</p>
+<p><strong>⚠️ Warning</strong></p>
+<ul>
+<li>On <strong>iOS</strong>, <a href="BackgroundGeolocation.html#onheartbeat" class="tsd-kind-method">BackgroundGeolocation.onHeartbeat</a> will fire <strong>only</strong> when <a href="#preventsuspend" class="tsd-kind-property">AppConfig.preventSuspend</a> is set to <code>true</code>.</li>
+<li>On <strong>Android</strong>, the <em>minimum</em> interval is <strong>60 seconds</strong>.</li>
+<li>It is <strong>not possible</strong> to configure a <code>heartbeatInterval</code> faster than 60 seconds.</li>
+</ul>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-1">Example<a href="#example-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">preventSuspend:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">heartbeatInterval:</span><span class="hl-1"> </span><span class="hl-7">60</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">onHeartbeat</span><span class="hl-1">((</span><span class="hl-2">event</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-8">log</span><span class="hl-1">(</span><span class="hl-3">&quot;[onHeartbeat]&quot;</span><span class="hl-1">, </span><span class="hl-2">event</span><span class="hl-1">);</span><br/><br/><span class="hl-1">  </span><span class="hl-9">// Optionally request a new location during heartbeat.</span><br/><span class="hl-1">  </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">getCurrentPosition</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-2">samples:</span><span class="hl-1"> </span><span class="hl-7">1</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">persist:</span><span class="hl-1"> </span><span class="hl-4">true</span><br/><span class="hl-1">  }).</span><span class="hl-8">then</span><span class="hl-1">((</span><span class="hl-2">location</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-8">log</span><span class="hl-1">(</span><span class="hl-3">&quot;[getCurrentPosition]&quot;</span><span class="hl-1">, </span><span class="hl-2">location</span><span class="hl-1">);</span><br/><span class="hl-1">  });</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>ℹ️ See also</strong></p>
+<ul>
+<li><a href="BackgroundGeolocation.html#onheartbeat" class="tsd-kind-method">BackgroundGeolocation.onHeartbeat</a></li>
+</ul>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="schedule"><code class="tsd-tag">Optional</code><span>schedule</span><a href="#schedule" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">schedule</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div><div class="tsd-comment tsd-typography"><p>Configures a cron-like automated schedule telling the SDK when to
+<a href="BackgroundGeolocation.html#start" class="tsd-kind-method">start</a> and
+<a href="BackgroundGeolocation.html#stop" class="tsd-kind-method">stop</a> tracking.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-2">Example<a href="#example-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-3">&quot;{DAY(s)} {START_TIME}-{END_TIME}&quot;</span>
+</code><button type="button">Copy</button></pre>
+
+<ul>
+<li>Times are in <strong>24h format</strong>.</li>
+<li><code>DAY</code> uses <strong><a href="http://Locale.US">Locale.US</a></strong> numbering: <strong>Sunday = 1</strong>, <strong>Saturday = 7</strong>.</li>
+<li>You may provide:
+<ul>
+<li>a single day: <code>&quot;1&quot;</code></li>
+<li>a comma-separated list: <code>&quot;2,4,6&quot;</code></li>
+<li>a range: <code>&quot;2-6&quot;</code></li>
+</ul>
+</li>
+</ul>
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-3">Example<a href="#example-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">schedule:</span><span class="hl-1"> [</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;1 17:30-21:00&quot;</span><span class="hl-1">,     </span><span class="hl-9">// Sunday: 5:30pm–9pm</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;2-6 09:00-17:00&quot;</span><span class="hl-1">,   </span><span class="hl-9">// Mon–Fri: 9am–5pm</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;2,4,6 20:00-00:00&quot;</span><span class="hl-1">, </span><span class="hl-9">// Mon, Wed, Fri: 8pm–midnight</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;7 10:00-19:00&quot;</span><span class="hl-1">      </span><span class="hl-9">// Saturday: 10am–7pm</span><br/><span class="hl-1">    ]</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}).</span><span class="hl-8">then</span><span class="hl-1">((</span><span class="hl-2">state</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-9">// Start the Scheduler</span><br/><span class="hl-1">  </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">startSchedule</span><span class="hl-1">();</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-9">// Listen for schedule state changes</span><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">onSchedule</span><span class="hl-1">((</span><span class="hl-2">state</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-8">log</span><span class="hl-1">(</span><span class="hl-3">&quot;[onSchedule] enabled?&quot;</span><span class="hl-1">, </span><span class="hl-2">state</span><span class="hl-1">.</span><span class="hl-2">enabled</span><span class="hl-1">);</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-9">// Later (e.g., user logout)</span><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">stopSchedule</span><span class="hl-1">();</span><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">stop</span><span class="hl-1">(); </span><span class="hl-9">// if tracking is currently enabled</span><br/><br/><span class="hl-9">// Modify schedule using setConfig</span><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">setConfig</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">schedule:</span><span class="hl-1"> [</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;1-7 09:00-10:00&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;1-7 11:00-12:00&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;1-7 13:00-14:00&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;1-7 15:00-16:00&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;1-7 17:00-18:00&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;2,4,6 19:00-22:00&quot;</span><br/><span class="hl-1">    ]</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Literal Dates</strong></p>
+<p>The schedule may use literal date ranges.</p>
+<pre><code class="txt">&quot;yyyy-mm-dd HH:mm-HH:mm&quot;
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-4">Example<a href="#example-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">schedule:</span><span class="hl-1"> [</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;2018-01-01 09:00-17:00&quot;</span><br/><span class="hl-1">    ]</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Or specify distinct start <strong>and</strong> stop dates:</p>
+<pre><code class="txt">&quot;yyyy-mm-dd-HH:mm yyyy-mm-dd-HH:mm&quot;
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-5">Example<a href="#example-5" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">schedule:</span><span class="hl-1"> [</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;2018-01-01-09:00 2019-01-01-17:00&quot;</span><span class="hl-1"> </span><span class="hl-9">// track for 1 year</span><br/><span class="hl-1">    ]</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Scheduling Geofences-Only vs Location + Geofences</strong></p>
+<p>Append <code>geofence</code> or <code>location</code> to explicitly choose a tracking mode:</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">schedule:</span><span class="hl-1"> [</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;1-7 09:00-17:00 location&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;1-7 18:00-12:00 geofence&quot;</span><br/><span class="hl-1">    ]</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Since <code>location</code> is the default mode, it may be omitted:</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">schedule:</span><span class="hl-1"> [</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;1-7 09:00-17:00 location&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;1-7 18:00-12:00 geofence&quot;</span><br/><span class="hl-1">    ]</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Since <code>location</code> is the default mode, it may be omitted:
+<code>&quot;1-7 13:00-14:00 geofence&quot;</code></p>
+<p><strong>iOS</strong></p>
+<ul>
+<li>iOS <strong>cannot</strong> evaluate the schedule <em>exactly</em> at the configured time.
+Evaluation occurs only when the app is awakened.</li>
+<li>When in a scheduled <strong>off</strong> period, iOS continues monitoring low-power
+<strong>Significant Location Changes (SLC)</strong>.
+This guarantees periodic evaluation, especially when
+<code>{@link AppConfig.stopOnTerminate}</code> is <code>false</code> and the OS halts
+traditional Background Fetch.</li>
+<li>Schedule evaluation occurs when:
+<ul>
+<li>the app pauses/resumes,</li>
+<li>any location is recorded (including SLC),</li>
+<li>a Background Fetch event fires.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Android</strong></p>
+<ul>
+<li>Uses <code>AlarmManager.setExactAndAllowWhileIdle</code>, typically evaluating
+on-the-minute.</li>
+</ul>
+<p><strong>ℹ️ See also</strong></p>
+<ul>
+<li><a href="BackgroundGeolocation.html#startschedule" class="tsd-kind-method">BackgroundGeolocation.startSchedule</a></li>
+<li><a href="BackgroundGeolocation.html#stopschedule" class="tsd-kind-method">BackgroundGeolocation.stopSchedule</a></li>
+</ul>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="scheduleusealarmmanager"><code class="tsd-tag">Optional</code><span>schedule<wbr/>Use<wbr/>Alarm<wbr/>Manager</span><a href="#scheduleusealarmmanager" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">scheduleUseAlarmManager</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p><strong>Android only</strong> Force the Android scheduler to use <code>AlarmManager</code> (more precise) instead of <code>JobScheduler</code>.  Defaults to <code>false</code>.</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">schedule:</span><span class="hl-1"> [</span><span class="hl-3">&quot;1-7 09:00-17:00&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">    </span><span class="hl-2">scheduleUseAlarmManager:</span><span class="hl-1"> </span><span class="hl-4">true</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="notification"><code class="tsd-tag">Optional</code><span>notification</span><a href="#notification" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">notification</span><span class="tsd-signature-symbol">?:</span> <a href="NotificationConfig.html" class="tsd-signature-type tsd-kind-interface">NotificationConfig</a></div><div class="tsd-comment tsd-typography"><p>[<strong>Android only]</strong> Configures the persistent foreground-service [[Notification]] required by Android.</p>
+<p><img src="https://dl.dropbox.com/s/acuhy5cu4p7uofr/android-foreground-service-default.png?dl=1" alt=""></p>
+<p>See <a href="NotificationConfig.html" class="tsd-kind-interface">NotificationConfig</a> for detailed usage.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-6">Example<a href="#example-6" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="typescript"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">notification:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">title:</span><span class="hl-1"> </span><span class="hl-3">&quot;Background tracking engaged&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">text:</span><span class="hl-1"> </span><span class="hl-3">&quot;My notification text&quot;</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="backgroundpermissionrationale"><code class="tsd-tag">Optional</code><span>background<wbr/>Permission<wbr/>Rationale</span><a href="#backgroundpermissionrationale" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">backgroundPermissionRationale</span><span class="tsd-signature-symbol">?:</span> <a href="PermissionRationale.html" class="tsd-signature-type tsd-kind-interface">PermissionRationale</a></div><div class="tsd-comment tsd-typography"><p>(<strong>Android 11+</strong>) Configures the dialog shown when requesting <em>Always</em> location
+permission on Android 11+.</p>
+<p>Android 11 changed location authorization behavior and removed the
+<strong>“Allow all the time”</strong> button from the system permission dialog.<br>
+Instead, apps may present a custom rationale dialog explaining <em>why</em> background
+access is required. Selecting the dialog’s <code>positiveAction</code> sends the user
+directly to the system <strong>Location Permissions</strong> screen, where they must
+explicitly enable <strong>Allow all the time</strong>.</p>
+<p>This SDK shows that dialog automatically when you have supplied
+<a href="#backgroundpermissionrationale" class="tsd-kind-property">AppConfig.backgroundPermissionRationale</a>.</p>
+<p><img src="https://dl.dropbox.com/s/343nbrzpaavfser/android11-location-authorization-rn.gif?dl=1" alt=""></p>
+<ul>
+<li>Android will show the rationale dialog <strong>only once</strong>. After the user presses
+the <code>positiveAction</code>, it will not appear again.<br>
+(Pressing <strong>Cancel</strong> does <em>not</em> count.)</li>
+<li>If the user later resets your app’s Location Permission to <strong>Ask every time</strong>,
+the rationale dialog <em>may</em> be presented again.</li>
+</ul>
+<p><img src="https://dl.dropbox.com/s/4fq4erz2lpqz00m/android11-location-permission-rationale-dialog.png?dl=1" alt="">
+<img src="https://dl.dropbox.com/s/dy65k8b0sgj5cgy/android11-location-authorization-upgrade-settings.png?dl=1" alt=""></p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-7">Example<a href="#example-7" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">locationAuthorizationRequest:</span><span class="hl-1"> </span><span class="hl-3">&#39;Always&#39;</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">backgroundPermissionRationale:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">title:</span><span class="hl-1"> </span><span class="hl-3">&quot;Allow {applicationName} to access this device&#39;s location in the background?&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">message:</span><span class="hl-1"> </span><span class="hl-3">&quot;To track your activity in the background, please enable {backgroundPermissionOptionLabel} location permission.&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">positiveAction:</span><span class="hl-1"> </span><span class="hl-3">&quot;Change to {backgroundPermissionOptionLabel}&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">negativeAction:</span><span class="hl-1"> </span><span class="hl-3">&quot;Cancel&quot;</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Template Tags</strong></p>
+<p>You may embed the following template variables inside <a href="PermissionRationale.html" class="tsd-kind-interface">PermissionRationale</a> fields, wrapped as <strong><code>{tagName}</code></strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Template Tag</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>{backgroundPermissionOptionLabel}</code></strong></td>
+<td><em>Allow all the time</em></td>
+<td>To track your activity in the background, please enable {backgroundPermissionOptionLabel} location permission.</td>
+</tr>
+<tr>
+<td><strong><code>{applicationName}</code></strong></td>
+<td>Your app name</td>
+<td>From <code>AndroidManifest.xml</code></td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p><strong>See also</strong></p>
+<ul>
+<li><a href="GeoConfig.html#locationauthorizationrequest" class="tsd-kind-property">GeoConfig.locationAuthorizationRequest</a></li>
+<li><a href="BackgroundGeolocation.html#requestpermission" class="tsd-kind-method">BackgroundGeolocation.requestPermission</a></li>
+<li><a href="https://developer.android.com/about/versions/11/privacy/location">Location updates in Android 11</a></li>
+</ul>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="preventsuspend"><code class="tsd-tag">Optional</code><span>prevent<wbr/>Suspend</span><a href="#preventsuspend" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">preventSuspend</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p><strong>iOS only</strong> — Prevent iOS from suspending your application after location-services
+have been turned off while running in the background.</p>
+<p>Defaults to <strong><code>false</code></strong>.</p>
+<p>Set <strong><code>true</code></strong> to keep your application alive in the background even after iOS
+disables location-services. This is required when using a
+<a href="#heartbeatinterval" class="tsd-kind-property">heartbeat interval</a>.</p>
+<p><strong>⚠️ Warning</strong></p>
+<ul>
+<li>
+<p><code>preventSuspend: true</code> should be used <strong>only for very specific use-cases</strong>.<br>
+It has a <strong>large and noticeable impact on battery consumption</strong>.</p>
+</li>
+<li>
+<p>You should enable <code>preventSuspend</code> only for controlled periods of time.<br>
+It is <strong>not suitable</strong> for continuous 24/7 operation.</p>
+</li>
+<li>
+<p>When the device is <strong>unplugged</strong> with the screen <strong>off</strong>, iOS still throttles
+<a href="BackgroundGeolocation.html#onheartbeat" class="tsd-kind-method">BackgroundGeolocation.onHeartbeat</a> about <strong>2 minutes</strong> after entering the
+background.</p>
+<p>Heartbeats resume immediately if:</p>
+<ul>
+<li>the screen turns on, or</li>
+<li>even the slightest device-motion is detected.</li>
+</ul>
+</li>
+</ul>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-8">Example<a href="#example-8" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-9">// Subscribe to heartbeat events</span><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">onHeartbeat</span><span class="hl-1">((</span><span class="hl-2">event</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-8">log</span><span class="hl-1">(</span><span class="hl-3">&quot;[onHeartbeat]&quot;</span><span class="hl-1">, </span><span class="hl-2">event</span><span class="hl-1">);</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-9">// Enable preventSuspend via AppConfig</span><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">preventSuspend:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">heartbeatInterval:</span><span class="hl-1"> </span><span class="hl-7">60</span><span class="hl-1">,</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>ℹ️ See also</strong></p>
+<ul>
+<li><a href="#heartbeatinterval" class="tsd-kind-property">AppConfig.heartbeatInterval</a></li>
+<li><a href="BackgroundGeolocation.html#onheartbeat" class="tsd-kind-method">BackgroundGeolocation.onHeartbeat</a></li>
+</ul>
+</div></div></section></section></details></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary><div><a href="#stoponterminate"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stop<wbr/>On<wbr/>Terminate</span></a><a href="#startonboot"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>start<wbr/>On<wbr/>Boot</span></a><a href="#enableheadless"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>enable<wbr/>Headless</span></a><a href="#heartbeatinterval"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>heartbeat<wbr/>Interval</span></a><a href="#schedule"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>schedule</span></a><a href="#scheduleusealarmmanager"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>schedule<wbr/>Use<wbr/>Alarm<wbr/>Manager</span></a><a href="#notification"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>notification</span></a><a href="#backgroundpermissionrationale"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>background<wbr/>Permission<wbr/>Rationale</span></a><a href="#preventsuspend"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>prevent<wbr/>Suspend</span></a></div></details></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../index.html">react-native-background-geolocation@4.19.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

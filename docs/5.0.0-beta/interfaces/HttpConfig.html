@@ -1,0 +1,463 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>HttpConfig | react-native-background-geolocation@4.19.0</title><link rel="icon" href="../assets/favicon.ico"/><meta name="description" content="Documentation for react-native-background-geolocation@4.19.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="../index.html" class="title">react-native-background-geolocation@4.19.0</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb" aria-label="Breadcrumb"><li><a href="" aria-current="page">HttpConfig</a></li></ul><h1>Interface HttpConfig</h1></div><section class="tsd-panel tsd-comment"><div class="tsd-comment tsd-typography"><p><strong>HTTP / Networking Configuration</strong></p>
+<p>The <a href="#" class="tsd-kind-interface">HttpConfig</a> group controls how recorded locations are uploaded to
+your server. It defines the endpoint, HTTP verb, headers, params, batching
+behavior, and request timeouts.</p>
+<p>These options apply to all automatic syncs as well as manual syncs triggered
+by the app.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example">Example<a href="#example" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://example.com/locations&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">autoSync:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">params:</span><span class="hl-1"> { </span><span class="hl-2">user_id:</span><span class="hl-1"> </span><span class="hl-7">1234</span><span class="hl-1"> }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Overview</strong></p>
+<p>The SDK persistently stores each recorded location in its internal SQLite
+database before attempting to upload it. The HTTP Service continuously consumes
+this queue of stored records in the background. For each record:</p>
+<ol>
+<li>A <strong>record-level lock</strong> is acquired to prevent duplicate uploads.</li>
+<li>The record is serialized into an HTTP request and posted to <a href="#url" class="tsd-kind-property">url</a>.</li>
+<li>A <strong>2xx</strong> response marks the record as delivered and it is deleted.</li>
+<li>Failed or timed-out uploads remain locked until released for retry.</li>
+</ol>
+<p>The uploader operates automatically across:</p>
+<ul>
+<li>background execution</li>
+<li>app termination</li>
+<li>device reboot</li>
+</ul>
+<p>When connectivity returns, it resumes processing any remaining records.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Keys</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Destination</strong></td>
+<td><a href="#url" class="tsd-kind-property">url</a>, <a href="#method" class="tsd-kind-property">method</a></td>
+<td><code>method</code> defaults to <code>POST</code>.</td>
+</tr>
+<tr>
+<td><strong>Payload</strong></td>
+<td><a href="#rootproperty" class="tsd-kind-property">rootProperty</a>, <a href="#params" class="tsd-kind-property">params</a>, <a href="#headers" class="tsd-kind-property">headers</a></td>
+<td>Controls JSON body and headers.</td>
+</tr>
+<tr>
+<td><strong>Sync cadence</strong></td>
+<td><a href="#autosync" class="tsd-kind-property">autoSync</a>, <a href="#autosyncthreshold" class="tsd-kind-property">autoSyncThreshold</a>, <a href="#batchsync" class="tsd-kind-property">batchSync</a>, <a href="#maxbatchsize" class="tsd-kind-property">maxBatchSize</a></td>
+<td>Immediate vs batched uploads.</td>
+</tr>
+<tr>
+<td><strong>Network policy</strong></td>
+<td><a href="#disableautosynconcellular" class="tsd-kind-property">disableAutoSyncOnCellular</a>, <a href="#timeout" class="tsd-kind-property">timeout</a></td>
+<td>Conserve bandwidth and battery.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>How uploads work</strong></p>
+<ol>
+<li>Each location is written to SQLite.</li>
+<li>Pending records are locked for upload.</li>
+<li>Locked records are sent to <a href="#url" class="tsd-kind-property">url</a>.</li>
+<li>On success (2xx), the record is deleted.</li>
+<li>On failure, the record is unlocked and retried later.</li>
+</ol>
+<p><strong>The SQLite buffer</strong></p>
+<p>The storage acts as a rolling buffer and is normally empty. Records disappear
+when:</p>
+<ul>
+<li>your server returns a 2xx (see <a href="HttpEvent.html" class="tsd-kind-interface">HttpEvent</a>)</li>
+<li><a href="BackgroundGeolocation.html#destroylocations" class="tsd-kind-method">BackgroundGeolocation.destroyLocations</a> is called</li>
+<li>TTL from <a href="PersistenceConfig.html#maxdaystopersist" class="tsd-kind-property">PersistenceConfig.maxDaysToPersist</a> expires</li>
+<li><a href="PersistenceConfig.html#maxrecordstopersist" class="tsd-kind-property">PersistenceConfig.maxRecordsToPersist</a> is exceeded</li>
+</ul>
+<p>Inspect queue size using <a href="BackgroundGeolocation.html#getcount" class="tsd-kind-method">BackgroundGeolocation.getCount</a> or fetch with
+<a href="BackgroundGeolocation.html#getlocations" class="tsd-kind-method">BackgroundGeolocation.getLocations</a>.</p>
+<p><strong>Payload composition</strong></p>
+<ul>
+<li>
+<p><strong>Body:</strong> JSON. If <code>batchSync</code> is <code>true</code>, an array of records is sent.<br>
+If <code>rootProperty</code> is set, payload becomes:</p>
+<pre><code class="json"><span class="hl-1">{ </span><span class="hl-11">&quot;&lt;rootProperty&gt;&quot;</span><span class="hl-1">: [</span><span class="hl-13">...</span><span class="hl-1">] }</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><strong>Headers:</strong> Combined from <a href="#headers" class="tsd-kind-property">headers</a> plus authorization if
+configured.</p>
+</li>
+<li>
+<p><strong>Params:</strong> Added to every payload at the root or under <code>rootProperty</code>.</p>
+</li>
+</ul>
+<p>Uploads use <code>application/json</code>; authorization refresh requests use
+<code>application/x-www-form-urlencoded</code>.</p>
+<p><strong>Sync strategy</strong></p>
+<ul>
+<li><code>autoSync</code>: upload after each record</li>
+<li><code>autoSyncThreshold</code>: wait for N records</li>
+<li><code>batchSync</code>: upload several records in one request</li>
+<li><code>maxBatchSize</code>: max records per batch</li>
+<li><code>timeout</code>: maximum HTTP duration</li>
+<li><code>disableAutoSyncOnCellular</code>: defer uploads until Wi-Fi</li>
+</ul>
+<p><strong>Error handling &amp; retries</strong></p>
+<p>On non-2xx or network failure, records remain in queue and are retried when:</p>
+<ul>
+<li>new locations arrive</li>
+<li>app resumes / device boots</li>
+<li><a href="BackgroundGeolocation.html#onconnectivitychange" class="tsd-kind-method">BackgroundGeolocation.onConnectivityChange</a> fires</li>
+<li><a href="BackgroundGeolocation.html#onheartbeat" class="tsd-kind-method">BackgroundGeolocation.onHeartbeat</a> fires</li>
+<li>iOS background fetch runs</li>
+</ul>
+<p>Or manually:</p>
+<pre><code class="ts"><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">sync</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>HTTP Logging</strong></p>
+<p>Logs provide insight into HTTP behavior:</p>
+<pre><code class="text">📍 Location
+✅ INSERT: record stored
+🔒 Locked 1 records
+🔵 HTTP POST
+🔵 Response: 200
+✅ DESTROY
+</code><button type="button">Copy</button></pre>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">#</th>
+<th>Entry</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td><code>📍 Location</code></td>
+<td>Raw location recorded</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td><code>INSERT</code></td>
+<td>Persisted to SQLite</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td><code>Locked</code></td>
+<td>Marked for upload</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td><code>HTTP POST/PUT</code></td>
+<td>Attempted upload</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td><code>Response</code></td>
+<td>Server status</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td><code>DESTROY</code> / <code>UNLOCK</code></td>
+<td>Success / failed retry</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Remote control via HTTP response (RPC)</strong></p>
+<p>Your server may instruct the SDK to execute commands by returning JSON
+containing a <code>background_geolocation</code> payload.</p>
+<p><strong>Multiple commands</strong></p>
+<pre><code class="json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-11">&quot;background_geolocation&quot;</span><span class="hl-1">: [</span><br/><span class="hl-1">    [</span><span class="hl-3">&quot;setConfig&quot;</span><span class="hl-1">, { </span><span class="hl-11">&quot;geolocation&quot;</span><span class="hl-1">: { </span><span class="hl-11">&quot;distanceFilter&quot;</span><span class="hl-1">: </span><span class="hl-7">25</span><span class="hl-1"> } }],</span><br/><span class="hl-1">    [</span><span class="hl-3">&quot;start&quot;</span><span class="hl-1">]</span><br/><span class="hl-1">  ]</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Single command</strong></p>
+<pre><code class="json"><span class="hl-1">{ </span><span class="hl-11">&quot;background_geolocation&quot;</span><span class="hl-1">: [</span><span class="hl-3">&quot;stop&quot;</span><span class="hl-1">] }</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Supported remote commands</strong></p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Arguments</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;start&quot;</code></td>
+<td>—</td>
+<td><a href="BackgroundGeolocation.html#start" class="tsd-kind-method">BackgroundGeolocation.start</a></td>
+</tr>
+<tr>
+<td><code>&quot;stop&quot;</code></td>
+<td>—</td>
+<td><a href="BackgroundGeolocation.html#stop" class="tsd-kind-method">BackgroundGeolocation.stop</a></td>
+</tr>
+<tr>
+<td><code>&quot;startGeofences&quot;</code></td>
+<td>—</td>
+<td><a href="BackgroundGeolocation.html#startgeofences" class="tsd-kind-method">BackgroundGeolocation.startGeofences</a></td>
+</tr>
+<tr>
+<td><code>&quot;changePace&quot;</code></td>
+<td>boolean</td>
+<td><a href="BackgroundGeolocation.html#changepace" class="tsd-kind-method">BackgroundGeolocation.changePace</a></td>
+</tr>
+<tr>
+<td><code>&quot;setConfig&quot;</code></td>
+<td><code>{Config}</code></td>
+<td><a href="BackgroundGeolocation.html#setconfig" class="tsd-kind-method">BackgroundGeolocation.setConfig</a></td>
+</tr>
+<tr>
+<td><code>&quot;addGeofence&quot;</code></td>
+<td><code>{Geofence}</code></td>
+<td><a href="BackgroundGeolocation.html#addgeofence" class="tsd-kind-method">BackgroundGeolocation.addGeofence</a></td>
+</tr>
+<tr>
+<td><code>&quot;addGeofences&quot;</code></td>
+<td><code>[{Geofence}, ...]</code></td>
+<td><a href="BackgroundGeolocation.html#addgeofences" class="tsd-kind-method">BackgroundGeolocation.addGeofences</a></td>
+</tr>
+<tr>
+<td><code>&quot;removeGeofence&quot;</code></td>
+<td><code>identifier:string</code></td>
+<td><a href="BackgroundGeolocation.html#removegeofence" class="tsd-kind-method">BackgroundGeolocation.removeGeofence</a></td>
+</tr>
+<tr>
+<td><code>&quot;removeGeofences&quot;</code></td>
+<td>list or none</td>
+<td>remove all or some</td>
+</tr>
+<tr>
+<td><code>&quot;uploadLog&quot;</code></td>
+<td><code>url:string</code></td>
+<td>upload plugin log</td>
+</tr>
+<tr>
+<td><code>&quot;destroyLog&quot;</code></td>
+<td>—</td>
+<td>delete plugin log</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<p>Simple upload:</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://api.example.com/locations&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">method:</span><span class="hl-1"> </span><span class="hl-3">&quot;POST&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">autoSync:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">headers:</span><span class="hl-1"> { </span><span class="hl-2">Authorization:</span><span class="hl-1"> </span><span class="hl-3">&quot;Bearer secret&quot;</span><span class="hl-1"> },</span><br/><span class="hl-1">    </span><span class="hl-2">params:</span><span class="hl-1"> { </span><span class="hl-2">device_id:</span><span class="hl-1"> </span><span class="hl-3">&quot;abc-123&quot;</span><span class="hl-1"> }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Batched uploads:</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://api.example.com/locations/bulk&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">autoSync:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">batchSync:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">maxBatchSize:</span><span class="hl-1"> </span><span class="hl-7">25</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">autoSyncThreshold:</span><span class="hl-1"> </span><span class="hl-7">10</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">rootProperty:</span><span class="hl-1"> </span><span class="hl-3">&quot;locations&quot;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Conserve cellular data:</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://api.example.com/locations&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">autoSync:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">disableAutoSyncOnCellular:</span><span class="hl-1"> </span><span class="hl-4">true</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Manual sync:</p>
+<pre><code class="ts"><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">setConfig</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> { </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://api.example.com&quot;</span><span class="hl-1">, </span><span class="hl-2">autoSync:</span><span class="hl-1"> </span><span class="hl-4">false</span><span class="hl-1"> }</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">sync</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Migration from legacy flat Config</strong></p>
+<p>Old:</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://api.example.com&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">autoSync:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">headers:</span><span class="hl-1"> { </span><span class="hl-2">Authorization:</span><span class="hl-1"> </span><span class="hl-3">&quot;Bearer ...&quot;</span><span class="hl-1"> }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>New (compound):</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://api.example.com&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">autoSync:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">headers:</span><span class="hl-1"> { </span><span class="hl-2">Authorization:</span><span class="hl-1"> </span><span class="hl-3">&quot;Bearer ...&quot;</span><span class="hl-1"> }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Legacy keys remain available but are <strong>@deprecated</strong> and will be removed in a
+future major release.</p>
+</div></div></section><div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">HttpConfig</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#url">url</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#headers">headers</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#params">params</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#method">method</a><span class="tsd-signature-symbol">?:</span> <a href="../variables/HttpMethod.html" class="tsd-signature-type tsd-kind-variable">HttpMethod</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#autosync">autoSync</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#autosyncthreshold">autoSyncThreshold</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#disableautosynconcellular">disableAutoSyncOnCellular</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#batchsync">batchSync</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#maxbatchsize">maxBatchSize</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#rootproperty">rootProperty</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#timeout">timeout</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><section class="tsd-panel-group tsd-index-group"><section class="tsd-panel tsd-index-panel"><details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h5 class="tsd-index-heading uppercase">Index</h5></summary><div class="tsd-accordion-details"><section class="tsd-index-section"><h3 class="tsd-index-heading">Properties</h3><div class="tsd-index-list"><a href="#url" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>url?</span></a>
+<a href="#headers" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>headers?</span></a>
+<a href="#params" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>params?</span></a>
+<a href="#method" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>method?</span></a>
+<a href="#autosync" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>auto<wbr/>Sync?</span></a>
+<a href="#autosyncthreshold" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>auto<wbr/>Sync<wbr/>Threshold?</span></a>
+<a href="#disableautosynconcellular" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>disable<wbr/>Auto<wbr/>Sync<wbr/>On<wbr/>Cellular?</span></a>
+<a href="#batchsync" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>batch<wbr/>Sync?</span></a>
+<a href="#maxbatchsize" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>max<wbr/>Batch<wbr/>Size?</span></a>
+<a href="#rootproperty" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>root<wbr/>Property?</span></a>
+<a href="#timeout" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>timeout?</span></a>
+</div></section></div></details></section></section><details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h2>Properties</h2></summary><section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="url"><code class="tsd-tag">Optional</code><span>url</span><a href="#url" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">url</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><div class="tsd-comment tsd-typography"><p>Server URL where you want the SDK to post recorded locations.</p>
+<p>Both the iOS and Android native code host their own robust HTTP service
+which can automatically upload recorded locations to your server. This is
+particularly important on <strong>Android</strong> when running headless with
+<a href="AppConfig.html#stoponterminate" class="tsd-kind-property">AppConfig.stopOnTerminate</a> set to <code>false</code>, since only the plugin's
+background service continues running in that state.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-1">Example<a href="#example-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-9">// Listen to HTTP events.</span><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">onHttp</span><span class="hl-1">((</span><span class="hl-2">event</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-8">log</span><span class="hl-1">(</span><span class="hl-3">&quot;[onHttp]&quot;</span><span class="hl-1">, </span><span class="hl-2">event</span><span class="hl-1">);</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://my-server.com/locations&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">params:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">user_id:</span><span class="hl-1"> </span><span class="hl-7">1234</span><br/><span class="hl-1">    },</span><br/><span class="hl-1">    </span><span class="hl-2">headers:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">Authorization:</span><span class="hl-1"> </span><span class="hl-3">&quot;Basic my-secret-key&quot;</span><br/><span class="hl-1">    },</span><br/><span class="hl-1">    </span><span class="hl-2">autoSync:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">method:</span><span class="hl-1"> </span><span class="hl-3">&quot;POST&quot;</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">stopOnTerminate:</span><span class="hl-1"> </span><span class="hl-4">false</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Warning:</strong> It is highly recommended to let the SDK manage uploads to your
+server, <strong>especially on Android</strong> when <a href="AppConfig.html#stoponterminate" class="tsd-kind-property">AppConfig.stopOnTerminate</a> is
+<code>false</code>. In that mode your application component <em>will</em> terminate—only the
+native Android background service continues operating, recording locations
+and posting them to your server. The SDK’s HTTP service automatically
+retries on failures and is more reliable for background delivery than
+ad-hoc HTTP requests from your own code.</p>
+<p>See the HTTP guide under <a href="#" class="tsd-kind-interface">HttpConfig</a> for full examples, error
+handling, and payload structure.</p>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="headers"><code class="tsd-tag">Optional</code><span>headers</span><a href="#headers" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">headers</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div><div class="tsd-comment tsd-typography"><p>Optional HTTP headers applied to every outbound upload request.</p>
+<p>These headers are merged with the SDK’s automatically applied headers
+(such as <code>&quot;content-type&quot;: &quot;application/json&quot;</code>). When using authorization,
+the SDK also injects an <code>Authorization</code> header as needed.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-2">Example<a href="#example-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://my.server.com&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">headers:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">Authorization:</span><span class="hl-1"> </span><span class="hl-3">&quot;Bearer &lt;a secret key&gt;&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;X-FOO&quot;</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-3">&quot;BAR&quot;</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Observing incoming requests at your server:</p>
+<pre><code class="text">POST /locations
+{
+  &quot;host&quot;: &quot;tracker.transistorsoft.com&quot;,
+  &quot;content-type&quot;: &quot;application/json&quot;,
+  &quot;content-length&quot;: &quot;456&quot;,
+  ...
+  &quot;authorization&quot;: &quot;Bearer &lt;a secret key&gt;&quot;,
+  &quot;X-FOO&quot;: &quot;BAR&quot;
+}
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Note:</strong><br>
+The SDK automatically applies several required headers, including:</p>
+<ul>
+<li><code>&quot;content-type&quot;: &quot;application/json&quot;</code></li>
+<li>authorization headers when using <a href="AuthorizationConfig.html" class="tsd-kind-interface">AuthorizationConfig</a></li>
+</ul>
+<p><strong>See also:</strong> the <strong>HTTP Guide</strong> under <a href="#" class="tsd-kind-interface">HttpConfig</a>.</p>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="params"><code class="tsd-tag">Optional</code><span>params</span><a href="#params" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">params</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div><div class="tsd-comment tsd-typography"><p>Optional HTTP <strong><code>params</code></strong> appended to the JSON body of each outbound upload request.</p>
+<p>These key/value pairs are merged into the payload sent to your server
+(either at the root level or under <code>rootProperty</code>, if configured).</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-3">Example<a href="#example-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://my-server.com/locations&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">params:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">user_id:</span><span class="hl-1"> </span><span class="hl-7">1234</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">device_id:</span><span class="hl-1"> </span><span class="hl-3">&quot;abc123&quot;</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Example request body received by your server:</p>
+<pre><code class="json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-11">&quot;location&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-11">&quot;coords&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">      </span><span class="hl-11">&quot;latitude&quot;</span><span class="hl-1">: </span><span class="hl-7">45.51927</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-11">&quot;longitude&quot;</span><span class="hl-1">: </span><span class="hl-7">-73.61650</span><br/><span class="hl-1">      </span><span class="hl-9">// ...</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">  </span><span class="hl-11">&quot;user_id&quot;</span><span class="hl-1">: </span><span class="hl-7">1234</span><span class="hl-1">,      </span><span class="hl-9">// &lt;-- params merged into the payload</span><br/><span class="hl-1">  </span><span class="hl-11">&quot;device_id&quot;</span><span class="hl-1">: </span><span class="hl-3">&quot;abc123&quot;</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>See also:</strong> the <strong>HTTP Guide</strong> under <a href="#" class="tsd-kind-interface">HttpConfig</a>.</p>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="method"><code class="tsd-tag">Optional</code><span>method</span><a href="#method" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">method</span><span class="tsd-signature-symbol">?:</span> <a href="../variables/HttpMethod.html" class="tsd-signature-type tsd-kind-variable">HttpMethod</a></div><div class="tsd-comment tsd-typography"><p>The HTTP method used when uploading locations to your configured <a href="#url" class="tsd-kind-property">url</a>.</p>
+<p>Defaults to <strong><code>POST</code></strong>.</p>
+<p>Valid values: <strong><code>POST</code></strong>, <strong><code>PUT</code></strong>, <strong><code>OPTIONS</code></strong>.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-4">Example<a href="#example-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://my-server.com/locations&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">method:</span><span class="hl-1"> </span><span class="hl-3">&quot;PUT&quot;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="autosync"><code class="tsd-tag">Optional</code><span>auto<wbr/>Sync</span><a href="#autosync" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">autoSync</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Immediately upload each recorded location to your configured <a href="#url" class="tsd-kind-property">url</a>.</p>
+<p>Defaults to <strong><code>true</code></strong>.</p>
+<p>When <code>autoSync</code> is enabled and a <a href="#url" class="tsd-kind-property">url</a> is provided, the SDK
+will attempt to upload each location <strong>as soon as it is recorded</strong>.</p>
+<p>If you set <code>autoSync: false</code>, you must manually call
+<a href="BackgroundGeolocation.html#sync" class="tsd-kind-method">BackgroundGeolocation.sync</a> to initiate uploads.<br>
+Regardless of <code>autoSync</code>, <em>all</em> recorded locations are persisted in the
+SDK’s internal SQLite database until successfully delivered.</p>
+<p><strong>Note:</strong> The queue continues to grow until you call <a href="BackgroundGeolocation.html#sync" class="tsd-kind-method">BackgroundGeolocation.sync</a> or until uploads succeed.</p>
+<p><strong>See also</strong></p>
+<ul>
+<li><a href="#autosyncthreshold" class="tsd-kind-property">autoSyncThreshold</a></li>
+<li><a href="#batchsync" class="tsd-kind-property">batchSync</a></li>
+<li><a href="#maxbatchsize" class="tsd-kind-property">maxBatchSize</a></li>
+<li>HTTP Guide at <a href="#" class="tsd-kind-interface">HttpConfig</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="autosyncthreshold"><code class="tsd-tag">Optional</code><span>auto<wbr/>Sync<wbr/>Threshold</span><a href="#autosyncthreshold" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">autoSyncThreshold</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>The minimum number of persisted records the plugin must accumulate
+before triggering an automatic upload via <a href="#autosync" class="tsd-kind-property">autoSync</a>.</p>
+<p>Defaults to <strong><code>0</code></strong> (no threshold).</p>
+<p>When set to a value greater than <code>0</code>, the SDK will wait until at least that
+many locations are recorded before uploading to your configured
+<a href="#url" class="tsd-kind-property">url</a>.</p>
+<p>Using <code>autoSyncThreshold</code> together with <a href="#batchsync" class="tsd-kind-property">batchSync</a> can
+significantly <strong>reduce battery consumption</strong>, since batching minimizes the
+number of HTTP requests (which cost far more power than GPS work).</p>
+<p><strong>⚠️ Warning:</strong> Ignored during <code>onMotionChange</code></p>
+<p>If you've configured <code>autoSyncThreshold</code>, it will be <strong>ignored</strong> during
+<a href="BackgroundGeolocation.html#onmotionchange" class="tsd-kind-method">BackgroundGeolocation.onMotionChange</a> transitions:</p>
+<ul>
+<li>
+<p>Entering the <strong>moving</strong> state:<br>
+The device may have been dormant for a long time; the SDK eagerly uploads
+queued locations immediately.</p>
+</li>
+<li>
+<p>Entering the <strong>stationary</strong> state:<br>
+The device may <em>soon become</em> dormant; the SDK eagerly uploads all queued
+locations before going idle.</p>
+</li>
+</ul>
+<p><strong>See also</strong></p>
+<ul>
+<li>HTTP Guide at <a href="#" class="tsd-kind-interface">HttpConfig</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="disableautosynconcellular"><code class="tsd-tag">Optional</code><span>disable<wbr/>Auto<wbr/>Sync<wbr/>On<wbr/>Cellular</span><a href="#disableautosynconcellular" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">disableAutoSyncOnCellular</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Disable <a href="#autosync" class="tsd-kind-property">autoSync</a> when the device is connected over <strong>cellular data</strong>.</p>
+<p>Defaults to <strong><code>false</code></strong>.</p>
+<p>When set to <strong><code>true</code></strong>, automatic HTTP uploads will occur <strong>only when on Wi-Fi</strong>.</p>
+<p>This is useful for conserving mobile data usage, particularly when large
+batches of locations may accumulate while offline.</p>
+<p><strong>⚠️ Warning:</strong>
+This option is <strong>ignored</strong> when manually invoking
+<a href="BackgroundGeolocation.html#sync" class="tsd-kind-method">BackgroundGeolocation.sync</a>. Manual syncs always proceed regardless of connection type.</p>
+<p><strong>See also</strong></p>
+<ul>
+<li><a href="#autosync" class="tsd-kind-property">autoSync</a></li>
+<li><a href="BackgroundGeolocation.html#sync" class="tsd-kind-method">BackgroundGeolocation.sync</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="batchsync"><code class="tsd-tag">Optional</code><span>batch<wbr/>Sync</span><a href="#batchsync" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">batchSync</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Upload <strong>multiple locations</strong> to your <a href="#url" class="tsd-kind-property">url</a> in a single HTTP request.</p>
+<p>Defaults to <strong><code>false</code></strong>.<br>
+When set to <strong><code>true</code></strong>, the SDK will bundle <strong>all currently queued locations</strong> in
+the native SQLite database and upload them together in <strong>one</strong> HTTP request.</p>
+<p>When <code>batchSync</code> is <strong><code>false</code></strong>, the HTTP service performs <strong>one request per
+location</strong>, which can increase battery and network usage.</p>
+<p>Batching is often used together with <a href="#autosyncthreshold" class="tsd-kind-property">autoSyncThreshold</a> to
+reduce upload frequency and conserve power.</p>
+<p><strong>See also</strong></p>
+<ul>
+<li><a href="#url" class="tsd-kind-property">url</a></li>
+<li><a href="#autosync" class="tsd-kind-property">autoSync</a></li>
+<li><a href="#autosyncthreshold" class="tsd-kind-property">autoSyncThreshold</a></li>
+<li><strong>HTTP Guide</strong> at <a href="#" class="tsd-kind-interface">HttpConfig</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="maxbatchsize"><code class="tsd-tag">Optional</code><span>max<wbr/>Batch<wbr/>Size</span><a href="#maxbatchsize" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">maxBatchSize</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Controls the number of records attached to <strong>each</strong> batched HTTP request.</p>
+<p>Defaults to <strong><code>-1</code></strong> (no maximum).</p>
+<p>When using <a href="#batchsync" class="tsd-kind-property">batchSync</a> with <a href="#url" class="tsd-kind-property">url</a> configured,
+this option limits how many queued location records may be included in a single
+HTTP request.</p>
+<p>If the number of queued records exceeds <code>maxBatchSize</code>, the SDK will generate
+<strong>multiple HTTP requests</strong> until the queue is fully drained.</p>
+<p>This prevents extremely large request bodies when the device has been offline
+for long periods (where megabytes of location data may accumulate).</p>
+<p><strong>See also</strong></p>
+<ul>
+<li><a href="#batchsync" class="tsd-kind-property">batchSync</a></li>
+<li><a href="#url" class="tsd-kind-property">url</a></li>
+<li><strong>HTTP Guide</strong> at <a href="#" class="tsd-kind-interface">HttpConfig</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="rootproperty"><code class="tsd-tag">Optional</code><span>root<wbr/>Property</span><a href="#rootproperty" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">rootProperty</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><div class="tsd-comment tsd-typography"><p>The root property of the JSON object where location data will be placed.</p>
+<p>When set, outgoing HTTP payloads will wrap the serialized location record(s)
+under the specified key.</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">rootProperty:</span><span class="hl-1"> </span><span class="hl-3">&quot;myData&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://my.server.com&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Produces payloads shaped like:</p>
+<pre><code class="json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-11">&quot;myData&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-11">&quot;coords&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">      </span><span class="hl-11">&quot;latitude&quot;</span><span class="hl-1">: </span><span class="hl-7">23.232323</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-11">&quot;longitude&quot;</span><span class="hl-1">: </span><span class="hl-7">37.373737</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>If you specify <code>&quot;.&quot;</code> (dot), the SDK places the data <strong>directly in the root</strong>
+of the JSON body:</p>
+<pre><code class="json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-11">&quot;coords&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-11">&quot;latitude&quot;</span><span class="hl-1">: </span><span class="hl-7">23.232323</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-11">&quot;longitude&quot;</span><span class="hl-1">: </span><span class="hl-7">37.373737</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Note:</strong> See the <strong>HTTP Guide</strong> at <a href="#" class="tsd-kind-interface">HttpConfig</a> for detailed payload
+examples and composition rules.</p>
+<p><strong>See also</strong></p>
+<ul>
+<li><a href="PersistenceConfig.html#locationtemplate" class="tsd-kind-property">PersistenceConfig.locationTemplate</a></li>
+<li><a href="PersistenceConfig.html#geofencetemplate" class="tsd-kind-property">PersistenceConfig.geofenceTemplate</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="timeout"><code class="tsd-tag">Optional</code><span>timeout</span><a href="#timeout" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">timeout</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>HTTP request timeout in <strong>milliseconds</strong>.</p>
+<p>When an HTTP request exceeds this timeout, the SDK fires
+<a href="BackgroundGeolocation.html#onhttp" class="tsd-kind-method">BackgroundGeolocation.onHttp</a> with a failure event.</p>
+<p>Defaults to <strong><code>60000</code> ms</strong>.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-5">Example<a href="#example-5" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">onHttp</span><span class="hl-1">((</span><span class="hl-2">response</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-0">if</span><span class="hl-1"> (!</span><span class="hl-2">response</span><span class="hl-1">.</span><span class="hl-2">success</span><span class="hl-1">) {</span><br/><span class="hl-1">    </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-8">log</span><span class="hl-1">(</span><span class="hl-3">&quot;[onHttp] FAILURE:&quot;</span><span class="hl-1">, </span><span class="hl-2">response</span><span class="hl-1">);</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://my-server.com/locations&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">timeout:</span><span class="hl-1"> </span><span class="hl-7">3000</span><span class="hl-1">   </span><span class="hl-9">// 3-second timeout</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</div></div></section></section></details></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary><div><a href="#url"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>url</span></a><a href="#headers"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>headers</span></a><a href="#params"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>params</span></a><a href="#method"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>method</span></a><a href="#autosync"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>auto<wbr/>Sync</span></a><a href="#autosyncthreshold"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>auto<wbr/>Sync<wbr/>Threshold</span></a><a href="#disableautosynconcellular"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>disable<wbr/>Auto<wbr/>Sync<wbr/>On<wbr/>Cellular</span></a><a href="#batchsync"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>batch<wbr/>Sync</span></a><a href="#maxbatchsize"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>max<wbr/>Batch<wbr/>Size</span></a><a href="#rootproperty"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>root<wbr/>Property</span></a><a href="#timeout"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>timeout</span></a></div></details></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../index.html">react-native-background-geolocation@4.19.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

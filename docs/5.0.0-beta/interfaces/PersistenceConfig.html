@@ -1,0 +1,488 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>PersistenceConfig | react-native-background-geolocation@4.19.0</title><link rel="icon" href="../assets/favicon.ico"/><meta name="description" content="Documentation for react-native-background-geolocation@4.19.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="../index.html" class="title">react-native-background-geolocation@4.19.0</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb" aria-label="Breadcrumb"><li><a href="" aria-current="page">PersistenceConfig</a></li></ul><h1>Interface PersistenceConfig</h1></div><section class="tsd-panel tsd-comment"><div class="tsd-comment tsd-typography"><p><strong>Persistence / Storage Configuration</strong></p>
+<p>The <strong>PersistenceConfig</strong> group controls how the SDK stores, orders, and
+purges records in its on-device SQLite database. The database acts as a
+durable buffer between data producers (locations, geofences) and consumers
+(your app code and the HTTP service).</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">maxDaysToPersist:</span><span class="hl-1"> </span><span class="hl-7">3</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">maxRecordsToPersist:</span><span class="hl-1"> </span><span class="hl-7">1000</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">extras:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-3">&#39;user_id&#39;</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-7">123</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-3">&#39;appVersion&#39;</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-3">&#39;1.2.3&#39;</span><br/><span class="hl-1">    },</span><br/><span class="hl-1">    </span><span class="hl-2">persistMode:</span><span class="hl-1"> </span><span class="hl-2">PersistMode</span><span class="hl-1">.</span><span class="hl-2">All</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>The SDK <strong>prefers an empty database</strong>. Each new <a href="Location.html" class="tsd-kind-interface">Location</a> (and geofence
+event) is written to SQLite immediately, then consumed (and typically deleted)
+by downstream services such as the HTTP uploader. When a record is successfully
+processed (e.g., posted to your server), it is removed to keep the buffer
+small and responsive.</p>
+<p>Configure <strong>PersistenceConfig</strong> via <a href="Config.html#persistence" class="tsd-kind-property">Config.persistence</a>.</p>
+<p><strong>What gets stored?</strong></p>
+<ul>
+<li><strong>Locations</strong> recorded by the tracker</li>
+<li><strong>Geofence events</strong> (enter / exit / dwell)</li>
+<li><strong>Extras</strong> merged at write time via <a href="#extras" class="tsd-kind-property">extras</a></li>
+</ul>
+<p><strong>When are records deleted?</strong></p>
+<p>A record is deleted when <strong>any</strong> of the following occur:</p>
+<ul>
+<li>Your server returns a <code>20x</code> for the HTTP upload (see <a href="HttpConfig.html" class="tsd-kind-interface">HttpConfig</a>)</li>
+<li>You call <a href="BackgroundGeolocation.html#destroylocations" class="tsd-kind-method">BackgroundGeolocation.destroyLocations</a></li>
+<li><a href="#maxdaystopersist" class="tsd-kind-property">maxDaysToPersist</a> elapses (rolling TTL purge)</li>
+<li><a href="#maxrecordstopersist" class="tsd-kind-property">maxRecordsToPersist</a> would be exceeded<br>
+(oldest records are dropped)</li>
+</ul>
+<p>Inspect pending records using:</p>
+<ul>
+<li><a href="BackgroundGeolocation.html#getcount" class="tsd-kind-method">BackgroundGeolocation.getCount</a></li>
+<li><a href="BackgroundGeolocation.html#getlocations" class="tsd-kind-method">BackgroundGeolocation.getLocations</a></li>
+</ul>
+<p><strong>Ordering</strong></p>
+<p>The order in which records are selected for upload or consumption is controlled by
+<a href="#locationsorderdirection" class="tsd-kind-property">locationsOrderDirection</a>:</p>
+<ul>
+<li><code>&quot;ASC&quot;</code> → oldest first (default)</li>
+<li><code>&quot;DESC&quot;</code> → newest first</li>
+</ul>
+<p><strong>JSON templating</strong></p>
+<p>Customize the JSON structure of uploaded records:</p>
+<ul>
+<li><a href="#locationtemplate" class="tsd-kind-property">locationTemplate</a></li>
+<li><a href="#geofencetemplate" class="tsd-kind-property">geofenceTemplate</a></li>
+</ul>
+<p>Templates receive the full record context and can reshape, rename, or nest fields
+to match backend requirements (see also <a href="HttpConfig.html#rootproperty" class="tsd-kind-property">HttpConfig.rootProperty</a>).</p>
+<p><strong>Extras</strong></p>
+<p><a href="#extras" class="tsd-kind-property">extras</a> is a free-form key/value map merged into <strong>every</strong>
+record when written. Ideal for static context such as <code>user_id</code>, <code>route_id</code>,
+<code>appVersion</code>, etc.</p>
+<p><strong>Persist mode</strong></p>
+<p>Control what is written to SQLite with <a href="../variables/PersistMode.html" class="tsd-kind-variable">PersistMode</a>:</p>
+<ul>
+<li><a href="../variables/PersistMode.html#all" class="tsd-kind-property">PersistMode.All</a> — persist <strong>locations + geofences</strong></li>
+<li><a href="../variables/PersistMode.html#location" class="tsd-kind-property">PersistMode.Location</a> — persist <strong>locations only</strong></li>
+<li><a href="../variables/PersistMode.html#geofence" class="tsd-kind-property">PersistMode.Geofence</a> — persist <strong>geofences only</strong></li>
+<li><a href="../variables/PersistMode.html#none" class="tsd-kind-property">PersistMode.None</a> — <strong>do not persist</strong> (live callbacks still fire)</li>
+</ul>
+<blockquote>
+<p>Even with <a href="../variables/PersistMode.html#none" class="tsd-kind-property">PersistMode.None</a>, HTTP uploads can still occur if triggered
+directly. Persistence controls the <em>buffer</em>, not the upload.</p>
+</blockquote>
+<p><strong>Example</strong></p>
+<pre><code class="ts"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">location</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">bg</span><span class="hl-1">.</span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">getCurrentPosition</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">persist:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">extras:</span><span class="hl-1"> {</span><span class="hl-3">&quot;get_current_position&quot;</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">},</span><br/><span class="hl-1">  </span><span class="hl-2">samples:</span><span class="hl-1"> </span><span class="hl-7">3</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>In this case, the fetched location is persisted (because <code>persist: true</code>,
+overriding <a href="#persistmode" class="tsd-kind-property">persistMode</a>), then uploaded immediately if
+<a href="HttpConfig.html#autosync" class="tsd-kind-property">HttpConfig.autoSync</a> is enabled.</p>
+<p><strong>ProviderChange Records</strong></p>
+<p>Disable storage of diagnostic “provider change” records (GPS toggled, settings
+changed, etc.) with <a href="#disableproviderchangerecord" class="tsd-kind-property">disableProviderChangeRecord</a> to keep
+the database lean.</p>
+<p><strong>Examples</strong></p>
+<p><strong>Configure persistence behavior</strong></p>
+<pre><code class="ts"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">config</span><span class="hl-1"> = {</span><br/><span class="hl-1">  </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">maxDaysToPersist:</span><span class="hl-1"> </span><span class="hl-7">14</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">maxRecordsToPersist:</span><span class="hl-1"> </span><span class="hl-7">5000</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">locationsOrderDirection:</span><span class="hl-1"> </span><span class="hl-3">&#39;ASC&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">persistMode:</span><span class="hl-1"> </span><span class="hl-2">PersistMode</span><span class="hl-1">.</span><span class="hl-2">All</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">extras:</span><span class="hl-1"> {</span><span class="hl-3">&#39;user_id&#39;</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-7">123</span><span class="hl-1">, </span><span class="hl-3">&#39;appVersion&#39;</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-3">&#39;1.2.3&#39;</span><span class="hl-1">},</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&#39;https://example.com/locations&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">autoSync:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">state</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">(</span><span class="hl-2">config</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Inspect and purge the database</strong></p>
+<pre><code class="ts"><span class="hl-2">final</span><span class="hl-1"> </span><span class="hl-2">pending</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">getCount</span><span class="hl-1">();</span><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-8">log</span><span class="hl-1">(</span><span class="hl-3">&#39;Pending records: $pending&#39;</span><span class="hl-1">);</span><br/><br/><span class="hl-9">// Purge all records</span><br/><span class="hl-2">final</span><span class="hl-1"> </span><span class="hl-2">ok</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">bg</span><span class="hl-1">.</span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">destroyLocations</span><span class="hl-1">();</span><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-8">log</span><span class="hl-1">(</span><span class="hl-3">&#39;Destroyed all records? $ok&#39;</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Custom JSON templates</strong></p>
+<pre><code class="ts"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">config</span><span class="hl-1"> = {</span><br/><span class="hl-1">  </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">locationTemplate:</span><span class="hl-1"> </span><span class="hl-3">&#39;&#39;&#39;</span><br/><span class="hl-3">    </span><span class="hl-13">{</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;lat&quot;</span><span class="hl-1">: &lt;%= </span><span class="hl-6">latitude</span><span class="hl-1"> %&gt;,</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;lng&quot;</span><span class="hl-2">:</span><span class="hl-1"> &lt;%= </span><span class="hl-6">longitude</span><span class="hl-1"> %&gt;,</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;ts&quot;</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-3">&quot;&lt;%= timestamp %&gt;&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;meta&quot;</span><span class="hl-2">:</span><span class="hl-1"> &lt;%= </span><span class="hl-6">JSON</span><span class="hl-1">.</span><span class="hl-6">stringify</span><span class="hl-1">(</span><span class="hl-6">extras</span><span class="hl-1">) %&gt;</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">    </span><span class="hl-3">&#39;&#39;&#39;</span><span class="hl-13">,</span><br/><span class="hl-1">    </span><span class="hl-2">geofenceTemplate</span><span class="hl-1">: </span><span class="hl-3">&#39;&#39;&#39;</span><br/><span class="hl-3">    </span><span class="hl-13">{</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;id&quot;</span><span class="hl-1">: </span><span class="hl-3">&quot;&lt;%= identifier %&gt;&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;action&quot;</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-3">&quot;&lt;%= action %&gt;&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;ts&quot;</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-3">&quot;&lt;%= timestamp %&gt;&quot;</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">    </span><span class="hl-3">&#39;&#39;&#39;</span><span class="hl-13">,</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">};</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Migration from legacy flat Config</strong></p>
+<pre><code class="ts"><span class="hl-9">// Legacy</span><br/><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-10">maxDaysToPersist</span><span class="hl-1">: </span><span class="hl-7">14</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-10">maxRecordsToPersist</span><span class="hl-1">: </span><span class="hl-7">5000</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-10">locationsOrderDirection</span><span class="hl-1">: </span><span class="hl-3">&#39;ASC&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-10">locationTemplate</span><span class="hl-1">: </span><span class="hl-3">&#39;{...}&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-10">geofenceTemplate</span><span class="hl-1">: </span><span class="hl-3">&#39;{...}&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-10">persistMode</span><span class="hl-1">: </span><span class="hl-2">Config</span><span class="hl-1">.</span><span class="hl-5">PERSIST_MODE_ALL</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-10">extras</span><span class="hl-1">: {</span><span class="hl-3">&#39;user_id&#39;</span><span class="hl-1">: </span><span class="hl-7">123</span><span class="hl-1">},</span><br/><span class="hl-1">  </span><span class="hl-10">disableProviderChangeRecord</span><span class="hl-1">: </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">};</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Now grouped under <strong>PersistenceConfig</strong>:</p>
+<pre><code class="ts"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-10">persistence</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-10">maxDaysToPersist</span><span class="hl-1">: </span><span class="hl-7">14</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-10">maxRecordsToPersist</span><span class="hl-1">: </span><span class="hl-7">5000</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-10">locationsOrderDirection</span><span class="hl-1">: </span><span class="hl-3">&#39;ASC&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-10">locationTemplate</span><span class="hl-1">: </span><span class="hl-3">&#39;{...}&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-10">geofenceTemplate</span><span class="hl-1">: </span><span class="hl-3">&#39;{...}&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-10">persistMode</span><span class="hl-1">: </span><span class="hl-2">PersistMode</span><span class="hl-1">.</span><span class="hl-2">all</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-10">extras</span><span class="hl-1">: {</span><span class="hl-3">&#39;user_id&#39;</span><span class="hl-1">: </span><span class="hl-7">123</span><span class="hl-1">},</span><br/><span class="hl-1">    </span><span class="hl-10">disableProviderChangeRecord</span><span class="hl-1">: </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">};</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Legacy keys remain but are marked <strong>@deprecated</strong>. Prefer the compound form going forward.</p>
+</div></section><div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">PersistenceConfig</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#locationtemplate">locationTemplate</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#geofencetemplate">geofenceTemplate</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#maxdaystopersist">maxDaysToPersist</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#maxrecordstopersist">maxRecordsToPersist</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#locationsorderdirection">locationsOrderDirection</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">&quot;ASC&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;DESC&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#persistmode">persistMode</a><span class="tsd-signature-symbol">?:</span> <a href="../variables/PersistMode.html" class="tsd-signature-type tsd-kind-variable">PersistMode</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#extras">extras</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#disableproviderchangerecord">disableProviderChangeRecord</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><section class="tsd-panel-group tsd-index-group"><section class="tsd-panel tsd-index-panel"><details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h5 class="tsd-index-heading uppercase">Index</h5></summary><div class="tsd-accordion-details"><section class="tsd-index-section"><h3 class="tsd-index-heading">Properties</h3><div class="tsd-index-list"><a href="#locationtemplate" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>location<wbr/>Template?</span></a>
+<a href="#geofencetemplate" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>geofence<wbr/>Template?</span></a>
+<a href="#maxdaystopersist" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>max<wbr/>Days<wbr/>To<wbr/>Persist?</span></a>
+<a href="#maxrecordstopersist" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>max<wbr/>Records<wbr/>To<wbr/>Persist?</span></a>
+<a href="#locationsorderdirection" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>locations<wbr/>Order<wbr/>Direction?</span></a>
+<a href="#persistmode" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>persist<wbr/>Mode?</span></a>
+<a href="#extras" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>extras?</span></a>
+<a href="#disableproviderchangerecord" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>disable<wbr/>Provider<wbr/>Change<wbr/>Record?</span></a>
+</div></section></div></details></section></section><details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h2>Properties</h2></summary><section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="locationtemplate"><code class="tsd-tag">Optional</code><span>location<wbr/>Template</span><a href="#locationtemplate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">locationTemplate</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><div class="tsd-comment tsd-typography"><p>Optional custom template for rendering <a href="Location.html" class="tsd-kind-interface">Location</a> JSON request data
+in HTTP uploads.</p>
+<p>The <a href="#locationtemplate" class="tsd-kind-property">locationTemplate</a> is evaluated using
+Ruby-style ERB tags:</p>
+<pre><code class="erb"><span class="hl-4">&lt;%=</span><span class="hl-18"> variable_name </span><span class="hl-4">%&gt;</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example">Example<a href="#example" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">locationTemplate:</span><br/><span class="hl-1">      </span><span class="hl-3">&#39;{&quot;lat&quot;:&lt;%= latitude %&gt;,&quot;lng&quot;:&lt;%= longitude %&gt;,&quot;event&quot;:&quot;&lt;%= event %&gt;&quot;,isMoving:&lt;%= is_moving %&gt;}&#39;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-9">// Or use a compact Array template:</span><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">locationTemplate:</span><br/><span class="hl-1">      </span><span class="hl-3">&#39;[&lt;%=latitude%&gt;, &lt;%=longitude%&gt;, &quot;&lt;%=event%&gt;&quot;, &lt;%=is_moving%&gt;]&#39;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>⚠️ Quoting string data</strong></p>
+<p>The plugin does <em>not</em> automatically insert quotes around string values.<br>
+Templates are JSON-encoded <strong>exactly as written</strong>.</p>
+<p>The following will cause a JSON error because <code>timestamp</code> is a string
+but is rendered unquoted:</p>
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-1">Example<a href="#example-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="typescript"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">locationTemplate:</span><span class="hl-1"> </span><span class="hl-3">&#39;{&quot;timestamp&quot;: &lt;%= timestamp %&gt;}&#39;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>This renders invalid JSON:</p>
+<pre><code class="json"><span class="hl-1">{</span><span class="hl-11">&quot;timestamp&quot;</span><span class="hl-1">: </span><span class="hl-7">2018-01-01</span><span class="hl-13">T</span><span class="hl-7">12</span><span class="hl-13">:</span><span class="hl-7">01</span><span class="hl-13">:</span><span class="hl-7">01.123</span><span class="hl-13">Z</span><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Correct usage:</p>
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-2">Example<a href="#example-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="typescript"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1"> </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-2">locationTemplate:</span><span class="hl-1"> </span><span class="hl-3">&#39;{&quot;timestamp&quot;: &quot;&lt;%= timestamp %&gt;&quot;}&#39;</span><br/><span class="hl-1"> }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<pre><code class="json"><span class="hl-1">{</span><span class="hl-11">&quot;timestamp&quot;</span><span class="hl-1">: </span><span class="hl-3">&quot;2018-01-01T12:01:01.123Z&quot;</span><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Configured <a href="#extras" class="tsd-kind-property">extras</a></strong></p>
+<p>If <a href="#extras" class="tsd-kind-property">extras</a> are configured, the key/value pairs are merged directly
+into the rendered location JSON.</p>
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-3">Example<a href="#example-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="typescript"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&#39;https://my.server.com/locations&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">rootProperty:</span><span class="hl-1"> </span><span class="hl-3">&#39;data&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">  </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">locationTemplate:</span><span class="hl-1"> </span><span class="hl-3">&#39;{&quot;lat&quot;:&lt;%= latitude %&gt;,&quot;lng&quot;:&lt;%= longitude %&gt;}&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">extras:</span><span class="hl-1"> { </span><span class="hl-2">foo:</span><span class="hl-1"> </span><span class="hl-3">&quot;bar&quot;</span><span class="hl-1"> }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Produces:</p>
+<pre><code class="json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-11">&quot;data&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-11">&quot;lat&quot;</span><span class="hl-1">: </span><span class="hl-7">23.23232323</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-11">&quot;lng&quot;</span><span class="hl-1">: </span><span class="hl-7">37.37373737</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-11">&quot;foo&quot;</span><span class="hl-1">: </span><span class="hl-3">&quot;bar&quot;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Template Tags</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>latitude</code></td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>longitude</code></td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>speed</code></td>
+<td><code>Float</code></td>
+<td>Meters</td>
+</tr>
+<tr>
+<td><code>heading</code></td>
+<td><code>Float</code></td>
+<td>Degrees</td>
+</tr>
+<tr>
+<td><code>accuracy</code></td>
+<td><code>Float</code></td>
+<td>Meters</td>
+</tr>
+<tr>
+<td><code>altitude</code></td>
+<td><code>Float</code></td>
+<td>Meters</td>
+</tr>
+<tr>
+<td><code>altitude_accuracy</code></td>
+<td><code>Float</code></td>
+<td>Meters</td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td><code>String</code></td>
+<td>ISO-8601</td>
+</tr>
+<tr>
+<td><code>uuid</code></td>
+<td><code>String</code></td>
+<td>Unique ID</td>
+</tr>
+<tr>
+<td><code>event</code></td>
+<td><code>String</code></td>
+<td><code>motionchange</code>, <code>geofence</code>, <code>heartbeat</code>, <code>providerchange</code></td>
+</tr>
+<tr>
+<td><code>odometer</code></td>
+<td><code>Float</code></td>
+<td>Meters</td>
+</tr>
+<tr>
+<td><code>activity.type</code></td>
+<td><code>String</code></td>
+<td><code>still</code>, <code>on_foot</code>, <code>running</code>, <code>on_bicycle</code>, <code>in_vehicle</code>, <code>unknown</code></td>
+</tr>
+<tr>
+<td><code>activity.confidence</code></td>
+<td><code>Integer</code></td>
+<td>0–100%</td>
+</tr>
+<tr>
+<td><code>battery.level</code></td>
+<td><code>Float</code></td>
+<td>0–100%</td>
+</tr>
+<tr>
+<td><code>battery.is_charging</code></td>
+<td><code>Boolean</code></td>
+<td>Is device plugged in?</td>
+</tr>
+<tr>
+<td><code>mock</code></td>
+<td><code>Boolean</code></td>
+<td>True if generated by mock provider</td>
+</tr>
+<tr>
+<td><code>is_moving</code></td>
+<td><code>Boolean</code></td>
+<td>Device was moving when recorded</td>
+</tr>
+<tr>
+<td><code>timestampMeta</code></td>
+<td><code>Object</code></td>
+<td>Timestamp metadata; see <a href="GeoConfig.html#enabletimestampmeta" class="tsd-kind-property">GeoConfig.enableTimestampMeta</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>ℹ️ See also</strong></p>
+<ul>
+<li><a href="HttpEvent.html" class="tsd-kind-interface">HTTP Guide</a></li>
+<li><a href="#geofencetemplate" class="tsd-kind-property">geofenceTemplate</a></li>
+<li><a href="HttpConfig.html#rootproperty" class="tsd-kind-property">HttpConfig.rootProperty</a></li>
+</ul>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="geofencetemplate"><code class="tsd-tag">Optional</code><span>geofence<wbr/>Template</span><a href="#geofencetemplate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">geofenceTemplate</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><div class="tsd-comment tsd-typography"><p>Optional custom template for rendering <a href="GeofenceEvent.html" class="tsd-kind-interface">GeofenceEvent</a>
+JSON request data in HTTP uploads.</p>
+<p>The <a href="#geofencetemplate" class="tsd-kind-property">geofenceTemplate</a> behaves like
+<a href="#locationtemplate" class="tsd-kind-property">locationTemplate</a>, but includes two
+additional tags: <code>geofence.identifier</code> and <code>geofence.action</code>.</p>
+<p>The template is evaluated using Ruby-style ERB tags:</p>
+<pre><code class="erb"><span class="hl-4">&lt;%=</span><span class="hl-18"> variable_name </span><span class="hl-4">%&gt;</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>ℹ️ See also</strong></p>
+<ul>
+<li><a href="#locationtemplate" class="tsd-kind-property">locationTemplate</a></li>
+<li><a href="HttpConfig.html#rootproperty" class="tsd-kind-property">HttpConfig.rootProperty</a></li>
+<li><a href="HttpEvent.html" class="tsd-kind-interface">HTTP Guide</a></li>
+</ul>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-4">Example<a href="#example-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="typescript"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">geofenceTemplate:</span><br/><span class="hl-1">      </span><span class="hl-3">&#39;{ &quot;lat&quot;:&lt;%= latitude %&gt;, &quot;lng&quot;:&lt;%= longitude %&gt;, &quot;geofence&quot;:&quot;&lt;%= geofence.identifier %&gt;:&lt;%= geofence.action %&gt;&quot; }&#39;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-9">// Or a compact Array form:</span><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">geofenceTemplate:</span><br/><span class="hl-1">      </span><span class="hl-3">&#39;[&lt;%= latitude %&gt;, &lt;%= longitude %&gt;, &quot;&lt;%= geofence.identifier %&gt;&quot;, &quot;&lt;%= geofence.action %&gt;&quot;]&#39;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>⚠️ Quoting string data</strong></p>
+<p>The plugin does <em>not</em> automatically apply double-quotes around string
+data. Templates are JSON-encoded <strong>exactly as written</strong>.</p>
+<p>Incorrect:</p>
+<pre><code class="typescript"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">geofenceTemplate:</span><span class="hl-1"> </span><span class="hl-3">&#39;{&quot;timestamp&quot;: &lt;%= timestamp %&gt;}&#39;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Produces invalid JSON:</p>
+<pre><code class="json"><span class="hl-1">{</span><span class="hl-11">&quot;timestamp&quot;</span><span class="hl-1">: </span><span class="hl-7">2018-01-01</span><span class="hl-13">T</span><span class="hl-7">12</span><span class="hl-13">:</span><span class="hl-7">01</span><span class="hl-13">:</span><span class="hl-7">01.123</span><span class="hl-13">Z</span><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Correct:</p>
+<pre><code class="typescript"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">geofenceTemplate:</span><span class="hl-1"> </span><span class="hl-3">&#39;{&quot;timestamp&quot;: &quot;&lt;%= timestamp %&gt;&quot;}&#39;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<pre><code class="json"><span class="hl-1">{</span><span class="hl-11">&quot;timestamp&quot;</span><span class="hl-1">: </span><span class="hl-3">&quot;2018-01-01T12:01:01.123Z&quot;</span><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Template Tags</strong></p>
+<p>Identical to <a href="#locationtemplate" class="tsd-kind-property">locationTemplate</a> with the
+following additions:</p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>geofence.identifier</code></td>
+<td><code>String</code></td>
+<td>Identifier of the activated geofence</td>
+</tr>
+<tr>
+<td><code>geofence.action</code></td>
+<td><code>String</code></td>
+<td><code>&quot;ENTER&quot;</code> or <code>&quot;EXIT&quot;</code></td>
+</tr>
+<tr>
+<td><code>latitude</code></td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>longitude</code></td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>speed</code></td>
+<td><code>Float</code></td>
+<td>Meters</td>
+</tr>
+<tr>
+<td><code>heading</code></td>
+<td><code>Float</code></td>
+<td>Degrees</td>
+</tr>
+<tr>
+<td><code>accuracy</code></td>
+<td><code>Float</code></td>
+<td>Meters</td>
+</tr>
+<tr>
+<td><code>altitude</code></td>
+<td><code>Float</code></td>
+<td>Meters</td>
+</tr>
+<tr>
+<td><code>altitude_accuracy</code></td>
+<td><code>Float</code></td>
+<td>Meters</td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td><code>String</code></td>
+<td>ISO-8601</td>
+</tr>
+<tr>
+<td><code>uuid</code></td>
+<td><code>String</code></td>
+<td>Unique ID</td>
+</tr>
+<tr>
+<td><code>event</code></td>
+<td><code>String</code></td>
+<td><code>motionchange</code>, <code>geofence</code>, <code>heartbeat</code>, <code>providerchange</code></td>
+</tr>
+<tr>
+<td><code>odometer</code></td>
+<td><code>Float</code></td>
+<td>Meters</td>
+</tr>
+<tr>
+<td><code>activity.type</code></td>
+<td><code>String</code></td>
+<td><code>still</code>, <code>on_foot</code>, <code>running</code>, <code>on_bicycle</code>, <code>in_vehicle</code>, <code>unknown</code></td>
+</tr>
+<tr>
+<td><code>activity.confidence</code></td>
+<td><code>Integer</code></td>
+<td>0–100%</td>
+</tr>
+<tr>
+<td><code>battery.level</code></td>
+<td><code>Float</code></td>
+<td>0–100%</td>
+</tr>
+<tr>
+<td><code>battery.is_charging</code></td>
+<td><code>Boolean</code></td>
+<td>Whether device is plugged in</td>
+</tr>
+<tr>
+<td><code>mock</code></td>
+<td><code>Boolean</code></td>
+<td>True when location was generated from a mock app</td>
+</tr>
+<tr>
+<td><code>is_moving</code></td>
+<td><code>Boolean</code></td>
+<td>True if recorded while in <em>moving</em> state</td>
+</tr>
+<tr>
+<td><code>timestampMeta</code></td>
+<td><code>Object</code></td>
+<td>Timestamp metadata; see <a href="GeoConfig.html#enabletimestampmeta" class="tsd-kind-property">GeoConfig.enableTimestampMeta</a></td>
+</tr>
+</tbody>
+</table>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="maxdaystopersist"><code class="tsd-tag">Optional</code><span>max<wbr/>Days<wbr/>To<wbr/>Persist</span><a href="#maxdaystopersist" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">maxDaysToPersist</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Maximum number of days to retain a persisted geolocation record
+in the plugin’s on-device SQLite database.</p>
+<p>When your server fails to return <strong>HTTP 200 OK</strong>, the SDK will continue
+retrying uploads according to your <a href="HttpConfig.html" class="tsd-kind-interface">HttpConfig</a> settings. If a record
+remains unuploaded for longer than <strong>maxDaysToPersist</strong>, it will be
+permanently discarded to prevent unbounded database growth.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="maxrecordstopersist"><code class="tsd-tag">Optional</code><span>max<wbr/>Records<wbr/>To<wbr/>Persist</span><a href="#maxrecordstopersist" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">maxRecordsToPersist</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Maximum number of records the SDK may retain in its on-device SQLite
+database.</p>
+<p>A value of <code>-1</code> (default) means <strong>no limit</strong>. When a limit is set and the
+number of stored records would exceed this value, the oldest records are
+purged to make room for the newest.</p>
+<p>See <a href="HttpEvent.html" class="tsd-kind-interface">HttpEvent</a> for details on upload behavior.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="locationsorderdirection"><code class="tsd-tag">Optional</code><span>locations<wbr/>Order<wbr/>Direction</span><a href="#locationsorderdirection" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">locationsOrderDirection</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">&quot;ASC&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;DESC&quot;</span></div><div class="tsd-comment tsd-typography"><p>Sort order for persisted locations.
+<code>'ASC'</code> = oldest first; <code>'DESC'</code> = newest first.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="persistmode"><code class="tsd-tag">Optional</code><span>persist<wbr/>Mode</span><a href="#persistmode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">persistMode</span><span class="tsd-signature-symbol">?:</span> <a href="../variables/PersistMode.html" class="tsd-signature-type tsd-kind-variable">PersistMode</a></div><div class="tsd-comment tsd-typography"><p>Controls which event types the SDK will persist into its internal SQLite
+database: locations, geofences, or both.</p>
+<p>All recorded events are always delivered to their live callbacks
+(<a href="BackgroundGeolocation.html#onlocation" class="tsd-kind-method">BackgroundGeolocation.onLocation</a> and
+<a href="BackgroundGeolocation.html#ongeofence" class="tsd-kind-method">BackgroundGeolocation.onGeofence</a>). This option only determines
+what is written to persistent storage. Events that are <em>not</em> persisted are
+also <em>not</em> eligible for HTTP uploads via <a href="HttpConfig.html#url" class="tsd-kind-property">HttpConfig.url</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../variables/PersistMode.html#all" class="tsd-kind-property">PersistMode.All</a></td>
+<td><strong>Default</strong> — persist both geofence and location events.</td>
+</tr>
+<tr>
+<td><a href="../variables/PersistMode.html#location" class="tsd-kind-property">PersistMode.Location</a></td>
+<td>Persist <strong>location</strong> events only.</td>
+</tr>
+<tr>
+<td><a href="../variables/PersistMode.html#geofence" class="tsd-kind-property">PersistMode.Geofence</a></td>
+<td>Persist <strong>geofence</strong> events only.</td>
+</tr>
+<tr>
+<td><a href="../variables/PersistMode.html#none" class="tsd-kind-property">PersistMode.None</a></td>
+<td>Persist <strong>nothing</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Warning</strong>:</p>
+<p>This option is intended for specialized cases. For example, if you need
+continuous location tracking via <a href="BackgroundGeolocation.html#start" class="tsd-kind-method">BackgroundGeolocation.start</a> but
+only want to <em>store</em> geofence events, configure:
+<code>persistMode: PersistMode.Geofence</code>.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="extras"><code class="tsd-tag">Optional</code><span>extras</span><a href="#extras" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">extras</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div><div class="tsd-comment tsd-typography"><p>Optional arbitrary key/value pairs merged into <strong>each</strong> recorded location.</p>
+<p>These values are persisted and included in all HTTP uploads, making them
+ideal for attaching contextual metadata such as <code>user_id</code>, <code>route_id</code>,
+or <code>session_id</code>.</p>
+<p><strong>See also:</strong></p>
+<ul>
+<li>📘 <a href="HttpEvent.html" class="tsd-kind-interface">HTTP Guide</a></li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="typescript"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://my-server.com/locations&quot;</span><span class="hl-1">,   </span><br/><span class="hl-1">    </span><span class="hl-2">params:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">device_id:</span><span class="hl-1"> </span><span class="hl-3">&quot;abc123&quot;</span><span class="hl-1">  </span><span class="hl-9">// &lt;-- appended to root JSON of each POST request</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">  </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">extras:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">route_id:</span><span class="hl-1"> </span><span class="hl-7">1234</span><span class="hl-1">       </span><span class="hl-9">// &lt;-- merged onto each location record</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Incoming request at your server:</strong></p>
+<pre><code class="json"><span class="hl-1">POST /locations</span><br/><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-11">&quot;device_id&quot;</span><span class="hl-1">: </span><span class="hl-3">&quot;abc123&quot;</span><span class="hl-1">,        </span><span class="hl-9">// from `params`</span><br/><span class="hl-1">  </span><span class="hl-11">&quot;location&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-11">&quot;coords&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">      </span><span class="hl-11">&quot;latitude&quot;</span><span class="hl-1">: </span><span class="hl-7">45.51927004945047</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-11">&quot;longitude&quot;</span><span class="hl-1">: </span><span class="hl-7">-73.61650072045029</span><br/><span class="hl-1">    },</span><br/><span class="hl-1">    </span><span class="hl-11">&quot;extras&quot;</span><span class="hl-1">: {                 </span><span class="hl-9">// from `extras`</span><br/><span class="hl-1">      </span><span class="hl-11">&quot;route_id&quot;</span><span class="hl-1">: </span><span class="hl-7">1234</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="disableproviderchangerecord"><code class="tsd-tag">Optional</code><span>disable<wbr/>Provider<wbr/>Change<wbr/>Record</span><a href="#disableproviderchangerecord" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">disableProviderChangeRecord</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p><strong>Android-only</strong><br>
+Disable the automatic insertion of a synthetic “provider-change” location
+into the SDK’s SQLite database (and its subsequent HTTP upload).</p>
+<p>By default, when an <a href="BackgroundGeolocation.html#onproviderchange" class="tsd-kind-method">BackgroundGeolocation.onProviderChange</a> event fires, the Android SDK
+records a special location documenting <em>when</em> and <em>where</em> the device’s
+location-services state changed (e.g., GPS disabled).<br>
+This behavior historically existed to support platforms with limited or
+unreliable Headless Task implementations (e.g., Cordova, Capacitor).</p>
+<p>Some developers have strict server-side JSON schemas or use
+<a href="#locationtemplate" class="tsd-kind-property">locationTemplate</a>, making it impossible to accept the automatically
+injected <code>provider</code> field. In these cases, set this flag to <code>true</code>.</p>
+<p><img src="https://www.dropbox.com/s/ljacoquuuv5sd5r/disableProviderChangeRecord.png?dl=1" alt=""></p>
+<p><strong>Example:</strong></p>
+<pre><code class="typescript"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">persistence:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">disableProviderChangeRecord:</span><span class="hl-1"> </span><span class="hl-4">true</span><br/><span class="hl-1"> }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</div></section></section></details></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary><div><a href="#locationtemplate"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>location<wbr/>Template</span></a><a href="#geofencetemplate"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>geofence<wbr/>Template</span></a><a href="#maxdaystopersist"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>max<wbr/>Days<wbr/>To<wbr/>Persist</span></a><a href="#maxrecordstopersist"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>max<wbr/>Records<wbr/>To<wbr/>Persist</span></a><a href="#locationsorderdirection"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>locations<wbr/>Order<wbr/>Direction</span></a><a href="#persistmode"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>persist<wbr/>Mode</span></a><a href="#extras"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>extras</span></a><a href="#disableproviderchangerecord"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>disable<wbr/>Provider<wbr/>Change<wbr/>Record</span></a></div></details></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../index.html">react-native-background-geolocation@4.19.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

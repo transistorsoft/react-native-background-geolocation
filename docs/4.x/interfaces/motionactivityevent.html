@@ -1,0 +1,241 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>MotionActivityEvent | React Native Background Geolocation</title>
+	<meta name="description" content="Documentation for React Native Background Geolocation">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<link rel="shortcut icon" class="favicon" href="../assets/images/favicon.ico">
+	<script src="../assets/js/search.js"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell left">
+					<div class="brand">
+						<a class="logo" href="https://www.transistorsoft.com"><img src="../assets/images/transistor-logo-bw.svg" /></a>
+						<span class="title">
+							<a href="/react-native-background-geolocation">[API Docs] React Native Background Geolocation</a>&nbsp;<span class="tsd-flag ts-flagOptional ts-flagVersion">v 4.19.0</span>
+						</span>
+					</div>
+				</div>
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading"></li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../index.html">React Native Background Geolocation</a>
+				</li>
+				<li>
+					<a href="motionactivityevent.html">MotionActivityEvent</a>
+				</li>
+			</ul>
+			<h1>Interface MotionActivityEvent</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-9 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The event-object provided to <a href="../classes/backgroundgeolocation.html#onactivitychange">BackgroundGeolocation.onActivityChange</a>.</p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt class="tsd-comment-tag-example">example</dt>
+						<dd><pre><code class="language-typescript"><span style="color: #F8F8F2">BackgroundGeolocation.</span><span style="color: #A6E22E">onActivityChange</span><span style="color: #F8F8F2">(</span><span style="color: #FD971F">activityChangeEvent</span><span style="color: #F8F8F2"> </span><span style="color: #66D9EF">=&gt;</span><span style="color: #F8F8F2"> {</span>
+<span style="color: #F8F8F2">  console.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #E6DB74">&quot;[activitychange] &quot;</span><span style="color: #F8F8F2">, activityChangeEvent.activity, activityChangeEvent.confidence);</span>
+<span style="color: #F8F8F2">});</span>
+</code></pre>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">MotionActivityEvent</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="motionactivityevent.html#activity" class="tsd-kind-icon">activity</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="motionactivityevent.html#confidence" class="tsd-kind-icon">confidence</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="activity" class="tsd-anchor"></a>
+					<h3>activity</h3>
+					<div class="tsd-signature tsd-kind-icon">activity<span class="tsd-signature-symbol">:</span> <a href="../index.html#motionactivitytype" class="tsd-signature-type" data-tsd-kind="Type alias">MotionActivityType</a></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The reported device motion activity.</p>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>Activity Name</th>
+								</tr>
+							</thead>
+							<tbody><tr>
+									<td><code>still</code></td>
+								</tr>
+								<tr>
+									<td><code>walking</code></td>
+								</tr>
+								<tr>
+									<td><code>on_foot</code></td>
+								</tr>
+								<tr>
+									<td><code>running</code></td>
+								</tr>
+								<tr>
+									<td><code>on_bicycle</code></td>
+								</tr>
+								<tr>
+									<td><code>in_vehicle</code></td>
+								</tr>
+								<tr>
+									<td><code>unknown</code></td>
+								</tr>
+						</tbody></table>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="confidence" class="tsd-anchor"></a>
+					<h3>confidence</h3>
+					<div class="tsd-signature tsd-kind-icon">confidence<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Confidence of the reported device motion activity in %.</p>
+						</div>
+					</div>
+				</section>
+			</section>
+		</div>
+		<div class="col-3 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
+						<a href="motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="motionactivityevent.html#activity" class="tsd-kind-icon">activity</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="motionactivityevent.html#confidence" class="tsd-kind-icon">confidence</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
+						<a href="motionactivityevent.html" class="tsd-kind-icon">Motion<wbr>Activity<wbr>Event</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="motionactivityevent.html#activity" class="tsd-kind-icon">activity</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="motionactivityevent.html#confidence" class="tsd-kind-icon">confidence</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4NNZKTE395"></script>
+<script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-4NNZKTE395');
+    </script>
+</body>
+</html>

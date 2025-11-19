@@ -5,7 +5,8 @@
   "scripts": {
     "build": "yarn run build:expo",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:expo": "rimraf expo/plugin/build && tsc --build ./expo/plugin"
+    "build:expo": "rimraf expo/plugin/build && tsc --build ./expo/plugin",
+    "docs": "node ./scripts/generate-docs.mjs"
   },
   "main": "src/index.js",
   "repository": {
@@ -41,6 +42,7 @@
     "fs-extra": "^9.1.0",
     "path": "^0.12.7",
     "rimraf": "^5.0.0",
+    "typedoc": "^0.28.14",
     "typescript": "^5.6.0"
   }
 }

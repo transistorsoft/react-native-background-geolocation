@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
-
+#import <TSLocationManager/TSLocationManager.h>
 
 static NSString *const TS_LOCATION_MANAGER_TAG = @"TSLocationManager";
 
@@ -64,24 +64,25 @@ RCT_EXPORT_MODULE();
 
 -(void) registerEventListeners {
     __typeof(self) __weak me = self;
-    [locationManager onLocation:^(TSLocation *location) {
-        [me sendEvent:EVENT_LOCATION body:[location toDictionary]];
+    
+    [locationManager onLocation:^(TSLocationEvent *event) {
+        [me sendEvent:EVENT_LOCATION body:[event toDictionary]];
     } failure:^(NSError *error) {
         [me sendEvent:EVENT_LOCATION body: @{@"error":@(error.code)}];
     }];
-    [locationManager onMotionChange:^(TSLocation *location) {
-        [me sendEvent:EVENT_MOTIONCHANGE body:@{@"isMoving":@(location.isMoving), @"location":[location toDictionary]}];
+    [locationManager onMotionChange:^(TSLocationEvent *event) {
+        [me sendEvent:EVENT_MOTIONCHANGE body:@{@"isMoving":@(event.isMoving), @"location":[event toDictionary]}];
     }];
     [locationManager onActivityChange:^(TSActivityChangeEvent *event) {
         NSDictionary *params = @{@"activity": event.activity, @"confidence": @(event.confidence)};
         [me sendEvent:EVENT_ACTIVITYCHANGE body:params];
     }];
     [locationManager onHeartbeat:^(TSHeartbeatEvent *event) {
-        [me sendEvent:EVENT_HEARTBEAT body:@{@"location":[event.location toDictionary]}];
+        [me sendEvent:EVENT_HEARTBEAT body:[event toDictionary]];
     }];
     [locationManager onGeofence:^(TSGeofenceEvent *event) {
         NSMutableDictionary *params = [[event toDictionary] mutableCopy];
-        [params setObject:[event.location toDictionary] forKey:@"location"];
+        //[params setObject:[event.location toDictionary] forKey:@"location"];
         [me sendEvent:EVENT_GEOFENCE body:params];
     }];
     [locationManager onGeofencesChange:^(TSGeofencesChangeEvent *event) {
@@ -138,84 +139,89 @@ RCT_EXPORT_METHOD(registerPlugin:(NSString*)pluginName)
     [config registerPlugin:pluginName];
 }
 
-RCT_EXPORT_METHOD(reset:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(reset:(NSDictionary*)params
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     TSConfig *config = [TSConfig sharedInstance];
-    if ([[params allKeys] count] > 0) {
-        [config reset:YES];
-        [config updateWithDictionary:params];
-    } else {
-        [config reset];
+    @try {
+        if ([[params allKeys] count] > 0) {
+            [config resetConfig:YES];
+            [config updateWithDictionary:params];
+        } else {
+            [config reset];
+        }
+        resolve([config toDictionary]);
     }
-    success(@[[config toDictionary]]);
+    @catch (NSException *exception) {
+        // Mirror old behaviour: there was no explicit failure path before, so reject with a generic error.
+        reject(@"reset_error", exception.reason, nil);
+    }
 }
 
 /**
  * configure plugin
  */
-RCT_EXPORT_METHOD(ready:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(ready:(NSDictionary*)params
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    BOOL reset = (params[@"reset"]) ? [params[@"reset"] boolValue] : YES;
+    BOOL resetFlag = (params[@"reset"]) ? [params[@"reset"] boolValue] : YES;
+
+    // If already ready, behave like before but resolve the promise.
     if (ready) {
         TSConfig *config = [TSConfig sharedInstance];
-        if (reset) {
+        if (resetFlag) {
             [locationManager log:@"warn" message:@"#ready already called.  Redirecting to #setConfig"];
             [config updateWithDictionary:params];
         } else {
             [locationManager log:@"warn" message:@"#ready already called.  Ignored Config since reset: false"];
         }
-        success(@[[config toDictionary]]);
+        resolve([config toDictionary]);
         return;
     }
+
     ready = YES;
     [self registerEventListeners];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         TSConfig *config = [TSConfig sharedInstance];
-        if (config.isFirstBoot) {
-            [config updateWithDictionary:params];
-        } else {
-            if (reset) {
-                [config reset:YES];
+        @try {
+            if (config.isFirstBoot) {
                 [config updateWithDictionary:params];
-            } else if ([params objectForKey:@"authorization"]) {
-                [config updateWithBlock:^(TSConfigBuilder *builder) {
-                    builder.authorization = [TSAuthorization createWithDictionary:[params objectForKey:@"authorization"]];
-                }];
+            } else {
+                if (resetFlag) {
+                    [config resetConfig:YES];
+                    [config updateWithDictionary:params];
+                } else if ([params objectForKey:@"authorization"]) {
+                    [config batchUpdate:^(TSConfig * _Nonnull cfg) {
+                        [cfg.authorization updateWithDictionary:[params objectForKey:@"authorization"]];
+                    }];
+                }
             }
+            [self.locationManager ready];
+            resolve([config toDictionary]);
         }
-        [self.locationManager ready];
-        success(@[[config toDictionary]]);
-    });
-}
-
-/**
- * configure plugin
- * @deprecated in favour of #ready
- */
-RCT_EXPORT_METHOD(configure:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        TSConfig *config = [TSConfig sharedInstance];
-        [self.locationManager configure:params];
-        success(@[[config toDictionary]]);
+        @catch (NSException *exception) {
+            reject(@"ready_error", exception.reason, nil);
+        }
     });
 }
 
 
 
-RCT_EXPORT_METHOD(removeAllListeners:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(removeAllListeners:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [locationManager removeListeners];
-    success(@[]);
+    resolve(@(YES));
 }
 
 
-RCT_EXPORT_METHOD(setConfig:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(setConfig:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     TSConfig *config = [TSConfig sharedInstance];
     [config updateWithDictionary:params];
-    success(@[[config toDictionary]]);
+    resolve([config toDictionary]);
 }
 
 -(NSDictionary*)getState
@@ -223,62 +229,62 @@ RCT_EXPORT_METHOD(setConfig:(NSDictionary*)params success:(RCTResponseSenderBloc
     return [locationManager getState];
 }
 
-RCT_EXPORT_METHOD(getState:(RCTResponseSenderBlock)callback failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(getState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSDictionary *state = [locationManager getState];
-    callback(@[state]);
+    resolve(state);
 }
 
 /**
  * Turn on background geolocation
  */
-RCT_EXPORT_METHOD(start:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(start:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.locationManager start];
-        success(@[[self.locationManager getState]]);
+        resolve([self.locationManager getState]);
     });
 }
 /**
  * Turn it off
  */
-RCT_EXPORT_METHOD(stop:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(stop:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [locationManager stop];
-    success(@[[locationManager getState]]);
+    resolve([locationManager getState]);
 }
 
 /**
  * Start schedule
  */
-RCT_EXPORT_METHOD(startSchedule:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(startSchedule:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.locationManager startSchedule];
-        success(@[[self.locationManager getState]]);
+        resolve([self.locationManager getState]);
     });
 }
 
 /**
  * Stop schedule
  */
-RCT_EXPORT_METHOD(stopSchedule:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(stopSchedule:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.locationManager stopSchedule];
-        success(@[[self.locationManager getState]]);
+        resolve([self.locationManager getState]);
     });
 }
 
 /**
  * Start schedule
  */
-RCT_EXPORT_METHOD(startGeofences:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(startGeofences:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         TSConfig *config = [TSConfig sharedInstance];
         [self.locationManager startGeofences];
-        success(@[[config toDictionary]]);
+        resolve([config toDictionary]);
     });
 }
 
@@ -286,31 +292,31 @@ RCT_EXPORT_METHOD(startGeofences:(RCTResponseSenderBlock)success failure:(RCTRes
  * Change pace to moving/stopped
  * @param {Boolean} isMoving
  */
-RCT_EXPORT_METHOD(changePace:(BOOL)moving success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(changePace:(BOOL)moving resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [locationManager changePace:moving];
-    success(@[]);
+    resolve(@(YES));
 }
 
-RCT_EXPORT_METHOD(beginBackgroundTask:(RCTResponseSenderBlock)callback failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(beginBackgroundTask:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    callback(@[@([locationManager createBackgroundTask])]);
+    resolve(@([locationManager createBackgroundTask]));
 }
 /**
  * Called by js to signify the end of a background-geolocation event
  */
-RCT_EXPORT_METHOD(finish:(int)taskId success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(finish:(int)taskId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [locationManager stopBackgroundTask:taskId];
-    success(@[@(taskId)]);
+    resolve(@(taskId));
 }
 
-RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    TSCurrentPositionRequest *request = [[TSCurrentPositionRequest alloc] initWithSuccess:^(TSLocation *location) {
-        success(@[[location toDictionary]]);
+    TSCurrentPositionRequest *request = [TSCurrentPositionRequest requestWithSuccess:^(TSLocationEvent *event) {
+        resolve([event toDictionary]);
     } failure:^(NSError *error) {
-        failure(@[@(error.code)]);
+        reject(@"get_current_position_error", error.localizedDescription, error);
     }];
 
     if (options[@"timeout"]) {
@@ -334,12 +340,12 @@ RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options success:(RCTResponse
     [locationManager getCurrentPosition:request];
 }
 
-RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    TSWatchPositionRequest *request = [[TSWatchPositionRequest alloc] initWithSuccess:^(TSLocation *location) {
-        [self sendEvent:EVENT_WATCHPOSITION body:[location toDictionary]];
+    TSWatchPositionRequest *request = [TSWatchPositionRequest requestWithSuccess:^(TSLocationStreamEvent *event) {
+        [self sendEvent:EVENT_WATCHPOSITION body:[event toDictionary]];
     } failure:^(NSError *error) {
-
+        // No reject; stream API
     }];
 
     if (options[@"interval"])           { request.interval = [options[@"interval"] doubleValue]; }
@@ -348,77 +354,77 @@ RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options success:(RCTResponseSende
     if (options[@"extras"])             { request.extras = options[@"extras"]; }
     if (options[@"timeout"])            { request.timeout = [options[@"timeout"] doubleValue]; }
 
-    [locationManager watchPosition:request];
-    success(@[]);
+    long watchId = [locationManager watchPosition:request];
+    resolve(@(watchId));
 }
 
-RCT_EXPORT_METHOD(stopWatchPosition:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(stopWatchPosition:(long)watchId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    [locationManager stopWatchPosition];
-    success(@[]);
+    [locationManager stopWatchPosition:watchId];
+    resolve(@(YES));
 }
 
-RCT_EXPORT_METHOD(getLocations:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(getLocations:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [locationManager getLocations:^(NSArray* records) {
-        success(@[records]);
+        resolve(records);
     } failure:^(NSString* error) {
-        failure(@[error]);
+        reject(@"get_locations_error", error, nil);
     }];
 }
 
-RCT_EXPORT_METHOD(sync:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(sync:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [locationManager sync:^(NSArray* records) {
-        success(@[records]);
+        resolve(records);
     } failure:^(NSError* error) {
-        failure(@[@(error.code)]);
+        reject(@"sync_error", error.localizedDescription, error);
     }];
 }
 
-RCT_EXPORT_METHOD(getGeofences:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(getGeofences:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [locationManager getGeofences:^(NSArray* geofences) {
         NSMutableArray *result = [NSMutableArray new];
         for (TSGeofence *geofence in geofences) { [result addObject:[geofence toDictionary]]; }
-        success(@[result]);
+        resolve(result);
     } failure:^(NSString* error) {
-        failure(@[error]);
+        reject(@"get_geofences_error", error, nil);
     }];
 }
 
-RCT_EXPORT_METHOD(getGeofence:(NSString*)identifier success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(getGeofence:(NSString*)identifier resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [locationManager getGeofence:identifier success:^(TSGeofence* geofence) {
-        success(@[[geofence toDictionary]]);
+        resolve([geofence toDictionary]);
     } failure:^(NSString* error) {
-        failure(@[error]);
+        reject(@"get_geofence_error", error, nil);
     }];
 }
 
-RCT_EXPORT_METHOD(geofenceExists:(NSString*)identifier callback:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(geofenceExists:(NSString*)identifier resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [locationManager geofenceExists:identifier callback:^(BOOL exists) {
-        callback(@[@(exists)]);
+        resolve(@(exists));
     }];
 }
 
-RCT_EXPORT_METHOD(addGeofence:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(addGeofence:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     TSGeofence *geofence = [self buildGeofence:params];
     if (!geofence) {
         NSString *error = [NSString stringWithFormat:@"Invalid geofence data: %@", params];
-        failure(@[error]);
+        reject(@"add_geofence_error", error, nil);
         return;
     }
     [locationManager addGeofence:geofence success:^{
-        success(@[]);
+        resolve(@(YES));
     } failure:^(NSString *error) {
-        failure(@[error]);
+        reject(@"add_geofence_error", error, nil);
     }];
 }
 
-RCT_EXPORT_METHOD(addGeofences:(NSArray*) data success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(addGeofences:(NSArray*) data resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSMutableArray *geofences = [NSMutableArray new];
     for (NSDictionary *params in data) {
@@ -427,14 +433,14 @@ RCT_EXPORT_METHOD(addGeofences:(NSArray*) data success:(RCTResponseSenderBlock)s
             [geofences addObject:geofence];
         } else {
             NSString *error = [NSString stringWithFormat:@"Invalid geofence data: %@", params];
-            failure(@[error]);
+            reject(@"add_geofences_error", error, nil);
             return;
         }
     }
     [locationManager addGeofences:geofences success:^{
-        success(@[]);
+        resolve(@(YES));
     } failure:^(NSString *error) {
-        failure(@[error]);
+        reject(@"add_geofences_error", error, nil);
     }];
 }
 
@@ -456,116 +462,116 @@ RCT_EXPORT_METHOD(addGeofences:(NSArray*) data success:(RCTResponseSenderBlock)s
                                          vertices: params[@"vertices"]];
 }
 
-RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [locationManager removeGeofence:identifier success:^{
-        success(@[]);
+        resolve(@(YES));
     } failure:^(NSString* error) {
-        failure(@[error]);
+        reject(@"remove_geofence_error", error, nil);
     }];
 }
 
-RCT_EXPORT_METHOD(removeGeofences:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(removeGeofences:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSArray *geofences = @[];
     [locationManager removeGeofences:geofences success:^{
-        success(@[]);
+        resolve(@(YES));
     } failure:^(NSString* error) {
-        failure(@[error]);
+        reject(@"remove_geofences_error", error, nil);
     }];
 }
 
-RCT_EXPORT_METHOD(getOdometer:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(getOdometer:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSNumber *distance = @([locationManager getOdometer]);
-    success(@[distance]);
+    resolve(distance);
 }
 
-RCT_EXPORT_METHOD(setOdometer:(double)value success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(setOdometer:(double)value resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    TSCurrentPositionRequest *request = [[TSCurrentPositionRequest alloc] initWithSuccess:^(TSLocation *location) {
-        success(@[[location toDictionary]]);
+    TSCurrentPositionRequest *request = [TSCurrentPositionRequest requestWithSuccess:^(TSLocationEvent *event) {
+        resolve([event toDictionary]);
     } failure:^(NSError *error) {
-        failure(@[@(error.code)]);
+        reject(@"set_odometer_error", error.localizedDescription, error);
     }];
     [locationManager setOdometer:value request:request];
 }
 
-RCT_EXPORT_METHOD(destroyLocations:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(destroyLocations:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     BOOL result = [locationManager destroyLocations];
     if (result) {
-        success(@[]);
+        resolve(@(YES));
     } else {
-        failure(@[]);
+        reject(@"destroy_locations_error", @"Failed to destroy locations", nil);
     }
 }
 
-RCT_EXPORT_METHOD(destroyLocation:(NSString*)uuid success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(destroyLocation:(NSString*)uuid resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [locationManager destroyLocation:uuid success:^{
-        success(@[]);
+        resolve(@(YES));
     } failure:^(NSString* error) {
-        failure(@[error]);
+        reject(@"destroy_location_error", error, nil);
     }];
 }
 
-RCT_EXPORT_METHOD(getCount:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(getCount:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     int count = [locationManager getCount];
     if (count >= 0) {
-        success(@[@(count)]);
+        resolve(@(count));
     } else {
-        failure(@[]);
+        reject(@"get_count_error", @"Unknown count error", nil);
     }
 }
 
-RCT_EXPORT_METHOD(insertLocation:(NSDictionary*)params success:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failureCallback)
+RCT_EXPORT_METHOD(insertLocation:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [locationManager insertLocation: params success:^(NSString* uuid) {
-        successCallback(@[uuid]);
+        resolve(uuid);
     } failure:^(NSString* error) {
-        failureCallback(@[error]);
+        reject(@"insert_location_error", error, nil);
     }];
 }
 
-RCT_EXPORT_METHOD(getLog:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(getLog:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     LogQuery *query = [[LogQuery alloc] initWithDictionary:params];
     [locationManager getLog:query success:^(NSString* log) {
-        success(@[log]);
+        resolve(log);
     } failure:^(NSString* error) {
-        failure(@[error]);
+        reject(@"get_log_error", error, nil);
     }];
 }
 
-RCT_EXPORT_METHOD(destroyLog:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(destroyLog:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     BOOL result = [locationManager destroyLog];
     if (result) {
-        success(@[@(result)]);
+        resolve(@(result));
     } else {
-        failure(@[@(result)]);
+        reject(@"destroy_log_error", @"Failed to destroy log", nil);
     }
 }
 
-RCT_EXPORT_METHOD(emailLog:(NSString*)email query:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(emailLog:(NSString*)email query:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     LogQuery *query = [[LogQuery alloc] initWithDictionary:params];
     [locationManager emailLog:email query:query success:^{
-        success(@[@(YES)]);
+        resolve(@(YES));
     } failure:^(NSString* error) {
-        failure(@[error]);
+        reject(@"email_log_error", error, nil);
     }];
 }
 
-RCT_EXPORT_METHOD(uploadLog:(NSString*)url query:(NSDictionary*)params success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(uploadLog:(NSString*)url query:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     LogQuery *query = [[LogQuery alloc] initWithDictionary:params];
     [locationManager uploadLog:url query:query success:^{
-        success(@[@(YES)]);
+        resolve(@(YES));
     } failure:^(NSString* error) {
-        failure(@[error]);
+        reject(@"upload_log_error", error, nil);
     }];
 }
 
@@ -575,7 +581,7 @@ RCT_EXPORT_METHOD(log:(NSString*)level message:(NSString*)message)
     [locationManager log:level message:message];
 }
 
-RCT_EXPORT_METHOD(getSensors:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failureCallback)
+RCT_EXPORT_METHOD(getSensors:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSDictionary *sensors = @{
         @"platform": @"ios",
@@ -584,77 +590,83 @@ RCT_EXPORT_METHOD(getSensors:(RCTResponseSenderBlock)successCallback failure:(RC
         @"magnetometer": @([locationManager isMagnetometerAvailable]),
         @"motion_hardware": @([locationManager isMotionHardwareAvailable])
     };
-    successCallback(@[sensors]);
+    resolve(sensors);
 }
 
-RCT_EXPORT_METHOD(getDeviceInfo:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure) {
+RCT_EXPORT_METHOD(getDeviceInfo:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
     TSDeviceInfo *deviceInfo = [TSDeviceInfo sharedInstance];
-    success(@[[deviceInfo toDictionary:@"react-native"]]);
+    resolve([deviceInfo toDictionary:@"react-native"]);
 }
 
-RCT_EXPORT_METHOD(isPowerSaveMode:(RCTResponseSenderBlock)successCallback failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(isPowerSaveMode:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     BOOL isPowerSaveMode = [locationManager isPowerSaveMode];
-    successCallback(@[@(isPowerSaveMode)]);
+    resolve(@(isPowerSaveMode));
 }
 
-RCT_EXPORT_METHOD(isIgnoringBatteryOptimizations:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(isIgnoringBatteryOptimizations:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    success(@[@(NO)]);
+    resolve(@(NO));
 }
 
-RCT_EXPORT_METHOD(requestSettings:(NSDictionary*)args success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(requestSettings:(NSDictionary*)args resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    failure(@[@"No iOS Implementation"]);
+    reject(@"request_settings_error", @"No iOS Implementation", nil);
 }
 
-RCT_EXPORT_METHOD(showSettings:(NSDictionary*)args success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure)
+RCT_EXPORT_METHOD(showSettings:(NSDictionary*)args resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    failure(@[@"No iOS Implementation"]);
+    reject(@"show_settings_error", @"No iOS Implementation", nil);
 }
 
-RCT_EXPORT_METHOD(getProviderState:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure) {
+RCT_EXPORT_METHOD(getProviderState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
     TSProviderChangeEvent *event = [locationManager getProviderState];
-    success(@[[event toDictionary]]);
+    resolve([event toDictionary]);
 }
 
-RCT_EXPORT_METHOD(requestPermission:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure) {
+RCT_EXPORT_METHOD(requestPermission:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
     [locationManager requestPermission:^(NSNumber *status) {
-        success(@[status]);
+        resolve(status);
     } failure:^(NSNumber *status) {
-        failure(@[status]);
+        reject(@"request_permission_error", [status stringValue], nil);
     }];
 }
 
-RCT_EXPORT_METHOD(requestTemporaryFullAccuracy:(NSString*)purpose success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure) {
+RCT_EXPORT_METHOD(requestTemporaryFullAccuracy:(NSString*)purpose resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
     [locationManager requestTemporaryFullAccuracy:purpose success:^(NSInteger accuracyAuthorization) {
-        success(@[@(accuracyAuthorization)]);
+        resolve(@(accuracyAuthorization));
     } failure:^(NSError *error) {
-        failure(error.userInfo[@"NSDebugDescription"]);
+        reject(@"request_full_accuracy_error", error.userInfo[@"NSDebugDescription"], error);
     }];
 }
 
-RCT_EXPORT_METHOD(getTransistorToken:(NSString*)orgname username:(NSString*)username url:(NSString*)url success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure) {
-
+RCT_EXPORT_METHOD(getTransistorToken:(NSString*)orgname username:(NSString*)username url:(NSString*)url resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
     [TransistorAuthorizationToken findOrCreateWithOrg:orgname
                                              username:username
                                                  url:url
                                             framework:@"react-native"
                                               success:^(TransistorAuthorizationToken *token) {
-        success(@[[token toDictionary]]);
+        resolve([token toDictionary]);
     } failure:^(NSError *error) {
-        failure(@[@{@"status":@(error.code), @"message":error.localizedDescription}]);
+        reject(@"get_transistor_token_error", error.localizedDescription, error);
     }];
 }
 
-RCT_EXPORT_METHOD(destroyTransistorToken:(NSString*)url success:(RCTResponseSenderBlock)success failure:(RCTResponseSenderBlock)failure) {
+RCT_EXPORT_METHOD(destroyTransistorToken:(NSString*)url resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
     [TransistorAuthorizationToken destroyWithUrl:url];
-    success(@[@(YES)]);
+    resolve(@(YES));
 }
 
-RCT_EXPORT_METHOD(playSound:(int)soundId)
+RCT_EXPORT_METHOD(playSound:(int)soundId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     [locationManager playSound: soundId];
+    resolve(@(YES));
 }
 
 -(void) sendEvent:(NSString*)event body:(id)body
@@ -679,3 +691,4 @@ RCT_EXPORT_METHOD(playSound:(int)soundId)
 
 
 @end
+

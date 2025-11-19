@@ -8,8 +8,8 @@ import android.os.Build;
 import android.util.Log;
 
 import com.facebook.react.bridge.ActivityEventListener;
-import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.LifecycleEventListener;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -21,7 +21,8 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableNativeMap;
-import com.facebook.react.modules.core.RCTNativeAppEventEmitter;
+import com.facebook.react.module.annotations.ReactModule;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
@@ -57,7 +58,6 @@ import com.transistorsoft.locationmanager.http.HttpService;
 import com.transistorsoft.locationmanager.http.TSAuthorization;
 import com.transistorsoft.locationmanager.http.TransistorAuthorizationToken;
 import com.transistorsoft.locationmanager.location.TSCurrentPositionRequest;
-import com.transistorsoft.locationmanager.location.TSLocation;
 import com.transistorsoft.locationmanager.location.TSWatchPositionRequest;
 import com.transistorsoft.locationmanager.scheduler.TSScheduleManager;
 import com.transistorsoft.locationmanager.scheduler.ScheduleEvent;
@@ -76,7 +76,10 @@ import java.util.Map;
 /**
  * Created by chris on 2015-10-30.
  */
-public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule implements ActivityEventListener, LifecycleEventListener {
+@ReactModule(name = "RNBackgroundGeolocation")
+public class RNBackgroundGeolocationModule
+        extends ReactContextBaseJavaModule
+        implements ActivityEventListener, LifecycleEventListener {
 
     private static final String TAG = "TSLocationManager";
     private static final String JOB_SERVICE_CLASS = "HeadlessTask";
@@ -137,6 +140,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
 
     private void registerEvents() {
         BackgroundGeolocation adapter = getAdapter();
+
         adapter.onLocation(new LocationCallback());
         adapter.onMotionChange(new MotionChangeCallback());
         adapter.onActivityChange(new ActivityChangeCallback());
@@ -159,11 +163,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     private class LocationCallback implements TSLocationCallback {
         @Override
         public void onLocation(LocationEvent locationEvent) {
-            try {
-                sendEvent(EventName.LOCATION, jsonToMap(locationEvent.toJson()));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            sendEvent(EventName.LOCATION, mapToWritableMap(locationEvent.toMap()));
         }
 
         @Override public void onError(Integer error) {
@@ -179,12 +179,8 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         public void onLocation(LocationEvent locationEvent) {
             WritableMap params = new WritableNativeMap();
             params.putBoolean("isMoving", locationEvent.isMoving());
-            try {
-                params.putMap("location", jsonToMap(locationEvent.toJson()));
-                sendEvent(EventName.MOTIONCHANGE, params);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            params.putMap("location", mapToWritableMap(locationEvent.toMap()));
+            sendEvent(EventName.MOTIONCHANGE, params);
         }
 
         @Override public void onError(Integer error) {
@@ -197,11 +193,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
      */
     private class ActivityChangeCallback implements TSActivityChangeCallback {
         @Override public void onActivityChange(ActivityChangeEvent event) {
-            try {
-                sendEvent(EventName.ACTIVITYCHANGE, jsonToMap(event.toJson()));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            sendEvent(EventName.ACTIVITYCHANGE, mapToWritableMap(event.toMap()));
         }
     }
 
@@ -251,15 +243,11 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
      */
     private class GeofencesChangeCallback implements TSGeofencesChangeCallback {
         @Override public void onGeofencesChange(GeofencesChangeEvent event) {
-            try {
-                // TODO
-                WritableMap params = new WritableNativeMap();
-                WritableArray on = new WritableNativeArray();
-                WritableArray off = new WritableNativeArray();
-                sendEvent(EventName.GEOFENCESCHANGE, jsonToMap(event.toJson()));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            // TODO
+            WritableMap params = new WritableNativeMap();
+            WritableArray on = new WritableNativeArray();
+            WritableArray off = new WritableNativeArray();
+            sendEvent(EventName.GEOFENCESCHANGE, mapToWritableMap(event.toMap()));
         }
     }
 
@@ -268,11 +256,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
      */
     private class GeofenceCallback implements TSGeofenceCallback {
         @Override public void onGeofence(GeofenceEvent event) {
-            try {
-                sendEvent(EventName.GEOFENCE, jsonToMap(event.toJson()));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            sendEvent(EventName.GEOFENCE, mapToWritableMap(event.toMap()));
         }
     }
 
@@ -281,11 +265,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
      */
     private class HeartbeatCallback implements TSHeartbeatCallback {
         @Override public void onHeartbeat(HeartbeatEvent event) {
-            try {
-                sendEvent(EventName.HEARTBEAT, jsonToMap(event.toJson()));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            sendEvent(EventName.HEARTBEAT, mapToWritableMap(event.toMap()));
         }
     }
 
@@ -307,11 +287,8 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
      */
     private class ScheduleCallback implements TSScheduleCallback {
         @Override public void onSchedule(ScheduleEvent event) {
-            try {
-                sendEvent(EventName.SCHEDULE, jsonToMap(event.getState()));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            TSConfig config = TSConfig.getInstance(getReactApplicationContext());
+            sendEvent(EventName.SCHEDULE, mapToWritableMap(config.toMap(false)));
         }
     }
 
@@ -329,11 +306,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
      */
     private class AuthorizationCallback implements TSAuthorizationCallback {
         @Override public void onResponse(AuthorizationEvent event) {
-            try {
-                sendEvent(TSAuthorization.NAME, jsonToMap(event.toJson()));
-            } catch (JSONException e) {
-                TSLog.logger.error(TSLog.error(e.getMessage()), e);
-            }
+            sendEvent(TSAuthorization.NAME, mapToWritableMap(event.toMap()));
         }
     }
 
@@ -381,7 +354,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     @ReactMethod
-    public void ready(ReadableMap params, final Callback success, final Callback failure) {
+    public void ready(ReadableMap params, final Promise response) {
         TSConfig config = TSConfig.getInstance(getReactApplicationContext());
 
         boolean reset = true;
@@ -389,15 +362,13 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             reset = params.getBoolean("reset");
         }
 
-        //Log.i(BackgroundGeolocation.TAG, "*********** CONFIG");
-
         if (mReady) {
             if (reset) {
                 TSLog.w(TSLog.warn("#ready already called.  Redirecting to #setConfig"));
-                setConfig(params, success, failure);
+                setConfig(params, response);
             } else {
                 TSLog.w(TSLog.warn("#ready already called.  Ignored config since reset: false"));
-                success.invoke(getState());
+                response.resolve(getState());
             }
             return;
         }
@@ -424,92 +395,92 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
             }
         }
         getAdapter().ready(new TSCallback() {
-            @Override public void onSuccess() { success.invoke(getState()); }
-            @Override public void onFailure(String error) { failure.invoke(error); }
+            @Override public void onSuccess() { response.resolve(getState()); }
+            @Override public void onFailure(String error) { response.reject(error); }
         });
     }
 
     @ReactMethod
-    public void configure(ReadableMap params, final Callback success, final Callback failure){
+    public void configure(ReadableMap params, final Promise response){
         final TSConfig config = TSConfig.getInstance(getReactApplicationContext());
         config.reset();
         config.updateWithJSONObject(mapToJson(setHeadlessJobService(params)));
 
         getAdapter().ready(new TSCallback() {
-            @Override public void onSuccess() { success.invoke(getState()); }
-            @Override public void onFailure(String error) { failure.invoke(error); }
+            @Override public void onSuccess() { response.resolve(getState()); }
+            @Override public void onFailure(String error) { response.reject(error); }
         });
     }
 
     @ReactMethod
-    public void setConfig(ReadableMap params, final Callback success, final Callback failure) {
+    public void setConfig(ReadableMap params, final Promise response) {
         TSConfig config = TSConfig.getInstance(getReactApplicationContext());
         config.updateWithJSONObject(mapToJson(params));
-        success.invoke(getState());
+        response.resolve(getState());
     }
 
     @ReactMethod
-    public void reset(ReadableMap defaultConfig, final Callback success, final Callback failure) {
+    public void reset(ReadableMap defaultConfig, final Promise response) {
         TSConfig config = TSConfig.getInstance(getReactApplicationContext());
         config.reset();
         config.updateWithJSONObject(mapToJson(setHeadlessJobService(defaultConfig)));
-        success.invoke(getState());
+        response.resolve(getState());
     }
 
     @ReactMethod
-    public void start(final Callback success, final Callback failure) {
+    public void start(final Promise response) {
         getAdapter().start(new TSCallback() {
-            @Override public void onSuccess() { success.invoke(getState()); }
-            @Override public void onFailure(String error) { failure.invoke(error); }
+            @Override public void onSuccess() { response.resolve(getState()); }
+            @Override public void onFailure(String error) { response.reject(error); }
         });
     }
 
     @ReactMethod
-    public void startSchedule(Callback success, Callback failure) {
+    public void startSchedule(Promise response) {
         if (getAdapter().startSchedule()) {
-            success.invoke(getState());
+            response.resolve(getState());
         } else {
-            failure.invoke("Failed to start schedule.  Did you configure a #schedule?");
+            response.reject("Failed to start schedule.  Did you configure a #schedule?");
         }
     }
 
     @ReactMethod
-    public void stopSchedule(Callback success, Callback failure) {
+    public void stopSchedule(Promise response) {
         getAdapter().stopSchedule();
-        success.invoke(getState());
+        response.resolve(getState());
     }
 
     @ReactMethod
-    public void startGeofences(final Callback success, final Callback failure) {
+    public void startGeofences(final Promise response) {
         getAdapter().startGeofences(new TSCallback() {
-            @Override public void onSuccess() { success.invoke(getState()); }
-            @Override public void onFailure(String error) { failure.invoke(error); }
+            @Override public void onSuccess() { response.resolve(getState()); }
+            @Override public void onFailure(String error) { response.reject(error); }
         });
     }
 
     @ReactMethod
-    public void stop(final Callback success, final Callback failure) {
+    public void stop(final Promise response) {
         getAdapter().stop(new TSCallback() {
-            @Override public void onSuccess() { success.invoke(getState()); }
-            @Override public void onFailure(String error) { failure.invoke(error); }
+            @Override public void onSuccess() { response.resolve(getState()); }
+            @Override public void onFailure(String error) { response.reject(error); }
         });
     }
 
     @ReactMethod
-    public void changePace(Boolean moving, final Callback success, final Callback failure) {
+    public void changePace(final Boolean moving, final Promise response) {
         getAdapter().changePace(moving, new TSCallback() {
-            @Override public void onSuccess() { success.invoke(); }
-            @Override public void onFailure(String error) { failure.invoke(error); }
+            @Override public void onSuccess() { response.resolve(moving); }
+            @Override public void onFailure(String error) { response.reject(error); }
         });
     }
 
     @ReactMethod
-    public void getState(Callback success, final Callback failure) {
-        success.invoke(getState());
+    public void getState(Promise response) {
+        response.resolve(getState());
     }
 
     @ReactMethod
-    public void getLocations(final Callback success, final Callback failure) {
+    public void getLocations(final Promise response) {
         getAdapter().getLocations(new TSGetLocationsCallback() {
             @Override public void onSuccess(List<LocationModel> records) {
                 try {
@@ -517,73 +488,75 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                     for (LocationModel location : records) {
                         data.put(location.json);
                     }
-                    success.invoke(convertJsonToArray(data));
+                    response.resolve(convertJsonToArray(data));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    failure.invoke(e.getMessage());
+                    response.reject(e.getMessage());
                 }
             }
-            @Override public void onFailure(Integer error) { failure.invoke(error); }
+            @Override public void onFailure(Integer error) { response.reject(error.toString()); }
         });
     }
 
     @ReactMethod
-    public void getCount(final Callback success, final Callback failure) {
-        success.invoke(getAdapter().getCount());
+    public void getCount(final Promise response) {
+        response.resolve(getAdapter().getCount());
     }
 
     @ReactMethod
-    public void insertLocation(ReadableMap params, final Callback success, final Callback failure) {
+    public void insertLocation(ReadableMap params, final Promise response) {
         getAdapter().insertLocation(mapToJson(params), new TSInsertLocationCallback() {
             @Override public void onSuccess(String uuid) {
-                success.invoke(uuid);
+                response.resolve(uuid);
             }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
 
     // @deprecated -> #destroyLocations
     @ReactMethod
-    public void clearDatabase(Callback success, Callback failure) {
-        destroyLocations(success, failure);
+    public void clearDatabase(Promise response) {
+        destroyLocations(response);
     }
 
     @ReactMethod
-    public void destroyLocations(final Callback success, final Callback failure) {
+    public void destroyLocations(final Promise response) {
         getAdapter().destroyLocations(new TSCallback() {
-            @Override public void onSuccess() { success.invoke(); }
+            @Override public void onSuccess() { 
+                response.resolve(true); 
+            }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
 
     @ReactMethod
-    public void destroyLocation(String uuid, final Callback success, final Callback failure) {
+    public void destroyLocation(String uuid, final Promise response) {
         getAdapter().destroyLocation(uuid, new TSCallback() {
-            @Override public void onSuccess() { success.invoke(); }
+            @Override public void onSuccess() { response.resolve(true); }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
 
     @ReactMethod
-    public void destroyLog(final Callback success, final Callback failure) {
+    public void destroyLog(final Promise response) {
         getAdapter().destroyLog(new TSCallback() {
             @Override public void onSuccess() {
-                success.invoke(true);
+                response.resolve(true);
             }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
 
     @ReactMethod
-    public void sync(final Callback success, final Callback failure) {
+    public void sync(final Promise response) {
         getAdapter().sync(new TSSyncCallback() {
             @Override public void onSuccess(List<LocationModel> records) {
                 try {
@@ -591,31 +564,27 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
                     for (LocationModel location : records) {
                         data.put(location.json);
                     }
-                    success.invoke(convertJsonToArray(data));
+                    response.resolve(convertJsonToArray(data));
                 } catch (JSONException e) {
-                    failure.invoke(e.getMessage());
+                    response.reject(e.getMessage());
                 }
             }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
 
     @ReactMethod
-    public void getCurrentPosition(ReadableMap options, final Callback success, final Callback failure) {
+    public void getCurrentPosition(ReadableMap options, final Promise response) {
         TSCurrentPositionRequest.Builder builder = new TSCurrentPositionRequest.Builder(getReactApplicationContext());
 
         builder.setCallback(new TSLocationCallback() {
             @Override public void onLocation(LocationEvent event) {
-                try {
-                    success.invoke(jsonToMap(event.toJson()));
-                } catch (JSONException e) {
-                    failure.invoke(e.getMessage());
-                }
+                response.resolve(mapToWritableMap(event.toMap()));
             }
             @Override public void onError(Integer errorCode) {
-                failure.invoke(errorCode);
+                response.reject(errorCode.toString());
             }
         });
 
@@ -629,19 +598,15 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         getAdapter().getCurrentPosition(builder.build());
     }
     @ReactMethod
-    public void watchPosition(ReadableMap options, final Callback success, final Callback failure) {
+    public void watchPosition(ReadableMap options, final Promise response) {
         TSWatchPositionRequest.Builder builder = new TSWatchPositionRequest.Builder(getReactApplicationContext());
 
         builder.setCallback(new TSLocationCallback() {
             @Override public void onLocation(LocationEvent event) {
-                try {
-                    sendEvent(EVENT_WATCHPOSITION, jsonToMap(event.toJson()));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                sendEvent(EVENT_WATCHPOSITION, mapToWritableMap(event.toMap()));
             }
             @Override public void onError(Integer error) {
-                failure.invoke(error);
+                response.reject(error.toString());
             }
         });
 
@@ -651,68 +616,64 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         if (options.hasKey("desiredAccuracy")) { builder.setDesiredAccuracy(options.getInt("desiredAccuracy")); }
 
         getAdapter().watchPosition(builder.build());
-        success.invoke();
+        response.resolve(true);
     }
     @ReactMethod
-    public void stopWatchPosition(final Callback success, final Callback failure) {
+    public void stopWatchPosition(final Promise response) {
         getAdapter().stopWatchPosition(new TSCallback() {
             @Override public void onSuccess() {
-                success.invoke();
+                response.resolve(true);
             }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
     @ReactMethod
-    public void getOdometer(Callback success, Callback failure) {
-        success.invoke(getAdapter().getOdometer());
+    public void getOdometer(final Promise response) {
+        response.resolve(getAdapter().getOdometer());
     }
     @ReactMethod
-    public void setOdometer(Double value, final Callback success, final Callback failure) {
+    public void setOdometer(Double value, final Promise response) {
         getAdapter().setOdometer(value, new TSLocationCallback() {
             @Override public void onLocation(LocationEvent event) {
-                try {
-                    success.invoke(jsonToMap(event.toJson()));
-                } catch (JSONException e) {
-                    failure.invoke(e.getMessage());
-                }
+                response.resolve(mapToWritableMap(event.toMap()));
             }
             @Override public void onError(Integer errorCode) {
-                failure.invoke((Integer) errorCode);
+                response.reject(errorCode.toString());
             }
         });
     }
     @ReactMethod
-    public void addGeofence(ReadableMap options, final Callback success, final Callback failure) {
+    public void addGeofence(ReadableMap options, final Promise response) {
         try {
              getAdapter().addGeofence(buildGeofence(options), new TSCallback() {
-                 @Override public void onSuccess() { success.invoke(); }
-                 @Override public void onFailure(String error) { failure.invoke(error); }
+                 @Override public void onSuccess() { response.resolve(true); }
+                 @Override public void onFailure(String error) { response.reject(error); }
              });
         } catch (TSGeofence.Exception e) {
-            failure.invoke(e.getMessage());
+            response.reject(e.getMessage());
         }
     }
 
     @ReactMethod
-    public void addGeofences(ReadableArray data, final Callback success, final Callback failure) {
+    public void addGeofences(ReadableArray data, final Promise response) {
         List<TSGeofence> geofences = new ArrayList<TSGeofence>();
         for (int n=0;n<data.size();n++) {
             try {
                 geofences.add(buildGeofence(data.getMap(n)));
             } catch (TSGeofence.Exception e) {
-                failure.invoke(e.getMessage());
+                response.reject(e.getMessage());
                 return;
             }
         }
 
         getAdapter().addGeofences(geofences, new TSCallback() {
             @Override public void onSuccess() {
-                success.invoke();
+                response.resolve(true);
             }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
@@ -748,83 +709,73 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     @ReactMethod
-    public void removeGeofence(String identifier, final Callback success, final Callback failure) {
+    public void removeGeofence(String identifier, final Promise response) {
         getAdapter().removeGeofence(identifier, new TSCallback() {
             @Override public void onSuccess() {
-                success.invoke();
+                response.resolve(true);
             }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
 
     @ReactMethod
-    public void removeGeofences(final Callback success, final Callback failure) {
+    public void removeGeofences(final Promise response) {
         // TODO allow JS api to delete a list-of-geofences.
         // TODO accept WritableArray geofences from Client js API, allowing to remove a set of geofences
         List<String> identifiers = new ArrayList<>();
         getAdapter().removeGeofences(identifiers, new TSCallback() {
             @Override public void onSuccess() {
-                success.invoke();
+                response.resolve(true);
             }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
 
     @ReactMethod
-    public void getGeofences(final Callback success, final Callback failure) {
+    public void getGeofences(final Promise response) {
         getAdapter().getGeofences(new TSGetGeofencesCallback() {
             @Override public void onSuccess(List<TSGeofence> geofences) {
-                try {
-                    WritableArray rs = new WritableNativeArray();
-                    for (TSGeofence geofence : geofences) {
-                        rs.pushMap(jsonToMap(geofence.toJson()));
-                    }
-                    success.invoke(rs);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    failure.invoke(e.getMessage());
+                WritableArray rs = new WritableNativeArray();
+                for (TSGeofence geofence : geofences) {
+                    rs.pushMap(mapToWritableMap(geofence.toMap()));
                 }
+                response.resolve(rs);
             }
-            @Override public void onFailure(String error) { failure.invoke(error); }
+            @Override public void onFailure(String error) { response.reject(error); }
         });
     }
 
     @ReactMethod
-    public void getGeofence(String identifier, final Callback success, final Callback failure) {
+    public void getGeofence(String identifier, final Promise response) {
         getAdapter().getGeofence(identifier, new TSGetGeofenceCallback() {
             @Override public void onSuccess(TSGeofence geofence) {
-                try {
-                    success.invoke(jsonToMap(geofence.toJson()));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    failure.invoke(e.getMessage());
-                }
+                response.resolve(mapToWritableMap(geofence.toMap()));
             }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
 
     @ReactMethod
-    public void geofenceExists(String identifier, final Callback callback) {
+    public void geofenceExists(String identifier, final Promise response) {
         getAdapter().geofenceExists(identifier, new TSGeofenceExistsCallback() {
             @Override public void onResult(boolean exists) {
-                 callback.invoke(exists);
+                 response.resolve(exists);
             }
         });
     }
 
     // TODO Rename #beginBackgroundTask -> #startBackgroundTask
     @ReactMethod
-    public void beginBackgroundTask(final Callback success, Callback failure) {
+    public void beginBackgroundTask(final Promise response) {
         getAdapter().startBackgroundTask(new TSBackgroundTaskCallback() {
             @Override public void onStart(int taskId) {
-                success.invoke(taskId);
+                response.resolve(taskId);
             }
             @Override public void onCancel(int taskId) { } // NO IMPLEMENTATION
         });
@@ -832,115 +783,111 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
 
     // TODO Rename #finish -> #stopBackgroundTask
     @ReactMethod
-    public void finish(int taskId, Callback success, Callback failure) {
+    public void finish(int taskId, Promise response) {
         getAdapter().stopBackgroundTask(taskId);
-        success.invoke(taskId);
+        response.resolve(taskId);
     }
 
     /**
      * Called by user's registered HeadlessTask when they call BackgroundGeolocation.finishHeadlessTask(event.taskId)
-     * @param taskId
-     * @param success
-     * @param failure
+     * @param taskId*
      */
     @ReactMethod
-    public void finishHeadlessTask(int taskId, Callback success, Callback failure) {
+    public void finishHeadlessTask(int taskId, Promise response) {
         EventBus eventBus = EventBus.getDefault();
         if (!eventBus.hasSubscriberForEvent(HeadlessEvent.class)) {
             // This shouldn't happen.  In order for this method to even be called, it MUST have been executed from within the consumer's
             // registered HeadlessTask.  In order for that headless-task to have even be called, HeadlessEvent MUST have been registered with EventBus.
             String message = "finishHeadlessTask failed to find an EventBus subscriber for HeadlessEvent";
             TSLog.e(TSLog.warn(message));
-            failure.invoke(message);
+            response.reject(message);
             return;
         }
         FinishHeadlessTaskEvent event = new FinishHeadlessTaskEvent(getReactApplicationContext(), taskId);
         eventBus.post(event);
-        success.invoke();
+        response.resolve(true);
     }
 
     @ReactMethod
-    public void getTransistorToken(String orgname, String username, String url, final Callback success, final Callback failure) {
+    public void getTransistorToken(String orgname, String username, String url, final Promise response) {
 
         TransistorAuthorizationToken.findOrCreate(getReactApplicationContext(), orgname, username, url, new TransistorAuthorizationToken.Callback() {
             @Override public void onSuccess(TransistorAuthorizationToken token) {
-                try {
-                    success.invoke(jsonToMap(token.toJson()));
-                } catch (JSONException e) {
-                    failure.invoke(e.getMessage());
-                }
+                response.resolve(mapToWritableMap(token.toMap()));
             }
             @Override public void onFailure(String error) {
                 WritableMap params = new WritableNativeMap();
                 params.putString("status", error);
                 params.putString("message", error);
-                failure.invoke(params);
+                response.reject(error);
             }
         });
     }
 
     @ReactMethod
-    public void destroyTransistorToken(String url, final Callback success, final Callback failure) {
+    public void destroyTransistorToken(String url, final Promise response) {
         TransistorAuthorizationToken.destroyTokenForUrl(getReactApplicationContext(), url, new TSCallback() {
             @Override public void onSuccess() {
-                success.invoke(true);
+                response.resolve(true);
             }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
 
     @ReactMethod
-    public void playSound(String soundId) {
+    public void playSound(String soundId, Promise response) {
         getAdapter().startTone(soundId);
+        response.resolve(true);
     }
 
     @ReactMethod
-    public void getLog(ReadableMap params, final Callback success, final Callback failure) {
+    public void getLog(ReadableMap params, final Promise response) {
         SQLQuery query = parseSQLQuery(params);
 
         TSLog.getLog(query, new TSGetLogCallback() {
             @Override public void onSuccess(String log) {
-                success.invoke(log);
+                response.resolve(log);
             }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
 
     @ReactMethod
-    public void emailLog(String email, ReadableMap params,  final Callback success, final Callback failure) {
+    public void emailLog(String email, ReadableMap params,  final Promise response) {
         SQLQuery query = parseSQLQuery(params);
 
         TSLog.emailLog(getCurrentActivity(), email, query, new TSEmailLogCallback() {
             @Override public void onSuccess() {
-                success.invoke();
+                response.resolve(true);
             }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
 
     @ReactMethod
-    public void uploadLog(String url, ReadableMap params,  final Callback success, final Callback failure) {
+    public void uploadLog(String url, ReadableMap params,  final Promise response) {
         SQLQuery query = parseSQLQuery(params);
 
         TSLog.uploadLog(getReactApplicationContext(), url, query, new TSCallback() {
             @Override public void onSuccess() {
-                success.invoke();
+                response.resolve(true);
             }
             @Override public void onFailure(String error) {
-                failure.invoke(error);
+                response.reject(error);
             }
         });
     }
 
     @ReactMethod
-    public void log(String level, String message) throws JSONException {
+    public void log(String level, String message, Promise response) throws JSONException {
         TSLog.log(level, message);
+        response.resolve(true); 
     }
 
     private SQLQuery parseSQLQuery(ReadableMap params) {
@@ -963,7 +910,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     @ReactMethod
-    public void getSensors(Callback success, Callback error) {
+    public void getSensors(Promise response) {
         Sensors sensors = Sensors.getInstance(getReactApplicationContext());
         WritableMap params = new WritableNativeMap();
         params.putString("platform", "android");
@@ -971,11 +918,11 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         params.putBoolean("magnetometer", sensors.hasMagnetometer());
         params.putBoolean("gyroscope", sensors.hasGyroscope());
         params.putBoolean("significant_motion", sensors.hasSignificantMotion());
-        success.invoke(params);
+        response.resolve(params);
     }
 
     @ReactMethod
-    public void getDeviceInfo(Callback success, Callback error) {
+    public void getDeviceInfo(Promise response) {
         DeviceInfo deviceInfo = DeviceInfo.getInstance(getReactApplicationContext());
 
         WritableMap params = new WritableNativeMap();
@@ -984,72 +931,67 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
         params.putString("version", deviceInfo.getVersion());
         params.putString("platform", deviceInfo.getPlatform());
         params.putString("framework", "react-native");
-        success.invoke(params);
+        response.resolve(params);
     }
 
     @ReactMethod
-    public void isPowerSaveMode(Callback success, Callback error) {
-        success.invoke(getAdapter().isPowerSaveMode());
+    public void isPowerSaveMode(Promise response) {
+        response.resolve(getAdapter().isPowerSaveMode());
     }
 
     @ReactMethod
-    public void isIgnoringBatteryOptimizations(Callback success, Callback failure) {
+    public void isIgnoringBatteryOptimizations(Promise response) {
         boolean isIgnoring = getAdapter().isIgnoringBatteryOptimizations();
-        success.invoke(isIgnoring);
+        response.resolve(isIgnoring);
     }
 
     @ReactMethod
-    public void requestSettings(ReadableMap args, Callback success, Callback failure) throws JSONException {
+    public void requestSettings(ReadableMap args, Promise response) throws JSONException {
         String action = args.getString("action");
         DeviceSettingsRequest request = getAdapter().requestSettings(action);
-
         if (request != null) {
-            success.invoke(jsonToMap(request.toJson()));
+            response.resolve(mapToWritableMap(request.toMap()));
         } else {
-            failure.invoke("Failed to find " + action + " screen for device " + Build.MANUFACTURER + " " + Build.MODEL + "@" + Build.VERSION.RELEASE);
+            response.reject("Failed to find " + action + " screen for device " + Build.MANUFACTURER + " " + Build.MODEL + "@" + Build.VERSION.RELEASE);
         }
     }
 
     @ReactMethod
-    public void showSettings(ReadableMap args, Callback success, Callback failure) {
+    public void showSettings(ReadableMap args, Promise response) {
         String action = args.getString("action");
         boolean didShow = getAdapter().showSettings(action);
         if (didShow) {
-            success.invoke();
+            response.resolve(true);
         } else {
-            failure.invoke("Failed to find " + action + " screen for device " + Build.MANUFACTURER + " " + Build.MODEL + "@" + Build.VERSION.RELEASE);
+            response.reject("Failed to find " + action + " screen for device " + Build.MANUFACTURER + " " + Build.MODEL + "@" + Build.VERSION.RELEASE);
         }
     }
 
     @ReactMethod
-    public void getProviderState(Callback success, Callback error) {
-        try {
-            success.invoke(jsonToMap(getAdapter().getProviderState().toJson()));
-        } catch (JSONException e) {
-            error.invoke(e.getMessage());
-        }
+    public void getProviderState(Promise response) {
+        response.resolve(mapToWritableMap(getAdapter().getProviderState().toMap()));
     }
 
     @ReactMethod
-    public void requestPermission(final Callback success, final Callback error) {
+    public void requestPermission(final Promise response) {
         getAdapter().requestPermission(new TSRequestPermissionCallback() {
             @Override public void onSuccess(int status) {
-                success.invoke(status);
+                response.resolve(status);
             }
             @Override public void onFailure(int status) {
-                success.invoke(status);
+                response.reject("Permission request failed with status: " + status);
             }
         });
     }
 
     @ReactMethod
-    public void requestTemporaryFullAccuracy(String purpose, final Callback success, final Callback failure) {
+    public void requestTemporaryFullAccuracy(String purpose, final Promise response) {
         getAdapter().requestTemporaryFullAccuracy(purpose, new TSRequestPermissionCallback() {
             @Override public void onSuccess(int accuracyAuthorization) {
-                success.invoke(accuracyAuthorization);
+                response.resolve(accuracyAuthorization);
             }
             @Override public void onFailure(int accuracyAuthorization) {
-                success.invoke(accuracyAuthorization);
+                response.reject("Temporary full accuracy request failed with status: " + accuracyAuthorization);
             }
         });
     }
@@ -1086,15 +1028,95 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     private void sendEvent(String eventName, WritableMap params) {
-        getReactApplicationContext().getJSModule(RCTNativeAppEventEmitter.class).emit(eventName, params);
+        getReactApplicationContext()
+                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit(eventName, params);
     }
 
     private void sendEvent(String eventName, String result) {
-        getReactApplicationContext().getJSModule(RCTNativeAppEventEmitter.class).emit(eventName, result);
+        getReactApplicationContext()
+                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit(eventName, result);
     }
 
     private void sendEvent(String eventName, Boolean result) {
-        getReactApplicationContext().getJSModule(RCTNativeAppEventEmitter.class).emit(eventName, result);
+        getReactApplicationContext()
+                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit(eventName, result);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static WritableMap mapToWritableMap(Map<String, ?> src) {
+        WritableMap map = new WritableNativeMap();
+        if (src == null) {
+            return map;
+        }
+
+        for (Map.Entry<String, ?> entry : src.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+
+            if (value == null) {
+                map.putNull(key);
+            } else if (value instanceof Boolean) {
+                map.putBoolean(key, (Boolean) value);
+            } else if (value instanceof Integer) {
+                map.putInt(key, (Integer) value);
+            } else if (value instanceof Long) {
+                map.putDouble(key, ((Long) value).doubleValue());
+            } else if (value instanceof Float) {
+                map.putDouble(key, ((Float) value).doubleValue());
+            } else if (value instanceof Double) {
+                map.putDouble(key, (Double) value);
+            } else if (value instanceof String) {
+                map.putString(key, (String) value);
+            } else if (value instanceof Map) {
+                map.putMap(key, mapToWritableMap((Map<String, ?>) value));
+            } else if (value instanceof Iterable) {
+                map.putArray(key, iterableToWritableArray((Iterable<Object>) value));
+            } else if (value.getClass().isArray()) {
+                List<Object> list = Arrays.asList((Object[]) value);
+                map.putArray(key, iterableToWritableArray(list));
+            } else {
+                map.putString(key, value.toString());
+            }
+        }
+
+        return map;
+    }
+
+    private static WritableArray iterableToWritableArray(Iterable<Object> src) {
+        WritableArray array = new WritableNativeArray();
+        if (src == null) return array;
+
+        for (Object value : src) {
+            if (value == null) {
+                array.pushNull();
+            } else if (value instanceof Boolean) {
+                array.pushBoolean((Boolean) value);
+            } else if (value instanceof Integer) {
+                array.pushInt((Integer) value);
+            } else if (value instanceof Long) {
+                array.pushDouble(((Long) value).doubleValue());
+            } else if (value instanceof Float) {
+                array.pushDouble(((Float) value).doubleValue());
+            } else if (value instanceof Double) {
+                array.pushDouble((Double) value);
+            } else if (value instanceof String) {
+                array.pushString((String) value);
+            } else if (value instanceof Map) {
+                array.pushMap(mapToWritableMap((Map<String, Object>) value));
+            } else if (value instanceof Iterable) {
+                array.pushArray(iterableToWritableArray((Iterable<Object>) value));
+            } else if (value.getClass().isArray()) {
+                List<Object> list = Arrays.asList((Object[]) value);
+                array.pushArray(iterableToWritableArray(list));
+            } else {
+                array.pushString(value.toString());
+            }
+        }
+
+        return array;
     }
 
     public static WritableMap jsonToMap(JSONObject jsonObject) throws JSONException {
@@ -1239,12 +1261,7 @@ public class RNBackgroundGeolocationModule extends ReactContextBaseJavaModule im
     }
 
     private WritableMap getState() {
-        try {
-            return jsonToMap(TSConfig.getInstance(getReactApplicationContext()).toJson(false));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return mapToWritableMap(TSConfig.getInstance(getReactApplicationContext()).toMap(false));
     }
 
     private BackgroundGeolocation getAdapter() {

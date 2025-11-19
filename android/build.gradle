@@ -1,11 +1,7 @@
-rootProject.allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+plugins {
+    id "com.android.library"
+    id "com.facebook.react"
 }
-
-apply plugin: 'com.android.library'
 
 // Android dependencies
 def DEFAULT_COMPILE_SDK_VERSION                     = 36
@@ -13,7 +9,6 @@ def DEFAULT_TARGET_SDK_VERSION                      = 36
 
 // Plugin dependencies
 def DEFAULT_PLAY_SERVICES_LOCATION_VERSION          = "21.3.0"
-def DEFAULT_HMS_LOCATION_VERSION                    = "6.9.0.300"
 def DEFAULT_OK_HTTP_VERSION                         = "3.12.13"
 def DEFAULT_ANDROID_PERMISSIONS_VERSION             = "2.1.6"
 def DEFAULT_EVENTBUS_VERSION                        = "3.3.1"
@@ -29,6 +24,9 @@ def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
+react {
+    libraryName = "react-native-background-geolocation"
+}
 android {
     namespace("com.transistorsoft.rnbackgroundgeolocation")
 
@@ -45,6 +43,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            // Where Codegen put NativeBackgroundGeolocationSpec.java
+            java.srcDir("$buildDir/generated/source/codegen/java")
+        }
+    }
 }
 
 repositories{
@@ -54,11 +58,10 @@ repositories{
 }
 
 dependencies {
-    // Prefer appCompatVersion vs supportLibVersion.
     def playServicesLocationVersion = safeExtGet('playServicesLocationVersion', safeExtGet('googlePlayServicesLocationVersion', DEFAULT_PLAY_SERVICES_LOCATION_VERSION))
 
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
     implementation "com.google.android.gms:play-services-location:$playServicesLocationVersion"
-    implementation "com.transistorsoft:tslocationmanager:4.0.0-beta.1"
+    implementation "com.transistorsoft:tslocationmanager:4.0.0-beta.3"
     implementation 'org.greenrobot:eventbus:3.3.1'
 }

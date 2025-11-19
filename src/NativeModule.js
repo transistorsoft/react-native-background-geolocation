@@ -1,18 +1,19 @@
 'use strict';
 
+// foo
 import {
   NativeEventEmitter,
   NativeModules,
+  DeviceEventEmitter,
   Platform,
-  AppRegistry
+  AppRegistry,
 } from "react-native"
 
 const { RNBackgroundGeolocation } = NativeModules;
+
 const EventEmitter = new NativeEventEmitter(RNBackgroundGeolocation);
 
-import TransistorAuthorizationToken from "./TransistorAuthorizationToken";
-
-import * as Events from "./Events";
+import TransistorAuthorizationService from "./TransistorAuthorizationService";
 
 const TAG               = "TSLocationManager";
 const PLATFORM_ANDROID  = "android";
@@ -120,7 +121,7 @@ const validateConfig = (config) => {
     };
   }
 
-  config = TransistorAuthorizationToken.applyIf(config);
+  config = TransistorAuthorizationService.applyIf(config);
 
   return config;
 };
@@ -135,67 +136,36 @@ export default class NativeModule {
   * Core API Methods
   */
   static ready(config) {
-    return new Promise((resolve, reject) => {
-      let success = (state) => { resolve(state) }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.ready(validateConfig(config), success, failure);
-    });
+    return RNBackgroundGeolocation.ready(validateConfig(config));    
   }
 
   static configure(config) {
-    console.warn('[BackgroundGeolocation] Method #configure is deprecated in favor of #ready');
-    return new Promise((resolve, reject) => {
-      let success = (state) => { resolve(state) }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.configure(validateConfig(config), success, failure);
-    });
+    console.warn('[BackgroundGeolocation] Method #configure is deprecated in favor of #ready');    
+    return RNBackgroundGeolocation.configure(validateConfig(config));    
   }
 
   static requestPermission() {
-    return new Promise((resolve, reject) => {
-      let success = (status) => { resolve(status) }
-      let failure = (status) => { reject(status) }
-      RNBackgroundGeolocation.requestPermission(success, failure);
-    });
+    return RNBackgroundGeolocation.requestPermission();
   }
 
   static requestTemporaryFullAccuracy(purpose) {
-    return new Promise((resolve, reject) => {
-      let success = (status) => { resolve(status) }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.requestTemporaryFullAccuracy(purpose, success, failure);
-    });
+    return RNBackgroundGeolocation.requestTemporaryFullAccuracy(purpose);     
   }
 
   static getProviderState() {
-    return new Promise((resolve, reject) => {
-      let success = (state) => { resolve(state) }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.getProviderState(success, failure);
-    });
+    return RNBackgroundGeolocation.getProviderState();     
   }
 
-  static setConfig(config) {
-    return new Promise((resolve, reject) => {
-      let success = (state) => { resolve(state) }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.setConfig(validateConfig(config), success, failure);
-    });
+  static setConfig(config) {    
+    return RNBackgroundGeolocation.setConfig(validateConfig(config));
   }
 
   static reset(config) {
     config = config || {};
-    return new Promise((resolve, reject) => {
-      let success = (state)  => { resolve(state) }
-      let failure = (error)  => { reject(error) }
-      RNBackgroundGeolocation.reset(validateConfig(config), success, failure);
-    });
+    return RNBackgroundGeolocation.reset(validateConfig(config));   
   }
 
-  static addListener(event, success, failure) {
-    if (!Events[event.toUpperCase()]) {
-      throw (TAG + "#addListener - Unknown event '" + event + "'");
-    }
+  static addListener(event, success, failure) {      
     const handler = (response) => {
       if (response.hasOwnProperty("error") && (response.error != null)) {
         if (typeof(failure) === 'function') {
@@ -231,18 +201,6 @@ export default class NativeModule {
     return subscription;
   }
 
-  // @deprecated in favor of subscription.remove().
-  static removeListener(event, callback, success, failure) {
-    console.warn('BackgroundGeolocation.removeListener is deprecated.  Event-listener methods (eg: onLocation) now return a subscription instance.  Call subscription.remove() on the returned subscription instead.  Eg:\nconst subscription = BackgroundGeolocation.onLocation(myLocationHandler)\n...\nsubscription.remove()');
-    const found = findEventSubscriptionByEvent(event, callback);
-    if (found !== null) {
-      found.subscription.remove();
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   static removeListeners() {
     return new Promise((resolve, reject) => {
       EVENT_SUBSCRIPTIONS.forEach((sub) => {
@@ -253,84 +211,40 @@ export default class NativeModule {
     });
   }
 
-  static getState() {
-    return new Promise((resolve, reject) => {
-      let success = (state)  => { resolve(state) }
-      let failure = (error)  => { reject(error) }
-      RNBackgroundGeolocation.getState(success, failure);
-    });
+  static getState() {    
+    return RNBackgroundGeolocation.getState();    
   }
 
   static start() {
-    return new Promise((resolve, reject) => {
-      let success = (state)  => { resolve(state) }
-      let failure = (error)  => { reject(error) }
-      RNBackgroundGeolocation.start(success, failure);
-    });
+    return RNBackgroundGeolocation.start();      
   }
 
   static stop() {
-    return new Promise((resolve, reject) => {
-      let success = (state)  => { resolve(state) }
-      let failure = (error)  => { reject(error) }
-      RNBackgroundGeolocation.stop(success, failure);
-    });
+    return RNBackgroundGeolocation.stop();        
   }
 
   static startSchedule() {
-    return new Promise((resolve, reject) => {
-      let success = (state)  => { resolve(state) }
-      let failure = (error)  => { reject(error) }
-      RNBackgroundGeolocation.startSchedule(success, failure);
-    });
+    return RNBackgroundGeolocation.startSchedule();    
   }
 
   static stopSchedule() {
-    return new Promise((resolve, reject) => {
-      let success = (state)  => { resolve(state) }
-      let failure = (error)  => { reject(error) }
-      RNBackgroundGeolocation.stopSchedule(success, failure);
-    });
+    return RNBackgroundGeolocation.stopSchedule();   
   }
 
   static startGeofences() {
-    return new Promise((resolve, reject) => {
-      let success = (state)  => { resolve(state) }
-      let failure = (error)  => { reject(error) }
-      RNBackgroundGeolocation.startGeofences(success, failure);
-    });
+    return RNBackgroundGeolocation.startGeofences();      
   }
 
   static startBackgroundTask() {
-    return new Promise((resolve, reject) => {
-      let success = (taskId)  => { resolve(taskId) }
-      let failure = (error)   => { reject(error) }
-      RNBackgroundGeolocation.beginBackgroundTask(success, failure);
-    });
+    return RNBackgroundGeolocation.beginBackgroundTask();      
   }
 
   static stopBackgroundTask(taskId) {
-    return new Promise((resolve, reject) => {
-      if (!taskId) {
-        reject('INVALID_TASK_ID: ' + taskId);
-        return;
-      }
-      let success = (taskId) => { resolve(taskId) }
-      let failure = (error) =>  { reject(error) }
-      RNBackgroundGeolocation.finish(taskId, success, failure);
-    });
+    return RNBackgroundGeolocation.finish(taskId);    
   }
 
   static finishHeadlessTask(taskId) {
-    return new Promise((resolve, reject) => {
-      if (!taskId) {
-        reject('INVALID_TASK_ID: ' + taskId);
-        return;
-      }
-      let success = () => { resolve() }
-      let failure = (error) =>  { reject(error) }
-      RNBackgroundGeolocation.finishHeadlessTask(taskId, success, failure);
-    });
+    return RNBackgroundGeolocation.finishHeadlessTask(taskId);     
   }
   
   /**
@@ -338,104 +252,65 @@ export default class NativeModule {
   */
 
   static changePace(isMoving) {
-    return new Promise((resolve, reject) => {
-      let success = ()        => { resolve() }
-      let failure = (error)   => { reject(error) }
-      RNBackgroundGeolocation.changePace(isMoving, success, failure);
-    });
+    return RNBackgroundGeolocation.changePace(isMoving);
   }
 
   static getCurrentPosition(options) {
     options = options || {};
-    return new Promise((resolve, reject) => {
-      let success = (location)  => { resolve(location) }
-      let failure = (error)     => { reject(error) }
-      RNBackgroundGeolocation.getCurrentPosition(options, success, failure);
-    });
+    return RNBackgroundGeolocation.getCurrentPosition(options);    
   }
 
-  static watchPosition(success, failure, options) {
+  static watchPosition(options, success, failure) {
     let callback = ()  => {
       EventEmitter.addListener("watchposition", success);
     };
-    RNBackgroundGeolocation.watchPosition(options, callback, failure);
+    RNBackgroundGeolocation.watchPosition(options).then(() => {
+      callback();
+    }).failure((error) => {
+      if (typeof(failure) === 'function') {
+        failure(error);
+      }
+    });
   }
 
   static stopWatchPosition() {
-    return new Promise((resolve, reject) => {
-      EventEmitter.removeAllListeners("watchposition");
-      let success = ()      => { resolve() }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.stopWatchPosition(success, failure);
-    });
+    return RNBackgroundGeolocation.stopWatchPosition();    
   }
 
   static getOdometer() {
-    return new Promise((resolve, reject) => {
-      let success = (value) => { resolve(value) }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.getOdometer(success, failure);
-    });
+    return RNBackgroundGeolocation.getOdometer();
   }
 
   static setOdometer(value) {
-    return new Promise((resolve, reject) => {
-      let success = (location)      => { resolve(location) }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.setOdometer(value, success, failure);
-    });
+    return RNBackgroundGeolocation.setOdometer(value);      
   }
 
   /**
   * HTTP & Persistence Methods
   */
 
-  static getLocations() {
-    return new Promise((resolve, reject) => {
-      let success = (result)  => { resolve(result) }
-      let failure = (error)   => { reject(error) }
-      RNBackgroundGeolocation.getLocations(success, failure);
-    });
+  static getLocations() {    
+    return RNBackgroundGeolocation.getLocations();    
   }
 
   static getCount() {
-    return new Promise((resolve, reject) => {
-      let success = (count) => { resolve(count) }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.getCount(success, failure);
-    });
+    return RNBackgroundGeolocation.getCount();
   }
 
   static destroyLocations() {
-    return new Promise((resolve, reject) => {
-      let success = ()      => { resolve() }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.destroyLocations(success, failure);
-    });
+    return RNBackgroundGeolocation.destroyLocations();
   }
 
   static destroyLocation(uuid) {
-    return new Promise((resolve, reject) => {
-      let success = () => { resolve() }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.destroyLocation(uuid, success, failure);
-    });
+    return RNBackgroundGeolocation.destroyLocation(uuid);      
   }
 
   static insertLocation(params) {
-    return new Promise((resolve, reject) => {
-      let success = (location)  => { resolve(location) }
-      let failure = (error)     => { reject(error) }
-      RNBackgroundGeolocation.insertLocation(params, success, failure);
-    });
+    return RNBackgroundGeolocation.insertLocation(params);      
   }
 
   static sync() {
-    return new Promise((resolve, reject) => {
-      let success = (result)  => { resolve(result) }
-      let failure = (error)   => { reject(error) }
-      RNBackgroundGeolocation.sync(success, failure);
-    });
+    return RNBackgroundGeolocation.sync();      
   }
 
   /**
@@ -443,142 +318,66 @@ export default class NativeModule {
   */
 
   static addGeofence(config) {
-    return new Promise((resolve, reject) => {
-      let success = ()      => { resolve() }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.addGeofence(config, success, failure);
-    });
+    return RNBackgroundGeolocation.addGeofence(config);
   }
 
   static removeGeofence(identifier) {
-    return new Promise((resolve, reject) => {
-      let success = ()      => { resolve() }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.removeGeofence(identifier, success, failure);
-    });
+    return RNBackgroundGeolocation.removeGeofence(identifier);
   }
 
   static addGeofences(geofences) {
-    return new Promise((resolve, reject) => {
-      let success = ()      => { resolve() }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.addGeofences(geofences, success, failure);
-    });
+    return RNBackgroundGeolocation.addGeofences(geofences);    
   }
 
   static removeGeofences() {
-    return new Promise((resolve, reject) => {
-      let success = ()      => { resolve() }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.removeGeofences(success, failure);
-    });
+    return RNBackgroundGeolocation.removeGeofences();      
   }
 
   static getGeofences() {
-    return new Promise((resolve, reject) => {
-      let success = (result)  => { resolve(result) }
-      let failure = (error)   => { reject(error) }
-      RNBackgroundGeolocation.getGeofences(success, failure);
-    });
+    return RNBackgroundGeolocation.getGeofences();      
   }
 
   static getGeofence(identifier) {
-    return new Promise((resolve, reject) => {
-      let success = (result) => { resolve(result) }
-      let failure = (error) => { reject(error) }
-      if ((typeof(identifier) !== 'string') || (identifier.length == 0)) {
-        failure('Invalid identifier: ' + identifier);
-        return;
-      }
-      RNBackgroundGeolocation.getGeofence(identifier, success, failure);
-    });
+    return RNBackgroundGeolocation.getGeofence(identifier);
   }
 
   static geofenceExists(identifier) {
-    return new Promise((resolve, reject) => {
-      let callback = (result) => { resolve(result) }
-      if ((typeof(identifier) !== 'string') || (identifier.length == 0)) {
-        reject('Invalid identifier: ' + identifier);
-        return;
-      }
-      RNBackgroundGeolocation.geofenceExists(identifier, callback);
-    });
+    return RNBackgroundGeolocation.geofenceExists(identifier);
   }
   /**
   * Logging & Debug Methods
   */
 
   static setLogLevel(value) {
-    return new Promise((resolve, reject) => {
-      let success = (state)      => { resolve(state) }
-      let failure = (error) => { reject(error) }
-      let config = {logLevel: value};
-      RNBackgroundGeolocation.setConfig(config, success, failure);
-    });
+    return RNBackgroundGeolocation.setLogLevel(value);
   }
 
   static getLog() {
-    return new Promise((resolve, reject) => {
-      let success = (log)   => { resolve(log) }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.getLog(success, failure);
-    });
+    return RNBackgroundGeolocation.getLog();
   }
 
   static destroyLog() {
-    return new Promise((resolve, reject) => {
-      let success = ()      => { resolve() }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.destroyLog(success, failure);
-    });
+    return RNBackgroundGeolocation.destroyLog();    
   }
 
   static emailLog(email) {
-    return new Promise((resolve, reject) => {
-      let success = ()      => { resolve() }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.emailLog(email, success, failure);
-    });
+    return RNBackgroundGeolocation.emailLog(email);  
   }
 
   static isPowerSaveMode() {
-    return new Promise((resolve, reject) => {
-      let success = (isPowerSaveMode)   => { resolve(isPowerSaveMode) }
-      let failure = (error)             => { reject(error) }
-      RNBackgroundGeolocation.isPowerSaveMode(success, failure);
-    });
+    return RNBackgroundGeolocation.isPowerSaveMode();
   }
 
   static getSensors() {
-    return new Promise((resolve, reject) => {
-      let success = (result)  => { resolve(result) }
-      let failure = (error)   => { reject(error) }
-      RNBackgroundGeolocation.getSensors(success, failure);
-    });
+    return RNBackgroundGeolocation.getSensors();
   }
 
   static getDeviceInfo() {
-    return new Promise((resolve, reject) => {
-      if (deviceInfo != null) {
-        return resolve(deviceInfo);
-      }
-      let success = (result) => {
-        // Cache DeviceInfo
-        deviceInfo = result;
-        resolve(result)
-      }
-      let failure = (error)  => { reject(error) }
-      RNBackgroundGeolocation.getDeviceInfo(success, failure);
-    });
+    return RNBackgroundGeolocation.getDeviceInfo();
   }
 
   static playSound(soundId) {
-    return new Promise((resolve, reject) => {
-      let success = ()      => { resolve() }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.playSound(soundId);
-      success();
-    });
+    return RNBackgroundGeolocation.playSound(soundId);  
   }
 
   static get logger() { return LOGGER; }

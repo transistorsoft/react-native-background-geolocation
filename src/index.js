@@ -5,80 +5,98 @@ import {
   AppRegistry
 } from "react-native"
 
-import * as Events from './Events';
 import NativeModule from './NativeModule';
 import DeviceSettings from './DeviceSettings';
 import Logger from './Logger';
-import TransistorAuthorizationToken from './TransistorAuthorizationToken';
+import TransistorAuthorizationService from './TransistorAuthorizationService';
+
+import {
+  LogLevel,
+  DesiredAccuracy,
+  PersistMode,
+  AuthorizationStatus,
+  AccuracyAuthorization,
+  LocationRequest,
+  AuthorizationStrategy,
+  LocationFilterPolicy,
+  KalmanProfile,
+  NotificationPriority,
+  HttpMethod,
+  TriggerActivity,
+  ActivityType,
+  Event
+} from '@transistorsoft/background-geolocation-types';
+
+// Build a lookup table of allowed event names (runtime)
+const VALID_EVENT_NAMES = new Set(Object.values(Event));
 
 let _deviceSettingsInstance = null;
 
 const TAG = "BackgroundGeolocation";
 
-const LOG_LEVEL_OFF     =  0;
-const LOG_LEVEL_ERROR   =  1;
-const LOG_LEVEL_WARNING =  2;
-const LOG_LEVEL_INFO    =  3;
-const LOG_LEVEL_DEBUG   =  4;
-const LOG_LEVEL_VERBOSE =  5;
+const LOG_LEVEL_OFF     = LogLevel.Off;
+const LOG_LEVEL_ERROR   = LogLevel.Error;
+const LOG_LEVEL_WARNING = LogLevel.Warning;
+const LOG_LEVEL_INFO    = LogLevel.Info;
+const LOG_LEVEL_DEBUG   = LogLevel.Debug;
+const LOG_LEVEL_VERBOSE = LogLevel.Verbose;
 
-// This is a test.
-const DESIRED_ACCURACY_NAVIGATION = -2;
-const DESIRED_ACCURACY_HIGH       = -1;
-const DESIRED_ACCURACY_MEDIUM     = 10;
-const DESIRED_ACCURACY_LOW        = 100;
-const DESIRED_ACCURACY_VERY_LOW   = 1000;
-const DESIRED_ACCURACY_LOWEST     = 3000;
+const DESIRED_ACCURACY_NAVIGATION = DesiredAccuracy.Navigation;
+const DESIRED_ACCURACY_HIGH       = DesiredAccuracy.High;
+const DESIRED_ACCURACY_MEDIUM     = DesiredAccuracy.Medium;
+const DESIRED_ACCURACY_LOW        = DesiredAccuracy.Low;
+const DESIRED_ACCURACY_VERY_LOW   = DesiredAccuracy.VeryLow;
+const DESIRED_ACCURACY_LOWEST     = DesiredAccuracy.Lowest;
 
-const AUTHORIZATION_STATUS_NOT_DETERMINED = 0;
-const AUTHORIZATION_STATUS_RESTRICTED     = 1;
-const AUTHORIZATION_STATUS_DENIED         = 2;
-const AUTHORIZATION_STATUS_ALWAYS         = 3;
-const AUTHORIZATION_STATUS_WHEN_IN_USE    = 4;
+const AUTHORIZATION_STATUS_NOT_DETERMINED = AuthorizationStatus.NotDetermined;
+const AUTHORIZATION_STATUS_RESTRICTED     = AuthorizationStatus.Restricted;
+const AUTHORIZATION_STATUS_DENIED         = AuthorizationStatus.Denied;
+const AUTHORIZATION_STATUS_ALWAYS         = AuthorizationStatus.Always;
+const AUTHORIZATION_STATUS_WHEN_IN_USE    = AuthorizationStatus.WhenInUse;
 
-const NOTIFICATION_PRIORITY_DEFAULT       = 0;
-const NOTIFICATION_PRIORITY_HIGH          = 1;
-const NOTIFICATION_PRIORITY_LOW           =-1;
-const NOTIFICATION_PRIORITY_MAX           = 2;
-const NOTIFICATION_PRIORITY_MIN           =-2;
+const NOTIFICATION_PRIORITY_DEFAULT       = NotificationPriority.Default;
+const NOTIFICATION_PRIORITY_HIGH          = NotificationPriority.High;
+const NOTIFICATION_PRIORITY_LOW           = NotificationPriority.Low;
+const NOTIFICATION_PRIORITY_MAX           = NotificationPriority.Max;
+const NOTIFICATION_PRIORITY_MIN           = NotificationPriority.Min;
 
-const ACTIVITY_TYPE_OTHER                 = 1;
-const ACTIVITY_TYPE_AUTOMOTIVE_NAVIGATION = 2;
-const ACTIVITY_TYPE_FITNESS               = 3;
-const ACTIVITY_TYPE_OTHER_NAVIGATION      = 4;
-const ACTIVITY_TYPE_AIRBORNE              = 5;
+const ACTIVITY_TYPE_OTHER                 = ActivityType.Other;
+const ACTIVITY_TYPE_AUTOMOTIVE_NAVIGATION = ActivityType.AutomotiveNavigation;
+const ACTIVITY_TYPE_FITNESS               = ActivityType.Fitness;
+const ACTIVITY_TYPE_OTHER_NAVIGATION      = ActivityType.OtherNavigation;
+const ACTIVITY_TYPE_AIRBORNE              = ActivityType.Airborne;
 
-const LOCATION_AUTHORIZATION_ALWAYS       = "Always";
-const LOCATION_AUTHORIZATION_WHEN_IN_USE  = "WhenInUse";
-const LOCATION_AUTHORIZATION_ANY          = "Any";
+const LOCATION_AUTHORIZATION_ALWAYS       = LocationRequest.Always;
+const LOCATION_AUTHORIZATION_WHEN_IN_USE  = LocationRequest.WhenInUse;
+const LOCATION_AUTHORIZATION_ANY          = LocationRequest.Any;
 
-const PERSIST_MODE_ALL                    = 2;
-const PERSIST_MODE_LOCATION               = 1;
-const PERSIST_MODE_GEOFENCE               = -1;
-const PERSIST_MODE_NONE                   = 0;
+const PERSIST_MODE_ALL                    = PersistMode.All;
+const PERSIST_MODE_LOCATION               = PersistMode.Location;
+const PERSIST_MODE_GEOFENCE               = PersistMode.Geofence;
+const PERSIST_MODE_NONE                   = PersistMode.None;
 
-const ACCURACY_AUTHORIZATION_FULL        = 0;
-const ACCURACY_AUTHORIZATION_REDUCED     = 1;
+const ACCURACY_AUTHORIZATION_FULL         = AccuracyAuthorization.Full;
+const ACCURACY_AUTHORIZATION_REDUCED      = AccuracyAuthorization.Reduced;
 
 const emptyFn = function() {}
 
 export default class BackgroundGeolocation {
-  static get EVENT_BOOT()                  { return Events.BOOT; }
-  static get EVENT_TERMINATE()             { return Events.TERMINATE; }
-  static get EVENT_LOCATION()              { return Events.LOCATION; }
-  static get EVENT_MOTIONCHANGE()          { return Events.MOTIONCHANGE; }
-  static get EVENT_HTTP()                  { return Events.HTTP; }
-  static get EVENT_HEARTBEAT()             { return Events.HEARTBEAT; }
-  static get EVENT_PROVIDERCHANGE()        { return Events.PROVIDERCHANGE; }
-  static get EVENT_ACTIVITYCHANGE()        { return Events.ACTIVITYCHANGE; }
-  static get EVENT_GEOFENCE()              { return Events.GEOFENCE; }
-  static get EVENT_GEOFENCESCHANGE()       { return Events.GEOFENCESCHANGE; }
-  static get EVENT_ENABLEDCHANGE()         { return Events.ENABLEDCHANGE; }
-  static get EVENT_CONNECTIVITYCHANGE()    { return Events.CONNECTIVITYCHANGE; }
-  static get EVENT_SCHEDULE()              { return Events.SCHEDULE; }
-  static get EVENT_POWERSAVECHANGE()       { return Events.POWERSAVECHANGE; }
-  static get EVENT_NOTIFICATIONACTION()    { return Events.NOTIFICATIONACTION; }
-  static get EVENT_AUTHORIZATION()         { return Events.AUTHORIZATION; }
+  static get EVENT_BOOT()                  { return Event.Boot; }
+  static get EVENT_TERMINATE()             { return Event.Terminate; }
+  static get EVENT_LOCATION()              { return Event.Location; }
+  static get EVENT_MOTIONCHANGE()          { return Event.MotionChange; }
+  static get EVENT_HTTP()                  { return Event.Http; }
+  static get EVENT_HEARTBEAT()             { return Event.Heartbeat; }
+  static get EVENT_PROVIDERCHANGE()        { return Event.ProviderChange; }
+  static get EVENT_ACTIVITYCHANGE()        { return Event.ActivityChange; }
+  static get EVENT_GEOFENCE()              { return Event.Geofence; }
+  static get EVENT_GEOFENCESCHANGE()       { return Event.GeofencesChange; }
+  static get EVENT_ENABLEDCHANGE()         { return Event.EnabledChange; }
+  static get EVENT_CONNECTIVITYCHANGE()    { return Event.ConnectivityChange; }
+  static get EVENT_SCHEDULE()              { return Event.Schedule; }
+  static get EVENT_POWERSAVECHANGE()       { return Event.PowerSaveChange; }
+  static get EVENT_NOTIFICATIONACTION()    { return Event.NotificationAction; }
+  static get EVENT_AUTHORIZATION()         { return Event.Authorization; }
 
   static get LOG_LEVEL_OFF()                { return LOG_LEVEL_OFF; }
   static get LOG_LEVEL_ERROR()              { return LOG_LEVEL_ERROR; }
@@ -124,6 +142,63 @@ export default class BackgroundGeolocation {
   static get ACCURACY_AUTHORIZATION_FULL()      { return ACCURACY_AUTHORIZATION_FULL; }
   static get ACCURACY_AUTHORIZATION_REDUCED()   { return ACCURACY_AUTHORIZATION_REDUCED; }
 
+  // Enum namespaces (mirroring @transistorsoft/background-geolocation-types)
+  static get LogLevel() {
+    return LogLevel;
+  }
+
+  static get DesiredAccuracy() {
+    return DesiredAccuracy;
+  }
+
+  static get PersistMode() {
+    return PersistMode;
+  }
+
+  static get AuthorizationStatus() {
+    return AuthorizationStatus;
+  }
+
+  static get AccuracyAuthorization() {
+    return AccuracyAuthorization;
+  }
+
+  static get LocationRequest() {
+    return LocationRequest;
+  }
+
+  static get AuthorizationStrategy() {
+    return AuthorizationStrategy;
+  }
+
+  static get LocationFilterPolicy() {
+    return LocationFilterPolicy;
+  }
+
+  static get KalmanProfile() {
+    return KalmanProfile;
+  }
+
+  static get NotificationPriority() {
+    return NotificationPriority;
+  }
+
+  static get HttpMethod() {
+    return HttpMethod;
+  }
+
+  static get TriggerActivity() {
+    return TriggerActivity;
+  }
+
+  static get ActivityType() {
+    return ActivityType;
+  }
+
+  static get Event() {
+    return Event;
+  }
+
   static get deviceSettings() {
     if (_deviceSettingsInstance === null) {
       _deviceSettingsInstance = new DeviceSettings();
@@ -134,55 +209,32 @@ export default class BackgroundGeolocation {
   /**
   * Core Plugin Control Methods
   */
-  static ready(config, success, failure) {
-    if (arguments.length <= 1) {
-      return NativeModule.ready(config||{});
-    } else {
-      NativeModule.ready(config).then(success).catch(failure);
-    }
+  static ready(config) {    
+    return NativeModule.ready(config||{});    
   }
   /**
   * Reset plugin confg to default
   */
-  static reset(config, success, failure) {
-    if ((typeof(config) == 'function') ||  (typeof(success) === 'function')) {
-      if (typeof(config) === 'function') {
-        success = config;
-      }
-      NativeModule.reset(config).then(success).catch(failure);
-    } else {
-      return NativeModule.reset(config);
-    }
+  static reset(config) {    
+    return NativeModule.reset(config);    
   }
   /**
   * Perform initial configuration of plugin.  Reset config to default before applying supplied configuration
   */
-  static configure(config, success, failure) {
-    if (arguments.length == 1) {
-      return NativeModule.configure(config);
-    } else {
-      NativeModule.configure(config).then(success).catch(failure);
-    }
+  static configure(config) {
+    return NativeModule.configure(config);
   }
 
-  static requestPermission(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.requestPermission();
-    } else {
-      NativeModule.requestPermission().then(success).catch(failure);
-    }
+  static requestPermission() {
+    return NativeModule.requestPermission();
   }
 
   static requestTemporaryFullAccuracy(purpose) {
     return NativeModule.requestTemporaryFullAccuracy(purpose);
   }
 
-  static getProviderState(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.getProviderState();
-    } else {
-      NativeModule.getProviderState().then(success).catch(failure);
-    }
+  static getProviderState() {
+    return NativeModule.getProviderState();    
   }
 
   /**
@@ -190,69 +242,69 @@ export default class BackgroundGeolocation {
   */
   static addListener(event, success, failure) {
     if (typeof(event) != 'string')      { throw "BackgroundGeolocation#on must be provided a {String} event as 1st argument." }
-    if (Events[event])      { throw "BackgroundGeolocation#on - Unknown event '" + event + "'" }
+    
+    if (!VALID_EVENT_NAMES.has(event)) {
+      throw `BackgroundGeolocation#on - Unknown event '${event}'`;
+    } 
+
     if (typeof(success) != 'function')  { throw "BackgroundGeolocation#on must be provided a callback as 2nd argument.  If you're attempting to use the Promise API to listen to an event, it won't work, since a Promise can only evaluate once, while the callback function must be executed for each event." }
     return NativeModule.addListener.apply(NativeModule, arguments);
   }
-  // @alias #removeListener
-  static on(event, success, failure) {
-    return this.addListener.apply(this, arguments);
-  }
-
+  
   static onLocation(success, failure) {
-    return this.addListener(Events.LOCATION, success, failure);
+    return this.addListener(Event.Location, success, failure);
   }
 
   static onMotionChange(callback) {
-    return this.addListener(Events.MOTIONCHANGE, callback);
+    return this.addListener(Event.MotionChange, callback);
   }
 
   static onHttp(callback) {
-    return this.addListener(Events.HTTP, callback);
+    return this.addListener(Event.Http, callback);
   }
 
   static onHeartbeat(callback) {
-    return this.addListener(Events.HEARTBEAT, callback);
+    return this.addListener(Event.Heartbeat, callback);
   }
 
   static onProviderChange(callback) {
-    return this.addListener(Events.PROVIDERCHANGE, callback);
+    return this.addListener(Event.ProviderChange, callback);
   }
 
   static onActivityChange(callback) {
-    return this.addListener(Events.ACTIVITYCHANGE, callback);
+    return this.addListener(Event.ActivityChange, callback);
   }
 
   static onGeofence(callback) {
-    return this.addListener(Events.GEOFENCE, callback);
+    return this.addListener(Event.Geofence, callback);
   }
 
   static onGeofencesChange(callback) {
-    return this.addListener(Events.GEOFENCESCHANGE, callback);
+    return this.addListener(Event.GeofencesChange, callback);
   }
 
   static onSchedule(callback) {
-    return this.addListener(Events.SCHEDULE, callback);
+    return this.addListener(Event.Schedule, callback);
   }
 
   static onEnabledChange(callback) {
-    return this.addListener(Events.ENABLEDCHANGE, callback);
+    return this.addListener(Event.EnabledChange, callback);
   }
 
   static onConnectivityChange(callback) {
-    return this.addListener(Events.CONNECTIVITYCHANGE, callback);
+    return this.addListener(Event.ConnectivityChange, callback);
   }
 
   static onPowerSaveChange(callback) {
-    return this.addListener(Events.POWERSAVECHANGE, callback);
+    return this.addListener(Event.PowerSaveChange, callback);
   }
 
   static onNotificationAction(callback) {
-    return this.addListener(Events.NOTIFICATIONACTION, callback);
+    return this.addListener(Event.NotificationAction, callback);
   }
 
   static onAuthorization(callback) {
-    return this.addListener(Events.AUTHORIZATION, callback);
+    return this.addListener(Event.Authorization, callback);
   }
 
   /**
@@ -260,14 +312,10 @@ export default class BackgroundGeolocation {
   */
   static removeListener(event, handler, success, failure) {
     if (typeof(event) != 'string')      { throw "BackgroundGeolocation#un must be provided a {String} event as 1st argument" }
-    if (!Events[event.toUpperCase()])      { throw "BackgroundGeolocation#un - Unknown event '" + event + "'" }
+    if (!VALID_EVENT_NAMES.has(event))      { throw "BackgroundGeolocation#un - Unknown event '" + event + "'" }
     NativeModule.removeListener.apply(NativeModule, arguments);
   }
-  // @alias #removeListener
-  static un(event, handler, success, failiure) {
-    this.removeListener.apply(this, arguments);
-  }
-
+  
   /**
   * Remove all event listeners
   */
@@ -285,92 +333,56 @@ export default class BackgroundGeolocation {
   /**
   * Fetch current plugin configuration
   */
-  static getState(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.getState();
-    } else {
-      NativeModule.getState().then(success).catch(failure);
-    }
+  static getState(success, failure) {    
+    return NativeModule.getState();    
   }
   /**
   * Start the plugin
   */
-  static start(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.start();
-    } else {
-      NativeModule.start().then(success).catch(failure);
-    }
+  static start() {
+    return NativeModule.start();   
   }
   /**
   * Stop the plugin
   */
-  static stop(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.stop();
-    } else {
-      NativeModule.stop().then(success).catch(failure);
-    }
+  static stop() {
+    return NativeModule.stop();
   }
   /**
   * Start the scheduler
   */
-  static startSchedule(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.startSchedule();
-    } else {
-      NativeModule.startSchedule().then(success).catch(failure);
-    }
+  static startSchedule() {
+    return NativeModule.startSchedule();
   }
   /**
   * Stop the scheduler
   */
-  static stopSchedule(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.stopSchedule();
-    } else {
-      NativeModule.stopSchedule().then(success).catch(failure);
-    }
+  static stopSchedule() {
+    return NativeModule.stopSchedule();
   }
   /**
   * Initiate geofences-only mode
   */
-  static startGeofences(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.startGeofences();
-    } else {
-      NativeModule.startGeofences().then(success).catch(failure);
-    }
+  static startGeofences() {
+    return NativeModule.startGeofences();    
   }
   /**
   * Start an iOS background-task, provding 180s of background running time
   */
-  static startBackgroundTask(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.startBackgroundTask();
-    } else {
-      if (typeof(success) !== 'function') {
-        throw TAG + "#startBackgroundTask must be provided with a callback to recieve the taskId";
-      }
-      NativeModule.startBackgroundTask().then(success).catch(failure);
-    }
+  static startBackgroundTask() {
+    return NativeModule.startBackgroundTask();
   }
   /**
   * Signal to iOS that your background-task from #startBackgroundTask is complete
   * TODO Rename native method #finish -> #stopBackgroundTask.
   */
-  static stopBackgroundTask(taskId,  success, failure) {
-    // No taskId?  Ignore it.
-    if (arguments.length == 1) {
-      return NativeModule.stopBackgroundTask(taskId);
-    } else {
-      NativeModule.stopBackgroundTask(taskId).then(success).catch(failure);
-    }
+  static stopBackgroundTask(taskId) {    
+    return NativeModule.stopBackgroundTask(taskId);
   }
   /**
   * @deprecated Use #stopBackgroundTask
   */
-  static finish(taskId, success, failure) {
+  static finish(taskId) {
     this.stopBackgroundTask.apply(this, arguments);
   }
 
@@ -402,63 +414,42 @@ export default class BackgroundGeolocation {
    * @private 
    * Signal completion of a react-native headless-task.  This helps RN free-up resources allocated to the headless-task execution.
    */
-  static finishHeadlessTask(taskId, success, failure) {
-    if (arguments.length == 1) {
-      return NativeModule.finishHeadlessTask(taskId);
-    } else {
-      NativeModule.finishHeadlessTask(taskId).then(success).catch(failure);
-    }
+  static finishHeadlessTask(taskId) {    
+    return NativeModule.finishHeadlessTask(taskId);    
   }
   /**
   * Toggle motion-state between stationary <-> moving
   */
-  static changePace(isMoving, success, failure) {
-    if (arguments.length == 1) {
-      return NativeModule.changePace(isMoving);
-    } else {
-      NativeModule.changePace(isMoving).then(success).catch(failure);
-    }
+  static changePace(isMoving) {
+    return NativeModule.changePace(isMoving);  
   }
+
   /**
   * Provide new configuration to the plugin.  This configuration will be *merged* to current configuration
   */
-  static setConfig(config, success, failure) {
-    if (arguments.length == 1) {
-      return NativeModule.setConfig(config);
-    } else {
-      NativeModule.setConfig(config).then(success).catch(failure);
-    }
+  static setConfig(config) {
+    return NativeModule.setConfig(config);
   }
   /**
   * HTTP & Persistence
   *
   */
-  static getLocations(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.getLocations();
-    } else {
-      NativeModule.getLocations().then(success).catch(failure);
-    }
+  static getLocations() {
+    return NativeModule.getLocations();
   }
+
   /**
   * Fetch the current count of location records in database
   */
-  static getCount(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.getCount();
-    } else {
-      NativeModule.getCount().then(success).catch(failure);
-    }
+  static getCount() {
+    return NativeModule.getCount();
   }
+  
   /**
   * Destroy all records in locations database
   */
-  static destroyLocations(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.destroyLocations();
-    } else {
-      NativeModule.destroyLocations().then(success).catch(failure);
-    }
+  static destroyLocations() {
+    return NativeModule.destroyLocations();  
   }
   /**
   * Destroy a single location by uuid
@@ -470,58 +461,41 @@ export default class BackgroundGeolocation {
   * Destroy a single record by uuid
   */
   // @deprecated
-  static clearDatabase(success, failure) {
-    return this.destroyLocations.apply(this, arguments);
+  static clearDatabase() {
+    return this.destroyLocations();
   }
   /**
   * Insert a single record into locations database
   */
-  static insertLocation(location, success, failure) {
-    if (arguments.length == 1) {
-      return NativeModule.insertLocation(location);
-    } else {
-      NativeModule.insertLocation(location).then(success).catch(failure);
-    }
+  static insertLocation(location) {
+    return NativeModule.insertLocation(location);
   }
+
   /**
   * Manually initiate an HTTP sync operation
   */
-  static sync(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.sync();
-    } else {
-      NativeModule.sync().then(success).catch(failure);
-    }
+  static sync() {
+    return NativeModule.sync();
   }
+
   /**
   * Fetch the current value of odometer
   */
-  static getOdometer(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.getOdometer();
-    } else {
-      NativeModule.getOdometer().then(success).catch(failure);
-    }
+  static getOdometer() {
+    return NativeModule.getOdometer();
   }
+
   /**
   * Set the value of the odometer
   */
-  static setOdometer(value, success, failure) {
-    if (arguments.length == 1) {
-      return NativeModule.setOdometer(value);
-    } else {
-      NativeModule.setOdometer(value).then(success).catch(failure);
-    }
+  static setOdometer(value) {
+    return NativeModule.setOdometer(value);
   }
   /**
   * Reset the value of odometer to 0
   */
-  static resetOdometer(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.setOdometer(0);
-    } else {
-      NativeModule.setOdometer(0).then(success).catch(failure);
-    }
+  static resetOdometer() {
+    return NativeModule.setOdometer(0);
   }
 
   /**
@@ -531,33 +505,23 @@ export default class BackgroundGeolocation {
   /**
   * Add a single geofence
   */
-  static addGeofence(config, success, failure) {
-    if (arguments.length == 1) {
-      return NativeModule.addGeofence(config);
-    } else {
-      NativeModule.addGeofence(config).then(success).catch(failure);
-    }
+  static addGeofence(config) {
+    return NativeModule.addGeofence(config);
   }
   /**
   * Remove a single geofence by identifier
   */
-  static removeGeofence(identifier, success, failure) {
-    if (arguments.length == 1) {
-      return NativeModule.removeGeofence(identifier);
-    } else {
-      NativeModule.removeGeofence(identifier).then(success).catch(failure);
-    }
+  static removeGeofence(identifier) {
+    return NativeModule.removeGeofence(identifier);   
   }
+  
   /**
   * Add a list of geofences
   */
-  static addGeofences(geofences, success, failure) {
-    if (arguments.length == 1) {
-      return NativeModule.addGeofences(geofences);
-    } else {
-      NativeModule.addGeofences(geofences).then(success).catch(failure);
-    }
+  static addGeofences(geofences) {
+    return NativeModule.addGeofences(geofences);
   }
+
   /**
   * Remove geofences.  You may either supply an array of identifiers or nothing to destroy all geofences.
   * 1. removeGeofences() <-- Promise
@@ -566,56 +530,36 @@ export default class BackgroundGeolocation {
   * 3. removeGeofences(success, [failure])
   * 4. removeGeofences(['foo'], success, [failure])
   */
-  static removeGeofences(success, failure) {
-    if (!arguments.length)  {
-      return NativeModule.removeGeofences();
-    } else {
-      NativeModule.removeGeofences().then(success).catch(failure);
-    }
+  static removeGeofences() {
+    return NativeModule.removeGeofences();    
   }
+  
   /**
   * Fetch all geofences from database
   */
-  static getGeofences(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.getGeofences();
-    } else {
-      NativeModule.getGeofences().then(success).catch(failure);
-    }
+  static getGeofences() {
+    return NativeModule.getGeofences();
+
   }
   /**
   * Fetch a single geofence
   */
-  static getGeofence(identifier, success, failure) {
-    if (arguments.length == 1) {
-      return NativeModule.getGeofence(identifier);
-    } else {
-      NativeModule.getGeofence(identifier).then(success).catch(failure);
-    }
+  static getGeofence(identifier) {
+    return NativeModule.getGeofence(identifier);
   }
   /**
   * Return true if geofence was added
   */
-  static geofenceExists(identifier, success, failure) {
-    if (arguments.length == 1) {
-      return NativeModule.geofenceExists(identifier);
-    } else {
-      NativeModule.geofenceExists(identifier).then(success).catch(failure);
-    }
+  static geofenceExists(identifier) {
+    return NativeModule.geofenceExists(identifier);
   }
   /**
   * Fetch the current position from location-services
   */
-  static getCurrentPosition(options, success, failure) {
-    if (typeof(options) === 'function') {
-      throw "#getCurrentPosition requires options {} as first argument";
-    }
-    if (typeof(success) === 'function') {
-      NativeModule.getCurrentPosition(options).then(success).catch(failure);
-    } else {
-      return NativeModule.getCurrentPosition.apply(NativeModule, arguments);
-    }
+  static getCurrentPosition(options) {  
+    return NativeModule.getCurrentPosition(options)
   }
+
   /**
   * Begin watching a stream of locations
   */
@@ -626,99 +570,70 @@ export default class BackgroundGeolocation {
     failure = failure || emptyFn;
     options = options || {};
 
-    NativeModule.watchPosition(success, failure, options);
+    NativeModule.watchPosition(options, success, failure);
   }
+
   /**
   * Stop watching location
   */
-  static stopWatchPosition(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.stopWatchPosition();
-    } else {
-      NativeModule.stopWatchPosition().then(success).catch(failure);
-    }
+  static stopWatchPosition() {  
+    return NativeModule.stopWatchPosition();
   }
+
   /**
   * Set the logLevel.  This is just a helper method for setConfig({logLevel: level})
   */
-  static setLogLevel(value, success, failure) {
-    if (arguments.length == 1) {
-      return NativeModule.setLogLevel(value);
-    } else {
-      NativeModule.setLogLevel(value).then(success).catch(failure);
-    }
+  static setLogLevel(value) {  
+    return NativeModule.setLogLevel(value);    
   }
+
   /**
   * Fetch the entire contents of log database returned as a String
   */
-  static getLog(success, failure) {
-    console.warn('[' + TAG + ' getLog] Deprecated.  Use BackgroundGeolocation.logger.getLog');
-    if (!arguments.length) {
-      return Logger.getLog();
-    } else {
-      Logger.getLog().then(success).catch(failure);
-    }
+  static getLog() {    
+    return Logger.getLog();
   }
+
   /**
   * Destroy all contents of log database
   */
-  static destroyLog(success, failure) {
-    console.warn('[' + TAG + ' destroyLog] Deprecated.  Use BackgroundGeolocation.logger.destroyLog');
-    if (!arguments.length) {
-      return Logger.destroyLog();
-    } else {
-      Logger.destroyLog().then(success).catch(failure);
-    }
+  static destroyLog() {
+    return Logger.destroyLog();
   }
+
   /**
   * Open deafult email client on device to email the contents of log database attached as a compressed file attachement
   */
-  static emailLog(email, success, failure) {
-    console.warn('[' + TAG + ' emailLog] Deprecated.  Use BackgroundGeolocation.logger.emailLog');
-    if (typeof(email) != 'string') { throw TAG + "#emailLog requires an email address as 1st argument"}
-    if (arguments.length == 1) {
-      return Logger.emailLog(email);
-    } else {
-      Logger.emailLog(email).then(success).catch(failure);
-    }
+  static emailLog(email) {
+    return Logger.emailLog(email);    
   }
+
   /**
   * Has device OS initiated power-saving mode?
   */
-  static isPowerSaveMode(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.isPowerSaveMode();
-    } else {
-      NativeModule.isPowerSaveMode().then(success).catch(failure);
-    }
+  static isPowerSaveMode() {
+    return NativeModule.isPowerSaveMode();
   }
+  
   /**
   * Fetch the state of this device's available motion-sensors
   */
-  static getSensors(success, failure) {
-    if (!arguments.length) {
-      return NativeModule.getSensors();
-    } else {
-      NativeModule.getSensors().then(success).catch(failure);
-    }
+  static getSensors() {
+    return NativeModule.getSensors();
   }
   /**
   * Play a system sound via the plugin's Sound API
   */
-  static playSound(soundId, success, failure) {
-    if (arguments.length == 1) {
-      return NativeModule.playSound(soundId);
-    } else {
-      NativeModule.playSound(soundId).then(success).catch(failure);
-    }
+  static playSound(soundId) {
+    return NativeModule.playSound(soundId);
   }
 
   static findOrCreateTransistorAuthorizationToken(orgname, username, url) {
-    return TransistorAuthorizationToken.findOrCreate(orgname, username, url);
+    return TransistorAuthorizationService.findOrCreate(orgname, username, url);
   }
 
   static destroyTransistorAuthorizationToken(url) {
-    return TransistorAuthorizationToken.destroy(url);
+    return TransistorAuthorizationService.destroy(url);
   }
 
   /**
@@ -736,118 +651,7 @@ export default class BackgroundGeolocation {
     return {
       device: deviceInfo
     };
-  }
-
-  /**
-  * Iterate and execute API methods to test validity of method signature for both Standard and Promise API
-  */
-  static test(delay) {
-    test(this, delay);
-  }
+  }  
 }
 
-/**
-* Iterate and execute API methods to test validity of method signature for both Standard and Promise API
-*/
-var test = function(bgGeo, delay) {
-    delay = delay || 250;
 
-    var methods = [
-        ['reset', {debug: true, logLevel: 5}],
-        ['setConfig', {distanceFilter: 50}],
-        ['setLogLevel', 5],
-        ['getLog', null],
-        ['emailLog', 'foo@bar.com'],
-        ['on', 'location'],
-        ['ready', {}],
-        ['configure', {debug: true, logLevel: 5, schedule: ['1-7 00:00-23:59']}],
-        ['getState', null],
-        ['startSchedule', null],
-        ['stopSchedule', null],
-        ['startGeofences', null],
-        ['stop', null],
-        ['start', null],
-        ['startBackgroundTask', null],
-        ['finish', 0],
-        ['changePace', true],
-        ['getLocations', null],
-        ['insertLocation', {}],
-        ['sync', null],
-        ['getOdometer', null],
-        ['setOdometer', 0],
-        ['resetOdometer'],
-        ['addGeofence', {identifier: 'test-geofence-1', radius: 100, latitude: 0, longitude:0, notifyOnEntry:true}],
-        ['addGeofences', [{identifier: 'test-geofence-2', radius: 100, latitude: 0, longitude:0, notifyOnEntry:true}, {identifier: 'test-geofence-3', radius: 100, latitude: 0, longitude:0, notifyOnEntry:true}]],
-        ['getGeofences', null],
-        ['removeGeofence', 'test-geofence-1'],
-        ['removeGeofences', null],
-        ['getCurrentPosition', {}],
-        ['watchPosition', {}],
-        ['stopWatchPosition', null],
-        ['isPowerSaveMode', null],
-        ['getSensors', null],
-        ['playSound', 1509],
-        ['destroyLocations', null],
-        ['clearDatabase', null],
-        ['destroyLog', null],
-        ['removeListeners', null]
-    ];
-
-    var createCallback = function(type, method, params) {
-        return function(result) {
-            console.log('- ' + method + '(' + params + ') - ' + type + ': ', result);
-        }
-    }
-    var executeMethod = function(record) {
-        console.log('* Execute method: ', record)
-        var method = '' + record[0];
-        var params = record[1];
-
-        var success = createCallback('success', method, params);
-        var failure = createCallback('failure', method, params);
-
-        // Execute Standard API
-        try {
-            console.log('- Standard API: ' + method);
-            if (params == null) {
-                bgGeo[method](success, failure);
-            } else {
-                // Adjust params for different signatures.
-                switch (method) {
-                    case 'watchPosition':
-                    case 'getCurrentPosition':
-                        bgGeo[method](success, failure, params);
-                        break;
-                    default:
-                        bgGeo[method](params, success, failure);
-                        break;
-                }
-            }
-        } catch (e) {
-            console.warn(e);
-        }
-        // Execute Promise API
-        setTimeout(function() {
-            console.log('- Promise API: ' + method);
-            try {
-                if (params == null) {
-                    bgGeo[method]().then(success).catch(failure);
-                } else {
-                    bgGeo[method](params).then(success).catch(failure);
-                }
-            } catch (e) {
-                console.warn(e);
-            }
-        }, 10);
-    }
-    // Begin fetching methods.
-    var intervalId = setInterval(function() {
-        var record = methods.shift();
-        if (!record || !methods.length) {
-            clearInterval(intervalId);
-            console.log('*** TEST COMPLETE ***');
-            return;
-        }
-        executeMethod(record);
-    }, delay);
-}

@@ -16,17 +16,14 @@ const REFRESH_TOKEN_PATH = '/api/refresh_token';
 
 const { RNBackgroundGeolocation } = NativeModules;
 
-export default class TransistorAuthorizationToken {
+export default class TransistorAuthorizationService {
 	static findOrCreate(orgname, username, url=DEFAULT_URL) {
-
 		return new Promise((resolve, reject) => {
-			let success = (token) => {
-				// Configure Transistor url and refreshPayload.  Flutter is so much nice for this stuff.
+			RNBackgroundGeolocation.getTransistorToken(orgname, username, url).then((token) => {
 				token.url = url;
 				resolve(token)
-			}
-			let failure = (error) => {
-				console.warn('[TransistorAuthorizationToken findOrCreate] ERROR: ', error);
+			}).catch((error) => {
+				console.warn('[TransistorAuthorizationService findOrCreate] ERROR: ', error);
 				// Return a dummy token on error.  this is a weird thing to do but it probably failed due to no network connection to demo server.
 				// Once app will request the token once again after restarting one's app.
 				if (error.status == '403') {
@@ -39,29 +36,30 @@ export default class TransistorAuthorizationToken {
 					expires: -1,
 					url:url
 				});
-			}
-			RNBackgroundGeolocation.getTransistorToken(orgname, username, url, success, failure);
+			});
 		});
 	}
 
-  static destroy(url=DEFAULT_URL) {
-  	return new Promise((resolve, reject) => {
-			let success = (token) => { resolve(token) }
-			let failure = (error) => { reject(error) }
-
-			RNBackgroundGeolocation.destroyTransistorToken(url, success, failure);
-		});
+  static destroy(url=DEFAULT_URL) {  	
+	return RNBackgroundGeolocation.destroyTransistorToken(url, success, failure);	
   }
 
-  static applyIf(config) {
+  static applyIf(config) {	
   	if (!config.transistorAuthorizationToken) return config;
 
   	let token = config.transistorAuthorizationToken;
   	delete config.transistorAuthorizationToken;
 
-  	config.url = token.url + LOCATIONS_PATH;
+	if (config.url) {
+		delete config.url;
+	}
+	if (!config.http) {
+		config.http = {};
+	}
+  	config.http.url = token.url + LOCATIONS_PATH
+		
   	config.authorization = {
-  		strategy: 'JWT',
+  		strategy: 'jwt',
   		accessToken: token.accessToken,
   		refreshToken: token.refreshToken,
   		refreshUrl: token.url + REFRESH_TOKEN_PATH,

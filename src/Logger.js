@@ -54,37 +54,18 @@ export default class Logger {
   }
 
   static getLog(query) {
-    query = validateQuery(query);
-    return new Promise((resolve, reject) => {
-      let success = (log) => { resolve(log) }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.getLog(query, success, failure);
-    });
+    return RNBackgroundGeolocation.getLog(validateQuery(query), success, failure);    
   }
 
   static emailLog(email, query) {
-    query = validateQuery(query);
-    return new Promise((resolve, reject) => {
-      let success = (success) => { resolve(success) }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.emailLog(email, query, success, failure);
-    });
+    return RNBackgroundGeolocation.emailLog(email, validateQuery(query));
   }
 
   static uploadLog(url, query) {
-    query = validateQuery(query);
-    return new Promise((resolve, reject) => {
-      let success = (success) => { resolve(success) }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.uploadLog(url, query, success, failure);
-    });
+    return RNBackgroundGeolocation.uploadLog(url, validateQuery(query));
   }
 
   static destroyLog() {
-    return new Promise((resolve, reject) => {
-      let success = (success) => { resolve(success) }
-      let failure = (error)  => { reject(error) }
-      RNBackgroundGeolocation.destroyLog(success, failure);
-    });
+    return RNBackgroundGeolocation.destroyLog();      
   }
 }

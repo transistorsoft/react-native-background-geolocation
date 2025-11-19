@@ -1,5 +1,8 @@
 .vscode
 
+# Ignore locally generates ./docs
+docs/
+
 .DS_Store
 node_modules/**/*
 

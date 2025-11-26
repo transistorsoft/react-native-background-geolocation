@@ -43,6 +43,9 @@ Also available for [Flutter](https://github.com/transistorsoft/flutter_backgroun
 
 ## :large_blue_diamond: Installing the Plugin
 
+> [!IMPORTANT]
+> Version `5.0.0-beta` is now released.  See branch [5.0.0-beta](https://github.com/transistorsoft/react-native-background-geolocation/tree/5.0.0-beta) for instructions and [new API docs](https://transistorsoft.github.io/react-native-background-geolocation/5.0.0-beta).
+
 
 ### With *Expo*
 

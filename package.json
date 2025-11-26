@@ -9,6 +9,14 @@
     "docs": "node ./scripts/generate-docs.mjs",
     "docs:publish": "./scripts/publish-docs.sh"
   },
+  "codegenConfig": {
+    "name": "RNBackgroundGeolocation",
+    "type": "all",
+    "jsSrcsDir": "./src",
+    "android": {
+      "javaPackageName": "com.transistorsoft.rnbackgroundgeolocation"
+    }
+  },
   "main": "src/index.js",
   "repository": {
     "type": "git",
@@ -27,7 +35,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.26.0",
-    "@transistorsoft/background-geolocation-types": "file:../../background-geolocation-types",
+    "@transistorsoft/background-geolocation-types": "^5.0.0",
     "tslib": "^2.6.3"
   },
   "author": "Chris Scott <chris@transistorsoft.com>",

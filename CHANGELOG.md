@@ -1,5 +1,8 @@
 # Change Log
 
+## 5.0.0-beta.1 &mdash; 2025-11-10
+* Initial introduction of v5 beta.  See the [Migration Guide](https://github.com/transistorsoft/react-native-background-geolocation/blob/5.0.0-beta/help/MIGRATION-GUIDE-5.0.0.md).
+
 ## 4.19.0 &mdash; 2025-09-08
 * [Android] Drop Huawei HMS support for failure to provide *Android 16KB Page support* in their SDKs.
 

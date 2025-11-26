@@ -41,7 +41,7 @@ export default class TransistorAuthorizationService {
 	}
 
   static destroy(url=DEFAULT_URL) {  	
-	return RNBackgroundGeolocation.destroyTransistorToken(url, success, failure);	
+	return RNBackgroundGeolocation.destroyTransistorToken(url);	
   }
 
   static applyIf(config) {	

@@ -567,6 +567,8 @@ RCT_EXPORT_METHOD(emailLog:(NSString*)email query:(NSDictionary*)params resolver
 
 RCT_EXPORT_METHOD(uploadLog:(NSString*)url query:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
+
+    
     LogQuery *query = [[LogQuery alloc] initWithDictionary:params];
     [locationManager uploadLog:url query:query success:^{
         resolve(@(YES));

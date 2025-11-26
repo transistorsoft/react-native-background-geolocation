@@ -54,7 +54,7 @@ export default class Logger {
   }
 
   static getLog(query) {
-    return RNBackgroundGeolocation.getLog(validateQuery(query), success, failure);    
+    return RNBackgroundGeolocation.getLog(validateQuery(query));    
   }
 
   static emailLog(email, query) {

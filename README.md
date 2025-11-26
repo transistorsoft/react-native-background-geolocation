@@ -30,7 +30,7 @@ Also available for [Flutter](https://github.com/transistorsoft/flutter_backgroun
 
 # Contents
 - ### 😫 [Help!](../../wiki/Help)
-- ### :books: [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation)
+- ### :books: [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation/5.0.0-beta)
 - ### [Installing the Plugin](#large_blue_diamond-installing-the-plugin)
 - ### [Setup Guides](#large_blue_diamond-setup-guides)
 - ### [Configure your License](#large_blue_diamond-configure-your-license)

@@ -23,5 +23,6 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+      <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="eyJhbGciOiJFZERTQSIsImtpZCI6ImVkMjU1MTktbWFpbi12MSIsImtpZCI6IjIwMjUtMTAifQ.eyJvcyI6ImFuZHJvaWQiLCJhcHBfaWQiOiJjb20udHJhbnNpc3RvcnNvZnQuYmdnZW8ucmVhY3QiLCJvcmRlcl9udW1iZXIiOjcwMzQsInJlbmV3YWxfdXJsIjoiaHR0cHM6Ly9zaG9wLnRyYW5zaXN0b3Jzb2Z0LmNvbS9jYXJ0LzE2NTA3ODYxNTA1OjE_bm90ZT01Mzk1IiwiY3VzdG9tZXJfaWQiOjMwOSwicHJvZHVjdCI6InJlYWN0LW5hdGl2ZS1iYWNrZ3JvdW5kLWdlb2xvY2F0aW9uIiwia2V5X3ZlcnNpb24iOjEsImFsbG93ZWRfc3VmZml4ZXMiOlsiLmRldiIsIi5kZXZlbG9wbWVudCIsIi5zdGFnaW5nIiwiLnN0YWdlIiwiLnFhIiwiLnVhdCIsIi50ZXN0IiwiLmRlYnVnIl0sIm1heF9idWlsZF9zdGFtcCI6MjAzNjEyMjUsImdyYWNlX2J1aWxkcyI6MCwiZW50aXRsZW1lbnRzIjpbInBvbHlnb24tZ2VvZmVuY2luZyIsImZpcmViYXNlIiwiaG1zIiwiY29yZSJdLCJpYXQiOjE3NjQxNzI4OTR9.YF2Unxv9_TwTIG70C6yfB0xNl4_bCpdEO3d8T93ESOOgdBpoh_fU_okyzXuXYBjMWMM4FMAEyOIESdvgDPePBQ" />
     </application>
 </manifest>

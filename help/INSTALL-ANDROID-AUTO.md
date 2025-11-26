@@ -3,12 +3,12 @@
 ### With `yarn`
 
 ```shell
-yarn add react-native-background-geolocation
+yarn add react-native-background-geolocation@beta
 ```
 
 ### With `npm`
 ```shell
-npm install react-native-background-geolocation --save
+npm install react-native-background-geolocation@beta --save
 ```
 
 ## Gradle Configuration

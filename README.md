@@ -47,18 +47,18 @@ Also available for [Flutter](https://github.com/transistorsoft/flutter_backgroun
 ### With *Expo*
 
 ```shell
-npx expo install react-native-background-geolocation
+npx expo install react-native-background-geolocation@beta
 ```
 
 ### With `yarn`
 
 ```bash
-yarn add react-native-background-geolocation
+yarn add react-native-background-geolocation@beta
 ```
 
 ### With `npm`
 ```
-$ npm install react-native-background-geolocation --save
+$ npm install react-native-background-geolocation@beta --save
 ```
 
 ## :large_blue_diamond: Setup Guides

@@ -1,17 +1,44 @@
 'use strict';
 
-// foo
 import {
   NativeEventEmitter,
   NativeModules,
-  DeviceEventEmitter,
+  TurboModuleRegistry,
   Platform,
   AppRegistry,
-} from "react-native"
+} from "react-native";
 
-const { RNBackgroundGeolocation } = NativeModules;
+function getNativeBGGeo() {
+  // Prefer TurboModule when the new architecture is enabled.
+  
+  if (TurboModuleRegistry && typeof TurboModuleRegistry.get === 'function') {
+    try {
+      const turbo = TurboModuleRegistry.get('RNBackgroundGeolocation');
+      if (turbo) {        
+        return turbo;
+      }
+    } catch (e) {
+      // If Turbo lookup fails for any reason, fall through to classic bridge.
+    }
+  }
+
+  // Fallback to classic bridge (old architecture).
+  const legacy = NativeModules && NativeModules.RNBackgroundGeolocation;
+  if (legacy) {    
+    return legacy;
+  }
+
+  // If we reach here, the native module is not installed or not linked.
+  throw new Error(
+    '[react-native-background-geolocation] Native module "RNBackgroundGeolocation" not found. ' +
+      'Make sure the library is properly installed and linked for your platform.'
+  );
+}
+
+const RNBackgroundGeolocation = getNativeBGGeo();
 
 const EventEmitter = new NativeEventEmitter(RNBackgroundGeolocation);
+
 
 import TransistorAuthorizationService from "./TransistorAuthorizationService";
 
@@ -260,21 +287,37 @@ export default class NativeModule {
     return RNBackgroundGeolocation.getCurrentPosition(options);    
   }
 
-  static watchPosition(options, success, failure) {
-    let callback = ()  => {
-      EventEmitter.addListener("watchposition", success);
-    };
-    RNBackgroundGeolocation.watchPosition(options).then(() => {
-      callback();
-    }).failure((error) => {
-      if (typeof(failure) === 'function') {
-        failure(error);
+  static async watchPosition(options, success, failure) {
+
+    if (typeof success !== 'function') {
+      throw `${TAG}#watchPosition requires a success callback`;
+    }
+    return new Promise(async (resolve, reject) => {
+      options = options || {};
+      failure = failure || (() => {});
+      // Register listener immediately.
+      const subscription = EventEmitter.addListener('watchposition', success);
+      let watchId;
+      try {
+        watchId = await RNBackgroundGeolocation.watchPosition(options);
+        console.log("********** watchPositonId: ", watchId)
+        // Resolve with our wrapped Subscription instance.
+        resolve({
+          id: watchId,
+          remove: () => {
+            subscription.remove();
+            RNBackgroundGeolocation.stopWatchPosition(watchId);
+          }
+        });
+      } catch (error) {
+        subscription.remove();
+        reject(error);
       }
-    });
+    });    
   }
 
-  static stopWatchPosition() {
-    return RNBackgroundGeolocation.stopWatchPosition();    
+  static stopWatchPosition(watchId) {
+    return RNBackgroundGeolocation.stopWatchPosition(watchId);
   }
 
   static getOdometer() {
@@ -360,8 +403,8 @@ export default class NativeModule {
     return RNBackgroundGeolocation.destroyLog();    
   }
 
-  static emailLog(email) {
-    return RNBackgroundGeolocation.emailLog(email);  
+  static emailLog(email, query) {
+    return RNBackgroundGeolocation.emailLog(email, query);  
   }
 
   static isPowerSaveMode() {

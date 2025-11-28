@@ -192,7 +192,7 @@ function AppContent() {
         notifyOnDwell: false
       });
       console.log('[addGeofence] -', result);
-      
+            
       //Alert.alert('Success', `Position: ${location.coords.latitude.toFixed(6)}, ${location.coords.longitude.toFixed(6)}`);
     } catch (e) {
       console.error('getCurrentPosition error:', e);

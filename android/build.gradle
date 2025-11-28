@@ -26,6 +26,7 @@ def safeExtGet(prop, fallback) {
 
 react {
     libraryName = "react-native-background-geolocation"
+    codegenJavaPackageName = "com.transistorsoft.rnbackgroundgeolocation"
 }
 android {
     namespace("com.transistorsoft.rnbackgroundgeolocation")

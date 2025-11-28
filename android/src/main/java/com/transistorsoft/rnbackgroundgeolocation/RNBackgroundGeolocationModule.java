@@ -1,5 +1,7 @@
 package com.transistorsoft.rnbackgroundgeolocation;
 
+import com.transistorsoft.rnbackgroundgeolocation.NativeRNBackgroundGeolocationSpec;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -78,7 +80,7 @@ import java.util.Map;
  */
 @ReactModule(name = "RNBackgroundGeolocation")
 public class RNBackgroundGeolocationModule
-        extends ReactContextBaseJavaModule
+        extends NativeRNBackgroundGeolocationSpec
         implements ActivityEventListener, LifecycleEventListener {
 
     private static final String TAG = "TSLocationManager";
@@ -467,7 +469,7 @@ public class RNBackgroundGeolocationModule
     }
 
     @ReactMethod
-    public void changePace(final Boolean moving, final Promise response) {
+    public void changePace(final boolean moving, final Promise response) {
         getAdapter().changePace(moving, new TSCallback() {
             @Override public void onSuccess() { response.resolve(moving); }
             @Override public void onFailure(String error) { response.reject(error); }
@@ -616,10 +618,12 @@ public class RNBackgroundGeolocationModule
         if (options.hasKey("desiredAccuracy")) { builder.setDesiredAccuracy(options.getInt("desiredAccuracy")); }
 
         getAdapter().watchPosition(builder.build());
-        response.resolve(true);
+        // TODO Implement watchId for android.
+        response.resolve(-1);
     }
     @ReactMethod
-    public void stopWatchPosition(final Promise response) {
+    public void stopWatchPosition(double watchId, final Promise response) {
+        // TODO Implement watchId for android.
         getAdapter().stopWatchPosition(new TSCallback() {
             @Override public void onSuccess() {
                 response.resolve(true);
@@ -634,7 +638,7 @@ public class RNBackgroundGeolocationModule
         response.resolve(getAdapter().getOdometer());
     }
     @ReactMethod
-    public void setOdometer(Double value, final Promise response) {
+    public void setOdometer(double value, final Promise response) {
         getAdapter().setOdometer(value, new TSLocationCallback() {
             @Override public void onLocation(LocationEvent event) {
                 response.resolve(mapToWritableMap(event.toMap()));
@@ -783,8 +787,8 @@ public class RNBackgroundGeolocationModule
 
     // TODO Rename #finish -> #stopBackgroundTask
     @ReactMethod
-    public void finish(int taskId, Promise response) {
-        getAdapter().stopBackgroundTask(taskId);
+    public void finish(double taskId, Promise response) {
+        getAdapter().stopBackgroundTask((int) taskId);
         response.resolve(taskId);
     }
 
@@ -793,7 +797,7 @@ public class RNBackgroundGeolocationModule
      * @param taskId*
      */
     @ReactMethod
-    public void finishHeadlessTask(int taskId, Promise response) {
+    public void finishHeadlessTask(double taskId, Promise response) {
         EventBus eventBus = EventBus.getDefault();
         if (!eventBus.hasSubscriberForEvent(HeadlessEvent.class)) {
             // This shouldn't happen.  In order for this method to even be called, it MUST have been executed from within the consumer's
@@ -803,7 +807,7 @@ public class RNBackgroundGeolocationModule
             response.reject(message);
             return;
         }
-        FinishHeadlessTaskEvent event = new FinishHeadlessTaskEvent(getReactApplicationContext(), taskId);
+        FinishHeadlessTaskEvent event = new FinishHeadlessTaskEvent(getReactApplicationContext(), (int) taskId);
         eventBus.post(event);
         response.resolve(true);
     }
@@ -885,7 +889,7 @@ public class RNBackgroundGeolocationModule
     }
 
     @ReactMethod
-    public void log(String level, String message, Promise response) throws JSONException {
+    public void log(String level, String message, Promise response) {
         TSLog.log(level, message);
         response.resolve(true); 
     }
@@ -946,13 +950,17 @@ public class RNBackgroundGeolocationModule
     }
 
     @ReactMethod
-    public void requestSettings(ReadableMap args, Promise response) throws JSONException {
-        String action = args.getString("action");
-        DeviceSettingsRequest request = getAdapter().requestSettings(action);
-        if (request != null) {
-            response.resolve(mapToWritableMap(request.toMap()));
-        } else {
-            response.reject("Failed to find " + action + " screen for device " + Build.MANUFACTURER + " " + Build.MODEL + "@" + Build.VERSION.RELEASE);
+    public void requestSettings(ReadableMap args, Promise response) {
+        try {
+            String action = args.getString("action");
+            DeviceSettingsRequest request = getAdapter().requestSettings(action);
+            if (request != null) {
+                response.resolve(mapToWritableMap(request.toMap()));
+            } else {
+                response.reject("Failed to find " + action + " screen for device " + Build.MANUFACTURER + " " + Build.MODEL + "@" + Build.VERSION.RELEASE);
+            }
+        } catch (Exception e) {
+            response.reject(e.getMessage(), e);
         }
     }
 
@@ -1002,7 +1010,7 @@ public class RNBackgroundGeolocationModule
     }
 
     @ReactMethod
-    public void removeListeners(Integer count) {
+    public void removeListeners(double count) {
         // Keep:  Required for RN built-in NativeEventEmitter calls.
     }
 

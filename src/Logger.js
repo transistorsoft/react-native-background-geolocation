@@ -1,8 +1,9 @@
+// Logger.js
 'use strict';
 
-import { NativeModules } from "react-native"
+import NativeModule from "./NativeModule";
 
-const { RNBackgroundGeolocation } = NativeModules;
+const RNBackgroundGeolocation = NativeModule; // uses the same getNativeBGGeo() under the hood
 
 const LOG_LEVEL_DEBUG = "debug";
 const LOG_LEVEL_NOTICE = "notice";
@@ -14,12 +15,16 @@ const ORDER_ASC = 1;
 const ORDER_DESC = -1;
 
 function log(level, msg) {
+  // You can either:
+  // 1) call the native logger via NativeModule.logger
+  //    NativeModule.logger[level](msg);
+  // or
+  // 2) just use the native `log` directly if exposed:
   RNBackgroundGeolocation.log(level, msg);
 }
 
 function validateQuery(query) {
   if (typeof(query) !== 'object') return {};
-
   if (query.hasOwnProperty('start') && isNaN(query.start)) {
     throw new Error('Invalid SQLQuery.start.  Expected unix timestamp but received: ' + query.start);
   }
@@ -33,31 +38,17 @@ export default class Logger {
   static get ORDER_ASC() { return ORDER_ASC; }
   static get ORDER_DESC() { return ORDER_DESC; }
 
-  static debug(msg) {
-    log(LOG_LEVEL_DEBUG, msg);
-  }
-
-  static error(msg) {
-    log(LOG_LEVEL_ERROR, msg);
-  }
-
-  static warn(msg) {
-    log(LOG_LEVEL_WARN, msg);
-  }
-
-  static info(msg) {
-    log(LOG_LEVEL_INFO, msg);
-  }
-
-  static notice(msg) {
-    log(LOG_LEVEL_NOTICE, msg);
-  }
+  static debug(msg)  { log(LOG_LEVEL_DEBUG, msg);  }
+  static error(msg)  { log(LOG_LEVEL_ERROR, msg);  }
+  static warn(msg)   { log(LOG_LEVEL_WARN, msg);   }
+  static info(msg)   { log(LOG_LEVEL_INFO, msg);   }
+  static notice(msg) { log(LOG_LEVEL_NOTICE, msg); }
 
   static getLog(query) {
-    return RNBackgroundGeolocation.getLog(validateQuery(query));    
+    return RNBackgroundGeolocation.getLog(validateQuery(query));
   }
 
-  static emailLog(email, query) {
+  static emailLog(email, query) {    
     return RNBackgroundGeolocation.emailLog(email, validateQuery(query));
   }
 
@@ -66,6 +57,6 @@ export default class Logger {
   }
 
   static destroyLog() {
-    return RNBackgroundGeolocation.destroyLog();      
+    return RNBackgroundGeolocation.destroyLog();
   }
 }

@@ -563,21 +563,20 @@ export default class BackgroundGeolocation {
   /**
   * Begin watching a stream of locations
   */
-  static watchPosition(success, failure, options) {
-    if (typeof(success) === 'undefined') {
-      throw TAG + '#watchPosition cannot use Promises since a Promise can only evaluate once while the supplied callback must be executed for each location';
+  static watchPosition(options, success, failure) {
+    if (typeof success !== 'function') {
+      throw TAG + '#watchPosition requires a success callback';
     }
-    failure = failure || emptyFn;
     options = options || {};
-
-    NativeModule.watchPosition(options, success, failure);
+    failure = failure || emptyFn;
+    return NativeModule.watchPosition(options, success, failure);
   }
 
   /**
   * Stop watching location
   */
-  static stopWatchPosition() {  
-    return NativeModule.stopWatchPosition();
+  static stopWatchPosition(watchId) {
+    return NativeModule.stopWatchPosition(watchId);
   }
 
   /**
@@ -604,8 +603,9 @@ export default class BackgroundGeolocation {
   /**
   * Open deafult email client on device to email the contents of log database attached as a compressed file attachement
   */
-  static emailLog(email) {
-    return Logger.emailLog(email);    
+  static emailLog(email, query) {
+    query = query || {};
+    return Logger.emailLog(email, query);
   }
 
   /**

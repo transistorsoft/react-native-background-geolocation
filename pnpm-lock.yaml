@@ -12,8 +12,8 @@ importers:
         specifier: ^7.26.0
         version: 7.28.4
       '@transistorsoft/background-geolocation-types':
-        specifier: file:../../background-geolocation-types
-        version: file:../../background-geolocation-types
+        specifier: ^5.0.0
+        version: 5.0.1
       tslib:
         specifier: ^2.6.3
         version: 2.8.1
@@ -104,8 +104,8 @@ packages:
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
 
-  '@transistorsoft/background-geolocation-types@file:../../background-geolocation-types':
-    resolution: {directory: ../../background-geolocation-types, type: directory}
+  '@transistorsoft/background-geolocation-types@5.0.1':
+    resolution: {integrity: sha512-cqrb2gTInyx9XOkNjI2bCvvAnMxA0ITBs63pl+WbUVxHJUArw+lygeQVvIcVho1hSusIrbWbFRSQWcoNWxto/Q==}
 
   '@types/hast@3.0.4':
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
@@ -627,7 +627,7 @@ snapshots:
 
   '@shikijs/vscode-textmate@10.0.2': {}
 
-  '@transistorsoft/background-geolocation-types@file:../../background-geolocation-types': {}
+  '@transistorsoft/background-geolocation-types@5.0.1': {}
 
   '@types/hast@3.0.4':
     dependencies:

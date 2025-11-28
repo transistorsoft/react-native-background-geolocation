@@ -11,10 +11,14 @@
   },
   "codegenConfig": {
     "name": "RNBackgroundGeolocation",
-    "type": "all",
-    "jsSrcsDir": "./src",
+    "type": "modules",
+    "jsSrcsDir": "./src/specs",
     "android": {
       "javaPackageName": "com.transistorsoft.rnbackgroundgeolocation"
+    },
+    "ios": {
+      "swiftModuleName": "RNBackgroundGeolocation",
+      "packageName": "RNBackgroundGeolocation"
     }
   },
   "main": "src/index.js",

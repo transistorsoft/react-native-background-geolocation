@@ -6,6 +6,18 @@
 //  Copyright (c) 2015 Transistor Software. All rights reserved.
 //
 #import "RNBackgroundGeolocation.h"
+
+#ifdef RCT_NEW_ARCH_ENABLED
+#import <ReactCodegen/RNBackgroundGeolocation/RNBackgroundGeolocation.h>
+
+#import <React/RCTBridge+Private.h>
+#import <React/RCTUtils.h>
+
+using namespace facebook;
+using namespace facebook::react;
+#endif
+
+
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
@@ -140,8 +152,8 @@ RCT_EXPORT_METHOD(registerPlugin:(NSString*)pluginName)
 }
 
 RCT_EXPORT_METHOD(reset:(NSDictionary*)params
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject)
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 {
     TSConfig *config = [TSConfig sharedInstance];
     @try {
@@ -163,8 +175,8 @@ RCT_EXPORT_METHOD(reset:(NSDictionary*)params
  * configure plugin
  */
 RCT_EXPORT_METHOD(ready:(NSDictionary*)params
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject)
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 {
     BOOL resetFlag = (params[@"reset"]) ? [params[@"reset"] boolValue] : YES;
 
@@ -210,14 +222,14 @@ RCT_EXPORT_METHOD(ready:(NSDictionary*)params
 
 
 
-RCT_EXPORT_METHOD(removeAllListeners:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(removeAllListeners:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager removeListeners];
     resolve(@(YES));
 }
 
 
-RCT_EXPORT_METHOD(setConfig:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(setConfig:(NSDictionary*)params resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     TSConfig *config = [TSConfig sharedInstance];
     [config updateWithDictionary:params];
@@ -229,7 +241,7 @@ RCT_EXPORT_METHOD(setConfig:(NSDictionary*)params resolver:(RCTPromiseResolveBlo
     return [locationManager getState];
 }
 
-RCT_EXPORT_METHOD(getState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getState:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     NSDictionary *state = [locationManager getState];
     resolve(state);
@@ -238,7 +250,7 @@ RCT_EXPORT_METHOD(getState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseR
 /**
  * Turn on background geolocation
  */
-RCT_EXPORT_METHOD(start:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(start:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.locationManager start];
@@ -248,7 +260,7 @@ RCT_EXPORT_METHOD(start:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseReje
 /**
  * Turn it off
  */
-RCT_EXPORT_METHOD(stop:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(stop:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager stop];
     resolve([locationManager getState]);
@@ -257,7 +269,7 @@ RCT_EXPORT_METHOD(stop:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejec
 /**
  * Start schedule
  */
-RCT_EXPORT_METHOD(startSchedule:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(startSchedule:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.locationManager startSchedule];
@@ -268,7 +280,7 @@ RCT_EXPORT_METHOD(startSchedule:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 /**
  * Stop schedule
  */
-RCT_EXPORT_METHOD(stopSchedule:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(stopSchedule:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.locationManager stopSchedule];
@@ -279,7 +291,7 @@ RCT_EXPORT_METHOD(stopSchedule:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
 /**
  * Start schedule
  */
-RCT_EXPORT_METHOD(startGeofences:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(startGeofences:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         TSConfig *config = [TSConfig sharedInstance];
@@ -292,26 +304,34 @@ RCT_EXPORT_METHOD(startGeofences:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
  * Change pace to moving/stopped
  * @param {Boolean} isMoving
  */
-RCT_EXPORT_METHOD(changePace:(BOOL)moving resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(changePace:(BOOL)moving resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager changePace:moving];
     resolve(@(YES));
 }
 
-RCT_EXPORT_METHOD(beginBackgroundTask:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(beginBackgroundTask:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     resolve(@([locationManager createBackgroundTask]));
 }
 /**
  * Called by js to signify the end of a background-geolocation event
  */
-RCT_EXPORT_METHOD(finish:(int)taskId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(finish:(NSInteger)taskId resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager stopBackgroundTask:taskId];
     resolve(@(taskId));
 }
 
-RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(finishHeadlessTask:(double)taskId
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    // iOS doesn't use RN Headless JS.
+    resolve(@(YES));
+}
+
+RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     TSCurrentPositionRequest *request = [TSCurrentPositionRequest requestWithSuccess:^(TSLocationEvent *event) {
         resolve([event toDictionary]);
@@ -340,7 +360,7 @@ RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options resolver:(RCTPromise
     [locationManager getCurrentPosition:request];
 }
 
-RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     TSWatchPositionRequest *request = [TSWatchPositionRequest requestWithSuccess:^(TSLocationStreamEvent *event) {
         [self sendEvent:EVENT_WATCHPOSITION body:[event toDictionary]];
@@ -354,17 +374,17 @@ RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options resolver:(RCTPromiseResol
     if (options[@"extras"])             { request.extras = options[@"extras"]; }
     if (options[@"timeout"])            { request.timeout = [options[@"timeout"] doubleValue]; }
 
-    long watchId = [locationManager watchPosition:request];
+    NSInteger watchId = [locationManager watchPosition:request];
     resolve(@(watchId));
 }
 
-RCT_EXPORT_METHOD(stopWatchPosition:(long)watchId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(stopWatchPosition:(NSInteger)watchId resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager stopWatchPosition:watchId];
     resolve(@(YES));
 }
 
-RCT_EXPORT_METHOD(getLocations:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getLocations:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager getLocations:^(NSArray* records) {
         resolve(records);
@@ -373,7 +393,7 @@ RCT_EXPORT_METHOD(getLocations:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
     }];
 }
 
-RCT_EXPORT_METHOD(sync:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(sync:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager sync:^(NSArray* records) {
         resolve(records);
@@ -382,7 +402,7 @@ RCT_EXPORT_METHOD(sync:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejec
     }];
 }
 
-RCT_EXPORT_METHOD(getGeofences:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getGeofences:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager getGeofences:^(NSArray* geofences) {
         NSMutableArray *result = [NSMutableArray new];
@@ -393,7 +413,7 @@ RCT_EXPORT_METHOD(getGeofences:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
     }];
 }
 
-RCT_EXPORT_METHOD(getGeofence:(NSString*)identifier resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getGeofence:(NSString*)identifier resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager getGeofence:identifier success:^(TSGeofence* geofence) {
         resolve([geofence toDictionary]);
@@ -402,14 +422,14 @@ RCT_EXPORT_METHOD(getGeofence:(NSString*)identifier resolver:(RCTPromiseResolveB
     }];
 }
 
-RCT_EXPORT_METHOD(geofenceExists:(NSString*)identifier resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(geofenceExists:(NSString*)identifier resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager geofenceExists:identifier callback:^(BOOL exists) {
         resolve(@(exists));
     }];
 }
 
-RCT_EXPORT_METHOD(addGeofence:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(addGeofence:(NSDictionary*)params resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     TSGeofence *geofence = [self buildGeofence:params];
     if (!geofence) {
@@ -424,7 +444,7 @@ RCT_EXPORT_METHOD(addGeofence:(NSDictionary*)params resolver:(RCTPromiseResolveB
     }];
 }
 
-RCT_EXPORT_METHOD(addGeofences:(NSArray*) data resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(addGeofences:(NSArray*) data resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     NSMutableArray *geofences = [NSMutableArray new];
     for (NSDictionary *params in data) {
@@ -462,7 +482,7 @@ RCT_EXPORT_METHOD(addGeofences:(NSArray*) data resolver:(RCTPromiseResolveBlock)
                                          vertices: params[@"vertices"]];
 }
 
-RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager removeGeofence:identifier success:^{
         resolve(@(YES));
@@ -471,7 +491,7 @@ RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier resolver:(RCTPromiseResol
     }];
 }
 
-RCT_EXPORT_METHOD(removeGeofences:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(removeGeofences:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     NSArray *geofences = @[];
     [locationManager removeGeofences:geofences success:^{
@@ -481,13 +501,13 @@ RCT_EXPORT_METHOD(removeGeofences:(RCTPromiseResolveBlock)resolve rejecter:(RCTP
     }];
 }
 
-RCT_EXPORT_METHOD(getOdometer:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getOdometer:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     NSNumber *distance = @([locationManager getOdometer]);
     resolve(distance);
 }
 
-RCT_EXPORT_METHOD(setOdometer:(double)value resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(setOdometer:(double)value resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     TSCurrentPositionRequest *request = [TSCurrentPositionRequest requestWithSuccess:^(TSLocationEvent *event) {
         resolve([event toDictionary]);
@@ -497,7 +517,7 @@ RCT_EXPORT_METHOD(setOdometer:(double)value resolver:(RCTPromiseResolveBlock)res
     [locationManager setOdometer:value request:request];
 }
 
-RCT_EXPORT_METHOD(destroyLocations:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(destroyLocations:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     BOOL result = [locationManager destroyLocations];
     if (result) {
@@ -507,7 +527,7 @@ RCT_EXPORT_METHOD(destroyLocations:(RCTPromiseResolveBlock)resolve rejecter:(RCT
     }
 }
 
-RCT_EXPORT_METHOD(destroyLocation:(NSString*)uuid resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(destroyLocation:(NSString*)uuid resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager destroyLocation:uuid success:^{
         resolve(@(YES));
@@ -516,7 +536,7 @@ RCT_EXPORT_METHOD(destroyLocation:(NSString*)uuid resolver:(RCTPromiseResolveBlo
     }];
 }
 
-RCT_EXPORT_METHOD(getCount:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getCount:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     int count = [locationManager getCount];
     if (count >= 0) {
@@ -526,7 +546,7 @@ RCT_EXPORT_METHOD(getCount:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseR
     }
 }
 
-RCT_EXPORT_METHOD(insertLocation:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(insertLocation:(NSDictionary*)params resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager insertLocation: params success:^(NSString* uuid) {
         resolve(uuid);
@@ -535,7 +555,7 @@ RCT_EXPORT_METHOD(insertLocation:(NSDictionary*)params resolver:(RCTPromiseResol
     }];
 }
 
-RCT_EXPORT_METHOD(getLog:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getLog:(NSDictionary*)params resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     LogQuery *query = [[LogQuery alloc] initWithDictionary:params];
     [locationManager getLog:query success:^(NSString* log) {
@@ -545,7 +565,7 @@ RCT_EXPORT_METHOD(getLog:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)
     }];
 }
 
-RCT_EXPORT_METHOD(destroyLog:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(destroyLog:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     BOOL result = [locationManager destroyLog];
     if (result) {
@@ -555,7 +575,7 @@ RCT_EXPORT_METHOD(destroyLog:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
     }
 }
 
-RCT_EXPORT_METHOD(emailLog:(NSString*)email query:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(emailLog:(NSString*)email query:(NSDictionary*)params resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     LogQuery *query = [[LogQuery alloc] initWithDictionary:params];
     [locationManager emailLog:email query:query success:^{
@@ -565,7 +585,7 @@ RCT_EXPORT_METHOD(emailLog:(NSString*)email query:(NSDictionary*)params resolver
     }];
 }
 
-RCT_EXPORT_METHOD(uploadLog:(NSString*)url query:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(uploadLog:(NSString*)url query:(NSDictionary*)params resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
 
     
@@ -578,12 +598,16 @@ RCT_EXPORT_METHOD(uploadLog:(NSString*)url query:(NSDictionary*)params resolver:
 }
 
 
-RCT_EXPORT_METHOD(log:(NSString*)level message:(NSString*)message)
+RCT_EXPORT_METHOD(log:(NSString*)level
+                  message:(NSString*)message
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager log:level message:message];
+    resolve(@(YES));
 }
 
-RCT_EXPORT_METHOD(getSensors:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getSensors:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     NSDictionary *sensors = @{
         @"platform": @"ios",
@@ -595,40 +619,40 @@ RCT_EXPORT_METHOD(getSensors:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
     resolve(sensors);
 }
 
-RCT_EXPORT_METHOD(getDeviceInfo:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getDeviceInfo:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     TSDeviceInfo *deviceInfo = [TSDeviceInfo sharedInstance];
     resolve([deviceInfo toDictionary:@"react-native"]);
 }
 
-RCT_EXPORT_METHOD(isPowerSaveMode:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(isPowerSaveMode:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     BOOL isPowerSaveMode = [locationManager isPowerSaveMode];
     resolve(@(isPowerSaveMode));
 }
 
-RCT_EXPORT_METHOD(isIgnoringBatteryOptimizations:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(isIgnoringBatteryOptimizations:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     resolve(@(NO));
 }
 
-RCT_EXPORT_METHOD(requestSettings:(NSDictionary*)args resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(requestSettings:(NSDictionary*)args resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     reject(@"request_settings_error", @"No iOS Implementation", nil);
 }
 
-RCT_EXPORT_METHOD(showSettings:(NSDictionary*)args resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(showSettings:(NSDictionary*)args resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     reject(@"show_settings_error", @"No iOS Implementation", nil);
 }
 
-RCT_EXPORT_METHOD(getProviderState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getProviderState:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     TSProviderChangeEvent *event = [locationManager getProviderState];
     resolve([event toDictionary]);
 }
 
-RCT_EXPORT_METHOD(requestPermission:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(requestPermission:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager requestPermission:^(NSNumber *status) {
         resolve(status);
@@ -637,7 +661,7 @@ RCT_EXPORT_METHOD(requestPermission:(RCTPromiseResolveBlock)resolve rejecter:(RC
     }];
 }
 
-RCT_EXPORT_METHOD(requestTemporaryFullAccuracy:(NSString*)purpose resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(requestTemporaryFullAccuracy:(NSString*)purpose resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager requestTemporaryFullAccuracy:purpose success:^(NSInteger accuracyAuthorization) {
         resolve(@(accuracyAuthorization));
@@ -646,7 +670,11 @@ RCT_EXPORT_METHOD(requestTemporaryFullAccuracy:(NSString*)purpose resolver:(RCTP
     }];
 }
 
-RCT_EXPORT_METHOD(getTransistorToken:(NSString*)orgname username:(NSString*)username url:(NSString*)url resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getTransistorToken:(NSString*)orgname
+                            username:(NSString*)username
+                                 url:(NSString*)url
+                             resolve:(RCTPromiseResolveBlock)resolve
+                              reject:(RCTPromiseRejectBlock)reject)
 {
     [TransistorAuthorizationToken findOrCreateWithOrg:orgname
                                              username:username
@@ -659,15 +687,18 @@ RCT_EXPORT_METHOD(getTransistorToken:(NSString*)orgname username:(NSString*)user
     }];
 }
 
-RCT_EXPORT_METHOD(destroyTransistorToken:(NSString*)url resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(destroyTransistorToken:(NSString*)url
+                                 resolve:(RCTPromiseResolveBlock)resolve
+                                  reject:(RCTPromiseRejectBlock)reject)
 {
     [TransistorAuthorizationToken destroyWithUrl:url];
     resolve(@(YES));
 }
 
-RCT_EXPORT_METHOD(playSound:(int)soundId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(playSound:(NSString*)soundId resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
-    [locationManager playSound: soundId];
+    NSInteger soundIdInt = [soundId integerValue];
+    [locationManager playSound: soundIdInt];
     resolve(@(YES));
 }
 
@@ -691,6 +722,12 @@ RCT_EXPORT_METHOD(playSound:(int)soundId resolver:(RCTPromiseResolveBlock)resolv
     locationManager = nil;
 }
 
+#ifdef RCT_NEW_ARCH_ENABLED
+- (std::shared_ptr<TurboModule>)getTurboModule:(const ObjCTurboModule::InitParams &)params
+{
+  return std::make_shared<NativeRNBackgroundGeolocationSpecJSI>(params);
+}
+#endif
 
 @end
 

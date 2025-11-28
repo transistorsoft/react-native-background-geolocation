@@ -20,3 +20,9 @@
 
 @end
 
+#ifdef RCT_NEW_ARCH_ENABLED
+#import <ReactCodegen/RNBackgroundGeolocation/RNBackgroundGeolocation.h>
+
+@interface RNBackgroundGeolocation () <NativeRNBackgroundGeolocationSpec>
+@end
+#endif

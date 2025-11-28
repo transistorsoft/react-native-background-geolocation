@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-geolocation",
-  "version": "5.0.0-beta.1",
+  "version": "5.0.0-beta.2",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",
   "scripts": {
     "build": "yarn run build:expo",
@@ -39,7 +39,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.26.0",
-    "@transistorsoft/background-geolocation-types": "^5.0.0",
+    "@transistorsoft/background-geolocation-types": "^5.0.1",
     "tslib": "^2.6.3"
   },
   "author": "Chris Scott <chris@transistorsoft.com>",

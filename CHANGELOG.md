@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.19.3 &mdash; 2025-11-29
+* [Android] Rebuild with Android ELF alignment
+
 ## 4.19.2 &mdash; 2025-11-09
 * [Android] re-build Expo plugin
 

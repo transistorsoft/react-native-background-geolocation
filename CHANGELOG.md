@@ -1,5 +1,8 @@
 # Change Log
 
+## 5.0.0-beta.3 &mdash; 2025-11-30
+* [Expo] Update Expo plugin and Setup Instructions for 5.0.0-beta
+
 ## 5.0.0-beta.2 &mdash; 2025-11-27
 * Implement React Native *Turbo Modules* ("*New Architecture*").
 

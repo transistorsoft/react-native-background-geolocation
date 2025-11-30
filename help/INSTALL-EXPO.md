@@ -5,13 +5,12 @@ npx expo install react-native-background-geolocation
 npx expo install expo-gradle-ext-vars
 ```
 
-### :open_file_folder: **`app.json`**
-
-- Add the following __`plugins`__:
-
 > [!NOTE]
 > If you've **not** [purchased a license](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans), the plugin is fully functional in *DEBUG* builds so you can try before you [buy](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans).
 
+### :open_file_folder: **`app.json`**
+
+- Add the following __`plugins`__:
 
 ```diff
 {
@@ -36,7 +35,7 @@ npx expo install expo-gradle-ext-vars
 
 ### Polygon Geofencing Support
 
-If you've purchased the [*Polygon Geofencing* add-on](https://shop.transistorsoft.com/collections/frontpage/products/polygon-geofencing) for creating geofences of *any shape*, you can add the "*Polygon Geofencing*" entitlement to your existing *Background Geolocation* license key.
+If you've purchased the [*Polygon Geofencing* add-on](https://shop.transistorsoft.com/collections/frontpage/products/polygon-geofencing) for creating geofences of *any shape*, you can add the "*Polygon Geofencing*" entitlement to your existing *Background Geolocation* license key in the [Customer Dashboard](https://www.transistorsoft.com/shop/customers).
 
 
 ### `Info.plist`:  *Usage Descriptions*

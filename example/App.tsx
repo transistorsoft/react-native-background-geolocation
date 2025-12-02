@@ -109,6 +109,7 @@ function AppContent() {
         },
         app: {
           stopOnTerminate: false,
+          heartbeatInterval: 60,
           startOnBoot: true,
           enableHeadless: true,
         }

@@ -1,5 +1,8 @@
 # Change Log
 
+## 5.0.0-beta.4 &mdash; 2025-12-02
+* [Android] update proguard-rules.pro to prevent key classnames being minified (eg: HeadlessTask)
+
 ## 5.0.0-beta.3 &mdash; 2025-11-30
 * [Expo] Update Expo plugin and Setup Instructions for 5.0.0-beta
 

@@ -2343,7 +2343,10 @@ PODS:
     - React-perflogger (= 0.81.5)
     - React-utils (= 0.81.5)
     - SocketRocket
-  - RNBackgroundGeolocation (5.0.0-beta.1):
+  - RNBackgroundFetch (4.3.0-rc.1):
+    - React-Core
+    - TSBackgroundFetch (~> 4.0.0)
+  - RNBackgroundGeolocation (5.0.0-beta.4):
     - boost
     - CocoaLumberjack (~> 3.8.5)
     - DoubleConversion
@@ -2375,7 +2378,7 @@ PODS:
     - Yoga
   - SocketRocket (0.7.1)
   - TSBackgroundFetch (4.0.5)
-  - TSLocationManager (4.0.0-beta.6):
+  - TSLocationManager (4.0.0-beta.9):
     - TSBackgroundFetch (~> 4.0)
   - Yoga (0.0.0)
 
@@ -2452,6 +2455,7 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - RNBackgroundGeolocation (from `../node_modules/react-native-background-geolocation`)
   - SocketRocket (~> 0.7.1)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -2607,6 +2611,8 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNBackgroundFetch:
+    :path: "../node_modules/react-native-background-fetch"
   RNBackgroundGeolocation:
     :path: "../node_modules/react-native-background-geolocation"
   Yoga:
@@ -2685,10 +2691,11 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 1bcd3527ac0390a1c898c114f81ff954be35ed79
   ReactCodegen: 6c26f8c25d0b5ae66f86a1cce1777076ac8bcbd8
   ReactCommon: 5f0e5c09a64a2717215dd84380e1a747810406f2
-  RNBackgroundGeolocation: 92761cb436af0ad7a3236c4be88844ed9fa2da19
+  RNBackgroundFetch: 9f689df7ab2ef008c0498d341a9fd3bae609ce1c
+  RNBackgroundGeolocation: a0063bfd0285e68fef07ad64fa14dc9caf930e68
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   TSBackgroundFetch: e91020924db32f27d0a43df7dec6f73f10743571
-  TSLocationManager: 66026e6297f19c2331d1c35854e50aff2636a334
+  TSLocationManager: 37c6f04d230ae09415536109905bba767bde2c88
   Yoga: 728df40394d49f3f471688747cf558158b3a3bd1
 
 PODFILE CHECKSUM: 4f11a214b994cf86af67f3ddb17fc983af2d0945

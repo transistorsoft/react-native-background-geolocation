@@ -44,6 +44,7 @@ function AppContent() {
   const [providerEnabled, setProviderEnabled] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
   const [odometer, setOdometer] = useState(0);
+  const [odometerError, setOdometerError] = useState<number | null>(null);
 
   useEffect(() => {
   
@@ -53,6 +54,9 @@ function AppContent() {
       setLastLocation(location);
       if (location.odometer) {
         setOdometer(location.odometer);
+      }
+      if (location.odometer_error !== undefined) {
+        setOdometerError(location.odometer_error);
       }
     }, (error) => {
       console.warn('-> [location] ERROR:', error);
@@ -74,6 +78,9 @@ function AppContent() {
         setLastLocation(event.location);
         if (event.location.odometer) {
           setOdometer(event.location.odometer);
+        }
+        if (event.location.odometer_error !== undefined) {
+          setOdometerError(event.location.odometer_error);
         }
       }
     });
@@ -119,6 +126,9 @@ function AppContent() {
       setIsMoving(state.isMoving === true);
       if (state.odometer) {
         setOdometer(state.odometer);
+      }
+      if (state.odometer_error !== undefined) {
+        setOdometerError(state.odometer_error);
       }
     });
     
@@ -228,6 +238,7 @@ function AppContent() {
     try {
       const location = await BackgroundGeolocation.resetOdometer();
       setOdometer(0);
+      setOdometerError(null);
       Alert.alert('Success', 'Odometer reset to 0');
       //setMenuVisible(false);
     } catch (e) {
@@ -357,9 +368,16 @@ function AppContent() {
 
           <View style={[styles.statusCard, {backgroundColor: theme.cardBackground}]}>
             <Text style={[styles.statusLabel, {color: theme.secondaryText}]}>Odometer</Text>
-            <Text style={[styles.odometerValue, {color: theme.primary}]}>
-              {(odometer / 1000).toFixed(1)}
-            </Text>
+            <View style={styles.odometerContainer}>
+              <Text style={[styles.odometerValue, {color: theme.primary}]}>
+                {(odometer / 1000).toFixed(1)}
+              </Text>
+              {odometerError !== null && (
+                <Text style={[styles.odometerErrorValue, {color: theme.secondaryText}]}>
+                  ±{(odometerError / 1000).toFixed(1)} m
+                </Text>
+              )}
+            </View>
             <Text style={[styles.statusValue, {color: theme.text}]}>km</Text>
           </View>
         </View>
@@ -644,10 +662,17 @@ const styles = StyleSheet.create({
   activityIcon: {
     marginBottom: 8,
   },
+  odometerContainer: {
+    alignItems: 'center',
+    marginBottom: 4,
+  },
   odometerValue: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 4,
+  },
+  odometerErrorValue: {
+    fontSize: 11,
+    marginTop: 2,
   },
   controlsCard: {
     marginHorizontal: 20,

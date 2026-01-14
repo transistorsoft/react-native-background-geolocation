@@ -1,6 +1,6 @@
 {
   "name": "react-native-background-geolocation",
-  "version": "4.19.3",
+  "version": "4.19.4",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",
   "scripts": {
     "build": "yarn run build:expo",

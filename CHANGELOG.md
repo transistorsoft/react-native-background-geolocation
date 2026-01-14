@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.19.4 &mdash; 2026-01-14
+* [Android] Backport spurious stationary geofence exit detection from v5.  Google Play Services seems to have a bug where geofence exit events fire even while the device is still inside the geofence, causing the SDK to constantly enter the *moving* state, draining the battery.
+
 ## 4.19.3 &mdash; 2025-11-29
 * [Android] Rebuild with Android ELF alignment
 

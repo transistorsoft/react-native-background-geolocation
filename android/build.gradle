@@ -71,9 +71,7 @@ dependencies {
     } else {
         api "com.transistorsoft:tslocationmanager-gms20:$tslocationmanagerVersion"
     }
-    
-    implementation "androidx.appcompat:appcompat:$appCompatVersion"
-
+        
     implementation "com.google.android.gms:play-services-location:$playServicesLocationVersion"    
     implementation 'org.greenrobot:eventbus:3.3.1'
 }

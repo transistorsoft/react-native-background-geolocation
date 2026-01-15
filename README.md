@@ -1,6 +1,7 @@
 | <img src="https://dl.dropbox.com/s/gxl3sr8znhkrtah/expo-logo.png?dl=1" alt="alt text" width="32" /> | Now with *Expo* support |
 | --- | --- |
 
+
 Background Geolocation for React Native &middot; [![npm](https://img.shields.io/npm/dm/react-native-background-geolocation.svg)]() [![npm](https://img.shields.io/npm/v/react-native-background-geolocation.svg)]()
 ============================================================================
 
@@ -27,6 +28,9 @@ Also available for [Flutter](https://github.com/transistorsoft/flutter_backgroun
 
 ![Home](https://dl.dropboxusercontent.com/s/wa43w1n3xhkjn0i/home-framed-350.png?dl=1)
 ![Settings](https://dl.dropboxusercontent.com/s/8oad228siog49kt/settings-framed-350.png?dl=1)
+
+> [!CAUTION]
+> This README references the new  __`v5.x`__ branch of the SDK.  If you're using __`v4.x`__, you must reference [__`v4.x`__](https://github.com/transistorsoft/react-native-background-geolocation/tree/4.19.4) branch.
 
 # Contents
 - ### 😫 [Help!](../../wiki/Help)

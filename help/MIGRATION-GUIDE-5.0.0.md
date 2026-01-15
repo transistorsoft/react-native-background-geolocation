@@ -260,16 +260,16 @@ Each group is a separate Dart class. See API docs for details.
 
 ## 🆘 Need Help?
 
-- See the [API Reference](https://transistorsoft.github.io/react-native-background-geolocation/5.0.0-beta/) for each config class.
+- See the [API Reference](https://transistorsoft.github.io/react-native-background-geolocation/latest) for each config class.
 - Ask questions on [GitHub Discussions](https://github.com/transistorsoft/react-native-background-geolocation/discussions) or [open an issue](https://github.com/transistorsoft/react-native-background-geolocation/issues).
 
 ---
 
 ## 📚 Resources
 
-- [Full API Reference](https://transistorsoft.github.io/react-native-background-geolocation/5.0.0-beta/)
+- [Full API Reference](https://transistorsoft.github.io/react-native-background-geolocation/latest)
 - [GitHub Project](https://github.com/transistorsoft/react-native-background-geolocation/)
-- [Changelog](https://github.com/transistorsoft/react-native-background-geolocation/tree/5.0.0-beta/CHANGELOG.md)
+- [Changelog](CHANGELOG.md)
 
 ---
 

@@ -10,7 +10,8 @@ import {
   ScrollView,
   Alert,
   Modal,
-  Platform
+  Platform,
+  TextInput
 } from 'react-native';
 import {
   SafeAreaProvider,
@@ -23,6 +24,16 @@ import BackgroundGeolocation, {
   Location
 } from 'react-native-background-geolocation';
 
+import {
+  DialogProvider,
+  Dialog,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogAction,
+} from '@ontech7/react-native-dialog';
+
 import RegistrationModal from './RegistrationModal';
 
 function App() {
@@ -30,10 +41,12 @@ function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <AppContent />
-      </SafeAreaProvider>
+      <DialogProvider>
+        <SafeAreaProvider>
+          <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+          <AppContent />
+        </SafeAreaProvider>
+      </DialogProvider>
     </GestureHandlerRootView>
   );
 }
@@ -51,6 +64,8 @@ function AppContent() {
   const [odometer, setOdometer] = useState(0);
   const [odometerError, setOdometerError] = useState<number | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [emailDialogVisible, setEmailDialogVisible] = useState(false);
+  const [emailInput, setEmailInput] = useState('');
 
   // Check registration status on mount
   useEffect(() => {
@@ -86,6 +101,8 @@ function AppContent() {
   const initializeBackgroundGeolocation = async (org: string, username: string) => {
     if (isInitialized) return; // Prevent double initialization
     
+    BackgroundGeolocation.logger.debug("************** INITIALIZING BACKGROUND GEOLOCATION **************");
+
     try {
       // Get or create token with the registered credentials
       const token = await BackgroundGeolocation.findOrCreateTransistorAuthorizationToken(org, username);
@@ -309,8 +326,41 @@ function AppContent() {
   };
 
   const handleEmailLog = async () => {
+    setMenuVisible(false);
     try {
-      await BackgroundGeolocation.logger.emailLog('chris@transistorsoft.com');      
+      const defaultEmail = (await AsyncStorage.getItem('@transistor_email')) || '';
+      if (Platform.OS !== 'ios') {
+        
+        setEmailInput(defaultEmail);
+        setEmailDialogVisible(true);
+        return;
+      }
+      Alert.prompt(
+        'Email Log',
+        'Enter an email address',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          {
+            text: 'Send',
+            onPress: async (email) => {
+              const trimmed = (email || '').trim();
+              if (!trimmed) {
+                return;
+              }
+              try {
+                await BackgroundGeolocation.logger.emailLog(trimmed);
+                await AsyncStorage.setItem('@transistor_email', trimmed);
+                Alert.alert('Success', 'Log emailed successfully');
+              } catch (e) {
+                console.warn('emailLog error:', e);
+                Alert.alert('Error', 'Failed to email log');
+              }
+            }
+          }
+        ],
+        'plain-text',
+        defaultEmail
+      );
     } catch (e) {
       console.warn('emailLog error:', e);
       Alert.alert('Error', 'Failed to email log');
@@ -403,6 +453,54 @@ function AppContent() {
   return (
     <View style={{flex: 1}}>
       <RegistrationModal visible={registrationVisible} onComplete={handleRegistrationComplete} />
+      <Dialog open={emailDialogVisible}>
+        <DialogHeader>
+          <DialogTitle>Email Log</DialogTitle>
+          <DialogDescription>Enter an email address</DialogDescription>
+        </DialogHeader>
+
+        <View style={{ paddingHorizontal: 16, paddingTop: 8 }}>
+          <TextInput
+            value={emailInput}
+            onChangeText={setEmailInput}
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
+            placeholder="you@example.com"
+            style={{
+              borderWidth: 1,
+              borderRadius: 8,
+              paddingHorizontal: 12,
+              paddingVertical: 10,
+            }}
+          />
+        </View>
+
+        <DialogFooter>
+          <DialogAction onPress={() => setEmailDialogVisible(false)}>
+            Cancel
+          </DialogAction>
+          <DialogAction
+            onPress={async () => {
+              const trimmed = emailInput.trim();
+              if (!trimmed) {
+                return;
+              }
+              try {
+                await BackgroundGeolocation.logger.emailLog(trimmed);
+                await AsyncStorage.setItem('@transistor_email', trimmed);
+                setEmailDialogVisible(false);
+                Alert.alert('Success', 'Log emailed successfully');
+              } catch (e) {
+                console.warn('emailLog error:', e);
+                Alert.alert('Error', 'Failed to email log');
+              }
+            }}
+          >
+            Send
+          </DialogAction>
+        </DialogFooter>
+      </Dialog>
       <ScrollView 
         style={[styles.container, {backgroundColor: theme.background}]}
         contentContainerStyle={{paddingBottom: safeAreaInsets.bottom + 20}}

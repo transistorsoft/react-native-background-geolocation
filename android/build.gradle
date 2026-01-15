@@ -63,7 +63,17 @@ dependencies {
     def playServicesLocationVersion = safeExtGet('playServicesLocationVersion', safeExtGet('googlePlayServicesLocationVersion', DEFAULT_PLAY_SERVICES_LOCATION_VERSION))
     def tslocationmanagerVersion = safeExtGet('tslocationmanagerVersion', DEFAULT_TSLOCATIONMANAGER_VERSION)
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
-    implementation "com.google.android.gms:play-services-location:$playServicesLocationVersion"
-    implementation "com.transistorsoft:tslocationmanager:$tslocationmanagerVersion"
+
+
+    def locationMajorVersion = playServicesLocationVersion.split('\\.')[0] as int
+    if (locationMajorVersion >= 21) {
+        api "com.transistorsoft:tslocationmanager:$tslocationmanagerVersion"
+    } else {
+        api "com.transistorsoft:tslocationmanager-gms20:$tslocationmanagerVersion"
+    }
+    
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+
+    implementation "com.google.android.gms:play-services-location:$playServicesLocationVersion"    
     implementation 'org.greenrobot:eventbus:3.3.1'
 }

@@ -10,7 +10,7 @@ node_modules
 *.tgz
 
 scripts
-
+example
 # Expo
 expo/plugin/src
 expo/plugin/tsconfig.json

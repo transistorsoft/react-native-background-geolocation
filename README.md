@@ -47,7 +47,6 @@ Also available for [Flutter](https://github.com/transistorsoft/flutter_backgroun
 
 ## :large_blue_diamond: Installing the Plugin
 
-
 ### With *Expo*
 
 ```shell

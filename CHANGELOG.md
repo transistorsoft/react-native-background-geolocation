@@ -1,5 +1,8 @@
 # Change Log
 
+## 5.0.0
+* Promote 5.0.0 from beta.  See the [Migration Guide](help/MIGRATION-GUIDE-5.0.0.md) and [v5.0.0 Discussion](https://github.com/transistorsoft/react-native-background-geolocation/discussions)
+
 ## 5.0.0-beta.4 &mdash; 2025-12-02
 * [Android] update proguard-rules.pro to prevent key classnames being minified (eg: HeadlessTask)
 
@@ -11,6 +14,18 @@
 
 ## 5.0.0-beta.1 &mdash; 2025-11-10
 * Initial introduction of v5 beta.  See the [Migration Guide](https://github.com/transistorsoft/react-native-background-geolocation/blob/5.0.0-beta/help/MIGRATION-GUIDE-5.0.0.md).
+
+## 4.19.4 &mdash; 2026-01-14
+* [Android] Backport spurious stationary geofence exit detection from v5.  Google Play Services seems to have a bug where geofence exit events fire even while the device is still inside the geofence, causing the SDK to constantly enter the *moving* state, draining the battery.
+
+## 4.19.3 &mdash; 2025-11-29
+* [Android] Rebuild with Android ELF alignment
+
+## 4.19.2 &mdash; 2025-11-09
+* [Android] re-build Expo plugin
+
+## 4.19.1 &mdash; 2025-11-08
+* [Android] pin `tslocationmanager` at `3.+` in preparation for next release..
 
 ## 4.19.0 &mdash; 2025-09-08
 * [Android] Drop Huawei HMS support for failure to provide *Android 16KB Page support* in their SDKs.

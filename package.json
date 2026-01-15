@@ -1,5 +1,5 @@
 {
-  "name": "react-native-background-geolocation",
+  "name": "react-native-background-geolocation",  
   "version": "5.0.0",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",
   "scripts": {
@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:expo": "rimraf expo/plugin/build && tsc --build ./expo/plugin",
     "docs": "node ./scripts/generate-docs.mjs",
-    "docs:publish": "./scripts/publish-docs.sh"
+    "docs:publish": "./scripts/publish-docs.sh",
+    "prepublishOnly": "npm run build"
   },
   "codegenConfig": {
     "name": "RNBackgroundGeolocation",
@@ -19,7 +20,7 @@
     "ios": {
       "swiftModuleName": "RNBackgroundGeolocation",
       "packageName": "RNBackgroundGeolocation"
-    }
+    }    
   },
   "main": "src/index.js",
   "repository": {

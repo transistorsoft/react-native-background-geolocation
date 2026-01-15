@@ -3,8 +3,6 @@
 
 import NativeModule from "./NativeModule";
 
-const RNBackgroundGeolocation = NativeModule; // uses the same getNativeBGGeo() under the hood
-
 const LOG_LEVEL_DEBUG = "debug";
 const LOG_LEVEL_NOTICE = "notice";
 const LOG_LEVEL_INFO = "info";
@@ -15,12 +13,19 @@ const ORDER_ASC = 1;
 const ORDER_DESC = -1;
 
 function log(level, msg) {
-  // You can either:
-  // 1) call the native logger via NativeModule.logger
-  //    NativeModule.logger[level](msg);
-  // or
-  // 2) just use the native `log` directly if exposed:
-  RNBackgroundGeolocation.log(level, msg);
+  // Call the native logger via NativeModule.logger[level](msg),
+  // fallback to debug if missing.
+  if (
+    NativeModule.logger &&
+    typeof NativeModule.logger[level] === 'function'
+  ) {
+    NativeModule.logger[level](msg);
+  } else if (
+    NativeModule.logger &&
+    typeof NativeModule.logger.debug === 'function'
+  ) {
+    NativeModule.logger.debug(msg);
+  }
 }
 
 function validateQuery(query) {
@@ -45,18 +50,18 @@ export default class Logger {
   static notice(msg) { log(LOG_LEVEL_NOTICE, msg); }
 
   static getLog(query) {
-    return RNBackgroundGeolocation.getLog(validateQuery(query));
+    return NativeModule.getLog(validateQuery(query));
   }
 
   static emailLog(email, query) {    
-    return RNBackgroundGeolocation.emailLog(email, validateQuery(query));
+    return NativeModule.emailLog(email, validateQuery(query));
   }
 
   static uploadLog(url, query) {
-    return RNBackgroundGeolocation.uploadLog(url, validateQuery(query));
+    return NativeModule.uploadLog(url, validateQuery(query));
   }
 
   static destroyLog() {
-    return RNBackgroundGeolocation.destroyLog();
+    return NativeModule.destroyLog();
   }
 }

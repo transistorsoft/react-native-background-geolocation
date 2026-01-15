@@ -44,6 +44,10 @@ export interface Spec extends TurboModule {
 
   // Logging
   log(level: string, message: string): Promise<void>;
+  getLog(query: Object): Promise<string>;
+  emailLog(email: string, query: Object): Promise<void>;
+  uploadLog(url: string, query: Object): Promise<void>;
+  destroyLog(): Promise<void>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('RNBackgroundGeolocation');

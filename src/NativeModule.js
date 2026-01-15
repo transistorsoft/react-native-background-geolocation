@@ -395,16 +395,20 @@ export default class NativeModule {
     return RNBackgroundGeolocation.setLogLevel(value);
   }
 
-  static getLog() {
-    return RNBackgroundGeolocation.getLog();
+  static getLog(query) {
+    return RNBackgroundGeolocation.getLog(query);
   }
 
   static destroyLog() {
-    return RNBackgroundGeolocation.destroyLog();    
+    return RNBackgroundGeolocation.destroyLog();
   }
 
   static emailLog(email, query) {
-    return RNBackgroundGeolocation.emailLog(email, query);  
+    return RNBackgroundGeolocation.emailLog(email, query);
+  }
+
+  static uploadLog(url, query) {
+    return RNBackgroundGeolocation.uploadLog(url, query);
   }
 
   static isPowerSaveMode() {

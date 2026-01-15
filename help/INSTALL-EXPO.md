@@ -19,13 +19,12 @@ npx expo install expo-gradle-ext-vars
     "plugins": [
 +     [
 +       "react-native-background-geolocation", {
-+         "license": "YOUR_LICENSE_KEY_HERE"
++         "license": "YOUR ANDROID LICENSE KEY"
 +       }
 +     ],
 +     [
 +       "expo-gradle-ext-vars", {
-+         "googlePlayServicesLocationVersion": "21.1.0",
-+         "appCompatVersion": "1.4.2"
++         "googlePlayServicesLocationVersion": "21.1.0"
 +       }
 +     ]
     ]

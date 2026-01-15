@@ -3,12 +3,12 @@
 ### With `yarn`
 
 ```shell
-yarn add react-native-background-geolocation@beta
+yarn add react-native-background-geolocation
 ```
 
 ### With `npm`
 ```shell
-npm install react-native-background-geolocation@beta --save
+npm install react-native-background-geolocation --save
 ```
 
 ## `pod install`
@@ -54,7 +54,6 @@ In your __`Info.plist`__, add the following key:
 |-----|-------|-------------|
 | *`TSLocationManagerLicense`* | `String` | `                    <PASTE YOUR LICENSE KEY HERE>                     ` |
 
- __`TSLocationManagerLicense`__.  Paste the contents of your license key into the __`value`__.
 
 ## Background Fetch
 

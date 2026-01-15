@@ -5,11 +5,13 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  SafeAreaView,
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
 import { useState, useEffect, useCallback } from 'react';
+
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import BackgroundGeolocation, {

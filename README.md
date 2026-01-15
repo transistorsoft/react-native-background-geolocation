@@ -16,7 +16,7 @@ The plugin's [Philosophy of Operation](../../wiki/Philosophy-of-Operation) is to
 
 - When the device is detected be **stationary**, the plugin will automatically turn off location-services to conserve energy.
 
-Also available for [Flutter](https://github.com/transistorsoft/flutter_background_geolocation), [Cordova](https://github.com/transistorsoft/cordova-background-geolocation-lt), [NativeScript](https://github.com/transistorsoft/nativescript-background-geolocation-lt) and pure native apps.
+Also available for [Flutter](https://github.com/transistorsoft/flutter_background_geolocation), [Cordova](https://github.com/transistorsoft/cordova-background-geolocation-lt), [Capacitor](https://github.com/transistorsoft/capacitor-background-geolocation) and pure native apps.
 
 > [!NOTE]
 > The **[Android module](http://www.transistorsoft.com/shop/products/react-native-background-geolocation)** requires [purchasing a license](http://www.transistorsoft.com/shop/products/react-native-background-geolocation).  However, it *will* work for **DEBUG** builds.  It will **not** work with **RELEASE** builds [without purchasing a license](http://www.transistorsoft.com/shop/products/react-native-background-geolocation).  This plugin is supported **full-time** and field-tested **daily** since 2013.
@@ -47,18 +47,18 @@ Also available for [Flutter](https://github.com/transistorsoft/flutter_backgroun
 ### With *Expo*
 
 ```shell
-npx expo install react-native-background-geolocation@beta
+npx expo install react-native-background-geolocation
 ```
 
 ### With `yarn`
 
 ```bash
-yarn add react-native-background-geolocation@beta
+yarn add react-native-background-geolocation
 ```
 
 ### With `npm`
 ```
-$ npm install react-native-background-geolocation@beta --save
+$ npm install react-native-background-geolocation --save
 ```
 
 ## :large_blue_diamond: Setup Guides
@@ -79,7 +79,7 @@ $ npm install react-native-background-geolocation@beta --save
 [www.transistorsoft.com/shop/customers](http://www.transistorsoft.com/shop/customers)
 ![](https://gallery.mailchimp.com/e932ea68a1cb31b9ce2608656/images/b2696718-a77e-4f50-96a8-0b61d8019bac.png)
 
-2. Add your license-key to `android/app/src/main/AndroidManifest.xml`:
+2. __`[Android]`__ Add your license-key to `android/app/src/main/AndroidManifest.xml`:
 
 ```diff
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -93,7 +93,7 @@ $ npm install react-native-background-geolocation@beta --save
     android:theme="@style/AppTheme">
 
     <!-- react-native-background-geolocation licence -->
-+     <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="YOUR_LICENCE_KEY_HERE" />
++     <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="YOUR_ANDROID_LICENCE_KEY_HERE" />
     .
     .
     .
@@ -101,35 +101,19 @@ $ npm install react-native-background-geolocation@beta --save
 </manifest>
 ```
 
+3. __`[iOS]`__ Add your license-key to your __`Info.plist`__
+
+|      Key     |     Type     |     Value     |
+|-----|-------|-------------|
+| *`TSLocationManagerLicense`* | `String` | `                    <PASTE YOUR IOS LICENSE KEY HERE>                     ` |
+
+ __`TSLocationManagerLicense`__.  Paste the contents of your license key into the __`value`__.
+
 ## :large_blue_diamond: Using the plugin ##
 
 ```javascript
 import BackgroundGeolocation from "react-native-background-geolocation";
 ```
-
-### [Typescript](https://facebook.github.io/react-native/blog/2018/05/07/using-typescript-with-react-native) API:
-
-For those using [Typescript](https://facebook.github.io/react-native/blog/2018/05/07/using-typescript-with-react-native) (__recommended__), you can also `import` the interfaces:
-```javascript
-import BackgroundGeolocation, {
-  State,
-  Config,
-  Location,
-  LocationError,
-  Geofence,
-  GeofenceEvent,
-  GeofencesChangeEvent,
-  HeartbeatEvent,
-  HttpEvent,
-  MotionActivityEvent,
-  MotionChangeEvent,
-  ProviderChangeEvent,
-  ConnectivityChangeEvent
-} from "react-native-background-geolocation";
-
-```
-
-For more information, see [this blog post](https://medium.com/@transistorsoft/new-feature-typescript-api-4a160a2c853b)
 
 ## :large_blue_diamond: Example
 
@@ -146,25 +130,22 @@ There are three main steps to using `BackgroundGeolocation`
 
 ```javascript
 // NO!  .ready() has not resolved.
-BackgroundGeolocation.getCurrentPosition(options);
-BackgroundGeolocation.start();
+await BackgroundGeolocation.getCurrentPosition(options);
+await BackgroundGeolocation.start();
 
-BackgroundGeolocation.ready(config).then((state) => {
-  // YES -- .ready() has now resolved.
-  BackgroundGeolocation.getCurrentPosition(options);
-  BackgroundGeolocation.start();  
-});
+// First call .ready(config)
+const state = await BackgroundGeolocation.ready(config);
+const location = await BackgroundGeolocation.getCurrentPosition(options);
+await BackgroundGeolocation.start();  
+
 
 // NO!  .ready() has not resolved.
-BackgroundGeolocation.getCurrentPosition(options);
-BackgroundGeolocation.start();
+const location = await BackgroundGeolocation.getCurrentPosition(options);
+await BackgroundGeolocation.start();
 ```
 
 
-### Example 1. &mdash; React *Functional Component*
-
-<details>
-  <summary>Show Source</summary>
+### Example
 
 ```javascript
 
@@ -271,157 +252,10 @@ const HelloWorld = () => {
 export default HelloWorld;
 ```
 
-</details>
+## :large_blue_diamond: [Demo Application](example)
 
-### Example 2. &mdash; React *Class Component*
+Clone this repo and run the [/example](example) app.
 
-<details>
-  <summary>Show Source</summary>
-
-```javascript
-import React from 'react';
-import {
-  Switch,
-  Text,
-  View,
-} from 'react-native';
-
-import BackgroundGeolocation, {
-  Location,
-  Subscription
-} from "react-native-background-geolocation";
-
-export default class HelloWorld extends React.Component {
-  subscriptions:Subscription[] = [];
-  state:any = {};
-  constructor(props:any) {
-    super(props);
-    this.state = {
-      enabled: false,
-      location: ''
-    }
-  }
-
-  componentDidMount() {
-    /// 1.  Subscribe to BackgroundGeolocation events.
-    this.subscriptions.push(BackgroundGeolocation.onLocation((location) => {
-      console.log('[onLocation]', location);
-      this.setState({location: JSON.stringify(location, null, 2)})
-    }, (error) => {
-      console.log('[onLocation] ERROR:', error);
-    }))
-
-    this.subscriptions.push(BackgroundGeolocation.onMotionChange((event) => {
-      console.log('[onMotionChange]', event);
-    }))
-
-    this.subscriptions.push(BackgroundGeolocation.onActivityChange((event) => {
-      console.log('[onActivityChange]', event);
-    }))
-
-    this.subscriptions.push(BackgroundGeolocation.onProviderChange((event) => {
-      console.log('[onProviderChange]', event);
-    }))
-
-    /// 2. ready the plugin.
-    BackgroundGeolocation.ready({
-      // Geolocation Config
-      desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
-      distanceFilter: 10,
-      // Activity Recognition
-      stopTimeout: 5,
-      // Application config
-      debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
-      logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
-      stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
-      startOnBoot: true,        // <-- Auto start tracking when device is powered-up.
-      // HTTP / SQLite config
-      url: 'http://yourserver.com/locations',
-      batchSync: false,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
-      autoSync: true,         // <-- [Default: true] Set true to sync each location to server as it arrives.
-      headers: {              // <-- Optional HTTP headers
-        "X-FOO": "bar"
-      },
-      params: {               // <-- Optional HTTP params
-        "auth_token": "maybe_your_server_authenticates_via_token_YES?"
-      }
-    }).then((state) => {
-      this.setState({enabled: state.enabled});
-      console.log("- BackgroundGeolocation is configured and ready: ", state.enabled);
-    })
-  }
-
-  /// When view is destroyed (or refreshed during development live-reload),
-  /// remove BackgroundGeolocation event subscriptions.
-  componentWillUnmount() {
-    this.subscriptions.forEach((subscription) => subscription.remove());
-  }
-
-  onToggleEnabled(value:boolean) {
-    console.log('[onToggleEnabled]', value);
-    this.setState({enabled: value})
-    if (value) {
-      BackgroundGeolocation.start();
-    } else {
-      this.setState({location: ''});
-      BackgroundGeolocation.stop();
-    }
-  }
-
-  render() {
-    return (
-      <View style={{alignItems:'center'}}>
-        <Text>Click to enable BackgroundGeolocation</Text>
-        <Switch value={this.state.enabled} onValueChange={this.onToggleEnabled.bind(this)} />
-        <Text style={{fontFamily:'monospace', fontSize:12}}>{this.state.location}</Text>
-      </View>
-    )
-  }
-}
-```
-</details>
-
-### Promise API
-
-The `BackgroundGeolocation` Javascript API supports [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for *nearly* every method (the exceptions are **`#watchPosition`** and adding event-listeners via **`#onXXX`** method (eg: `onLocation`).  For more information, see the [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation/latest)
-
-```javascript
-BackgroundGeolocation.ready({
-  desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH, 
-  distanceFilter: 50
-}).then(state => {
-  console.log('- BackgroundGeolocation is ready: ', state);
-}).catch(error => {
-  console.warn('- BackgroundGeolocation error: ', error);
-});
-
-// Or use await in an async function
-try {
-  const state = await BackgroundGeolocation.ready({
-    desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH, 
-    distanceFilter: 50
-  })
-  console.log('- BackgroundGeolocation is ready: ', state);
-} catch (error) {
-  console.warn('- BackgroundGeolocation error: ', error);
-}
-```
-
-## :large_blue_diamond: [Demo Application](https://github.com/transistorsoft/rn-background-geolocation-demo)
-
-A fully-featured [Demo App](https://github.com/transistorsoft/rn-background-geolocation-demo) is available in its own public repo.  After first cloning that repo, follow the installation instructions in the **README** there.  This demo-app includes a settings-screen allowing you to quickly experiment with all the different settings available for each platform.
-
-![Home](https://dl.dropboxusercontent.com/s/wa43w1n3xhkjn0i/home-framed-350.png?dl=1)
-![Settings](https://dl.dropboxusercontent.com/s/8oad228siog49kt/settings-framed-350.png?dl=1)
-
-
-## :large_blue_diamond: [Simple Testing Server](https://github.com/transistorsoft/background-geolocation-console)
-
-A simple Node-based [web-application](https://github.com/transistorsoft/background-geolocation-console) with SQLite database is available for field-testing and performance analysis.  If you're familiar with Node, you can have this server up-and-running in about **one minute**.
-
-![](https://dl.dropboxusercontent.com/s/px5rzz7wybkv8fs/background-geolocation-console-map.png?dl=1)
-
-![](https://dl.dropboxusercontent.com/s/tiy5b2oivt0np2y/background-geolocation-console-grid.png?dl=1)
 
 # License
 

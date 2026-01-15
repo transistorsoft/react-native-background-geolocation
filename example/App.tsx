@@ -58,11 +58,7 @@ function AppContent() {
   }, []);
 
   const checkRegistrationAndInitialize = async () => {
-    try {
-      await AsyncStorage.removeItem('@transistor_registered'); // TEMPORARY: FOR TESTING ONLY
-      await AsyncStorage.removeItem('@transistor_org'); // TEMPORARY: FOR TESTING ONLY
-      await AsyncStorage.removeItem('@transistor_username'); // TEMPORARY: FOR TESTING ONLY
-
+    try {      
       // Check if user has registered before
       const registered = await AsyncStorage.getItem('@transistor_registered');
       
@@ -267,18 +263,7 @@ function AppContent() {
         samples: 3,
       });
       console.log('[getCurrentPosition] -', location);
-      setLastLocation(location);
-      
-      const result = await BackgroundGeolocation.addGeofence({
-        identifier: 'TestGeofence',
-        radius: 200,
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        notifyOnEntry: true,
-        notifyOnExit: true,
-        notifyOnDwell: false
-      });
-      console.log('[addGeofence] -', result);
+      setLastLocation(location);            
     } catch (e) {
       console.error('getCurrentPosition error:', e);
       Alert.alert('Error', 'Failed to get current position');

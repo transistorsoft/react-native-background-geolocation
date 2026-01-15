@@ -30,7 +30,7 @@ Also available for [Flutter](https://github.com/transistorsoft/flutter_backgroun
 
 # Contents
 - ### 😫 [Help!](../../wiki/Help)
-- ### :books: [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation/5.0.0-beta)
+- ### :books: [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation/latest)
 - ### [Installing the Plugin](#large_blue_diamond-installing-the-plugin)
 - ### [Setup Guides](#large_blue_diamond-setup-guides)
 - ### [Configure your License](#large_blue_diamond-configure-your-license)
@@ -139,7 +139,7 @@ There are three main steps to using `BackgroundGeolocation`
 3. `.start()` the plugin.
 
 > [!WARNING]
-> Do not execute *any* API method which will require accessing location-services until the **[`.ready(config)`](https://transistorsoft.github.io/react-native-background-geolocation/classes/backgroundgeolocation.html#ready)** method resolves ([Read its API docs](https://transistorsoft.github.io/react-native-background-geolocation/classes/backgroundgeolocation.html#ready)), For example: 
+> Do not execute *any* API method which will require accessing location-services until the **[`.ready(config)`](https://transistorsoft.github.io/react-native-background-geolocation/latest/interfaces/BackgroundGeolocation.html#ready)** method resolves ([Read its API docs](https://transistorsoft.github.io/react-native-background-geolocation/latest/interfaces/BackgroundGeolocation.html#ready)), For example: 
 >- `.getCurrentPosition` 
 >- `.watchPosition`
 >- `.start`
@@ -206,24 +206,32 @@ const HelloWorld = () => {
     /// 2. ready the plugin.
     BackgroundGeolocation.ready({
       // Geolocation Config
-      desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
-      distanceFilter: 10,
-      // Activity Recognition
-      stopTimeout: 5,
-      // Application config
-      debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
-      logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
-      stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
-      startOnBoot: true,        // <-- Auto start tracking when device is powered-up.
-      // HTTP / SQLite config
-      url: 'http://yourserver.com/locations',
-      batchSync: false,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
-      autoSync: true,         // <-- [Default: true] Set true to sync each location to server as it arrives.
-      headers: {              // <-- Optional HTTP headers
-        "X-FOO": "bar"
+      geolocation: {
+        desiredAccuracy: BackgroundGeolocation.DesiredAccuracy.High
+        distanceFilter: 10,
+        stopTimeout: 5
       },
-      params: {               // <-- Optional HTTP params
-        "auth_token": "maybe_your_server_authenticates_via_token_YES?"
+      // Logger Config
+      logger: {      
+        debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
+        logLevel: BackgroundGeolocation.LogLevel.Verbose
+      },
+      // Application config
+      app: {
+        stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
+        startOnBoot: true         // <-- Auto start tracking when device is powered-up.
+      },      
+      // Http Config
+      http: {
+        url: 'http://yourserver.com/locations',
+        batchSync: false,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
+        autoSync: true,         // <-- [Default: true] Set true to sync each location to server as it arrives.
+        headers: {              // <-- Optional HTTP headers
+          "X-FOO": "bar"
+        },
+        params: {               // <-- Optional HTTP params
+          "auth_token": "maybe_your_server_authenticates_via_token_YES?"
+        }
       }
     }).then((state) => {
       setEnabled(state.enabled)
@@ -375,7 +383,7 @@ export default class HelloWorld extends React.Component {
 
 ### Promise API
 
-The `BackgroundGeolocation` Javascript API supports [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for *nearly* every method (the exceptions are **`#watchPosition`** and adding event-listeners via **`#onXXX`** method (eg: `onLocation`).  For more information, see the [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation-android)
+The `BackgroundGeolocation` Javascript API supports [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for *nearly* every method (the exceptions are **`#watchPosition`** and adding event-listeners via **`#onXXX`** method (eg: `onLocation`).  For more information, see the [API Documentation](https://transistorsoft.github.io/react-native-background-geolocation/latest)
 
 ```javascript
 BackgroundGeolocation.ready({

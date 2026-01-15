@@ -10,11 +10,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native/new-app-screen": "0.81.5",
     "react": "19.1.0",
     "react-native": "0.81.5",
     "react-native-background-fetch": "^4.3.0-rc.1",
     "react-native-background-geolocation": "file:../",
+    "react-native-gesture-handler": "^2.30.0",
     "react-native-safe-area-context": "^5.5.2"
   },
   "devDependencies": {

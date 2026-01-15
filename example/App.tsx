@@ -16,21 +16,25 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import BackgroundGeolocation, {
   Location
-
 } from 'react-native-background-geolocation';
 
+import RegistrationModal from './RegistrationModal';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <AppContent />
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 
@@ -43,12 +47,97 @@ function AppContent() {
   const [lastLocation, setLastLocation] = useState<Location | null>(null);
   const [providerEnabled, setProviderEnabled] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
+  const [registrationVisible, setRegistrationVisible] = useState(false);
   const [odometer, setOdometer] = useState(0);
   const [odometerError, setOdometerError] = useState<number | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
+  // Check registration status on mount
   useEffect(() => {
-  
-    // 1. Subscribe to events
+    checkRegistrationAndInitialize();
+  }, []);
+
+  const checkRegistrationAndInitialize = async () => {
+    try {
+      await AsyncStorage.removeItem('@transistor_registered'); // TEMPORARY: FOR TESTING ONLY
+      await AsyncStorage.removeItem('@transistor_org'); // TEMPORARY: FOR TESTING ONLY
+      await AsyncStorage.removeItem('@transistor_username'); // TEMPORARY: FOR TESTING ONLY
+
+      // Check if user has registered before
+      const registered = await AsyncStorage.getItem('@transistor_registered');
+      
+      if (!registered) {
+        // First launch - show registration modal
+        setRegistrationVisible(true);
+      } else {
+        // Already registered - initialize BackgroundGeolocation
+        const org = await AsyncStorage.getItem('@transistor_org');
+        const username = await AsyncStorage.getItem('@transistor_username');
+        
+        if (org && username) {
+          await initializeBackgroundGeolocation(org, username);
+        } else {
+          // Corrupted storage - re-register
+          setRegistrationVisible(true);
+        }
+      }
+    } catch (error) {
+      console.error('Error checking registration:', error);
+      setRegistrationVisible(true);
+    }
+  };
+
+  const initializeBackgroundGeolocation = async (org: string, username: string) => {
+    if (isInitialized) return; // Prevent double initialization
+    
+    try {
+      // Get or create token with the registered credentials
+      const token = await BackgroundGeolocation.findOrCreateTransistorAuthorizationToken(org, username);
+      
+      const state = await BackgroundGeolocation.ready({
+        transistorAuthorizationToken: token,
+        logger: {
+          debug: true,
+          logLevel: BackgroundGeolocation.LogLevel.Verbose
+        },
+        geolocation: {
+          desiredAccuracy: BackgroundGeolocation.DesiredAccuracy.High,
+          distanceFilter: 50,
+          locationUpdateInterval: 1000,
+          stopTimeout: 1,
+        },
+        http: {
+          autoSync: true,
+        },
+        app: {
+          stopOnTerminate: false,
+          heartbeatInterval: 60,
+          startOnBoot: true,
+          enableHeadless: true,
+        }
+      });
+      
+      console.log('-> [ready] BackgroundGeolocation is configured and ready:', state.enabled);
+      setTrackingEnabled(state.enabled === true);
+      setIsMoving(state.isMoving === true);
+      if (state.odometer) {
+        setOdometer(state.odometer);
+      }
+      if (state.odometerError !== undefined) {
+        setOdometerError(state.odometerError);
+      }
+      
+      setIsInitialized(true);
+    } catch (error) {
+      console.error('Failed to initialize BackgroundGeolocation:', error);
+      Alert.alert('Initialization Error', 'Failed to initialize tracking. Please try again.');
+    }
+  };
+
+  // Set up event listeners ONLY after initialization
+  useEffect(() => {
+    
+    // Subscribe to events
     const onLocation = BackgroundGeolocation.onLocation((location) => {
       console.log('-> [location]', location);
       setLastLocation(location);
@@ -64,7 +153,6 @@ function AppContent() {
 
     const onGeofence = BackgroundGeolocation.onGeofence((geofenceEvent) => {
       console.log('-> [geofence]', geofenceEvent.geofence);
-
       Alert.alert(
         'Geofence Event',
         `Identifier: ${geofenceEvent.identifier}\nAction: ${geofenceEvent.action}`
@@ -93,46 +181,9 @@ function AppContent() {
     const onProviderChange = BackgroundGeolocation.onProviderChange(provider => {
       console.log('-> [providerchange]', provider.enabled, provider.status);
       setProviderEnabled(provider.enabled);
-    });    
-
-    //BackgroundGeolocation.destroyTransistorAuthorizationToken('https://tracker.transistorsoft.com');
-    
-    BackgroundGeolocation.findOrCreateTransistorAuthorizationToken('_transistor-rn-test', 'crs').then(async (token) => {
-      const state = await BackgroundGeolocation.ready({
-        reset: true,
-        transistorAuthorizationToken: token,
-        logger: {
-          debug: true,
-          logLevel: BackgroundGeolocation.LogLevel.Verbose
-        },
-        geolocation: {
-          desiredAccuracy: BackgroundGeolocation.DesiredAccuracy.High,
-          distanceFilter: 50,
-          locationUpdateInterval: 1000,
-          stopTimeout: 1,
-        },
-        http: {
-          autoSync: true,
-        },
-        app: {
-          stopOnTerminate: false,
-          heartbeatInterval: 60,
-          startOnBoot: true,
-          enableHeadless: true,
-        }
-      });
-      console.log('-> [ready] BackgroundGeolocation is configured and ready:', state.enabled);
-      setTrackingEnabled(state.enabled === true);
-      setIsMoving(state.isMoving === true);
-      if (state.odometer) {
-        setOdometer(state.odometer);
-      }
-      if (state.odometer_error !== undefined) {
-        setOdometerError(state.odometer_error);
-      }
     });
-    
-    // 3. Cleanup when component unmounts
+
+    // Cleanup when component unmounts
     return () => {
       console.log("** CLEANUP CALLED ***");
       onLocation.remove();
@@ -141,10 +192,29 @@ function AppContent() {
       onActivityChange.remove();
       onProviderChange.remove();
     };
-  }, []);
+  }, [isInitialized]);
+
+  const handleRegistrationComplete = async (data: { organization: string; username: string }) => {
+    console.log('Registration complete:', data);
+    setRegistrationVisible(false);
+    
+    // Initialize BackgroundGeolocation with the new registration
+    await initializeBackgroundGeolocation(data.organization, data.username);
+  };
+
+  // Handler for showing Registration modal from menu
+  const handleShowRegistration = async () => {
+    setMenuVisible(false);
+    setRegistrationVisible(true);
+  };
 
   // Handler for toggling tracking
   const handleToggleTracking = async (value: boolean) => {
+    if (!isInitialized) {
+      Alert.alert('Not Ready', 'Please complete registration first');
+      return;
+    }
+    
     setTrackingEnabled(value);
     if (value) {
       try {
@@ -152,6 +222,7 @@ function AppContent() {
       } catch (e) {
         console.warn('Failed to start tracking:', e);
         Alert.alert('Error', 'Failed to start tracking');
+        setTrackingEnabled(false);
       }
     } else {
       try {
@@ -183,6 +254,11 @@ function AppContent() {
 
   // Handler for getCurrentPosition
   const handleGetCurrentPosition = async () => {
+    if (!isInitialized) {
+      Alert.alert('Not Ready', 'Please complete registration first');
+      return;
+    }
+    
     try {
       const location = await BackgroundGeolocation.getCurrentPosition({
         timeout: 30,
@@ -203,8 +279,6 @@ function AppContent() {
         notifyOnDwell: false
       });
       console.log('[addGeofence] -', result);
-            
-      //Alert.alert('Success', `Position: ${location.coords.latitude.toFixed(6)}, ${location.coords.longitude.toFixed(6)}`);
     } catch (e) {
       console.error('getCurrentPosition error:', e);
       Alert.alert('Error', 'Failed to get current position');
@@ -216,7 +290,6 @@ function AppContent() {
     try {
       await BackgroundGeolocation.logger.destroyLog();
       Alert.alert('Success', 'Log file destroyed');
-      //setMenuVisible(false);
     } catch (e) {
       console.warn('destroyLog error:', e);
       Alert.alert('Error', 'Failed to destroy log');
@@ -227,7 +300,6 @@ function AppContent() {
     try {
       const status = await BackgroundGeolocation.requestPermission();
       Alert.alert('Permission Status', `Status: ${status}`);
-      //setMenuVisible(false);
     } catch (e) {
       console.warn('requestPermission error:', e);
       Alert.alert('Error', 'Failed to request permission');
@@ -235,12 +307,16 @@ function AppContent() {
   };
 
   const handleResetOdometer = async () => {
+    if (!isInitialized) {
+      Alert.alert('Not Ready', 'Please complete registration first');
+      return;
+    }
+    
     try {
       const location = await BackgroundGeolocation.resetOdometer();
       setOdometer(0);
       setOdometerError(null);
       Alert.alert('Success', 'Odometer reset to 0');
-      //setMenuVisible(false);
     } catch (e) {
       console.warn('resetOdometer error:', e);
       Alert.alert('Error', 'Failed to reset odometer');
@@ -257,6 +333,11 @@ function AppContent() {
   };
 
   const handleSync = async () => {
+    if (!isInitialized) {
+      Alert.alert('Not Ready', 'Please complete registration first');
+      return;
+    }
+    
     const count = await BackgroundGeolocation.getCount();
     if (count === 0) {
       Alert.alert('Info', 'Database is empty. No locations to sync.');
@@ -273,7 +354,6 @@ function AppContent() {
             try {      
               const locations = await BackgroundGeolocation.sync();
               Alert.alert('Sync Complete', `Synced ${locations.length} locations`);
-              //setMenuVisible(false);
             } catch (e) {
               console.warn('sync error:', e);
               Alert.alert('Error', 'Failed to sync');
@@ -285,6 +365,11 @@ function AppContent() {
   };
 
   const handleDestroyLocations = async () => {
+    if (!isInitialized) {
+      Alert.alert('Not Ready', 'Please complete registration first');
+      return;
+    }
+    
     const count = await BackgroundGeolocation.getCount();
     if (count === 0) {
       Alert.alert('Info', 'Database is empty. No locations to destroy.');
@@ -302,7 +387,6 @@ function AppContent() {
             try {
               await BackgroundGeolocation.destroyLocations();
               Alert.alert('Success', 'All locations destroyed');
-              //setMenuVisible(false);
             } catch (e) {
               console.warn('destroyLocations error:', e);
               Alert.alert('Error', 'Failed to destroy locations');
@@ -314,6 +398,11 @@ function AppContent() {
   };
 
   const handleGetState = async () => {
+    if (!isInitialized) {
+      Alert.alert('Not Ready', 'Please complete registration first');
+      return;
+    }
+    
     try {
       const state = await BackgroundGeolocation.getState();
       Alert.alert('Current State', JSON.stringify(state, null, 2));
@@ -328,6 +417,7 @@ function AppContent() {
 
   return (
     <View style={{flex: 1}}>
+      <RegistrationModal visible={registrationVisible} onComplete={handleRegistrationComplete} />
       <ScrollView 
         style={[styles.container, {backgroundColor: theme.background}]}
         contentContainerStyle={{paddingBottom: safeAreaInsets.bottom + 20}}
@@ -396,6 +486,7 @@ function AppContent() {
               onValueChange={handleToggleTracking}
               trackColor={{ false: '#767577', true: '#81C784' }}
               thumbColor={trackingEnabled ? '#4CAF50' : '#f4f3f4'}
+              disabled={!isInitialized}
             />
           </View>
 
@@ -412,7 +503,7 @@ function AppContent() {
                 }
               ]}
               onPress={handleChangePace}
-              disabled={!trackingEnabled}
+              disabled={!trackingEnabled || !isInitialized}
             >
               <Text style={styles.paceButtonText}>
                 {isMoving ? '❚❚' : '▶'}
@@ -459,6 +550,7 @@ function AppContent() {
         <TouchableOpacity
           style={[styles.actionButton, {backgroundColor: theme.primary}]}
           onPress={handleGetCurrentPosition}
+          disabled={!isInitialized}
         >
           <Text style={styles.actionButtonText}>📍 Get Current Position</Text>
         </TouchableOpacity>
@@ -488,6 +580,16 @@ function AppContent() {
             </View>
             
             <ScrollView style={styles.menuItems}>
+              <TouchableOpacity style={styles.menuItem} onPress={handleShowRegistration}>
+                <Text style={styles.menuItemIcon}>📝</Text>
+                <View style={styles.menuItemContent}>
+                  <Text style={[styles.menuItemText, {color: theme.text}]}>Registration</Text>
+                  <Text style={[styles.menuItemDescription, {color: theme.secondaryText}]}> 
+                    Update Transistor registration
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
               <TouchableOpacity style={styles.menuItem} onPress={handleRequestPermission}>
                 <Text style={styles.menuItemIcon}>🔐</Text>
                 <View style={styles.menuItemContent}>
@@ -509,7 +611,7 @@ function AppContent() {
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.menuItem} onPress={handleSync}>
-                <Text style={styles.menuItemIcon}>🔄</Text>
+                <Text style={styles.menuItemIcon}>☁️</Text>
                 <View style={styles.menuItemContent}>
                   <Text style={[styles.menuItemText, {color: theme.text}]}>Sync</Text>
                   <Text style={[styles.menuItemDescription, {color: theme.secondaryText}]}>

@@ -64,7 +64,6 @@ dependencies {
     def tslocationmanagerVersion = safeExtGet('tslocationmanagerVersion', DEFAULT_TSLOCATIONMANAGER_VERSION)
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
 
-
     def locationMajorVersion = playServicesLocationVersion.split('\\.')[0] as int
     if (locationMajorVersion >= 21) {
         api "com.transistorsoft:tslocationmanager:$tslocationmanagerVersion"

@@ -47,6 +47,10 @@ Also available for [Flutter](https://github.com/transistorsoft/flutter_backgroun
 
 ## :large_blue_diamond: Installing the Plugin
 
+> [!CAUTION]
+> This is the new v5 version.  For previous version, see [`v4.x`](https://github.com/transistorsoft/react-native-background-geolocation/tree/4.19.4).  __`v4.x`__ license keys do not work with __`v5`__.  Login to the customer dashboard to generate a __`v5`__ key.
+
+
 ### With *Expo*
 
 ```shell

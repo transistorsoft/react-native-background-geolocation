@@ -1,5 +1,20 @@
 # Change Log
 
+## 5.0.0
+* Promote 5.0.0 from beta.  See the [Migration Guide](help/MIGRATION-GUIDE-5.0.0.md) and [v5.0.0 Discussion](https://github.com/transistorsoft/react-native-background-geolocation/discussions)
+
+## 5.0.0-beta.4 &mdash; 2025-12-02
+* [Android] update proguard-rules.pro to prevent key classnames being minified (eg: HeadlessTask)
+
+## 5.0.0-beta.3 &mdash; 2025-11-30
+* [Expo] Update Expo plugin and Setup Instructions for 5.0.0-beta
+
+## 5.0.0-beta.2 &mdash; 2025-11-27
+* Implement React Native *Turbo Modules* ("*New Architecture*").
+
+## 5.0.0-beta.1 &mdash; 2025-11-10
+* Initial introduction of v5 beta.  See the [Migration Guide](https://github.com/transistorsoft/react-native-background-geolocation/blob/5.0.0-beta/help/MIGRATION-GUIDE-5.0.0.md).
+
 ## 4.19.4 &mdash; 2026-01-14
 * [Android] Backport spurious stationary geofence exit detection from v5.  Google Play Services seems to have a bug where geofence exit events fire even while the device is still inside the geofence, causing the SDK to constantly enter the *moving* state, draining the battery.
 

@@ -2,13 +2,15 @@
 
 ```bash
 npx expo install react-native-background-geolocation
-npx expo install react-native-background-fetch
 npx expo install expo-gradle-ext-vars
 ```
 
+> [!NOTE]
+> If you've **not** [purchased a license](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans), the plugin is fully functional in *DEBUG* builds so you can try before you [buy](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans).
+
 ### :open_file_folder: **`app.json`**
 
-- Add the following *three* __`plugins`__:
+- Add the following __`plugins`__:
 
 ```diff
 {
@@ -17,16 +19,14 @@ npx expo install expo-gradle-ext-vars
     "plugins": [
 +     [
 +       "react-native-background-geolocation", {
-+         "license": "YOUR_LICENSE_KEY_HERE"
++         "license": "YOUR ANDROID LICENSE KEY"
 +       }
 +     ],
 +     [
 +       "expo-gradle-ext-vars", {
-+         "googlePlayServicesLocationVersion": "21.1.0",
-+         "appCompatVersion": "1.4.2"
++         "googlePlayServicesLocationVersion": "21.1.0"
 +       }
-+     ],
-+     "react-native-background-fetch"
++     ]
     ]
   }
 }
@@ -34,49 +34,8 @@ npx expo install expo-gradle-ext-vars
 
 ### Polygon Geofencing Support
 
-If you've purchased the [*Polygon Geofencing* add-on](https://shop.transistorsoft.com/collections/frontpage/products/polygon-geofencing) for creating geofences of *any shape*, add your *Polygon Geofencing* license key:
+If you've purchased the [*Polygon Geofencing* add-on](https://shop.transistorsoft.com/collections/frontpage/products/polygon-geofencing) for creating geofences of *any shape*, you can add the "*Polygon Geofencing*" entitlement to your existing *Background Geolocation* license key in the [Customer Dashboard](https://www.transistorsoft.com/shop/customers).
 
-```diff
-{
-  "expo": {
-    "name": "your-app-name",
-    "plugins": [
-      [
-        "react-native-background-geolocation", {
-          "license": "YOUR_LICENSE_KEY_HERE",
-+         "polygonLicense": "YOUR_POLYGON_LICENSE_HERE"
-        }
-      ]
-    ]
-  }
-}
-```
-
-> [!WARNING]
-> Polygon Geofencing support for *Expo* requires `react-native-background-geolocation >= 4.16.4`.
-
-### Huawei Mobile Services (HMS) Support
-
-If you've [purchased an *HMS Background Geolocation* License](https://shop.transistorsoft.com/collections/frontpage/products/huawei-background-geolocation) for installing the plugin on _Huawei_ devices without *Google Play Services* installed, add your *HMS Background Geolocation* license key:
-
-```diff
-{
-  "expo": {
-    "name": "your-app-name",
-    "plugins": [
-      [
-        "react-native-background-geolocation", {
-          "license": "YOUR_LICENSE_KEY_HERE",
-+         "hmsLicense": "YOUR_HMS_LICENSE_HERE"
-        }
-      ]
-    ]
-  }
-}
-```
-
-> [!WARNING]
-> Huawei HMS support requires `react-native-background-geolocation >= 3.11.0`.
 
 ### `Info.plist`:  *Usage Descriptions*
 
@@ -156,6 +115,26 @@ If you've [purchased an *HMS Background Geolocation* License](https://shop.trans
           "processing",
 +         "audio"
         ]
+      }
+    }
+  }
+}
+```
+
+### `Info.plist`:  *iOS License Key*
+
+- From the [Customer Dashboard](https://www.transistorsoft.com/shop/customers"), add your *iOS* license key to your `Info.plist`:
+
+```diff
+{
+  "expo": {
+    "name": "your-app-name",
+    .
+    .
+    .
+    "ios": {
+      "infoPlist": {
++       "TSLocationManagerLicense": "<YOUR IOS LICENSE KEY>"
       }
     }
   }

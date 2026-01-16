@@ -36,6 +36,11 @@ declare module "react-native-background-geolocation" {
     */
     odometer: number;
     /**
+     * The estimated error (in meters) of the current odometer value.
+     */
+    odometerError: number;
+
+    /**
     * `true` when the iOS app was launched in the background.  Always `false` for Android.
     * iOS apps can be launched in the background due to a background-fetch event, geofence events or exiting the [[Config.stationaryRadius]].
     *

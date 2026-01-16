@@ -1,19 +1,14 @@
 # iOS Auto-linking Installation
-### `react-native >= 0.60`
 
 ### With `yarn`
 
 ```shell
 yarn add react-native-background-geolocation
-
-yarn add react-native-background-fetch@^4.2.6
 ```
 
 ### With `npm`
 ```shell
 npm install react-native-background-geolocation --save
-
-npm install react-native-background-fetch@^4.2.6
 ```
 
 ## `pod install`
@@ -23,15 +18,17 @@ $ cd ios
 $ pod install
 ```
 
-## Configure Background Capabilities
+## Permissions & Background Modes
 
-Open your App in **XCode** and select the root of your project.  Select **Capabilities** tab.  Enable **Background Modes** and enable the following modes:
+Open the Xcode project `ios/Runner/Runner.xcworkspace`
 
-- [x] Location updates
-- [x] Background fetch
-- [x] Audio (**optional for debug-mode sound FX**)
+- Enable the background modes:
+    - [x] Location updates
+    - [x] Background fetch
+    - [x] Audio ( ℹ️ **optional for debug-mode sound FX** )
 
-![](https://dl.dropboxusercontent.com/s/a4xieyd0h38xklu/Screenshot%202016-09-22%2008.12.51.png?dl=1)
+![](https://dl.dropboxusercontent.com/scl/fi/muwq6wwor83acl64w4214/setup-ios-background-modes.png?rlkey=cbbuz0pg5j3ql1z4sttxpufyl&dl=1)
+
 
 ## Configure Usage Strings in `Info.plist`
 
@@ -39,103 +36,108 @@ Edit **`Info.plist`**.  Add the following items (Set **Value** as desired):
 
 | Key | Type | Value |
 |-----|-------|-------------|
-| *Privacy - Location Always and When in Use Usage Description* | `String` | *CHANGEME: Location required in background* |
-| *Privacy - Location When in Use Usage Description* | `String` | *CHANGEME: Location required when app is in use* |
-| *Privacy - Motion Usage Description* | `String` | *CHANGEME: Motion permission helps detect when device in in-motion* |
+| *`Privacy - Location Always and When in Use Usage Description`* | `String` | *CHANGEME: Location required in background* |
+| *`Privacy - Location When in Use Usage Description`* | `String` | *CHANGEME: Location required when app is in use* |
+| *`Privacy - Motion Usage Description`* | `String` | *CHANGEME: Motion permission helps detect when device in in-motion* |
 
 ![](https://dl.dropboxusercontent.com/scl/fi/dh0sen3wxsgp1hox41le0/iOS-permissions-plist.png?rlkey=i3fipjdcpu7p1eez4mapukkpl&dl=1)
 
-## Privacy Manifest
 
-Apple now requires apps provide a [Privacy Manifest for "sensitive" APIs](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api?language=objc) which could be abused for "fingerprinting" a user for malicious marketing activity.
+## Configure Your License
 
-If your app does not yet have a *Privacy Manifest* (__`PrivacyInfo.xcprivacy`__), create one now:
+> [!NOTE]
+> If you've **not** [purchased a license](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans), **ignore this step** &mdash; the plugin is fully functional in *DEBUG* builds so you can try before you [buy](https://www.transistorsoft.com/shop/products/react-native-background-geolocation#plans).
 
-<details>
-    <summary>ℹ️ Click here for detailed instructions...</summary>
+In your __`Info.plist`__, add the following key: 
 
-- In XCode, __`File -> New -> File...`__:
-
-![](https://dl.dropboxusercontent.com/scl/fi/n28028i3fbrxd67u491w2/file-new-PrivacyInfo.png?rlkey=sc7s1lyy8fli2c1hz2cfa4cpm&dl=1)
-
-- Be sure to enable your `Targets: [x] YourApp`:
-
-![](https://dl.dropboxusercontent.com/scl/fi/pmbfn5jypvns6r5pyhnui/file-new-PrivacyInfo-targets.png?rlkey=epvjffar23bxgyi9xax9ys40i&dl=1)
+|      Key     |     Type     |     Value     |
+|-----|-------|-------------|
+| *`TSLocationManagerLicense`* | `String` | `                    <PASTE YOUR LICENSE KEY HERE>                     ` |
 
 
-</details>
+## Background Fetch
+
+The *Background Geolocation* SDK has internal handling for periodic *Background Fetch* events (if enabled).  It can use these periodic events to gather current state information (*is the device moving?*), evaluating the `schedule` (if you've configured one) or checking if there are any location records in the queue, waiting to be uploaded to your configured `url`:
+
+1.  Open your __`Info.plist`__ and add the key *"Permitted background task scheduler identifiers"*
+
+|      Key     |     Type     |     Value     |
+|-----|-------|-------------|
+| *`Permitted background task scheduler identifiers          `* | `Array` |  |
+| *`    Item 0                                                 `* | `String` | `com.transistorsoft.fetch` |
 
 
-It's best to edit this file's XML manually.
-- :open_file_folder: `ios/PrivacyInfo.xcprivacy`
-- Add the following __4 blocks__ within the `NSPrivacyAccessedAPITypes` `<array>` container:
+![](https://dl.dropboxusercontent.com/s/t5xfgah2gghqtws/ios-setup-permitted-identifiers.png?dl=1)
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+2.  Add the **required identifier `com.transistorsoft.fetch`**.
 
-<plist version="1.0">
-<dict>
-    <key>NSPrivacyAccessedAPITypes</key>
-    <array>
-        <!-- [1] background_fetch: UserDefaults -->
-        <dict>
-            <key>NSPrivacyAccessedAPIType</key>
-            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+![](https://dl.dropboxusercontent.com/s/kwdio2rr256d852/ios-setup-permitted-identifiers-add.png?dl=1)
 
-            <key>NSPrivacyAccessedAPITypeReasons</key>
-            <array>
-                <string>CA92.1</string>
-            </array>
-        </dict>
+3.  Configure in your __`AppDelegate`__ (find `AppDelegate.swift` __OR__ `AppDelegate.m`):
 
-        <!-- [2] background_geolocation: UserDefaults -->
-        <dict>
-            <key>NSPrivacyAccessedAPIType</key>
-            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+#### `AppDelegate.swift`
 
-            <key>NSPrivacyAccessedAPITypeReasons</key>
-            <array>
-                <string>CA92.1</string>
-                <string>1C8F.1</string>
-            </array>
-        </dict>
-        <!-- [3] background_geolocation (CocoaLumberjack): FileTimestamp -->
-        <dict>
-            <key>NSPrivacyAccessedAPIType</key>
-            <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
-            <key>NSPrivacyAccessedAPITypeReasons</key>
-            <array>
-                <string>C617.1</string>
-                <string>0A2A.1</string>
-            </array>
-        </dict>
-        <!-- [4] background_geolocation (CocoaLumberjack): DiskSpace -->
-        <dict>
-            <key>NSPrivacyAccessedAPIType</key>
-            <string>NSPrivacyAccessedAPICategoryDiskSpace</string>
-            <key>NSPrivacyAccessedAPITypeReasons</key>
-            <array>
-                <string>E174.1</string>
-            </array>
-        </dict>
-    </array>
-</dict>
-</plist>
+```diff
+import UIKit
+import React
+import React_RCTAppDelegate
+import ReactAppDependencyProvider
++import TSBackgroundFetch
+
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+  
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+  ) -> Bool {
+    .
+    .
+    .    
++   // [REQUIRED] Transistorsoft
++   TSBackgroundFetch.sharedInstance()?.didFinishLaunching()
+    .
+    .
+    .    
+    return true
+  }
+}
 ```
 
-## [Configure `react-native-background-fetch`](https://github.com/transistorsoft/react-native-background-fetch/blob/master/docs/INSTALL-AUTO-IOS.md#ios-auto-linking-setup)
+#### `AppDelegate.m` (for older apps using Obj-c)
 
-The BackgroundGeolocation SDK makes use internally on __`react-native-background-fetch`__.  Regardless of whether you intend to implement the BackgroundFetch Javascript API in your app, you **must** perform the [Background Fetch iOS Setup](https://github.com/transistorsoft/react-native-background-fetch/blob/master/docs/INSTALL-AUTO-IOS.md#configure-background-capabilities) at __`react-native-background-fetch`__.
+```diff
+#import "AppDelegate.h"
+
+#import <React/RCTBridge.h>
+#import <React/RCTBundleURLProvider.h>
+#import <React/RCTRootView.h>
+
++#import <TSBackgroundFetch/TSBackgroundFetch.h>
+
+@implementation AppDelegate
+
+(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  .
+  .
+  .
++ // [REQUIRED] Transistorsoft
++ [[TSBackgroundFetch sharedInstance] didFinishLaunching];
+
+  return YES;
+}
+```
+
+[Transistor Software](https://www.transistorsoft.com) manages a helpful free plugin you can optionally add to your app named [`react-native-background-fetch`](https://github.com/transistorsoft/react-native-background-fetch).
 
 > [!TIP]
-> `background-fetch` is helpful for executing a periodic task (eg: every 15 minutes).  You could use `background-fetch` to periodically request the current location:
+> `react-native-background-fetch` is helpful for executing a periodic task (eg: every 15 minutes).  You could use it to periodically request the current location, for example:
 
-```dart
+```ts
 // Execute a task about every 15 minutes:
 BackgroundFetch.configure({
   minimumFetchInterval: 15
-}, async (taskId) => { // <-- This is your periodic-task callback  
+}, async (taskId) => { // <-- This is your periodic-task callback
   const location = await BackgroundGeolocation.getCurrentPosition({
     samples: 3,
     extras: {   // <-- your own arbitrary meta-data
@@ -144,6 +146,6 @@ BackgroundFetch.configure({
   });
   console.log('[getCurrentPosition]', location);
   BackgroundFetch.finish(taskId);   // <-- signal that your task is complete
-})
+});
 ```
 

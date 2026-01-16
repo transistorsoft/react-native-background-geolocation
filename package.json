@@ -1,12 +1,27 @@
 {
-  "name": "react-native-background-geolocation",
-  "version": "4.19.4",
+
+  "name": "react-native-background-geolocation",  
+  "version": "5.0.0",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",
   "scripts": {
     "build": "yarn run build:expo",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:expo": "rimraf expo/plugin/build && tsc --build ./expo/plugin",
+    "docs": "node ./scripts/generate-docs.mjs",
+    "docs:publish": "./scripts/publish-docs.sh",
     "prepublishOnly": "npm run build"
+  },
+  "codegenConfig": {
+    "name": "RNBackgroundGeolocation",
+    "type": "modules",
+    "jsSrcsDir": "./src/specs",
+    "android": {
+      "javaPackageName": "com.transistorsoft.rnbackgroundgeolocation"
+    },
+    "ios": {
+      "swiftModuleName": "RNBackgroundGeolocation",
+      "packageName": "RNBackgroundGeolocation"
+    }    
   },
   "main": "src/index.js",
   "repository": {
@@ -24,23 +39,25 @@
     "geofence",
     "geofencing"
   ],
+  "dependencies": {
+    "@babel/runtime": "^7.26.0",
+    "@transistorsoft/background-geolocation-types": "^5.0.1",
+    "tslib": "^2.6.3"
+  },
   "author": "Chris Scott <chris@transistorsoft.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/transistorsoft/react-native-background-geolocation/issues"
   },
   "homepage": "https://www.transistorsoft.com/shop/products/react-native-background-geolocation",
-  "dependencies": {
-    "react-native-background-fetch": "~4.2.6"
-  },
   "devDependencies": {
     "@expo/config-plugins": "^4.1.0",
-    "@transistorsoft/typedoc-theme": "^2.0.9",
     "@types/node": "^18.11.5",
     "chalk": "^4.1.0",
     "fs-extra": "^9.1.0",
     "path": "^0.12.7",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.6.2"
+    "rimraf": "^5.0.0",
+    "typedoc": "^0.28.14",
+    "typescript": "^5.6.0"
   }
 }

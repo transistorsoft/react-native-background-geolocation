@@ -61,20 +61,7 @@ const {
 
 
 const androidPlugin: ConfigPlugin<Props> = (config, props={}) => {
-  config = withProjectBuildGradle(config, ({ modResults, ...subConfig }) => {
-    if (modResults.language !== 'groovy') {
-      WarningAggregator.addWarningAndroid(
-        'withBackgroundGeolocation',
-        `Cannot automatically configure project build.gradle if it's not groovy`,
-      );
-      return { modResults, ...subConfig };
-    }
-
-    modResults.contents = applyMavenUrl(modResults.contents);
-
-    return { modResults, ...subConfig };
-  });
-
+  
   config = withAppBuildGradle(config, ({ modResults, ...subConfig }) => {
     if (modResults.language !== 'groovy') {
       WarningAggregator.addWarningAndroid(
@@ -91,20 +78,20 @@ const androidPlugin: ConfigPlugin<Props> = (config, props={}) => {
 
   config = withAndroidManifest(config, async (config) => {
 
-    console.log("[react-native-background-geolocation] Adding license-keys to AndroidManifest:", props);
+    console.log("[react-native-background-geolocation] Adding license-key to AndroidManifest:", props);
 
     const mainApplication = getMainApplicationOrThrow(config.modResults);
-
+    
     addMetaDataItemToMainApplication(
       mainApplication,
       META_LICENSE_KEY,
       props.license || "UNDEFINED"
     );
     if (props.hmsLicense) {
-      addMetaDataItemToMainApplication(
+      console.log("[react-native-background-geolocation] ℹ️ hmsLicense is no longer required. The new TSLocationManager v4 license format applies HMS functionality as an entitlement within the BackgroundGeolocation license key.  You can remove the 'hmsLicense' from your app.json.  Removing from AndroidManifest.");
+      removeMetaDataItemFromMainApplication(
         mainApplication,
-        META_HMS_LICENSE_KEY,
-        props.hmsLicense
+        META_HMS_LICENSE_KEY
       );
     } else {
       removeMetaDataItemFromMainApplication(
@@ -113,10 +100,10 @@ const androidPlugin: ConfigPlugin<Props> = (config, props={}) => {
       );
     }
     if (props.polygonLicense) {
-      addMetaDataItemToMainApplication(
+      console.log("[react-native-background-geolocation] ℹ️ polygonLicense is no longer required. The new TSLocationManager v4 license format applies Polygon functionality as an entitlement within the BackgroundGeolocation license key.  You can remove the 'polygonLicense' from your app.json.  Removing from AndroidManifest.");
+      removeMetaDataItemFromMainApplication(
         mainApplication,
-        META_POLYGON_LICENSE_KEY,
-        props.polygonLicense
+        META_POLYGON_LICENSE_KEY
       );
     } else {
       removeMetaDataItemFromMainApplication(

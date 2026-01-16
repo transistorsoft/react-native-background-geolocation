@@ -16,37 +16,20 @@ let resolveSettingsRequest = function(resolve, request) {
 
 export default class DeviceSettings {
   isIgnoringBatteryOptimizations() {
-    return new Promise((resolve, reject) => {
-      let success = (isIgnoring) => { resolve(isIgnoring) }
-      let failure = (error) => { reject(error) }
-      RNBackgroundGeolocation.isIgnoringBatteryOptimizations(success, failure);
-    });
+    return RNBackgroundGeolocation.isIgnoringBatteryOptimizations();
   }
 
-  showIgnoreBatteryOptimizations() {
-    return new Promise((resolve, reject) => {
-      let success = (request) => { resolveSettingsRequest(resolve, request) }
-      let failure = (error) => { reject(error) }
-      let args = {action: IGNORE_BATTERY_OPTIMIZATIONS};
-      RNBackgroundGeolocation.requestSettings(args, success, failure);
-    });
+  showIgnoreBatteryOptimizations() {    
+    const args = {action: IGNORE_BATTERY_OPTIMIZATIONS};
+    return RNBackgroundGeolocation.requestSettings(args);
   }
 
   showPowerManager() {
-    return new Promise((resolve, reject) => {
-      let success = (request) => { resolveSettingsRequest(resolve, request) }
-      let failure = (error) => { reject(error) }
-      let args = {action: POWER_MANAGER};
-      RNBackgroundGeolocation.requestSettings(args, success, failure);
-    });
+    const args = {action: POWER_MANAGER};
+    return RNBackgroundGeolocation.requestSettings(args);
   }
 
   show(request) {
-    return new Promise((resolve, reject) => {
-      let success = (success) => { resolve(success) }
-      let failure = (error) => { reject(error) }
-      let args = {action: request.action};
-      RNBackgroundGeolocation.showSettings(args, success, failure);
-    });
+    return RNBackgroundGeolocation.showSettings(args);
   }
 }

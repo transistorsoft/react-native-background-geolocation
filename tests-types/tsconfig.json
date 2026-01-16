@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "skipLibCheck": true,
+    "baseUrl": "..",
+    "paths": {
+      "react-native-background-geolocation": ["src/index.d.ts"]
+    }
+  },
+  "include": ["./**/*.ts"]
+}

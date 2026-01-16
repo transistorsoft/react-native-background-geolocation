@@ -2,6 +2,7 @@
 docs
 help
 bin
+example
 README.md
 ISSUE_TEMPLATE.md
 *.md

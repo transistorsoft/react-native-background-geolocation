@@ -1,0 +1,49 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "../../background-geolocation-types/src/docs-entry.ts"
+  ],
+  "tsconfig": "../../background-geolocation-types/tsconfig.json",
+
+  "name": "react-native-background-geolocation",
+  "favicon": "../../background-geolocation-types/assets/images/favicon.ico",
+  "includeVersion": false,
+  "out": "docs",
+  "readme": "none",
+  "disableSources": true,
+
+  "sort": ["source-order"],
+  "highlightLanguages": [
+    "ts",
+    "js",
+    "json",
+    "xml",
+    "bash",
+    "console",
+    "erb",
+    "java"
+  ],
+
+  "categoryOrder": [
+    "Primary API",
+    "Config",
+    "Events",
+    "Data",
+    "Logger",
+    "Device",
+    "*"
+  ],
+  "categorizeByGroup": false,
+  "useFirstParagraphOfCommentAsSummary": true,
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+
+  "gitRevision": "main",
+
+  "plugin": [
+    "../../background-geolocation-types/tools/typedoc-plugin-gitlink/index.cjs",
+    "../../background-geolocation-types/tools/typedoc-plugin-mediaplayer/index.cjs",
+    "../../background-geolocation-types/tools/typedoc-plugin-site/index.cjs"
+  ]
+}

@@ -101,10 +101,11 @@ function AppContent() {
   const initializeBackgroundGeolocation = async (org: string, username: string) => {
     if (isInitialized) return; // Prevent double initialization
     
-    BackgroundGeolocation.logger.debug("************** INITIALIZING BACKGROUND GEOLOCATION **************");
+    // Poke a custom log message into SDK logs.
+    BackgroundGeolocation.logger.debug("INITIALIZING BACKGROUND GEOLOCATION");
 
     try {
-      // Get or create token with the registered credentials
+      // Get or create demo server (tracker.transistorsoft.com) token with the registered credentials
       const token = await BackgroundGeolocation.findOrCreateTransistorAuthorizationToken(org, username);
       
       const state = await BackgroundGeolocation.ready({
@@ -115,9 +116,8 @@ function AppContent() {
         },
         geolocation: {
           desiredAccuracy: BackgroundGeolocation.DesiredAccuracy.High,
-          distanceFilter: 50,
-          locationUpdateInterval: 1000,
-          stopTimeout: 1,
+          distanceFilter: 10,          
+          stopTimeout: 5,
         },
         http: {
           autoSync: true,
@@ -147,7 +147,7 @@ function AppContent() {
     }
   };
 
-  // Set up event listeners ONLY after initialization
+  // Set up event listeners
   useEffect(() => {
     
     // Subscribe to events

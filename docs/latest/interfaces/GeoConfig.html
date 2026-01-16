@@ -1,0 +1,626 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>GeoConfig | react-native-background-geolocation@5.0.0</title><link rel="icon" href="../assets/favicon.ico"/><meta name="description" content="Documentation for react-native-background-geolocation@5.0.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="../index.html" class="title">react-native-background-geolocation@5.0.0</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb" aria-label="Breadcrumb"><li><a href="" aria-current="page">GeoConfig</a></li></ul><h1>Interface GeoConfig</h1></div><section class="tsd-panel tsd-comment"><div class="tsd-comment tsd-typography"><p><strong>Geolocation Configuration</strong></p>
+<p><a href="#" class="tsd-kind-interface">GeoConfig</a> defines all geolocation-related options for the
+<a href="BackgroundGeolocation.html" class="tsd-kind-interface">BackgroundGeolocation</a> SDK.</p>
+<p>These parameters control:</p>
+<ul>
+<li>how often the SDK acquires locations,</li>
+<li>how accurate those locations should be,</li>
+<li>how long tracking persists when the device becomes stationary,</li>
+<li>platform-specific permission behavior,</li>
+<li>filtering / denoising rules,</li>
+<li>elastic responsiveness to motion and idling.</li>
+</ul>
+<p><strong>Overview</strong></p>
+<p><a href="#" class="tsd-kind-interface">GeoConfig</a> is supplied via <a href="Config.html#geolocation" class="tsd-kind-property">Config.geolocation</a> when calling
+<a href="BackgroundGeolocation.html#ready" class="tsd-kind-method">BackgroundGeolocation.ready</a> or <a href="BackgroundGeolocation.html#setconfig" class="tsd-kind-method">BackgroundGeolocation.setConfig</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accuracy</strong></td>
+<td>Precision and noise control via <a href="#desiredaccuracy" class="tsd-kind-property">desiredAccuracy</a>, <a href="#distancefilter" class="tsd-kind-property">distanceFilter</a>, <a href="#locationupdateinterval" class="tsd-kind-property">locationUpdateInterval</a>, <a href="#fastestlocationupdateinterval" class="tsd-kind-property">fastestLocationUpdateInterval</a>.</td>
+</tr>
+<tr>
+<td><strong>Elasticity</strong></td>
+<td>Controls dynamic location sampling-rate: <a href="#disableelasticity" class="tsd-kind-property">disableElasticity</a>, <a href="#elasticitymultiplier" class="tsd-kind-property">elasticityMultiplier</a>, <a href="#stoptimeout" class="tsd-kind-property">stopTimeout</a>.</td>
+</tr>
+<tr>
+<td><strong>Permissions</strong></td>
+<td>Platform authorization and alerts: <a href="#locationauthorizationrequest" class="tsd-kind-property">locationAuthorizationRequest</a>, <a href="#locationauthorizationalert" class="tsd-kind-property">locationAuthorizationAlert</a>, <a href="#disablelocationauthorizationalert" class="tsd-kind-property">disableLocationAuthorizationAlert</a>.</td>
+</tr>
+<tr>
+<td><strong>Geofencing</strong></td>
+<td>Geofence proximity, accuracy mode, and initial triggers.</td>
+</tr>
+<tr>
+<td><strong>Filtering</strong></td>
+<td>Fine-grained denoising via <a href="LocationFilter.html" class="tsd-kind-interface">LocationFilter</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<pre><code class="ts"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">, {</span><br/><span class="hl-1">  </span><span class="hl-2">Config</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">GeoConfig</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">DesiredAccuracy</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">LocationFilter</span><br/><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;react-native-background-geolocation&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">config</span><span class="hl-1">: </span><span class="hl-6">Config</span><span class="hl-1"> = {</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-9">// High-precision GPS</span><br/><span class="hl-1">    </span><span class="hl-2">desiredAccuracy:</span><span class="hl-1"> </span><span class="hl-2">DesiredAccuracy</span><span class="hl-1">.</span><span class="hl-2">High</span><span class="hl-1">,</span><br/><br/><span class="hl-1">    </span><span class="hl-9">// Move at least 50m before recording next location</span><br/><span class="hl-1">    </span><span class="hl-2">distanceFilter:</span><span class="hl-1"> </span><span class="hl-7">50</span><span class="hl-1">,</span><br/><br/><span class="hl-1">    </span><span class="hl-9">// Consider stationary after 5 minutes with no motion</span><br/><span class="hl-1">    </span><span class="hl-2">stopTimeout:</span><span class="hl-1"> </span><span class="hl-7">5</span><span class="hl-1">,</span><br/><br/><span class="hl-1">    </span><span class="hl-9">// Automatically stop tracking after 120 minutes of continuous operation</span><br/><span class="hl-1">    </span><span class="hl-2">stopAfterElapsedMinutes:</span><span class="hl-1"> </span><span class="hl-7">120</span><span class="hl-1">,</span><br/><br/><span class="hl-1">    </span><span class="hl-9">// iOS: Show blue bar / pill when active in background</span><br/><span class="hl-1">    </span><span class="hl-2">showsBackgroundLocationIndicator:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><br/><span class="hl-1">    </span><span class="hl-9">// Noise-reduction / denoising filter</span><br/><span class="hl-1">    </span><span class="hl-2">filter:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">policy:</span><span class="hl-1"> </span><span class="hl-3">&quot;adjust&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">maxImpliedSpeed:</span><span class="hl-1"> </span><span class="hl-7">60</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">odometerAccuracyThreshold:</span><span class="hl-1"> </span><span class="hl-7">20</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">trackingAccuracyThreshold:</span><span class="hl-1"> </span><span class="hl-7">100</span><br/><span class="hl-1">    },</span><br/><br/><span class="hl-1">    </span><span class="hl-9">// Geofencing behavior</span><br/><span class="hl-1">    </span><span class="hl-2">geofenceProximityRadius:</span><span class="hl-1"> </span><span class="hl-7">1000</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">geofenceInitialTriggerEntry:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">geofenceModeHighAccuracy:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><br/><span class="hl-1">    </span><span class="hl-9">// Permissions / alerts (iOS)</span><br/><span class="hl-1">    </span><span class="hl-2">locationAuthorizationRequest:</span><span class="hl-1"> </span><span class="hl-3">&quot;Always&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">disableLocationAuthorizationAlert:</span><span class="hl-1"> </span><span class="hl-4">false</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">locationAuthorizationAlert:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">titleWhenNotEnabled:</span><span class="hl-1"> </span><span class="hl-3">&quot;Location Required&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">message:</span><span class="hl-1"> </span><span class="hl-3">&quot;Enable location access for full functionality.&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">cancelButton:</span><span class="hl-1"> </span><span class="hl-3">&quot;Cancel&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">settingsButton:</span><span class="hl-1"> </span><span class="hl-3">&quot;Settings&quot;</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  },</span><br/><br/><span class="hl-1">  </span><span class="hl-9">// Additional compound config groups</span><br/><span class="hl-1">  </span><span class="hl-2">http:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">url:</span><span class="hl-1"> </span><span class="hl-3">&quot;https://example.com/api/locations&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">autoSync:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">batchSync:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">maxBatchSize:</span><span class="hl-1"> </span><span class="hl-7">10</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">method:</span><span class="hl-1"> </span><span class="hl-3">&quot;POST&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">params:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">user_id:</span><span class="hl-1"> </span><span class="hl-7">1234</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">trip_id:</span><span class="hl-1"> </span><span class="hl-7">5678</span><br/><span class="hl-1">    },</span><br/><span class="hl-1">    </span><span class="hl-2">headers:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-3">&quot;X-FOO&quot;</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-3">&quot;bar&quot;</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  },</span><br/><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">stopOnTerminate:</span><span class="hl-1"> </span><span class="hl-4">false</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">startOnBoot:</span><span class="hl-1"> </span><span class="hl-4">true</span><br/><span class="hl-1">  },</span><br/><br/><span class="hl-1">  </span><span class="hl-2">logging:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">debug:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">logLevel:</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-5">LOG_LEVEL_VERBOSE</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">};</span><br/><br/><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">(</span><span class="hl-2">config</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Migration from Legacy Flat Config</strong></p>
+<p>Previously, geolocation options were configured directly on the root
+<a href="Config.html" class="tsd-kind-interface">Config</a> object:</p>
+<pre><code class="ts"><span class="hl-9">// Legacy (flat)</span><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">desiredAccuracy:</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-5">DESIRED_ACCURACY_HIGH</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">distanceFilter:</span><span class="hl-1"> </span><span class="hl-7">10</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">stopTimeout:</span><span class="hl-1"> </span><span class="hl-7">5</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">stationaryRadius:</span><span class="hl-1"> </span><span class="hl-7">150</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">locationTimeout:</span><span class="hl-1"> </span><span class="hl-7">60</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>These options now belong to this <a href="#" class="tsd-kind-interface">GeoConfig</a> group:</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">desiredAccuracy:</span><span class="hl-1"> </span><span class="hl-2">DesiredAccuracy</span><span class="hl-1">.</span><span class="hl-2">High</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">distanceFilter:</span><span class="hl-1"> </span><span class="hl-7">10</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">stopTimeout:</span><span class="hl-1"> </span><span class="hl-7">5</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">stationaryRadius:</span><span class="hl-1"> </span><span class="hl-7">150</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">locationTimeout:</span><span class="hl-1"> </span><span class="hl-7">60</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Legacy flat fields remain supported for backward compatibility, but they are now
+marked <strong>deprecated</strong>. Prefer <a href="Config.html#geolocation" class="tsd-kind-property">Config.geolocation</a> going forward for clarity and structure.</p>
+<p><strong>See also</strong></p>
+<ul>
+<li><a href="LocationFilter.html" class="tsd-kind-interface">LocationFilter</a></li>
+</ul>
+</div></section><div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">GeoConfig</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#desiredaccuracy">desiredAccuracy</a><span class="tsd-signature-symbol">?:</span> <a href="../variables/DesiredAccuracy.html" class="tsd-signature-type tsd-kind-variable">DesiredAccuracy</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#activitytype">activityType</a><span class="tsd-signature-symbol">?:</span> <a href="../variables/ActivityType.html" class="tsd-signature-type tsd-kind-variable">ActivityType</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#distancefilter">distanceFilter</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#stationaryradius">stationaryRadius</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#stoptimeout">stopTimeout</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#stoponstationary">stopOnStationary</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#pauseslocationupdatesautomatically">pausesLocationUpdatesAutomatically</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#disableelasticity">disableElasticity</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#elasticitymultiplier">elasticityMultiplier</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#stopafterelapsedminutes">stopAfterElapsedMinutes</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#usesignificantchangesonly">useSignificantChangesOnly</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#disablelocationauthorizationalert">disableLocationAuthorizationAlert</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#locationauthorizationrequest">locationAuthorizationRequest</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">&quot;Always&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;WhenInUse&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;Any&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#locationauthorizationalert">locationAuthorizationAlert</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#showsbackgroundlocationindicator">showsBackgroundLocationIndicator</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#locationupdateinterval">locationUpdateInterval</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#fastestlocationupdateinterval">fastestLocationUpdateInterval</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#defertime">deferTime</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#allowidenticallocations">allowIdenticalLocations</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#geofenceproximityradius">geofenceProximityRadius</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#geofencemodehighaccuracy">geofenceModeHighAccuracy</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#disablestopdetection">disableStopDetection</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#geofenceinitialtriggerentry">geofenceInitialTriggerEntry</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#filter">filter</a><span class="tsd-signature-symbol">?:</span> <a href="LocationFilter.html" class="tsd-signature-type tsd-kind-interface">LocationFilter</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#enabletimestampmeta">enableTimestampMeta</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><section class="tsd-panel-group tsd-index-group"><section class="tsd-panel tsd-index-panel"><details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h5 class="tsd-index-heading uppercase">Index</h5></summary><div class="tsd-accordion-details"><section class="tsd-index-section"><h3 class="tsd-index-heading">Geolocation</h3><div class="tsd-index-list"><a href="#activitytype" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>activity<wbr/>Type?</span></a>
+</div></section><section class="tsd-index-section"><h3 class="tsd-index-heading">Other</h3><div class="tsd-index-list"><a href="#desiredaccuracy" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>desired<wbr/>Accuracy?</span></a>
+<a href="#distancefilter" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>distance<wbr/>Filter?</span></a>
+<a href="#stationaryradius" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stationary<wbr/>Radius?</span></a>
+<a href="#stoptimeout" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stop<wbr/>Timeout?</span></a>
+<a href="#stoponstationary" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stop<wbr/>On<wbr/>Stationary?</span></a>
+<a href="#pauseslocationupdatesautomatically" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>pauses<wbr/>Location<wbr/>Updates<wbr/>Automatically?</span></a>
+<a href="#disableelasticity" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>disable<wbr/>Elasticity?</span></a>
+<a href="#elasticitymultiplier" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>elasticity<wbr/>Multiplier?</span></a>
+<a href="#stopafterelapsedminutes" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stop<wbr/>After<wbr/>Elapsed<wbr/>Minutes?</span></a>
+<a href="#usesignificantchangesonly" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>use<wbr/>Significant<wbr/>Changes<wbr/>Only?</span></a>
+<a href="#disablelocationauthorizationalert" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>disable<wbr/>Location<wbr/>Authorization<wbr/>Alert?</span></a>
+<a href="#locationauthorizationrequest" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>location<wbr/>Authorization<wbr/>Request?</span></a>
+<a href="#locationauthorizationalert" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>location<wbr/>Authorization<wbr/>Alert?</span></a>
+<a href="#showsbackgroundlocationindicator" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>shows<wbr/>Background<wbr/>Location<wbr/>Indicator?</span></a>
+<a href="#locationupdateinterval" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>location<wbr/>Update<wbr/>Interval?</span></a>
+<a href="#fastestlocationupdateinterval" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>fastest<wbr/>Location<wbr/>Update<wbr/>Interval?</span></a>
+<a href="#defertime" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>defer<wbr/>Time?</span></a>
+<a href="#allowidenticallocations" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>allow<wbr/>Identical<wbr/>Locations?</span></a>
+<a href="#geofenceproximityradius" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>geofence<wbr/>Proximity<wbr/>Radius?</span></a>
+<a href="#geofencemodehighaccuracy" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>geofence<wbr/>Mode<wbr/>High<wbr/>Accuracy?</span></a>
+<a href="#disablestopdetection" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>disable<wbr/>Stop<wbr/>Detection?</span></a>
+<a href="#geofenceinitialtriggerentry" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>geofence<wbr/>Initial<wbr/>Trigger<wbr/>Entry?</span></a>
+<a href="#filter" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>filter?</span></a>
+<a href="#enabletimestampmeta" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>enable<wbr/>Timestamp<wbr/>Meta?</span></a>
+</div></section></div></details></section></section><details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Geolocation"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h2>Geolocation</h2></summary><section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="activitytype"><code class="tsd-tag">Optional</code><span>activity<wbr/>Type</span><a href="#activitytype" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">activityType</span><span class="tsd-signature-symbol">?:</span> <a href="../variables/ActivityType.html" class="tsd-signature-type tsd-kind-variable">ActivityType</a></div><div class="tsd-comment tsd-typography"><p><strong><code>[iOS only]</code></strong> Specifies the Core Motion activity type used by iOS to
+optimize its internal stop-detection algorithm.</p>
+<p>Apple is intentionally vague about how this affects motion interpretation,
+but each activity type provides platform hints about the expected movement
+pattern (e.g., automotive navigation, fitness, airborne).</p>
+<p>Available values are defined as constants on <a href="../variables/ActivityType.html" class="tsd-kind-variable">ActivityType</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../variables/ActivityType.html#other" class="tsd-kind-property">ActivityType.Other</a></td>
+</tr>
+<tr>
+<td><a href="../variables/ActivityType.html#automotivenavigation" class="tsd-kind-property">ActivityType.AutomotiveNavigation</a></td>
+</tr>
+<tr>
+<td><a href="../variables/ActivityType.html#fitness" class="tsd-kind-property">ActivityType.Fitness</a></td>
+</tr>
+<tr>
+<td><a href="../variables/ActivityType.html#othernavigation" class="tsd-kind-property">ActivityType.OtherNavigation</a></td>
+</tr>
+<tr>
+<td><a href="../variables/ActivityType.html#airborne" class="tsd-kind-property">ActivityType.Airborne</a></td>
+</tr>
+</tbody>
+</table>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example">Example<a href="#example" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">activityType:</span><span class="hl-1"> </span><span class="hl-2">ActivityType</span><span class="hl-1">.</span><span class="hl-2">Other</span><span class="hl-1">,</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Note:</strong> For more details, see Apple docs:<br>
+<a href="https://developer.apple.com/reference/corelocation/cllocationmanager/1620567-activitytype">https://developer.apple.com/reference/corelocation/cllocationmanager/1620567-activitytype</a></p>
+</div></div></section></section></details><details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Other"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h2>Other</h2></summary><section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="desiredaccuracy"><code class="tsd-tag">Optional</code><span>desired<wbr/>Accuracy</span><a href="#desiredaccuracy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">desiredAccuracy</span><span class="tsd-signature-symbol">?:</span> <a href="../variables/DesiredAccuracy.html" class="tsd-signature-type tsd-kind-variable">DesiredAccuracy</a></div><div class="tsd-comment tsd-typography"><p>Specify the desired-accuracy of the geolocation system.</p>
+<p>The following constants are defined upon the <a href="BackgroundGeolocation.html" class="tsd-kind-interface">BackgroundGeolocation</a> class:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Location Providers</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../variables/DesiredAccuracy.html#navigation" class="tsd-kind-property">DesiredAccuracy.Navigation</a></td>
+<td>(<strong>iOS only</strong>) GPS + Wifi + Cellular</td>
+<td>Highest power; highest accuracy</td>
+</tr>
+<tr>
+<td><a href="../variables/DesiredAccuracy.html#high" class="tsd-kind-property">DesiredAccuracy.High</a></td>
+<td>GPS + Wifi + Cellular</td>
+<td>Highest power; highest accuracy</td>
+</tr>
+<tr>
+<td><a href="../variables/DesiredAccuracy.html#medium" class="tsd-kind-property">DesiredAccuracy.Medium</a></td>
+<td>Wifi + Cellular</td>
+<td>Medium power; Medium accuracy;</td>
+</tr>
+<tr>
+<td><a href="../variables/DesiredAccuracy.html#low" class="tsd-kind-property">DesiredAccuracy.Low</a></td>
+<td>Wifi (low power) + Cellular</td>
+<td>Lower power; No GPS</td>
+</tr>
+<tr>
+<td><a href="../variables/DesiredAccuracy.html#verylow" class="tsd-kind-property">DesiredAccuracy.VeryLow</a></td>
+<td>Cellular only</td>
+<td>Lowest power; lowest accuracy</td>
+</tr>
+<tr>
+<td><a href="../variables/DesiredAccuracy.html#lowest" class="tsd-kind-property">DesiredAccuracy.Lowest</a></td>
+<td>(<strong>iOS only</strong>)</td>
+<td>Lowest power; lowest accuracy</td>
+</tr>
+</tbody>
+</table>
+<h3 id="⚠️-note" class="tsd-anchor-link">⚠️ Note:<a href="#⚠️-note" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>Only <strong><code>DESIRED_ACCURACY_HIGH</code></strong> uses GPS.  <code>speed</code>, <code>heading</code> and <code>altitude</code> are available only from GPS.</li>
+</ul>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-1">Example<a href="#example-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="typescript"><span class="hl-2">BackgroundGeoloction</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">desiredAccuracy:</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-2">DesiredAccuracy</span><span class="hl-1">.</span><span class="hl-2">High</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>For platform-specific information about location accuracy, see the corresponding API docs:</p>
+<ul>
+<li><a href="https://developer.android.com/reference/com/google/android/gms/location/LocationRequest.html#PRIORITY_BALANCED_POWER_ACCURACY">Android</a></li>
+<li><a href="https://developer.apple.com/reference/corelocation/cllocationmanager/1423836-desiredaccuracy?language=objc">iOS</a></li>
+</ul>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="distancefilter"><code class="tsd-tag">Optional</code><span>distance<wbr/>Filter</span><a href="#distancefilter" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">distanceFilter</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>The minimum distance (measured in meters) a device must move horizontally before an update event is generated.</p>
+<p>However, by default, <strong><code>distanceFilter</code></strong> is elastically auto-calculated by the plugin:  When speed increases, <strong><code>distanceFilter</code></strong> increases;  when speed decreases, so too does <strong><code>distanceFilter</code></strong>.</p>
+<h3 id="ℹ️-note" class="tsd-anchor-link">ℹ️ Note:<a href="#ℹ️-note" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>To disable this behavior, configure <a href="#disableelasticity" class="tsd-kind-property">disableElasticity</a> <strong><code>true</code></strong>.</li>
+<li>To control the scale of the automatic <code>distanceFilter</code> calculation, see {<a href="#elasticitymultiplier" class="tsd-kind-property">elasticityMultiplier</a></li>
+</ul>
+<p><code>distanceFilter</code> is auto-scaled by rounding speed to the nearest <code>5 m/s</code> and adding <code>distanceFilter</code> meters for each <code>5 m/s</code> increment.</p>
+<p>For example, at biking speed of 7.7 m/s with a configured <code>distanceFilter: 30</code>:</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-2">Example<a href="#example-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code><span class="hl-1">  </span><span class="hl-2">rounded_speed</span><span class="hl-1"> = </span><span class="hl-8">round</span><span class="hl-1">(</span><span class="hl-7">7.7</span><span class="hl-1">, </span><span class="hl-7">5</span><span class="hl-1">)</span><br/><span class="hl-1">  </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-7">10</span><br/><span class="hl-1">  </span><span class="hl-2">multiplier</span><span class="hl-1"> = </span><span class="hl-2">rounded_speed</span><span class="hl-1"> / </span><span class="hl-7">5</span><br/><span class="hl-1">  </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-7">10</span><span class="hl-1"> / </span><span class="hl-7">5</span><span class="hl-1"> = </span><span class="hl-7">2</span><br/><span class="hl-1">  </span><span class="hl-2">adjusted_distance_filter</span><span class="hl-1"> = </span><span class="hl-2">multiplier</span><span class="hl-1"> * </span><span class="hl-2">distanceFilter</span><br/><span class="hl-1">  </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-7">2</span><span class="hl-1"> * </span><span class="hl-7">30</span><span class="hl-1"> = </span><span class="hl-7">60</span><span class="hl-1"> </span><span class="hl-2">meters</span>
+</code><button>Copy</button></pre>
+
+<p>At highway speed of <code>27 m/s</code> with a configured <code>distanceFilter: 50</code>:</p>
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-3">Example<a href="#example-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code><span class="hl-1">  </span><span class="hl-2">rounded_speed</span><span class="hl-1"> = </span><span class="hl-8">round</span><span class="hl-1">(</span><span class="hl-7">27</span><span class="hl-1">, </span><span class="hl-7">5</span><span class="hl-1">)</span><br/><span class="hl-1">  </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-7">30</span><br/><span class="hl-1">  </span><span class="hl-2">multiplier</span><span class="hl-1"> = </span><span class="hl-2">rounded_speed</span><span class="hl-1"> / </span><span class="hl-7">5</span><br/><span class="hl-1">  </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-7">30</span><span class="hl-1"> / </span><span class="hl-7">5</span><span class="hl-1"> = </span><span class="hl-7">6</span><br/><span class="hl-1">  </span><span class="hl-2">adjusted_distance_filter</span><span class="hl-1"> = </span><span class="hl-2">multiplier</span><span class="hl-1"> * </span><span class="hl-2">distanceFilter</span><span class="hl-1"> * </span><span class="hl-2">elasticityMultipiler</span><br/><span class="hl-1">  </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-7">6</span><span class="hl-1"> * </span><span class="hl-7">50</span><span class="hl-1"> = </span><span class="hl-7">300</span><span class="hl-1"> </span><span class="hl-2">meters</span>
+</code><button>Copy</button></pre>
+
+<p>Note the following real example of &quot;elasticity&quot; on highway 101 towards San Francisco as the driver slows down while running into
+slower traffic — locations become compressed as <code>distanceFilter</code> decreases.</p>
+<p><img src="https://dl.dropboxusercontent.com/s/uu0hs0sediw26ar/distance-filter-highway.png?dl=1" alt="distanceFilter at highway speed"></p>
+<p>Compare now background-geolocation in the scope of a city.  In this image, the left-hand track is from a cab-ride, while the right-hand
+track is walking speed.</p>
+<p><img src="https://dl.dropboxusercontent.com/s/yx8uv2zsimlogsp/distance-filter-city.png?dl=1" alt="distanceFilter at city scale"></p>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="stationaryradius"><code class="tsd-tag">Optional</code><span>stationary<wbr/>Radius</span><a href="#stationaryradius" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">stationaryRadius</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>The minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage.</p>
+<p>⚠️ Note: The device will not detect the exact moment it moves out of the stationary-radius.  In normal conditions, it will typically
+take <strong>~200 meters</strong> of movement before the plugin begins tracking.</p>
+<p>Configuring <strong><code>stationaryRadius: 0</code></strong> has <strong>NO EFFECT</strong>.  In fact the plugin enforces a minimum <strong><code>stationaryRadius</code></strong> of <code>25</code> and
+in-practice, the native API won't respond for at least 200 meters.</p>
+<p>The following image shows the typical distance iOS requires to detect exit of the <strong><code>stationaryRadius</code></strong>:</p>
+<ul>
+<li><em>Green polylines</em>: represent a transition from <strong>stationary</strong> state to <strong>moving</strong> (<strong>~200 meters</strong>).</li>
+<li><em>Red circles</em>: locations where the plugin entered the <strong>stationary</strong> state.</li>
+</ul>
+<p><img src="https://dl.dropboxusercontent.com/s/vnio90swhs6xmqm/screenshot-ios-stationary-exit.png?dl=1" alt=""></p>
+<p>ℹ️ See also:</p>
+<ul>
+<li>📘 <a href="github:wiki/Philosophy-of-Operation">Philosophy of Operation</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="stoptimeout"><code class="tsd-tag">Optional</code><span>stop<wbr/>Timeout</span><a href="#stoptimeout" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">stopTimeout</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Minutes to wait in <em>moving</em> state with no movement before considering the device <em>stationary</em>.</p>
+<p>Defaults to <code>5</code> minutes.  When in the <em>moving</em> state, specifies the number of minutes to wait before turning off location-services and
+transitioning to <em>stationary</em> state after the ActivityRecognition System detects the device is <code>STILL</code>.  An example use-case for this
+configuration is to delay GPS OFF while in a car waiting at a traffic light.</p>
+<p>:warning: Setting a very long <code>stopTimeout</code> will cause the device's location API to remain ON while the device is potentially motionless for extended periods, which may have a significant impact on battery life.  It depends upon your use-case.</p>
+<h3 id="ℹ️-see-also" class="tsd-anchor-link">ℹ️ See also:<a href="#ℹ️-see-also" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><a href="BackgroundGeolocation.html#onmotionchange" class="tsd-kind-method">BackgroundGeolocation.onMotionChange</a></li>
+<li>📘 <a href="github:wiki/Philosophy-of-Operation">Philosophy of Operation</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="stoponstationary"><code class="tsd-tag">Optional</code><span>stop<wbr/>On<wbr/>Stationary</span><a href="#stoponstationary" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">stopOnStationary</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Automatically <a href="BackgroundGeolocation.html#stop" class="tsd-kind-method">BackgroundGeolocation.stop</a> when the <a href="#stoptimeout" class="tsd-kind-property">stopTimeout</a> elapses.</p>
+<p>The plugin can optionally automatically stop tracking when the <a href="#stoptimeout" class="tsd-kind-property">stopTimeout</a> timer elapses.  For example, when the plugin
+first fires <a href="BackgroundGeolocation.html#onmotionchange" class="tsd-kind-method">BackgroundGeolocation.onMotionChange</a> into the <em>moving</em> state, the next time an <em>onMotionChange</em> event occurs
+into the <em>stationary</em> state, the plugin will have automatically called <a href="BackgroundGeolocation.html#stop" class="tsd-kind-method">BackgroundGeolocation.stop</a> upon itself.</p>
+<p>⚠️ <code>stopOnStationary</code> will <strong>only</strong> occur due to <a href="#stoptimeout" class="tsd-kind-property">stopTimeout</a> timer elapse.  It will <strong>not</strong> occur by manually executing
+<a href="BackgroundGeolocation.html#changepace" class="tsd-kind-method">BackgroundGeolocation.changePace</a> <strong><code>false</code></strong>.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-4">Example<a href="#example-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="typescript"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">stopOnStationary:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">isMoving:</span><span class="hl-1"> </span><span class="hl-4">true</span><br/><span class="hl-1">}, (</span><span class="hl-2">state</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">start</span><span class="hl-1">();</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="pauseslocationupdatesautomatically"><code class="tsd-tag">Optional</code><span>pauses<wbr/>Location<wbr/>Updates<wbr/>Automatically</span><a href="#pauseslocationupdatesautomatically" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">pausesLocationUpdatesAutomatically</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p><strong><code>[iOS only]</code></strong> Prevent the iOS location API from <em>ever</em> automatically turning off.</p>
+<p><strong>⚠️ WARNING:</strong><br>
+This option should almost always remain <code>undefined</code>.<br>
+Only set this if you know <strong>exactly</strong> what you're doing.</p>
+<p>By default, the SDK automatically turns <strong>off</strong> iOS location-services when the
+device remains stationary for <a href="#stoptimeout" class="tsd-kind-property">stopTimeout</a> minutes.</p>
+<p>When this option is explicitly set to <code>false</code>, location-services will <strong>never</strong>
+be turned off. In this mode:</p>
+<ul>
+<li><a href="ActivityConfig.html#disablestopdetection" class="tsd-kind-property">ActivityConfig.disableStopDetection</a> will automatically be forced to <code>true</code></li>
+<li>You are responsible for disabling tracking when you no longer need it</li>
+<li>This can have <strong>severe battery-drain implications</strong></li>
+<li><a href="AppConfig.html#preventsuspend" class="tsd-kind-property">AppConfig.preventSuspend</a> will no longer function</li>
+</ul>
+<p>This option exists only for highly specialized use-cases and should generally
+<strong>not</strong> be used in production applications.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="disableelasticity"><code class="tsd-tag">Optional</code><span>disable<wbr/>Elasticity</span><a href="#disableelasticity" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">disableElasticity</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Defaults to <strong><code>false</code></strong>.  Set <strong><code>true</code></strong> to disable automatic, speed-based <a href="#distancefilter" class="tsd-kind-property">distanceFilter</a> auto-scaling.  By default, the SDK automatically
+increases <a href="#distancefilter" class="tsd-kind-property">distanceFilter</a> as speed increases (and decreases it as speed <em>decreases</em>) in order to record fewer locations and conserve energy.</p>
+<p>Note the following real example of &quot;elasticity&quot; on highway 101 towards San Francisco as the driver slows down while running into slower
+traffic — locations become compressed as <a href="#distancefilter" class="tsd-kind-property">distanceFilter</a> decreases.</p>
+<p><img src="https://dl.dropboxusercontent.com/s/uu0hs0sediw26ar/distance-filter-highway.png?dl=1" alt="distanceFilter at highway speed"></p>
+<h3 id="ℹ️-see-also-1" class="tsd-anchor-link">ℹ️ See also:<a href="#ℹ️-see-also-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><a href="#elasticitymultiplier" class="tsd-kind-property">elasticityMultiplier</a></li>
+<li><a href="#distancefilter" class="tsd-kind-property">distanceFilter</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="elasticitymultiplier"><code class="tsd-tag">Optional</code><span>elasticity<wbr/>Multiplier</span><a href="#elasticitymultiplier" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">elasticityMultiplier</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Controls the scale of automatic speed-based <a href="#distancefilter" class="tsd-kind-property">distanceFilter</a> elasticity.</p>
+<p>Increasing <code>elasticityMultiplier</code> will result in fewer location samples as speed increases.  A value of <code>0</code> has the same effect as
+<a href="#disableelasticity" class="tsd-kind-property">disableElasticity</a> <strong><code>true</code></strong>.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="stopafterelapsedminutes"><code class="tsd-tag">Optional</code><span>stop<wbr/>After<wbr/>Elapsed<wbr/>Minutes</span><a href="#stopafterelapsedminutes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">stopAfterElapsedMinutes</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Automatically <a href="BackgroundGeolocation.html#stop" class="tsd-kind-method">BackgroundGeolocation.stop</a> tracking after <em>x</em> minutes.</p>
+<p>The plugin can optionally automatically <a href="BackgroundGeolocation.html#stop" class="tsd-kind-method">BackgroundGeolocation.stop</a> after some number of minutes elapses after the <a href="BackgroundGeolocation.html#start" class="tsd-kind-method">BackgroundGeolocation.start</a> method was called.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-5">Example<a href="#example-5" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="typescript"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">stopAfterElapsedMinutes:</span><span class="hl-1"> </span><span class="hl-7">30</span><br/><span class="hl-1">}).</span><span class="hl-8">then</span><span class="hl-1">((</span><span class="hl-2">state</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">start</span><span class="hl-1">();  </span><span class="hl-9">// &lt;-- plugin will automatically #stop in 30 minutes</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="usesignificantchangesonly"><code class="tsd-tag">Optional</code><span>use<wbr/>Significant<wbr/>Changes<wbr/>Only</span><a href="#usesignificantchangesonly" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">useSignificantChangesOnly</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Set <code>true</code> in order to disable constant background-tracking.  Locations will be recorded only periodically.</p>
+<p>Defaults to <code>false</code>.  A location will be recorded only every <code>500</code> to <code>1000</code> meters (can be higher in non urban environments; depends upon the spacing of Cellular towers).  Many of the plugin's configuration parameters <strong>will have no effect</strong>, such as <a href="#distancefilter" class="tsd-kind-property">distanceFilter</a>, <a href="#stationaryradius" class="tsd-kind-property">stationaryRadius</a>, <a href="#activitytype" class="tsd-kind-property">activityType</a>, etc.</p>
+<p>Using <code>significantChangesOnly: true</code> will provide <strong>significant</strong> power-saving at the expense of fewer recorded locations.</p>
+<p><strong>iOS</strong></p>
+<p>Engages the iOS <a href="https://developer.apple.com/reference/corelocation/cllocationmanager/1423531-startmonitoringsignificantlocati?language=objc">Significant Location Changes API</a> API for only periodic location updates every 500-1000 meters.</p>
+<p>⚠️ If Apple has rejected your application, refusing to grant your app the privilege of using the <strong><code>UIBackgroundMode: &quot;location&quot;</code></strong>, this can be a solution.</p>
+<p><strong>Android</strong></p>
+<p>A location will be recorded several times per hour while the device is in the <em>moving</em> state.  No foreground-service will be run (nor its corresponding persistent <a href="NotificationConfig.html" class="tsd-kind-interface">NotificationConfig</a>).</p>
+<p>Example 1 <strong><code>useSignificantChangesOnly: true</code></strong></p>
+<p><img src="https://dl.dropboxusercontent.com/s/wdl9e156myv5b34/useSignificantChangesOnly.png?dl=1" alt=""></p>
+<p>Example 2 <strong><code>useSignificantChangesOnly: false</code> (Default)</strong></p>
+<p><img src="https://dl.dropboxusercontent.com/s/hcxby3sujqanv9q/useSignificantChangesOnly-false.png?dl=1" alt=""></p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="disablelocationauthorizationalert"><code class="tsd-tag">Optional</code><span>disable<wbr/>Location<wbr/>Authorization<wbr/>Alert</span><a href="#disablelocationauthorizationalert" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">disableLocationAuthorizationAlert</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Disables automatic authorization alert when plugin detects the user has disabled location authorization.</p>
+<p>You will be responsible for handling disabled location authorization by listening to the <a href="BackgroundGeolocation.html#onproviderchange" class="tsd-kind-method">BackgroundGeolocation.onProviderChange</a> event.</p>
+<p>By default, the plugin automatically shows a native alert to the user when location-services are disabled, directing them to the settings screen.  If you <strong>do not</strong> desire this automated behavior, set <code>disableLocationAuthorizationAlert: true</code>.</p>
+<p><strong>iOS</strong></p>
+<p>The iOS alert dialog text elements can be configured via <a href="#locationauthorizationalert" class="tsd-kind-property">locationAuthorizationAlert</a> and <a href="#locationauthorizationrequest" class="tsd-kind-property">locationAuthorizationRequest</a>.</p>
+<p><img src="https://dl.dropbox.com/s/wk66ave2mzq6m6a/ios-locationAuthorizationAlert.jpg?dl=1" alt=""></p>
+<p><strong>Android</strong></p>
+<p>Android can detect when the user has configured the device's <em>Settings-&gt;Location</em> in a manner that does not match your location request (eg: <a href="#desiredaccuracy" class="tsd-kind-property">desiredAccuracy</a>).  For example, if the user configures <em>Settings-&gt;Location-&gt;Mode</em> with <em>Battery Saving</em> (ie: Wifi only) but you've specifically requested <a href="../variables/DesiredAccuracy.html#high" class="tsd-kind-property">DesiredAccuracy.High</a> (ie: GPS), Android will show a dialog asking the user to confirm the desired changes.  If the user clicks <code>[OK]</code>, the OS will automcatically modify the Device settings.</p>
+<p><img src="https://dl.dropbox.com/scl/fi/t7bwdrmogr26rcmrbemkt/android-location-resolution-dialog.png?rlkey=won88t8xo5zcei7ktmurebb5t&amp;dl=1" alt=""></p>
+<p>This automated Android dialog will be shown in the following cases:</p>
+<ul>
+<li><a href="BackgroundGeolocation.html#onproviderchange" class="tsd-kind-method">BackgroundGeolocation.onProviderChange</a></li>
+<li><a href="BackgroundGeolocation.html#start" class="tsd-kind-method">BackgroundGeolocation.start</a></li>
+<li><a href="BackgroundGeolocation.html#requestpermission" class="tsd-kind-method">BackgroundGeolocation.requestPermission</a></li>
+</ul>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-6">Example<a href="#example-6" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="typescript"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">onProviderChange</span><span class="hl-1">((</span><span class="hl-2">event</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-8">log</span><span class="hl-1">(</span><span class="hl-3">&quot;[onProviderChange] &quot;</span><span class="hl-1">, </span><span class="hl-2">event</span><span class="hl-1">);</span><br/><br/><span class="hl-1">  </span><span class="hl-0">if</span><span class="hl-1"> (!</span><span class="hl-2">provider</span><span class="hl-1">.</span><span class="hl-2">enabled</span><span class="hl-1">) {</span><br/><span class="hl-1">    </span><span class="hl-8">alert</span><span class="hl-1">(</span><span class="hl-3">&quot;Please enable location services&quot;</span><span class="hl-1">);</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">disableLocationAuthorizationAlert:</span><span class="hl-1"> </span><span class="hl-4">true</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="locationauthorizationrequest"><code class="tsd-tag">Optional</code><span>location<wbr/>Authorization<wbr/>Request</span><a href="#locationauthorizationrequest" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">locationAuthorizationRequest</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">&quot;Always&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;WhenInUse&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;Any&quot;</span></div><div class="tsd-comment tsd-typography"><p>Defines the <em>desired</em> location-authorization level your app expects from the user:</p>
+<ul>
+<li><strong><code>&quot;Always&quot;</code></strong></li>
+<li><strong><code>&quot;WhenInUse&quot;</code></strong></li>
+<li><strong><code>&quot;Any&quot;</code></strong></li>
+</ul>
+<p>Defaults to <strong><code>&quot;Always&quot;</code></strong>.</p>
+<p>Setting <code>locationAuthorizationRequest</code> tells the SDK <em>what authorization level
+your app expects</em>, so it can guide the user and present helpful upgrade dialogs
+when needed. If you do <strong>not care</strong> which authorization is granted, configure
+<strong><code>&quot;Any&quot;</code></strong>.</p>
+<p>If you request <strong><code>&quot;Always&quot;</code></strong> but the user grants only <strong>When-In-Use</strong>, the SDK
+will display <a href="#locationauthorizationalert" class="tsd-kind-property">locationAuthorizationAlert</a> unless disabled via
+<a href="#disablelocationauthorizationalert" class="tsd-kind-property">disableLocationAuthorizationAlert</a>.</p>
+<p><strong>iOS</strong></p>
+<p>iOS 13 introduced major changes to the authorization workflow.<br>
+Apps no longer receive <strong>Always Allow</strong> on the initial dialog.</p>
+<p>After a user first grants <strong>While Using the App</strong>, iOS may show a second,
+system-managed <strong>upgrade prompt</strong>, asking if they’d like to enable:</p>
+<ul>
+<li><strong>Keep Only While Using</strong></li>
+<li><strong>Change to Always Allow</strong></li>
+</ul>
+<p><strong>1. When <code>locationAuthorizationRequest: &quot;Always&quot;</code></strong></p>
+<p>The user will first see the <strong>While Using App</strong> dialog, followed immediately by
+the upgrade prompt asking for <strong>Always Allow</strong>:</p>
+<p><img src="https://dl.dropbox.com/s/0alq10i4pcm2o9q/ios-when-in-use-to-always-CHANGELOG.gif?dl=1" alt=""></p>
+<p>If the user <em>denies</em> Always, the SDK displays
+<a href="#locationauthorizationalert" class="tsd-kind-property">locationAuthorizationAlert</a> (unless disabled).</p>
+<p><img src="https://dl.dropbox.com/s/wk66ave2mzq6m6a/ios-locationAuthorizationAlert.jpg?dl=1" alt=""></p>
+<p><strong>2. When <code>locationAuthorizationRequest: &quot;WhenInUse&quot;</code></strong></p>
+<p>Only the initial dialog appears:</p>
+<p><img src="https://dl.dropbox.com/s/n38qehw3cjhzngy/ios13-location-authorization.png?dl=1" alt=""></p>
+<p>If you later upgrade the config to <code>&quot;Always&quot;</code>, the upgrade prompt
+appears immediately:</p>
+<p><img src="https://dl.dropbox.com/s/5syokc8rtrc9q35/ios13-location-authorization-upgrade-always.png?dl=1" alt=""></p>
+<p><strong>3. When <code>locationAuthorizationRequest: &quot;Any&quot;</code></strong></p>
+<p>The SDK requests <strong>Always</strong> internally, but accepts either result.
+iOS may spontaneously show the upgrade dialog later:</p>
+<p><img src="https://dl.dropbox.com/s/5syokc8rtrc9q35/ios13-location-authorization-upgrade-always.png?dl=1" alt=""></p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-7">Example<a href="#example-7" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-9">// Start with When-In-Use</span><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> { </span><span class="hl-2">locationAuthorizationRequest:</span><span class="hl-1"> </span><span class="hl-3">&quot;WhenInUse&quot;</span><span class="hl-1"> }</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-4">async</span><span class="hl-1"> </span><span class="hl-4">function</span><span class="hl-1"> </span><span class="hl-8">onClickStartTracking</span><span class="hl-1">() {</span><br/><span class="hl-1">  </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">start</span><span class="hl-1">();</span><br/><br/><span class="hl-1">  </span><span class="hl-9">// Later — you may upgrade to Always at any time.</span><br/><span class="hl-1">  </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">setConfig</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-2">geolocation:</span><span class="hl-1"> { </span><span class="hl-2">locationAuthorizationRequest:</span><span class="hl-1"> </span><span class="hl-3">&quot;Always&quot;</span><span class="hl-1"> }</span><br/><span class="hl-1">  });</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Android</strong></p>
+<p><strong>Android 11+ (targetSdkVersion ≥ 30)</strong></p>
+<p>Android 11 removes <strong>Allow all the time</strong> from the initial dialog.<br>
+Instead, apps must present a custom rationale UI before navigating the user
+to the system <strong>Location Permissions</strong> screen.</p>
+<p>The SDK automatically presents <a href="AppConfig.html#backgroundpermissionrationale" class="tsd-kind-property">AppConfig.backgroundPermissionRationale</a>
+when configured.</p>
+<ul>
+<li>The dialog shows <strong>only once</strong>, unless the user resets permissions.</li>
+</ul>
+<p><img src="https://dl.dropbox.com/s/343nbrzpaavfser/android11-location-authorization-rn.gif?dl=1" alt=""></p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> { </span><span class="hl-2">locationAuthorizationRequest:</span><span class="hl-1"> </span><span class="hl-3">&quot;Always&quot;</span><span class="hl-1"> },</span><br/><span class="hl-1">  </span><span class="hl-2">app:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">backgroundPermissionRationale:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">title:</span><span class="hl-1"> </span><span class="hl-3">&quot;Allow access to this device&#39;s location in the background?&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">message:</span><span class="hl-1"> </span><span class="hl-3">&quot;To track your trips, please enable &#39;Allow all the time&#39; location permission.&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">positiveAction:</span><span class="hl-1"> </span><span class="hl-3">&quot;Change to Allow all the time&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">negativeAction:</span><span class="hl-1"> </span><span class="hl-3">&quot;Cancel&quot;</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>1. When <code>locationAuthorizationRequest: &quot;Always&quot;</code></strong></p>
+<p>After granting <strong>While Using</strong>, Android immediately displays your configured
+rationale dialog:</p>
+<p><img src="https://dl.dropbox.com/s/343nbrzpaavfser/android11-location-authorization-rn.gif?dl=1" alt=""></p>
+<p><strong>2. When <code>locationAuthorizationRequest: &quot;WhenInUse&quot;</code></strong></p>
+<p>Only the initial system dialog appears:</p>
+<p><img src="https://dl.dropbox.com/s/ymybwme7fvda0ii/android11-location-when-in-use-system-dialog.png?dl=1" alt=""></p>
+<p>Upgrading later to <code>&quot;Always&quot;</code> triggers the rationale dialog:</p>
+<p><img src="https://dl.dropbox.com/s/4fq4erz2lpqz00m/android11-location-permission-rationale-dialog.png?dl=1" alt=""></p>
+<p><strong>3. When <code>locationAuthorizationRequest: &quot;Any&quot;</code></strong></p>
+<p>Treated the same as <code>&quot;Always&quot;</code>.</p>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="locationauthorizationalert"><code class="tsd-tag">Optional</code><span>location<wbr/>Authorization<wbr/>Alert</span><a href="#locationauthorizationalert" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">locationAuthorizationAlert</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div><div class="tsd-comment tsd-typography"><p><strong>[iOS only]</strong> Customize the text displayed in the SDK’s
+location-authorization alert dialog.</p>
+<p>When <a href="#locationauthorizationrequest" class="tsd-kind-property">locationAuthorizationRequest</a> is configured as
+<code>&quot;Always&quot;</code> or <code>&quot;WhenInUse&quot;</code> and the user subsequently <em>downgrades</em> or disables
+location permission in iOS Settings, the SDK presents an alert directing the
+user back to the <strong>Settings</strong> screen.</p>
+<p><code>locationAuthorizationAlert</code> lets you override all of the strings used in that
+alert. You must supply an object matching <a href="#locationauthorizationalert" class="tsd-kind-property">locationAuthorizationAlert</a>.</p>
+<p><img src="https://dl.dropboxusercontent.com/s/wyoaf16buwsw7ed/docs-locationAuthorizationAlert.jpg?dl=1" alt=""></p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-8">Example<a href="#example-8" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">locationAuthorizationAlert:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">titleWhenNotEnabled:</span><span class="hl-1"> </span><span class="hl-3">&quot;Location services are not enabled&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">titleWhenOff:</span><span class="hl-1"> </span><span class="hl-3">&quot;Location services are OFF&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">instructions:</span><br/><span class="hl-1">        </span><span class="hl-3">&quot;Please enable &#39;Always&#39; in Location Services to allow background tracking.&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">cancelButton:</span><span class="hl-1"> </span><span class="hl-3">&quot;Cancel&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">settingsButton:</span><span class="hl-1"> </span><span class="hl-3">&quot;Open Settings&quot;</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>⚠️ Warning</strong></p>
+<p>If you provide <code>locationAuthorizationAlert</code>, you <strong>must</strong> supply <strong>all</strong>
+<a href="#locationauthorizationalert" class="tsd-kind-property">locationAuthorizationAlert</a> fields — not just a subset.</p>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="showsbackgroundlocationindicator"><code class="tsd-tag">Optional</code><span>shows<wbr/>Background<wbr/>Location<wbr/>Indicator</span><a href="#showsbackgroundlocationindicator" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">showsBackgroundLocationIndicator</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>[<strong>iOS Only</strong>] A Boolean indicating whether the status bar changes its appearance when an app uses location services in the background with <code>Always</code> authorization.</p>
+<p>The default value of this property is <code>true</code>. The background location usage indicator is a blue bar or a blue pill in the status bar on iOS; on watchOS the indicator is a small icon. Users can tap the indicator to return to your app.</p>
+<p>This property affects only apps that received <code>Always</code> authorization. When such an app moves to the background, the system uses this property to determine whether to change the status bar appearance to indicate that location services are in use. Set this value to true to maintain transparency with the user.</p>
+<p>For apps with When In Use authorization, the system changes the appearance of the status bar when the app uses location services in the background.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="locationupdateinterval"><code class="tsd-tag">Optional</code><span>location<wbr/>Update<wbr/>Interval</span><a href="#locationupdateinterval" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">locationUpdateInterval</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p><strong>[Android only]</strong> Desired interval for <em>active</em> location updates, in milliseconds.</p>
+<p><strong>⚠️ Important</strong></p>
+<ul>
+<li>To use <code>locationUpdateInterval</code>, you <strong>must</strong> also set
+<a href="#distancefilter" class="tsd-kind-property">distanceFilter</a> to <code>0</code>.<br>
+If <code>distanceFilter</code> &gt; 0, it <strong>overrides</strong> this interval.</li>
+</ul>
+<p>This value tells Android how frequently your app <em>wants</em> location updates.
+The system will try to honor it but may deliver updates:</p>
+<ul>
+<li>slower (no providers available),</li>
+<li>faster (another app requests faster updates),</li>
+<li>or not at all (permission or system constraints).</li>
+</ul>
+<p>Apps with only <em>coarse</em> location permission may have this interval silently throttled.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-9">Example<a href="#example-9" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">distanceFilter:</span><span class="hl-1"> </span><span class="hl-7">0</span><span class="hl-1">,           </span><span class="hl-9">// Required — otherwise this field is ignored.</span><br/><span class="hl-1">    </span><span class="hl-2">locationUpdateInterval:</span><span class="hl-1"> </span><span class="hl-7">5000</span><span class="hl-1"> </span><span class="hl-9">// Request a fix every ~5 seconds</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>ℹ️ See also</strong></p>
+<ul>
+<li>Android’s <code>LocationRequest.setInterval</code>:<br>
+<a href="https://developers.google.com/android/reference/com/google/android/gms/location/LocationRequest.html#setInterval(long)">https://developers.google.com/android/reference/com/google/android/gms/location/LocationRequest.html#setInterval(long)</a></li>
+</ul>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="fastestlocationupdateinterval"><code class="tsd-tag">Optional</code><span>fastest<wbr/>Location<wbr/>Update<wbr/>Interval</span><a href="#fastestlocationupdateinterval" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">fastestLocationUpdateInterval</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p><strong><code>[Android only]</code></strong> Explicitly sets the <em>fastest</em> interval for location updates,
+in milliseconds.</p>
+<p>This value defines the maximum rate at which the SDK will deliver passive
+location updates. It may be faster than <a href="#locationupdateinterval" class="tsd-kind-property">locationUpdateInterval</a>
+when other applications or system components are triggering more frequent updates.</p>
+<p>Configuring a faster passive rate allows your application to benefit from
+locations generated by other apps <strong>without</strong> increasing power usage.</p>
+<p>Unlike <a href="#locationupdateinterval" class="tsd-kind-property">locationUpdateInterval</a>, this parameter is <em>exact</em>:<br>
+your application will <strong>never</strong> receive updates faster than this value.</p>
+<ul>
+<li>If not configured, the default fastest interval is <strong>30000 ms (30 seconds)</strong>.</li>
+<li>A value of <code>0</code> is allowed but <strong>not recommended</strong>, since future devices may
+deliver extremely rapid updates.</li>
+<li>If <code>fastestLocationUpdateInterval</code> is <em>slower</em> than
+<a href="#locationupdateinterval" class="tsd-kind-property">locationUpdateInterval</a>, the effective fastest interval becomes
+<a href="#locationupdateinterval" class="tsd-kind-property">locationUpdateInterval</a>.</li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="ts"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;react-native-background-geolocation&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-9">// Receive passive updates as fast as 5 seconds</span><br/><span class="hl-1">    </span><span class="hl-2">fastestLocationUpdateInterval:</span><span class="hl-1"> </span><span class="hl-7">5000</span><span class="hl-1">,</span><br/><br/><span class="hl-1">    </span><span class="hl-9">// Active updates occur according to distanceFilter or locationUpdateInterval</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>See also</strong></p>
+<ul>
+<li><a href="https://developers.google.com/android/reference/com/google/android/gms/location/LocationRequest.html#setFastestInterval(long)">Android documentation</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="defertime"><code class="tsd-tag">Optional</code><span>defer<wbr/>Time</span><a href="#defertime" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">deferTime</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p><strong><code>[Android only]</code></strong> Sets the maximum wait time in milliseconds for location updates.</p>
+<p>Defaults to <code>0</code> (no defer).</p>
+<p>If you pass a value at least 2x larger than the interval specified with <a href="#locationupdateinterval" class="tsd-kind-property">locationUpdateInterval</a>,
+then location delivery may be delayed and multiple locations can be delivered at once.</p>
+<p>Locations are determined at the <a href="#locationupdateinterval" class="tsd-kind-property">locationUpdateInterval</a> rate,
+but can be delivered in batch after the interval you set in this method. This <strong>can consume less battery</strong> and <strong>give more accurate locations</strong>,
+depending on the device's hardware capabilities. You should set this value to be as large as possible for your needs if you don't need immediate location delivery.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="allowidenticallocations"><code class="tsd-tag">Optional</code><span>allow<wbr/>Identical<wbr/>Locations</span><a href="#allowidenticallocations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">allowIdenticalLocations</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p><strong><code>[Android only]</code></strong> Allow recording locations which are duplicates of the previous.</p>
+<p>By default, the Android plugin will ignore a received location when it is <em>identical</em> to the previous location.  Set <code>true</code> to override this behavior
+and record <em>every</em> location, regardless if it is identical to the last location.</p>
+<p>In the logs, you will see a location being ignored:</p>
+<pre><code><span class="hl-10">TSLocationManager</span><span class="hl-1">:   </span><span class="hl-2">ℹ</span><span class="hl-1">️  </span><span class="hl-10">IGNORED</span><span class="hl-1">: </span><span class="hl-2">same</span><span class="hl-1"> </span><span class="hl-0">as</span><span class="hl-1"> </span><span class="hl-6">last</span><span class="hl-1"> </span><span class="hl-6">location</span>
+</code><button>Copy</button></pre>
+
+<p>An identical location is often generated when changing state from <em>stationary</em> -&gt; <em>moving</em>, where a single location is first requested
+(the <a href="BackgroundGeolocation.html#onmotionchange" class="tsd-kind-method">BackgroundGeolocation.onMotionChange</a> location) before turning on regular location updates.</p>
+<p>Changing geolocation config params can also generate a duplicate location (eg: changing <a href="#distancefilter" class="tsd-kind-property">distanceFilter</a>).</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="geofenceproximityradius"><code class="tsd-tag">Optional</code><span>geofence<wbr/>Proximity<wbr/>Radius</span><a href="#geofenceproximityradius" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">geofenceProximityRadius</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Defines the radius (in meters) around the device used to query for geofences
+that should be actively monitored.</p>
+<p>The default — and <strong>minimum</strong> — value is <strong>1000 meters</strong>.</p>
+<p>Mobile platforms allow only a limited number of concurrently monitored geofences<br>
+(<strong>iOS: 20</strong>, <strong>Android: ~100</strong>).</p>
+<p>The SDK removes this limitation by allowing you to register <strong>any number of geofences</strong>
+(thousands even). It stores them in its internal database and performs efficient
+spatial queries to determine which subset of geofences should be activated based on
+the device’s current position.</p>
+<p>As the device moves, this radius determines when the monitored geofence set changes,
+firing <a href="BackgroundGeolocation.html#ongeofenceschange" class="tsd-kind-method">BackgroundGeolocation.onGeofencesChange</a>.</p>
+<p><strong>See also</strong></p>
+<ul>
+<li>📘 <a href="Geofence.html" class="tsd-kind-interface">Geofencing Guide</a></li>
+<li><a href="https://www.transistorsoft.com/shop/products/assets/images/background-geolocation-infinite-geofencing.gif">Animation of this behavior</a></li>
+</ul>
+<p><img src="https://dl.dropboxusercontent.com/s/7sggka4vcbrokwt/geofenceProximityRadius_iphone6_spacegrey_portrait.png?dl=1" alt=""></p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="geofencemodehighaccuracy"><code class="tsd-tag">Optional</code><span>geofence<wbr/>Mode<wbr/>High<wbr/>Accuracy</span><a href="#geofencemodehighaccuracy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">geofenceModeHighAccuracy</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p><strong><code>[Android only]</code></strong> Enable high-accuracy for <strong>geofence-only</strong> mode (See <a href="BackgroundGeolocation.html#startgeofences" class="tsd-kind-method">BackgroundGeolocation.startGeofences</a>).</p>
+<p><strong>⚠️ Warning: Will consume more power.</strong></p>
+<p>Defaults to <code>false</code>. Runs Android's <a href="BackgroundGeolocation.html#startgeofences" class="tsd-kind-method">BackgroundGeolocation.startGeofences</a> with a <em>foreground service</em> (along with its corresponding persistent <a href="AppConfig.html#notification" class="tsd-kind-property">AppConfig.notification</a>).</p>
+<p>Configuring <code>geofenceModeHighAccuracy: true</code> will make Android geofence triggering <strong>far more responsive</strong>. In this mode, the usual config options to control location-services will be applied:</p>
+<ul>
+<li><a href="#desiredaccuracy" class="tsd-kind-property">GeoConfig.desiredAccuracy</a> (<a href="../variables/DesiredAccuracy.html#medium" class="tsd-kind-property">DesiredAccuracy.Medium</a> works well).</li>
+<li><a href="#locationupdateinterval" class="tsd-kind-property">GeoConfig.locationUpdateInterval</a></li>
+<li><a href="#distancefilter" class="tsd-kind-property">GeoConfig.distanceFilter</a></li>
+<li><a href="#defertime" class="tsd-kind-property">GeoConfig.deferTime</a></li>
+</ul>
+<p>With the default <code>geofenceModeHighAccuracy: false</code>, a device will have to move farther <em>into</em> a geofence before the <em>ENTER</em> event fires and farther <em>out of</em> a geofence before
+the <em>EXIT</em> event fires.</p>
+<p>The more aggressive you configure the location-update params above (at the cost of power consumption), the more responsive will be your geofence-triggering.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-10">Example<a href="#example-10" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="typescript"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">geofenceModeHighAccuracy:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">desiredAccuracy:</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-5">DESIRED_ACCURACY_MEDIUM</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">locationUpdateInterval:</span><span class="hl-1"> </span><span class="hl-7">5000</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">distanceFilter:</span><span class="hl-1"> </span><span class="hl-7">50</span><span class="hl-1">,</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}).</span><span class="hl-8">then</span><span class="hl-1">((</span><span class="hl-2">state</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">startGeofences</span><span class="hl-1">();</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-11">Example<a href="#example-11" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-1">**</span><span class="hl-3">`geofenceModeHighAccuracy: false`</span><span class="hl-1">** (</span><span class="hl-2">Default</span><span class="hl-1">) &amp;</span><span class="hl-2">mdash</span><span class="hl-1">; </span><span class="hl-2">Transition</span><span class="hl-1"> </span><span class="hl-2">events</span><span class="hl-1"> **</span><span class="hl-2">are</span><span class="hl-1"> </span><span class="hl-2">delayed</span><span class="hl-1">**.</span><br/><span class="hl-1">![](</span><span class="hl-2">https</span><span class="hl-1">:</span><span class="hl-9">//dl.dropboxusercontent.com/s/6nxbuersjcdqa8b/geofenceModeHighAccuracy-false.png?dl=1)</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-12">Example<a href="#example-12" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-1">**</span><span class="hl-3">`geofenceModeHighAccuracy: true`</span><span class="hl-1">** &amp;</span><span class="hl-2">mdash</span><span class="hl-1">; </span><span class="hl-2">Transition</span><span class="hl-1"> </span><span class="hl-2">events</span><span class="hl-1"> </span><span class="hl-2">are</span><span class="hl-1"> **</span><span class="hl-2">nearly</span><span class="hl-1"> </span><span class="hl-2">instantaneous</span><span class="hl-1">**.</span><br/><span class="hl-1">![](</span><span class="hl-2">https</span><span class="hl-1">:</span><span class="hl-9">//dl.dropbox.com/s/w53hqn7f7n1ug1o/geofenceModeHighAccuracy-true.png?dl=1)</span>
+</code><button type="button">Copy</button></pre>
+
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="disablestopdetection"><code class="tsd-tag">Optional</code><span>disable<wbr/>Stop<wbr/>Detection</span><a href="#disablestopdetection" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">disableStopDetection</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Disable the motion-activity–based stop-detection system.</p>
+<p>When enabled (<code>true</code>), the SDK ignores platform motion-activity signals when
+determining whether the device is <em>stationary</em>. This affects how and when
+location-services are automatically turned off on both iOS and Android.</p>
+<p><strong>iOS</strong></p>
+<p>Disables the accelerometer-based <strong>stop-detection system</strong>. When disabled,
+the plugin falls back to the default iOS behavior: location-services turn off
+automatically after <strong>exactly 15 minutes</strong> of no motion. In this mode, you
+lose control over <a href="#stoptimeout" class="tsd-kind-property">stopTimeout</a>.</p>
+<p>To <em>completely</em> prevent iOS from automatically disabling location-services,
+you must also set <a href="#pauseslocationupdatesautomatically" class="tsd-kind-property">pausesLocationUpdatesAutomatically</a>
+to <code>false</code>:</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">disableStopDetection:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">pausesLocationUpdatesAutomatically:</span><span class="hl-1"> </span><span class="hl-4">false</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>⚠️ iOS location-services will <em>never</em> turn off!</strong></p>
+<p>With the configuration above, iOS will <strong>never</strong> disable location-services.
+This can <strong>heavily drain the battery</strong>. Do <strong>not</strong> use this unless you fully
+control tracking manually (for example, a workout app that toggles tracking
+using <a href="BackgroundGeolocation.html#changepace" class="tsd-kind-method">BackgroundGeolocation.changePace</a>).</p>
+<p><strong>iOS Stop-detection timing</strong></p>
+<p><img src="https://dl.dropboxusercontent.com/s/ojjdfkmua15pskh/ios-stop-detection-timing.png?dl=1" alt=""></p>
+<p><strong>Android</strong></p>
+<p>If set to <code>true</code>, Android location-services will <strong>never</strong> turn off
+automatically. It becomes your responsibility (or the user’s) to disable
+tracking manually by calling:</p>
+<ul>
+<li><a href="BackgroundGeolocation.html#changepace" class="tsd-kind-method">BackgroundGeolocation.changePace</a> with <code>false</code>, or</li>
+<li><a href="BackgroundGeolocation.html#stop" class="tsd-kind-method">BackgroundGeolocation.stop</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="geofenceinitialtriggerentry"><code class="tsd-tag">Optional</code><span>geofence<wbr/>Initial<wbr/>Trigger<wbr/>Entry</span><a href="#geofenceinitialtriggerentry" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">geofenceInitialTriggerEntry</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>When a device is already within a just-created geofence, fire the <strong>enter</strong> transition immediately.</p>
+<p>Defaults to <code>true</code>.  Set <code>false</code> to disable triggering a geofence immediately if device is already inside it.</p>
+<p><strong>ℹ️ See also</strong></p>
+<ul>
+<li>
+<ul>
+<li>📘 [[Geofence | Geofencing Guide]].</li>
+</ul>
+</li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="filter"><code class="tsd-tag">Optional</code><span>filter</span><a href="#filter" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">filter</span><span class="tsd-signature-symbol">?:</span> <a href="LocationFilter.html" class="tsd-signature-type tsd-kind-interface">LocationFilter</a></div><div class="tsd-comment tsd-typography"><p>Defines how raw GPS samples are filtered, denoised, and smoothed before being
+recorded or used for odometer calculations.</p>
+<p><code>LocationFilter</code> is supplied via <a href="#filter" class="tsd-kind-property">GeoConfig.filter</a> and provides
+fine-grained control over how the SDK handles noisy or inconsistent
+location data from the underlying platform.</p>
+<p><strong>Overview</strong></p>
+<p>The native platform continuously produces raw <code>CLLocation</code> (iOS) or
+<code>Location</code> (Android) samples. The <code>LocationFilter</code> applies:</p>
+<ul>
+<li>Kalman filtering</li>
+<li>rolling-window averaging</li>
+<li>speed, distance, and accuracy constraints</li>
+</ul>
+<p>These produce smoother paths, reduce jitter, and improve odometer stability.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-13">Example<a href="#example-13" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">filter:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">policy:</span><span class="hl-1"> </span><span class="hl-2">LocationFilterPolicy</span><span class="hl-1">.</span><span class="hl-2">Adjust</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">useKalman:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">kalmanProfile:</span><span class="hl-1"> </span><span class="hl-2">KalmanProfile</span><span class="hl-1">.</span><span class="hl-2">Default</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">trackingAccuracyThreshold:</span><span class="hl-1"> </span><span class="hl-7">100</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">odometerAccuracyThreshold:</span><span class="hl-1"> </span><span class="hl-7">20</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Filtering Flow</strong></p>
+<p><img src="https://dl.dropbox.com/scl/fi/71rkzdo2tr3qm651ulou8/location-filter-flowchart.svg?rlkey=16zxs3lnqvlrw137974jbsoj7&amp;dl=1" alt=""></p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><a href="LocationFilter.html#policy" class="tsd-kind-property">LocationFilter.policy</a></strong></td>
+<td>Selects which filtering policy to apply. See <a href="../variables/LocationFilterPolicy.html" class="tsd-kind-variable">LocationFilterPolicy</a>.</td>
+</tr>
+<tr>
+<td><strong><a href="LocationFilter.html#usekalman" class="tsd-kind-property">LocationFilter.useKalman</a></strong></td>
+<td>Enables Kalman filtering of speed and position (default: <code>true</code>).</td>
+</tr>
+<tr>
+<td><strong><a href="LocationFilter.html#kalmandebug" class="tsd-kind-property">LocationFilter.kalmanDebug</a></strong></td>
+<td>Enables verbose Kalman diagnostic logs.</td>
+</tr>
+<tr>
+<td><strong><a href="LocationFilter.html#kalmanprofile" class="tsd-kind-property">LocationFilter.kalmanProfile</a></strong></td>
+<td>Selects a Kalman tuning profile (see <a href="../variables/KalmanProfile.html" class="tsd-kind-variable">KalmanProfile</a>).</td>
+</tr>
+<tr>
+<td><strong><a href="LocationFilter.html#rollingwindow" class="tsd-kind-property">LocationFilter.rollingWindow</a></strong></td>
+<td>Number of samples for rolling burst averaging. Larger values increase smoothness but reduce responsiveness.</td>
+</tr>
+<tr>
+<td><strong><a href="LocationFilter.html#burstwindow" class="tsd-kind-property">LocationFilter.burstWindow</a></strong></td>
+<td>Duration of each averaging burst (seconds). Default: <code>10</code>.</td>
+</tr>
+<tr>
+<td><strong><a href="LocationFilter.html#maxburstdistance" class="tsd-kind-property">LocationFilter.maxBurstDistance</a></strong></td>
+<td>Maximum distance (meters) for samples to be included in the same burst window. Default: <code>300</code>.</td>
+</tr>
+<tr>
+<td><strong><a href="LocationFilter.html#trackingaccuracythreshold" class="tsd-kind-property">LocationFilter.trackingAccuracyThreshold</a></strong></td>
+<td>Minimum GPS horizontal accuracy (meters) required to accept a location. Default: <code>100</code>.</td>
+</tr>
+<tr>
+<td><strong><a href="LocationFilter.html#maximpliedspeed" class="tsd-kind-property">LocationFilter.maxImpliedSpeed</a></strong></td>
+<td>Maximum implied speed (m/s) before rejecting a sample as unrealistic. Default: <code>60</code> (~216 km/h).</td>
+</tr>
+<tr>
+<td><strong><a href="LocationFilter.html#filterdebug" class="tsd-kind-property">LocationFilter.filterDebug</a></strong></td>
+<td>Enables verbose logging of filter decisions (<code>ACCEPTED</code>, <code>REJECTED</code>, etc).</td>
+</tr>
+<tr>
+<td><strong><a href="LocationFilter.html#odometerusekalmanfilter" class="tsd-kind-property">LocationFilter.odometerUseKalmanFilter</a></strong></td>
+<td>Applies Kalman smoothing to odometer calculations.</td>
+</tr>
+<tr>
+<td><strong><a href="LocationFilter.html#odometeraccuracythreshold" class="tsd-kind-property">LocationFilter.odometerAccuracyThreshold</a></strong></td>
+<td>Maximum accuracy (meters) allowed for a sample to affect the odometer. Default: <code>100</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes</strong></p>
+<ul>
+<li>Distances are in <strong>meters</strong>.</li>
+<li>Time fields are in <strong>milliseconds</strong> unless otherwise specified.</li>
+<li>Filtering affects <strong>recorded</strong> locations only; it does <em>not</em> influence real-time motion detection.</li>
+</ul>
+<p><strong>Disable all filtering</strong></p>
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-14">Example<a href="#example-14" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">filter:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">policy:</span><span class="hl-1"> </span><span class="hl-2">LocationFilterPolicy</span><span class="hl-1">.</span><span class="hl-2">PassThrough</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">useKalman:</span><span class="hl-1"> </span><span class="hl-4">false</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="enabletimestampmeta"><code class="tsd-tag">Optional</code><span>enable<wbr/>Timestamp<wbr/>Meta</span><a href="#enabletimestampmeta" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">enableTimestampMeta</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Enable extra timestamp meta data to be appended to each recorded location, including system-time.</p>
+<p>Some developers have reported GPS <a href="Location.html#timestamp" class="tsd-kind-property">Location.timestamp</a> issues with some Android devices.  This option will append extra meta-data related to the device's system time.</p>
+<p><strong>Android implementation:</strong></p>
+<pre><code class="Java"><span class="hl-6">JSONObject</span><span class="hl-1"> </span><span class="hl-2">timestampMeta</span><span class="hl-1"> = </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-8">JSONObject</span><span class="hl-1">();</span><br/><span class="hl-2">timestampMeta</span><span class="hl-1">.</span><span class="hl-8">put</span><span class="hl-1">(</span><span class="hl-3">&quot;time&quot;</span><span class="hl-1">, </span><span class="hl-2">mLocation</span><span class="hl-1">.</span><span class="hl-8">getTime</span><span class="hl-1">());</span><br/><span class="hl-0">if</span><span class="hl-1"> (</span><span class="hl-2">Build</span><span class="hl-1">.</span><span class="hl-2">VERSION</span><span class="hl-1">.</span><span class="hl-2">SDK_INT</span><span class="hl-1"> &gt;= </span><span class="hl-2">Build</span><span class="hl-1">.</span><span class="hl-2">VERSION_CODES</span><span class="hl-1">.</span><span class="hl-2">JELLY_BEAN_MR1</span><span class="hl-1">) {</span><br/><span class="hl-1">    </span><span class="hl-2">timestampMeta</span><span class="hl-1">.</span><span class="hl-8">put</span><span class="hl-1">(</span><span class="hl-3">&quot;systemClockElaspsedRealtime&quot;</span><span class="hl-1">, </span><span class="hl-2">SystemClock</span><span class="hl-1">.</span><span class="hl-8">elapsedRealtimeNanos</span><span class="hl-1">()/</span><span class="hl-7">1000000</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-2">timestampMeta</span><span class="hl-1">.</span><span class="hl-8">put</span><span class="hl-1">(</span><span class="hl-3">&quot;elapsedRealtime&quot;</span><span class="hl-1">, </span><span class="hl-2">mLocation</span><span class="hl-1">.</span><span class="hl-8">getElapsedRealtimeNanos</span><span class="hl-1">()/</span><span class="hl-7">1000000</span><span class="hl-1">);</span><br/><span class="hl-1">} </span><span class="hl-0">else</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">timestampMeta</span><span class="hl-1">.</span><span class="hl-8">put</span><span class="hl-1">(</span><span class="hl-3">&quot;systemTime&quot;</span><span class="hl-1">, </span><span class="hl-2">System</span><span class="hl-1">.</span><span class="hl-8">currentTimeMillis</span><span class="hl-1">());</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>iOS Implementation:</strong></p>
+<pre><code class="Java"><span class="hl-1"> </span><span class="hl-6">long</span><span class="hl-1"> </span><span class="hl-6">long</span><span class="hl-1"> </span><span class="hl-2">systemTime</span><span class="hl-1"> = (</span><span class="hl-6">long</span><span class="hl-1"> </span><span class="hl-6">long</span><span class="hl-1">)([[</span><span class="hl-6">NSDate</span><span class="hl-1"> date] timeIntervalSince1970] * </span><span class="hl-7">1000.0</span><span class="hl-1">);</span><br/><span class="hl-1"> </span><span class="hl-6">long</span><span class="hl-1"> </span><span class="hl-6">long</span><span class="hl-1"> </span><span class="hl-2">locationTime</span><span class="hl-1"> = (</span><span class="hl-6">long</span><span class="hl-1"> </span><span class="hl-6">long</span><span class="hl-1">)([</span><span class="hl-2">_location</span><span class="hl-1">.</span><span class="hl-2">timestamp</span><span class="hl-1"> timeIntervalSince1970] * </span><span class="hl-7">1000.0</span><span class="hl-1">);</span><br/><span class="hl-1"> </span><span class="hl-6">long</span><span class="hl-1"> </span><span class="hl-6">long</span><span class="hl-1"> </span><span class="hl-2">uptime</span><span class="hl-1"> = (</span><span class="hl-6">long</span><span class="hl-1"> </span><span class="hl-6">long</span><span class="hl-1">) [</span><span class="hl-2">self</span><span class="hl-1">.</span><span class="hl-2">class</span><span class="hl-1"> uptime] * </span><span class="hl-7">1000</span><span class="hl-1">;</span><br/><br/><span class="hl-1"> </span><span class="hl-0">return</span><span class="hl-1"> @{</span><br/><span class="hl-1">     @</span><span class="hl-3">&quot;time&quot;</span><span class="hl-0">:</span><span class="hl-1"> @(locationTime),</span><br/><span class="hl-1">     @</span><span class="hl-3">&quot;systemTime&quot;</span><span class="hl-0">:</span><span class="hl-1"> @(systemTime),</span><br/><span class="hl-1">     @</span><span class="hl-3">&quot;systemClockElapsedRealtime&quot;</span><span class="hl-0">:</span><span class="hl-1"> @(uptime)</span><br/><span class="hl-1"> };</span>
+</code><button type="button">Copy</button></pre>
+
+</div></section></section></details></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Geolocation"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Geolocation</summary><div><a href="#activitytype"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>activity<wbr/>Type</span></a></div></details><details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Other"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Other</summary><div><a href="#desiredaccuracy"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>desired<wbr/>Accuracy</span></a><ul><li><ul><li><ul><li><a href="#⚠️-note"><span>⚠️ <wbr/>Note:</span></a></li></ul></li></ul></li></ul><a href="#distancefilter"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>distance<wbr/>Filter</span></a><ul><li><ul><li><ul><li><a href="#ℹ️-note"><span>ℹ️ <wbr/>Note:</span></a></li></ul></li></ul></li></ul><a href="#stationaryradius"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stationary<wbr/>Radius</span></a><a href="#stoptimeout"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stop<wbr/>Timeout</span></a><ul><li><ul><li><ul><li><a href="#ℹ️-see-also"><span>ℹ️ <wbr/>See also:</span></a></li></ul></li></ul></li></ul><a href="#stoponstationary"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stop<wbr/>On<wbr/>Stationary</span></a><a href="#pauseslocationupdatesautomatically"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>pauses<wbr/>Location<wbr/>Updates<wbr/>Automatically</span></a><a href="#disableelasticity"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>disable<wbr/>Elasticity</span></a><ul><li><ul><li><ul><li><a href="#ℹ️-see-also-1"><span>ℹ️ <wbr/>See also:</span></a></li></ul></li></ul></li></ul><a href="#elasticitymultiplier"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>elasticity<wbr/>Multiplier</span></a><a href="#stopafterelapsedminutes"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stop<wbr/>After<wbr/>Elapsed<wbr/>Minutes</span></a><a href="#usesignificantchangesonly"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>use<wbr/>Significant<wbr/>Changes<wbr/>Only</span></a><a href="#disablelocationauthorizationalert"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>disable<wbr/>Location<wbr/>Authorization<wbr/>Alert</span></a><a href="#locationauthorizationrequest"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>location<wbr/>Authorization<wbr/>Request</span></a><a href="#locationauthorizationalert"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>location<wbr/>Authorization<wbr/>Alert</span></a><a href="#showsbackgroundlocationindicator"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>shows<wbr/>Background<wbr/>Location<wbr/>Indicator</span></a><a href="#locationupdateinterval"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>location<wbr/>Update<wbr/>Interval</span></a><a href="#fastestlocationupdateinterval"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>fastest<wbr/>Location<wbr/>Update<wbr/>Interval</span></a><a href="#defertime"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>defer<wbr/>Time</span></a><a href="#allowidenticallocations"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>allow<wbr/>Identical<wbr/>Locations</span></a><a href="#geofenceproximityradius"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>geofence<wbr/>Proximity<wbr/>Radius</span></a><a href="#geofencemodehighaccuracy"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>geofence<wbr/>Mode<wbr/>High<wbr/>Accuracy</span></a><a href="#disablestopdetection"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>disable<wbr/>Stop<wbr/>Detection</span></a><a href="#geofenceinitialtriggerentry"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>geofence<wbr/>Initial<wbr/>Trigger<wbr/>Entry</span></a><a href="#filter"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>filter</span></a><a href="#enabletimestampmeta"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>enable<wbr/>Timestamp<wbr/>Meta</span></a></div></details></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../index.html">react-native-background-geolocation@5.0.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

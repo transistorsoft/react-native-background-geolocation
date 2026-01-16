@@ -1,0 +1,247 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>LocationFilter | react-native-background-geolocation@5.0.0</title><link rel="icon" href="../assets/favicon.ico"/><meta name="description" content="Documentation for react-native-background-geolocation@5.0.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="../index.html" class="title">react-native-background-geolocation@5.0.0</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb" aria-label="Breadcrumb"><li><a href="" aria-current="page">LocationFilter</a></li></ul><h1>Interface LocationFilter</h1></div><section class="tsd-panel tsd-comment"><div class="tsd-comment tsd-typography"><p>Defines how raw GPS samples are filtered, denoised, and smoothed before being
+recorded or used for odometer calculations.</p>
+<p><code>LocationFilter</code> is supplied via <a href="GeoConfig.html#filter" class="tsd-kind-property">GeoConfig.filter</a> and provides
+fine-grained control over how the SDK handles noisy or inconsistent
+location data from the underlying platform.</p>
+<p><strong>Overview</strong></p>
+<p>The native platform continuously produces raw <code>CLLocation</code> (iOS) or
+<code>Location</code> (Android) samples. The <code>LocationFilter</code> applies:</p>
+<ul>
+<li>Kalman filtering</li>
+<li>rolling-window averaging</li>
+<li>speed, distance, and accuracy constraints</li>
+</ul>
+<p>These produce smoother paths, reduce jitter, and improve odometer stability.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example">Example<a href="#example" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">filter:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">policy:</span><span class="hl-1"> </span><span class="hl-2">LocationFilterPolicy</span><span class="hl-1">.</span><span class="hl-2">Adjust</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">useKalman:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">kalmanProfile:</span><span class="hl-1"> </span><span class="hl-2">KalmanProfile</span><span class="hl-1">.</span><span class="hl-2">Default</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">trackingAccuracyThreshold:</span><span class="hl-1"> </span><span class="hl-7">100</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">odometerAccuracyThreshold:</span><span class="hl-1"> </span><span class="hl-7">20</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Filtering Flow</strong></p>
+<p><img src="https://dl.dropbox.com/scl/fi/71rkzdo2tr3qm651ulou8/location-filter-flowchart.svg?rlkey=16zxs3lnqvlrw137974jbsoj7&amp;dl=1" alt=""></p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><a href="#policy" class="tsd-kind-property">policy</a></strong></td>
+<td>Selects which filtering policy to apply. See <a href="../variables/LocationFilterPolicy.html" class="tsd-kind-variable">LocationFilterPolicy</a>.</td>
+</tr>
+<tr>
+<td><strong><a href="#usekalman" class="tsd-kind-property">useKalman</a></strong></td>
+<td>Enables Kalman filtering of speed and position (default: <code>true</code>).</td>
+</tr>
+<tr>
+<td><strong><a href="#kalmandebug" class="tsd-kind-property">kalmanDebug</a></strong></td>
+<td>Enables verbose Kalman diagnostic logs.</td>
+</tr>
+<tr>
+<td><strong><a href="#kalmanprofile" class="tsd-kind-property">kalmanProfile</a></strong></td>
+<td>Selects a Kalman tuning profile (see <a href="../variables/KalmanProfile.html" class="tsd-kind-variable">KalmanProfile</a>).</td>
+</tr>
+<tr>
+<td><strong><a href="#rollingwindow" class="tsd-kind-property">rollingWindow</a></strong></td>
+<td>Number of samples for rolling burst averaging. Larger values increase smoothness but reduce responsiveness.</td>
+</tr>
+<tr>
+<td><strong><a href="#burstwindow" class="tsd-kind-property">burstWindow</a></strong></td>
+<td>Duration of each averaging burst (seconds). Default: <code>10</code>.</td>
+</tr>
+<tr>
+<td><strong><a href="#maxburstdistance" class="tsd-kind-property">maxBurstDistance</a></strong></td>
+<td>Maximum distance (meters) for samples to be included in the same burst window. Default: <code>300</code>.</td>
+</tr>
+<tr>
+<td><strong><a href="#trackingaccuracythreshold" class="tsd-kind-property">trackingAccuracyThreshold</a></strong></td>
+<td>Minimum GPS horizontal accuracy (meters) required to accept a location. Default: <code>100</code>.</td>
+</tr>
+<tr>
+<td><strong><a href="#maximpliedspeed" class="tsd-kind-property">maxImpliedSpeed</a></strong></td>
+<td>Maximum implied speed (m/s) before rejecting a sample as unrealistic. Default: <code>60</code> (~216 km/h).</td>
+</tr>
+<tr>
+<td><strong><a href="#filterdebug" class="tsd-kind-property">filterDebug</a></strong></td>
+<td>Enables verbose logging of filter decisions (<code>ACCEPTED</code>, <code>REJECTED</code>, etc).</td>
+</tr>
+<tr>
+<td><strong><a href="#odometerusekalmanfilter" class="tsd-kind-property">odometerUseKalmanFilter</a></strong></td>
+<td>Applies Kalman smoothing to odometer calculations.</td>
+</tr>
+<tr>
+<td><strong><a href="#odometeraccuracythreshold" class="tsd-kind-property">odometerAccuracyThreshold</a></strong></td>
+<td>Maximum accuracy (meters) allowed for a sample to affect the odometer. Default: <code>100</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes</strong></p>
+<ul>
+<li>Distances are in <strong>meters</strong>.</li>
+<li>Time fields are in <strong>milliseconds</strong> unless otherwise specified.</li>
+<li>Filtering affects <strong>recorded</strong> locations only; it does <em>not</em> influence real-time motion detection.</li>
+</ul>
+<p><strong>Disable all filtering</strong></p>
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-1">Example<a href="#example-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">filter:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">policy:</span><span class="hl-1"> </span><span class="hl-2">LocationFilterPolicy</span><span class="hl-1">.</span><span class="hl-2">PassThrough</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-2">useKalman:</span><span class="hl-1"> </span><span class="hl-4">false</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</div></div></section><div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">LocationFilter</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#policy">policy</a><span class="tsd-signature-symbol">?:</span> <a href="../variables/LocationFilterPolicy.html" class="tsd-signature-type tsd-kind-variable">LocationFilterPolicy</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#usekalman">useKalman</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#kalmandebug">kalmanDebug</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#kalmanprofile">kalmanProfile</a><span class="tsd-signature-symbol">?:</span> <a href="../variables/KalmanProfile.html" class="tsd-signature-type tsd-kind-variable">KalmanProfile</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#rollingwindow">rollingWindow</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#burstwindow">burstWindow</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#maxburstdistance">maxBurstDistance</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#trackingaccuracythreshold">trackingAccuracyThreshold</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#maximpliedspeed">maxImpliedSpeed</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#filterdebug">filterDebug</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#odometerusekalmanfilter">odometerUseKalmanFilter</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#odometeraccuracythreshold">odometerAccuracyThreshold</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><section class="tsd-panel-group tsd-index-group"><section class="tsd-panel tsd-index-panel"><details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h5 class="tsd-index-heading uppercase">Index</h5></summary><div class="tsd-accordion-details"><section class="tsd-index-section"><h3 class="tsd-index-heading">Properties</h3><div class="tsd-index-list"><a href="#policy" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>policy?</span></a>
+<a href="#usekalman" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>use<wbr/>Kalman?</span></a>
+<a href="#kalmandebug" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>kalman<wbr/>Debug?</span></a>
+<a href="#kalmanprofile" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>kalman<wbr/>Profile?</span></a>
+<a href="#rollingwindow" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>rolling<wbr/>Window?</span></a>
+<a href="#burstwindow" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>burst<wbr/>Window?</span></a>
+<a href="#maxburstdistance" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>max<wbr/>Burst<wbr/>Distance?</span></a>
+<a href="#trackingaccuracythreshold" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>tracking<wbr/>Accuracy<wbr/>Threshold?</span></a>
+<a href="#maximpliedspeed" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>max<wbr/>Implied<wbr/>Speed?</span></a>
+<a href="#filterdebug" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>filter<wbr/>Debug?</span></a>
+<a href="#odometerusekalmanfilter" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>odometer<wbr/>Use<wbr/>Kalman<wbr/>Filter?</span></a>
+<a href="#odometeraccuracythreshold" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>odometer<wbr/>Accuracy<wbr/>Threshold?</span></a>
+</div></section></div></details></section></section><details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h2>Properties</h2></summary><section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="policy"><code class="tsd-tag">Optional</code><span>policy</span><a href="#policy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">policy</span><span class="tsd-signature-symbol">?:</span> <a href="../variables/LocationFilterPolicy.html" class="tsd-signature-type tsd-kind-variable">LocationFilterPolicy</a></div><div class="tsd-comment tsd-typography"><p>Defines the filtering policy applied to incoming raw GPS samples before they
+are accepted, averaged, or rejected by the <a href="#" class="tsd-kind-interface">LocationFilter</a>.</p>
+<p>The filtering policy determines how aggressively the plugin removes noisy,
+inaccurate, or redundant location updates. It represents the <em>first stage</em>
+in the SDK’s data-quality pipeline — before Kalman smoothing, burst averaging,
+or other denoising steps are applied.</p>
+<p>Choosing the correct policy depends on your app’s tolerance for jitter versus
+responsiveness:</p>
+<ul>
+<li>Fitness or vehicle-tracking apps often prefer stronger filtering.</li>
+<li>Survey or scientific apps may prefer capturing unmodified raw samples.</li>
+</ul>
+<p><strong>Profiles</strong></p>
+<table>
+<thead>
+<tr>
+<th>Policy</th>
+<th>Description</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../variables/LocationFilterPolicy.html#passthrough" class="tsd-kind-property">LocationFilterPolicy.PassThrough</a></td>
+<td><strong>No filtering.</strong> Every received sample is recorded, even if noisy or identical to the previous one.</td>
+<td>Debugging, diagnostics, scenarios requiring raw data.</td>
+</tr>
+<tr>
+<td><a href="../variables/LocationFilterPolicy.html#adjust" class="tsd-kind-property">LocationFilterPolicy.Adjust</a></td>
+<td><strong>Balanced filtering.</strong> Smooths and rejects only clearly invalid samples. <em>(Default)</em></td>
+<td>Most use cases — walking, cycling, automotive tracking.</td>
+</tr>
+<tr>
+<td><a href="../variables/LocationFilterPolicy.html#conservative" class="tsd-kind-property">LocationFilterPolicy.Conservative</a></td>
+<td><strong>Strict filtering.</strong> Strongly smooths data and rejects high-variance samples, prioritizing stability over responsiveness.</td>
+<td>Analytics, long-term background logging, noise-sensitive applications.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes</strong></p>
+<ul>
+<li>This policy affects only the SDK’s <em>internal</em> filtering pipeline.
+It does <strong>not</strong> modify the raw values returned to <a href="BackgroundGeolocation.html#onlocation" class="tsd-kind-method">BackgroundGeolocation.onLocation</a>.</li>
+<li>For more granular tuning, see <a href="#trackingaccuracythreshold" class="tsd-kind-property">LocationFilter.trackingAccuracyThreshold</a>,
+<a href="#maximpliedspeed" class="tsd-kind-property">LocationFilter.maxImpliedSpeed</a>, and other <a href="#" class="tsd-kind-interface">LocationFilter</a> fields.</li>
+</ul>
+<p><strong>Examples</strong></p>
+<p>Balanced default filtering:</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">filter:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">policy:</span><span class="hl-1"> </span><span class="hl-2">LocationFilterPolicy</span><span class="hl-1">.</span><span class="hl-2">Adjust</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>No filtering — capture all raw locations:</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">filter:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">policy:</span><span class="hl-1"> </span><span class="hl-2">LocationFilterPolicy</span><span class="hl-1">.</span><span class="hl-2">PassThrough</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Maximum smoothing for analytics:</p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">geolocation:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">filter:</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-2">policy:</span><span class="hl-1"> </span><span class="hl-2">LocationFilterPolicy</span><span class="hl-1">.</span><span class="hl-2">Conservative</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>See also</strong></p>
+<ul>
+<li><a href="GeoConfig.html#filter" class="tsd-kind-property">GeoConfig.filter</a></li>
+<li><a href="#" class="tsd-kind-interface">LocationFilter</a></li>
+<li><a href="../variables/KalmanProfile.html" class="tsd-kind-variable">KalmanProfile</a></li>
+</ul>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="usekalman"><code class="tsd-tag">Optional</code><span>use<wbr/>Kalman</span><a href="#usekalman" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">useKalman</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Enables the Kalman filter to smooth incoming location speed and position.</p>
+<p>When <code>true</code>, the SDK applies a Kalman filter to reduce noise and stabilize
+velocity and distance calculations. Defaults to <code>true</code>.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="kalmandebug"><code class="tsd-tag">Optional</code><span>kalman<wbr/>Debug</span><a href="#kalmandebug" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">kalmanDebug</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Enables verbose Kalman debug output in logs.</p>
+<p>When <code>true</code>, the SDK logs additional diagnostic data about the Kalman
+filter’s internal state (for example, variance and innovation) for
+each incoming sample.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="kalmanprofile"><code class="tsd-tag">Optional</code><span>kalman<wbr/>Profile</span><a href="#kalmanprofile" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">kalmanProfile</span><span class="tsd-signature-symbol">?:</span> <a href="../variables/KalmanProfile.html" class="tsd-signature-type tsd-kind-variable">KalmanProfile</a></div><div class="tsd-comment tsd-typography"><p>Specifies the preset tuning profile for the Kalman filter used in location
+denoising.</p>
+<p>Each profile adjusts the Kalman filter’s process and measurement noise
+parameters, trading off between responsiveness and smoothness:</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>defaultProfile</code></td>
+<td><strong>Balanced</strong> — General-purpose; suitable for most movement types.</td>
+</tr>
+<tr>
+<td><code>aggressive</code></td>
+<td><strong>Aggressive</strong> — Fast response; minimal smoothing.</td>
+</tr>
+<tr>
+<td><code>conservative</code></td>
+<td><strong>Conservative</strong> — Maximum smoothing; slowest response to changes.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>If no profile is provided, <code>defaultProfile</code> is applied.</li>
+<li>Use <code>aggressive</code> for fast-changing activities requiring rapid updates.</li>
+<li>Use <code>conservative</code> when stability and track smoothness are more important
+than immediate responsiveness.</li>
+</ul>
+<p>This maps directly to native Kalman tuning implementations on both Android and iOS.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="rollingwindow"><code class="tsd-tag">Optional</code><span>rolling<wbr/>Window</span><a href="#rollingwindow" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">rollingWindow</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Number of samples in the rolling window used for burst averaging.</p>
+<p>Higher values produce smoother averaged locations but introduce greater
+latency in responsiveness to movement.</p>
+<p><strong>Default:</strong> <code>5</code>.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="burstwindow"><code class="tsd-tag">Optional</code><span>burst<wbr/>Window</span><a href="#burstwindow" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">burstWindow</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Duration (in seconds) of each burst window used for averaging samples.</p>
+<p>The plugin groups all locations received within this time window into a
+single averaged output sample.</p>
+<p><strong>Default:</strong> <code>10</code> seconds.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="maxburstdistance"><code class="tsd-tag">Optional</code><span>max<wbr/>Burst<wbr/>Distance</span><a href="#maxburstdistance" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">maxBurstDistance</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Maximum distance (in meters) between samples considered part of the same burst.</p>
+<p>Prevents the filter from merging location samples that are too far apart into
+a single averaged point.</p>
+<p><strong>Default:</strong> <code>300</code> meters.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="trackingaccuracythreshold"><code class="tsd-tag">Optional</code><span>tracking<wbr/>Accuracy<wbr/>Threshold</span><a href="#trackingaccuracythreshold" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">trackingAccuracyThreshold</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Minimum acceptable horizontal accuracy (in meters) for a sample to qualify
+for tracking.</p>
+<p>Locations with an accuracy value <strong>greater (worse)</strong> than this threshold
+are discarded and will not be used in path or odometer calculations.</p>
+<p><strong>Default:</strong> <code>100</code> meters.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="maximpliedspeed"><code class="tsd-tag">Optional</code><span>max<wbr/>Implied<wbr/>Speed</span><a href="#maximpliedspeed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">maxImpliedSpeed</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Maximum implied speed (in meters/second) permitted before a location
+sample is rejected.</p>
+<p>If a raw sample implies a speed <strong>greater than this threshold</strong>, it is
+considered an unrealistic outlier and will be discarded by the filter.</p>
+<p><strong>Default:</strong> <code>60</code> m/s (≈ 216 km/h).</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="filterdebug"><code class="tsd-tag">Optional</code><span>filter<wbr/>Debug</span><a href="#filterdebug" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">filterDebug</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Enables verbose debug logging for the filtering engine.</p>
+<p>When <code>true</code>, the SDK logs detailed decisions for each incoming sample,
+including whether it was <strong>ACCEPTED</strong>, <strong>REJECTED</strong>, or <strong>IGNORED</strong> by the
+filtering pipeline.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="odometerusekalmanfilter"><code class="tsd-tag">Optional</code><span>odometer<wbr/>Use<wbr/>Kalman<wbr/>Filter</span><a href="#odometerusekalmanfilter" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">odometerUseKalmanFilter</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Applies a Kalman filter <strong>only to odometer calculations</strong>, independent of
+<a href="#usekalman" class="tsd-kind-property">LocationFilter.useKalman</a>.</p>
+<p>When <code>true</code>, the odometer’s internal distance-accumulation logic applies a
+Kalman filter to smooth incoming samples, reducing jitter and noise <strong>without</strong>
+modifying the recorded track points.</p>
+<p>This is useful when you want smoother odometer readings while preserving
+the raw location stream for mapping, analysis, or debugging.</p>
+<p>If both <a href="#usekalman" class="tsd-kind-property">LocationFilter.useKalman</a> and
+<a href="#odometerusekalmanfilter" class="tsd-kind-property">LocationFilter.odometerUseKalmanFilter</a> are <code>true</code>, the SDK maintains
+<strong>independent Kalman filter instances</strong> for tracking and odometer calculations.</p>
+<p>Default: <code>true</code>.</p>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="odometeraccuracythreshold"><code class="tsd-tag">Optional</code><span>odometer<wbr/>Accuracy<wbr/>Threshold</span><a href="#odometeraccuracythreshold" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">odometerAccuracyThreshold</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Maximum horizontal accuracy (in meters) allowed for a sample to affect the odometer.</p>
+<p>Any location whose <code>accuracy</code> exceeds this threshold is <strong>ignored</strong> for
+odometer updates.</p>
+<p>Default: <code>20</code>.</p>
+</div></section></section></details></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary><div><a href="#policy"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>policy</span></a><a href="#usekalman"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>use<wbr/>Kalman</span></a><a href="#kalmandebug"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>kalman<wbr/>Debug</span></a><a href="#kalmanprofile"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>kalman<wbr/>Profile</span></a><a href="#rollingwindow"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>rolling<wbr/>Window</span></a><a href="#burstwindow"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>burst<wbr/>Window</span></a><a href="#maxburstdistance"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>max<wbr/>Burst<wbr/>Distance</span></a><a href="#trackingaccuracythreshold"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>tracking<wbr/>Accuracy<wbr/>Threshold</span></a><a href="#maximpliedspeed"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>max<wbr/>Implied<wbr/>Speed</span></a><a href="#filterdebug"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>filter<wbr/>Debug</span></a><a href="#odometerusekalmanfilter"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>odometer<wbr/>Use<wbr/>Kalman<wbr/>Filter</span></a><a href="#odometeraccuracythreshold"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>odometer<wbr/>Accuracy<wbr/>Threshold</span></a></div></details></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../index.html">react-native-background-geolocation@5.0.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>LoggerConfig | react-native-background-geolocation@5.0.0</title><link rel="icon" href="../assets/favicon.ico"/><meta name="description" content="Documentation for react-native-background-geolocation@5.0.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="../index.html" class="title">react-native-background-geolocation@5.0.0</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb" aria-label="Breadcrumb"><li><a href="" aria-current="page">LoggerConfig</a></li></ul><h1>Interface LoggerConfig</h1></div><section class="tsd-panel tsd-comment"><div class="tsd-comment tsd-typography"><p>Logging &amp; diagnostics configuration.</p>
+<p>The <strong><a href="#" class="tsd-kind-interface">LoggerConfig</a></strong> group controls diagnostic logging for the SDK.
+Use it to adjust how much information is written to the internal log,
+whether to enable developer-friendly debug aids (soundFX, notifications),
+and how long logs are retained on the device.</p>
+<p><strong>Configure via:</strong> <code>config.logger</code></p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">logger:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">debug:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">logLevel:</span><span class="hl-1"> </span><span class="hl-2">LogLevel</span><span class="hl-1">.</span><span class="hl-2">Verbose</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">logMaxDays:</span><span class="hl-1"> </span><span class="hl-7">7</span><span class="hl-1">,</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Overview</strong></p>
+<p>Logging serves two major purposes:</p>
+<ol>
+<li>
+<p><strong>Development &amp; QA</strong><br>
+High-verbosity logs and optional audible soundFX make debugging intuitive.
+You can hear when locations are recorded, when motion changes occur, and
+when geofences trigger — without watching the console.</p>
+</li>
+<li>
+<p><strong>Production diagnostics</strong><br>
+Lower verbosity preserves essential operational traces without excessive
+storage use or privacy impact.</p>
+</li>
+</ol>
+<p><strong>See also:</strong> <a href="Config.html#logger" class="tsd-kind-property">Config.logger</a></p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Keys</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Verbosity</td>
+<td><a href="#loglevel" class="tsd-kind-property">logLevel</a></td>
+<td>off → verbose</td>
+</tr>
+<tr>
+<td>Debug aids</td>
+<td><a href="#debug" class="tsd-kind-property">debug</a></td>
+<td>Enables audible soundFX &amp; debug indicators</td>
+</tr>
+<tr>
+<td>Retention</td>
+<td><a href="#logmaxdays" class="tsd-kind-property">logMaxDays</a></td>
+<td>Rolling on-device TTL</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Log Levels</strong></p>
+<p>Choose the level appropriate for your environment:</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th style="text-align:center">Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../variables/LogLevel.html#off" class="tsd-kind-property">LogLevel.Off</a></td>
+<td style="text-align:center">0</td>
+<td>Disable logging entirely</td>
+</tr>
+<tr>
+<td><a href="../variables/LogLevel.html#error" class="tsd-kind-property">LogLevel.Error</a></td>
+<td style="text-align:center">1</td>
+<td>Failures &amp; critical errors</td>
+</tr>
+<tr>
+<td><a href="../variables/LogLevel.html#warning" class="tsd-kind-property">LogLevel.Warning</a></td>
+<td style="text-align:center">2</td>
+<td>Problems that may affect behavior</td>
+</tr>
+<tr>
+<td><a href="../variables/LogLevel.html#info" class="tsd-kind-property">LogLevel.Info</a></td>
+<td style="text-align:center">3</td>
+<td>Operational milestones (start/stop, HTTP, geofence state)</td>
+</tr>
+<tr>
+<td><a href="../variables/LogLevel.html#debug" class="tsd-kind-property">LogLevel.Debug</a></td>
+<td style="text-align:center">4</td>
+<td>Granular detail during integration</td>
+</tr>
+<tr>
+<td><a href="../variables/LogLevel.html#verbose" class="tsd-kind-property">LogLevel.Verbose</a></td>
+<td style="text-align:center">5</td>
+<td>Maximum detail; full introspection</td>
+</tr>
+</tbody>
+</table>
+<p>SoundFX and debug indicators require <a href="#debug" class="tsd-kind-property">debug</a> = <code>true</code>.</p>
+<p><strong>Debug Behavior</strong></p>
+<p>When <code>debug: true</code>, the SDK plays short, distinct soundFX when key events occur:</p>
+<ul>
+<li>Location recorded</li>
+<li>Location error</li>
+<li><code>onMotionChange</code> transitions</li>
+<li>Geofence enter / exit / dwell</li>
+</ul>
+<p>It may also show temporary developer notifications (Android) to visualize state
+transitions and background operation.</p>
+<p>⚠️ <strong>Never enable <code>debug</code> in production.</strong></p>
+<p><strong>Retention</strong></p>
+<p>Use <a href="#logmaxdays" class="tsd-kind-property">logMaxDays</a> to control how long logs remain on device.
+Old entries are purged automatically on a rolling basis.</p>
+<p>Recommended:</p>
+<ul>
+<li>Development: 5–7 days</li>
+<li>Production: 1–3 days</li>
+</ul>
+<p><strong>Retrieving Logs</strong></p>
+<pre><code class="ts"><span class="hl-9">// Retrieve full log as a string</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">log</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-2">logger</span><span class="hl-1">.</span><span class="hl-8">getLog</span><span class="hl-1">({});</span><br/><br/><span class="hl-9">// Email the log as an attachment</span><br/><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-2">logger</span><span class="hl-1">.</span><span class="hl-8">emailLog</span><span class="hl-1">(</span><span class="hl-3">&quot;support@yourcompany.com&quot;</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Logs include:</p>
+<ul>
+<li>SQLite-backed diagnostic history</li>
+<li>Event traces</li>
+<li>HTTP upload events</li>
+<li>Configuration transitions</li>
+</ul>
+<p><strong>See also:</strong> <a href="#logmaxdays" class="tsd-kind-property">logMaxDays</a>, <a href="#loglevel" class="tsd-kind-property">logLevel</a></p>
+<p><strong>Examples</strong></p>
+<p><strong>1) Development profile (maximum visibility)</strong></p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">logger:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">debug:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">logLevel:</span><span class="hl-1"> </span><span class="hl-2">LogLevel</span><span class="hl-1">.</span><span class="hl-2">Verbose</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">logMaxDays:</span><span class="hl-1"> </span><span class="hl-7">7</span><span class="hl-1">,</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>2) Production profile (quiet &amp; conservative)</strong></p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">logger:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">debug:</span><span class="hl-1"> </span><span class="hl-4">false</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">logLevel:</span><span class="hl-1"> </span><span class="hl-2">LogLevel</span><span class="hl-1">.</span><span class="hl-2">Info</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">logMaxDays:</span><span class="hl-1"> </span><span class="hl-7">3</span><span class="hl-1">,</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>3) Disable all logging</strong></p>
+<pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">setConfig</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">logger:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">logLevel:</span><span class="hl-1"> </span><span class="hl-2">LogLevel</span><span class="hl-1">.</span><span class="hl-2">Off</span><span class="hl-1">,</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Migration from legacy flat Config</strong></p>
+<p>Legacy:</p>
+<pre><code class="ts"><span class="hl-8">Config</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">debug:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">logLevel:</span><span class="hl-1"> </span><span class="hl-2">LogLevel</span><span class="hl-1">.</span><span class="hl-2">Verbose</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">logMaxDays:</span><span class="hl-1"> </span><span class="hl-7">3</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>New (compound):</p>
+<pre><code class="ts"><span class="hl-8">Config</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">logger:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">debug:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">logLevel:</span><span class="hl-1"> </span><span class="hl-2">LogLevel</span><span class="hl-1">.</span><span class="hl-2">Verbose</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">logMaxDays:</span><span class="hl-1"> </span><span class="hl-7">3</span><span class="hl-1">,</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Legacy keys are still supported (deprecated), but the compound form is recommended.</p>
+<p><strong>Recommendations</strong></p>
+<ul>
+<li>Use <code>Verbose</code> + <code>debug: true</code> during active development.</li>
+<li>Use <code>Info</code> or <code>Warning</code> in production.</li>
+<li>Do not set <code>Off</code> unless required — logs are invaluable for field diagnostics.</li>
+</ul>
+</div></section><div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">LoggerConfig</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#debug">debug</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#loglevel">logLevel</a><span class="tsd-signature-symbol">?:</span> <a href="../variables/LogLevel.html" class="tsd-signature-type tsd-kind-variable">LogLevel</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#logmaxdays">logMaxDays</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><section class="tsd-panel-group tsd-index-group"><section class="tsd-panel tsd-index-panel"><details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h5 class="tsd-index-heading uppercase">Index</h5></summary><div class="tsd-accordion-details"><section class="tsd-index-section"><h3 class="tsd-index-heading">Properties</h3><div class="tsd-index-list"><a href="#debug" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>debug?</span></a>
+<a href="#loglevel" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>log<wbr/>Level?</span></a>
+<a href="#logmaxdays" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>log<wbr/>Max<wbr/>Days?</span></a>
+</div></section></div></details></section></section><details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h2>Properties</h2></summary><section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="debug"><code class="tsd-tag">Optional</code><span>debug</span><a href="#debug" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">debug</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><div class="tsd-comment tsd-typography"><p>Configure the plugin to emit sound effects and local-notifications during development.</p>
+<p>Defaults to <strong><code>false</code></strong>.  When set to <strong><code>true</code></strong>, the plugin will emit debugging sounds and notifications for life-cycle events of [[BackgroundGeolocation | BackgroundGeolocation]].</p>
+<h2 id="ios" class="tsd-anchor-link">iOS<a href="#ios" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>In you wish to hear debug sounds in the background, you must manually enable the background-mode:</p>
+<p><strong><code>[x] Audio and Airplay</code></strong> background mode in <em>Background Capabilities</em> of XCode.</p>
+<p><img src="https://dl.dropboxusercontent.com/s/fl7exx3g8whot9f/enable-background-audio.png?dl=1" alt=""></p>
+<h2 id="event-debug-sound-effects" class="tsd-anchor-link">Event Debug Sound Effects<a href="#event-debug-sound-effects" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><table>
+<thead>
+<tr>
+<th>Event</th>
+<th>iOS</th>
+<th>Android</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LOCATION_RECORDED</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/yestzqdb6gzx7an/location-recorded.mp3?dl=0" /></video></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/d3e821scn5fppq6/tslocationmanager_ooooiii3_full_vol.wav?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>LOCATION_SAMPLE</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/8gp2nkzza2hql4r/location-sample.mp3?dl=0" /></video></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/8bgiyifowyf9c7n/tslocationmanager_click_tap_done_checkbox5_full_vol.wav?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>LOCATION_ERROR</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/l3rmf99rj3g5u6b/location-error.mp3?dl=0" /></video></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/wadrz2x6elhc65l/tslocationmanager_digi_warn.mp3?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>LOCATION_SERVICES_ON</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/urbjiqn0f4g1jhi/location-services-on.mp3?dl=0" /></video></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><code>LOCATION_SERVICES_OFF</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/0wb7qajfb0yy9w0/location-services-off.mp3?dl=0" /></video></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><code>STATIONARY_GEOFENCE_EXIT</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/p8ee60qvfgx4vi5/motionchange-true.mp3?dl=0" /></video></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/gjgv51pot3h2n3t/tslocationmanager_zap_fast.mp3?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>MOTIONCHANGE_FALSE</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/xk00hsfi87nrw3q/motionchange-false.mp3?dl=0" /></video></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/fm4j2t8nqzd5856/tslocationmanager_marimba_drop.mp3?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>MOTIONCHANGE_TRUE</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/p8ee60qvfgx4vi5/motionchange-true.mp3?dl=0" /></video></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/n5mn6tr7x994ivg/tslocationmanager_chime_short_chord_up.mp3?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>MOTION_TRIGGER_DELAY_START</code></td>
+<td>n/a</td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/cb3fa0zp0c4xjmt/tslocationmanager_dot_retry.wav?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>MOTION_TRIGGER_DELAY_CANCEL</code></td>
+<td>n/a</td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/4pg3r4xooi9pe0g/tslocationmanager_dot_stopaction2.wav?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>STOP_DETECTION_DELAY_INITIATED</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/y898zopjfolx42d/stopDetectionDelay.mp3?dl=0" /></video></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><code>STOP_TIMER_ON</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/7mjcmnszhjo6ywj/stop-timeout-start.mp3?dl=0" /></video></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/q4a9pf0vlztfafh/tslocationmanager_chime_bell_confirm.mp3?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>STOP_TIMER_OFF</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/qnsdu7b6vxic01i/stop-timeout-cancel.mp3?dl=0" /></video></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/9o9v826was19lyi/tslocationmanager_bell_ding_pop.mp3?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>HEARTBEAT</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/90vyfo3woe52ijo/heartbeat.mp3?dl=0" /></video></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/bsdtw21hscqqy67/tslocationmanager_peep_note1.wav?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>GEOFENCE_ENTER</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/h3047lybsggats7/geofence-enter.mp3?dl=0" /></video></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/76up5ik215xwxh1/tslocationmanager_beep_trip_up_dry.mp3?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>GEOFENCE_EXIT</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/2e8bg22c6g9zwxr/geofence-exit.mp3?dl=0" /></video></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/xuyyagffheyk8r7/tslocationmanager_beep_trip_dry.mp3?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>GEOFENCE_DWELL_START</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/7nysvyjxuxm9pms/geofence-dwell-start.mp3?dl=0" /></video></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><code>GEOFENCE_DWELL_CANCEL</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/sk2hur6nxch1zvm/geofence-dwell-cancel.mp3?dl=0" /></video></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><code>GEOFENCE_DWELL</code></td>
+<td><code>GEOFENCE_ENTER</code> after <code>GEOFENCE_DWELL_START</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/uw5vjuatm3wnuid/tslocationmanager_beep_trip_up_echo.mp3?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>ERROR</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/h5b52m056pfc734/error.mp3?dl=0" /></video></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/32e93c1t4kh69p1/tslocationmanager_music_timpani_error_01.mp3?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>WARNING</code></td>
+<td>n/a</td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropboxusercontent.com/s/wadrz2x6elhc65l/tslocationmanager_digi_warn.mp3?dl=0" /></video></td>
+</tr>
+<tr>
+<td><code>BACKGROUND_FETCH</code></td>
+<td><video controls name="media" height="32" width="220"><source src="https://dl.dropbox.com/s/mcsjqye0xx2kapk/background-fetch.mp3?dl=0" /></video></td>
+<td>n/a</td>
+</tr>
+</tbody>
+</table>
+</div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="loglevel"><code class="tsd-tag">Optional</code><span>log<wbr/>Level</span><a href="#loglevel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">logLevel</span><span class="tsd-signature-symbol">?:</span> <a href="../variables/LogLevel.html" class="tsd-signature-type tsd-kind-variable">LogLevel</a></div><div class="tsd-comment tsd-typography"><p>Controls the volume of recorded events in the plugin's logging database.</p>
+<p><a href="BackgroundGeolocation.html" class="tsd-kind-interface">BackgroundGeolocation</a> contains powerful logging features. By default,
+the plugin starts with <a href="../variables/LogLevel.html#off" class="tsd-kind-property">LogLevel.Off</a>,
+storing <a href="#logmaxdays" class="tsd-kind-property">logMaxDays</a> days worth of logs in its
+internal SQLite database (default: <code>3</code>).</p>
+<p>The following log levels are defined as constants on <a href="BackgroundGeolocation.html" class="tsd-kind-interface">BackgroundGeolocation</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../variables/LogLevel.html#off" class="tsd-kind-property">LogLevel.Off</a></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><a href="../variables/LogLevel.html#error" class="tsd-kind-property">LogLevel.Error</a></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><a href="../variables/LogLevel.html#warning" class="tsd-kind-property">LogLevel.Warning</a></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><a href="../variables/LogLevel.html#info" class="tsd-kind-property">LogLevel.Info</a></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><a href="../variables/LogLevel.html#debug" class="tsd-kind-property">LogLevel.Debug</a></td>
+<td><code>4</code></td>
+</tr>
+<tr>
+<td><a href="../variables/LogLevel.html#verbose" class="tsd-kind-property">LogLevel.Verbose</a></td>
+<td><code>5</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example log data</strong></p>
+<pre><code class="text">09-19 11:12:18.716 ╔═════════════════════════════════════════════
+09-19 11:12:18.716 ║ BackgroundGeolocation Service started
+09-19 11:12:18.716 ╠═════════════════════════════════════════════
+09-19 11:12:18.723 [c.t.l.BackgroundGeolocationService d]
+09-19 11:12:18.723   ✅  Started in foreground
+09-19 11:12:18.737 [c.t.l.ActivityRecognitionService a]
+09-19 11:12:18.737   🎾  Start activity updates: 10000
+09-19 11:12:18.761 [c.t.l.BackgroundGeolocationService k]
+09-19 11:12:18.761   🔴  Stop heartbeat
+09-19 11:12:18.768 [c.t.l.BackgroundGeolocationService a]
+09-19 11:12:18.768   🎾  Start heartbeat (60)
+09-19 11:12:18.778 [c.t.l.BackgroundGeolocationService a]
+09-19 11:12:18.778   🔵  setPace: null → false
+09-19 11:12:18.781 [c.t.l.adapter.TSConfig c] ℹ️   Persist config
+09-19 11:12:18.794 [c.t.locationmanager.util.b a]
+09-19 11:12:18.794   ℹ️  LocationAuthorization: Permission granted
+09-19 11:12:18.842 [c.t.l.http.HttpService flush]
+09-19 11:12:18.842 ╔═════════════════════════════════════════════
+09-19 11:12:18.842 ║ HTTP Service
+09-19 11:12:18.842 ╠═════════════════════════════════════════════
+09-19 11:12:19.000 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)
+09-19 11:12:21.314 [c.t.l.l.SingleLocationRequest$2 onLocationResult]
+09-19 11:12:21.314 ╔═════════════════════════════════════════════
+09-19 11:12:21.314 ║ SingleLocationRequest: 1
+09-19 11:12:21.314 ╠═════════════════════════════════════════════
+09-19 11:12:21.314 ╟─ 📍  Location[fused 45.519239,-73.617058 hAcc=15]999923706055 vAcc=2 sAcc=??? bAcc=???
+09-19 11:12:21.327 [c.t.l.l.TSLocationManager onSingleLocationResult]
+09-19 11:12:21.327   🔵  Acquired motionchange position, isMoving: false
+09-19 11:12:21.342 [c.t.l.l.TSLocationManager a] 15.243
+09-19 11:12:21.405 [c.t.locationmanager.data.a.c persist]
+09-19 11:12:21.405   ✅  INSERT: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
+09-19 11:12:21.423 [c.t.l.http.HttpService flush]
+09-19 11:12:21.423 ╔═════════════════════════════════════════════
+09-19 11:12:21.423 ║ HTTP Service
+09-19 11:12:21.423 ╠═════════════════════════════════════════════
+09-19 11:12:21.446 [c.t.locationmanager.data.a.c first]
+09-19 11:12:21.446   ✅  Locked 1 records
+09-19 11:12:21.454 [c.t.l.http.HttpService a]
+09-19 11:12:21.454   🔵  HTTP POST: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
+09-19 11:12:22.083 [c.t.l.http.HttpService$a onResponse]
+09-19 11:12:22.083   🔵  Response: 200
+09-19 11:12:22.100 [c.t.locationmanager.data.a.c destroy]
+09-19 11:12:22.100   ✅  DESTROY: bca5acc8-e358-4d8f-827f-b8c0d556b7bb
+09-19 11:12:55.226 [c.t.l.BackgroundGeolocationService onActivityRecognitionResult] still (100%)
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example">Example<a href="#example" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">logger:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">logLevel:</span><span class="hl-1"> </span><span class="hl-2">LogLevel</span><span class="hl-1">.</span><span class="hl-2">Verbose</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>See also</strong></p>
+<ul>
+<li><a href="#logmaxdays" class="tsd-kind-property">logMaxDays</a></li>
+<li><a href="Logger.html#getlog" class="tsd-kind-method">Logger.getLog</a></li>
+<li><a href="Logger.html#emaillog" class="tsd-kind-method">Logger.emailLog</a></li>
+<li><a href="Logger.html#destroylog" class="tsd-kind-method">Logger.destroyLog</a></li>
+</ul>
+<p><strong>⚠️ Warning</strong>
+When submitting your app to production, configure <code>logLevel</code> appropriately
+(for example, <a href="../variables/LogLevel.html#error" class="tsd-kind-property">LogLevel.Error</a>),
+since logs can grow to several megabytes over <a href="#logmaxdays" class="tsd-kind-property">logMaxDays</a>.</p>
+</div></div></section><section class="tsd-panel tsd-member"><h3 class="tsd-anchor-link" id="logmaxdays"><code class="tsd-tag">Optional</code><span>log<wbr/>Max<wbr/>Days</span><a href="#logmaxdays" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><div class="tsd-signature"><span class="tsd-kind-property">logMaxDays</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><div class="tsd-comment tsd-typography"><p>Maximum number of days to persist a log-entry in database.</p>
+<p>Defaults to <strong><code>3</code></strong> days.</p>
+</div><div class="tsd-comment tsd-typography"><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-1">Example<a href="#example-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">BackgroundGeolocation</span><span class="hl-1">.</span><span class="hl-8">ready</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-2">logger:</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">logMaxDays:</span><span class="hl-1"> </span><span class="hl-7">3</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>See also:</strong></p>
+<ul>
+<li><a href="#loglevel" class="tsd-kind-property">logLevel</a></li>
+</ul>
+</div></div></section></section></details></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary><div><a href="#debug"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>debug</span></a><ul><li><ul><li><a href="#ios"><span>i<wbr/>OS</span></a></li><li><a href="#event-debug-sound-effects"><span>Event <wbr/>Debug <wbr/>Sound <wbr/>Effects</span></a></li></ul></li></ul><a href="#loglevel"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>log<wbr/>Level</span></a><a href="#logmaxdays"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>log<wbr/>Max<wbr/>Days</span></a></div></details></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../index.html">react-native-background-geolocation@5.0.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

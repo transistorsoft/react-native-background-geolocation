@@ -104,7 +104,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
-Or if using *Obj-c*:  __`AppDelegate.m`
+Or if using *Obj-c*: 
+
 #### `AppDelegate.m`
 
 ```diff

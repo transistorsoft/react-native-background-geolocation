@@ -94,8 +94,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     .
     .
     .    
-+   let fetchManager = TSBackgroundFetch.sharedInstance()
-+   fetchManager?.didFinishLaunching()
++   // [REQUIRED] Transistorsoft
++   TSBackgroundFetch.sharedInstance()?.didFinishLaunching()
     .
     .
     .    
@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   .
   .
   .
-+ // [REQUIRED] Register BackgroundFetch
++ // [REQUIRED] Transistorsoft
 + [[TSBackgroundFetch sharedInstance] didFinishLaunching];
 
   return YES;

@@ -73,7 +73,7 @@ The *Background Geolocation* SDK has internal handling for periodic *Background 
 
 ![](https://dl.dropboxusercontent.com/s/kwdio2rr256d852/ios-setup-permitted-identifiers-add.png?dl=1)
 
-3.  Configure in your __`AppDelegate`__:
+3.  Configure in your __`AppDelegate`__ (find `AppDelegate.swift` __OR__ `AppDelegate.m`):
 
 #### `AppDelegate.swift`
 

@@ -104,9 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
-Or if using *Obj-c*: 
-
-#### `AppDelegate.m`
+#### `AppDelegate.m` (for older apps using Obj-c)
 
 ```diff
 #import "AppDelegate.h"

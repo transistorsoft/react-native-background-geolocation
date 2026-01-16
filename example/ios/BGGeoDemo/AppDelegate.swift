@@ -2,6 +2,7 @@ import UIKit
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
+import TSBackgroundFetch
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     reactNativeDelegate = delegate
     reactNativeFactory = factory
-
+    
+    let fetchManager = TSBackgroundFetch.sharedInstance()
+    fetchManager?.didFinishLaunching()
+    
     window = UIWindow(frame: UIScreen.main.bounds)
 
     factory.startReactNative(

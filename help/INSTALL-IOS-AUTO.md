@@ -73,6 +73,59 @@ The *Background Geolocation* SDK has internal handling for periodic *Background 
 
 ![](https://dl.dropboxusercontent.com/s/kwdio2rr256d852/ios-setup-permitted-identifiers-add.png?dl=1)
 
+3.  Configure in your __`AppDelegate`__:
+
+### `AppDelegate.swift`
+
+```diff
+import UIKit
+import React
+import React_RCTAppDelegate
+import ReactAppDependencyProvider
++import TSBackgroundFetch
+
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+  
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+  ) -> Bool {
+    .
+    .
+    .    
++    let fetchManager = TSBackgroundFetch.sharedInstance()
++    fetchManager?.didFinishLaunching()
+    .
+    .
+    .    
+    return true
+  }
+}
+```
+
+Or if using *Obj-c*:  __`AppDelegate.m`
+```diff
+#import "AppDelegate.h"
+
+#import <React/RCTBridge.h>
+#import <React/RCTBundleURLProvider.h>
+#import <React/RCTRootView.h>
+
++#import <TSBackgroundFetch/TSBackgroundFetch.h>
+
+@implementation AppDelegate
+
+(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  .
+  .
+  .
++ // [REQUIRED] Register BackgroundFetch
++ [[TSBackgroundFetch sharedInstance] didFinishLaunching];
+
+  return YES;
+}
+```
 
 [Transistor Software](https://www.transistorsoft.com) manages a helpful free plugin you can optionally add to your app named [`react-native-background-fetch`](https://github.com/transistorsoft/react-native-background-fetch).
 

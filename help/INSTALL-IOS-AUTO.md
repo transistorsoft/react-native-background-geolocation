@@ -75,7 +75,7 @@ The *Background Geolocation* SDK has internal handling for periodic *Background 
 
 3.  Configure in your __`AppDelegate`__:
 
-### `AppDelegate.swift`
+#### `AppDelegate.swift`
 
 ```diff
 import UIKit
@@ -94,8 +94,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     .
     .
     .    
-+    let fetchManager = TSBackgroundFetch.sharedInstance()
-+    fetchManager?.didFinishLaunching()
++   let fetchManager = TSBackgroundFetch.sharedInstance()
++   fetchManager?.didFinishLaunching()
     .
     .
     .    
@@ -105,6 +105,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ```
 
 Or if using *Obj-c*:  __`AppDelegate.m`
+#### `AppDelegate.m`
+
 ```diff
 #import "AppDelegate.h"
 

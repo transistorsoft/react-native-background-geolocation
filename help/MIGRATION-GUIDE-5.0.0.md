@@ -25,7 +25,7 @@ You can continue using your existing flat configuration if you prefer, though ne
 - **Clarity:** Groups related settings together (geolocation, HTTP, logging, app lifecycle, etc).
 - **Extensibility:** Easier to add new config domains without polluting the top-level.
 - **Consistency:** Aligns with native SDKs and shared TypeScript types across platforms.
-- **Tooling:** Better IntelliSense / autocomplete when using `@transistorsoft/background-geolocation-types`.
+- **Tooling:** Better IntelliSense / autocomplete when using [`@transistorsoft/background-geolocation-types`](https://github.com/transistorsoft/background-geolocation-types).
 
 ---
 
@@ -37,13 +37,13 @@ You can continue using your existing flat configuration if you prefer, though ne
 import BackgroundGeolocation from 'react-native-background-geolocation';
 
 BackgroundGeolocation.ready({
-  desiredAccuracy: BackgroundGeolocation.DesiredAccuracy.High,
+  desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
   distanceFilter: 50,
   stopOnTerminate: false,
   startOnBoot: true,
   url: 'https://my.server.com/locations',
   headers: { Authorization: 'Bearer TOKEN' },
-  logLevel: BackgroundGeolocation.LogLevel.Verbose,
+  logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE
   debug: true,
 });
 ```
@@ -96,12 +96,23 @@ BackgroundGeolocation.ready({
 ## 🧑‍💻 Migration Steps
 
 1. **Update your dependency:**  
-   Ensure you are using `flutter_background_geolocation` v5.0.0 or later.
+   Ensure you are using `react-native-background-geolocation` v5.0.0 or later.
 
-2. **Import new config classes:**  
-   ```dart
-   import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
-   ```
+2. __[Android]__ remove custom `maven url` from __`android/build.gradle`__.  These are no longer required:
+
+:open_file_folder: `android/build.gradle`
+```diff
+    repositories {
+        google()
+        mavenCentral()
+-       maven { url 'https://developer.huawei.com/repo/' }
+-       // [required] background_geolocation
+-       maven(url = "${project(":flutter_background_geolocation").projectDir}/libs")
+-       // [required] background_fetch
+-       maven(url = "${project(":background_fetch").projectDir}/libs")
+    }
+}
+```
 
 3. **Group related options:**  
    - Move geolocation-related keys into `GeoConfig`
@@ -125,41 +136,41 @@ BackgroundGeolocation.ready({
 
 ### Flat Config (Old)
 ```dart
-BackgroundGeolocation.ready(Config(
-  desiredAccuracy: Config.DESIRED_ACCURACY_HIGH,
+BackgroundGeolocation.ready({
+  desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
   distanceFilter: 10,
   stopOnTerminate: false,
   startOnBoot: true,
   url: "https://my.server.com/locations",
   headers: { "Authorization": "Bearer TOKEN" },
-  logLevel: Config.LOG_LEVEL_DEBUG,
+  logLevel: BackgroundGeolocation.LOG_LEVEL_DEBUG,
   debug: true,
   autoSync: true,
   batchSync: false,
-));
+});
 ```
 
 ### Compound Config (New)
 ```dart
-BackgroundGeolocation.ready(Config(
-  geolocation: GeoConfig(
-    desiredAccuracy: Config.DESIRED_ACCURACY_HIGH,
+BackgroundGeolocation.ready({
+  geolocation: {
+    desiredAccuracy: BackgroundGeolocation.DesiredAccuracy.High,
     distanceFilter: 10,
-  ),
-  app: AppConfig(
+  },
+  app: {
     stopOnTerminate: false,
     startOnBoot: true,
-  ),
-  http: HttpConfig(
+  },
+  http: {
     url: "https://my.server.com/locations",
     headers: { "Authorization": "Bearer TOKEN" },
     autoSync: true,
     batchSync: false,
-  ),
-  logger: LoggerConfig(
-    logLevel: LogLevel.debug,
+  },
+  logger: {
+    logLevel: BackgroundGeolocation.LogLevel.High
     debug: true,
-  ),
+  }
 ));
 ```
 

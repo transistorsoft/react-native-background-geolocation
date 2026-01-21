@@ -17,7 +17,7 @@ const bgGeoHeadlessTask = async (event) => {
   const eventName  = event.name;
   const taskId     = event.taskId; // <-- very important!
 
-  console.log(`[BGGeoHeadlessTask *] ${eventName}`, JSON.stringify(params));
+  console.log(`[BGGeoHeadlessTask] ${eventName}`, JSON.stringify(params));
   // You MUST await your work!
   // HeadlessTasks are automatically terminated after execution of the last line of your function.
   await doWork(eventName);

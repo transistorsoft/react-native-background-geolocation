@@ -1,5 +1,8 @@
 # Change Log
 
+## 5.0.1
+* [Android] Fix incorrect references to `TSLog.logger` in `HeadlessTask.java`, `HeadlessTaskManager.java`
+
 ## 5.0.0
 * Promote 5.0.0 from beta.  See the [Migration Guide](help/MIGRATION-GUIDE-5.0.0.md) and [v5.0.0 Discussion](https://github.com/transistorsoft/react-native-background-geolocation/discussions)
 

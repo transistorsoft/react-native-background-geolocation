@@ -39,7 +39,7 @@ public class HeadlessTask {
         TSConfig config = TSConfig.getInstance(event.getContext());
 
         String name = event.getName();
-        TSLog.logger.debug("\uD83D\uDC80  event: " + name);
+        TSLog.d("\uD83D\uDC80  event: " + name);
 
         WritableMap clientEvent = new WritableNativeMap();
         Map<String, ?> params = null;
@@ -83,7 +83,7 @@ public class HeadlessTask {
         } else if (name.equals(EventName.AUTHORIZATION)) {
             params = event.getAuthorizationEvent().toMap();
         } else {
-            TSLog.logger.warn(TSLog.warn("Unknown Headless Event: " + name));
+            TSLog.w(TSLog.warn("Unknown Headless Event: " + name));
             clientEvent.putString("error", "Unknown event: " + name);
             clientEvent.putNull("params");
         }
@@ -98,18 +98,18 @@ public class HeadlessTask {
                     .setParams(clientEvent)
                     .setTimeout(TASK_TIMEOUT)
                     .setOnInvokeCallback((reactContext, task) -> {
-                        //TSLog.logger.debug("*** onInvoke: " + task.getId());
+                        //TSLog.d("*** onInvoke: " + task.getId());
                     })
                     .setOnFinishCallback(taskId -> {
-                        //TSLog.logger.debug("*** onFinish: " + taskId);
+                        //TSLog.d("*** onFinish: " + taskId);
                     })
                     .setOnErrorCallback((task, e) -> {
-                        TSLog.logger.warn("⚠\uFE0F  HeadlessTaskError: " + e.getMessage() + ": " + task.toString());
+                        TSLog.w("⚠\uFE0F  HeadlessTaskError: " + e.getMessage() + ": " + task.toString());
                     })
                     .build()
             );
         } catch (Exception e) {
-            TSLog.logger.warn(TSLog.warn("Failed invoke HeadlessTask " + name + ".  Task ignored:  " + e.getMessage()));
+            TSLog.w("Failed invoke HeadlessTask " + name + ".  Task ignored:  " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -124,7 +124,7 @@ public class HeadlessTask {
         try {
             HeadlessTaskManager.getInstance().finishTask(event.getContext(), event.getTaskId());
         } catch (Exception e) {
-            TSLog.logger.warn(TSLog.warn(e.getMessage()));
+            TSLog.w(e.getMessage());
         }
     }
 }

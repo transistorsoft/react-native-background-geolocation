@@ -363,7 +363,7 @@ RCT_EXPORT_METHOD(getCurrentPosition:(NSDictionary*)options resolve:(RCTPromiseR
 RCT_EXPORT_METHOD(watchPosition:(NSDictionary*)options resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     TSWatchPositionRequest *request = [TSWatchPositionRequest requestWithSuccess:^(TSLocationStreamEvent *event) {
-        [self sendEvent:EVENT_WATCHPOSITION body:[event toDictionary]];
+        [self sendEvent:EVENT_WATCHPOSITION body:[event.locationEvent toDictionary]];
     } failure:^(NSError *error) {
         // No reject; stream API
     }];

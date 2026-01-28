@@ -1,6 +1,6 @@
-# Change Log
+# CHANGELOG
 
-## 5.0.2
+## 5.0.2 &mdash; 2026-01-28
 * [iOS] Fix bug in iOS License Validation Failure modal dialog interfering with React Native app launching.  Change to less intrusive alert mechanism.
 * [iOS] Fix bug returning wrong data-structure to watchPosition callback.
 * [iOS] Fix first-launch issue with initial call to `.start()`.

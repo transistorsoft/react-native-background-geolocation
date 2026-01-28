@@ -4,4 +4,9 @@
 /.idea/libraries
 .DS_Store
 /build
-/captures
+/capture
+
+# Eclipse / Buildship
+.settings/
+.project
+.classpaths

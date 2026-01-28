@@ -1,4 +1,13 @@
-# Change Log
+# CHANGELOG
+
+## 5.0.2 &mdash; 2026-01-28
+* [iOS] Fix bug in iOS License Validation Failure modal dialog interfering with React Native app launching.  Change to less intrusive alert mechanism.
+* [iOS] Fix bug returning wrong data-structure to watchPosition callback.
+* [iOS] Fix first-launch issue with initial call to `.start()`.
+* [iOS] Fix config.authorization bug (refreshPayload and refreshHeaders being ignored).
+* [Android] Re-factor Android activity life-cycle management.  It's all done internally within SDK now.  No need for react-native plugin code to manually listen to Activity lifecycle and poke the SDK when interesting events happen.
+* Fix bug not respecting `PersistenceConfig.geofenceTemplate`
+* [iOS] Fix bug in `setOdometer` not resolving its `Promise`
 
 ## 5.0.1
 * [Android] Fix incorrect references to `TSLog.logger` in `HeadlessTask.java`, `HeadlessTaskManager.java`

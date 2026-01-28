@@ -326,18 +326,13 @@ public class RNBackgroundGeolocationModule
 
     @Override
     public void onHostPause() {
-        Context context = getReactApplicationContext();
-        TSConfig config = TSConfig.getInstance(context);
-        if (config.getEnabled()) {
-            TSScheduleManager.getInstance(context).oneShot(TerminateEvent.ACTION, 10000);
-        }
+        
     }
     @Override
     public void onHostDestroy() {
         mInitialized = false;
         mReady = false;
         removeAllListeners();
-        getAdapter().onActivityDestroy();
     }
 
     @Override
@@ -1017,8 +1012,7 @@ public class RNBackgroundGeolocationModule
     private void removeAllListeners() {
         synchronized (mListeners) {
             mListeners.clear();
-        }
-        getAdapter().removeListeners();
+        }        
     }
 
     private void onLocationError(Integer code) {
@@ -1274,11 +1268,5 @@ public class RNBackgroundGeolocationModule
 
     private BackgroundGeolocation getAdapter() {
         return BackgroundGeolocation.getInstance(getReactApplicationContext());
-    }
-
-    @Override
-    public void onCatalystInstanceDestroy() {
-        mInitialized = false;
-        removeAllListeners();
-    }
+    }    
 }

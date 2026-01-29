@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 5.0.3 &mdash; 2025-01-29
+* Fix bug in `BackgroundGeolocation.logger` API
+
 ## 5.0.2 &mdash; 2026-01-28
 * [iOS] Fix bug in iOS License Validation Failure modal dialog interfering with React Native app launching.  Change to less intrusive alert mechanism.
 * [iOS] Fix bug returning wrong data-structure to watchPosition callback.

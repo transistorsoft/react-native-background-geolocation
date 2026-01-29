@@ -198,7 +198,7 @@ const FABMenu: React.FC<FABMenuProps> = ({ onMenuItemPress }) => {
    */
   const resetOdometer = async () => {
     try {
-      await BackgroundGeolocation.resetOdometer();
+      await BackgroundGeolocation.setOdometer(0);
     } catch (error) {
       console.warn('[FABMenu] Reset Odometer error:', error);
     }

@@ -5,7 +5,7 @@ const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 // Absolute path to your local library
 const rnBGGeo = path.resolve(
   __dirname,
-  '../' // <--
+  '../../' // <--
 );
 
 // Helper to escape path in RegExp for blockList

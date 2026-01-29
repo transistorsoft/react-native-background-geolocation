@@ -43,11 +43,11 @@ export interface Spec extends TurboModule {
   destroyTransistorToken(url: string): Promise<void>;
 
   // Logging
-  log(level: string, message: string): Promise<void>;
+  log(level: string, message: string): Promise<boolean>;
   getLog(query: Object): Promise<string>;
-  emailLog(email: string, query: Object): Promise<void>;
-  uploadLog(url: string, query: Object): Promise<void>;
-  destroyLog(): Promise<void>;
+  emailLog(email: string, query: Object): Promise<boolean>;
+  uploadLog(url: string, query: Object): Promise<boolean>;
+  destroyLog(): Promise<boolean>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('RNBackgroundGeolocation');

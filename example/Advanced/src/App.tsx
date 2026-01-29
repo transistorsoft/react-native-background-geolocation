@@ -169,6 +169,7 @@ const App = () => {
         extras: { getCurrentPosition: true }
       });
       console.log('Current position:', location);
+      BackgroundGeolocation.logger.debug("BackgroundGeolocation.logger.debug test: location received: " + location.uuid);
     } catch (error) {
       console.warn('Error getting current position:', error);
     }
@@ -181,15 +182,7 @@ const App = () => {
     
     if (enabled) {
       try {
-        await BackgroundGeolocation.start();
-
-        const location = await BackgroundGeolocation.getCurrentPosition({
-          timeout: 30,
-          maximumAge: 5000,
-          samples: 1
-        });      
-        console.log('Initial position on enable:', location);
-
+        await BackgroundGeolocation.start();        
       } catch (error) {
         console.warn('Error starting BackgroundGeolocation:', error);
       } 

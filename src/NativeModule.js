@@ -51,31 +51,31 @@ const PLATFORM_IOS      = "ios";
 */
 const LOGGER = {
   error: function(msg) {
-    RNBackgroundGeolocation.log('error', msg);
+    return RNBackgroundGeolocation.log('error', msg);
   },
   warn: function(msg) {
-    RNBackgroundGeolocation.log('warn', msg);
+    return RNBackgroundGeolocation.log('warn', msg);
   },
   debug: function(msg) {
-    RNBackgroundGeolocation.log('debug', msg);
+    return RNBackgroundGeolocation.log('debug', msg);
   },
   info: function(msg) {
-    RNBackgroundGeolocation.log('info', msg);
+    return RNBackgroundGeolocation.log('info', msg);
   },
   notice: function(msg) {
-    RNBackgroundGeolocation.log('notice', msg);
+    return RNBackgroundGeolocation.log('notice', msg);
   },
   header: function(msg) {
-    RNBackgroundGeolocation.log('header', msg);
+    return RNBackgroundGeolocation.log('header', msg);
   },
   on: function(msg) {
-    RNBackgroundGeolocation.log('on', msg);
+    return RNBackgroundGeolocation.log('on', msg);
   },
   off: function(msg) {
-    RNBackgroundGeolocation.log('off', msg);
+    return RNBackgroundGeolocation.log('off', msg);
   },
   ok: function(msg) {
-    RNBackgroundGeolocation.log('ok', msg);
+    return RNBackgroundGeolocation.log('ok', msg);
   }
 }
 
@@ -300,7 +300,6 @@ export default class NativeModule {
       let watchId;
       try {
         watchId = await RNBackgroundGeolocation.watchPosition(options);
-        console.log("********** watchPositonId: ", watchId)
         // Resolve with our wrapped Subscription instance.
         resolve({
           id: watchId,
@@ -390,6 +389,10 @@ export default class NativeModule {
   /**
   * Logging & Debug Methods
   */
+
+  static log(level, message) {
+    return RNBackgroundGeolocation.log(level, message);
+  }
 
   static setLogLevel(value) {
     return RNBackgroundGeolocation.setLogLevel(value);

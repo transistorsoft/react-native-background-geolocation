@@ -13,19 +13,7 @@ const ORDER_ASC = 1;
 const ORDER_DESC = -1;
 
 function log(level, msg) {
-  // Call the native logger via NativeModule.logger[level](msg),
-  // fallback to debug if missing.
-  if (
-    NativeModule.logger &&
-    typeof NativeModule.logger[level] === 'function'
-  ) {
-    NativeModule.logger[level](msg);
-  } else if (
-    NativeModule.logger &&
-    typeof NativeModule.logger.debug === 'function'
-  ) {
-    NativeModule.logger.debug(msg);
-  }
+  return NativeModule.log(level, msg);
 }
 
 function validateQuery(query) {
@@ -43,11 +31,11 @@ export default class Logger {
   static get ORDER_ASC() { return ORDER_ASC; }
   static get ORDER_DESC() { return ORDER_DESC; }
 
-  static debug(msg)  { log(LOG_LEVEL_DEBUG, msg);  }
-  static error(msg)  { log(LOG_LEVEL_ERROR, msg);  }
-  static warn(msg)   { log(LOG_LEVEL_WARN, msg);   }
-  static info(msg)   { log(LOG_LEVEL_INFO, msg);   }
-  static notice(msg) { log(LOG_LEVEL_NOTICE, msg); }
+  static debug(msg)  { return log(LOG_LEVEL_DEBUG, msg);  }
+  static error(msg)  { return log(LOG_LEVEL_ERROR, msg);  }
+  static warn(msg)   { return log(LOG_LEVEL_WARN, msg);   }
+  static info(msg)   { return log(LOG_LEVEL_INFO, msg);   }
+  static notice(msg) { return log(LOG_LEVEL_NOTICE, msg); }
 
   static getLog(query) {
     return NativeModule.getLog(validateQuery(query));

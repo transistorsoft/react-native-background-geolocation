@@ -16,6 +16,7 @@ import ConfigView from './ConfigView';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 
 const App = () => {
+  const [isInitialized, setIsInitialized] = useState(false);
   const [configViewVisible, setConfigViewVisible] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
@@ -84,6 +85,7 @@ const App = () => {
 
   const initializeBackgroundGeolocation = async (org: string, username: string) => {
     try {
+      setIsInitialized(true);
       // 1) Fetch/create tracker JWT
       const token = await BackgroundGeolocation.findOrCreateTransistorAuthorizationToken(org, username);
 
@@ -278,7 +280,10 @@ const App = () => {
         visible={registrationVisible}
         onComplete={async ({ organization, username }) => {
           console.log('[App] Registration complete:', organization, username);
-          await initializeBackgroundGeolocation(organization, username);
+          setRegistrationVisible(false);
+          if (!isInitialized) {
+            await initializeBackgroundGeolocation(organization, username);
+          }          
         }}
       />
     </View>

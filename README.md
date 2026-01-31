@@ -261,7 +261,7 @@ export default HelloWorld;
 
 ## :large_blue_diamond: [Demo Application](example)
 
-Clone this repo and run the [/example](example) app.
+Clone this repo and see apps in [/example](example) folder.
 
 
 # License

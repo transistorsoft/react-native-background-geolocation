@@ -2343,10 +2343,10 @@ PODS:
     - React-perflogger (= 0.81.5)
     - React-utils (= 0.81.5)
     - SocketRocket
-  - RNBackgroundFetch (4.3.0-rc.1):
+  - RNBackgroundFetch (4.3.0):
     - React-Core
     - TSBackgroundFetch (~> 4.0.0)
-  - RNBackgroundGeolocation (5.0.0):
+  - RNBackgroundGeolocation (5.0.3):
     - boost
     - CocoaLumberjack (~> 3.8.5)
     - DoubleConversion
@@ -2374,7 +2374,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - SocketRocket
-    - TSLocationManager (~> 4.0.0)
+    - TSLocationManager (~> 4.0.10)
     - Yoga
   - RNCAsyncStorage (2.2.0):
     - boost
@@ -2434,7 +2434,7 @@ PODS:
     - Yoga
   - SocketRocket (0.7.1)
   - TSBackgroundFetch (4.0.6)
-  - TSLocationManager (4.0.8):
+  - TSLocationManager (4.0.12):
     - TSBackgroundFetch (~> 4.0.6)
   - Yoga (0.0.0)
 
@@ -2753,13 +2753,13 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 1bcd3527ac0390a1c898c114f81ff954be35ed79
   ReactCodegen: 6c26f8c25d0b5ae66f86a1cce1777076ac8bcbd8
   ReactCommon: 5f0e5c09a64a2717215dd84380e1a747810406f2
-  RNBackgroundFetch: 9f689df7ab2ef008c0498d341a9fd3bae609ce1c
-  RNBackgroundGeolocation: 019cecb0a91414b287d79d1f67c26d1cd3e726dd
+  RNBackgroundFetch: a5c9975c270d869a666364ade366d92f7435dd74
+  RNBackgroundGeolocation: a9772be715906a42f925240b8121627bb0ebf278
   RNCAsyncStorage: 29f0230e1a25f36c20b05f65e2eb8958d6526e82
   RNGestureHandler: e37bdb684df1ac17c7e1d8f71a3311b2793c186b
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   TSBackgroundFetch: 0afbeaae4e1132866e1d4b6e55265af26b5958ae
-  TSLocationManager: aaceac34fb16162dfbcac70c4a0e664876ac00cb
+  TSLocationManager: a5d0a9b4049471db59a667f2c855ba9ad45066e4
   Yoga: 728df40394d49f3f471688747cf558158b3a3bd1
 
 PODFILE CHECKSUM: 4f11a214b994cf86af67f3ddb17fc983af2d0945

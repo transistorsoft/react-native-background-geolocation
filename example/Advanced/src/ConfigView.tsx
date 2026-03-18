@@ -93,7 +93,16 @@ const ConfigView: React.FC<ConfigViewProps> = ({ visible, onClose, onRequestRegi
           console.warn('[ConfigView] removeGeofences ERROR', e);
         }
         break;
-
+      case 'show-battery-optimizations':
+        try {
+          BackgroundGeolocation.deviceSettings.showIgnoreBatteryOptimizations().then((request) => {
+            console.log('showIgnoreBatteryOptimizations request:', request);
+            BackgroundGeolocation.deviceSettings.show(request);            
+          });
+        } catch (error) {
+          console.warn('Error showing Ignore Battery Optimizations:', error);
+        }
+        break;
       default:
         console.warn('[ConfigView] Unknown context-menu option:', option);
     }
@@ -319,6 +328,15 @@ const ConfigView: React.FC<ConfigViewProps> = ({ visible, onClose, onRequestRegi
             >
               <Text style={styles.menuItemText}>Remove Geofences</Text>
             </TouchableOpacity>
+
+            <View style={styles.menuSeparator} />
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => onContextMenu('show-battery-optimizations')}
+            >
+              <Text style={styles.menuItemText}>Show Battery Optimizations</Text>
+            </TouchableOpacity>
+            
           </Pressable>
         </Pressable>
       </Modal>

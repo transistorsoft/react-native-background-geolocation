@@ -35,10 +35,9 @@ function getNativeBGGeo() {
   );
 }
 
-const RNBackgroundGeolocation = getNativeBGGeo();
+export const RNBackgroundGeolocation = getNativeBGGeo();
 
 const EventEmitter = new NativeEventEmitter(RNBackgroundGeolocation);
-
 
 import TransistorAuthorizationService from "./TransistorAuthorizationService";
 

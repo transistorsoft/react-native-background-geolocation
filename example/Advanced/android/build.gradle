@@ -19,4 +19,35 @@ buildscript {
     }
 }
 
+// development
+allprojects {
+    // background_geolocation
+    // [DEV] Sonatype SNAPSHOT url
+    repositories {
+        maven { url "https://central.sonatype.com/repository/maven-snapshots/" }
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            cacheChangingModulesFor(0, "seconds")
+            cacheDynamicVersionsFor(0, "seconds")
+        }
+    }
+}
+
+/*
+allprojects { p ->
+  p.repositories.whenObjectAdded { repo ->
+    if (repo instanceof MavenArtifactRepository) {
+      def u = repo.url?.toString() ?: ""
+      if (u.contains("central.sonatype.com/repository/maven-snapshots")) {
+        println "🚨 Added Sonatype snapshots repo"
+        println "   project: ${p.path}"
+        println "   script : ${p.buildFile}"
+      }
+    }
+  }
+}
+*/
+
 apply plugin: "com.facebook.react.rootproject"

@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 5.0.4 &mdash; 2025-03-18
+* Fix bug in `DeviceSettings` (`ReferenceError: Property 'args' doesn't exist`) when calling `BackgroundGeolocation.deviceSettings.show(request)`
+
 ## 5.0.3 &mdash; 2025-01-29
 * Fix bug in `BackgroundGeolocation.logger` API
 

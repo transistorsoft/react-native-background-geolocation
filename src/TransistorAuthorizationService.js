@@ -1,7 +1,5 @@
 'use strict';
 
-import { NativeModules } from "react-native"
-
 const DEFAULT_URL  = 'https://tracker.transistorsoft.com';
 
 const DUMMY_TOKEN 	= 'DUMMY_TOKEN';
@@ -14,7 +12,7 @@ const LOCATIONS_PATH = '/api/locations';
 
 const REFRESH_TOKEN_PATH = '/api/refresh_token';
 
-const { RNBackgroundGeolocation } = NativeModules;
+import { RNBackgroundGeolocation } from "./NativeModule";
 
 export default class TransistorAuthorizationService {
 	static findOrCreate(orgname, username, url=DEFAULT_URL) {
@@ -40,7 +38,7 @@ export default class TransistorAuthorizationService {
 		});
 	}
 
-  static destroy(url=DEFAULT_URL) {  	
+  static destroy(url=DEFAULT_URL) {  		
 	return RNBackgroundGeolocation.destroyTransistorToken(url);	
   }
 

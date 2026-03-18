@@ -88,7 +88,7 @@ const App = () => {
       setIsInitialized(true);
       // 1) Fetch/create tracker JWT
       const token = await BackgroundGeolocation.findOrCreateTransistorAuthorizationToken(org, username);
-
+      
       // 2) Configure plugin WITH token (like old demo app)
       const state = await BackgroundGeolocation.ready({
         reset: false, // <-- NO NOT USE reset: false IN YOUR APP UNLESS YOU KNOW WHAT IT DOES.  THIS IS ONLY FOR THIS DEMO APP
@@ -165,7 +165,7 @@ const App = () => {
     try {
       const location = await BackgroundGeolocation.getCurrentPosition({
         timeout: 30,          // 30 second timeout to fetch location
-        maximumAge: 0,    // Accept the last-known-location if not older than 5s.
+        maximumAge: 5000,    // Accept the last-known-location if not older than 5s.
         desiredAccuracy: 10, // Try to fetch a location with an accuracy of 10 meters.
         samples: 3,           // Fetch 3 location samples in attempt to improve accuracy.
         extras: { getCurrentPosition: true }

@@ -81,7 +81,7 @@ const FABMenu: React.FC<FABMenuProps> = ({ onMenuItemPress }) => {
       case 'sync':
         sync();
         break;
-      case 'resetOdometer':
+      case 'resetOdometer':        
         resetOdometer();
         break;
       case 'watchPosition':

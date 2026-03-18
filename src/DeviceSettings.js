@@ -1,8 +1,6 @@
 'use strict';
 
-import { NativeModules } from "react-native"
-
-const { RNBackgroundGeolocation } = NativeModules;
+import { RNBackgroundGeolocation } from "./NativeModule";
 
 const IGNORE_BATTERY_OPTIMIZATIONS = "IGNORE_BATTERY_OPTIMIZATIONS";
 const POWER_MANAGER = "POWER_MANAGER";
@@ -30,6 +28,6 @@ export default class DeviceSettings {
   }
 
   show(request) {
-    return RNBackgroundGeolocation.showSettings(args);
+    return RNBackgroundGeolocation.showSettings(request);
   }
 }

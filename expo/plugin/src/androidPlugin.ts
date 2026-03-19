@@ -47,11 +47,16 @@ const findModuleRecursively = (dir: string): string | null => {
 
   return findModuleRecursively(parent);
 };
-const MODULE_NAME = findModuleRecursively(path.resolve('.'));
-if (!MODULE_NAME) {
-  console.error(`Could not find neither '${PUBLIC_MODULE}' or '${PRIVATE_MODULE}' in node_modules`);
-  process.exit(1);
-}
+
+const resolveModuleName = (projectRoot: string): string => {
+  const moduleName = findModuleRecursively(path.resolve(projectRoot));
+  if (!moduleName) {
+    throw new Error(
+      `Could not find neither '${PUBLIC_MODULE}' or '${PRIVATE_MODULE}' in node_modules from project root: ${projectRoot}`
+    );
+  }
+  return moduleName;
+};
 
 const { 
   addMetaDataItemToMainApplication, 
@@ -71,7 +76,9 @@ const androidPlugin: ConfigPlugin<Props> = (config, props={}) => {
       return { modResults, ...subConfig };
     }
 
-    modResults.contents = applyAppGradle(modResults.contents);
+    const projectRoot = (config as any)?._internal?.projectRoot ?? process.cwd();
+    const moduleName = resolveModuleName(projectRoot);
+    modResults.contents = applyAppGradle(modResults.contents, moduleName);
 
     return { modResults, ...subConfig };
   });
@@ -118,15 +125,15 @@ const androidPlugin: ConfigPlugin<Props> = (config, props={}) => {
   return config;
 };
 
-const applyAppGradle = (buildGradle:string) => {
+const applyAppGradle = (buildGradle:string, moduleName: string) => {
   // Apply background-geolocation.gradle
   const newSrc = [];
 
-  newSrc.push(`Project background_geolocation = project(':${MODULE_NAME}')`)
+  newSrc.push(`Project background_geolocation = project(':${moduleName}')`)
   newSrc.push(`apply from: "\${background_geolocation.projectDir}/app.gradle"`)
 
   buildGradle = mergeContents({
-    tag: `${MODULE_NAME}-project`,
+    tag: `${moduleName}-project`,
     src: buildGradle,
     newSrc: newSrc.join("\n"),
     anchor: /android\s\{/,
@@ -167,11 +174,11 @@ const applyExtVars = (buildGradle: string, props:Props) => {
 }
 */
 
-const applyMavenUrl = (buildGradle: string):string => {
+const applyMavenUrl = (buildGradle: string, moduleName: string):string => {
   return mergeContents({
-    tag: `${MODULE_NAME}-maven`,
+    tag: `${moduleName}-maven`,
     src: buildGradle,
-    newSrc: `\tmaven { url "\${project(":${MODULE_NAME}").projectDir}/libs" }\n\tmaven { url 'https://developer.huawei.com/repo/' }`,
+    newSrc: `\tmaven { url "\${project(":${moduleName}").projectDir}/libs" }\n\tmaven { url 'https://developer.huawei.com/repo/' }`,
     anchor: /maven\s\{/,
     offset: 1,
     comment: "//",
@@ -179,4 +186,3 @@ const applyMavenUrl = (buildGradle: string):string => {
 }
 
 export default androidPlugin;
-

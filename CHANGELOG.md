@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 5.0.5 &mdash; 2025-03-20
+* Fix Expo plugin module resolution in monorepos (#2532)
+
 ## 5.0.4 &mdash; 2025-03-18
 * Fix bug in `DeviceSettings` (`ReferenceError: Property 'args' doesn't exist`) when calling `BackgroundGeolocation.deviceSettings.show(request)`
 

@@ -14,8 +14,15 @@ const pkg = JSON.parse(
 const name = `${pkg.name}@${pkg.version}`;
 const typedocConfig = path.join(__dirname, "..", "typedoc.json");
 
+// Resolve typedoc from background-geolocation-types so that the custom plugins
+// (gitlink, mediaplayer, site) are loaded by the same TypeDoc version they were
+// built against, avoiding the "TypeDoc loaded multiple times" warning.
+const typedocBin = path.resolve(
+  __dirname, "..", "../../background-geolocation-types/node_modules/.bin/typedoc"
+);
+
 const child = spawn(
-  "typedoc",
+  typedocBin,
   ["--options", typedocConfig, "--name", name],
   { stdio: "inherit" }
 );

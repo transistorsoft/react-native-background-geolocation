@@ -3,13 +3,70 @@
 > **Version:** 5.0.0  
 > **Applies to:** `react-native-background-geolocation` v5.0.0 and above
 
----
 
 ## 📢 Overview
 
+Version `5.x` introduces two important changes:
+
+1. A new **JWT-based License Key** format that encodes add-on product entitlements (eg: [`polygon-geofencing`](https://shop.transistorsoft.com/collections/frontpage/products/polygon-geofencing), `firebase`) — separate add-on keys are no longer required.
+2. A new **Compound Config** format that replaces the legacy "flat" config structure.
+
+This guide explains both changes and how to migrate your app.
+
+## 🔑 New License Key Format
+
+### Overview
+
+#### New License Key Format
+
+Version 9 uses a new **JWT-based license key** format. Your existing (legacy) license keys will **not** work with v9.
+
+> [!IMPORTANT]
+> Previous versions of the SDK did not require a license key on iOS. **v5 requires a license key on both iOS and Android.** See [iOS Setup](INSTALL-IOS-AUTO.md) and [Android Setup](INSTALL-ANDROID.md-AUTO) or [Expo Setup](INSTALL-EXPO.md) for license key configuration details.
+
+> [!NOTE]
+> Add-on products (eg: [`polygon-geofencing`](https://shop.transistorsoft.com/collections/frontpage/products/polygon-geofencing), `firebase`) are now **encoded as entitlements** inside the JWT key itself. You no longer need separate license keys for add-on products.
+
+### Getting Your New License Key
+
+1. Log in to the [Transistor Software Customer Dashboard](https://www.transistorsoft.com/shop/customers).
+2. Navigate to your product purchase.
+3. You will find **two license tabs**:
+   - **Legacy** — your old license key (for `react-native-background-geolocation` v4 and below)
+   - **New** — your new JWT license key (required for `capacitor-background-geolocation` v5+)
+4. Copy the key from the **"New"** tab.
+
+### Applying Your License Key
+
+__[iOS]__ Add your JWT license key to your `Info.plist` under the key `TSLocationManagerLicense`. See [iOS Setup](INSTALL-IOS-AUTO.md) for full details:
+
+:open_file_folder: `ios/App/App/Info.plist`
+```xml
+<key>TSLocationManagerLicense</key>
+<string>YOUR_JWT_LICENSE_KEY</string>
+```
+
+__[Android]__ Add your JWT license key to `AndroidManifest.xml`. See [Android Setup](INSTALL-ANDROID-AUTO.md) for full details:
+
+__[Expo Setup](INSTALL-EXPO.md)
+
+:open_file_folder: `android/app/src/main/AndroidManifest.xml`
+```xml
+<manifest>
+    <application>
+        <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="YOUR_JWT_LICENSE_KEY" />
+    </application>
+</manifest>
+```
+
+> [!WARNING]
+> If you previously configured a separate license key for [`polygon-geofencing`](https://shop.transistorsoft.com/collections/frontpage/products/polygon-geofencing), `firebase`, or any other add-on product, **remove it**. Add-on entitlements are now bundled into your single bgGeo JWT license key.
+
+#### Compound Config
+
 Version 5 introduces a new **Compound Config** format that replaces the legacy “flat” config structure. This guide explains how to migrate, shows before/after examples, and highlights key differences for the **React Native** SDK.
 
----
+
 
 ## ⚙️ Compatibility
 
@@ -18,7 +75,7 @@ You can continue using your existing flat configuration if you prefer, though ne
 
 > **Recommendation:** New apps and major refactors should migrate to the compound config to stay aligned with the native SDKs and shared type system.
 
----
+
 
 ## ⏩ Why Compound Config?
 
@@ -27,7 +84,7 @@ You can continue using your existing flat configuration if you prefer, though ne
 - **Consistency:** Aligns with native SDKs and shared TypeScript types across platforms.
 - **Tooling:** Better IntelliSense / autocomplete when using [`@transistorsoft/background-geolocation-types`](https://github.com/transistorsoft/background-geolocation-types).
 
----
+
 
 ## 🏗️ Old vs. New Config Structure (React Native)
 
@@ -73,7 +130,6 @@ BackgroundGeolocation.ready({
 });
 ```
 
----
 
 ## 🗺️ Mapping Table: Flat → Compound
 
@@ -91,7 +147,7 @@ BackgroundGeolocation.ready({
 
 > See the [full mapping table](#full-mapping-table) below for all properties.
 
----
+
 
 ## 🧑‍💻 Migration Steps
 
@@ -130,7 +186,7 @@ BackgroundGeolocation.ready({
    - Some keys may have been renamed, moved, or refactored.
    - See [Breaking Changes](#breaking-changes) below.
 
----
+
 
 ## 📝 Example Migration
 
@@ -174,7 +230,6 @@ BackgroundGeolocation.ready({
 ));
 ```
 
----
 
 ## 🧩 Compound Config Groups
 
@@ -189,7 +244,6 @@ BackgroundGeolocation.ready({
 
 Each group is a separate Dart class. See API docs for details.
 
----
 
 ## 🛠️ Full Mapping Table
 
@@ -247,7 +301,6 @@ Each group is a separate Dart class. See API docs for details.
 
 > Not all legacy keys are shown above. See API docs for full details.
 
----
 
 ## ⚠️ Breaking Changes
 
@@ -258,7 +311,6 @@ Each group is a separate Dart class. See API docs for details.
 - **Legacy flat config remains supported but deprecated:**  
   - Using the legacy flat config will show warnings at runtime, but will **not** result in an error. Migration to the new grouped config is recommended for future compatibility.
 
----
 
 ## 🧪 Testing Your Migration
 
@@ -267,14 +319,12 @@ Each group is a separate Dart class. See API docs for details.
 3. **Review logs** to ensure config is applied as expected.
 4. **Consult the API docs** for each config group if unsure.
 
----
 
 ## 🆘 Need Help?
 
 - See the [API Reference](https://transistorsoft.github.io/react-native-background-geolocation/latest) for each config class.
 - Ask questions on [GitHub Discussions](https://github.com/transistorsoft/react-native-background-geolocation/discussions) or [open an issue](https://github.com/transistorsoft/react-native-background-geolocation/issues).
 
----
 
 ## 📚 Resources
 
@@ -282,7 +332,6 @@ Each group is a separate Dart class. See API docs for details.
 - [GitHub Project](https://github.com/transistorsoft/react-native-background-geolocation/)
 - [Changelog](CHANGELOG.md)
 
----
 
 ## 🎉 Happy Migrating!
 

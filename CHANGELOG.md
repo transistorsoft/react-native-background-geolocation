@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## Unreleased
+- Update migration guide
+
 ## 5.0.5 &mdash; 2025-03-20
 * Fix Expo plugin module resolution in monorepos (#2532)
 

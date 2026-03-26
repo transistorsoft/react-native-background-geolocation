@@ -38,7 +38,7 @@ Version 9 uses a new **JWT-based license key** format. Your existing (legacy) li
 
 ### Applying Your License Key
 
-__[iOS]__ Add your JWT license key to your `Info.plist` under the key `TSLocationManagerLicense`. See [iOS Setup](INSTALL-IOS-AUTO.md) for full details:
+- __[iOS]__ Add your JWT license key to your `Info.plist` under the key `TSLocationManagerLicense`. See [iOS Setup](INSTALL-IOS-AUTO.md) for full details:
 
 :open_file_folder: `ios/App/App/Info.plist`
 ```xml
@@ -46,9 +46,9 @@ __[iOS]__ Add your JWT license key to your `Info.plist` under the key `TSLocatio
 <string>YOUR_JWT_LICENSE_KEY</string>
 ```
 
-__[Android]__ Add your JWT license key to `AndroidManifest.xml`. See [Android Setup](INSTALL-ANDROID-AUTO.md) for full details:
+- __[Android]__ Add your JWT license key to `AndroidManifest.xml`. See [Android Setup](INSTALL-ANDROID-AUTO.md) for full details:
 
-__[Expo Setup](INSTALL-EXPO.md)
+- __[Expo]__ See [Expo Setup](INSTALL-EXPO.md)
 
 :open_file_folder: `android/app/src/main/AndroidManifest.xml`
 ```xml

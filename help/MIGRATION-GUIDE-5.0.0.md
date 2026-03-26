@@ -48,8 +48,6 @@ Version 9 uses a new **JWT-based license key** format. Your existing (legacy) li
 
 - __[Android]__ Add your JWT license key to `AndroidManifest.xml`. See [Android Setup](INSTALL-ANDROID-AUTO.md) for full details:
 
-- __[Expo]__ See [Expo Setup](INSTALL-EXPO.md)
-
 :open_file_folder: `android/app/src/main/AndroidManifest.xml`
 ```xml
 <manifest>
@@ -58,6 +56,9 @@ Version 9 uses a new **JWT-based license key** format. Your existing (legacy) li
     </application>
 </manifest>
 ```
+
+- __[Expo]__ See [Expo Setup](INSTALL-EXPO.md)
+
 
 > [!WARNING]
 > If you previously configured a separate license key for [`polygon-geofencing`](https://shop.transistorsoft.com/collections/frontpage/products/polygon-geofencing), `firebase`, or any other add-on product, **remove it**. Add-on entitlements are now bundled into your single bgGeo JWT license key.

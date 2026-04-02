@@ -2,8 +2,9 @@
   <img src="https://raw.githubusercontent.com/transistorsoft/assets/master/images/logos/transistor/transistor-logo-panel-react-native.svg" alt="Background Geolocation for React Native" width="635">
 </p>
 
-Background Geolocation for React Native &middot; [![npm](https://img.shields.io/npm/dm/react-native-background-geolocation.svg)]() [![npm](https://img.shields.io/npm/v/react-native-background-geolocation.svg)]()
-============================================================================
+# Background Geolocation for React Native
+
+[![npm](https://img.shields.io/npm/dm/react-native-background-geolocation.svg)]() [![npm](https://img.shields.io/npm/v/react-native-background-geolocation.svg)]()
 
 The *most* sophisticated background **location-tracking & geofencing** module with battery-conscious motion-detection intelligence for **iOS** and **Android**.
 

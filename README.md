@@ -32,6 +32,12 @@ The SDK uses **motion-detection** APIs (accelerometer, gyroscope, magnetometer) 
 
 ---
 
+## :open_file_folder: Example Apps
+
+See [`/example`](example/README.md) — example apps are included in this repo.
+
+---
+
 ## 📦 SDK availability
 
 | Platform | Package |

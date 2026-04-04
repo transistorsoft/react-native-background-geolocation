@@ -32,6 +32,16 @@ The SDK uses **motion-detection** APIs (accelerometer, gyroscope, magnetometer) 
 
 ---
 
+## :key: Licensing
+
+> [!TIP]
+> The SDK is **fully functional in `DEBUG` builds** — no license required. Try before you buy.
+
+A license is required only for **`RELEASE` builds** on Android.
+[Purchase a license](https://shop.transistorsoft.com/products/react-native-background-geolocation)
+
+---
+
 ## :open_file_folder: Example Apps
 
 See [`/example`](example/README.md) — example apps are included in this repo.
@@ -49,16 +59,6 @@ See [`/example`](example/README.md) — example apps are included in this repo.
 | <img src="assets/images/platforms/cordova.svg" width="16" height="16"> [Cordova](https://github.com/transistorsoft/cordova-background-geolocation-lt) | `cordova-background-geolocation-lt` |
 | <img src="assets/images/platforms/swift.svg" width="16" height="16"> [Swift / iOS](https://github.com/transistorsoft/background-geolocation) | `background-geolocation` |
 | <img src="assets/images/platforms/kotlin.svg" width="16" height="16"> [Kotlin / Android](https://github.com/transistorsoft/background-geolocation) | `background-geolocation` |
-
----
-
-## :key: Licensing
-
-> [!TIP]
-> The SDK is **fully functional in `DEBUG` builds** — no license required. Try before you buy.
-
-A license is required only for **`RELEASE` builds** on Android.
-[Purchase a license](https://shop.transistorsoft.com/products/react-native-background-geolocation)
 
 ---
 

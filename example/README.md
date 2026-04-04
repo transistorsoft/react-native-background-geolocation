@@ -1,23 +1,17 @@
 # Example Apps
 
 This directory contains example applications demonstrating different levels of
-usage of the
-[react-native-background-geolocation](https://github.com/transistorsoft/react-native-background-geolocation)
-SDK.
-
-Each app is intended to showcase a specific learning path, from minimal
-integration to advanced, feature-rich usage.
+usage of the [react-native-background-geolocation](https://github.com/transistorsoft/react-native-background-geolocation) SDK.
 
 ---
 
-## Available Examples
+## Examples
 
-### Advanced Demo App
+### Advanced Demo
 
 **Path:** `./Advanced`
 
-A full-featured demonstration app showcasing advanced capabilities of the SDK,
-including:
+A full-featured demonstration app showcasing advanced capabilities of the SDK, including:
 
 - Live map visualization
 - Real-time configuration editing
@@ -25,25 +19,44 @@ including:
 - Motion state management
 - Demo server registration and tracking
 
-👉 See: [Advanced Demo App](./Advanced)
-
----
-
-### HelloWorld Demo App
+### HelloWorld Demo
 
 **Path:** `./HelloWorld`
 
-A minimal, stripped-down demo app focused on core SDK concepts, including:
+A minimal, stripped-down demo focused on core SDK concepts, including:
 
 - Starting and stopping tracking
 - Manually controlling motion state
 - Requesting the current location
 - Displaying basic tracking and event state
 
-This app contains **no map view** and **no configuration UI**, making it ideal for
-first-time users.
+No map view, no configuration UI — ideal for first-time users.
 
-👉 See: [HelloWorld Demo App](./HelloWorld)
+---
+
+## Which Should I Use?
+
+- Start with **HelloWorld** if you want to understand the basics quickly.
+- Use **Advanced** if you want to explore the SDK's full capabilities and UI patterns.
+
+---
+
+## Demo Server
+
+When the app launches it will ask you to register an **organization** and **username**. The example app posts your tracking data to Transistor Software's demo server at:
+
+**[https://tracker.transistorsoft.com](https://tracker.transistorsoft.com)**
+
+View your results live on a map by navigating to:
+
+```
+https://tracker.transistorsoft.com/<your-organization>
+```
+
+> [!NOTE]
+> The demo server is for testing purposes only. Use any organization name — it acts as a namespace to group your devices.
+
+![](https://raw.githubusercontent.com/transistorsoft/assets/master/images/tracker.transistorsoft.com.png)
 
 ---
 
@@ -81,26 +94,10 @@ cd ios && pod install && cd ..
 npx react-native run-ios
 ```
 
-### Release builds
-
-```bash
-npx react-native run-android --mode=release
-npx react-native run-ios --mode Release
-```
-
----
-
-## Which Should I Use?
-
-- Start with **HelloWorld** if you want to understand the basics quickly.
-- Use **Advanced** if you want to explore the SDK’s full capabilities and UI
-  patterns.
-
 ---
 
 ## Learn More
 
-- Documentation:  
-  https://transistorsoft.github.io/react-native-background-geolocation/latest/
-- GitHub repository:  
-  https://github.com/transistorsoft/react-native-background-geolocation
+- [Documentation](https://docs.transistorsoft.com/typescript/setup/)
+- [API Reference](https://docs.transistorsoft.com/typescript/BackgroundGeolocation/)
+- [GitHub repository](https://github.com/transistorsoft/react-native-background-geolocation)

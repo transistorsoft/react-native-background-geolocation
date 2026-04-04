@@ -23,12 +23,12 @@ The SDK uses **motion-detection** APIs (accelerometer, gyroscope, magnetometer) 
 ### <img src="assets/images/platforms/react-native.svg" width="20" height="20"> React Native
 - [Setup](https://docs.transistorsoft.com/typescript/setup/)
 - [API Reference](https://docs.transistorsoft.com/typescript/BackgroundGeolocation/)
-- [Example](https://docs.transistorsoft.com/typescript/setup/#example)
+- [Example](https://docs.transistorsoft.com/typescript/examples/?tab=react-native)
 
 ### <img src="assets/images/platforms/expo.svg" width="20" height="20"> Expo
 - [Setup](https://docs.transistorsoft.com/typescript/setup/)
 - [API Reference](https://docs.transistorsoft.com/typescript/BackgroundGeolocation/)
-- [Example](https://docs.transistorsoft.com/typescript/setup/#example)
+- [Example](https://docs.transistorsoft.com/typescript/examples/?tab=react-native)
 
 ---
 

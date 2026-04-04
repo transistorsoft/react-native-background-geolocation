@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Flutter — paths normalised to ±12-unit origin-centred canvas -->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-12 -12 24 24">
+  <defs><linearGradient id="flsg" x1="0.6" y1="9.9" x2="3.4" y2="7.2" gradientUnits="userSpaceOnUse"><stop offset="0%"   stop-color="#1a237e" stop-opacity="0.4"/><stop offset="100%" stop-color="#1a237e" stop-opacity="0"/></linearGradient></defs><path d="M2.3,-12 L9.7,-12 L-6.0,3.7 L-9.7,0 Z"        fill="#39cefd"/><path d="M-4.2,5.5 L-0.5,9.2 L9.7,-0.9 L2.3,-0.9 Z"    fill="#39cefd"/><path d="M-4.2,5.5 L-0.5,1.8 L3.2,5.5 L-0.5,9.2 Z"     fill="#16b9fd"/><path d="M-0.5,9.2 L2.3,12.0 L9.7,12.0 L3.2,5.5 Z"     fill="#03569b"/><path d="M5.0,7.3 L3.2,5.5 L-0.5,9.2 Z"                 fill="url(#flsg)"/>
+</svg>

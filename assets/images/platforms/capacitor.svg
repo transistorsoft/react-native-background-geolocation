@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Capacitor — paths normalised to ±12-unit origin-centred canvas -->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-12 -12 24 24">
+  <defs><linearGradient id="capg" x1="-12" y1="0" x2="12" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%"   stop-color="#75CEFF"/><stop offset="100%" stop-color="#4BAEFF"/></linearGradient></defs><polygon points="-12.0,-3.1 -5.9,3.0 -12.0,9.0 -9.1,12.0 -3.0,5.9 3.1,12.0 6.0,9.0 -9.0,-6.1" fill="url(#capg)"/><polygon points="12.0,-9.1 9.0,-12.0 3.0,-5.9 -3.1,-12.0 -6.1,-9.0 9.0,6.0 12.0,3.1 5.9,-3.0" fill="url(#capg)"/>
+</svg>

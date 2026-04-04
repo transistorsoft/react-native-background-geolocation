@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- React Native — paths normalised to ±12-unit origin-centred canvas -->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-12 -12 24 24">
+  <ellipse rx="11" ry="4.2" fill="none" stroke="#61DAFB" stroke-width="1.1"/><ellipse rx="11" ry="4.2" fill="none" stroke="#61DAFB" stroke-width="1.1" transform="rotate(60)"/><ellipse rx="11" ry="4.2" fill="none" stroke="#61DAFB" stroke-width="1.1" transform="rotate(120)"/><circle r="2.05" fill="#61DAFB"/>
+</svg>

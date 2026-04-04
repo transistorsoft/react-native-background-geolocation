@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/transistorsoft/assets/master/images/logos/transistor/transistor-logo-panel-react-native.svg" alt="Background Geolocation for React Native" width="635">
 </p>
 
-# Background Geolocation for React Native
+# Background Geolocation for React Native &amp; Expo
 
 [![npm](https://img.shields.io/npm/dm/react-native-background-geolocation.svg)]() [![npm](https://img.shields.io/npm/v/react-native-background-geolocation.svg)]()
 

@@ -32,7 +32,7 @@ The SDK uses **motion-detection** APIs (accelerometer, gyroscope, magnetometer) 
 
 ---
 
-## SDK availability
+## :earth_americas: SDK availability
 
 | Platform | Package |
 |---|---|
@@ -46,7 +46,7 @@ The SDK uses **motion-detection** APIs (accelerometer, gyroscope, magnetometer) 
 
 ---
 
-## Licensing
+## :key: Licensing
 
 > [!TIP]
 > The SDK is **fully functional in `DEBUG` builds** — no license required. Try before you buy.

@@ -32,7 +32,7 @@ The SDK uses **motion-detection** APIs (accelerometer, gyroscope, magnetometer) 
 
 ---
 
-## :earth_americas: SDK availability
+## 📦 SDK availability
 
 | Platform | Package |
 |---|---|

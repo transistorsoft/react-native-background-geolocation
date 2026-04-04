@@ -48,7 +48,8 @@ The SDK uses **motion-detection** APIs (accelerometer, gyroscope, magnetometer) 
 
 ## Licensing
 
-The SDK is **fully functional in `DEBUG` builds** — no license required. Try before you buy.
+> [!TIP]
+> The SDK is **fully functional in `DEBUG` builds** — no license required. Try before you buy.
 
 A license is required only for **`RELEASE` builds** on Android.
 [Purchase a license](https://shop.transistorsoft.com/products/react-native-background-geolocation)

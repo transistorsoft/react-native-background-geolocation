@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/transistorsoft/assets/master/images/logos/transistor/transistor-logo-panel-react-native.svg" alt="Background Geolocation for React Native" width="635">
+  <img src="https://raw.githubusercontent.com/transistorsoft/assets/master/images/logos/transistor/transistor-logo-panel-all.svg" alt="Background Geolocation for React Native" width="635">
 </p>
 
 # Background Geolocation for React Native

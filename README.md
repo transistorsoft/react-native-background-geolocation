@@ -14,7 +14,7 @@ The SDK uses **motion-detection** APIs (accelerometer, gyroscope, magnetometer) 
 - **Stationary** — location services turn off automatically to conserve battery
 
 > [!IMPORTANT]
-> This is **`v5`**. For the previous version see [`v4.x`](https://github.com/transistorsoft/react-native-background-geolocation/tree/4.19.4). **`v4.x`** license keys do **not** work with **`v5`** — log in to the [Customer Dashboard](https://shop.transistorsoft.com/customers) to generate a **`v5`** key. See the [Migration Guide](help/MIGRATION-GUIDE-5.0.0.md) for details.
+> This is **`v5`**. For the previous version see [`v4.x`](https://github.com/transistorsoft/react-native-background-geolocation/tree/4.19.4). **`v4.x`** license keys do **not** work with **`v5`** — log in to the [Customer Dashboard](https://transistorsoft.com) to generate a **`v5`** key. See the [Migration Guide](help/MIGRATION-GUIDE-5.0.0.md) for details.
 
 ---
 

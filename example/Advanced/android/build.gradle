@@ -6,7 +6,7 @@ buildscript {
         targetSdkVersion = 36
         ndkVersion = "27.1.12297006"
         kotlinVersion = "2.1.20"
-        tslocationmanagerVersion = "4.0.+"
+        tslocationmanagerVersion = "4.1.+"
     }
     repositories {
         google()

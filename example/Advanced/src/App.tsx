@@ -102,7 +102,7 @@ const App = () => {
           autoSync: true
         },
         persistence: {
-          maxDaysToPersist: 14,
+          maxDaysToPersist: 14
         }, 
         app: {
           stopOnTerminate: false,

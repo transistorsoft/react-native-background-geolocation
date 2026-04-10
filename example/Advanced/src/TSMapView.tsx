@@ -386,7 +386,7 @@ const TSMapView: React.FC<TSMapViewProps> = ({ hideAddGeofencePrompt = false }) 
     const timestamp = new Date();
     const marker = {
       key: `${location.uuid}:${timestamp.getTime()}`,
-      title: location.timestamp,
+      title: `${location.timestamp}`,
       heading: location.coords.heading,
       coordinate: {
         latitude: location.coords.latitude,

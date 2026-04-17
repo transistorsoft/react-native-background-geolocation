@@ -2652,7 +2652,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RNGestureHandler (2.31.0):
+  - RNGestureHandler (2.31.1):
     - boost
     - DoubleConversion
     - fast_float
@@ -2947,9 +2947,9 @@ PODS:
     - SocketRocket
     - Yoga
   - SocketRocket (0.7.1)
-  - TSBackgroundFetch (4.0.6)
-  - TSLocationManager (4.1.2):
-    - TSBackgroundFetch (~> 4.0.6)
+  - TSBackgroundFetch (4.1.1)
+  - TSLocationManager (4.1.4):
+    - TSBackgroundFetch (~> 4.1.0)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -3304,16 +3304,16 @@ SPEC CHECKSUMS:
   ReactCommon: ac934cb340aee91282ecd6f273a26d24d4c55cae
   RNBackgroundGeolocation: 68017f04ca292cfdde26becac33ae801157c91fb
   RNCAsyncStorage: 29f0230e1a25f36c20b05f65e2eb8958d6526e82
-  RNGestureHandler: 884f03ad24511911552480eb2058266db0b177ce
+  RNGestureHandler: 713ad51725fe889ff3869d68b577a450605edda2
   RNReactNativeHapticFeedback: 43181767a132b77676b6a58b7ed852928e0d4862
   RNReanimated: 4e6187f2ba1e30e6ddc7c8fc9f19b2dd2b6b2532
   RNSVG: 3405336c4507ee0bafb02b08058d57216daa2c50
   RNWorklets: 6daa3975bebe6047822c7485666d501a716674ca
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  TSBackgroundFetch: 0afbeaae4e1132866e1d4b6e55265af26b5958ae
-  TSLocationManager: d0e8ec5c1467782d3eef1d90fbca4a42e98bb287
+  TSBackgroundFetch: 18918b6449a1e3f01eb0f5b44d6d79ce6160a5a5
+  TSLocationManager: ae7249127ddf91fcd4e75e31f0c89746226765b8
   Yoga: 5456bb010373068fc92221140921b09d126b116e
 
-PODFILE CHECKSUM: a647ca82cbda7715f01c9bca6bae1cdf963a08f8
+PODFILE CHECKSUM: 4aa07b4c6edf4ad287fe7bb39395695ac858d313
 
 COCOAPODS: 1.16.2

@@ -30,5 +30,18 @@ target 'BGGeolocation' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # Fix for Xcode 26.4 / C++20 build errors in fmt (transitive via React-jsi).
+    # The new clang rejects how fmt 10.x's FMT_STRING uses consteval with
+    # libc++'s hardened std::string_view. Force fmt to build as C++17 — consteval
+    # isn't a keyword there, so FMT_CONSTEVAL falls back to constexpr.
+    # Rest of RN still builds C++20.
+    installer.pods_project.targets.each do |t|
+      if t.name == 'fmt'
+        t.build_configurations.each do |c|
+          c.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
+        end
+      end
+    end
   end
 end

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import {
+  Alert,
+  Platform,
   View,
   Text,
   StyleSheet,
@@ -83,9 +85,27 @@ const App = () => {
     }
   };
 
+  const showBackgroundLocationDisclosure = async () => {
+    const disclosed = await AsyncStorage.getItem('@has_disclosed_background_permission');
+    if (disclosed || Platform.OS !== 'android') return;
+
+    await new Promise<void>((resolve) => {
+      Alert.alert(
+        'Background Location Access',
+        'BG Geo collects location data to enable tracking your trips to work and calculate distance travelled even when the app is closed or not in use.\n\nThis data will be uploaded to tracker.transistorsoft.com where you may view and/or delete your location history.',
+        [{ text: 'Close', onPress: resolve }],
+        { cancelable: false }
+      );
+    });
+    await AsyncStorage.setItem('@has_disclosed_background_permission', 'true');
+  };
+
   const initializeBackgroundGeolocation = async (org: string, username: string) => {
     try {
       setIsInitialized(true);
+
+      await showBackgroundLocationDisclosure();
+
       // 1) Fetch/create tracker JWT
       const token = await BackgroundGeolocation.findOrCreateTransistorAuthorizationToken(org, username);
       

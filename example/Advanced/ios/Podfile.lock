@@ -2948,7 +2948,7 @@ PODS:
     - Yoga
   - SocketRocket (0.7.1)
   - TSBackgroundFetch (4.1.1)
-  - TSLocationManager (4.1.4):
+  - TSLocationManager (4.1.7):
     - TSBackgroundFetch (~> 4.1.0)
   - Yoga (0.0.0)
 
@@ -3311,7 +3311,7 @@ SPEC CHECKSUMS:
   RNWorklets: 6daa3975bebe6047822c7485666d501a716674ca
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   TSBackgroundFetch: 18918b6449a1e3f01eb0f5b44d6d79ce6160a5a5
-  TSLocationManager: ae7249127ddf91fcd4e75e31f0c89746226765b8
+  TSLocationManager: 0c1b8ed109ae05ea4247def2992b3e4e3f49f839
   Yoga: 5456bb010373068fc92221140921b09d126b116e
 
 PODFILE CHECKSUM: 4aa07b4c6edf4ad287fe7bb39395695ac858d313

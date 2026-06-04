@@ -16,10 +16,18 @@ const config = {
 
   resolver: {
     // Prefer the app's copies of these to avoid duplicates from the linked lib
-    extraNodeModules: {
-      react: path.resolve(__dirname, 'node_modules/react'),
-      'react-native': path.resolve(__dirname, 'node_modules/react-native'),
-    },
+    extraNodeModules: new Proxy(
+      {
+        react: path.resolve(__dirname, 'node_modules/react'),
+        'react-native': path.resolve(__dirname, 'node_modules/react-native'),
+      },
+      {
+        get: (target, name) =>
+          name in target
+            ? target[name]
+            : path.resolve(__dirname, 'node_modules', name),
+      },
+    ),
 
     // Keep Metro from crawling the lib's nested RN (if any)
     blockList: [

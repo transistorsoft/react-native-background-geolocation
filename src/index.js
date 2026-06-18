@@ -89,6 +89,7 @@ export default class BackgroundGeolocation {
   static get EVENT_HEARTBEAT()             { return Event.Heartbeat; }
   static get EVENT_PROVIDERCHANGE()        { return Event.ProviderChange; }
   static get EVENT_ACTIVITYCHANGE()        { return Event.ActivityChange; }
+  static get EVENT_LOCATIONFILTER()        { return Event.LocationFilter; }
   static get EVENT_GEOFENCE()              { return Event.Geofence; }
   static get EVENT_GEOFENCESCHANGE()       { return Event.GeofencesChange; }
   static get EVENT_ENABLEDCHANGE()         { return Event.EnabledChange; }
@@ -273,6 +274,10 @@ export default class BackgroundGeolocation {
 
   static onActivityChange(callback) {
     return this.addListener(Event.ActivityChange, callback);
+  }
+
+  static onLocationFilter(callback) {
+    return this.addListener(Event.LocationFilter, callback);
   }
 
   static onGeofence(callback) {

@@ -57,7 +57,12 @@ const ConfigView: React.FC<ConfigViewProps> = ({ visible, onClose, onRequestRegi
       // Update settings with current values from plugin
       const currentSettings: Record<string, any> = {};
       platformSettings.forEach(setting => {
-        currentSettings[setting.name] = (state as any)[setting.name] ?? setting.defaultValue;
+        // LocationFilter settings are nested under geolocation.filter; everything
+        // else is read from the flat State.
+        const current = setting.group === 'location filter'
+          ? (state as any).geolocation?.filter?.[setting.name]
+          : (state as any)[setting.name];
+        currentSettings[setting.name] = current ?? setting.defaultValue;
       });
       setSettings(currentSettings);
     });
@@ -156,6 +161,9 @@ const ConfigView: React.FC<ConfigViewProps> = ({ visible, onClose, onRequestRegi
       const notification: any = pluginState?.notification || {};
       notification.priority = value;
       config['notification'] = notification;
+    } else if (setting.group === 'location filter') {
+      // LocationFilter props nest under geolocation.filter
+      config['geolocation'] = { filter: { [setting.name]: value } };
     } else {
       // Map group names to config structure
       const groupMapping: Record<string, string> = {
@@ -269,7 +277,15 @@ const ConfigView: React.FC<ConfigViewProps> = ({ visible, onClose, onRequestRegi
       groups[setting.group].push(setting);
     });
 
-    return groups;
+    // Render "geolocation" first, then "location filter" directly below it; all other
+    // sections keep their natural (first-appearance) order. Array.sort is stable, so
+    // unranked groups retain their relative order.
+    const SECTION_ORDER = ['geolocation', 'location filter'];
+    const rank = (g: string) => {
+      const i = SECTION_ORDER.indexOf(g);
+      return i === -1 ? Number.MAX_SAFE_INTEGER : i;
+    };
+    return Object.entries(groups).sort(([a], [b]) => rank(a) - rank(b));
   }, []);
 
   // Cleanup timeout on unmount
@@ -345,7 +361,7 @@ const ConfigView: React.FC<ConfigViewProps> = ({ visible, onClose, onRequestRegi
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={true}
       >
-        {Object.entries(groupedSettings).map(([groupName, groupSettings]) => (
+        {groupedSettings.map(([groupName, groupSettings]) => (
           <View key={groupName} style={styles.section}>
             <Text style={styles.sectionTitle}>{groupName}</Text>
             <View style={styles.sectionContent}>

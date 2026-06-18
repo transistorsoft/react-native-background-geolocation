@@ -46,6 +46,10 @@ const App = () => {
       setIsEnabled(enabled);
     });
 
+    const onLocationFilter = BackgroundGeolocation.onLocationFilter(event => {
+      console.log('[locationfilter] -', event);
+    });
+
     // 2. Bootstrap registration + initialize BackgroundGeolocation
     bootstrap();
     

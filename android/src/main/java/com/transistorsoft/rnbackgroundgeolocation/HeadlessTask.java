@@ -62,6 +62,8 @@ public class HeadlessTask {
             params = event.getProviderChangeEvent().toMap();
         } else if (name.equals(EventName.ACTIVITYCHANGE)) {
             params = event.getActivityChangeEvent().toMap();
+        } else if (name.equals(EventName.LOCATIONFILTER)) {
+            params = event.getLocationFilterEvent().toMap();
         } else if (name.equals(EventName.SCHEDULE)) {
             params = config.toMap(false);
         } else if (name.equals(EventName.BOOT)) {

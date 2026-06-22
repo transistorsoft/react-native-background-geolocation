@@ -72,7 +72,33 @@ export const PLUGIN_SETTINGS: PluginSettings = {
     {name: 'disableLocationAuthorizationAlert', group: 'app', dataType: 'boolean', inputType: 'toggle', values: ['true', 'false'], defaultValue: 'false'},
     {name: 'showsBackgroundLocationIndicator', group: 'app', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: false},
     {name: 'stopTimeout', group: 'geolocation', dataType: 'integer', inputType: 'stepper', values: [0, 1, 5, 10, 15], defaultValue: 1},
-    // Activity Recognition    
+    // Location Filter
+    {name: 'policy', group: 'location filter', dataType: 'integer', inputType: 'select', values: [
+      {label: 'Pass-Through', value: BackgroundGeolocation.LocationFilterPolicy.PassThrough},
+      {label: 'Adjust', value: BackgroundGeolocation.LocationFilterPolicy.Adjust},
+      {label: 'Conservative', value: BackgroundGeolocation.LocationFilterPolicy.Conservative}
+    ], defaultValue: BackgroundGeolocation.LocationFilterPolicy.Conservative},
+    {name: 'trackingAccuracyThreshold', group: 'location filter', dataType: 'integer', inputType: 'stepper', values: [0, 1, 10, 50, 100, 200, 500], defaultValue: 100},
+    {name: 'odometerPolicy', group: 'location filter', dataType: 'integer', inputType: 'select', values: [
+      {label: 'Pass-Through', value: BackgroundGeolocation.LocationFilterPolicy.PassThrough},
+      {label: 'Adjust', value: BackgroundGeolocation.LocationFilterPolicy.Adjust},
+      {label: 'Conservative', value: BackgroundGeolocation.LocationFilterPolicy.Conservative}
+    ], defaultValue: BackgroundGeolocation.LocationFilterPolicy.Adjust},
+    {name: 'odometerAccuracyThreshold', group: 'location filter', dataType: 'integer', inputType: 'stepper', values: [0, 10, 20, 50, 100, 500], defaultValue: 20},
+    {name: 'useKalman', group: 'location filter', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: true},
+    {name: 'kalmanProfile', group: 'location filter', dataType: 'integer', inputType: 'select', values: [
+      {label: 'Default', value: BackgroundGeolocation.KalmanProfile.Default},
+      {label: 'Aggressive', value: BackgroundGeolocation.KalmanProfile.Aggressive},
+      {label: 'Conservative', value: BackgroundGeolocation.KalmanProfile.Conservative}
+    ], defaultValue: BackgroundGeolocation.KalmanProfile.Default},
+    {name: 'maxImpliedSpeed', group: 'location filter', dataType: 'integer', inputType: 'stepper', values: [1, 10, 30, 60, 100, 150, 200], defaultValue: 60},
+    {name: 'maxBurstDistance', group: 'location filter', dataType: 'integer', inputType: 'stepper', values: [5, 100, 300, 500, 1000, 2000], defaultValue: 300},
+    {name: 'burstWindow', group: 'location filter', dataType: 'integer', inputType: 'stepper', values: [1, 5, 10, 30, 60, 120], defaultValue: 10},
+    {name: 'rollingWindow', group: 'location filter', dataType: 'integer', inputType: 'stepper', values: [3, 5, 10, 15, 20], defaultValue: 5},
+    {name: 'odometerUseKalmanFilter', group: 'location filter', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: true},
+    {name: 'filterDebug', group: 'location filter', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: false},
+    {name: 'kalmanDebug', group: 'location filter', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: false},
+    // Activity Recognition
     {name: 'disableMotionActivityUpdates', group: 'activity', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: false},
     {name: 'disableStopDetection', group: 'activity', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: false},
 
@@ -126,7 +152,7 @@ export const PLUGIN_SETTINGS: PluginSettings = {
     {name: 'locationUpdateInterval', group: 'geolocation', dataType: 'integer', inputType: 'stepper', values: [0, 1000, 5000, 10000, 30000, 60000], defaultValue: 5000},
     {name: 'fastestLocationUpdateInterval', group: 'geolocation', dataType: 'integer', inputType: 'stepper', values: [-1, 0, 1000, 5000, 10000, 30000, 60000], defaultValue: 1000},
     {name: 'deferTime', group: 'geolocation', dataType: 'integer', inputType: 'stepper', values: [0, (10*1000), (30*1000), (60*1000), (5*60*1000)], defaultValue: 0},
-    {name: 'geofenceModeHighAccuracy', group: 'geolocation', dataType: 'boolean', inputType: 'toggle', value: [true, false], defaultValue: false},
+    {name: 'geofenceModeHighAccuracy', group: 'geolocation', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: false},
     // Activity Recognition
     {name: 'motionTriggerDelay', group: 'activity', dataType: 'integer', inputType: 'stepper', values: [0, 10000, 30000, 60000], defaultValue: 0},
     //{name: 'triggerActivities', group: 'activity recognition', dataType: 'string', inputType: 'select', values: ['in_vehicle', 'on_bicycle', 'on_foot', 'running', 'walking'], defaultValue: 'in_vehicle, on_bicycle, running, walking, on_foot'},

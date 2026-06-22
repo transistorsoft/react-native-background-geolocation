@@ -47,6 +47,7 @@ import com.transistorsoft.locationmanager.data.LocationModel;
 import com.transistorsoft.locationmanager.data.SQLQuery;
 import com.transistorsoft.locationmanager.device.DeviceInfo;
 import com.transistorsoft.locationmanager.event.ActivityChangeEvent;
+import com.transistorsoft.locationmanager.event.LocationFilterEvent;
 import com.transistorsoft.locationmanager.event.AuthorizationEvent;
 import com.transistorsoft.locationmanager.event.ConnectivityChangeEvent;
 import com.transistorsoft.locationmanager.event.GeofenceEvent;
@@ -118,6 +119,7 @@ public class RNBackgroundGeolocationModule
         mEvents.add(EventName.LOCATION);
         mEvents.add(EventName.MOTIONCHANGE);
         mEvents.add(EventName.ACTIVITYCHANGE);
+        mEvents.add(EventName.LOCATIONFILTER);
         mEvents.add(EventName.PROVIDERCHANGE);
         mEvents.add(EventName.GEOFENCESCHANGE);
         mEvents.add(EventName.GEOFENCE);
@@ -146,6 +148,7 @@ public class RNBackgroundGeolocationModule
         adapter.onLocation(new LocationCallback());
         adapter.onMotionChange(new MotionChangeCallback());
         adapter.onActivityChange(new ActivityChangeCallback());
+        adapter.onLocationFilter(new LocationFilterCallback());
         adapter.onLocationProviderChange(new LocationProviderChangeCallback());
         adapter.onGeofencesChange(new GeofencesChangeCallback());
         adapter.onGeofence(new GeofenceCallback());
@@ -196,6 +199,15 @@ public class RNBackgroundGeolocationModule
     private class ActivityChangeCallback implements TSActivityChangeCallback {
         @Override public void onActivityChange(ActivityChangeEvent event) {
             sendEvent(EventName.ACTIVITYCHANGE, mapToWritableMap(event.toMap()));
+        }
+    }
+
+    /**
+     * locationfilter event callback
+     */
+    private class LocationFilterCallback implements TSLocationFilterCallback {
+        @Override public void onLocationFilter(LocationFilterEvent event) {
+            sendEvent(EventName.LOCATIONFILTER, mapToWritableMap(event.toMap()));
         }
     }
 

@@ -30,6 +30,7 @@ static NSString *const EVENT_WATCHPOSITION      = @"watchposition";
 static NSString *const EVENT_PROVIDERCHANGE     = @"providerchange";
 static NSString *const EVENT_MOTIONCHANGE       = @"motionchange";
 static NSString *const EVENT_ACTIVITYCHANGE     = @"activitychange";
+static NSString *const EVENT_LOCATIONFILTER     = @"locationfilter";
 static NSString *const EVENT_GEOFENCESCHANGE    = @"geofenceschange";
 static NSString *const EVENT_HTTP               = @"http";
 static NSString *const EVENT_SCHEDULE           = @"schedule";
@@ -89,6 +90,9 @@ RCT_EXPORT_MODULE();
         NSDictionary *params = @{@"activity": event.activity, @"confidence": @(event.confidence)};
         [me sendEvent:EVENT_ACTIVITYCHANGE body:params];
     }];
+    [locationManager onLocationFilter:^(TSLocationFilterEvent *event) {
+        [me sendEvent:EVENT_LOCATIONFILTER body:[event toDictionary]];
+    }];
     [locationManager onHeartbeat:^(TSHeartbeatEvent *event) {
         [me sendEvent:EVENT_HEARTBEAT body:[event toDictionary]];
     }];
@@ -131,6 +135,7 @@ RCT_EXPORT_MODULE();
         EVENT_PROVIDERCHANGE,
         EVENT_MOTIONCHANGE,
         EVENT_ACTIVITYCHANGE,
+        EVENT_LOCATIONFILTER,
         EVENT_GEOFENCESCHANGE,
         EVENT_POWERSAVECHANGE,
         EVENT_HTTP,

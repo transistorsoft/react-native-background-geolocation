@@ -2595,7 +2595,7 @@ PODS:
     - React-perflogger (= 0.83.1)
     - React-utils (= 0.83.1)
     - SocketRocket
-  - RNBackgroundGeolocation (5.1.1):
+  - RNBackgroundGeolocation (5.2.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2622,7 +2622,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - SocketRocket
-    - TSLocationManager (~> 4.1.0)
+    - TSLocationManager (~> 4.2.0)
     - Yoga
   - RNCAsyncStorage (2.2.0):
     - boost
@@ -2948,7 +2948,7 @@ PODS:
     - Yoga
   - SocketRocket (0.7.1)
   - TSBackgroundFetch (4.1.1)
-  - TSLocationManager (4.1.10):
+  - TSLocationManager (4.2.0):
     - TSBackgroundFetch (~> 4.1.0)
   - Yoga (0.0.0)
 
@@ -3302,7 +3302,7 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 0eb286cc274abb059ee601b862ebddac2e681d01
   ReactCodegen: 3d48510bcef445f6403c0004047d4d9cbb915435
   ReactCommon: ac934cb340aee91282ecd6f273a26d24d4c55cae
-  RNBackgroundGeolocation: 68017f04ca292cfdde26becac33ae801157c91fb
+  RNBackgroundGeolocation: 87ae244a1e08bd6ecdd0ffe36c4327c64064c3e8
   RNCAsyncStorage: 29f0230e1a25f36c20b05f65e2eb8958d6526e82
   RNGestureHandler: 713ad51725fe889ff3869d68b577a450605edda2
   RNReactNativeHapticFeedback: 43181767a132b77676b6a58b7ed852928e0d4862
@@ -3311,7 +3311,7 @@ SPEC CHECKSUMS:
   RNWorklets: 6daa3975bebe6047822c7485666d501a716674ca
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   TSBackgroundFetch: 18918b6449a1e3f01eb0f5b44d6d79ce6160a5a5
-  TSLocationManager: f05045b578deedcd2144a5fda03dce1188360adb
+  TSLocationManager: e7ba944db84468e3ec16d878af0c84faee2fae5d
   Yoga: 5456bb010373068fc92221140921b09d126b116e
 
 PODFILE CHECKSUM: 4aa07b4c6edf4ad287fe7bb39395695ac858d313

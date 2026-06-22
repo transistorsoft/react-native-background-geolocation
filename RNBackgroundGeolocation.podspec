@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.source_files        = 'ios/RNBackgroundGeolocation/*.{h,m,mm}'
   s.preserve_paths      = 'docs', 'CHANGELOG.md', 'LICENSE', 'package.json', 'RNBackgroundGeolocation.ios.js'
 
-  tslm_version = ENV['TSLOCATIONMANAGER_VERSION'] || '~> 4.1.0'
+  tslm_version = ENV['TSLOCATIONMANAGER_VERSION'] || '~> 4.2.0'
   s.dependency 'TSLocationManager', tslm_version
 
   s.libraries           = 'sqlite3', 'z', 'stdc++'

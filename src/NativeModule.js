@@ -330,8 +330,8 @@ export default class NativeModule {
   * HTTP & Persistence Methods
   */
 
-  static getLocations() {    
-    return RNBackgroundGeolocation.getLocations();    
+  static getLocations(query) {
+    return RNBackgroundGeolocation.getLocations(query || {});
   }
 
   static getCount() {

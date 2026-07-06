@@ -28,7 +28,7 @@ export interface Spec extends TurboModule {
   +getState: () => Promise<Object>;
 
   // Locations / persistence
-  +getLocations: () => Promise<Array<Object>>;
+  +getLocations: (query: Object) => Promise<Array<Object>>;
   +getCount: () => Promise<Int32>;
   +insertLocation: (params: Object) => Promise<string>;
 

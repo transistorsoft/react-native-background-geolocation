@@ -21,7 +21,7 @@ export interface Spec extends TurboModule {
   setOdometer(value: number): Promise<Object>;
 
   // HTTP & DB
-  getLocations(): Promise<Array<Object>>;
+  getLocations(query: Object): Promise<Array<Object>>;
   getCount(): Promise<number>;
   destroyLocations(): Promise<void>;
   sync(): Promise<Array<Object>>;

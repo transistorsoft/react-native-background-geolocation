@@ -389,9 +389,10 @@ RCT_EXPORT_METHOD(stopWatchPosition:(NSInteger)watchId resolve:(RCTPromiseResolv
     resolve(@(YES));
 }
 
-RCT_EXPORT_METHOD(getLocations:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getLocations:(NSDictionary*)params resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
-    [locationManager getLocations:^(NSArray* records) {
+    LocationQuery *query = [[LocationQuery alloc] initWithDictionary:params];
+    [locationManager getLocations:query success:^(NSArray* records) {
         resolve(records);
     } failure:^(NSString* error) {
         reject(@"get_locations_error", error, nil);

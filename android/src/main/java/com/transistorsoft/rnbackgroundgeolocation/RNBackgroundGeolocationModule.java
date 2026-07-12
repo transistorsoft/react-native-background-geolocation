@@ -43,6 +43,7 @@ import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
 import com.transistorsoft.locationmanager.adapter.callback.*;
 
 import com.transistorsoft.locationmanager.data.LocationModel;
+import com.transistorsoft.locationmanager.data.LocationQuery;
 
 import com.transistorsoft.locationmanager.data.SQLQuery;
 import com.transistorsoft.locationmanager.device.DeviceInfo;
@@ -489,8 +490,9 @@ public class RNBackgroundGeolocationModule
     }
 
     @ReactMethod
-    public void getLocations(final Promise response) {
-        getAdapter().getLocations(new TSGetLocationsCallback() {
+    public void getLocations(ReadableMap params, final Promise response) {
+        LocationQuery query = LocationQuery.fromMap(params != null ? params.toHashMap() : null);
+        getAdapter().getLocations(query, new TSGetLocationsCallback() {
             @Override public void onSuccess(List<LocationModel> records) {
                 try {
                     JSONArray data = new JSONArray();

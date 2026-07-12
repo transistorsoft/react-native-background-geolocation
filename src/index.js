@@ -439,8 +439,8 @@ export default class BackgroundGeolocation {
   * HTTP & Persistence
   *
   */
-  static getLocations() {
-    return NativeModule.getLocations();
+  static getLocations(query) {
+    return NativeModule.getLocations(query);
   }
 
   /**

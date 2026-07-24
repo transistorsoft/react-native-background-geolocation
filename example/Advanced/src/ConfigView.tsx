@@ -8,6 +8,7 @@ import {
   Platform,
   Modal,
   Pressable,
+  Alert,
 } from 'react-native';
 import {trigger as hapticFeedback} from "react-native-haptic-feedback";
 import { BottomSheetModal, BottomSheetScrollView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
@@ -102,10 +103,29 @@ const ConfigView: React.FC<ConfigViewProps> = ({ visible, onClose, onRequestRegi
         try {
           BackgroundGeolocation.deviceSettings.showIgnoreBatteryOptimizations().then((request) => {
             console.log('showIgnoreBatteryOptimizations request:', request);
-            BackgroundGeolocation.deviceSettings.show(request);            
+            BackgroundGeolocation.deviceSettings.show(request);
           });
         } catch (error) {
           console.warn('Error showing Ignore Battery Optimizations:', error);
+        }
+        break;
+      case 'insert-location':
+        // Fetch a one-off location without persisting it, then manually insert it as a raw
+        // record, flagged with extras.manually_inserted.
+        try {
+          const location = await BackgroundGeolocation.getCurrentPosition({
+            persist: false,
+            samples: 1,
+            timeout: 10,
+            maximumAge: 5000,
+          });
+          const record = { ...location, extras: { manually_inserted: true } };
+          const uuid = await BackgroundGeolocation.insertLocation(record);
+          console.log('[ConfigView] insertLocation success:', uuid);
+          Alert.alert('insertLocation', `Inserted record:\n${uuid}`);
+        } catch (e) {
+          console.warn('[ConfigView] insertLocation ERROR', e);
+          Alert.alert('insertLocation error', String(e));
         }
         break;
       default:
@@ -352,7 +372,15 @@ const ConfigView: React.FC<ConfigViewProps> = ({ visible, onClose, onRequestRegi
             >
               <Text style={styles.menuItemText}>Show Battery Optimizations</Text>
             </TouchableOpacity>
-            
+
+            <View style={styles.menuSeparator} />
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => onContextMenu('insert-location')}
+            >
+              <Text style={styles.menuItemText}>insertLocation</Text>
+            </TouchableOpacity>
+
           </Pressable>
         </Pressable>
       </Modal>

@@ -521,7 +521,7 @@ public class RNBackgroundGeolocationModule
                 response.resolve(uuid);
             }
             @Override public void onFailure(String error) {
-                response.reject(error);
+                response.reject("insert_location_error", error);
             }
         });
     }

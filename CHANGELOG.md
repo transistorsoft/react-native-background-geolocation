@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 5.4.0 &mdash; 2026-07-24
+
+* [Fixed] `insertLocation()` now works — the supplied record is inserted as-given (import-as-is) and the returned Promise resolves with the inserted record's `uuid`. It was previously unimplemented on iOS (the call never resolved) and on Android stored a record with an empty `uuid` (so `destroyLocation()` couldn't remove it) and an unvalidated timestamp. Timestamps are now normalized (ISO-8601 or epoch), and a `uuid` is generated when you don't provide one.
+* [Fixed][iOS] A location arriving with a future timestamp (device clock skew) could poison the internal last-location comparator, causing every subsequent location to be rejected until the app was restarted (stalled odometer, no location updates). Future-stamped fixes are now tolerated and the comparator self-heals. Android is unaffected.
+
 ## 5.3.0 &mdash; 2026-07-06
 
 ### 🛡️ Reduced Foreground-Service Usage (Android)

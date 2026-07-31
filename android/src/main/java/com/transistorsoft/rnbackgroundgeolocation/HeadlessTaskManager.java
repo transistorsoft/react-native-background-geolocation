@@ -102,10 +102,18 @@ public class HeadlessTaskManager implements HeadlessJsTaskEventListener {
 
         addTask(task);
 
-        if (!mIsReactContextInitialized.get()) {
+        // Re-resolve the *live* ReactContext rather than trusting the sticky
+        // mIsReactContextInitialized flag (never reset on teardown). On the New
+        // Architecture the headless ReactContext is torn down after a task finishes,
+        // so getReactContext() returns null while the flag stays true; passing that
+        // null to HeadlessJsTaskContext.getInstance(@NonNull) throws an NPE and drops
+        // the event. Mirrors react-native-background-fetch's null-guard.
+        ReactContext reactContext = mIsReactContextInitialized.get() ? getReactContext(context) : null;
+        if (reactContext == null) {
+            mIsReactContextInitialized.set(false);
             createReactContextAndScheduleTask(context);
         } else {
-            boolean success = invokeStartTask(getReactContext(context), task);
+            boolean success = invokeStartTask(reactContext, task);
             if (!success) {
                 removeTask(task);
             }

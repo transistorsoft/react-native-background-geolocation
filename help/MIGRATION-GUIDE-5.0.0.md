@@ -19,7 +19,7 @@ This guide explains both changes and how to migrate your app.
 
 #### New License Key Format
 
-Version 9 uses a new **JWT-based license key** format. Your existing (legacy) license keys will **not** work with v9.
+Version 5 uses a new **JWT-based license key** format. Your existing (legacy) license keys will **not** work with v5.
 
 > [!IMPORTANT]
 > Previous versions of the SDK did not require a license key on iOS. **v5 requires a license key on both iOS and Android.** See [iOS Setup](INSTALL-IOS-AUTO.md) and [Android Setup](INSTALL-ANDROID.md-AUTO) or [Expo Setup](INSTALL-EXPO.md) for license key configuration details.
@@ -33,7 +33,7 @@ Version 9 uses a new **JWT-based license key** format. Your existing (legacy) li
 2. Navigate to your product purchase.
 3. You will find **two license tabs**:
    - **Legacy** — your old license key (for `react-native-background-geolocation` v4 and below)
-   - **New** — your new JWT license key (required for `capacitor-background-geolocation` v5+)
+   - **New** — your new JWT license key (required for `react-native-background-geolocation` v5+)
 4. Copy the key from the **"New"** tab.
 
 ### Applying Your License Key

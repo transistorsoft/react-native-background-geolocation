@@ -19,10 +19,10 @@ This guide explains both changes and how to migrate your app.
 
 #### New License Key Format
 
-Version 9 uses a new **JWT-based license key** format. Your existing (legacy) license keys will **not** work with v9.
+Version 5 uses a new **JWT-based license key** format. Your existing (legacy) license keys will **not** work with v5.
 
 > [!IMPORTANT]
-> Previous versions of the SDK did not require a license key on iOS. **v5 requires a license key on both iOS and Android.** See [iOS Setup](INSTALL-IOS-AUTO.md) and [Android Setup](INSTALL-ANDROID.md-AUTO) or [Expo Setup](INSTALL-EXPO.md) for license key configuration details.
+> Previous versions of the SDK did not require a license key on iOS. **v5 requires a license key on both iOS and Android.** See [iOS Setup](INSTALL-IOS-AUTO.md) and [Android Setup](INSTALL-ANDROID-AUTO.md) or [Expo Setup](INSTALL-EXPO.md) for license key configuration details.
 
 > [!NOTE]
 > Add-on products (eg: [`polygon-geofencing`](https://shop.transistorsoft.com/collections/frontpage/products/polygon-geofencing), `firebase`) are now **encoded as entitlements** inside the JWT key itself. You no longer need separate license keys for add-on products.
@@ -33,14 +33,14 @@ Version 9 uses a new **JWT-based license key** format. Your existing (legacy) li
 2. Navigate to your product purchase.
 3. You will find **two license tabs**:
    - **Legacy** — your old license key (for `react-native-background-geolocation` v4 and below)
-   - **New** — your new JWT license key (required for `capacitor-background-geolocation` v5+)
+   - **New** — your new JWT license key (required for `react-native-background-geolocation` v5+)
 4. Copy the key from the **"New"** tab.
 
 ### Applying Your License Key
 
 - __[iOS]__ Add your JWT license key to your `Info.plist` under the key `TSLocationManagerLicense`. See [iOS Setup](INSTALL-IOS-AUTO.md) for full details:
 
-:open_file_folder: `ios/App/App/Info.plist`
+:open_file_folder: `ios/<AppName>/Info.plist`
 ```xml
 <key>TSLocationManagerLicense</key>
 <string>YOUR_JWT_LICENSE_KEY</string>

@@ -1,5 +1,73 @@
 # CHANGELOG
 
+## 5.5.0 &mdash; 2026-08-30
+
+### iOS
+
+* [Fixed][iOS] A **polygon** geofence stopped producing ENTER/EXIT events after the app was
+  terminated and relaunched while the device stayed inside the geofence's containing circle.
+  iOS keeps monitored regions registered across app termination, so on relaunch the SDK skipped
+  re-registering them — and with that, skipped the check that starts the polygon hit-tester. A
+  device that left the polygon and came back while the app was not running would never receive
+  the ENTER, and no further events for that geofence until it physically left the containing
+  circle and returned. The hit-tester is now re-engaged from any location the SDK receives,
+  independently of region re-registration.
+* [Fixed][iOS] An engaged polygon geofence held continuous full-accuracy GPS for as long as the
+  device remained inside it — indefinitely on a device sitting still — because iOS never invokes
+  its own `didPauseLocationUpdates` for this kind of background session. The SDK now detects
+  stationarity itself and releases location updates while the device is parked, resuming
+  automatically once it moves. Geofence monitoring is unaffected: the polygon stays monitored
+  and its containing-region EXIT still fires.
+* [Fixed][iOS] The `polygon-geofencing` entitlement could be dropped when a license validated
+  through the semver grace path, silently downgrading polygons to their enclosing circle on
+  App Store builds that hold the add-on.
+* [Fixed][iOS] `watchPosition()` stopped delivering after 60 seconds instead of streaming until
+  `stopWatchPosition()`. The underlying request carried a default timeout that terminated the
+  stream; a watch now runs until you stop it.
+* [Fixed][iOS] A crash in `watchPosition()` when a stream was torn down while it was emitting a
+  location (eg calling `stopWatchPosition()` from inside the watch callback).
+* [Fixed][iOS] `getCurrentPosition()` rejected with a `408` timeout even when the SDK held a
+  perfectly usable recent fix, and worse, cleared that cached fix on the way out — so the next
+  call started from nothing. On timeout the request now resolves with the freshest cached fix
+  that satisfies the caller's `maximumAge`, and the cache is left intact. A fix that fails your
+  stated accuracy or staleness thresholds is still never returned as if it had passed.
+* [Fixed][iOS] Tracking could wedge in the *stationary* state with no stationary region armed,
+  after the `motionchange` location-request failed (typically a location-services outage or a
+  denied authorization). In that state the device would never detect movement again until the
+  app was restarted. The failed request is now cleared so the retry can proceed, and several
+  passive recovery paths that were gated behind it can heal the state.
+
+### Android
+
+* [Fixed][Android] Geofences, tracking and the stationary region were not re-armed after a device
+  reboot with `startOnBoot: true`, leaving the SDK silently inert until the app was next opened.
+* [Fixed][Android] `NullPointerException` on Android 7 devices when reading location `extras`
+  (an AOSP `Bundle` race, fixed by the OS in API 26). Extras are now materialized at ingestion.
+* [Fixed][Android] `ForegroundServiceDidNotStartInTime` crashes, seen most often on Motorola
+  devices: a service stop racing an in-flight launch, and a stale foreground-service latch that
+  caused restricted apps to be killed on their next launch. The service now promotes on every
+  launch and its stop path is launch-aware.
+* [Fixed][Android] Three classes of recoverable exception crashed the host app instead of
+  degrading: database write failures, geofence delivery errors, and last-chance cleanup that
+  could swallow the real crash report before it was filed.
+* [Fixed][Android] Several geofence defects: a failed deregistration during a geofence re-add
+  left the fence unmonitored; `entry_state`, `hits` and `state_updated_at` were dropped when
+  geofences were loaded by proximity; and the coalescing queue could stall, leaving buffered
+  re-evaluations unprocessed.
+* [Fixed][Android] Missed geofence EXIT events. Every internally-flowing location is now audited
+  against the stationary anchor, stationary exits are verified rather than assumed, and a
+  watchdog re-registers fences when the motion API goes silent — a failure mode on devices whose
+  vendors throttle activity recognition.
+* [Fixed][Android] `desiredAccuracy` could oscillate between the CoreLocation and Android value
+  domains: `useCLLocationAccuracy` was not preserved across `reset()`, so a CoreLocation-style
+  value (`-1`, `-2`, …) could reach `LocationRequest.setPriority()` untranslated and crash on
+  `play-services-location` v21+.
+
+### Native SDK versions
+
+* [iOS] Pin `TSLocationManager ~> 4.5.0`
+* [Android] Pin `tslocationmanager 4.5.+`
+
 ## 5.4.0 &mdash; 2026-07-24
 
 * [Fixed] `insertLocation()` now works — the supplied record is inserted as-given (import-as-is) and the returned Promise resolves with the inserted record's `uuid`. It was previously unimplemented on iOS (the call never resolved) and on Android stored a record with an empty `uuid` (so `destroyLocation()` couldn't remove it) and an unvalidated timestamp. Timestamps are now normalized (ISO-8601 or epoch), and a `uuid` is generated when you don't provide one.

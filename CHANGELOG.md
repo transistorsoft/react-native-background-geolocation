@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Unreleased
+
+* [Added] `requestPermission(permission?)` accepts an optional `Permission.Location` / `Permission.Motion` selector — request location and motion separately, each independently awaitable, instead of the all-at-once dialog storm. The no-argument form is unchanged. Requires `@transistorsoft/background-geolocation-types` 5.3.0 and the WO-007 native SDK releases. (WO-007)
+* [Added] `AuthorizationStatus.DeniedAlways` — the motion permission was permanently denied on Android (two user denials); only the device's app-settings screen can restore it. (WO-007)
+* [Fixed] `requestPermission` rejections now carry the bare `AuthorizationStatus` value on BOTH platforms, matching the documented cross-platform contract — previously Android rejected with a message-only `Error` and iOS with a `request_permission_error` code, and the documented `catch (status)` comparison never worked on React Native. (WO-007)
+* [Fixed] Named value imports (`import { AuthorizationStatus, Permission, LogLevel, ... }`) now exist at runtime. The type declarations have always re-exported the shared types package, but the runtime module exported only the default class — named enum imports were silently `undefined`. The class statics (`BackgroundGeolocation.AuthorizationStatus`, ...) are unchanged. (WO-007)
+
 ## 5.5.0 &mdash; 2026-08-30
 
 ### iOS

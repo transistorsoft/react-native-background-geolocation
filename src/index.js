@@ -24,8 +24,30 @@ import {
   HttpMethod,
   TriggerActivity,
   ActivityType,
-  Event
+  Event,
+  Permission
 } from '@transistorsoft/background-geolocation-types';
+
+// (WO-007) Named RUNTIME exports.  index.d.ts has always re-exported the shared
+// types package, but these const-enum objects only existed as statics on the
+// default export — `import { AuthorizationStatus }` was undefined at runtime.
+export {
+  LogLevel,
+  DesiredAccuracy,
+  PersistMode,
+  AuthorizationStatus,
+  AccuracyAuthorization,
+  LocationRequest,
+  AuthorizationStrategy,
+  LocationFilterPolicy,
+  KalmanProfile,
+  NotificationPriority,
+  HttpMethod,
+  TriggerActivity,
+  ActivityType,
+  Event,
+  Permission
+};
 
 // Build a lookup table of allowed event names (runtime)
 const VALID_EVENT_NAMES = new Set(Object.values(Event));
@@ -160,6 +182,10 @@ export default class BackgroundGeolocation {
     return AuthorizationStatus;
   }
 
+  static get Permission() {
+    return Permission;
+  }
+
   static get AccuracyAuthorization() {
     return AccuracyAuthorization;
   }
@@ -226,8 +252,13 @@ export default class BackgroundGeolocation {
     return NativeModule.configure(config);
   }
 
-  static requestPermission() {
-    return NativeModule.requestPermission();
+  static requestPermission(permission) {
+    return NativeModule.requestPermission(permission).catch((error) => {
+      // (WO-007) Cross-platform contract: reject with the bare AuthorizationStatus
+      // value (the natives carry it in the error code).
+      const status = parseInt(error.code, 10);
+      return Promise.reject(Number.isNaN(status) ? error : status);
+    });
   }
 
   static requestTemporaryFullAccuracy(purpose) {

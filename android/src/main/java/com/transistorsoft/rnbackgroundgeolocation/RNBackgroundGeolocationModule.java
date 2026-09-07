@@ -993,8 +993,7 @@ public class RNBackgroundGeolocationModule
 
     @ReactMethod
     public void requestPermission(@Nullable final String permission, final Promise response) {
-        // (WO-007) permission ∈ "location" | "motion" | null (null = everything).
-        getAdapter().requestPermission(permission, new TSRequestPermissionCallback() {
+        TSRequestPermissionCallback callback = new TSRequestPermissionCallback() {
             @Override public void onSuccess(int status) {
                 response.resolve(status);
             }
@@ -1003,7 +1002,17 @@ public class RNBackgroundGeolocationModule
                 // layer normalizes the rejection to that value (cross-platform contract).
                 response.reject(String.valueOf(status), String.valueOf(status));
             }
-        });
+        };
+        // (WO-007) permission ∈ "location" | "motion" | null (null = everything).
+        // Null MUST route to the historical no-argument overload here in the bridge:
+        // the string overload's own null-guard exists only in tslocationmanager >=
+        // the WO-007 release — against an older AAR, handing it null would NPE inside
+        // the adapter and crash every legacy requestPermission() call.
+        if (permission == null) {
+            getAdapter().requestPermission(callback);
+        } else {
+            getAdapter().requestPermission(permission, callback);
+        }
     }
 
     @ReactMethod

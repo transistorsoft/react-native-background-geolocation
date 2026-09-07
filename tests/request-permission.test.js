@@ -23,6 +23,18 @@ describe('named runtime exports (WO-007 regression)', () => {
     expect(BG.Permission).toBe(Permission);
     expect(BG.AuthorizationStatus).toBe(AuthorizationStatus);
   });
+
+  // Drift-proof: EVERY runtime value the types package exports must be re-exported
+  // by name from this module — a hardcoded list rots (the first fix missed 7 of 22).
+  test('every types-package runtime export is re-exported by name', () => {
+    const typesPkg = require('@transistorsoft/background-geolocation-types');
+    const sdk = require('../src/index.js');
+    const runtimeKeys = Object.keys(typesPkg).filter((k) => k !== 'default' && k !== '__esModule');
+    expect(runtimeKeys.length).toBeGreaterThan(0);
+    for (const key of runtimeKeys) {
+      expect(sdk[key]).toBe(typesPkg[key]);
+    }
+  });
 });
 
 describe('requestPermission — JS -> native bridge marshaling (WO-007)', () => {

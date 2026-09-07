@@ -25,12 +25,21 @@ import {
   TriggerActivity,
   ActivityType,
   Event,
-  Permission
+  Permission,
+  MotionActivityType,
+  TrackingMode,
+  LogLevelName,
+  GeofenceAction,
+  LocationError,
+  LocationFilterReason,
+  SQLQueryOrder
 } from '@transistorsoft/background-geolocation-types';
 
-// (WO-007) Named RUNTIME exports.  index.d.ts has always re-exported the shared
-// types package, but these const-enum objects only existed as statics on the
-// default export — `import { AuthorizationStatus }` was undefined at runtime.
+// (WO-007) Named RUNTIME exports — every const-enum value the shared types package
+// exports.  index.d.ts has always re-exported the types package, but these objects
+// only existed (partially) as statics on the default export — named value imports
+// like `import { AuthorizationStatus }` were undefined at runtime.  The jest parity
+// test asserts this list stays complete against the installed types package.
 export {
   LogLevel,
   DesiredAccuracy,
@@ -46,7 +55,14 @@ export {
   TriggerActivity,
   ActivityType,
   Event,
-  Permission
+  Permission,
+  MotionActivityType,
+  TrackingMode,
+  LogLevelName,
+  GeofenceAction,
+  LocationError,
+  LocationFilterReason,
+  SQLQueryOrder
 };
 
 // Build a lookup table of allowed event names (runtime)

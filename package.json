@@ -1,11 +1,10 @@
 {
-
-  "name": "react-native-background-geolocation",  
-  "version": "5.5.0",
+  "name": "react-native-background-geolocation",
+  "version": "5.6.0",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",
   "scripts": {
     "build": "yarn run build:expo",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest && tsc -p tests-types --noEmit",
     "build:expo": "rimraf expo/plugin/build && tsc --build ./expo/plugin",
     "docs": "node ./scripts/generate-docs.mjs",
     "docs:publish": "./scripts/publish-docs.sh",
@@ -21,7 +20,7 @@
     "ios": {
       "swiftModuleName": "RNBackgroundGeolocation",
       "packageName": "RNBackgroundGeolocation"
-    }    
+    }
   },
   "main": "src/index.js",
   "repository": {
@@ -41,7 +40,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.26.0",
-    "@transistorsoft/background-geolocation-types": "^5.2.2",
+    "@transistorsoft/background-geolocation-types": "^5.3.2",
     "tslib": "^2.6.3"
   },
   "author": "Chris Scott <chris@transistorsoft.com>",
@@ -51,10 +50,14 @@
   },
   "homepage": "https://www.transistorsoft.com/shop/products/react-native-background-geolocation",
   "devDependencies": {
+    "@babel/core": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
     "@expo/config-plugins": "^4.1.0",
     "@types/node": "^18.11.5",
+    "babel-jest": "^30.5.0",
     "chalk": "^4.1.0",
     "fs-extra": "^9.1.0",
+    "jest": "^30.5.0",
     "path": "^0.12.7",
     "rimraf": "^5.0.0",
     "typescript": "^5.6.0"

@@ -24,8 +24,46 @@ import {
   HttpMethod,
   TriggerActivity,
   ActivityType,
-  Event
+  Event,
+  Permission,
+  MotionActivityType,
+  TrackingMode,
+  LogLevelName,
+  GeofenceAction,
+  LocationError,
+  LocationFilterReason,
+  SQLQueryOrder
 } from '@transistorsoft/background-geolocation-types';
+
+// (WO-007) Named RUNTIME exports — every const-enum value the shared types package
+// exports.  index.d.ts has always re-exported the types package, but these objects
+// only existed (partially) as statics on the default export — named value imports
+// like `import { AuthorizationStatus }` were undefined at runtime.  The jest parity
+// test asserts this list stays complete against the installed types package.
+export {
+  LogLevel,
+  DesiredAccuracy,
+  PersistMode,
+  AuthorizationStatus,
+  AccuracyAuthorization,
+  LocationRequest,
+  AuthorizationStrategy,
+  LocationFilterPolicy,
+  KalmanProfile,
+  NotificationPriority,
+  HttpMethod,
+  TriggerActivity,
+  ActivityType,
+  Event,
+  Permission,
+  MotionActivityType,
+  TrackingMode,
+  LogLevelName,
+  GeofenceAction,
+  LocationError,
+  LocationFilterReason,
+  SQLQueryOrder
+};
 
 // Build a lookup table of allowed event names (runtime)
 const VALID_EVENT_NAMES = new Set(Object.values(Event));
@@ -160,6 +198,10 @@ export default class BackgroundGeolocation {
     return AuthorizationStatus;
   }
 
+  static get Permission() {
+    return Permission;
+  }
+
   static get AccuracyAuthorization() {
     return AccuracyAuthorization;
   }
@@ -226,8 +268,13 @@ export default class BackgroundGeolocation {
     return NativeModule.configure(config);
   }
 
-  static requestPermission() {
-    return NativeModule.requestPermission();
+  static requestPermission(permission) {
+    return NativeModule.requestPermission(permission).catch((error) => {
+      // (WO-007) Cross-platform contract: reject with the bare AuthorizationStatus
+      // value (the natives carry it in the error code).
+      const status = parseInt(error.code, 10);
+      return Promise.reject(Number.isNaN(status) ? error : status);
+    });
   }
 
   static requestTemporaryFullAccuracy(purpose) {

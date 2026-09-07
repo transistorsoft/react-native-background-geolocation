@@ -90,7 +90,7 @@ export interface Spec extends TurboModule {
   +showSettings: (args: Object) => Promise<boolean>;
 
   +getProviderState: () => Promise<Object>;
-  +requestPermission: () => Promise<Int32>;
+  +requestPermission: (permission: ?string) => Promise<Int32>;
   +requestTemporaryFullAccuracy: (purpose: string) => Promise<Int32>;
 
   // Required by NativeEventEmitter

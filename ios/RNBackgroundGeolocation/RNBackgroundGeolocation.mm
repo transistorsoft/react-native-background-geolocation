@@ -658,12 +658,15 @@ RCT_EXPORT_METHOD(getProviderState:(RCTPromiseResolveBlock)resolve reject:(RCTPr
     resolve([event toDictionary]);
 }
 
-RCT_EXPORT_METHOD(requestPermission:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(requestPermission:(NSString * _Nullable)permission resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
-    [locationManager requestPermission:^(NSNumber *status) {
+    // (WO-007) permission ∈ @"location" | @"motion" | nil (nil = everything).
+    [locationManager requestPermission:permission success:^(NSNumber *status) {
         resolve(status);
     } failure:^(NSNumber *status) {
-        reject(@"request_permission_error", [status stringValue], nil);
+        // The error code carries the bare AuthorizationStatus — the JavaScript layer
+        // normalizes the rejection to that value (cross-platform contract).
+        reject([status stringValue], [status stringValue], nil);
     }];
 }
 

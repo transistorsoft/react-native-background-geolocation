@@ -31,7 +31,7 @@ export interface Spec extends TurboModule {
   getDeviceInfo(): Promise<Object>;
   isPowerSaveMode(): Promise<boolean>;
   isIgnoringBatteryOptimizations(): Promise<boolean>;
-  requestPermission(): Promise<number>;
+  requestPermission(permission: string | null): Promise<number>;
   requestTemporaryFullAccuracy(purpose: string): Promise<number>;
 
   // Transistor token helpers

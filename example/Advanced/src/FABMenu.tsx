@@ -27,7 +27,9 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import BackgroundGeolocation, {
-  Subscription
+  Subscription,
+  Permission,
+  AuthorizationStatus
 } from 'react-native-background-geolocation';
 
 import {trigger as hapticFeedback} from "react-native-haptic-feedback";
@@ -242,7 +244,11 @@ const FABMenu: React.FC<FABMenuProps> = ({ onMenuItemPress }) => {
   };
 
   /**
-   * BackgroundGeolocation.requestPermission()
+   * BackgroundGeolocation.requestPermission(Permission.Location | Permission.Motion)
+   *
+   * (WO-007) Two-step flow: location first, then motion, each awaited separately —
+   * mirrors the native demo apps.  Compare against the one-shot storm by calling
+   * BackgroundGeolocation.requestPermission() with no argument instead.
    */
   const requestPermission = async (request: 'WhenInUse' | 'Always') => {
     await BackgroundGeolocation.setConfig({
@@ -250,18 +256,34 @@ const FABMenu: React.FC<FABMenuProps> = ({ onMenuItemPress }) => {
         locationAuthorizationRequest: request
       }
     });
-    try {
-      const status = await BackgroundGeolocation.requestPermission();
-      console.log(`[requestPermission] status: ${status}`);
 
-      setTimeout(() => {
-        Alert.alert("Request Permission Result", `Authorization status: ${status}`, [
-          {text: 'Ok', onPress: () => {}},
-        ], { cancelable: false });
-      }, 10);
-    } catch (error) {
-      console.warn('[FABMenu] requestPermission error:', error);
-    }  
+    let locationResult: string;
+    try {
+      const status = await BackgroundGeolocation.requestPermission(Permission.Location);
+      console.log(`[requestPermission] location: ${status}`);
+      locationResult = `${status}`;
+    } catch (status) {
+      console.warn('[FABMenu] requestPermission(location) denied:', status);
+      locationResult = `denied (${status})`;
+    }
+
+    let motionResult: string;
+    try {
+      const status = await BackgroundGeolocation.requestPermission(Permission.Motion);
+      console.log(`[requestPermission] motion: ${status}`);
+      motionResult = `${status}`;
+    } catch (status) {
+      console.warn('[FABMenu] requestPermission(motion) denied:', status);
+      motionResult = (status === AuthorizationStatus.DeniedAlways)
+        ? `denied always (${status}) — only the Settings app can restore it`
+        : `denied (${status})`;
+    }
+
+    setTimeout(() => {
+      Alert.alert("Request Permission Result", `location: ${locationResult}\nmotion: ${motionResult}`, [
+        {text: 'Ok', onPress: () => {}},
+      ], { cancelable: false });
+    }, 10);
   };
 
   const validateEmail = (value: string) => {

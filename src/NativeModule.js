@@ -170,8 +170,11 @@ export default class NativeModule {
     return RNBackgroundGeolocation.configure(validateConfig(config));    
   }
 
-  static requestPermission() {
-    return RNBackgroundGeolocation.requestPermission();
+  static requestPermission(permission) {
+    // (WO-007) permission ∈ 'location' | 'motion' | null (null = everything, the
+    // historical behaviour).  Always pass the argument explicitly — both the
+    // TurboModule spec and the old-architecture bridge expect it.
+    return RNBackgroundGeolocation.requestPermission((typeof permission === 'string') ? permission : null);
   }
 
   static requestTemporaryFullAccuracy(purpose) {

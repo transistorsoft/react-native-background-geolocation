@@ -2,10 +2,90 @@
 
 ## Unreleased
 
-* [Added] `requestPermission(permission?)` accepts an optional `Permission.Location` / `Permission.Motion` selector — request location and motion separately, each independently awaitable, instead of the all-at-once dialog storm. The no-argument form is unchanged. Requires `@transistorsoft/background-geolocation-types` 5.3.0 and the WO-007 native SDK releases. (WO-007)
-* [Added] `AuthorizationStatus.DeniedAlways` — the motion permission was permanently denied on Android (two user denials); only the device's app-settings screen can restore it. (WO-007)
+* [Added] `requestPermission(permission?)` accepts an optional `Permission.Location` / `Permission.Motion` selector — request location and motion separately, each independently awaitable, instead of the all-at-once dialog storm. The no-argument form keeps requesting everything the configuration requires (see the iOS note below for the one behavioural change). Requires `@transistorsoft/background-geolocation-types` 5.3.0 and the WO-007 native SDK releases. (WO-007)
+* [Added] `AuthorizationStatus.DeniedAlways` — the motion permission was permanently denied; only the device's Settings app can restore it (Android: after two user denials; iOS: a single motion denial is already permanent). (WO-007/WO-014)
 * [Fixed] `requestPermission` rejections now carry the bare `AuthorizationStatus` value on BOTH platforms, matching the documented cross-platform contract — previously Android rejected with a message-only `Error` and iOS with a `request_permission_error` code, and the documented `catch (status)` comparison never worked on React Native. (WO-007)
 * [Fixed] Named value imports (`import { AuthorizationStatus, Permission, LogLevel, ... }`) now exist at runtime. The type declarations have always re-exported the shared types package, but the runtime module exported only the default class — named enum imports were silently `undefined`. The class statics (`BackgroundGeolocation.AuthorizationStatus`, ...) are unchanged. (WO-007)
+* [Fixed] Upgrading the plugin from 4.x to 5.x silently discarded the persisted v4-era
+  configuration, so a device updated over-the-air came back unconfigured and stopped tracking. The
+  v4 config is now imported on the first launch after the upgrade — `enabled`, `trackingMode`,
+  `schedulerEnabled`, the odometer and the full config (`url`, `headers`, `params`, `schedule`,
+  `authorization`, …) are all carried over. The import is a strict no-op when v5 state already
+  exists, and the original v4 archive is preserved for rollback. On iOS, a license-locked App Store
+  build backs the archive up but does not import it. (WO-001)
+
+### iOS
+
+* [Changed][iOS] `requestPermission()` (no argument) now also requests the Motion & Fitness
+  permission after the location flow resolves, matching Android, where it always has. The motion
+  prompt therefore moves from `start()` to `requestPermission()` for apps that pre-request — the
+  total number of dialogs is unchanged, and the call still resolves with the *location*
+  authorization status. Ensure `NSMotionUsageDescription` is present in `Info.plist` (it has always
+  been required for `start()`); the SDK skips the motion step when that key is absent, or when
+  `disableMotionActivityUpdates` is `true`. (WO-007)
+* [Fixed][iOS] Location tracks were snapped to roads regardless of the configured `activityType`.
+  The SDK hardcoded `AutomotiveNavigation` when the tracking manager initialized and applied the
+  configured value only when it later *changed*, so every steady-state launch tracked as automotive
+  navigation. Apps that never configure `activityType` now get the documented default (`Other`, no
+  road-snapping), and the configured value is re-asserted each time tracking engages. (WO-009)
+* [Fixed][iOS] Changing `useSignificantChangesOnly`, or switching from location tracking to
+  geofences-only, delivered a phantom geofence ENTER for a geofence the device had never left, plus
+  a spurious `enabledchange` pair. Both were implemented as a full internal stop/start, and that
+  teardown stopped geofence monitoring — which resets each geofence's entry state, so the restart
+  re-fired `geofenceInitialTriggerEntry`. Each now re-engages only the location-update mechanism. A
+  real `stop()` still resets entry state, as before. (WO-012)
+* [Fixed][iOS] The odometer could jump by the distance to a long-abandoned location — e.g. +7.9 km
+  on a device that had not moved — after any `stop()`/`start()` or tracking-mode round trip, and
+  could book an entire untracked journey (stop at home, drive, start at work) as travelled distance.
+  Resetting the odometer clears its reference point, but the next `motionchange` then substituted a
+  stale reference from elsewhere in the SDK. A reset now means what it says: the first fix after it
+  establishes a new reference and accumulates nothing. (WO-012)
+* [Fixed][iOS] A successful `motionchange` now advances the SDK's last-known location. It was
+  written only by the location-update stream, so a parked device — updates off, no
+  significant-change deliveries — could hold a last-known position hours old and arbitrarily distant
+  for the life of the process, which fed the stationary-region placement used at app terminate.
+  (WO-012)
+* [Fixed][iOS] The `motionchange` event now reports the odometer including the leg it just recorded.
+  It was emitted before that leg was added, so breaking out of a stationary region — the largest
+  single step the odometer takes — delivered a `motionchange` carrying the previous total, leaving
+  your app's last-known odometer a full leg behind. (WO-012)
+
+### Android
+
+* [Fixed][Android] Toggling `useSignificantChangesOnly` at runtime delivered a phantom geofence
+  ENTER for a geofence the device was parked inside, plus a spurious `enabledchange` pair. Both
+  directions of the transition routed through a full stop, whose teardown resets each geofence's
+  entry state — so the re-registration that followed re-fired the initial-trigger ENTER. Each
+  direction now sheds only what the mechanism change actually requires. A real `stop()` still resets
+  entry state, as before. (WO-012)
+* [Fixed][Android] A permission request that the OS cancelled — which happens whenever another
+  permission request is already in flight — was reported to your app as **granted**. All permission
+  requests are now serialized through an app-global queue, and a cancelled request is re-dispatched
+  instead of resolving. (WO-007)
+* [Fixed][Android] Two overlapping permission requests resolved against each other: the second
+  caller's permission list was silently discarded and its callback answered with the first request's
+  result. Each caller now resolves against its own request. (WO-007)
+* [Fixed][Android] A duplicate permission request queued behind an identical one re-showed the
+  dialog the user had just dismissed. Because Android permanently denies a permission after two
+  denials, a single user "deny" could consume both strikes and leave the permission permanently
+  denied. Duplicate requests now coalesce onto one OS result. (WO-007)
+* [Fixed][Android] Rotating the device while a permission dialog was open — or finishing the hosting
+  Activity — lost the result and wedged every later permission request for the life of the process.
+  The permission host now survives configuration changes, and a watchdog releases the queue if a
+  result never arrives. (WO-007)
+* [Fixed][Android] Cancelling the `backgroundPermissionRationale` dialog revealed a second,
+  identical dialog behind it whenever more than one SDK flow requested background permission at once
+  (for example an app calling `start()` and `requestPermission()` together). Concurrent flows now
+  coalesce onto a single rationale dialog. (WO-008)
+* [Fixed][Android] A `backgroundPermissionRationale` dismissed without a button press — the app
+  backgrounded, an incoming call — orphaned the flow waiting on it, so `requestPermission()` never
+  settled. The flow now always completes. Unlike pressing Cancel, an accidental dismissal does not
+  suppress the rationale for later attempts. (WO-008)
+
+### Native SDK versions
+
+* [iOS] Pin `TSLocationManager ~> 4.6.0`
+* [Android] Pin `tslocationmanager 4.5.+`
 
 ## 5.5.0 &mdash; 2026-08-30
 

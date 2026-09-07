@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 5.6.0 &mdash; 2026-09-07 
 
 * [Added] `requestPermission(permission?)` accepts an optional `Permission.Location` / `Permission.Motion` selector — request location and motion separately, each independently awaitable, instead of the all-at-once dialog storm. The no-argument form keeps requesting everything the configuration requires (see the iOS note below for the one behavioural change). Requires `@transistorsoft/background-geolocation-types` 5.3.0 and the WO-007 native SDK releases. (WO-007)
 * [Added] `AuthorizationStatus.DeniedAlways` — the motion permission was permanently denied; only the device's Settings app can restore it (Android: after two user denials; iOS: a single motion denial is already permanent). (WO-007/WO-014)

@@ -102,6 +102,10 @@ public class RNBackgroundGeolocationModule
     private boolean mInitialized = false;
     private boolean mReady = false;
 
+    // Every SDK callback this module registered, so a re-registration can close the previous one.
+    private final List<AutoCloseable> mSubscriptions = new ArrayList<>();
+    private AutoCloseable mPlayServicesSubscription;
+
     // Map of event listener-counts
     private final HashMap<String, Integer> mListeners = new HashMap<>();
     private List<String> mEvents = new ArrayList<>();
@@ -148,21 +152,40 @@ public class RNBackgroundGeolocationModule
     private void registerEvents() {
         BackgroundGeolocation adapter = getAdapter();
 
-        adapter.onLocation(new LocationCallback());
-        adapter.onMotionChange(new MotionChangeCallback());
-        adapter.onActivityChange(new ActivityChangeCallback());
-        adapter.onLocationFilter(new LocationFilterCallback());
-        adapter.onLocationProviderChange(new LocationProviderChangeCallback());
-        adapter.onGeofencesChange(new GeofencesChangeCallback());
-        adapter.onGeofence(new GeofenceCallback());
-        adapter.onHeartbeat(new HeartbeatCallback());
-        adapter.onHttp(new HttpResponseCallback());
-        adapter.onSchedule(new ScheduleCallback());
-        adapter.onPowerSaveChange(new PowerSaveChangeCallack());
-        adapter.onConnectivityChange(new ConnectivityChangeCallback());
-        adapter.onEnabledChange(new EnabledChangeCallback());
-        adapter.onNotificationAction(new NotificationActionCallback());
-        HttpService.getInstance(getReactApplicationContext()).onAuthorization(new AuthorizationCallback());
+        // onHostDestroy() clears mReady, so an Activity recreated for a configuration change calls
+        // ready() again — and the SDK's callbacks now survive that recreation, having stopped
+        // taking the termination path that used to clear them.  addListener does not dedupe, so
+        // close the previous registrations or every event is delivered once more per recreation.
+        // Close only what this method registered: clearing them all would take the play-services
+        // listener with it, which only initializeLocationManager() re-registers.
+        for (AutoCloseable subscription : mSubscriptions) {
+            closeSubscription(subscription);
+        }
+        mSubscriptions.clear();
+
+        mSubscriptions.add(adapter.onLocation(new LocationCallback()));
+        mSubscriptions.add(adapter.onMotionChange(new MotionChangeCallback()));
+        mSubscriptions.add(adapter.onActivityChange(new ActivityChangeCallback()));
+        mSubscriptions.add(adapter.onLocationFilter(new LocationFilterCallback()));
+        mSubscriptions.add(adapter.onLocationProviderChange(new LocationProviderChangeCallback()));
+        mSubscriptions.add(adapter.onGeofencesChange(new GeofencesChangeCallback()));
+        mSubscriptions.add(adapter.onGeofence(new GeofenceCallback()));
+        mSubscriptions.add(adapter.onHeartbeat(new HeartbeatCallback()));
+        mSubscriptions.add(adapter.onHttp(new HttpResponseCallback()));
+        mSubscriptions.add(adapter.onSchedule(new ScheduleCallback()));
+        mSubscriptions.add(adapter.onPowerSaveChange(new PowerSaveChangeCallack()));
+        mSubscriptions.add(adapter.onConnectivityChange(new ConnectivityChangeCallback()));
+        mSubscriptions.add(adapter.onEnabledChange(new EnabledChangeCallback()));
+        mSubscriptions.add(adapter.onNotificationAction(new NotificationActionCallback()));
+        mSubscriptions.add(HttpService.getInstance(getReactApplicationContext()).onAuthorization(new AuthorizationCallback()));
+    }
+
+    private void closeSubscription(AutoCloseable subscription) {
+        try {
+            subscription.close();
+        } catch (Exception e) {
+            TSLog.logger.warn(TSLog.warn(e.getMessage()));
+        }
     }
 
     /**
@@ -391,8 +414,10 @@ public class RNBackgroundGeolocationModule
             config.updateWithJSONObject(mapToJson(setHeadlessJobService(params)));
         } else {
             if (reset) {
-                config.reset();
-                config.updateWithJSONObject(mapToJson(setHeadlessJobService(params)));
+                // One commit: a separate reset() exposed the SDK's config listeners to the
+                // defaults in between while it was still configured — onHostDestroy() clears
+                // mReady, so an Activity recreation runs this path again.
+                config.reset(mapToJson(setHeadlessJobService(params)));
             } else if (params.hasKey(TSAuthorization.NAME)) {
                 ReadableMap readableMap = params.getMap(TSAuthorization.NAME);
                 if (readableMap != null) {
@@ -415,8 +440,7 @@ public class RNBackgroundGeolocationModule
     @ReactMethod
     public void configure(ReadableMap params, final Promise response){
         final TSConfig config = TSConfig.getInstance(getReactApplicationContext());
-        config.reset();
-        config.updateWithJSONObject(mapToJson(setHeadlessJobService(params)));
+        config.reset(mapToJson(setHeadlessJobService(params)));
 
         getAdapter().ready(new TSCallback() {
             @Override public void onSuccess() { response.resolve(getState()); }
@@ -434,8 +458,7 @@ public class RNBackgroundGeolocationModule
     @ReactMethod
     public void reset(ReadableMap defaultConfig, final Promise response) {
         TSConfig config = TSConfig.getInstance(getReactApplicationContext());
-        config.reset();
-        config.updateWithJSONObject(mapToJson(setHeadlessJobService(defaultConfig)));
+        config.reset(mapToJson(setHeadlessJobService(defaultConfig)));
         response.resolve(getState());
     }
 
@@ -1273,8 +1296,13 @@ public class RNBackgroundGeolocationModule
         }
         BackgroundGeolocation adapter = getAdapter();
         adapter.setActivity(activity);
-        // Handle play-services connect errors.
-        adapter.onPlayServicesConnectError((new TSPlayServicesConnectErrorCallback() {
+        // Handle play-services connect errors.  onHostDestroy() clears mInitialized, so a
+        // recreated Activity runs this again: close the previous registration, or the
+        // resolution dialog is raised once per recreation.
+        if (mPlayServicesSubscription != null) {
+            closeSubscription(mPlayServicesSubscription);
+        }
+        mPlayServicesSubscription = adapter.onPlayServicesConnectError((new TSPlayServicesConnectErrorCallback() {
             @Override
             public void onPlayServicesConnectError(int errorCode) {
                 handlePlayServicesConnectError(errorCode);

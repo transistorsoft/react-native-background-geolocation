@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## Unreleased
+
+* [Fixed][Android] Calling `reset(config)` while tracking, or `ready()` after the `Activity` was recreated for a configuration change (toggling *Bold text*, changing the system font size — the React Native template's `android:configChanges` covers neither), could open the "Allow all the time" background-location dialog for a `WhenInUse` app, the motion-permission dialog for an app with `disableMotionActivityUpdates: true`, or switch `useSignificantChangesOnly` off and back on — even when the configuration had not changed. The configuration was reset to the defaults and yours re-applied in two steps, and the SDK acted on the defaults in between. `ready()`, `reset(config)` and the deprecated `configure()` now apply your configuration as one change, so settings whose value has not changed are no longer switched to the default and back. Reproduced and verified on a device (bg-forge WO-018 lab).
+* [Fixed][Android] An `Activity` recreated for a configuration change is no longer treated as app termination. The React Native template's `android:configChanges` covers neither *Bold text* nor the system font size, so toggling either destroyed and recreated `MainActivity`; the SDK stopped tracking with `stopOnTerminate: true` (the default) and entered headless mode while the app stayed on screen. Carried by the `tslocationmanager` 4.6 pin below.
+* [Fixed][Android] Every SDK event was delivered once more per `Activity` recreation. `onHostDestroy()` clears the module's ready flag, so the re-mounted app calls `ready()` again and registered its listeners on top of the existing ones — an app writing a row from `onLocation` wrote each location twice after one recreation, three times after two. The module now closes its previous registrations before registering again, and registers the Google Play Services error handler once. (Only reachable together with the recreation fix above, which is what leaves the previous registrations alive.)
+* [Changed][Android] The first `ready()` of a launch uploads records queued by an earlier session when `autoSync` is on, explicitly — previously a side effect of resetting the configuration, and now also happening with `ready({reset: false})`.
+* [Fixed][Android] `ready()` on a later launch no longer switches a running scheduler off. Resetting the configuration briefly applied the empty default `schedule`, which stopped the scheduler and could start tracking outside the schedule window until your app called `startSchedule()` again.
+
+### Native SDK versions
+
+* [iOS] Pin `TSLocationManager ~> 4.6.0` (unchanged)
+* [Android] Pin `tslocationmanager 4.6.+` — `TSConfig.reset(JSONObject)`, the configuration-change recreation fix, and the explicit launch upload
+
 ## 5.6.0 &mdash; 2026-09-07 
 
 * [Added] `requestPermission(permission?)` accepts an optional `Permission.Location` / `Permission.Motion` selector — request location and motion separately, each independently awaitable, instead of the all-at-once dialog storm. The no-argument form keeps requesting everything the configuration requires (see the iOS note below for the one behavioural change). Requires `@transistorsoft/background-geolocation-types` 5.3.0 and the WO-007 native SDK releases. (WO-007)

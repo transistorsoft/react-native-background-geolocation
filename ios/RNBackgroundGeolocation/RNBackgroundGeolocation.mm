@@ -312,7 +312,10 @@ RCT_EXPORT_METHOD(startGeofences:(RCTPromiseResolveBlock)resolve reject:(RCTProm
 RCT_EXPORT_METHOD(changePace:(BOOL)moving resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
     [locationManager changePace:moving];
-    resolve(@(YES));
+    // (WO-033) The State the types declare, read after the void core call — the shape start()
+    // uses at :262.  This resolved @(YES) until now: `true` even for changePace(false).  No
+    // main-queue hop is added: -changePace: is not -start:, and the read is the statement after.
+    resolve([locationManager getState]);
 }
 
 RCT_EXPORT_METHOD(beginBackgroundTask:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)

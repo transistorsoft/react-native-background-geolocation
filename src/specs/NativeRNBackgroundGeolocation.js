@@ -24,7 +24,7 @@ export interface Spec extends TurboModule {
   +startGeofences: () => Promise<Object>;
   +stop: () => Promise<Object>;
 
-  +changePace: (moving: boolean) => Promise<boolean>;
+  +changePace: (moving: boolean) => Promise<Object>;   // (WO-033) State, like +start
   +getState: () => Promise<Object>;
 
   // Locations / persistence

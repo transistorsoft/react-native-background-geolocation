@@ -504,7 +504,9 @@ public class RNBackgroundGeolocationModule
     @ReactMethod
     public void changePace(final boolean moving, final Promise response) {
         getAdapter().changePace(moving, new TSCallback() {
-            @Override public void onSuccess() { response.resolve(moving); }
+            // (WO-033) The State the types declare, read once the adapter reports success — the
+            // same helper start() resolves with.  This echoed the caller's own argument until now.
+            @Override public void onSuccess() { response.resolve(getState()); }
             @Override public void onFailure(String error) { response.reject(error); }
         });
     }

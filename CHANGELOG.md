@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 5.7.0 &mdash; 2026-09-23
 
 * [Changed] `changePace()` now resolves the `State` its TypeScript declaration has always
   promised (`Promise<State>`). It previously resolved `true` on iOS — even for `changePace(false)` —
@@ -13,9 +13,15 @@
 * [Changed][Android] The first `ready()` of a launch uploads records queued by an earlier session when `autoSync` is on, explicitly — previously a side effect of resetting the configuration, and now also happening with `ready({reset: false})`.
 * [Fixed][Android] `ready()` on a later launch no longer switches a running scheduler off. Resetting the configuration briefly applied the empty default `schedule`, which stopped the scheduler and could start tracking outside the schedule window until your app called `startSchedule()` again.
 
+* [Types] Requires `@transistorsoft/background-geolocation-types` 5.3.3, whose declarations
+  catch up with what every SDK already resolves: `setOdometer()`/`resetOdometer()` are
+  `Promise<Location>`, `startSchedule()`/`stopSchedule()` `Promise<State>`,
+  `destroyLocations()`/`destroyLocation()` `Promise<boolean>`, and `reset()`'s `Config` is
+  optional. (WO-028, WO-035, WO-036)
+
 ### Native SDK versions
 
-* [iOS] Pin `TSLocationManager ~> 4.6.0` (unchanged)
+* [iOS] Pin `TSLocationManager ~> 4.7.0`
 * [Android] Pin `tslocationmanager 4.6.+` — `TSConfig.reset(JSONObject)`, the configuration-change recreation fix, and the explicit launch upload
 
 ## 5.6.0 &mdash; 2026-09-07 

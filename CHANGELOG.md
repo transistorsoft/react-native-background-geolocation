@@ -21,9 +21,7 @@
 
 ### Native SDK versions
 
-* [iOS] Pin `TSLocationManager ~> 4.7.0` — the synthetic `Location` the odometer setters resolve
-  while tracking is disabled now carries a `uuid`, as `Location.uuid` has always been declared
-  required. (WO-035)
+* [iOS] Pin `TSLocationManager ~> 4.7.0`
 * [Android] Pin `tslocationmanager 4.6.+` — `TSConfig.reset(JSONObject)`, the configuration-change recreation fix, and the explicit launch upload
 
 ## 5.6.0 &mdash; 2026-09-07 

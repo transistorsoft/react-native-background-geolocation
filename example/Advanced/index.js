@@ -35,7 +35,7 @@ const BGHeadlessTask = async (event) => {
       break;
     case 'heartbeat':
       // Use await for async tasks
-      const location = await getCurrentPosition({
+      const location = await BackgroundGeolocation.getCurrentPosition({
         samples: 1,
         extras: {
           headless: true

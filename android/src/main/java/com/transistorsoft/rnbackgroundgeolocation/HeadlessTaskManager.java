@@ -43,23 +43,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * might build up in the queue before the Host is finally launched, when we drain the queue (see #drainTaskQueue).
  *
  * For finally sending events to the client, we wrap the RN HeadlessJsTaskConfig with our own TaskConfig class.  This class
- * adds our own auto-incremented "taskId" field to maintain a mapping between our taskId and RN's.  See #invokeStartTask.
- * This class appends our custom taskId into the the event params sent to Javascript, for the following purpose:
+ * adds our own auto-incremented "_transistorHeadlessTaskId" field to maintain a mapping between our taskId and RN's.  See #invokeStartTask.
  *
- * ```javascript
- * const BackgroundGeolocationHeadlessTask = async (event) => {
- *   console.log('[HeadlessTask] taskId: ', event.taskId);  // <-- here's our custom taskId.
+ * The client never sees it:  the wrapper installed by BackgroundGeolocation.registerHeadlessTask (src/index.js) removes
+ * _transistorHeadlessTaskId from the event before calling the developer's task, then, once the task's Promise settles,
+ * signals back to this native HeadlessTask instance that the JS task is complete:  BackgroundGeolocation.finishHeadlessTask(taskId).
+ * This is a pretty easy task to do via EventBus -- Just create a new instance of FinishHeadlessTaskEvent(taskId);
  *
- *   await doWork();  // <-- perform some arbitrarily long process (eg: http request).
- *
- *   BackgroundGeolocation.finishHeadlessTask(event.taskId);  // <-- $$$ Here's the money $$$
- * }
- * ```
- *
- * See "Here's the $money" above: We want to signal back to this native HeadlessTask instance , that our JS task is now complete.
- * This is a pretty easy task to do via EventBus -- Just create a new instance of FinishHeadlessTaskEvent(params.taskId);
- *
- * The code then looks up a TaskConfig from mEventQueue using the given event.taskId.
+ * The code then looks up a TaskConfig from mEventQueue using the given taskId.
  *
  * All this extra fussing with taking care to finish our RN HeadlessTasks seems to be more important with RN's "new architecture", where before,
  * RN seemed to automatically complete its tasks seemingly when the Javascript function stopped executing.  This is why it was always so

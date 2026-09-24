@@ -15,7 +15,6 @@ import BackgroundGeolocation from "react-native-background-geolocation";
 const bgGeoHeadlessTask = async (event) => {
   const params     = event.params; // <-- our event-data from the BG Geo SDK.
   const eventName  = event.name;
-  const taskId     = event.taskId; // <-- very important!
 
   console.log(`[BGGeoHeadlessTask] ${eventName}`, JSON.stringify(params));
   // You MUST await your work!

@@ -40,7 +40,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.26.0",
-    "@transistorsoft/background-geolocation-types": "^5.3.3",
+    "@transistorsoft/background-geolocation-types": "^5.3.4",
     "tslib": "^2.6.3"
   },
   "author": "Chris Scott <chris@transistorsoft.com>",

@@ -18,6 +18,9 @@
   one: `npm update @transistorsoft/background-geolocation-types`.
 * [Fixed][Android] A headless task receives `locationerror` with `params` set to the
   `LocationError` code. It previously arrived as an unknown event with `params: null`.
+* [Types] Requires `@transistorsoft/background-geolocation-types` 5.3.4, which adds
+  `Event.NotificationAction` (the `onNotificationAction()` fix above) and lets a headless
+  `HeadlessEvent.name` be `'locationerror'`.
 
 ## 5.7.0 &mdash; 2026-09-23
 

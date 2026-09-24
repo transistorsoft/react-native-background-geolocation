@@ -163,8 +163,7 @@ RCT_EXPORT_METHOD(reset:(NSDictionary*)params
     TSConfig *config = [TSConfig sharedInstance];
     @try {
         if ([[params allKeys] count] > 0) {
-            [config resetConfig:YES];
-            [config updateWithDictionary:params];
+            [config resetWithDictionary:params];   // (WO-039) one commit, as in ready()
         } else {
             [config reset];
         }
@@ -208,8 +207,9 @@ RCT_EXPORT_METHOD(ready:(NSDictionary*)params
                 [config updateWithDictionary:params];
             } else {
                 if (resetFlag) {
-                    [config resetConfig:YES];
-                    [config updateWithDictionary:params];
+                    // (WO-039) ONE commit: -resetConfig:YES then -updateWithDictionary: diffed against the
+                    // defaults — unchanged keys re-fired every launch, omitted keys reverted with no event.
+                    [config resetWithDictionary:params];
                 } else if ([params objectForKey:@"authorization"]) {
                     [config batchUpdate:^(TSConfig * _Nonnull cfg) {
                         [cfg.authorization updateWithDictionary:[params objectForKey:@"authorization"]];

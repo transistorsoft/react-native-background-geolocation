@@ -10,6 +10,14 @@
   flagged as enabled, then resumed by itself when a later version added a schedule back. The SDK now
   hears only real changes, including a return to the default. Requires the TSLocationManager release
   that carries WO-039. (WO-039)
+* [Fixed][Android] `onNotificationAction()` threw *"BackgroundGeolocation#on must be provided a
+  {String} event as 1st argument."* in every 5.x release, so the action buttons of a custom
+  notification layout could not be listened to. The event name comes from
+  `@transistorsoft/background-geolocation-types`, which lacked it before 5.3.4. Every 5.x release
+  depends on that package with a caret range, so an app on any 5.x is fixed without upgrading this
+  one: `npm update @transistorsoft/background-geolocation-types`.
+* [Fixed][Android] A headless task receives `locationerror` with `params` set to the
+  `LocationError` code. It previously arrived as an unknown event with `params: null`.
 
 ## 5.7.0 &mdash; 2026-09-23
 

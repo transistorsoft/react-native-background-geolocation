@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class HeadlessTask {
     private static final String HEADLESS_TASK_NAME = "BackgroundGeolocation";
-    // Hard-coded time-limit for headless-tasks is 60000 @todo configurable?
+    // Hard-coded time-limit for headless-tasks is 120s @todo configurable?
     private static final int TASK_TIMEOUT = 60000 * 2;
 
     /**
@@ -49,6 +49,15 @@ public class HeadlessTask {
             params = config.toMap(false);
         } else if (name.equals(EventName.LOCATION)) {
             params = event.getLocationEvent().toMap();
+        } else if (name.equals(EventName.LOCATION_ERROR)) {
+            // EventManager normalizes LocationErrorEvent to its Integer error-code — the same value
+            // the foreground onLocation failure-callback receives.
+            Object error = event.getEvent();
+            if (error instanceof Integer) {
+                clientEvent.putInt("params", (Integer) error);
+            } else {
+                clientEvent.putNull("params");
+            }
         } else if (name.equals(EventName.MOTIONCHANGE)) {
             params = event.getMotionChangeEvent().toMap();
         } else if (name.equals(EventName.HTTP)) {

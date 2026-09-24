@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Unreleased
+
+* [Fixed][iOS] `ready()` and `reset(config)` now apply your configuration as one change. The
+  configuration was reset silently and yours re-applied against the defaults. That had two effects.
+  Settings you had not changed were reported as changed on every launch, and each launch parsed your
+  `schedule` a second time on another thread. A setting your new configuration left out went back to
+  its default without the SDK being told: remove `schedule` from your config and the scheduler stayed
+  flagged as enabled, then resumed by itself when a later version added a schedule back. The SDK now
+  hears only real changes, including a return to the default. Requires the TSLocationManager release
+  that carries WO-039. (WO-039)
+
 ## 5.7.0 &mdash; 2026-09-23
 
 * [Changed] `changePace()` now resolves the `State` its TypeScript declaration has always

@@ -500,10 +500,10 @@ RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier resolve:(RCTPromiseResolv
     }];
 }
 
-RCT_EXPORT_METHOD(removeGeofences:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(removeGeofences:(NSArray*)identifiers resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
-    NSArray *geofences = @[];
-    [locationManager removeGeofences:geofences success:^{
+    // (WO-047) An empty list means "remove all" to the core; index.js rejects anything but an array of strings.
+    [locationManager removeGeofences:identifiers success:^{
         resolve(@(YES));
     } failure:^(NSString* error) {
         reject(@"remove_geofences_error", error, nil);

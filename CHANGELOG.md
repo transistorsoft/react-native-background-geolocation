@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+* [Fixed] `removeGeofences(identifiers)` removed every geofence, not just the ones you named, on
+  Android and iOS, and still resolved `true`. It now removes only the named geofences. This changes
+  behaviour if your code passes a list. `removeGeofences()` with no argument, or with `[]`, still
+  removes them all. A list containing anything other than strings now rejects. The native interface
+  changed, so rebuild your app (and run `pod install` on iOS); do not ship this JavaScript as an
+  over-the-air update onto an older binary. (WO-047)
 * [Fixed][iOS] `ready()` and `reset(config)` now apply your configuration as one change. The
   configuration was reset silently and yours re-applied against the defaults. That had two effects.
   Settings you had not changed were reported as changed on every launch, and each launch parsed your

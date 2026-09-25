@@ -373,8 +373,8 @@ export default class NativeModule {
     return RNBackgroundGeolocation.addGeofences(geofences);    
   }
 
-  static removeGeofences() {
-    return RNBackgroundGeolocation.removeGeofences();      
+  static removeGeofences(identifiers) {
+    return RNBackgroundGeolocation.removeGeofences(identifiers);
   }
 
   static getGeofences() {

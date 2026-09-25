@@ -578,12 +578,15 @@ export default class BackgroundGeolocation {
   * Remove geofences.  You may either supply an array of identifiers or nothing to destroy all geofences.
   * 1. removeGeofences() <-- Promise
   * 2. removeGeofences(['foo'])  <-- Promise
-  *
-  * 3. removeGeofences(success, [failure])
-  * 4. removeGeofences(['foo'], success, [failure])
   */
-  static removeGeofences() {
-    return NativeModule.removeGeofences();    
+  static removeGeofences(identifiers) {
+    if (identifiers == null) identifiers = [];
+    // (WO-047) An empty list means "remove all" in both cores: anything malformed must reject,
+    // never fall through to [].  Covered by tests/remove-geofences.test.js.
+    if (!Array.isArray(identifiers) || identifiers.some((id) => typeof(id) != 'string')) {
+      return Promise.reject(new Error("BackgroundGeolocation#removeGeofences must be provided an {Array} of {String} identifiers, or nothing to remove all geofences."));
+    }
+    return NativeModule.removeGeofences(identifiers);
   }
   
   /**

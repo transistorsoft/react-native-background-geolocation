@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 5.7.0 &mdash; 2026-09-25
 
 * [Fixed] `removeGeofences(identifiers)` removed every geofence, not just the ones you named, on
   Android and iOS, and still resolved `true`. It now removes only the named geofences. This changes
@@ -19,8 +19,7 @@
   `schedule` a second time on another thread. A setting your new configuration left out went back to
   its default without the SDK being told: remove `schedule` from your config and the scheduler stayed
   flagged as enabled, then resumed by itself when a later version added a schedule back. The SDK now
-  hears only real changes, including a return to the default. Requires the TSLocationManager release
-  that carries WO-039. (WO-039)
+  hears only real changes, including a return to the default. Requires TSLocationManager 4.7.1. (WO-039)
 * [Fixed][Android] `onNotificationAction()` threw *"BackgroundGeolocation#on must be provided a
   {String} event as 1st argument."* in every 5.x release, so the action buttons of a custom
   notification layout could not be listened to. The event name comes from
@@ -29,12 +28,6 @@
   one: `npm update @transistorsoft/background-geolocation-types`.
 * [Fixed][Android] A headless task receives `locationerror` with `params` set to the
   `LocationError` code. It previously arrived as an unknown event with `params: null`.
-* [Types] Requires `@transistorsoft/background-geolocation-types` 5.3.4, which adds
-  `Event.NotificationAction` (the `onNotificationAction()` fix above) and lets a headless
-  `HeadlessEvent.name` be `'locationerror'`.
-
-## 5.7.0 &mdash; 2026-09-23
-
 * [Changed] `changePace()` now resolves the `State` its TypeScript declaration has always
   promised (`Promise<State>`). It previously resolved `true` on iOS — even for `changePace(false)` —
   and echoed back the boolean you passed on Android; neither carried any information. Nothing needs
@@ -46,15 +39,21 @@
 * [Changed][Android] The first `ready()` of a launch uploads records queued by an earlier session when `autoSync` is on, explicitly — previously a side effect of resetting the configuration, and now also happening with `ready({reset: false})`.
 * [Fixed][Android] `ready()` on a later launch no longer switches a running scheduler off. Resetting the configuration briefly applied the empty default `schedule`, which stopped the scheduler and could start tracking outside the schedule window until your app called `startSchedule()` again.
 
-* [Types] Requires `@transistorsoft/background-geolocation-types` 5.3.3, whose declarations
-  catch up with what every SDK already resolves: `setOdometer()`/`resetOdometer()` are
-  `Promise<Location>`, `startSchedule()`/`stopSchedule()` `Promise<State>`,
-  `destroyLocations()`/`destroyLocation()` `Promise<boolean>`, and `reset()`'s `Config` is
-  optional. (WO-028, WO-035, WO-036)
+* [Types] Requires `@transistorsoft/background-geolocation-types` 5.3.5. Its declarations catch up
+  with what every SDK already resolves: `setOdometer()`/`resetOdometer()` are `Promise<Location>`,
+  `startSchedule()`/`stopSchedule()` `Promise<State>`, `destroyLocations()`/`destroyLocation()`
+  `Promise<boolean>`, and `reset()`'s `Config` is optional. (WO-028, WO-035, WO-036) It adds
+  `Event.NotificationAction` (the `onNotificationAction()` fix above) and lets a headless
+  `HeadlessEvent.name` be `'locationerror'`. `GeoConfig` no longer declares `stopOnStationary` or
+  `disableStopDetection`: no SDK ever read them under `geolocation`, so set them under `activity`.
+  `State` no longer declares `reset` or `transistorAuthorizationToken`, which are inputs no SDK
+  reports back, and `Location.geofence` is a `GeofenceTrigger` (`{identifier, action, timestamp,
+  extras?}`), the summary every SDK sends. TypeScript code that set either key under `geolocation`, or
+  read `location.geofence.location`, no longer compiles.
 
 ### Native SDK versions
 
-* [iOS] Pin `TSLocationManager ~> 4.7.0`
+* [iOS] Pin `TSLocationManager ~> 4.7.1` — `-[TSConfig resetWithDictionary:]` (WO-039) and the scheduler fixes (WO-038, WO-041, WO-043, WO-044)
 * [Android] Pin `tslocationmanager 4.6.+` — `TSConfig.reset(JSONObject)`, the configuration-change recreation fix, and the explicit launch upload
 
 ## 5.6.0 &mdash; 2026-09-07 

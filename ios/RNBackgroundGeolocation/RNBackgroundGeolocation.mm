@@ -502,7 +502,18 @@ RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier resolve:(RCTPromiseResolv
 
 RCT_EXPORT_METHOD(removeGeofences:(NSArray*)identifiers resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
-    // (WO-047) An empty list means "remove all" to the core; index.js rejects anything but an array of strings.
+    // (WO-047) An empty list means "remove all" to the core: a bad argument rejects, never reaches it.
+    // In DEBUG, RCTConvert turns a non-array into nil, so nil must reject too (index.js always sends an array).
+    if (![identifiers isKindOfClass:[NSArray class]]) {
+        reject(@"remove_geofences_error", @"removeGeofences: identifiers must be an Array", nil);
+        return;
+    }
+    for (NSUInteger n = 0; n < identifiers.count; n++) {
+        if (![identifiers[n] isKindOfClass:[NSString class]]) {
+            reject(@"remove_geofences_error", [NSString stringWithFormat:@"removeGeofences: identifier at index %lu is not a String", (unsigned long)n], nil);
+            return;
+        }
+    }
     [locationManager removeGeofences:identifiers success:^{
         resolve(@(YES));
     } failure:^(NSString* error) {

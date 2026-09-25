@@ -41,12 +41,38 @@ describe('removeGeofences — JS -> native bridge marshaling (WO-047)', () => {
     ['a number', 42],
     ['a list with a non-string element', ['home', 42]],
     ['a list with a null element', ['home', null]],
+    ['a sparse list', ['home', , 'work']], // eslint-disable-line no-sparse-arrays
   ])('%s rejects without calling native — never coerced to [] (WO-047)', async (_label, arg) => {
     const remove = jest.spyOn(native, 'removeGeofences').mockResolvedValue(true);
 
     await expect(BG.removeGeofences(arg)).rejects.toThrow('removeGeofences');
 
     expect(remove).not.toHaveBeenCalled();
+  });
+
+  test('the v4 callback form removeGeofences(success, failure) removes all and calls success (WO-047)', async () => {
+    const remove = jest.spyOn(native, 'removeGeofences').mockResolvedValue(true);
+    const success = jest.fn();
+    const failure = jest.fn();
+
+    BG.removeGeofences(success, failure);
+    await new Promise(setImmediate);
+
+    expect(remove).toHaveBeenCalledWith([]);
+    expect(success).toHaveBeenCalledWith(true);
+    expect(failure).not.toHaveBeenCalled();
+  });
+
+  test('the v4 callback form calls failure on a native rejection (WO-047)', async () => {
+    jest.spyOn(native, 'removeGeofences').mockRejectedValue(new Error('remove_geofences_error'));
+    const success = jest.fn();
+    const failure = jest.fn();
+
+    BG.removeGeofences(success, failure);
+    await new Promise(setImmediate);
+
+    expect(success).not.toHaveBeenCalled();
+    expect(failure).toHaveBeenCalledWith(new Error('remove_geofences_error'));
   });
 
   test('propagates a native rejection to the caller', async () => {

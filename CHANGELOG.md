@@ -5,9 +5,14 @@
 * [Fixed] `removeGeofences(identifiers)` removed every geofence, not just the ones you named, on
   Android and iOS, and still resolved `true`. It now removes only the named geofences. This changes
   behaviour if your code passes a list. `removeGeofences()` with no argument, or with `[]`, still
-  removes them all. A list containing anything other than strings now rejects. The native interface
-  changed, so rebuild your app (and run `pod install` on iOS); do not ship this JavaScript as an
-  over-the-air update onto an older binary. (WO-047)
+  removes them all, and so does the v4 callback form `removeGeofences(success, failure)`, which now
+  calls your callbacks again (5.x dropped them). Any other argument that is not a list of strings
+  now rejects and removes nothing: a single string, an object, or a list with a non-string in it.
+  Through 5.7.0 each of those removed every geofence; pass an array, or call `removeGeofences()`. On
+  iOS, if an identifier you name is not found, the promise rejects with `deleted X of Y geofences`
+  after removing the ones it did find; Android resolves `true`. The native interface changed, so
+  rebuild your app (and run `pod install` on iOS); do not ship this JavaScript as an over-the-air
+  update onto an older binary. (WO-047)
 * [Fixed][iOS] `ready()` and `reset(config)` now apply your configuration as one change. The
   configuration was reset silently and yours re-applied against the defaults. That had two effects.
   Settings you had not changed were reported as changed on every launch, and each launch parsed your

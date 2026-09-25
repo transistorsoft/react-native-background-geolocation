@@ -762,9 +762,13 @@ public class RNBackgroundGeolocationModule
 
     @ReactMethod
     public void removeGeofences(ReadableArray data, final Promise response) {
+        // (WO-047) An empty list means "remove all" to the core: a bad argument rejects, never becomes [].
+        if (data == null) {
+            response.reject("removeGeofences: identifiers must be an Array");
+            return;
+        }
         List<String> identifiers = new ArrayList<>();
         for (int n=0;n<data.size();n++) {
-            // (WO-047) An empty list means "remove all" to the core: a bad element rejects, never drops out.
             if (data.getType(n) != ReadableType.String) {
                 response.reject("removeGeofences: identifier at index " + n + " is not a String");
                 return;

@@ -19,8 +19,7 @@
   `schedule` a second time on another thread. A setting your new configuration left out went back to
   its default without the SDK being told: remove `schedule` from your config and the scheduler stayed
   flagged as enabled, then resumed by itself when a later version added a schedule back. The SDK now
-  hears only real changes, including a return to the default. Requires the TSLocationManager release
-  that carries WO-039. (WO-039)
+  hears only real changes, including a return to the default. Requires TSLocationManager 4.7.1. (WO-039)
 * [Fixed][Android] `onNotificationAction()` threw *"BackgroundGeolocation#on must be provided a
   {String} event as 1st argument."* in every 5.x release, so the action buttons of a custom
   notification layout could not be listened to. The event name comes from
@@ -60,7 +59,7 @@
 
 ### Native SDK versions
 
-* [iOS] Pin `TSLocationManager ~> 4.7.0`
+* [iOS] Pin `TSLocationManager ~> 4.7.1` — `-[TSConfig resetWithDictionary:]` (WO-039) and the scheduler fixes (WO-038, WO-041, WO-043, WO-044)
 * [Android] Pin `tslocationmanager 4.6.+` — `TSConfig.reset(JSONObject)`, the configuration-change recreation fix, and the explicit launch upload
 
 ## 5.6.0 &mdash; 2026-09-07 

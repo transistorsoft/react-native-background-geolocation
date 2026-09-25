@@ -32,6 +32,12 @@
 * [Types] Requires `@transistorsoft/background-geolocation-types` 5.3.4, which adds
   `Event.NotificationAction` (the `onNotificationAction()` fix above) and lets a headless
   `HeadlessEvent.name` be `'locationerror'`.
+* [Types] Requires `@transistorsoft/background-geolocation-types` 5.3.5. `GeoConfig` no longer
+  declares `stopOnStationary` or `disableStopDetection`: no SDK ever read them under `geolocation`, so
+  set them under `activity`. `State` no longer declares `reset` or `transistorAuthorizationToken`, which
+  are inputs no SDK reports back, and `Location.geofence` is a `GeofenceTrigger`
+  (`{identifier, action, timestamp, extras?}`), the summary every SDK sends. TypeScript code that set
+  either key under `geolocation`, or read `location.geofence.location`, no longer compiles.
 
 ## 5.7.0 &mdash; 2026-09-23
 

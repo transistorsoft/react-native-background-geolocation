@@ -761,10 +761,20 @@ public class RNBackgroundGeolocationModule
     }
 
     @ReactMethod
-    public void removeGeofences(final Promise response) {
-        // TODO allow JS api to delete a list-of-geofences.
-        // TODO accept WritableArray geofences from Client js API, allowing to remove a set of geofences
+    public void removeGeofences(ReadableArray data, final Promise response) {
+        // (WO-047) An empty list means "remove all" to the core: a bad argument rejects, never becomes [].
+        if (data == null) {
+            response.reject("removeGeofences: identifiers must be an Array");
+            return;
+        }
         List<String> identifiers = new ArrayList<>();
+        for (int n=0;n<data.size();n++) {
+            if (data.getType(n) != ReadableType.String) {
+                response.reject("removeGeofences: identifier at index " + n + " is not a String");
+                return;
+            }
+            identifiers.add(data.getString(n));
+        }
         getAdapter().removeGeofences(identifiers, new TSCallback() {
             @Override public void onSuccess() {
                 response.resolve(true);

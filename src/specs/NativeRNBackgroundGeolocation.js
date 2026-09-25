@@ -53,7 +53,7 @@ export interface Spec extends TurboModule {
   +addGeofence: (config: Object) => Promise<boolean>;
   +addGeofences: (geofences: Array<Object>) => Promise<boolean>;
   +removeGeofence: (identifier: string) => Promise<boolean>;
-  +removeGeofences: () => Promise<boolean>;
+  +removeGeofences: (identifiers: Array<string>) => Promise<boolean>;
   +getGeofences: () => Promise<Array<Object>>;
   +getGeofence: (identifier: string) => Promise<Object>;
   +geofenceExists: (identifier: string) => Promise<boolean>;

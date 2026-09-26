@@ -1,0 +1,110 @@
+name: release
+
+# Publishing is credential-free: npm trusts this repository + this workflow file via
+# OIDC (Trusted Publishing), so there is no npm token stored anywhere. The trusted-
+# publisher registration on npmjs.com names `release.yml` explicitly — renaming this
+# file breaks publishing until the registration is updated to match.
+#
+# Deliberately no `environment:`. GitHub Environments are unavailable on this org's
+# plan, so the registration omits one too — the two must agree, or npm rejects the
+# publish. (The same traps, paid for once, are recorded in tools/loganalyzer's
+# release.yml; @transistorsoft/background-geolocation-types runs this same workflow.)
+#
+# Cut a release with `pnpm release` (RELEASING.md); the pushed tag starts this.
+
+on:
+  push:
+    # Bare semver, like every earlier tag: 5.7.1, 5.8.0-beta.1.
+    tags: ["[0-9]+.[0-9]+.[0-9]+*"]
+  workflow_dispatch:        # re-run a failed release; must be run on the tag, not a branch
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Must run on a version tag
+        # A dispatch from master would otherwise publish whatever package.json says.
+        run: |
+          if [ "$GITHUB_REF_TYPE" != "tag" ]; then
+            echo "::error::run this workflow on a version tag (Use workflow from → Tags), not $GITHUB_REF_NAME"
+            exit 1
+          fi
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.21.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Tag must match the packaged version
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          if [ "$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::tag $GITHUB_REF_NAME but package.json says $version"
+            exit 1
+          fi
+          # A version can never be reused on npm. Catching a mismatch here costs a re-tag;
+          # catching it after upload costs a version.
+
+      # pnpm test (jest against mocks, and the typings), the Expo plugin build, the packed
+      # tarball's contents (and what changed since the version on npm), a strict consumer
+      # compile, and a CHANGELOG heading for this version.
+      - run: scripts/preflight.sh --release
+
+  publish:
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      # A job-level block REPLACES the top-level one — anything unlisted becomes `none`,
+      # so contents: read must be repeated here or checkout gets no repository access.
+      contents: read
+      id-token: write        # mint the OIDC token npm verifies, and sign the provenance
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.21.0   # prepublishOnly runs `pnpm run build` (the Expo plugin)
+      - uses: actions/setup-node@v4
+        with:
+          # NO registry-url. It writes an .npmrc containing _authToken=${NODE_AUTH_TOKEN},
+          # and with no token that authenticates as nobody — npm reports it as a 404 on PUT,
+          # not a 401. Trusted Publishing needs npm to reach the OIDC exchange instead.
+          node-version: "24"
+      - run: pnpm install --frozen-lockfile
+
+      - name: npm must be new enough for Trusted Publishing
+        run: |
+          # OIDC publishing needs npm >= 11.5.1; on an older npm the symptom is the same
+          # opaque 404 as a bad credential, so assert it where the message can say so.
+          npm install -g npm@^11
+          have="$(npm --version)"; need=11.5.1
+          if [ "$(printf '%s\n%s\n' "$need" "$have" | sort -V | head -1)" != "$need" ]; then
+            echo "::error::npm $have cannot use Trusted Publishing (need >= $need)"
+            exit 1
+          fi
+          echo "npm $have"
+
+      - name: publish
+        # No NODE_AUTH_TOKEN, deliberately: an empty one would make npm authenticate as
+        # nobody instead of falling through to OIDC.
+        run: |
+          name="$(node -p "require('./package.json').name")"
+          version="$(node -p "require('./package.json').version")"
+          # A re-run after a later step failed must not die on "cannot publish over".
+          if [ "$(npm view "$name@$version" version 2>/dev/null)" = "$version" ]; then
+            echo "$name@$version is already on npm — nothing to publish"
+            exit 0
+          fi
+          # A prerelease (5.8.0-beta.1) goes to `beta`, so `latest` — what a plain
+          # `npm install <pkg>` resolves — only ever moves to a release.
+          case "$version" in
+            *-*) tag=beta ;;
+            *)   tag=latest ;;
+          esac
+          npm publish --provenance --access public --tag "$tag"

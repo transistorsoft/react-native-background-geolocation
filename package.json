@@ -3,12 +3,14 @@
   "version": "5.7.0",
   "description": "The most sophisticated cross-platform background location-tracking & geofencing module with battery-conscious motion-detection intelligence",
   "scripts": {
-    "build": "yarn run build:expo",
+    "build": "pnpm run build:expo",
     "test": "jest && tsc -p tests-types --noEmit",
     "build:expo": "rimraf expo/plugin/build && tsc --build ./expo/plugin",
     "docs": "node ./scripts/generate-docs.mjs",
     "docs:publish": "./scripts/publish-docs.sh",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "pnpm run build",
+    "preflight": "scripts/preflight.sh",
+    "release": "scripts/release.sh"
   },
   "codegenConfig": {
     "name": "RNBackgroundGeolocation",
@@ -25,7 +27,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/transistorsoft/react-native-background-geolocation.git"
+    "url": "git+https://github.com/transistorsoft/react-native-background-geolocation.git"
   },
   "keywords": [
     "react-native",

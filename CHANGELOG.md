@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 5.7.0 &mdash; 2026-09-25
+## Unreleased
 
 * [Fixed] `removeGeofences(identifiers)` removed every geofence, not just the ones you named, on
   Android and iOS, and still resolved `true`. It now removes only the named geofences. This changes

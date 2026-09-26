@@ -14,3 +14,14 @@ example
 # Expo
 expo/plugin/src
 expo/plugin/tsconfig.json
+
+# Repository tooling and the tests: not the module (5.6.0 shipped all of these)
+.github
+tests
+tests-types
+mocks
+jest.config.js
+babel.config.js
+typedoc.json
+# A local Android build's caches
+.gradle

@@ -866,10 +866,8 @@ public class RNBackgroundGeolocationModule
                 response.resolve(mapToWritableMap(token.toMap()));
             }
             @Override public void onFailure(String error) {
-                WritableMap params = new WritableNativeMap();
-                params.putString("status", error);
-                params.putString("message", error);
-                response.reject(error);
+                // (WO-073) The core's status ("403") as the code: a rejection cannot carry a `status` key.
+                response.reject(error, error);
             }
         });
     }

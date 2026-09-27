@@ -706,7 +706,8 @@ RCT_EXPORT_METHOD(getTransistorToken:(NSString*)orgname
                                               success:^(TransistorAuthorizationToken *token) {
         resolve([token toDictionary]);
     } failure:^(NSError *error) {
-        reject(@"get_transistor_token_error", error.localizedDescription, error);
+        // (WO-073) The HTTP status as the code, so the JavaScript can tell a 403 refusal from any other failure.
+        reject([NSString stringWithFormat:@"%ld", (long)error.code], error.localizedDescription, error);
     }];
 }
 

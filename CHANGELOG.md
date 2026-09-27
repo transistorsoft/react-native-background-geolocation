@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+* [Fixed] `findOrCreateTransistorAuthorizationToken()` rejects again when the demo server refuses the
+  registration with HTTP 403, as it did through 4.x and as Capacitor and Cordova do. The error's
+  `status` and `code` are `'403'`. Since 5.0.0 it resolved a placeholder token instead, whose
+  `accessToken` is `'DUMMY_TOKEN'` and which cannot authenticate. Any other failure, such as no
+  network connection or a server error, still resolves that placeholder. An app that awaits the call
+  without `try` now gets a rejection there. (WO-073)
 * [Fixed] `removeGeofences(identifiers)` removed every geofence, not just the ones you named, on
   Android and iOS, and still resolved `true`. It now removes only the named geofences. This changes
   behaviour if your code passes a list. `removeGeofences()` with no argument, or with `[]`, still

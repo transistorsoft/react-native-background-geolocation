@@ -57,6 +57,9 @@
   unless you change it, not `30` as documented. The key is now declared, so
   `geolocation: {locationTimeout: 30}` compiles (it failed with *TS2353*), and the migration guide's
   mapping table lists the flat `locationTimeout`, which moves to `geolocation`. (WO-072)
+* [Docs] `Location.age` is in seconds, with millisecond precision (e.g. `1.234`), not milliseconds
+  as documented. Every SDK has reported seconds since this major version; before it, `age` was an
+  integer number of milliseconds. The migration guide now says so under Breaking Changes. (WO-065)
 * [iOS] Pin `TSLocationManager ~> 4.7.1` — `-[TSConfig resetWithDictionary:]` (WO-039) and the scheduler fixes (WO-038, WO-041, WO-043, WO-044)
 * [Android] Pin `tslocationmanager 4.6.+` — `TSConfig.reset(JSONObject)`, the configuration-change recreation fix, and the explicit launch upload
 

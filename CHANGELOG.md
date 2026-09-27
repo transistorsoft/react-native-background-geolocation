@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+* [Types] Requires `@transistorsoft/background-geolocation-types` 5.3.8. `GeoConfig` declares
+  `locationTimeout`, the time in seconds `getCurrentPosition()` waits for a location when the call
+  passes no `timeout` of its own (default `60`), so `geolocation: {locationTimeout: 30}` now compiles.
+  `Coords.floor` is typed `number | null`: iOS sends `null` when it reports no floor. Under
+  `strictNullChecks`, code that assigns `floor` to a `number | undefined` no longer compiles; test
+  `floor != null` rather than `floor !== undefined`.
 * [Fixed] `findOrCreateTransistorAuthorizationToken()` rejects again when the demo server refuses the
   registration with HTTP 403, as it did through 4.x and as Capacitor and Cordova do. The error's
   `status` and `code` are `'403'`. Since 5.0.0 it resolved a placeholder token instead, whose

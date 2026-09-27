@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 5.7.0 &mdash; 2026-09-27
 
 * [Types] Requires `@transistorsoft/background-geolocation-types` 5.3.8. `GeoConfig` declares
   `locationTimeout`, the time in seconds `getCurrentPosition()` waits for a location when the call

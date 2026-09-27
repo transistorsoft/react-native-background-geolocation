@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   View,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Alert
 } from 'react-native';
 import { useState, useEffect, useCallback } from 'react';
 
@@ -57,26 +58,30 @@ const RegistrationModal = ({ visible, onComplete }: Props) => {
 
   const handleRegister = async () => {
     setLoading(true);
-    
-    // Ensure any current cached token is destroyed.
-    await BackgroundGeolocation.destroyTransistorAuthorizationToken(TRACKER_HOST);
+    try {
+      // Ensure any current cached token is destroyed.
+      await BackgroundGeolocation.destroyTransistorAuthorizationToken(TRACKER_HOST);
 
-    // Register device with tracker.transistorsoft.com to receive a JSON Web Token (JWT).
-    const token = await BackgroundGeolocation.findOrCreateTransistorAuthorizationToken(organization, username);
+      // Register device with tracker.transistorsoft.com to receive a JSON Web Token (JWT).
+      // Rejects if the server refuses the registration (HTTP 403).
+      const token = await BackgroundGeolocation.findOrCreateTransistorAuthorizationToken(organization, username);
 
-    await Promise.all([
-      AsyncStorage.setItem('@transistor_registered', 'true'),
-      AsyncStorage.setItem('@transistor_org', organization),
-      AsyncStorage.setItem('@transistor_username', username),
-    ]);
+      await Promise.all([
+        AsyncStorage.setItem('@transistor_registered', 'true'),
+        AsyncStorage.setItem('@transistor_org', organization),
+        AsyncStorage.setItem('@transistor_username', username),
+      ]);
 
-    await BackgroundGeolocation.setConfig({
-      transistorAuthorizationToken: token
-    });
+      await BackgroundGeolocation.setConfig({
+        transistorAuthorizationToken: token
+      });
 
-    setLoading(false);
-    onComplete({ organization, username });
-    
+      onComplete({ organization, username });
+    } catch (error: any) {
+      Alert.alert('Registration failed', String(error?.message ?? error));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

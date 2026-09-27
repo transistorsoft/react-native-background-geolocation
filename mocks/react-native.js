@@ -45,6 +45,7 @@ const RNBackgroundGeolocation = {
   log: () => {},
   getDeviceInfo: () => Promise.resolve({ model: 'mock' }),
   playSound: () => {},
+  getTransistorToken: () => Promise.resolve({ accessToken: 'a', refreshToken: 'r', expires: 42 }),
 };
 
 module.exports = {

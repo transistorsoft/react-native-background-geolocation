@@ -255,6 +255,7 @@ Each group is a separate Dart class. See API docs for details.
 | `stationaryRadius`               | `geolocation`    | `stationaryRadius`                  |                                       |
 | `stopTimeout`                    | `geolocation`    | `stopTimeout`                       |                                       |
 | `stopAfterElapsedMinutes`        | `geolocation`    | `stopAfterElapsedMinutes`           |                                       |
+| `locationTimeout`                | `geolocation`    | `locationTimeout`                   |                                       |
 | `geofenceProximityRadius`        | `geolocation`    | `geofenceProximityRadius`           |                                       |
 | `geofenceInitialTriggerEntry`    | `geolocation`    | `geofenceInitialTriggerEntry`       |                                       |
 | `geofenceModeHighAccuracy`       | `geolocation`    | `geofenceModeHighAccuracy`          |                                       |

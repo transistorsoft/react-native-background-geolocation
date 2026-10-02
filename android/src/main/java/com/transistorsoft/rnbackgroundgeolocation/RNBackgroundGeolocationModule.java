@@ -697,23 +697,30 @@ public class RNBackgroundGeolocationModule
     }
 
     @ReactMethod
-    public void addGeofences(ReadableArray data, final Promise response) {
-        List<TSGeofence> geofences = new ArrayList<TSGeofence>();
-        for (int n=0;n<data.size();n++) {
-            try {
-                geofences.add(buildGeofence(data.getMap(n)));
-            } catch (TSGeofence.Exception e) {
-                response.reject(e.getMessage());
-                return;
-            }
-        }
+    public void addGeofences(final ReadableArray data, final Promise response) {
+        // (WO-107) This runs on React Native's native-modules thread, which every native module shares, and
+        // building a polygon geofence computes its minimum enclosing circle: thousands kept the thread busy for
+        // tens of seconds (RN #2668).  Build on the SDK's pool.
+        BackgroundGeolocation.getThreadPool().execute(new Runnable() {
+            @Override public void run() {
+                List<TSGeofence> geofences = new ArrayList<TSGeofence>();
+                for (int n=0;n<data.size();n++) {
+                    try {
+                        geofences.add(buildGeofence(data.getMap(n)));
+                    } catch (TSGeofence.Exception e) {
+                        response.reject(e.getMessage());
+                        return;
+                    }
+                }
 
-        getAdapter().addGeofences(geofences, new TSCallback() {
-            @Override public void onSuccess() {
-                response.resolve(true);
-            }
-            @Override public void onFailure(String error) {
-                response.reject(error);
+                getAdapter().addGeofences(geofences, new TSCallback() {
+                    @Override public void onSuccess() {
+                        response.resolve(true);
+                    }
+                    @Override public void onFailure(String error) {
+                        response.reject(error);
+                    }
+                });
             }
         });
     }

@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## Unreleased
+
+* [Fixed][Android] `addGeofences()` no longer occupies React Native's native-modules thread while it
+  builds the geofences. The plugin built every geofence, computing each polygon's enclosing circle, on
+  that thread, which every native module in the app shares, so adding thousands of polygons in one call
+  kept it busy for tens of seconds and other modules' calls waited behind it (#2668). They are now built
+  on the SDK's background thread. React Native still converts the array on the JavaScript thread before
+  the call is sent, so very large adds still benefit from batching. (WO-107)
+
 ## 5.7.0 &mdash; 2026-09-27
 
 * [Types] Requires `@transistorsoft/background-geolocation-types` 5.3.8. `GeoConfig` declares

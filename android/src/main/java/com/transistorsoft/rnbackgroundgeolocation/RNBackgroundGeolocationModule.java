@@ -701,6 +701,13 @@ public class RNBackgroundGeolocationModule
         // (WO-107) This runs on React Native's native-modules thread, which every native module shares, and
         // building a polygon geofence computes its minimum enclosing circle: thousands kept the thread busy for
         // tens of seconds (RN #2668).  Build on the SDK's pool.
+        // (WO-107) Nothing may escape the pool's Runnable: an exception there kills the app, where on the
+        // native-modules thread React Native turned it into a rejection.  A missing array is refused here, as iOS
+        // refuses it; anything the build throws rejects.
+        if (data == null) {
+            response.reject("No geofences provided");
+            return;
+        }
         BackgroundGeolocation.getThreadPool().execute(new Runnable() {
             @Override public void run() {
                 List<TSGeofence> geofences = new ArrayList<TSGeofence>();
@@ -709,6 +716,9 @@ public class RNBackgroundGeolocationModule
                         geofences.add(buildGeofence(data.getMap(n)));
                     } catch (TSGeofence.Exception e) {
                         response.reject(e.getMessage());
+                        return;
+                    } catch (RuntimeException e) {     // an element that is not a map, a field of the wrong type
+                        response.reject(e);
                         return;
                     }
                 }

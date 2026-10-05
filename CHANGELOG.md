@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 5.7.1 &mdash; 2026-10-05
 
 * [Fixed][Android] `addGeofences()` no longer occupies React Native's native-modules thread while it
   builds the geofences. The plugin built every geofence, computing each polygon's enclosing circle, on

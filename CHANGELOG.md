@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Unreleased
+
+* [Fixed][Android] The build no longer fails on Android Gradle Plugin 9 with `Could not get unknown
+  property 'applicationVariants'`. `android/app.gradle`, which the Expo plugin applies from the app's
+  `android/app/build.gradle`, used an API that Android Gradle Plugin 9 removed. The script is now empty:
+  it was meant to strip the SDK's debug sound files from release builds, which it no longer did.
+
 ## 5.7.1 &mdash; 2026-10-05
 
 * [Fixed][Android] `addGeofences()` no longer occupies React Native's native-modules thread while it

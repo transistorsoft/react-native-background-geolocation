@@ -1,5 +1,68 @@
 # CHANGELOG
 
+## Unreleased
+
+* [Added] The configuration the SDK stores on the device is now encrypted. `http.headers`,
+  `http.params`, `persistence.extras`, the `authorization` tokens and the rest of your config were
+  stored as plain text in the app's private storage (`SharedPreferences` on Android, `NSUserDefaults`
+  on iOS). They are now stored encrypted with AES-256-GCM, under a key held in the Android Keystore or
+  the iOS Keychain. The key stays on the device and is not included in a backup. Only the SDK's runtime
+  state (`enabled`, `isMoving`, `trackingMode` and the like) stays in plain text. There is no new
+  option and nothing to change in your app: a config stored by an earlier version is read as before and
+  stored encrypted the first time the app runs on this version. If the Keystore or Keychain cannot be
+  used at that moment, the stored config is left as it is and converted at a later launch. Not covered:
+  the SDK's SQLite database of recorded locations is not encrypted, and values you put in
+  `persistence.extras` are copied into every location recorded there. (WO-134)
+* [Changed] A stored config that cannot be decrypted is left untouched, and the SDK waits for your app.
+  That is the case after a backup is restored onto another device, because the key is not in the
+  backup; on Android, after the app is reinstalled and its data restored, because uninstalling deletes
+  the key; and after a Keystore or Keychain error. The SDK then starts stopped, on its default config,
+  and treats the launch as a first launch, so `ready()` applies the config you give it whatever `reset`
+  says, and tracking resumes if it was on when the config was stored. After a restore onto a new phone,
+  tracking therefore resumes the first time the app is opened and calls `ready()`; anything the app had
+  set afterwards with `setConfig()` has to be set again. Until `ready()` is called, nothing is recorded
+  and nothing stored is overwritten. (WO-134)
+* [Changed] An earlier version of the plugin cannot read the encrypted config. If an app is rolled back
+  to one, the SDK runs on its default config, and background tracking stops, until the app is next
+  opened and calls `ready()`; on Android tracking is also switched off, so the app must call `start()`
+  again. An app that calls `ready()` with `reset: false` must call it once with `reset: true`, or its
+  config is not applied. (WO-134)
+* [Changed][iOS] An app that deletes its own generic-password Keychain items, for example a logout
+  routine that clears the Keychain, deletes the SDK's key with them (its service is
+  `com.transistorsoft.tslocationmanager.config`). The SDK stores the key again the next time the config
+  changes. If the app is terminated before that, its next launch finds a config it cannot decrypt,
+  which is handled as described above. (WO-134)
+* [Fixed][iOS] The values of `http.headers` are now masked in the SDK's log, as they already were on
+  Android. With `logger.logLevel` at debug or above (the default is off) the SDK logs its config at
+  launch; the `authorization` tokens were masked there and the header values were not, so an
+  `Authorization` header or an API key ended up in a log that may be emailed or attached to a support
+  request. The header names are still shown, with the first five characters of a longer value. The
+  debug line logged after a token refresh no longer includes the server's response, which carried the
+  new access and refresh tokens. (WO-134)
+* [Fixed][Android] Setting `app.notification` or `geolocation.filter` to the values they already have
+  is no longer treated as a change. A `setConfig()` that supplied either of them with unchanged
+  content, or a `ready()` with an unchanged config, wrote the whole config to storage again every time,
+  so an app that refreshes its notification text on every location wrote the config on every location,
+  whether or not the text differed. A group now counts as changed only when one of its settings does.
+* [iOS] Minimum `TSLocationManager` is now 4.8.0 (the podspec pins `~> 4.8.0`). Besides the encrypted
+  config, it brings what 4.7.3 added: `destroyLocations` as a command of the response RPC, so a server
+  can make a device delete its queued locations, for example with `[["stop"], ["destroyLocations"]]`
+  (send it only to app versions that have it: an earlier iOS version runs no further RPC command until
+  the app restarts); the RPC commands in a `401` response are now run, where iOS read them only after a
+  successful token refresh and a second `401`; a command the SDK does not know, `setOdometer`,
+  `resetOdometer` or a command given an argument of the wrong type no longer stops every RPC command
+  after it, and a malformed command can no longer crash the app; and `destroyLog`, documented as an RPC
+  command, now deletes the log.
+* [Android] Minimum `tslocationmanager` is now 4.7.0. The plugin pins that version, and raises an older
+  `ext.tslocationmanagerVersion` to it with a build warning. Besides the encrypted config, it brings
+  what 4.6.3 and 4.6.4 added: `destroyLocations` as a command of the response RPC; `startSchedule`,
+  `stopSchedule`, `setOdometer` and `resetOdometer` sent as RPC commands no longer stop every command
+  after them; `http.timeout` now sets all four of the HTTP client's limits and applies as soon as it
+  changes, where a request with `http.timeout` above 10000 still failed with `status: 0` after 10 s
+  without data (#2670); and the motion-activity subscription is re-registered about once an hour while
+  the device is stationary, so one that Play Services has stopped delivering is restored without
+  waiting for the next trip.
+
 ## 5.7.1 &mdash; 2026-10-06
 
 * [Fixed][Android] The build no longer fails on Android Gradle Plugin 9 with `Could not get unknown

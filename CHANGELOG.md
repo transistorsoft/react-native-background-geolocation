@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 5.8.0 &mdash; 2026-10-09
 
 * [Added] The configuration the SDK stores on the device is now encrypted. `http.headers`,
   `http.params`, `persistence.extras`, the `authorization` tokens and the rest of your config were

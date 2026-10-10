@@ -232,7 +232,9 @@ export default class NativeModule {
 
   static removeListeners() {
     return new Promise((resolve, reject) => {
-      EVENT_SUBSCRIPTIONS.forEach((sub) => {
+      // (WO-096) Walk a copy: each remove() splices EVENT_SUBSCRIPTIONS, and forEach over the live
+      // array skips the element after every one it removes.
+      EVENT_SUBSCRIPTIONS.slice().forEach((sub) => {
         sub.subscription.remove();
       });
       EVENT_SUBSCRIPTIONS = [];

@@ -778,10 +778,19 @@ public class RNBackgroundGeolocationModule
     }
 
     @ReactMethod
-    public void removeGeofences(ReadableArray data, final Promise response) {
-        // (WO-047) An empty list means "remove all" to the core: a bad argument rejects, never becomes [].
+    public void removeGeofences(@Nullable ReadableArray data, final Promise response) {
+        TSCallback callback = new TSCallback() {
+            @Override public void onSuccess() {
+                response.resolve(true);
+            }
+            @Override public void onFailure(String error) {
+                response.reject(error);
+            }
+        };
+        // (WO-055) null is "remove all" and goes to the core's no-list overload.  A list removes the ones it
+        // names, and an empty list none.  index.js rejects a malformed argument before it gets here.
         if (data == null) {
-            response.reject("removeGeofences: identifiers must be an Array");
+            getAdapter().removeGeofences(callback);
             return;
         }
         List<String> identifiers = new ArrayList<>();
@@ -792,14 +801,7 @@ public class RNBackgroundGeolocationModule
             }
             identifiers.add(data.getString(n));
         }
-        getAdapter().removeGeofences(identifiers, new TSCallback() {
-            @Override public void onSuccess() {
-                response.resolve(true);
-            }
-            @Override public void onFailure(String error) {
-                response.reject(error);
-            }
-        });
+        getAdapter().removeGeofences(identifiers, callback);
     }
 
     @ReactMethod

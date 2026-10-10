@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## Unreleased
+
+* [Fixed] `removeListeners()` removed only every other event subscription. The ones it skipped kept
+  receiving events, and no later `removeListeners()` could remove them, so an app that calls it when a
+  screen unmounts and subscribes again when it mounts kept half of its old handlers each time. It now
+  removes every subscription made with an `on*` method. As before, it leaves an active `watchPosition`
+  running. The defect was in every release since 4.4.0. (WO-096)
+
 ## 5.8.0 &mdash; 2026-10-09
 
 * [Added] The configuration the SDK stores on the device is now encrypted. `http.headers`,

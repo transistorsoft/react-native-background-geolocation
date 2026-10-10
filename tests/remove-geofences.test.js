@@ -1,6 +1,7 @@
 // JS-side marshaling test for removeGeofences (WO-047): the identifiers list must reach the native
 // bridge boundary intact. Before WO-047, when every layer dropped the list, removeGeofences(['home'])
-// deleted every geofence. (WO-055) "All" crosses as null and an empty list as [], which removes none.
+// deleted every geofence. (WO-055) "All" crosses as [], as in every release: both cores read an empty list
+// as "remove all". So an empty list the caller passed never crosses: it names none, and is answered here.
 // The native module is a jest spy standing in for the bridge; we assert on what crosses JS -> native.
 
 const { NativeModules } = require('react-native'); // mapped to mocks/react-native.js via jest config
@@ -26,22 +27,21 @@ describe('removeGeofences — JS -> native bridge marshaling (WO-047)', () => {
     ['no argument', []],
     ['undefined', [undefined]],
     ['null', [null]],
-  ])('%s reaches native as null (remove all) (WO-055)', async (_label, args) => {
+  ])('%s reaches native as [] (remove all), as every release sends it (WO-055)', async (_label, args) => {
     const remove = jest.spyOn(native, 'removeGeofences').mockResolvedValue(true);
 
     await BG.removeGeofences(...args);
 
     expect(remove).toHaveBeenCalledTimes(1);
-    expect(remove).toHaveBeenCalledWith(null);
+    expect(remove).toHaveBeenCalledWith([]);
   });
 
-  test('an empty list reaches native as [] (remove none) (WO-055)', async () => {
+  test('an empty list resolves without calling native (remove none) (WO-055)', async () => {
     const remove = jest.spyOn(native, 'removeGeofences').mockResolvedValue(true);
 
     await expect(BG.removeGeofences([])).resolves.toBe(true);
 
-    expect(remove).toHaveBeenCalledTimes(1);
-    expect(remove).toHaveBeenCalledWith([]);
+    expect(remove).not.toHaveBeenCalled();
   });
 
   test.each([
@@ -51,7 +51,7 @@ describe('removeGeofences — JS -> native bridge marshaling (WO-047)', () => {
     ['a list with a non-string element', ['home', 42]],
     ['a list with a null element', ['home', null]],
     ['a sparse list', ['home', , 'work']], // eslint-disable-line no-sparse-arrays
-  ])('%s rejects without calling native — never coerced to null or [] (WO-047)', async (_label, arg) => {
+  ])('%s rejects without calling native — never coerced to [] (WO-047)', async (_label, arg) => {
     const remove = jest.spyOn(native, 'removeGeofences').mockResolvedValue(true);
 
     await expect(BG.removeGeofences(arg)).rejects.toThrow('removeGeofences');
@@ -67,7 +67,7 @@ describe('removeGeofences — JS -> native bridge marshaling (WO-047)', () => {
     BG.removeGeofences(success, failure);
     await new Promise(setImmediate);
 
-    expect(remove).toHaveBeenCalledWith(null);   // (WO-055)
+    expect(remove).toHaveBeenCalledWith([]);
     expect(success).toHaveBeenCalledWith(true);
     expect(failure).not.toHaveBeenCalled();
   });

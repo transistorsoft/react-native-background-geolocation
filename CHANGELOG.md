@@ -23,6 +23,10 @@
   so the listener stayed subscribed and the code after the call did not run. It removes the listener
   again, as in 4.x, and still warns that it is deprecated: call `remove()` on the `Subscription` an
   `on*` method returns instead. (WO-144)
+* [Changed][Android] The plugin takes `tslocationmanager` `4.7.+` by default again, where 5.7.1 and
+  5.8.0 pinned an exact version. An app that sets no `ext.tslocationmanagerVersion` of its own now
+  picks up each native patch release at its next build, as it already does on iOS (`TSLocationManager`
+  `~> 4.8.0`). An app that sets its own version keeps it.
 
 ## 5.8.0 &mdash; 2026-10-09
 

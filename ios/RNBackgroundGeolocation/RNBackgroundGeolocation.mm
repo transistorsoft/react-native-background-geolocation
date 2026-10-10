@@ -500,13 +500,11 @@ RCT_EXPORT_METHOD(removeGeofence:(NSString*)identifier resolve:(RCTPromiseResolv
     }];
 }
 
-RCT_EXPORT_METHOD(removeGeofences:(NSArray * _Nullable)identifiers resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(removeGeofences:(NSArray*)identifiers resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
-    // (WO-055) nil is "remove all" to the core: index.js sends null for an omitted argument.  A list removes the
-    // ones it names, and an empty list none.
-    // In DEBUG, RCTConvert turns a non-array into nil, which removes all: index.js rejects a non-array before
-    // this call, and that validation must stay ahead of it.
-    if (identifiers != nil && ![identifiers isKindOfClass:[NSArray class]]) {
+    // (WO-047) An empty list means "remove all" to the core: a bad argument rejects, never reaches it.
+    // In DEBUG, RCTConvert turns a non-array into nil, so nil must reject too (index.js always sends an array).
+    if (![identifiers isKindOfClass:[NSArray class]]) {
         reject(@"remove_geofences_error", @"removeGeofences: identifiers must be an Array", nil);
         return;
     }

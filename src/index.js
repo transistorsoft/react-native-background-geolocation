@@ -585,23 +585,23 @@ export default class BackgroundGeolocation {
     if (typeof(identifiers) == 'function') {
       // (WO-047) The v4 callback form removes all, exactly as v4 did.
       const success = identifiers;
-      NativeModule.removeGeofences(null).then(success).catch(failure);
+      NativeModule.removeGeofences([]).then(success).catch(failure);
       return;
     }
-    // (WO-055) "All" crosses to native as null, never as []: an empty list removes none.
-    if (identifiers === undefined) identifiers = null;
-    if (identifiers !== null) {
-      // (WO-047) Anything malformed must reject here and never reach native: on iOS in DEBUG, RCTConvert
-      // turns a non-array into nil, which removes all.  An index loop, not .some(), which skips the holes
-      // of a sparse list.  Covered by tests/remove-geofences.test.js.
-      let valid = Array.isArray(identifiers);
-      for (let n = 0; valid && n < identifiers.length; n++) {
-        valid = typeof(identifiers[n]) == 'string';
-      }
-      if (!valid) {
-        return Promise.reject(new Error("BackgroundGeolocation#removeGeofences must be provided an {Array} of {String} identifiers, or nothing to remove all geofences."));
-      }
+    // (WO-055) "All" crosses to native as [], as it does in every release: both cores read an empty list as
+    // "remove all".
+    if (identifiers == null) return NativeModule.removeGeofences([]);
+    // (WO-047) Anything malformed must reject here, never fall through to [].  An index loop, not .some(),
+    // which skips the holes of a sparse list.  Covered by tests/remove-geofences.test.js.
+    let valid = Array.isArray(identifiers);
+    for (let n = 0; valid && n < identifiers.length; n++) {
+      valid = typeof(identifiers[n]) == 'string';
     }
+    if (!valid) {
+      return Promise.reject(new Error("BackgroundGeolocation#removeGeofences must be provided an {Array} of {String} identifiers, or nothing to remove all geofences."));
+    }
+    // (WO-055) An empty list names none.  It never crosses to native, where it would remove all.
+    if (!identifiers.length) return Promise.resolve(true);
     return NativeModule.removeGeofences(identifiers);
   }
   

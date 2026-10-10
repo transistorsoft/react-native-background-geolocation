@@ -230,6 +230,20 @@ export default class NativeModule {
     return subscription;
   }
 
+  // @deprecated in favor of subscription.remove().
+  // (WO-144) index.js's removeListener() and the shared types still expose this, so it has to exist
+  // until they retire it: 5.0 deleted it here alone and the call threw.
+  static removeListener(event, callback) {
+    console.warn('BackgroundGeolocation.removeListener is deprecated.  Event-listener methods (eg: onLocation) now return a subscription instance.  Call subscription.remove() on the returned subscription instead.  Eg:\nconst subscription = BackgroundGeolocation.onLocation(myLocationHandler)\n...\nsubscription.remove()');
+    const found = findEventSubscriptionByEvent(event, callback);
+    if (found !== null) {
+      found.subscription.remove();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   static removeListeners() {
     return new Promise((resolve, reject) => {
       // (WO-096) Walk a copy: each remove() splices EVENT_SUBSCRIPTIONS, and forEach over the live

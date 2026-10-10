@@ -22,6 +22,11 @@
   screen unmounts and subscribes again when it mounts kept half of its old handlers each time. It now
   removes every subscription made with an `on*` method. As before, it leaves an active `watchPosition`
   running. The defect was in every release since 4.4.0. (WO-096)
+* [Fixed] The deprecated `removeListener(event, callback)` no longer throws `TypeError: Cannot read
+  properties of undefined (reading 'apply')`. It threw in every 5.x release, before removing anything,
+  so the listener stayed subscribed and the code after the call did not run. It removes the listener
+  again, as in 4.x, and still warns that it is deprecated: call `remove()` on the `Subscription` an
+  `on*` method returns instead. (WO-144)
 
 ## 5.8.0 &mdash; 2026-10-09
 

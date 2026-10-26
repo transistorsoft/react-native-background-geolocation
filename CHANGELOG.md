@@ -27,6 +27,10 @@
   5.8.0 pinned an exact version. An app that sets no `ext.tslocationmanagerVersion` of its own now
   picks up each native patch release at its next build, as it already does on iOS (`TSLocationManager`
   `~> 4.8.0`). An app that sets its own version keeps it.
+* [Fixed][iOS] An app using the UIScene lifecycle crashed at launch with `-[AppDelegate window]:
+  unrecognized selector sent to instance` when its `AppDelegate` has no `window` property, as in React
+  Native 0.88's template, where the window belongs to the `SceneDelegate`. The module no longer
+  assumes the app delegate has a `window`. (#2675)
 
 ## 5.8.0 &mdash; 2026-10-09
 

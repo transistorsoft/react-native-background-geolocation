@@ -11,7 +11,6 @@
 #import <ReactCodegen/RNBackgroundGeolocation/RNBackgroundGeolocation.h>
 
 #import <React/RCTBridge+Private.h>
-#import <React/RCTUtils.h>
 
 using namespace facebook;
 using namespace facebook::react;
@@ -21,6 +20,7 @@ using namespace facebook::react;
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
+#import <React/RCTUtils.h>
 #import <TSLocationManager/TSLocationManager.h>
 
 static NSString *const TS_LOCATION_MANAGER_TAG = @"TSLocationManager";
@@ -68,9 +68,12 @@ RCT_EXPORT_MODULE();
         // TSLocationManager instance
         locationManager = [TSLocationManager sharedInstance];
 
-        // Provide reference to rootViewController for #emailLog method.
-        UIViewController *root = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-        locationManager.viewController = root;
+        // Provide a view controller for the SDK's alerts.  (#2675) UIApplicationDelegate.window is optional: a UIScene
+        // app's AppDelegate (React Native 0.88's template) has none, and sending it -window throws.  Fall back to the
+        // scene's key window.
+        id<UIApplicationDelegate> appDelegate = [[UIApplication sharedApplication] delegate];
+        UIWindow *window = [appDelegate respondsToSelector:@selector(window)] ? appDelegate.window : nil;
+        locationManager.viewController = (window ?: RCTKeyWindow()).rootViewController;
     }
     return self;
 }

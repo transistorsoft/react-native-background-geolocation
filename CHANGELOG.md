@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 5.8.1 &mdash; 2026-10-26
 
 * [Changed] `removeGeofences([])` now removes no geofence. An empty list used to remove every
   geofence, as `removeGeofences()` with no argument does, so a call whose list turned out empty, for

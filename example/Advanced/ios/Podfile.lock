@@ -1862,7 +1862,7 @@ PODS:
     - React-utils (= 0.88.0)
     - ReactNativeDependencies
   - ReactNativeDependencies (0.88.0)
-  - RNBackgroundGeolocation (5.8.0):
+  - RNBackgroundGeolocation (5.8.1):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2570,7 +2570,7 @@ SPEC CHECKSUMS:
   ReactCodegen: 7b71f4464442e9b6eae41094d11076d56c51c0e3
   ReactCommon: 145a14b942b19fc2fe38927f261955ada56978aa
   ReactNativeDependencies: d3b7423ba1e52525e42085c8470109abde583d2e
-  RNBackgroundGeolocation: 6d7eb9b09b6e9c41da60ad3d263f85756327efe4
+  RNBackgroundGeolocation: effc7becdc113f2517ea5d42f044281fe7e962d9
   RNCAsyncStorage: 9aad1f18e1b3d98690ae696b01bd984054108916
   RNGestureHandler: 0124c0b5117c1376f013aaac888ed4134ca88b58
   RNReactNativeHapticFeedback: a34ef53cf2bc2d37f3406eaa946ef78acfa9e053

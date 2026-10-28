@@ -113,7 +113,6 @@ public class RNBackgroundGeolocationModule
 
     public RNBackgroundGeolocationModule(ReactApplicationContext reactContext) {
         super(reactContext);
-        reactContext.addLifecycleEventListener(this);
 
         TSConfig config = TSConfig.getInstance(getReactApplicationContext());
         config.setUseCLLocationAccuracy(true);
@@ -138,6 +137,13 @@ public class RNBackgroundGeolocationModule
         mEvents.add(EventName.ENABLEDCHANGE);
         mEvents.add(EventName.NOTIFICATIONACTION);
         mEvents.add(TSAuthorization.NAME);
+
+        // Last, once TSConfig is built (#2677).  The New Architecture constructs this module off the main thread, and
+        // when the Activity has already resumed this call posts onHostResume() to the main thread at once, where
+        // initializeLocationManager() needs TSConfig.  Registered first, the main thread waited for TSConfig's
+        // constructor to finish on this thread (or on another, such as BootReceiver's) — an ANR on a slow device.
+        // Registered here, an onHostResume that already happened is still delivered: the call posts it.
+        reactContext.addLifecycleEventListener(this);
     }
 
     @Override

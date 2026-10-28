@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Unreleased
+
+* [Fixed][Android] An ANR at launch with React Native's New Architecture ("Input dispatching timed out"), before
+  any JavaScript ran. The module registered for the Activity's lifecycle before it loaded the SDK's configuration,
+  so the main thread could wait for that configuration while another thread was still loading it, for as long as
+  the load took. The module now loads it first. (#2677)
+
 ## 5.8.1 &mdash; 2026-10-26
 
 * [Changed] `removeGeofences([])` now removes no geofence. An empty list used to remove every

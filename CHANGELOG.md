@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 5.8.2 &mdash; 2026-10-29
 
 * [Fixed][Android] An ANR at launch with React Native's New Architecture ("Input dispatching timed out"), before
   any JavaScript ran. The module registered for the Activity's lifecycle before it loaded the SDK's configuration,

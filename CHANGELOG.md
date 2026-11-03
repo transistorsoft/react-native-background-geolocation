@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Unreleased
+
+* [Fixed][iOS] An app built with Xcode 27 failed with "The iOS Simulator deployment target
+  'IPHONEOS_DEPLOYMENT_TARGET' is set to 12.0" in target `RNBackgroundGeolocation-TSLocationManagerPrivacy`. The
+  podspec's iOS minimum was 12.0, which CocoaPods gives to the plugin's privacy bundle, and Xcode 27 builds nothing
+  below iOS 15.0. The minimum is now 15.0; React Native has required iOS 15.1 since 0.76.
+
 ## 5.8.2 &mdash; 2026-10-29
 
 * [Fixed][Android] An ANR at launch with React Native's New Architecture ("Input dispatching timed out"), before

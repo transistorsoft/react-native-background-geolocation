@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
     :tag => s.version
   }
 
-  s.platform            = :ios, '12.0'
+  s.platform            = :ios, '15.0'
   s.requires_arc        = true
   s.static_framework    = true
 

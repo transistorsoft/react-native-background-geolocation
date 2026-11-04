@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+* [Fixed][Android] Every in-process React reload (`ReactHost.reload()`, a CodePush restart, a dev reload) leaked
+  the whole previous React instance. The module registers its event callbacks with the SDK's process-wide
+  `EventManager` and closed them only before registering again in the same instance, so each old instance stayed
+  registered, with its `ReactApplicationContext`. React Native 0.74+ tears native modules down only through
+  `invalidate()`, which the module now overrides to close its own subscriptions.
 * [Fixed][iOS] An app built with Xcode 27 failed with "The iOS Simulator deployment target
   'IPHONEOS_DEPLOYMENT_TARGET' is set to 12.0" in target `RNBackgroundGeolocation-TSLocationManagerPrivacy`. The
   podspec's iOS minimum was 12.0, which CocoaPods gives to the plugin's privacy bundle, and Xcode 27 builds nothing

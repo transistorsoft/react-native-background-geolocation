@@ -194,6 +194,20 @@ public class RNBackgroundGeolocationModule
         }
     }
 
+    // The SDK's EventManager outlives React, so an open subscription keeps this React instance alive after a reload.
+    @Override
+    public void invalidate() {
+        for (AutoCloseable subscription : mSubscriptions) {
+            closeSubscription(subscription);
+        }
+        mSubscriptions.clear();
+        if (mPlayServicesSubscription != null) {
+            closeSubscription(mPlayServicesSubscription);
+            mPlayServicesSubscription = null;
+        }
+        super.invalidate();
+    }
+
     /**
      * location event callback
      */

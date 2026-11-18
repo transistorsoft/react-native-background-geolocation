@@ -26,7 +26,10 @@ Pod::Spec.new do |s|
   s.source_files        = 'ios/RNBackgroundGeolocation/*.{h,m,mm}'
   s.preserve_paths      = 'docs', 'CHANGELOG.md', 'LICENSE', 'package.json', 'RNBackgroundGeolocation.ios.js'
 
-  tslm_version = ENV['TSLOCATIONMANAGER_VERSION'] || '~> 4.8.0'
+  # (WO-189) The twin of ios/Package.swift's native-background-geolocation requirement: change both together
+  # (scripts/preflight.sh fails when their minimums differ).
+  # (WO-194) 4.9.0 is the first TSLocationManager that accepts TSBackgroundFetch 4.2 (4.2.1 or any later 4.x), at iOS 15.
+  tslm_version = ENV['TSLOCATIONMANAGER_VERSION'] || '~> 4.9.0'
   s.dependency 'TSLocationManager', tslm_version
 
   s.libraries           = 'sqlite3', 'z', 'stdc++'

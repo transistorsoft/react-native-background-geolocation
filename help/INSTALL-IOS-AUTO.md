@@ -18,6 +18,25 @@ $ cd ios
 $ pod install
 ```
 
+## Swift Package Manager (React Native 0.88 or later)
+
+React Native 0.88 can build an app's iOS dependencies with Swift Package Manager instead of CocoaPods
+(experimental in React Native). The plugin ships `ios/Package.swift` for this mode, so there is nothing
+to configure for it:
+
+```bash
+$ npx react-native spm add --deintegrate   # an existing CocoaPods app: removes CocoaPods, adds the packages
+```
+
+- Xcode resolves `native-background-geolocation` (TSLocationManager 4.9.x) and `transistor-background-fetch`
+  from GitHub at build time; allow `github.com` if you build behind a proxy.
+- Your app's iOS deployment target must be 15.0 or later.
+- Use one package manager for the whole app. In Swift Package Manager mode every plugin builds through it,
+  including react-native-background-fetch 4.5.0 and later, which ships its own `Package.swift`: both plugins
+  then share one TSBackgroundFetch.
+- To go back to CocoaPods: `npx react-native spm deinit`, then `cd ios && pod install`.
+- Expo apps stay on CocoaPods.
+
 ## Permissions & Background Modes
 
 Open the Xcode project `ios/Runner/Runner.xcworkspace`

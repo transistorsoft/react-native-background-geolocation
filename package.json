@@ -24,6 +24,9 @@
       "packageName": "RNBackgroundGeolocation"
     }
   },
+  "swiftpmConfig": {
+    "name": "RNBackgroundGeolocation"
+  },
   "main": "src/index.js",
   "repository": {
     "type": "git",

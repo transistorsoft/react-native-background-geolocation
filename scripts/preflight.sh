@@ -41,6 +41,16 @@ else
   ok "$NAME@$VERSION"
 fi
 
+# (WO-189) The podspec's TSLocationManager default and ios/Package.swift's native-background-geolocation
+# requirement are twins: CocoaPods apps get the first, React Native's SwiftPM app mode the second.
+pod_min="$(sed -n "s/.*TSLOCATIONMANAGER_VERSION'\] || '~> \([0-9.]*\)'.*/\1/p" RNBackgroundGeolocation.podspec)"
+spm_min="$(sed -n 's/.*native-background-geolocation\.git", \.upToNextMinor(from: "\([0-9.]*\)").*/\1/p' ios/Package.swift)"
+[ -n "$pod_min" ] && [ -n "$spm_min" ] \
+  || fail "could not read the TSLocationManager minimum from the podspec ('$pod_min') or ios/Package.swift ('$spm_min')"
+[ "$pod_min" = "$spm_min" ] \
+  || fail "the podspec requires TSLocationManager ~> $pod_min, ios/Package.swift $spm_min: change both together"
+ok "TSLocationManager $pod_min in the podspec and in ios/Package.swift"
+
 step "2. tests and build"
 pnpm -s test >"$WORK/test.log" 2>&1 || { cat "$WORK/test.log" >&2; fail "pnpm test (jest, and the typings under tests-types)"; }
 ok "pnpm test — $(grep -m1 '^Tests:' "$WORK/test.log" | sed 's/^Tests: *//')"
@@ -55,12 +65,12 @@ tar -tzf "$TARBALL" | sort > "$WORK/contents"
 # build app.plugin.js loads, and the native halves.
 for want in package/package.json package/src/index.js package/src/index.d.ts package/app.plugin.js \
             package/expo/plugin/build/index.js package/RNBackgroundGeolocation.podspec \
-            package/android/build.gradle; do
+            package/android/build.gradle package/ios/Package.swift; do
   grep -qx "$want" "$WORK/contents" || fail "the tarball has no $want"
 done
 grep -q '^package/android/src/' "$WORK/contents" || fail "the tarball has no android/src/"
 grep -q '^package/ios/' "$WORK/contents" || fail "the tarball has no ios/"
-bad="$(grep -E '^package/(\.github|tests|tests-types|mocks|scripts|example|docs|help|bin|node_modules|expo/plugin/src)/|/\.gradle/|^package/(jest\.config\.js|babel\.config\.js|typedoc\.json|RELEASING\.md)$' "$WORK/contents" || true)"
+bad="$(grep -E '^package/(\.github|tests|tests-types|mocks|scripts|example|docs|help|bin|node_modules|expo/plugin/src)/|/\.gradle/|^package/ios/(\.build|\.swiftpm)/|^package/ios/Package\.resolved$|^package/(jest\.config\.js|babel\.config\.js|typedoc\.json|RELEASING\.md)$' "$WORK/contents" || true)"
 [ -z "$bad" ] || fail "the tarball carries what it should not (.npmignore): $(echo "$bad" | head -3 | tr '\n' ' ')"
 ok "$(basename "$TARBALL") — $(wc -l < "$WORK/contents" | tr -d ' ') files"
 # Against the version on npm now: files that vanish or appear are worth a look before

@@ -1862,7 +1862,7 @@ PODS:
     - React-utils (= 0.88.0)
     - ReactNativeDependencies
   - ReactNativeDependencies (0.88.0)
-  - RNBackgroundGeolocation (5.8.1):
+  - RNBackgroundGeolocation (5.9.0):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -1884,7 +1884,7 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
-    - TSLocationManager (~> 4.8.0)
+    - TSLocationManager (~> 4.9.0)
     - Yoga
   - RNCAsyncStorage (2.2.0):
     - hermes-engine
@@ -2181,9 +2181,9 @@ PODS:
     - Yoga
   - SocketRocket (0.7.1):
     - ReactNativeDependencies
-  - TSBackgroundFetch (4.1.1)
-  - TSLocationManager (4.8.2):
-    - TSBackgroundFetch (~> 4.1.0)
+  - TSBackgroundFetch (4.2.1)
+  - TSLocationManager (4.9.0):
+    - TSBackgroundFetch (< 5.0, >= 4.2.1)
   - Yoga (0.0.0):
     - React-Core-prebuilt
 
@@ -2570,7 +2570,7 @@ SPEC CHECKSUMS:
   ReactCodegen: 7b71f4464442e9b6eae41094d11076d56c51c0e3
   ReactCommon: 145a14b942b19fc2fe38927f261955ada56978aa
   ReactNativeDependencies: d3b7423ba1e52525e42085c8470109abde583d2e
-  RNBackgroundGeolocation: effc7becdc113f2517ea5d42f044281fe7e962d9
+  RNBackgroundGeolocation: a2a680bd963725616c44e484b4175f1457661ec3
   RNCAsyncStorage: 9aad1f18e1b3d98690ae696b01bd984054108916
   RNGestureHandler: 0124c0b5117c1376f013aaac888ed4134ca88b58
   RNReactNativeHapticFeedback: a34ef53cf2bc2d37f3406eaa946ef78acfa9e053
@@ -2578,10 +2578,10 @@ SPEC CHECKSUMS:
   RNSVG: c35beed3dcf6fd14b50ca1fc0d4214a17ec5334d
   RNWorklets: c05b04d721cccc1d44182425cd09efeddb6b1bbe
   SocketRocket: 37aec555668fb852ec12e3c0de59a86ca58f0871
-  TSBackgroundFetch: 18918b6449a1e3f01eb0f5b44d6d79ce6160a5a5
-  TSLocationManager: 0825fd9af9ecb0443b09088d22ec35fdfa89a0cc
+  TSBackgroundFetch: 1aa0448c432ad1ba117df140e55d11aeedc814cd
+  TSLocationManager: 977b16f8248eabfe781edac5445061edc03d46ba
   Yoga: d1c536142c5ff8ec8cd856ab2a7c227a1d875c8e
 
-PODFILE CHECKSUM: 4aa07b4c6edf4ad287fe7bb39395695ac858d313
+PODFILE CHECKSUM: a1ed59f6fef23e6ed31fc2437f0889501c5a2788
 
 COCOAPODS: 1.16.2

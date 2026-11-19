@@ -43,5 +43,15 @@ target 'BGGeolocation' do
         end
       end
     end
+
+    # Xcode 27 rejects any deployment target below 15.0, and some pods ship lower
+    # ones (async-storage's resource bundle is 13.4). Raise them to 15.0.
+    installer.pods_project.targets.each do |t|
+      t.build_configurations.each do |c|
+        if c.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 15.0
+          c.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+        end
+      end
+    end
   end
 end

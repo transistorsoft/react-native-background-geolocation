@@ -34,7 +34,9 @@ $ npx react-native spm add --deintegrate   # an existing CocoaPods app: removes 
 - Use one package manager for the whole app. In Swift Package Manager mode every plugin builds through it,
   including react-native-background-fetch 4.5.0 and later, which ships its own `Package.swift`: both plugins
   then share one TSBackgroundFetch.
-- To go back to CocoaPods: `npx react-native spm deinit`, then `cd ios && pod install`.
+- To go back to CocoaPods: `npx react-native spm deinit`, restore `ios/Podfile` from version control, then
+  `cd ios && pod install`. `spm add --deintegrate` removed React Native's lines from the Podfile, and
+  `spm deinit` doesn't put them back. Reverting all of `ios/` with git does the same.
 - Expo apps stay on CocoaPods.
 
 ## Permissions & Background Modes

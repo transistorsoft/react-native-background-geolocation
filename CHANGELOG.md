@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 5.9.0 &mdash; 2026-11-18
 
 * [Added][iOS] Support for React Native's Swift Package Manager app mode (React Native 0.88 or later, `npx react-native spm`; experimental in React Native). The plugin ships `ios/Package.swift`, which React Native's autolinker uses as it is; CocoaPods apps are unchanged. The package requires `native-background-geolocation` `.upToNextMinor(from: "4.9.0")`, the same TSLocationManager as the podspec, and iOS 15, and it carries the plugin's privacy manifest. With react-native-background-fetch 4.5.0 or later, which ships its own `Package.swift`, both plugins share one TSBackgroundFetch. Expo apps stay on CocoaPods. See help/INSTALL-IOS-AUTO.md (WO-189)
 * [Changed][iOS] Requires TSLocationManager 4.9.0 (`~> 4.9.0`, was `~> 4.8.0`). TSLocationManager 4.9.0 requires TSBackgroundFetch 4.2.1 or any later 4.x, and iOS 15: your app's iOS deployment target must be 15.0 or later. The plugin can now be used together with react-native-background-fetch 4.5.0 and later, which requires TSBackgroundFetch 4.2: before, CocoaPods could not resolve an app with both. After upgrading, run `pod update TSLocationManager TSBackgroundFetch`: `pod install` alone keeps the versions in `Podfile.lock`. Use one package manager for both plugins (WO-194)

@@ -85,8 +85,6 @@ const androidPlugin: ConfigPlugin<Props> = (config, props={}) => {
 
   config = withAndroidManifest(config, async (config) => {
 
-    console.log("[react-native-background-geolocation] Adding license-key to AndroidManifest:", props);
-
     const mainApplication = getMainApplicationOrThrow(config.modResults);
     
     addMetaDataItemToMainApplication(

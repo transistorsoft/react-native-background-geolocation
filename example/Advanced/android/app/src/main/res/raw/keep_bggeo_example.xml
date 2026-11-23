@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Resource-shrinking keep rules for this example app (WO-200).
+  The SDK's debug sounds (logger.debug: true): a release build that shrinks resources drops them unless the
+  app keeps them. Customers' apps leave them out; this example keeps them.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/tslocationmanager_*" />

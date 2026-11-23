@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Unreleased
+
+* [Changed][Android] The Android setup no longer asks for `shrinkResources false`: release builds can shrink resources, and an app that set it for an older version can remove it. Resources you name only in your config (`app.notification.smallIcon`, `largeIcon`, `layout`) need a keep file in your app, and a release build that shrinks resources may leave out the SDK's debug sounds; `tools:keep="@raw/tslocationmanager_*"` keeps them. See help/INSTALL-ANDROID-AUTO.md (WO-200)
+* [Changed][Android] The plugin's ProGuard rules no longer keep the SDK's `R` classes. Keeping them kept every SDK resource, so a release build that shrinks resources could not leave out the debug sounds (WO-200)
+
 ## 5.9.0 &mdash; 2026-11-18
 
 * [Added][iOS] Support for React Native's Swift Package Manager app mode (React Native 0.88 or later, `npx react-native spm`; experimental in React Native). The plugin ships `ios/Package.swift`, which React Native's autolinker uses as it is; CocoaPods apps are unchanged. The package requires `native-background-geolocation` `.upToNextMinor(from: "4.9.0")`, the same TSLocationManager as the podspec, and iOS 15, and it carries the plugin's privacy manifest. With react-native-background-fetch 4.5.0 or later, which ships its own `Package.swift`, both plugins share one TSBackgroundFetch. Expo apps stay on CocoaPods. See help/INSTALL-IOS-AUTO.md (WO-189)

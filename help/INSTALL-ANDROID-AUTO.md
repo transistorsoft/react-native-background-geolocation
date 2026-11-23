@@ -30,26 +30,17 @@ buildscript {
 
 ### :open_file_folder: **`android/app/build.gradle`**
 
-```diff
-apply plugin: "com.android.application"
-apply plugin: "com.facebook.react"
+No changes are needed here. Resource shrinking (`shrinkResources true`, which needs `minifyEnabled true`) is supported; if you set `shrinkResources false` for an older version of this plugin, you can remove it. Two things are up to your app:
 
-android {
-    .
-    .
-    .
-    buildTypes {
-        release {
-            .
-            .
-            .
-            minifyEnabled enableProguardInReleaseBuilds
-+           shrinkResources false
-        }
-    }
-}
+- **Resources you name in your config** (`app.notification.smallIcon`, `largeIcon`, `layout`) appear only as strings in your app's code, so the shrinker removes them. Keep them with a keep file of your own, such as `android/app/src/main/res/raw/keep_my_app.xml`:
 
-```
+  ```xml
+  <?xml version="1.0" encoding="utf-8"?>
+  <resources xmlns:tools="http://schemas.android.com/tools"
+      tools:keep="@drawable/my_notification_icon,@layout/my_notification_layout" />
+  ```
+
+- **Debug sounds** (`logger.debug: true`). A release build that shrinks resources may leave them out, which only silences debug mode. To keep them, add `@raw/tslocationmanager_*` to `tools:keep`.
 
 ## AndroidManifest.xml (License Configuration)
 

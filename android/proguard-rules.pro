@@ -17,7 +17,9 @@
 
 -keepnames class com.transistorsoft.rnbackgroundgeolocation.RNBackgroundGeolocation
 
--keep class com.transistorsoft** { *; }
+# (WO-200) Not the R classes: keeping every R field keeps every SDK resource, and resource
+# shrinking could never remove the debug sounds.
+-keep class !com.transistorsoft.**.R, !com.transistorsoft.**.R$*, com.transistorsoft** { *; }
 -dontwarn com.transistorsoft.**
 
 # BackgroundGeolocation (EventBus)
